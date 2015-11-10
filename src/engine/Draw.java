@@ -7,7 +7,7 @@ public class Draw implements IDraw {
 	
 	private Canvas myCanvas;
 	
-	public Draw(Canvas canvas){
+	public Draw(Canvas canvas) {
 		myCanvas = canvas;
 	}
 

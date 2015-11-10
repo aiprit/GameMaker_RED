@@ -1,8 +1,10 @@
 package engine;
 
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import structures.run.*;
 
-public class Logic implements ILogic {
+public class Logic implements ILogic, IControlListener {
 	
 	private RunGame myGame;
 	
@@ -24,6 +26,18 @@ public class Logic implements ILogic {
 
 	@Override
 	public void step() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseEvent(MouseEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
