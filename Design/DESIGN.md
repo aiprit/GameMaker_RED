@@ -29,8 +29,6 @@ The Main GUI will have a "save" button, which will allow the user to actually sa
 
 Our Object Editor is modeled after the Object editor in Game Maker.  Basically, in the Object Editor, the user can specify the object's name, sprite, size, visibility, and behavior.  The behavior is configured through Events and Actions.  A user can add (or remove) Events.  When a user clicks to add an Event, a popup will be launched with all possible Events (Create, Destroy, Step, Collision, Keypress, and Click).  When an Event is selected, the Event popup screen will change to be a screen to configure the parameters for the Event type.  (For example, for a Keypress event, the user needs to specify which key.)  Having this step in the popup will make it easier for us to control the data being inputed by the user (so we can throw exceptions if necessary).  Once an Event has been completely configured with its parameters, it is added to the object's list of events.  Then, the user can specify which Actions should take place on the Event by adding Actions in the Actions listview.  (This listview corresponds to the Event that is selected.)  The Actions popup will be very similar to the Events popup, in that there are specific actions a user can select from, and then we require the user to completely configure the parameters of the Action before it can be added to the Event/Object.
 
-![Object Editor](https://github.com/duke-compsci308-fall2015/voogasalad_RED/blob/master/Design/Images/GameMakerObjectEditor.png)
-
 #####Sprite/Sound Editor
 
 This component is very straightforward.  The user loads in a file and gives it a friendly name.  We can restrict the file types allowed for either Sprite or Sound to avoid bad files being loaded in.
@@ -55,6 +53,40 @@ When a user clicks on a specific game (maybe through the thumbnail image), they 
 
 ###Example Games
 
+#### Flappy Bird
+Flappy bird is a scrolling platformer which contains three types of objects: a bird (which the user controls), obstacles (which the bird must avoid), and the ground (which is what the obstacles sit on). The bird starts flying in the middle of the screen until the user decides that they are ready to start. The user then presses the space bar to begin controlling the bird; when the space bar is pressed, the bird flies higher. When the space bar is released, the bird falls down towards the ground. The user keeps going through obstacles until the bird hits one, in which case the game is over.
+This game is customizable in several different ways. First, the user can set the gravity of the program which will determine how quickly the bird falls back down towards the ground when the user releases the space bar. The user can also set the velocity which the bird flies away from the ground with. Additionally, the user can decide whether the game is infinite, in which case the obstacles are set randomly during game play with a maximum and minimum height set by the user in the “Random Obstacle” object; this will control game difficulty. If the user chooses not to create an infinite game, the user will place however many objects they want to have, and once the player reaches the end of these obstacles they will have won the game. Finally, the user can also control how quickly the platform scrolls. The score is kept in the infinite case by how many obstacles the bird flies through, and in the finite case by how fast the user reaches the end of the game. 
+The authoring environment allows the bird to create several types of actions on itself. One is the key on which the bird flaps, and the other is if the bird collides with any other object, the bird loses.
+
+#### Mario
+Mario is a similar scrolling platformer which would contain several different kinds of objects: Mario (player control), the boundary blocks (several kinds with different sprites for ground, pipes), breakable blocks (with mushroom events), enemies, end flag castle. The authoring environment would allow flexibility in designing all of these units from the general objects. Since there can be as many customizable events as needed, this means that any interaction would be possible between the two objects. The game would start from either clicking or press a start button, which allows the user to play. When Mario moves to a certain point on the screen e.g. ⅔ of the way, there would be an event which shifts the screen forward, thus moving the level along.
+
+#### Frogger
+Frogger is a different platformer than Flappy Bird and Mario in that its background is stationary, it involves multiple player characters, and the object interaction varies among obstacles. The multiple player characters are due to the movement of multiple frogs from one end of the screen to the other, meaning the object receiving the actions from the controls changes depending on whether or not the current frog has made it ‘home’. The game involves several moving obstacles that are moving in opposite directions and have different rules for intersection. If it is a car, the frog will die, but if the obstacle is a log on the river, the frog must land on the log and move with the log. This also means that the user will be able to set stationary objects as ‘killing’ objects, like the water of the river in this case.
+Frogger is also timed. This game will implement the timer part of our authoring environment, which is different than the previous two games. Frogger represents another platformer idea, but which much different design details and implementation.
+
 ###Design Considerations
 
+A major design decision is to implement actions directly as Groovy scripts, and to write the Groovy script that the action consists of to the XML. No alternative design was proposed, but an underlying assumption of the whole design is that everything that needs to be done in the game can be represented in Groovy scripts executed on events on an object.
+Considerations include whether we should implement a parent-child hierarchy in the Authoring Environment and how that would best be implemented in the Engine. The current decision is to not implement it in our actual code, but to include it in our spec if we decide it is something we want to include later.
+Considerations from the game engine specifically include how events should be stored and monitored and read into the loop. On the one hand, to close the class the types of events should be read in from an external file. On the other hand, implementing an interface into all of the different types of events proves to be a challenging thing to do given the different types of accesses needed by different types of objects.
+Another consideration includes the way that the data being written to the XML is being stored by both the authoring environment and the engine. Because there is only one type of data object, both places have data stored that they don’t necessarily need access to. Yet this keeps our design flexible and ensures that any GameObject can be read in by both the authoring environment and the game engine.
+Yet another consideration is to present the game player as the frontend to the game engine instead of the front end of the choosing between editing and playing games as well as the game front end. Because of this, our design currently has no data stored to a specific “Player” but instead writes all saved data (XML, games in progress) to either the XML that the game was read from, or creates a new file to record the data from the game in progress and includes it in the game folder containing all of the other files.
+
 ###Team Responsibilities
+
+The team breakdown is as follows:
+
+* Logan: GameDataObject, later working on: GameEngine Backend
+* Andrew: GameDataObject, later working on: AuthoringEnvironment Backend
+* Austin: GameEngine Backend
+* Parit: AuthoringEnvironment 
+* Nick: AuthoringEnvironment frontend
+* Steve: AuthoringEnvironment frontend
+* Elizabeth: AuthoringEnvironment backend
+* Bailey: GameEngine
+* Brenna: GameEngine
+* Ankit: AuthoringEnvironment
+
+The team will meet frequently within the subteams, and slightly less (but still often) frequently as an entire group to check up on the status of the project as a whole.  
+The front and back end of each group will need to communicate the most, so they will be in the most frequent contact outside of the members working on the same part.  In order to transfer things between the backends, we have a member from each backend working on the GameDataObject so that each side has working knowledge of the element being passed around.
