@@ -2,10 +2,30 @@ package structures.run;
 
 import java.util.List;
 
-public class RunGame {
+import structures.data.DataGame;
+
+public class RunGame implements IRun {
 	
-	String name;
+	private final String myName;
+	private List<RunRoom> myRooms;
 	
-	List<RunRoom> myRooms;
+	private int myCurrentRoomNumber;
+	
+	public RunGame(String name) {
+		myName = name;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
+	public RunRoom getCurrentRoom() {
+		return myRooms.get(myCurrentRoomNumber);
+	}
+	
+	@Override
+	public DataGame toData(){
+		return null;
+	}
 
 }
