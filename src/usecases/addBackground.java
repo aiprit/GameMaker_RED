@@ -5,7 +5,7 @@ import structures.data.*;
 
 public class addBackground {
 	public static void main(String[] args) {
-		IAuthorRoom room = new DataRoom();
+		IRoom room = new DataRoom();
 		room.setBackground(Color.BLACK);
 	}
 }

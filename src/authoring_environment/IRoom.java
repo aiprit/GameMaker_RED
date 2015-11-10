@@ -1,10 +1,10 @@
 package authoring_environment;
 
-public interface IAuthorRoom {
+public interface IRoom {
 	
-	public void addObject(IAuthorObject o);
+	public void addObject(IObject o);
 	
-	public void removeObject(IAuthorObject o);
+	public void removeObject(IObject o);
 	
 	public void setSize(double width, double height);
 	

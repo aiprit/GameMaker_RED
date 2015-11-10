@@ -3,11 +3,11 @@ package structures.data;
 import java.awt.geom.Point2D;
 import java.util.Map;
 
-import authoring_environment.IAuthorEvent;
-import authoring_environment.IAuthorObject;
+import authoring_environment.IEvent;
+import authoring_environment.IObject;
 import authoring_environment.Sprite;
 
-public class DataObject implements IAuthorObject {
+public class DataObject implements IObject {
     Map<DataEvent, DataObject> actions;
     String compiledGroovyScript;
     String objectTitle;
@@ -27,13 +27,13 @@ public class DataObject implements IAuthorObject {
     int zIndex;
 
 	@Override
-	public void addEvent(IAuthorEvent e) {
+	public void addEvent(IEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteEvent(IAuthorEvent e) {
+	public void deleteEvent(IEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

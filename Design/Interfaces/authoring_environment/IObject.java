@@ -2,7 +2,7 @@ package authoring_environment;
 
 import javafx.geometry.Point2D;
 
-public interface IObject {
+public interface IObject throws InvalidObjectException {
 	public void addEvent(IEvent e);
 	
 	public void deleteEvent(IEvent e);

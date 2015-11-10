@@ -2,22 +2,22 @@ package structures.data;
 
 import java.util.List;
 
-import authoring_environment.IAuthorObject;
-import authoring_environment.IAuthorRoom;
+import authoring_environment.IObject;
+import authoring_environment.IRoom;
 import authoring_environment.View;
 
-public class DataRoom implements IAuthorRoom {
+public class DataRoom implements IRoom {
     List<DataObject> roomObjects;
     DataView view;
     String backgroundImage;
     double width, height;
 	@Override
-	public void addObject(IAuthorObject o) {
+	public void addObject(IObject o) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void removeObject(IAuthorObject o) {
+	public void removeObject(IObject o) {
 		// TODO Auto-generated method stub
 		
 	}
