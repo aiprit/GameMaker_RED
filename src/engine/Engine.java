@@ -23,8 +23,8 @@ public class Engine implements IEngine {
 
 	@Override
 	public DataGame save() {
-		// TODO Auto-generated method stub
-		return null;
+		DataGame currentGameData = myGame.toData();
+		return currentGameData;
 	}
 
 	@Override
