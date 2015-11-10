@@ -1,4 +1,6 @@
-package engineInterfaces;
+package engine;
+
+import structures.data.DataGame;
 
 public interface IPlayer {
 

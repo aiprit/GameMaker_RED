@@ -1,4 +1,4 @@
-package engineInterfaces;
+package engine;
 
 public interface ILogic {
 	

@@ -1,6 +1,7 @@
-package engineInterfaces;
+package engine;
 
 import javafx.scene.canvas.Canvas;
+import structures.run.RunRoom;
 
 public interface IDraw {
 	
