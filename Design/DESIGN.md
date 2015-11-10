@@ -3,6 +3,56 @@ We are designing a robust gaming environment which allows users to create differ
 
 ###Overview
 
+#### Authoring Environment 
+If the user selects the option to create a game from the main menu screen, a new window will open which will contain three main parts, an initially blank canvas in the center, an initially blank space with the option to create/edit objects on the right, and a top menu bar.  This will be one class called Environment, which will contain a borderpane object, a list of rooms, a list of objects, and a top menu bar.  The border pane contains the top menu bar and the spaces for the main canvas which shows the rooms of the game in their current order and the right box which shows the objects that have been made.   Both of these update an observer in the back end as they are changed in the front end.
+
+In order to start working, the user will select from the top menu bar to load/start a game.  Once a game has been started, the user can add rooms.  A room has features such as background color and view as well as a list of object instances.  An object has features such as sprite image and a list of events that are each mapped to a list of actions.  When a room is added to a game, the room is added to the ordered list of rooms contained by the game object in a map which can be edited later through selecting a “change order” option and typing in number values into a popup displaying the current rooms and their current number order.
+
+The blank canvas in the center of the environment window will have the game currently being worked on, specifically the list of rooms or levels in their game-play order for each.  In order to edit an already existing level or start from scratch, the user will click on the button to start a new room in the middle of the canvas or an existing room which will create a room editing window pop up.  Here, the user can select background graphics and view size from drop downs as well as add any previously created objects.  In order to add an object to the room, the user must select an object available on the left of the room editing window and drag and drop it to the appropriate location.  There, the user must click on the object and input parameters such as velocity, direction, scale size, etc.
+
+Once the room is sufficient, the user can save the room which will add it to the left side box in the environment window.  In order to create an object, the user can click on the add object button located in the right space which will open an object selection window pop up.  This will have several button options which contain a couple templates for objects we provide as well as a completely blank object to customize.  The user can select any of these which will open another object editor window popup.  The popup will contain the current sprite image on the left, the name on the top, and two spaces for events and actions.  The events box will contain any events designated to the object, and the action box will display the actions for a selected event.  The ability to add events or add actions to an event will be buttons in each box that brings a pop up selection window.  In order to remove an object from a room, the user can right click on the object and select delete.  In order to remove a room from a game, the user can right click a room and select to remove it. 
+
+#### GameDataObject
+	
+The GameDataObject is the data storage object for the entire game. It is initialized, updated, and written to XML by the Authoring Environment and then read back into the Engine from XML to regenerate the GameDataObject. The Engine updates the GameDataObject and writes to current game state, compiled groovy code, and statistics bout the game back to the GameDataObject. When a user saves the current state of the game this object is written to XML and saved.
+	
+#### Engine
+
+The Engine Frontend will have three main parts.  
+* A display canvas for the created game.
+ * This display will be updated according to the backend “update” methods.
+* A list to display the high scores for each specific game being played
+* A pause menu that can handle the saving/loading of games
+
+The backend will be initialized within the frontend with an IGraphicalRepresentationEventListener-implementing event handler object that I will use to catch drawing events.
+
+Has menus:
+* File
+ * Reset (to inital gamestate)
+ * Save
+ * Close
+* Saved Games
+ * List of recent save games
+* View
+ * Show highscores
+ * Show help
+
+The Engine backend is primary in charge of running the games that the authoring environment creates. It operates, at a high level, like this:
+
+* Initialize the game
+* Use a new instance of GameDataObject to parse the given gamefile.XML
+* Get the first room of the game
+* Iterate through all object instances for that room
+* Begin the event loop. Iterate over each object instance.
+ * Create 
+ * Destroy
+ * Step
+ * Collision
+ * Keypress
+ * Click
+* Draw everything
+* Execute Actions called in the event loop
+
 ###User Interface
 
 ####Menu
