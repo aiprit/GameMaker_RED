@@ -1,5 +1,15 @@
 package structures.run;
 
-public abstract class RunRoom {
+import java.util.List;
+
+import javafx.scene.image.ImageView;
+
+public class RunRoom {
+	
+	String name;
+	RunView myView;
+	ImageView myBackground;
+	
+	List<RunObject> myObjects;
 
 }
