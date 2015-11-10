@@ -1,7 +1,7 @@
 package structures;
 
-import java.io.FileNotFoundException;
+import exceptions.ResourceFailedException;
 
 public interface IResource {
-	public void load(String resourceFolder) throws FileNotFoundException;
+	public void load(String resourceFolder) throws ResourceFailedException;
 }
