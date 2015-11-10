@@ -1,10 +1,9 @@
 package structures.data;
 
-import java.util.List;
+import java.util.Map;
 
 public abstract class DataGame {
-	List<DataRoom> rooms;
+	Map<String, DataRoom> rooms;
     String gameName;
-    int startRoomIndex;
-    int currentRoomIndex;
+    String startRoomName, currentRoomName;
 }
