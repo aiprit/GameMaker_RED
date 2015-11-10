@@ -1,3 +1,5 @@
+# Design
+
 ### Introduction
 We are designing a robust gaming environment which allows users to create different genres of games which can be then loaded and played. The primary design goal of the project is to create the most general authoring environment which allows flexible level, unit and object creation. The primary architecture is mainly divided into two parts: the game creation and the game initializer. The game creation mainly consists of an interface which allows users to create a new game. A new game have four main components to it: Room, Object, Event, Action. Room are representations of level/usable area, this can be set to any size. Objects are general building blocks within the area which contains specific events and actions. This “Object” can be utilized in many different ways, depending on the events, images, pathing specified in an object. Examples of an object are the player character, walls, enemies, invisible boundaries,etc. This is designed to be as flexible as possible.  Events are triggers which when fulfilled would execute a list of actions it contains.  Action is probably self-explanatory. All this would stored in a game object which, upon being saved, would be converted to a xml file. Every bit of information is going to be stored in this xml file, including all the game specific information e.g. high scores. This file could then be read and the game object is rebuilt for playing/editing by the game player/authoring environment. The game initializer is also split into two parts: the game engine and the game player. The game player is the frontend which loads a particular xml game file, calls the game engine to run it and displays the results. The game engine is the backend which takes in the game object (containing all the info of a created game) and builds the game program and runs it.
 
@@ -154,7 +156,7 @@ Backend Flow
  * Keypress - if keypress is registered as an event for this object, fire action*
  * Click - if click is registered, fire action*
 * At the end of the event loop, I call: GraphicalRepresentation.update(currentRoom) to draw everything.
-* *: an action object is given by the GameObject as a string-containing object that may be part of a singly-linkedlist. The string is groovy syntax, such as:
+* *: an action object is given by the DataGame as a string-containing object that may be part of a singly-linkedlist. The string is groovy syntax, such as:
  * ‘this.move(“nw”, 10)’
  * ‘getObjectByID(“farmer”).move(“nw, 10)’
 * since an action object may be a list, we execute them one at a time, stepping through using a ActionListParser class
@@ -169,7 +171,7 @@ Our library has the following features:
 * Supports all of the Actions in our spec (see below).
 
 and the following use cases:
-* add an object instance - engine.put(“farmer_0”, new GameObject(“Farmer”));
+* add an object instance - engine.put(“farmer_0”, new DataGame(“Farmer”));
 * get object by id - engine.get(“farmer_0”)
 * get room by id - engine.get(“room_0”)
 * get object[] by class - engine.get(“farmer”)
@@ -387,7 +389,7 @@ Frogger is also timed. This game will implement the timer part of our authoring 
 A major design decision is to implement actions directly as Groovy scripts, and to write the Groovy script that the action consists of to the XML. No alternative design was proposed, but an underlying assumption of the whole design is that everything that needs to be done in the game can be represented in Groovy scripts executed on events on an object.
 Considerations include whether we should implement a parent-child hierarchy in the Authoring Environment and how that would best be implemented in the Engine. The current decision is to not implement it in our actual code, but to include it in our spec if we decide it is something we want to include later.
 Considerations from the game engine specifically include how events should be stored and monitored and read into the loop. On the one hand, to close the class the types of events should be read in from an external file. On the other hand, implementing an interface into all of the different types of events proves to be a challenging thing to do given the different types of accesses needed by different types of objects.
-Another consideration includes the way that the data being written to the XML is being stored by both the authoring environment and the engine. Because there is only one type of data object, both places have data stored that they don’t necessarily need access to. Yet this keeps our design flexible and ensures that any GameObject can be read in by both the authoring environment and the game engine.
+Another consideration includes the way that the data being written to the XML is being stored by both the authoring environment and the engine. Because there is only one type of data object, both places have data stored that they don’t necessarily need access to. Yet this keeps our design flexible and ensures that any DataGame can be read in by both the authoring environment and the game engine.
 Yet another consideration is to present the game player as the frontend to the game engine instead of the front end of the choosing between editing and playing games as well as the game front end. Because of this, our design currently has no data stored to a specific “Player” but instead writes all saved data (XML, games in progress) to either the XML that the game was read from, or creates a new file to record the data from the game in progress and includes it in the game folder containing all of the other files.
 
 ###Team Responsibilities
