@@ -29,8 +29,6 @@ The Main GUI will have a "save" button, which will allow the user to actually sa
 
 Our Object Editor is modeled after the Object editor in Game Maker.  Basically, in the Object Editor, the user can specify the object's name, sprite, size, visibility, and behavior.  The behavior is configured through Events and Actions.  A user can add (or remove) Events.  When a user clicks to add an Event, a popup will be launched with all possible Events (Create, Destroy, Step, Collision, Keypress, and Click).  When an Event is selected, the Event popup screen will change to be a screen to configure the parameters for the Event type.  (For example, for a Keypress event, the user needs to specify which key.)  Having this step in the popup will make it easier for us to control the data being inputed by the user (so we can throw exceptions if necessary).  Once an Event has been completely configured with its parameters, it is added to the object's list of events.  Then, the user can specify which Actions should take place on the Event by adding Actions in the Actions listview.  (This listview corresponds to the Event that is selected.)  The Actions popup will be very similar to the Events popup, in that there are specific actions a user can select from, and then we require the user to completely configure the parameters of the Action before it can be added to the Event/Object.
 
-![Object Editor](https://github.com/duke-compsci308-fall2015/voogasalad_RED/blob/master/Design/Images/GameMakerObjectEditor.png)
-
 #####Sprite/Sound Editor
 
 This component is very straightforward.  The user loads in a file and gives it a friendly name.  We can restrict the file types allowed for either Sprite or Sound to avoid bad files being loaded in.
