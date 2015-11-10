@@ -3,6 +3,8 @@ We are designing a robust gaming environment which allows users to create differ
 
 ###Overview
 
+![Design Overview Layout](https://github.com/duke-compsci308-fall2015/voogasalad_RED/blob/master/Design/Images/DesignOverview.png)
+
 #### Authoring Environment 
 If the user selects the option to create a game from the main menu screen, a new window will open which will contain three main parts, an initially blank canvas in the center, an initially blank space with the option to create/edit objects on the right, and a top menu bar.  This will be one class called Environment, which will contain a borderpane object, a list of rooms, a list of objects, and a top menu bar.  The border pane contains the top menu bar and the spaces for the main canvas which shows the rooms of the game in their current order and the right box which shows the objects that have been made.   Both of these update an observer in the back end as they are changed in the front end.
 
