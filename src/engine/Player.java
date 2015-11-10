@@ -1,5 +1,6 @@
 package engine;
 
+import XML.*;
 import javafx.scene.canvas.Canvas;
 import structures.data.DataGame;
 
@@ -23,6 +24,7 @@ public class Player implements IPlayer {
 	@Override
 	public DataGame readXML(String myName) {
 		//read in file at String from XML reader
+		XMLReader myReader = new XMLReader();
 		myGame = null;
 		setupCanvas();
 		return myGame;
