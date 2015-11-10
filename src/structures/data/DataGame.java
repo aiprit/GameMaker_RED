@@ -1,5 +1,9 @@
 package structures.data;
 
-public abstract class DataGame {
+import java.util.Map;
 
+public abstract class DataGame {
+	Map<String, DataRoom> rooms;
+    String gameName;
+    String startRoomName, currentRoomName;
 }
