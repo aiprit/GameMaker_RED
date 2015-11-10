@@ -11,25 +11,30 @@ public class Player implements IPlayer {
 	
 	public Player(String gameName){
 		//create front end of game play
-		myCanvas = new Canvas();
 		init(gameName);
 	}
 	
-	private void init(String myName){
-		readXML(myName);
+	@Override
+	public void init(String myName){
+		myGame = readXML(myName);
+		setupCanvas();
 		myEngine = new Engine(myGame, myCanvas);
+		
+		
+		
+		
+		
 	}
 
-	@Override
-	public DataGame readXML(String myName) {
+	private DataGame readXML(String myName) {
 		//read in file at String from XML reader
-		myGame = null;
-		setupCanvas();
-		return myGame;
+		DataGame game = null;
+		return game;
 	}
 	
 	private void setupCanvas(){
 		//add info from DataGame to Canvas
+		myCanvas = new Canvas();
 	}
 
 }
