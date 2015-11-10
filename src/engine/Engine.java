@@ -11,6 +11,7 @@ public class Engine implements IEngine, IControlListener {
 	private RunGame myGame;
 	private Draw myDraw;
 	private Logic myLogic;
+	private IGameEventListener myListener;
 	
 	public Engine(DataGame dataGame, Canvas canvas){
 		myGame = dataGameToRunGame(dataGame);
@@ -54,6 +55,11 @@ public class Engine implements IEngine, IControlListener {
 	@Override
 	public void onMouseEvent(MouseEvent event) {
 		myLogic.onMouseEvent(event);
+	}
+
+	@Override
+	public void registerGameEventListener(IGameEventListener listener) {
+		myListener = listener;
 	}
 
 }
