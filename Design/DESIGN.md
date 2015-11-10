@@ -76,6 +76,7 @@ Yet another consideration is to present the game player as the frontend to the g
 ###Team Responsibilities
 
 The team breakdown is as follows:
+
 * Logan: GameDataObject, later working on: GameEngine Backend
 * Andrew: GameDataObject, later working on: AuthoringEnvironment Backend
 * Austin: GameEngine Backend
@@ -86,5 +87,6 @@ The team breakdown is as follows:
 * Bailey: GameEngine
 * Brenna: GameEngine
 * Ankit: AuthoringEnvironment
+
 The team will meet frequently within the subteams, and slightly less (but still often) frequently as an entire group to check up on the status of the project as a whole.  
 The front and back end of each group will need to communicate the most, so they will be in the most frequent contact outside of the members working on the same part.  In order to transfer things between the backends, we have a member from each backend working on the GameDataObject so that each side has working knowledge of the element being passed around.
