@@ -1,10 +1,12 @@
 package engine;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
 import structures.run.*;
 
-public class Engine implements IEngine {
+public class Engine implements IEngine, IControlListener {
 	
 	private RunGame myGame;
 	private Draw myDraw;
@@ -17,8 +19,14 @@ public class Engine implements IEngine {
 	}
 
 	@Override
-	public void setGame(DataGame dataGame) {
+	public void load(DataGame dataGame) {
 		myGame = dataGameToRunGame(dataGame);
+	}
+	
+	@Override
+	public void step() {
+		myLogic.step();
+		myDraw.draw(myGame.getCurrentRoom());
 	}
 
 	@Override
@@ -36,6 +44,16 @@ public class Engine implements IEngine {
 	private RunGame dataGameToRunGame(DataGame dataGame){
 		//change DataGame to RunGame
 		return null;
+	}
+
+	@Override
+	public void onKeyEvent(KeyEvent event) {
+		myLogic.onKeyEvent(event);
+	}
+
+	@Override
+	public void onMouseEvent(MouseEvent event) {
+		myLogic.onMouseEvent(event);
 	}
 
 }

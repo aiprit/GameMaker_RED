@@ -4,8 +4,9 @@ import structures.data.DataGame;
 
 public interface IEngine {
 	
-	void setGame(DataGame myGame);
-	DataGame save();
-	void reset();
+	public void load(DataGame myGame);
+	public DataGame save();
+	public void reset();
+	public void step();
 	
 }
