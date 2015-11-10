@@ -3,7 +3,7 @@ package authoring_environment;
 import javafx.event.ActionEvent;
 
 public interface IEvent {
-	public void addAction(ActionEvent a);
+	void addAction(ActionEvent a);
 	
-	public void removeAction(ActionEvent a);
+	void removeAction(ActionEvent a);
 }

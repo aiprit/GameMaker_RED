@@ -2,6 +2,6 @@ package engine;
 
 public interface IPlayer {
 
-	public void init(String myName);
+	void init(String myName);
 	
 }

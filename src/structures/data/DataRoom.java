@@ -7,48 +7,42 @@ import authoring_environment.IRoom;
 import authoring_environment.View;
 
 public class DataRoom implements IRoom {
-    List<DataObject> roomObjects;
-    DataView view;
-    String backgroundImage;
-    double width, height;
+    List<IObject> roomObjects;
+    DataView myView;
+    IObject myBackground;
+    double myWidth, myHeight;
+
 	@Override
 	public void addObject(IObject o) {
-		// TODO Auto-generated method stub
-		
+		roomObjects.add(o);
 	}
 	@Override
 	public void removeObject(IObject o) {
-		// TODO Auto-generated method stub
-		
+		roomObjects.remove(o);
 	}
 	@Override
 	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
-		
+		myWidth = width;
+        myHeight = height;
 	}
 	@Override
 	public double[] getSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return new double[] {myWidth, myHeight};
 	}
 	@Override
-	public void setBackground(Object c) {
-		// TODO Auto-generated method stub
-		
+	public void setBackground(IObject o) {
+		myBackground = o;
 	}
 	@Override
 	public Object getBackground() {
-		// TODO Auto-generated method stub
-		return null;
+		return myBackground;
 	}
 	@Override
-	public void setView(View view) {
-		// TODO Auto-generated method stub
-		
+	public void setView(DataView view) {
+		myView = view;
 	}
 	@Override
-	public View getView() {
-		// TODO Auto-generated method stub
-		return null;
+	public DataView getView() {
+		return myView;
 	}
 }

@@ -2,8 +2,8 @@ package engine;
 
 public interface IGameEventListener {
 	
-	public void onNewHighScore(String username, double score);
-	public void onSave();
-	public void onPause();
+	void onNewHighScore(String username, double score);
+	void onSave();
+	void onPause();
 	
 }

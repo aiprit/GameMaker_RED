@@ -1,20 +1,22 @@
 package authoring_environment;
 
+import structures.data.DataView;
+
 public interface IRoom {
 	
-	public void addObject(IObject o);
+	void addObject(IObject o);
 	
-	public void removeObject(IObject o);
+	void removeObject(IObject o);
 	
-	public void setSize(double width, double height);
+	void setSize(double width, double height);
 	
-	public double[] getSize();
+	double[] getSize();
 	
-	public void setBackground(Object c);
+	void setBackground(IObject o);
 	
-	public Object getBackground();
+	Object getBackground();
 	
-	public void setView(View view);
+	void setView(DataView view);
 	
-	public View getView();
+	DataView getView();
 }
