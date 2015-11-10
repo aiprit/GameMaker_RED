@@ -2,10 +2,10 @@ package authoring_environment;
 
 import javafx.geometry.Point2D;
 
-public interface IObject {
-	public void addEvent(IEvent e);
+public interface IAuthorObject {
+	public void addEvent(IAuthorEvent e);
 	
-	public void deleteEvent(IEvent e);
+	public void deleteEvent(IAuthorEvent e);
 	
 	public void addSprite(Sprite s);
 	

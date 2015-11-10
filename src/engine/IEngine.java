@@ -8,5 +8,6 @@ public interface IEngine {
 	public DataGame save();
 	public void reset();
 	public void step();
+	public void registerGameEventListener(IGameEventListener listener);
 	
 }

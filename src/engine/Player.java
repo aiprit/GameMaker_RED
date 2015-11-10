@@ -4,7 +4,7 @@ import XML.*;
 import javafx.scene.canvas.Canvas;
 import structures.data.DataGame;
 
-public class Player implements IPlayer {
+public class Player implements IPlayer, IGameEventListener {
 	
 	private Canvas myCanvas;
 	private DataGame myGame;
@@ -25,6 +25,7 @@ public class Player implements IPlayer {
 		myGame = readXML(myName);
 		setupCanvas();
 		myEngine = new Engine(myGame, myCanvas);
+		myEngine.registerGameEventListener(this);
 	}
 
 	private DataGame readXML(String myName) {
@@ -41,6 +42,23 @@ public class Player implements IPlayer {
 	private void saveGame(String fileName){
 		//called from the user interface
 		myWriter.write(myEngine.save(), fileName);
+	}
+
+	@Override
+	public void onNewHighScore(String username, double score) {
+		// TODO Auto-generated method stub	
+	}
+
+	@Override
+	public void onSave() {
+		// Show file explorer here
+		String filename = "asdf";
+		saveGame(filename);
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub	
 	}
 
 }
