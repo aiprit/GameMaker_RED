@@ -3,16 +3,13 @@ package structures.data;
 import java.awt.geom.Point2D;
 import java.util.Map;
 
-<<<<<<< HEAD
-public class DataObject {
-	
-=======
+
 import authoring_environment.IEvent;
 import authoring_environment.IObject;
 import authoring_environment.Sprite;
 
 public class DataObject implements IObject {
->>>>>>> master
+	
     Map<DataEvent, DataObject> actions;
     String name;
     String sprite;

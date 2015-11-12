@@ -6,6 +6,6 @@ import structures.data.*;
 public class addBackground {
 	public static void main(String[] args) {
 		IRoom room = new DataRoom();
-		room.setBackground(Color.BLACK);
+		//room.setBackground(Color.BLACK);
 	}
 }
