@@ -10,12 +10,12 @@ import authoring_environment.Sprite;
 
 public class DataObject implements IObject {
 	
-    Map<DataEvent, DataObject> actions;
+    Map<DataEvent, DataAction> actions;
     String name;
     String sprite;
 
     Point2D position;
-    double direction, angularVelocity;
+    double rotation, angularVelocity;
     double scaleX, scaleY, alpha;
     
     boolean visible;
