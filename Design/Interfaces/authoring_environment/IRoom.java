@@ -1,6 +1,6 @@
 package authoring_environment;
 
-public interface IRoom {
+public interface IRoom throws InvalidRoomException {
 	
 	public void addObject(IObject o);
 	

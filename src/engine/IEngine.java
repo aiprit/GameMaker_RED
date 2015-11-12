@@ -4,10 +4,10 @@ import structures.data.DataGame;
 
 public interface IEngine {
 	
-	public void load(DataGame myGame);
-	public DataGame save();
-	public void reset();
-	public void step();
-	public void registerGameEventListener(IGameEventListener listener);
+	void load(DataGame myGame);
+	DataGame save();
+	void reset();
+	void step();
+	void registerGameEventListener(IGameEventListener listener);
 	
 }

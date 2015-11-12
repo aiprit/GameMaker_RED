@@ -3,29 +3,29 @@ package authoring_environment;
 import javafx.geometry.Point2D;
 
 public interface IObject {
-	public void addEvent(IEvent e);
+	void addEvent(IEvent e);
 	
-	public void deleteEvent(IEvent e);
+	void deleteEvent(IEvent e);
 	
-	public void addSprite(Sprite s);
+	void addSprite(Sprite s);
 	
-	public void setName(String name);
+	void setName(String name);
 	
-	public String getName();
+	String getName();
 	
-	public void setSize(double width, double height);
+	void setSize(double width, double height);
 	
-	public double[] getSize();
+	double[] getSize();
 	
-	public void setPosition(Point2D pos);
+	void setPosition(Point2D pos);
 	
-	public Point2D getPosition();
+	Point2D getPosition();
 	
-	public void setVisibility(boolean visible);
+	void setVisibility(boolean visible);
 	
-	public boolean isVisible();
+	boolean isVisible();
 	
-	public void setRotation(double angle);
+	void setRotation(double angle);
 	
-	public double getRotation();
+	double getRotation();
 }
