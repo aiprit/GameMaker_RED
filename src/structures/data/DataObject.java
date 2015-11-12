@@ -7,10 +7,12 @@ import java.util.Map;
 import authoring_environment.IEvent;
 import authoring_environment.IObject;
 import authoring_environment.Sprite;
+import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 	
     Map<DataEvent, DataAction> actions;
+
     String name;
     String sprite;
 
