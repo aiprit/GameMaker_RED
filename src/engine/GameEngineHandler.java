@@ -1,6 +1,3 @@
-/**
- * 
- */
 package engine;
 
 /**
@@ -8,32 +5,34 @@ package engine;
  *
  */
 public class GameEngineHandler implements IGameEngineHandler{
+	Boolean paused;
 
-	public GameEngineHandler() {
-		
+	public GameEngineHandler(Boolean paused) {
+		this.paused = paused;
 	}
 	
 	@Override
 	public void setOnReset() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void setOnStart() {
-		// TODO Auto-generated method stub
-		
+		paused = false;
 	}
 
 	@Override
 	public void setOnPause() {
-		// TODO Auto-generated method stub
-		
+		paused = true;
 	}
 
 	@Override
 	public void setOnLoadSave(String path) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOnSave() {
 		
 	}
 

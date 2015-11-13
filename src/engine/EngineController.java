@@ -1,7 +1,12 @@
 package engine;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import XML.XMLReader;
 import XML.XMLWriter;
@@ -19,10 +24,11 @@ public class EngineController {
 	private XMLWriter myWriter;
 	private RunGame myRunningGame;
 	private IGameEngineHandler myGameEngineHandler;
+	private Boolean paused;
 	
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myGameEngineHandler = new GameEngineHandler();
+		myGameEngineHandler = new GameEngineHandler(paused);
 		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler); 
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
@@ -58,5 +64,24 @@ public class EngineController {
 	private RunGame dataGameToRunGame(DataGame dataGame){
 		//change DataGame to RunGame
 		return null;
+	}
+	
+	private class SavedGameHandler {
+		Map<String, String> saves;
+		SavedGameHandler() {
+			saves = new HashMap<String, String>();
+			
+			//Search the filetree for savegames
+			try {
+				Files.walk(Paths.get("Games/ExampleGame")).forEach(filePath -> {
+				    if (Files.isRegularFile(filePath)) {
+				        System.out.println(filePath);
+				    }
+				});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
