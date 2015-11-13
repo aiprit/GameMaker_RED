@@ -1,11 +1,15 @@
 package structures.run;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import exceptions.CompileTimeException;
 import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
+import structures.data.DataRoom;
 
 public class RunGame implements Cloneable {
 
@@ -19,13 +23,18 @@ public class RunGame implements Cloneable {
 		myName = dataGame.getName();
 		myWidth = dataGame.getWidth();
 		myHeight = dataGame.getHeight();
+		myRooms = new ArrayList<RunRoom>();
 	}
 
 	public String getName() {
 		return myName;
 	}
 
-	public RunRoom getCurrentRoom() {
+	public RunRoom getCurrentRoom() throws CompileTimeException {
+		if (myRooms.size() == 0)
+			return new RunRoom(new DataRoom("DefaultRoom"));
+		if (myRooms.size() <= myCurrentRoomNumber)
+			throw new CompileTimeException(String.format("Couldn't select room: %d", myCurrentRoomNumber));
 		return myRooms.get(myCurrentRoomNumber);
 	}
 

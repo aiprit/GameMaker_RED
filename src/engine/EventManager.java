@@ -3,6 +3,7 @@ package engine;
 import java.util.List;
 import java.util.Queue;
 
+import exceptions.CompileTimeException;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +20,7 @@ public class EventManager {
 		this.inputs = inputs;
 	}
 	
-	void loop() {
+	void loop() throws CompileTimeException {
 		List<RunObject> it = myGame.getCurrentRoom().getObjects();
 		step(it);
 		checkKeyEvents(it);

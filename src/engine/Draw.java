@@ -1,5 +1,6 @@
 package engine;
 
+import exceptions.CompileTimeException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -15,7 +16,7 @@ public class Draw implements IDraw {
 	}
 
 	@Override
-	public void draw(RunGame game) {
+	public void draw(RunGame game) throws CompileTimeException {
 		RunRoom myRoom = game.getCurrentRoom();
 		
 		StackPane myPane = new StackPane();

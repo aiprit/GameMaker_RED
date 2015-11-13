@@ -3,6 +3,7 @@
  */
 package engine;
 
+import exceptions.CompileTimeException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -31,6 +32,7 @@ public class FrontEnd {
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
+	private IRedrawHandler redrawHandler;
 	
 	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) {
 		this.geHandler = geHandler;
@@ -38,6 +40,7 @@ public class FrontEnd {
 		this.game = game;
 		this.stage = stage;
 		setupFramework();
+		redrawHandler = new RedrawHandler();
 	}
 	
 	private void setupFramework(){
@@ -101,9 +104,13 @@ public class FrontEnd {
 		myRoot.getChildren().add(myMenus);
 	}
 	
-	private void setupCanvas(){
+	private void setupCanvas() throws CompileTimeException{
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
 		myCanvasDrawer.draw(myGame);
+	}
+
+	public IRedrawHandler getRedrawHandler() {
+		return redrawHandler;
 	}
 }

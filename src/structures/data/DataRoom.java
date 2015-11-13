@@ -13,6 +13,7 @@ public class DataRoom implements IRoom {
     
         public DataRoom(String name) {
             myName = name;
+            myView = new DataView("", "DefaultView", 400, 400, 0, 0);
         }
         
         public String toString() {
