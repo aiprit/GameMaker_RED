@@ -5,35 +5,37 @@ import java.awt.Rectangle;
 /**
  * The View that determines what the camera paints on the screen
  * within a Room. Views are always bound to a specific Room, and
- * they must have a unique name within a Room. 
+ * they must have a unique name within a Room.
  *
  */
 public class DataView {
-	
+
 	private final String myName;
-	private final String myRoomName;
-	
-	private Rectangle myBounds;
-	
-	public DataView(String roomName, String name) {
+
+	//width and height of the view
+	//myX and myY is the location on the screen where the top
+	//left corner of the view is drawn
+
+	private double myWidth, myHeight, myX, myY;
+
+	public DataView(String name, double width, double height, double x, double y) {
 		myName = name;
-		myRoomName = roomName;
-		myBounds = new Rectangle();
+		myWidth = width;
+		myHeight = height;
+		myX = x;
+		myY = y;
 	}
 
-    public void setBounds(Rectangle bounds){
-    	myBounds = bounds;
-    }
-    
     public String getName() {
     	return myName;
     }
-    
-    public String getRoomName() {
-    	return myRoomName;
-    }
-    
-    public Rectangle getBounds() {
-    	return myBounds;
-    }
+
+
+    public double[] getBounds() {
+		return new double[] {myWidth, myHeight};
+	}
+
+	public double[] getPosition(){
+		return new double[] {myX, myY};
+	}
 }
