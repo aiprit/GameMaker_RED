@@ -57,8 +57,7 @@ public class EngineController {
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 
-		// myGame = myReader.read(myName);
-		myGame = null;
+		myGame = new DataGame(myName);
 		myRunningGame = dataGameToRunGame(myGame);
 		myEngine = new Engine(myRunningGame);
 	}

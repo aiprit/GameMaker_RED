@@ -1,6 +1,5 @@
 package engine;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -21,7 +20,7 @@ public class Engine {
 	public Engine(RunGame runGame) {
 		inputs = new LinkedList<InputEvent>();
 		myGame = runGame;
-		myOriginalGame = runGame.clone();
+		myOriginalGame = (RunGame) runGame.clone();
 		eventManager = new EventManager(myGame, inputs);
 		myListener = new GamePlayListener(inputs);
 	}
