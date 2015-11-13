@@ -5,11 +5,11 @@ import structures.IObject;
 import structures.IRoom;
 
 public class DataRoom implements IRoom {
-    List<IObject> roomObjects;
-    DataView myView;
-    IObject myBackground;
-    double myWidth, myHeight;
-	String myName;
+    private List<IObject> roomObjects;
+	private DataView myView;
+	private IObject myBackground;
+	private double myWidth, myHeight;
+	private String myName;
 
 	public DataRoom(String name, double width, double height){
 		myName = name;
@@ -31,9 +31,8 @@ public class DataRoom implements IRoom {
 	}
 
 	@Override
-	public void setSize(int width, int height) {
-		myWidth = width;
-        myHeight = height;
+	public void setSize(double width, double height) {
+
 	}
 
 	@Override

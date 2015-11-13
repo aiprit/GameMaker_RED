@@ -15,7 +15,7 @@ public class DataSound implements IResource {
 		myFileName = fileName;
 	}
 	
-	public String getFileName() {
+	public String getName() {
 		return myFileName;
 	}
 	
@@ -24,8 +24,8 @@ public class DataSound implements IResource {
 	}
 	
 	@Override
-	public void load(String resourceFolder) throws ResourceFailedException {
-            String url = resourceFolder + "/" + myFileName;
+	public void load() throws ResourceFailedException {
+            String url =  myFileName;
             try {
                 InputStream in = new FileInputStream(url);
                 myAudioStream = new AudioStream(in);
