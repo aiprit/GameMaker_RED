@@ -38,5 +38,4 @@ public class DataView {
 	public double[] getPosition(){
 		return new double[] {myX, myY};
 	}
-
 }

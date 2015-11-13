@@ -1,7 +1,6 @@
 package structures.data;
 
 import java.util.List;
-
 import structures.IObject;
 import structures.IRoom;
 
@@ -20,7 +19,6 @@ public class DataRoom implements IRoom {
 		//by default the view is set to be the entire room
 		myView = new DataView("MainView", width, height, 0, 0);
 	}
-
 
 	@Override
 	public void addObject(IObject o) {
