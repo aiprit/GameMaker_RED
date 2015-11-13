@@ -11,7 +11,7 @@ import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 	
-    Map<DataEvent, DataAction> actions;
+    Map<IDataEvent, DataAction> actions;
 
     String name;
     String sprite;
