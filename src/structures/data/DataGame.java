@@ -5,7 +5,7 @@ import java.util.Map;
 import structures.IObject;
 import structures.IRoom;
 
-public abstract class DataGame {
+public class DataGame {
 	
 	Map<String, IRoom> myRooms;
 	Map<String, IObject> myObjects;
@@ -22,6 +22,14 @@ public abstract class DataGame {
     
     public String getName() {
     	return myName;
+    }
+    
+    public double getWidth() {
+        return myScreenWidth;
+    }
+    
+    public double getHeight() {
+        return myScreenHeight;
     }
     
    
