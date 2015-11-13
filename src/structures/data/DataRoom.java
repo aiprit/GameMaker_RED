@@ -2,9 +2,9 @@ package structures.data;
 
 import java.util.List;
 
-import authoring_environment.IObject;
-import authoring_environment.IRoom;
 import authoring_environment.View;
+import structures.IObject;
+import structures.IRoom;
 
 public class DataRoom implements IRoom {
     List<IObject> roomObjects;
