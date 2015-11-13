@@ -2,18 +2,19 @@ package engine;
 
 /**
  * @author loganrooper
- *
  */
 public class GameEngineHandler implements IGameEngineHandler{
 	Boolean paused;
+	SavedGameHandler savedGames;
 
-	public GameEngineHandler(Boolean paused) {
+	public GameEngineHandler(Boolean paused, SavedGameHandler savedGames) {
 		this.paused = paused;
+		this.savedGames = savedGames;
 	}
 	
 	@Override
 	public void setOnReset() {
-		
+		savedGames.reset();
 	}
 
 	@Override
@@ -28,12 +29,12 @@ public class GameEngineHandler implements IGameEngineHandler{
 
 	@Override
 	public void setOnLoadSave(String path) {
-		
+		savedGames.loadGame(path);
 	}
 
 	@Override
 	public void setOnSave() {
-		
+		savedGames.saveGame();
 	}
 
 }

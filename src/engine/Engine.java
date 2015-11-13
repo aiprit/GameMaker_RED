@@ -1,6 +1,8 @@
 package engine;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
@@ -8,17 +10,18 @@ import structures.data.DataGame;
 import structures.run.RunGame;
 
 public class Engine {
-	
+
 	private RunGame myOriginalGame;
-        private RunGame myGame;
+	private RunGame myGame;
 	private EventManager eventManager;
 	private IGamePlayHandler myListener;
 	private Queue<InputEvent> inputs;
-	
-	public Engine(RunGame runGame){
-	        inputs = new LinkedList<InputEvent>();
-	        myGame = runGame;
-	        myOriginalGame = runGame.clone();
+	private Map<String, Double> variables;
+
+	public Engine(RunGame runGame) {
+		inputs = new LinkedList<InputEvent>();
+		myGame = runGame;
+		myOriginalGame = runGame.clone();
 		eventManager = new EventManager(myGame, inputs);
 		myListener = new GamePlayListener(inputs);
 	}
@@ -27,7 +30,7 @@ public class Engine {
 		myGame = runGame;
 		myOriginalGame = runGame.clone();
 	}
-	
+
 	public void step() {
 		eventManager.loop();
 	}
@@ -45,11 +48,11 @@ public class Engine {
 		return myListener;
 	}
 
-//	@Override
-//	public void registerGameEventListener(IGameEventListener listener) {
-//		myListener = listener;
-//		
-//		myListener.() = 
-//	}
+	// @Override
+	// public void registerGameEventListener(IGameEventListener listener) {
+	// myListener = listener;
+	//
+	// myListener.() =
+	// }
 
 }
