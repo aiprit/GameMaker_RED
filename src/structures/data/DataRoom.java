@@ -11,6 +11,15 @@ public class DataRoom implements IRoom {
     DataView myView;
     IObject myBackground;
     double myWidth, myHeight;
+    String myName;
+    
+        public DataRoom(String name) {
+            myName = name;
+        }
+        
+        public String toString() {
+            return myName;
+        }
 
 	@Override
 	public void addObject(IObject o) {

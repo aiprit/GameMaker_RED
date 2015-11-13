@@ -12,18 +12,13 @@ public class DataView {
 	
 	private final String myName;
 	private final String myRoomName;
+	private Rectangle myRectangle;
 	
-	private Rectangle myBounds;
-	
-	public DataView(String roomName, String name) {
+	public DataView(String roomName, String name, int width, int height, int x, int y) {
 		myName = name;
 		myRoomName = roomName;
-		myBounds = new Rectangle();
+		myRectangle = new Rectangle(x, y, width, height);
 	}
-
-    public void setBounds(Rectangle bounds){
-    	myBounds = bounds;
-    }
     
     public String getName() {
     	return myName;
@@ -33,7 +28,7 @@ public class DataView {
     	return myRoomName;
     }
     
-    public Rectangle getBounds() {
-    	return myBounds;
+    public Rectangle getView() {
+        return myRectangle;
     }
 }
