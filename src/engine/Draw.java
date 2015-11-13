@@ -1,6 +1,9 @@
 package engine;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import structures.run.RunGame;
 import structures.run.RunRoom;
 
 public class Draw implements IDraw {
@@ -12,9 +15,13 @@ public class Draw implements IDraw {
 	}
 
 	@Override
-	public void draw(RunRoom myRoom) {
-		// TODO Auto-generated method stub
+	public void draw(RunGame game) {
+		RunRoom myRoom = game.getCurrentRoom();
 		
+		StackPane myPane = new StackPane();
+		
+		if(myRoom.getBackground() != null){
+			//my
+		}
 	}
-
 }
