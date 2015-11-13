@@ -8,8 +8,12 @@ public class RunRoom {
 	
 	String name;
 	RunView myView;
-	ImageView myBackground;
+	String background;
 	
 	List<RunObject> myObjects;
+	
+	public String getBackground(){
+		return background;
+	}
 
 }

@@ -1,4 +1,5 @@
 import engine.EngineController;
+import exceptions.ResourceFailedException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,7 +36,11 @@ public class Launcher extends Application {
  
             @Override
             public void handle(ActionEvent event) {
-                EngineController ec = new EngineController(primaryStage);
+                try {
+					EngineController ec = new EngineController(primaryStage);
+				} catch (ResourceFailedException e) {
+					e.printStackTrace();
+				}
             }
         });
         

@@ -10,6 +10,7 @@ import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
+import structures.run.RunGame;
 
 public class EngineController {
 	private DataGame myGame;
@@ -17,10 +18,11 @@ public class EngineController {
 	private FrontEnd myFrontEnd;
 	private XMLReader myReader;
 	private XMLWriter myWriter;
+	private RunGame myRunningGame;
 	
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners()); 
+		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame); 
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
@@ -46,7 +48,14 @@ public class EngineController {
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 
-		myGame = myReader.read(myName);
-		myEngine = new Engine(myGame);
+		//myGame = myReader.read(myName);
+		myGame = null;
+		myRunningGame = dataGameToRunGame(myGame);
+		myEngine = new Engine(myRunningGame);
+	}
+	
+	private RunGame dataGameToRunGame(DataGame dataGame){
+		//change DataGame to RunGame
+		return null;
 	}
 }

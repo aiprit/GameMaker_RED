@@ -9,24 +9,21 @@ import structures.run.RunGame;
 public class Engine {
 	
 	private RunGame myGame;
-	private Draw myDraw;
 	private EventManager eventManager;
 	private IGamePlayListener myListener;
 	private Queue<InputEvent> inputs;
 	
-	public Engine(DataGame dataGame){
-		myGame = dataGameToRunGame(dataGame);
+	public Engine(RunGame runGame){
 		eventManager = new EventManager(myGame);
 		myListener = new GamePlayListener(inputs);
 	}
 
-	public void load(DataGame dataGame) {
-		myGame = dataGameToRunGame(dataGame);
+	public void load(RunGame runGame) {
+		myGame = runGame;
 	}
 	
 	public void step() {
 		eventManager.step();
-		myDraw.draw(myGame.getCurrentRoom());
 	}
 
 	public DataGame save() {
@@ -36,11 +33,6 @@ public class Engine {
 
 	public void reset() {
 		
-	}
-	
-	private RunGame dataGameToRunGame(DataGame dataGame){
-		//change DataGame to RunGame
-		return null;
 	}
 
 	/**
