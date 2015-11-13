@@ -27,5 +27,9 @@ public class RunGame implements IRun {
 	public DataGame toData(){
 		return null;
 	}
+	
+	public RunGame clone() {
+	    return this.clone();
+	}
 
 }

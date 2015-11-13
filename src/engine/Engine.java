@@ -9,19 +9,23 @@ import structures.run.RunGame;
 
 public class Engine {
 	
-	private RunGame myGame;
+	private RunGame myOriginalGame;
+        private RunGame myGame;
 	private EventManager eventManager;
 	private IGamePlayListener myListener;
 	private Queue<InputEvent> inputs;
 	
 	public Engine(RunGame runGame){
+	        inputs = new LinkedList<InputEvent>();
+	        myGame = runGame;
+	        myOriginalGame = runGame.clone();
 		eventManager = new EventManager(myGame, inputs);
-		inputs = new LinkedList<InputEvent>();
 		myListener = new GamePlayListener(inputs);
 	}
 
 	public void load(RunGame runGame) {
 		myGame = runGame;
+		myOriginalGame = runGame.clone();
 	}
 	
 	public void step() {
@@ -34,7 +38,7 @@ public class Engine {
 	}
 
 	public void reset() {
-		
+		myGame = myOriginalGame;
 	}
 
 	public IGamePlayListener getListeners() {
