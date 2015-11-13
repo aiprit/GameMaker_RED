@@ -1,6 +1,7 @@
 package engine;
 
 import javafx.scene.Node;
+import exceptions.CompileTimeException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -19,7 +20,7 @@ public class Draw extends StackPane implements IDraw {
 	}
 
 	@Override
-	public void draw(RunGame game) {
+	public void draw(RunGame game) throws CompileTimeException {
 		//RunRoom myRoom = game.getCurrentRoom();
 		
 		//this.getChildren().remove(myCanvas);

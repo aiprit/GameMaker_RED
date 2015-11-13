@@ -1,10 +1,10 @@
 package engine;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import exceptions.CompileTimeException;
 import javafx.scene.input.InputEvent;
 import structures.data.DataGame;
 import structures.run.RunGame;
@@ -17,13 +17,14 @@ public class Engine {
 	private IGamePlayHandler myListener;
 	private Queue<InputEvent> inputs;
 	private Map<String, Double> variables;
+	private IRedrawHandler redrawHandler;
 
 	public Engine(RunGame runGame) {
 		inputs = new LinkedList<InputEvent>();
 		myGame = runGame;
-		myOriginalGame = runGame.clone();
+		myOriginalGame = (RunGame) runGame.clone();
 		eventManager = new EventManager(myGame, inputs);
-		myListener = new GamePlayListener(inputs);
+		myListener = new GamePlayHandler(inputs);
 	}
 
 	public void load(RunGame runGame) {
@@ -32,7 +33,15 @@ public class Engine {
 	}
 
 	public void step() {
-		eventManager.loop();
+		//Loop.
+		try {
+			eventManager.loop();
+		} catch (CompileTimeException e) {
+			e.printStackTrace();
+		}
+		//Redraw.
+		redrawHandler.redraw();
+		//Profit.
 	}
 
 	public DataGame save() {
@@ -47,12 +56,12 @@ public class Engine {
 	public IGamePlayHandler getListeners() {
 		return myListener;
 	}
+	
+	public void setRedrawHandler(IRedrawHandler redrawHandler) {
+		this.redrawHandler = redrawHandler;
+	}
 
-	// @Override
-	// public void registerGameEventListener(IGameEventListener listener) {
-	// myListener = listener;
-	//
-	// myListener.() =
-	// }
-
+	public void fireUp() {
+		step();
+	}
 }

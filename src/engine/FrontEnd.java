@@ -3,6 +3,7 @@
  */
 package engine;
 
+import exceptions.CompileTimeException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -30,22 +31,27 @@ public class FrontEnd {
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
-	
-	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGameEngineHandler geHandler) {
+	private IRedrawHandler redrawHandler;
+
+	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) {
 		this.geHandler = geHandler;
 		this.gpHandler = gpHandler;
 		this.game = game;
 		this.stage = stage;
+		setupFramework();
+		redrawHandler = new RedrawHandler();
+	}
 
+	private void setupFramework(){
 		myGame = game;
 		myRoot = new Group();
 		Scene playScene = new Scene(myRoot, 400, 400);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-		    @Override
-		    public void handle(MouseEvent mouseEvent) {
-		    	gpHandler.setOnEvent(mouseEvent);
-		    }
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				gpHandler.setOnEvent(mouseEvent);
+			}
 		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
@@ -56,7 +62,7 @@ public class FrontEnd {
 		setupFramework();
 		setupCanvas();
 	}
-	
+
 	private void setupFramework(){
 		MenuBar myMenus = new MenuBar();
 		myMenus.useSystemMenuBarProperty().set(true);
@@ -99,10 +105,14 @@ public class FrontEnd {
 		view.getItems().addAll(highScore, showHelp);
 		myRoot.getChildren().add(myMenus);
 	}
-	
-	private void setupCanvas(){
+
+	private void setupCanvas() throws CompileTimeException{
 		myCanvasDrawer = new Draw();
 		myRoot.getChildren().add(myCanvasDrawer);
 		myCanvasDrawer.draw(myGame);
+	}
+
+	public IRedrawHandler getRedrawHandler() {
+		return redrawHandler;
 	}
 }

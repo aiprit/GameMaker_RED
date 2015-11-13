@@ -12,13 +12,13 @@ import javafx.scene.input.MouseEvent;
  * @author loganrooper
  *
  */
-public class GamePlayListener implements IGamePlayHandler {
+public class GamePlayHandler implements IGamePlayHandler {
 
 		
 	private Queue<InputEvent> inputs;
 	private MouseEvent mouseState;
 	
-	public GamePlayListener(Queue<InputEvent> inputs) {
+	public GamePlayHandler(Queue<InputEvent> inputs) {
 		this.inputs = inputs;
 	}
 

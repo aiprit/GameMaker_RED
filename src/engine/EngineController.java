@@ -26,44 +26,45 @@ public class EngineController {
 	private IGameEngineHandler myGameEngineHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
+	private IRedrawHandler redrawHandler;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
-		init();
+		initializeGame();
+		myRunningGame = dataGameToRunGame(myGame);
+		myEngine = new Engine(myRunningGame);
 		myGameEngineHandler = new GameEngineHandler(paused, savedGames);
 		savedGames = new SavedGameHandler(myGame.getName());
 		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
+		redrawHandler = myFrontEnd.getRedrawHandler();
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
+		myEngine.setRedrawHandler(redrawHandler);
+		myEngine.fireUp();
 	}
 
-	public void init() throws ResourceFailedException {
+	public void initializeGame() throws ResourceFailedException {
 		String myName;
 		List<String> choices = new ArrayList<>();
-		choices.add("Mario");
-		choices.add("Recent Game 2");
-		choices.add("Dog");
+		choices.add("ExampleGame");
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");
 		dialog.setHeaderText("Select a Game");
 		dialog.setContentText("Choose a game:");
 
-		// Traditional way to get the response value.
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()) {
 			myName = result.get();
 		} else {
-			// handle this case
+			//TODO: handle this case
 			throw new ResourceFailedException("Gamefile missing.");
 		}
-
-		// myGame = myReader.read(myName);
-		myGame = null;
-		myRunningGame = dataGameToRunGame(myGame);
-		myEngine = new Engine(myRunningGame);
+		myGame = new DataGame(myName);
 	}
 	
 	private RunGame dataGameToRunGame(DataGame dataGame){
 		return new RunGame(dataGame);
 	}
+	
+	
 }
