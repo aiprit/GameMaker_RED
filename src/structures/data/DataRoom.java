@@ -1,8 +1,6 @@
 package structures.data;
 
 import java.util.List;
-
-import authoring_environment.View;
 import structures.IObject;
 import structures.IRoom;
 
@@ -10,7 +8,16 @@ public class DataRoom implements IRoom {
     List<IObject> roomObjects;
     DataView myView;
     IObject myBackground;
-    double myWidth, myHeight;
+    int myWidth, myHeight;
+    String myName;
+    
+        public DataRoom(String name) {
+            myName = name;
+        }
+        
+        public String toString() {
+            return myName;
+        }
 
 	@Override
 	public void addObject(IObject o) {
@@ -21,7 +28,7 @@ public class DataRoom implements IRoom {
 		roomObjects.remove(o);
 	}
 	@Override
-	public void setSize(double width, double height) {
+	public void setSize(int width, int height) {
 		myWidth = width;
         myHeight = height;
 	}

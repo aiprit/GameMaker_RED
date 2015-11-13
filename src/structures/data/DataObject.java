@@ -35,7 +35,7 @@ public class DataObject implements IObject {
 	}
 
 	@Override
-	public void addSprite(Sprite s) {
+	public void addSprite(DataSprite s) {
 		// TODO Auto-generated method stub
 		
 	}
