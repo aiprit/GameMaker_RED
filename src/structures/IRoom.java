@@ -8,7 +8,7 @@ public interface IRoom {
 	
 	void removeObject(IObject o);
 	
-	void setSize(double width, double height);
+	void setSize(int width, int height);
 	
 	double[] getSize();
 	
@@ -19,4 +19,5 @@ public interface IRoom {
 	void setView(DataView view);
 	
 	DataView getView();
+	
 }

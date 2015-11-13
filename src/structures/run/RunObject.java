@@ -2,9 +2,9 @@ package structures.run;
 
 import java.util.Map;
 import java.util.Vector;
-
 import javafx.event.EventType;
 import javafx.scene.image.ImageView;
+import structures.IObject;
 
 public class RunObject {
 	
@@ -15,5 +15,9 @@ public class RunObject {
 	double rotation;
 	Vector velocity;
 	Map<EventType, RunAction> myEvents;
+	
+	public IObject toData() {
+	    return null;
+	}
 
 }

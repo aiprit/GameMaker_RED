@@ -22,5 +22,9 @@ public class RunRoom {
 	public List<RunObject> getObjects() {
 		return myObjects;
 	}
+	
+	public DataRoom toData() {
+	    return null;
+	}
 
 }

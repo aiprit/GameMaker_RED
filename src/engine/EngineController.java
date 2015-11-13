@@ -62,8 +62,7 @@ public class EngineController {
 	}
 	
 	private RunGame dataGameToRunGame(DataGame dataGame){
-		//change DataGame to RunGame
-		return null;
+		return new RunGame(dataGame);
 	}
 	
 	private class SavedGameHandler {
