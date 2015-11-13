@@ -1,9 +1,9 @@
 package engine;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
 import structures.run.RunGame;
 
@@ -16,6 +16,7 @@ public class Engine {
 	
 	public Engine(RunGame runGame){
 		eventManager = new EventManager(myGame, inputs);
+		inputs = new LinkedList<InputEvent>();
 		myListener = new GamePlayListener(inputs);
 	}
 
