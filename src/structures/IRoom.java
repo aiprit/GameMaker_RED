@@ -1,4 +1,4 @@
-package authoring_environment;
+package structures;
 
 import structures.data.DataView;
 
