@@ -18,10 +18,12 @@ public class EngineController {
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	private RunGame myRunningGame;
+	private IGameEngineHandler myGameEngineHandler;
 	
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame); 
+		myGameEngineHandler = new GameEngineHandler();
+		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler); 
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
