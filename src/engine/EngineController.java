@@ -1,7 +1,11 @@
 package engine;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import XML.XMLReader;
@@ -19,15 +23,20 @@ public class EngineController {
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	private RunGame myRunningGame;
-	
+	private IGameEngineHandler myGameEngineHandler;
+	private Boolean paused;
+	private SavedGameHandler savedGames;
+
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame); 
+		myGameEngineHandler = new GameEngineHandler(paused, savedGames);
+		savedGames = new SavedGameHandler(myGame.getName());
+		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
-	
-	public void init() throws ResourceFailedException{
+
+	public void init() throws ResourceFailedException {
 		String myName;
 		List<String> choices = new ArrayList<>();
 		choices.add("Mario");
@@ -41,21 +50,20 @@ public class EngineController {
 
 		// Traditional way to get the response value.
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    myName = result.get();
+		if (result.isPresent()) {
+			myName = result.get();
 		} else {
-			//handle this case
+			// handle this case
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 
-		//myGame = myReader.read(myName);
+		// myGame = myReader.read(myName);
 		myGame = null;
 		myRunningGame = dataGameToRunGame(myGame);
 		myEngine = new Engine(myRunningGame);
 	}
 	
 	private RunGame dataGameToRunGame(DataGame dataGame){
-		//change DataGame to RunGame
-		return null;
+		return new RunGame(dataGame);
 	}
 }
