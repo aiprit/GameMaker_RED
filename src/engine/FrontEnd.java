@@ -17,7 +17,6 @@ public class FrontEnd {
 	}
 	
 	private void setupCanvas(){
-		//add info from DataGame to Canvas
 		myCanvas = new Canvas();
 	}
 	

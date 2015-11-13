@@ -1,7 +1,13 @@
 package engine;
 
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import XML.XMLReader;
 import XML.XMLWriter;
+import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 
@@ -13,26 +19,36 @@ public class EngineController implements IGameEventListener {
 	private XMLWriter myWriter;
 	
 	public EngineController(Stage stage) {
-		//BorderPane myView = new BorderPane();
+		myFrontEnd = new FrontEnd(stage); 
 		init();
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
-		myFrontEnd = new FrontEnd(stage); 
 	}
 	
 	public void init(){
-		//TODO: Show a popup to get the game they want to play
-		String myName = "";
-		
-		myGame = readXML(myName);
+		String myName;
+		List<String> choices = new ArrayList<>();
+		choices.add("Mario");
+		choices.add("Recent Game 2");
+		choices.add("Dog");
+
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
+		dialog.setTitle("Select a Game");
+		dialog.setHeaderText("Select a Game");
+		dialog.setContentText("Choose a game:");
+
+		// Traditional way to get the response value.
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    myName = result.get();
+		} else {
+			//handle this case
+			throw new InvalidParameterException();
+		}
+
+		myGame = myReader.read(myName);
 		myEngine = new Engine(myGame);
 		myEngine.registerGameEventListener(this);
-	}
-
-	private DataGame readXML(String myName) {
-		//read in file at String from XML reader
-		DataGame game = myReader.read(myName);
-		return game;
 	}
 	
 	private void saveGame(String fileName){
@@ -47,7 +63,7 @@ public class EngineController implements IGameEventListener {
 
 	@Override
 	public void onSave() {
-		// Show file explorer here
+		//TODO: Timestamp name
 		String filename = "asdf";
 		saveGame(filename);
 	}
@@ -57,4 +73,19 @@ public class EngineController implements IGameEventListener {
 		// TODO Auto-generated method stub	
 	}
 
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onRestart() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onLoad() {
+		// TODO Auto-generated method stub
+		// Show file explorer here
+	}
 }
