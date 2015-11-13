@@ -1,102 +1,93 @@
 package structures.data;
 
-import java.awt.geom.Point2D;
-import java.util.Map;
+import java.util.List;
 
 import authoring_environment.Sprite;
-import structures.IEvent;
+import javafx.geometry.Point2D;
 import structures.IObject;
 import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 	
-    Map<IDataEvent, DataAction> actions;
+    List<IDataEvent> myEvents;
 
-    String name;
-    String sprite;
+    String myName;
+    Sprite mySprite;
 
-    Point2D position;
-    double rotation, angularVelocity;
-    double scaleX, scaleY, alpha;
+    Point2D myPosition;
+    double myRotation, myAngularVelocity;
+    double myAlpha, myWidth, myHeight;
     
-    boolean visible;
-    int zIndex;
+    boolean myVisible;
+    int myZIndex;
 
-	@Override
-	public void addEvent(IEvent e) {
-		// TODO Auto-generated method stub
-		
+	public DataObject(String name){
+		myName = name;
 	}
 
 	@Override
-	public void deleteEvent(IEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void addEvent(IDataEvent e) {
+		myEvents.add(e);
+	}
+
+	@Override
+	public void deleteEvent(IDataEvent e) {
+		myEvents.remove(e);
 	}
 
 	@Override
 	public void addSprite(Sprite s) {
-		// TODO Auto-generated method stub
-		
+		mySprite = s;
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		myName = name;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
 	@Override
 	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
-		
+		myWidth = width;
+		myHeight = height;
 	}
 
 	@Override
 	public double[] getSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return new double[] {myWidth, myHeight};
 	}
 
 	@Override
-	public void setPosition(javafx.geometry.Point2D pos) {
-		// TODO Auto-generated method stub
-		
+	public void setPosition(Point2D pos) {
+		myPosition = pos;
 	}
 
 	@Override
 	public javafx.geometry.Point2D getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return myPosition;
 	}
 
 	@Override
 	public void setVisibility(boolean visible) {
-		// TODO Auto-generated method stub
-		
+		myVisible = visible;
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		return myVisible;
 	}
 
 	@Override
 	public void setRotation(double angle) {
-		// TODO Auto-generated method stub
-		
+		myRotation = angle;
 	}
 
 	@Override
 	public double getRotation() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myRotation;
 	}
 }

@@ -1,36 +1,38 @@
 package structures.data;
 
-import java.util.Map;
-
+import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.IRoom;
 
 public class DataGame {
-	
-	Map<String, IRoom> myRooms;
-	Map<String, IObject> myObjects;
-	Map<String, DataSprite> mySprites;
-	Map<String, DataSound> mySounds;
+
+	ObservableMap<String, IRoom> myRooms;
+	ObservableMap<String, IObject> myObjects;
+	ObservableMap<String, DataSprite> mySprites;
+	ObservableMap<String, DataSound> mySounds;
+
     private final String myName;
     String myStartRoomName, myCurrentRoomName;
     double myScreenWidth;
     double myScreenHeight;
-    
+
     public DataGame(String name) {
     	myName = name;
     }
-    
+
     public String getName() {
     	return myName;
     }
-    
+
+   public void addRoom(DataRoom room){
+       myRooms.put(room.getName(), room);
+   }
+
     public double getWidth() {
         return myScreenWidth;
     }
-    
+
     public double getHeight() {
         return myScreenHeight;
     }
-    
-   
 }
