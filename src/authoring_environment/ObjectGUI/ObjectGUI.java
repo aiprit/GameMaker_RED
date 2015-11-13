@@ -27,6 +27,8 @@ public class ObjectGUI {
 		BorderPane myPane = new BorderPane();
 		ObjectLeftPane left = new ObjectLeftPane();
 		//myPane.setLeft(left);
+		ObjectBottomPane bottom = new ObjectBottomPane(myObject);
+		myPane.setBottom(bottom.init());
 	}
 	
 }

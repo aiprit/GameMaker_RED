@@ -1,3 +1,4 @@
+import authoring_environment.ObjectGUI.ObjectGUI;
 import engine.EngineController;
 import exceptions.ResourceFailedException;
 import javafx.application.Application;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
  */
 public class Launcher extends Application {
 	EngineController ec;
+	ObjectGUI og;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -29,6 +31,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
+			
 				//TODO: Open the Authoring Environment here
 			}
 		});
