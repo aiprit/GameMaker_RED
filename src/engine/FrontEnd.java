@@ -33,12 +33,5 @@ public class FrontEnd {
 	
 	private void setupCanvas(){
 		myCanvas = new Canvas();
-		
-		
 	}
-	
-	
-	
-	
-	
 }

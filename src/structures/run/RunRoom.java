@@ -10,6 +10,14 @@ public class RunRoom {
 	RunView myView;
 	ImageView myBackground;
 	
-	List<RunObject> myObjects;
+	private List<RunObject> myObjects;
+	
+	public RunRoom() {
+		
+	}
+	
+	public List<RunObject> getObjects() {
+		return myObjects;
+	}
 
 }

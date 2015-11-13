@@ -3,7 +3,7 @@ package engine;
 import javafx.scene.canvas.Canvas;
 import structures.run.RunRoom;
 
-public class Draw implements IDraw {
+public class Draw {
 	
 	private Canvas myCanvas;
 	
@@ -11,10 +11,6 @@ public class Draw implements IDraw {
 		myCanvas = canvas;
 	}
 
-	@Override
 	public void draw(RunRoom myRoom) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }
