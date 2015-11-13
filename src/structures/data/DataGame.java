@@ -2,16 +2,19 @@ package structures.data;
 
 import java.util.Map;
 
-public abstract class DataGame {
+import structures.IObject;
+import structures.IRoom;
+
+public class DataGame {
 	
-	Map<String, DataRoom> myRooms;
-	Map<String, DataObject> myObjects;
+	Map<String, IRoom> myRooms;
+	Map<String, IObject> myObjects;
 	Map<String, DataSprite> mySprites;
 	Map<String, DataSound> mySounds;
     private final String myName;
     String myStartRoomName, myCurrentRoomName;
-    private double gameScreenWidth;
-    private double gameScreenHeight; 
+    double myScreenWidth;
+    double myScreenHeight;
     
     public DataGame(String name) {
     	myName = name;
@@ -19,6 +22,14 @@ public abstract class DataGame {
     
     public String getName() {
     	return myName;
+    }
+    
+    public double getWidth() {
+        return myScreenWidth;
+    }
+    
+    public double getHeight() {
+        return myScreenHeight;
     }
     
    
