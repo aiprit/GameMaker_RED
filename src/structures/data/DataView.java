@@ -11,29 +11,30 @@ import java.awt.Rectangle;
 public class DataView {
 	
 	private final String myName;
-	private final String myRoomName;
+
+	//width and height of the view
+	//myX and myY is the location on the screen where the top
+	//left corner of the view is drawn
+
+	private double myWidth, myHeight, myX, myY;
 	
-	private Rectangle myBounds;
-	
-	public DataView(String roomName, String name) {
+	public DataView(String name, double width, double height, double x, double y) {
 		myName = name;
-		myRoomName = roomName;
-		myBounds = new Rectangle();
+		myWidth = width;
+		myHeight = height;
+		myX = x;
+		myY = y;
 	}
 
-    public void setBounds(Rectangle bounds){
-    	myBounds = bounds;
-    }
-    
     public String getName() {
     	return myName;
     }
     
-    public String getRoomName() {
-    	return myRoomName;
+    public double[] getBounds() {
+		return new double[] {myWidth, myHeight};
     }
-    
-    public Rectangle getBounds() {
-    	return myBounds;
-    }
+
+	public double[] getPosition(){
+		return new double[] {myX, myY};
+	}
 }

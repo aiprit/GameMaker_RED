@@ -19,4 +19,6 @@ public interface IRoom {
 	void setView(DataView view);
 	
 	DataView getView();
+
+	String getName();
 }
