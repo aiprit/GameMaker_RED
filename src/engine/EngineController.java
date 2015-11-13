@@ -11,7 +11,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 
-public class EngineController implements IGameControlEvent {
+public class EngineController {
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
@@ -19,8 +19,8 @@ public class EngineController implements IGameControlEvent {
 	private XMLWriter myWriter;
 	
 	public EngineController(Stage stage) throws ResourceFailedException {
-		myFrontEnd = new FrontEnd(stage); 
 		init();
+		myFrontEnd = new FrontEnd(stage, myEngine.getListeners()); 
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
@@ -48,45 +48,5 @@ public class EngineController implements IGameControlEvent {
 
 		myGame = myReader.read(myName);
 		myEngine = new Engine(myGame);
-		myEngine.registerGameEventListener(this);
-	}
-	
-	private void saveGame(String fileName){
-		//called from the user interface
-		myWriter.write(myEngine.save(), fileName);
-	}
-
-	@Override
-	public void onNewHighScore(String username, double score) {
-		// TODO Auto-generated method stub	
-	}
-
-	@Override
-	public void onSave() {
-		//TODO: Timestamp name
-		String filename = "asdf";
-		saveGame(filename);
-		
-	}
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub	
-	}
-
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onRestart() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		// Show file explorer here
 	}
 }

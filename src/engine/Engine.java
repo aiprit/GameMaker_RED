@@ -43,6 +43,13 @@ public class Engine {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
+	public IGamePlayListener getListeners() {
+		return myListener;
+	}
+
 //	@Override
 //	public void registerGameEventListener(IGameEventListener listener) {
 //		myListener = listener;
