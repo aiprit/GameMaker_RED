@@ -62,9 +62,8 @@ public class EngineController {
 		myRunningGame = dataGameToRunGame(myGame);
 		myEngine = new Engine(myRunningGame);
 	}
-
-	private RunGame dataGameToRunGame(DataGame dataGame) {
-		// change DataGame to RunGame
-		return null;
+	
+	private RunGame dataGameToRunGame(DataGame dataGame){
+		return new RunGame(dataGame);
 	}
 }
