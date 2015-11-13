@@ -27,4 +27,9 @@ public class StringParam implements IParameter {
 		return myValue;
 	}
 	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.STRING;
+	}
+	
 }

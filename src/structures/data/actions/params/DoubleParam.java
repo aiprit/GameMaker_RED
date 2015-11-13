@@ -36,4 +36,9 @@ public class DoubleParam implements IParameter {
 		return myTitle;
 	}
 	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.DOUBLE;
+	}
+	
 }

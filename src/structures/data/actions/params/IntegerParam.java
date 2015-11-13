@@ -35,5 +35,10 @@ public class IntegerParam implements IParameter {
 	public String getTitle() {
 		return myTitle;
 	}
+	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.INTEGER;
+	}
 
 }

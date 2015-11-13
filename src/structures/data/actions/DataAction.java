@@ -45,5 +45,9 @@ public abstract class DataAction implements IAction {
     	myParameters = new ArrayList<>(Arrays.asList(parameters));
     }
     
+    protected IParameter get(String name) {
+    	return Utils.first(myParameters, e -> (e.getTitle() == name), null);
+    }
+    
 
 }

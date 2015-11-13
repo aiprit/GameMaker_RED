@@ -31,5 +31,10 @@ public class CheckboxParam implements IParameter {
 	public Boolean getValue() {
 		return myValue;
 	}
+	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.CHECKBOX;
+	}
 
 }
