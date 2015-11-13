@@ -42,6 +42,8 @@ public class RoomEditor {
 	
 	public void createEditor() {
 		myEditor = new Stage();
+		CreateView view = new CreateView();
+		myRoot.getChildren().add(view.create());
 		Scene scene = new Scene(myRoot);
 		initializeEditor();
 		//TODO populate the entire dialog
