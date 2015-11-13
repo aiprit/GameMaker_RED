@@ -22,7 +22,6 @@ import structures.run.RunGame;
  * @author loganrooper
  */
 public class FrontEnd {
-	private Canvas myCanvas;
 	private Draw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
@@ -46,7 +45,7 @@ public class FrontEnd {
 			}
 		});
 		setupFramework();
-		//setupCanvas();
+		setupCanvas();
 	}
 	
 	private void setupFramework(){
@@ -68,8 +67,8 @@ public class FrontEnd {
 	}
 	
 	private void setupCanvas(){
-		myCanvas = new Canvas();
-		myCanvasDrawer = new Draw(myCanvas);
+		myCanvasDrawer = new Draw();
+		myRoot.getChildren().add(myCanvasDrawer);
 		myCanvasDrawer.draw(myGame);
 	}
 }

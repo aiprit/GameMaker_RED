@@ -1,27 +1,43 @@
 package engine;
 
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import structures.run.RunGame;
 import structures.run.RunRoom;
 
-public class Draw implements IDraw {
+public class Draw extends StackPane implements IDraw {
 	
 	private Canvas myCanvas;
 	
-	public Draw(Canvas canvas) {
-		myCanvas = canvas;
+	public Draw() {
+		myCanvas = new Canvas();
+		this.getChildren().add(myCanvas);
 	}
 
 	@Override
 	public void draw(RunGame game) {
-		RunRoom myRoom = game.getCurrentRoom();
+		//RunRoom myRoom = game.getCurrentRoom();
 		
-		StackPane myPane = new StackPane();
+		//this.getChildren().remove(myCanvas);
 		
-		if(myRoom.getBackground() != null){
+		//this.setPrefWidth(200);
+		//this.setPrefHeight(200);
+		//this.setStyle("-fx-background-color: black;");
+		
+		myCanvas.setWidth(300);
+		myCanvas.setHeight(300);
+		GraphicsContext gc = myCanvas.getGraphicsContext2D();
+		gc.setFill(Color.TEAL);
+		gc.strokeText("a text", 100, 100);
+		gc.fillRect(0, 0, 20, 20);
+		
+		//if(myRoom.getBackground() != null){
 			//my
-		}
+		//}
+		
 	}
 }
