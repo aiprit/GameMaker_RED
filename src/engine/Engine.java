@@ -1,38 +1,39 @@
 package engine;
 
-import structures.data.DataGame;
-import structures.run.*;
+import java.util.Queue;
 
-public class Engine implements IEngine {
+import javafx.scene.input.InputEvent;
+import structures.data.DataGame;
+import structures.run.RunGame;
+
+public class Engine {
 	
 	private RunGame myGame;
 	private Draw myDraw;
 	private EventManager eventManager;
-	private IGameEventListener myListener;
+	private IGamePlayListener myListener;
+	private Queue<InputEvent> inputs;
 	
 	public Engine(DataGame dataGame){
 		myGame = dataGameToRunGame(dataGame);
 		eventManager = new EventManager(myGame);
+		myListener = new GamePlayListener(inputs);
 	}
 
-	@Override
 	public void load(DataGame dataGame) {
 		myGame = dataGameToRunGame(dataGame);
 	}
 	
-	@Override
 	public void step() {
 		eventManager.step();
 		myDraw.draw(myGame.getCurrentRoom());
 	}
 
-	@Override
 	public DataGame save() {
 		DataGame currentGameData = myGame.toData();
 		return currentGameData;
 	}
 
-	@Override
 	public void reset() {
 		
 	}
@@ -42,9 +43,11 @@ public class Engine implements IEngine {
 		return null;
 	}
 
-	@Override
-	public void registerGameEventListener(IGameEventListener listener) {
-		myListener = listener;
-	}
+//	@Override
+//	public void registerGameEventListener(IGameEventListener listener) {
+//		myListener = listener;
+//		
+//		myListener.() = 
+//	}
 
 }

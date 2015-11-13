@@ -1,31 +1,31 @@
 package engine;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import XML.XMLReader;
 import XML.XMLWriter;
+import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 
-public class EngineController implements IGameEventListener {
+public class EngineController implements IGameControlEvent {
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	
-	public EngineController(Stage stage) {
+	public EngineController(Stage stage) throws ResourceFailedException {
 		myFrontEnd = new FrontEnd(stage); 
 		init();
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
 	
-	public void init(){
+	public void init() throws ResourceFailedException{
 		String myName;
 		List<String> choices = new ArrayList<>();
 		choices.add("Mario");
@@ -43,7 +43,7 @@ public class EngineController implements IGameEventListener {
 		    myName = result.get();
 		} else {
 			//handle this case
-			throw new InvalidParameterException();
+			throw new ResourceFailedException("Gamefile missing.");
 		}
 
 		myGame = myReader.read(myName);
@@ -66,6 +66,7 @@ public class EngineController implements IGameEventListener {
 		//TODO: Timestamp name
 		String filename = "asdf";
 		saveGame(filename);
+		
 	}
 
 	@Override
