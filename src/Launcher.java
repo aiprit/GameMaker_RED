@@ -1,3 +1,4 @@
+import engine.EngineController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +26,7 @@ public class Launcher extends Application {
  
             @Override
             public void handle(ActionEvent event) {
-                
+                //TODO: Open the Authoring Environment here
             }
         });
         Button btn1 = new Button();
@@ -34,7 +35,7 @@ public class Launcher extends Application {
  
             @Override
             public void handle(ActionEvent event) {
-                
+                EngineController ec = new EngineController(primaryStage);
             }
         });
         

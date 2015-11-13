@@ -4,6 +4,7 @@
 package engine;
 
 import javafx.scene.canvas.Canvas;
+import javafx.stage.Stage;
 
 /**
  * @author loganrooper
@@ -11,8 +12,8 @@ import javafx.scene.canvas.Canvas;
 public class FrontEnd {
 	private Canvas myCanvas;
 	
-	public FrontEnd() {
-		
+	public FrontEnd(Stage stage) {
+		stage.hide();
 	}
 	
 	private void setupCanvas(){

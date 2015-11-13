@@ -1,29 +1,31 @@
 package engine;
 
-import XML.*;
-import javafx.scene.canvas.Canvas;
+import XML.XMLReader;
+import XML.XMLWriter;
+import javafx.stage.Stage;
 import structures.data.DataGame;
 
-public class EngineController implements IEngineController, IGameEventListener {
-	
+public class EngineController implements IGameEventListener {
 	private DataGame myGame;
 	private Engine myEngine;
-	private FrontEnd frontEnd;
-	
+	private FrontEnd myFrontEnd;
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	
-	public EngineController(String gameName){
+	public EngineController(Stage stage) {
 		//BorderPane myView = new BorderPane();
-		init(gameName);
+		init();
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
+		myFrontEnd = new FrontEnd(stage); 
 	}
 	
-	@Override
-	public void init(String myName){
+	public void init(){
+		//TODO: Show a popup to get the game they want to play
+		String myName = "";
+		
 		myGame = readXML(myName);
-		myEngine = new Engine(myGame, myCanvas);
+		myEngine = new Engine(myGame);
 		myEngine.registerGameEventListener(this);
 	}
 
@@ -32,8 +34,6 @@ public class EngineController implements IEngineController, IGameEventListener {
 		DataGame game = myReader.read(myName);
 		return game;
 	}
-	
-	
 	
 	private void saveGame(String fileName){
 		//called from the user interface
