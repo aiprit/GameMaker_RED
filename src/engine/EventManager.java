@@ -2,10 +2,7 @@ package engine;
 
 import java.util.List;
 import java.util.Queue;
-
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import structures.run.RunGame;
 import structures.run.RunObject;
 
@@ -17,6 +14,10 @@ public class EventManager {
 	public EventManager(RunGame game, Queue<InputEvent> inputs){
 		myGame = game;
 		this.inputs = inputs;
+	}
+	
+	public void load(RunGame game) {
+	    myGame = game;
 	}
 	
 	void loop() {
