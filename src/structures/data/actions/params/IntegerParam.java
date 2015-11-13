@@ -27,13 +27,18 @@ public class IntegerParam implements IParameter {
 		return myString;
 	}
 	
-	public int getValue() {
+	public Integer getValue() {
 		return myNum;
 	}
 	
 	@Override
 	public String getTitle() {
 		return myTitle;
+	}
+	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.INTEGER;
 	}
 
 }
