@@ -9,4 +9,5 @@ package engine;
  */
 public interface IRedrawHandler {
 	public void redraw();
+	public void setDrawer(Draw draw);
 }
