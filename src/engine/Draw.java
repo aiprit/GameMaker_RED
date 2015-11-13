@@ -24,5 +24,4 @@ public class Draw implements IDraw {
 			//my
 		}
 	}
-
 }

@@ -72,9 +72,4 @@ public class FrontEnd {
 		myCanvasDrawer = new Draw(myCanvas);
 		myCanvasDrawer.draw(myGame);
 	}
-	
-	
-	
-	
-	
 }

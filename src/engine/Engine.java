@@ -3,6 +3,7 @@ package engine;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
 import structures.run.RunGame;
 
@@ -14,7 +15,7 @@ public class Engine {
 	private Queue<InputEvent> inputs;
 	
 	public Engine(RunGame runGame){
-		eventManager = new EventManager(myGame);
+		eventManager = new EventManager(myGame, inputs);
 		myListener = new GamePlayListener(inputs);
 	}
 
@@ -23,7 +24,7 @@ public class Engine {
 	}
 	
 	public void step() {
-		eventManager.step();
+		eventManager.loop();
 	}
 
 	public DataGame save() {
@@ -35,9 +36,6 @@ public class Engine {
 		
 	}
 
-	/**
-	 * @return
-	 */
 	public IGamePlayListener getListeners() {
 		return myListener;
 	}
