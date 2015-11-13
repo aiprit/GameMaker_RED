@@ -106,8 +106,7 @@ public class FrontEnd {
 	
 	private void setupCanvas() throws CompileTimeException{
 		myCanvas = new Canvas();
-		myCanvasDrawer = new Draw(myCanvas);
-		myCanvasDrawer.draw(myGame);
+		redrawHandler.setDrawer(new Draw(myCanvas));
 	}
 
 	public IRedrawHandler getRedrawHandler() {
