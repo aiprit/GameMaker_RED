@@ -1,6 +1,6 @@
 package engine;
 
-public interface IPlayer {
+public interface IEngineController {
 
 	void init(String myName);
 	
