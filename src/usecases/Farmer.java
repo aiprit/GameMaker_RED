@@ -6,7 +6,7 @@ import structures.data.*;
 public class Farmer {
 	
 	public static void main(String[] args){
-		Player myPlayer = new Player("farmerGame");
+		EngineController myPlayer = new EngineController("farmerGame");
 	}
 
 }

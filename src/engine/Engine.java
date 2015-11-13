@@ -13,9 +13,8 @@ public class Engine implements IEngine, IControlListener {
 	private Logic myLogic;
 	private IGameEventListener myListener;
 	
-	public Engine(DataGame dataGame, Canvas canvas){
+	public Engine(DataGame dataGame){
 		myGame = dataGameToRunGame(dataGame);
-		myDraw = new Draw(canvas);
 		myLogic = new Logic(myGame);
 	}
 
