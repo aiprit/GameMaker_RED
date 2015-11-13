@@ -10,6 +10,8 @@ public abstract class DataGame {
 	Map<String, DataSound> mySounds;
     private final String myName;
     String myStartRoomName, myCurrentRoomName;
+    private double gameScreenWidth;
+    private double gameScreenHeight; 
     
     public DataGame(String name) {
     	myName = name;
