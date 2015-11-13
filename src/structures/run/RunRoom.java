@@ -1,15 +1,30 @@
 package structures.run;
 
 import java.util.List;
-
-import javafx.scene.image.ImageView;
+import structures.data.DataRoom;
 
 public class RunRoom {
 	
-	String name;
+	String myName;
 	RunView myView;
-	ImageView myBackground;
-	
+	String background;
 	List<RunObject> myObjects;
+	
+	public RunRoom(DataRoom dataRoom) {
+		myName = dataRoom.toString();
+		myView = new RunView(dataRoom.getView());
+	}
+	
+	public String getBackground(){
+		return background;
+	}
+	
+	public List<RunObject> getObjects() {
+		return myObjects;
+	}
+	
+	public DataRoom toData() {
+	    return null;
+	}
 
 }
