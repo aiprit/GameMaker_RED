@@ -14,10 +14,6 @@ public class RunSprite {
     
     public RunSprite(DataSprite dataSprite) {
         myName = dataSprite.getFileName();
-        myImages = dataSprite.getImages();
-        myNumberOfImages = dataSprite.g
     }
-    
-    public void 
 
 }
