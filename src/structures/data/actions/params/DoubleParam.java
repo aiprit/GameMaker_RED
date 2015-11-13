@@ -27,7 +27,7 @@ public class DoubleParam implements IParameter {
 		return myString;
 	}
 	
-	public double getValue() {
+	public Double getValue() {
 		return myValue;
 	}
 

@@ -27,7 +27,7 @@ public class IntegerParam implements IParameter {
 		return myString;
 	}
 	
-	public int getValue() {
+	public Integer getValue() {
 		return myNum;
 	}
 	

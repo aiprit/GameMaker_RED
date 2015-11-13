@@ -1,11 +1,14 @@
 package structures.data.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.IllegalFormatException;
 import java.util.List;
 
 import exceptions.CompileTimeException;
 import structures.data.actions.params.IParameter;
+import utils.Utils;
 
 /**
  * Multiple Actions can be attached to an Event within an Object.
@@ -15,39 +18,32 @@ import structures.data.actions.params.IParameter;
  * what goes into the argument List.
  *
  */
-public class DataAction implements IAction {
-
-	private List<IParameter> myParameters;
-    
-    public DataAction() {
-
-    }
-    
-    public void setSyntax(String syntax) {
-    }
-    
-    public String compileSyntax() throws CompileTimeException {
-    	/*
-    	List
-    	
-    	Object[] args = myParameters.toArray(new String[myArguments.size()]);
-    	try {
-    		return String.format(mySyntax, args);
-    	} catch (IllegalFormatException ex) {
-    		throw new CompileTimeException("Bad arguments for Action '%s': %s", myActionType, myArguments);
-    	}*/
-    	return "";
-    }
-
-	@Override
+public abstract class DataAction implements IAction {
+	
+	protected List<IParameter> myParameters;
+	
+	protected abstract String getSyntax();
+	
 	public List<IParameter> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableList(myParameters);
 	}
+	
+	public String compileSyntax() throws CompileTimeException {
+		return compile(getSyntax());
+	}
+    
+    public String compile(String syntax) throws CompileTimeException {
+    	List<Object> params = Utils.transform(getParameters(), e -> e.getValue());
+    	try {
+    		return String.format(syntax, params.toArray());
+    	} catch (IllegalFormatException ex) {
+    		throw new CompileTimeException("Bad arguments for Action '%s'", this.getTitle());
+    	}
+    }
+    
+    public void init(IParameter... parameters) {
+    	myParameters = new ArrayList<>(Arrays.asList(parameters));
+    }
+    
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

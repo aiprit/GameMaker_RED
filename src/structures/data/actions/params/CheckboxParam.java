@@ -28,7 +28,7 @@ public class CheckboxParam implements IParameter {
 		return myTitle;
 	}
 	
-	public boolean getValue() {
+	public Boolean getValue() {
 		return myValue;
 	}
 

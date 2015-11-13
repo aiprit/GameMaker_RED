@@ -7,6 +7,7 @@ import structures.data.actions.params.IParameter;
 
 public interface IAction {
 	public List<IParameter> getParameters();
-	public String getName();
+	public String getTitle();
+	public String getDescription()
 	public String compileSyntax() throws CompileTimeException;
 }
