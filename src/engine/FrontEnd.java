@@ -31,7 +31,7 @@ public class FrontEnd {
 		myGame = game;
 		//stage.hide();
 		myRoot = new Group();
-		Scene playScene = new Scene(myRoot, 400, 400, Color.AQUA);
+		Scene playScene = new Scene(myRoot, 400, 400);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
