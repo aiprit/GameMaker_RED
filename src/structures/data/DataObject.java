@@ -11,12 +11,13 @@ import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 	
-    Map<IDataEvent, DataObject> actions;
+    Map<IDataEvent, DataAction> actions;
+
     String name;
     String sprite;
 
     Point2D position;
-    double direction, angularVelocity;
+    double rotation, angularVelocity;
     double scaleX, scaleY, alpha;
     
     boolean visible;
