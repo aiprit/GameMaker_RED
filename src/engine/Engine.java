@@ -1,64 +1,50 @@
 package engine;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyEvent;
+import java.util.Queue;
+
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
-import structures.run.*;
+import structures.run.RunGame;
 
-public class Engine implements IEngine, IControlListener {
+public class Engine {
 	
 	private RunGame myGame;
-	private Draw myDraw;
-	private Logic myLogic;
-	private IGameEventListener myListener;
+	private EventManager eventManager;
+	private IGamePlayListener myListener;
+	private Queue<InputEvent> inputs;
 	
-	public Engine(DataGame dataGame){
-		myGame = dataGameToRunGame(dataGame);
-		myLogic = new Logic(myGame);
+	public Engine(RunGame runGame){
+		eventManager = new EventManager(myGame, inputs);
+		myListener = new GamePlayListener(inputs);
 	}
 
-	@Override
-	public void load(DataGame dataGame) {
-		myGame = dataGameToRunGame(dataGame);
+	public void load(RunGame runGame) {
+		myGame = runGame;
 	}
 	
-	@Override
 	public void step() {
-		myLogic.step();
-		myDraw.draw(myGame.getCurrentRoom());
+		eventManager.loop();
 	}
 
-	@Override
 	public DataGame save() {
 		DataGame currentGameData = myGame.toData();
 		return currentGameData;
 	}
 
-	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		
 	}
-	
-	private RunGame dataGameToRunGame(DataGame dataGame){
-		//change DataGame to RunGame
-		return null;
+
+	public IGamePlayListener getListeners() {
+		return myListener;
 	}
 
-	@Override
-	public void onKeyEvent(KeyEvent event) {
-		myLogic.onKeyEvent(event);
-	}
-
-	@Override
-	public void onMouseEvent(MouseEvent event) {
-		myLogic.onMouseEvent(event);
-	}
-
-	@Override
-	public void registerGameEventListener(IGameEventListener listener) {
-		myListener = listener;
-	}
+//	@Override
+//	public void registerGameEventListener(IGameEventListener listener) {
+//		myListener = listener;
+//		
+//		myListener.() = 
+//	}
 
 }
