@@ -32,7 +32,7 @@ public class FrontEnd {
 	private RunGame game;
 	private Stage stage;
 	
-	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGameEngineHandler geHandler) {
+	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) {
 		this.geHandler = geHandler;
 		this.gpHandler = gpHandler;
 		this.game = game;

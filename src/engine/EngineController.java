@@ -39,9 +39,7 @@ public class EngineController {
 	public void init() throws ResourceFailedException {
 		String myName;
 		List<String> choices = new ArrayList<>();
-		choices.add("Mario");
-		choices.add("Recent Game 2");
-		choices.add("Dog");
+		choices.add("ExampleGame");
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");

@@ -7,7 +7,7 @@ import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
 
-public class RunGame implements IRun {
+public class RunGame implements Cloneable {
 
 	private final String myName;
 	private List<RunRoom> myRooms;
@@ -29,7 +29,6 @@ public class RunGame implements IRun {
 		return myRooms.get(myCurrentRoomNumber);
 	}
 
-	@Override
 	public DataGame toData() {
 		Map<String, IRoom> rooms = new HashMap<>();
 		Map<String, IObject> objects = new HashMap<>();
@@ -58,5 +57,4 @@ public class RunGame implements IRun {
 	    }
 	    return rg;
 	}
-
 }

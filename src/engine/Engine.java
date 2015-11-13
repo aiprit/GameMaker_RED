@@ -22,7 +22,7 @@ public class Engine {
 		myGame = runGame;
 		myOriginalGame = (RunGame) runGame.clone();
 		eventManager = new EventManager(myGame, inputs);
-		myListener = new GamePlayListener(inputs);
+		myListener = new GamePlayHandler(inputs);
 	}
 
 	public void load(RunGame runGame) {
