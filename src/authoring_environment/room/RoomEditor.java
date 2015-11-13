@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import structures.IObject;
 
 public class RoomEditor {
+	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
 	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
 	private static final String ROOM_EDITOR_HEIGHT = "RoomEditorHeight";
@@ -21,8 +22,7 @@ public class RoomEditor {
 	
 	private Stage myEditor;
 	private Group myRoot;
-	private Group myPreviewRoot;
-	private ObjectListView myObjectListView;
+	private ObjectListContainer myObjectsList;
 	private RoomPreview myPreview;
 	
 	
@@ -50,6 +50,7 @@ public class RoomEditor {
 		myEditor = new Stage();
 		Scene scene = new Scene(myRoot);
 		initializeEditor();
+		fillEditorWithComponents();
 		//TODO populate the entire dialog
 		myEditor.setScene(scene);
 		myEditor.show();
@@ -58,20 +59,21 @@ public class RoomEditor {
 	private void initializeEditor() {
 		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
-		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
+		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
 	}
 	
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
-		HBox objectsAndPreview = new HBox();
-		myObjectListView = new ObjectListView(myObjects);
-		initializePreview();
-		objectsAndPreview.getChildren().addAll(myObjectListView, myPreview);
+		initializeObjectListAndPreview(totalPane);
+		myRoot.getChildren().add(totalPane);
 	}
 	
-	private void initializePreview() {
-		myPreviewRoot = new Group();
-		myPreview = new RoomPreview(myPreviewRoot);
+	private void initializeObjectListAndPreview(VBox totalPane) {
+		HBox objectsAndPreview = new HBox();
+		myObjectsList = new ObjectListContainer(myResources, myObjects);
+		myPreview = new RoomPreview(myResources);
+		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
+		totalPane.getChildren().add(objectsAndPreview);
 	}
 	
 }
