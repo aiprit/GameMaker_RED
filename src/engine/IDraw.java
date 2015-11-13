@@ -1,9 +1,9 @@
 package engine;
 
-import structures.run.RunRoom;
+import structures.run.RunGame;
 
 public interface IDraw {
 	
-	void draw(RunRoom myRoom);
+	void draw(RunGame myGame);
 
 }

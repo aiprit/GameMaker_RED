@@ -1,60 +1,61 @@
 package engine;
 
-import XML.*;
-import javafx.scene.canvas.Canvas;
-import structures.data.DataGame;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-public class EngineController implements IEngineController, IGameEventListener {
-	
+import XML.XMLReader;
+import XML.XMLWriter;
+import exceptions.ResourceFailedException;
+import javafx.scene.control.ChoiceDialog;
+import javafx.stage.Stage;
+import structures.data.DataGame;
+import structures.run.RunGame;
+
+public class EngineController {
 	private DataGame myGame;
 	private Engine myEngine;
-	private FrontEnd frontEnd;
-	
+	private FrontEnd myFrontEnd;
 	private XMLReader myReader;
 	private XMLWriter myWriter;
+	private RunGame myRunningGame;
 	
-	public EngineController(String gameName){
-		//BorderPane myView = new BorderPane();
-		init(gameName);
+	public EngineController(Stage stage) throws ResourceFailedException {
+		init();
+		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame); 
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
 	}
 	
-	@Override
-	public void init(String myName){
-		myGame = readXML(myName);
-		myEngine = new Engine(myGame, myCanvas);
-		myEngine.registerGameEventListener(this);
-	}
+	public void init() throws ResourceFailedException{
+		String myName;
+		List<String> choices = new ArrayList<>();
+		choices.add("Mario");
+		choices.add("Recent Game 2");
+		choices.add("Dog");
 
-	private DataGame readXML(String myName) {
-		//read in file at String from XML reader
-		DataGame game = myReader.read(myName);
-		return game;
+		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
+		dialog.setTitle("Select a Game");
+		dialog.setHeaderText("Select a Game");
+		dialog.setContentText("Choose a game:");
+
+		// Traditional way to get the response value.
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    myName = result.get();
+		} else {
+			//handle this case
+			throw new ResourceFailedException("Gamefile missing.");
+		}
+
+		//myGame = myReader.read(myName);
+		myGame = null;
+		myRunningGame = dataGameToRunGame(myGame);
+		myEngine = new Engine(myRunningGame);
 	}
 	
-	
-	
-	private void saveGame(String fileName){
-		//called from the user interface
-		myWriter.write(myEngine.save(), fileName);
+	private RunGame dataGameToRunGame(DataGame dataGame){
+		//change DataGame to RunGame
+		return null;
 	}
-
-	@Override
-	public void onNewHighScore(String username, double score) {
-		// TODO Auto-generated method stub	
-	}
-
-	@Override
-	public void onSave() {
-		// Show file explorer here
-		String filename = "asdf";
-		saveGame(filename);
-	}
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub	
-	}
-
 }
