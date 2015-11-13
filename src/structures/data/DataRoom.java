@@ -32,7 +32,7 @@ public class DataRoom implements IRoom {
 	}
 
 	@Override
-	public void setSize(double width, double height) {
+	public void setSize(int width, int height) {
 		myWidth = width;
         myHeight = height;
 	}

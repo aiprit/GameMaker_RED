@@ -5,7 +5,7 @@ import structures.IObject;
 import structures.IRoom;
 
 public class DataGame {
-	
+
 	ObservableMap<String, IRoom> myRooms;
 	ObservableMap<String, IObject> myObjects;
 	ObservableMap<String, DataSprite> mySprites;
@@ -14,16 +14,24 @@ public class DataGame {
     String myStartRoomName, myCurrentRoomName;
     double myScreenWidth;
     double myScreenHeight;
-    
+
     public DataGame(String name) {
     	myName = name;
     }
-    
+
     public String getName() {
     	return myName;
     }
-    
+
    public void addRoom(DataRoom room){
        myRooms.put(room.getName(), room);
    }
+
+    public double getWidth() {
+        return myScreenWidth;
+    }
+
+    public double getHeight() {
+        return myScreenHeight;
+    }
 }
