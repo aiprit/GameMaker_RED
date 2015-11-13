@@ -21,6 +21,7 @@ public class DataRoom implements IRoom {
 		myView = new DataView("MainView", width, height, 0, 0);
 	}
 
+
 	@Override
 	public void addObject(IObject o) {
 		roomObjects.add(o);

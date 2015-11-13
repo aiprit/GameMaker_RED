@@ -10,6 +10,7 @@ public class DataGame {
 	ObservableMap<String, IObject> myObjects;
 	ObservableMap<String, DataSprite> mySprites;
 	ObservableMap<String, DataSound> mySounds;
+
     private final String myName;
     String myStartRoomName, myCurrentRoomName;
     double myScreenWidth;
