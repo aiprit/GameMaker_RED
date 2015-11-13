@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
@@ -17,8 +18,12 @@ public class RoomEditor {
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
 	private Map<String, IObject> myObjects;
+	
 	private Stage myEditor;
 	private Group myRoot;
+	private Group myPreviewRoot;
+	private ObjectListView myObjectListView;
+	private RoomPreview myPreview;
 	
 	
 	/**
@@ -58,7 +63,15 @@ public class RoomEditor {
 	
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
-		
+		HBox objectsAndPreview = new HBox();
+		myObjectListView = new ObjectListView(myObjects);
+		initializePreview();
+		objectsAndPreview.getChildren().addAll(myObjectListView, myPreview);
+	}
+	
+	private void initializePreview() {
+		myPreviewRoot = new Group();
+		myPreview = new RoomPreview(myPreviewRoot);
 	}
 	
 }
