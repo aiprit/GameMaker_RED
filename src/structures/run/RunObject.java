@@ -18,6 +18,10 @@ public class RunObject implements IRunDrawable {
 	double x;
 	double y;
 	
+	public String getName(){
+		return name;
+	}
+	
 	public IObject toData() {
 	    return null;
 	}

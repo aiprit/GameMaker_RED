@@ -33,16 +33,16 @@ public class FrontEnd {
 	private Stage stage;
 	private IRedrawHandler redrawHandler;
 
-	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) {
+	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) throws CompileTimeException {
 		this.geHandler = geHandler;
 		this.gpHandler = gpHandler;
 		this.game = game;
 		this.stage = stage;
-		setupFramework();
 		redrawHandler = new RedrawHandler();
+		setupFramework();
 	}
 
-	private void setupFramework(){
+	private void setupFramework() throws CompileTimeException{
 		myGame = game;
 		myRoot = new Group();
 		Scene playScene = new Scene(myRoot, 400, 400);
@@ -59,11 +59,6 @@ public class FrontEnd {
 				gpHandler.setOnEvent(event);
 			}
 		});
-		setupFramework();
-		setupCanvas();
-	}
-
-	private void setupFramework(){
 		MenuBar myMenus = new MenuBar();
 		myMenus.useSystemMenuBarProperty().set(true);
 		Menu fileMenu = new Menu("File");
@@ -104,17 +99,13 @@ public class FrontEnd {
 		fileMenu.getItems().addAll(reset, save, close, pause);
 		view.getItems().addAll(highScore, showHelp);
 		myRoot.getChildren().add(myMenus);
+		setupCanvas();
 	}
 
 	private void setupCanvas() throws CompileTimeException{
-<<<<<<< HEAD
 		myCanvasDrawer = new Draw();
 		myRoot.getChildren().add(myCanvasDrawer);
-		myCanvasDrawer.draw(myGame);
-=======
-		myCanvas = new Canvas();
-		redrawHandler.setDrawer(new Draw(myCanvas));
->>>>>>> 58b53c7bc1d9ad0b58bbf91f7e13991a1570c63f
+		redrawHandler.setDrawer(myCanvasDrawer);
 	}
 
 	public IRedrawHandler getRedrawHandler() {

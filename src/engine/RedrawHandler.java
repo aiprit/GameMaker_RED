@@ -14,7 +14,7 @@ public class RedrawHandler implements IRedrawHandler {
 	Draw draw;
 	private RunGame myGame;
 	
-	public RedrawHandler(RunGame myGame) {
+	public RedrawHandler() {
 		this.myGame = myGame;
 	}
 	

@@ -32,7 +32,7 @@ public class RunGame implements Cloneable {
 
 	public RunRoom getCurrentRoom() throws CompileTimeException {
 		if (myRooms.size() == 0)
-			return new RunRoom(new DataRoom("DefaultRoom"));
+			return new RunRoom(new DataRoom("DefaultRoom", 400, 400));
 		if (myRooms.size() <= myCurrentRoomNumber)
 			throw new CompileTimeException(String.format("Couldn't select room: %d", myCurrentRoomNumber));
 		return myRooms.get(myCurrentRoomNumber);
@@ -44,7 +44,7 @@ public class RunGame implements Cloneable {
 		for (RunRoom runRoom : myRooms) {
 			rooms.put(runRoom.myName, runRoom.toData());
 			for (RunObject runObject : runRoom.myObjects) {
-				objects.put(runObject.name, runObject.toData());
+				objects.put(runObject.getName(), runObject.toData());
 			}
 		}
 		String currentRoom = myRooms.get(myCurrentRoomNumber).myName;

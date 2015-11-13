@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import XML.XMLReader;
 import XML.XMLWriter;
+import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -28,13 +29,17 @@ public class EngineController {
 	private SavedGameHandler savedGames;
 	private IRedrawHandler redrawHandler;
 
-	public EngineController(Stage stage) throws ResourceFailedException {
+	public EngineController(Stage stage) {
 		initializeGame();
 		myRunningGame = dataGameToRunGame(myGame);
 		myEngine = new Engine(myRunningGame);
 		myGameEngineHandler = new GameEngineHandler(paused, savedGames);
 		savedGames = new SavedGameHandler(myGame.getName());
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
+		try {
+			myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
+		} catch (CompileTimeException e) {
+			e.printStackTrace();
+		}
 		redrawHandler = myFrontEnd.getRedrawHandler();
 		myReader = new XMLReader();
 		myWriter = new XMLWriter();
@@ -42,8 +47,8 @@ public class EngineController {
 		myEngine.fireUp();
 	}
 
-	public void initializeGame() throws ResourceFailedException {
-		String myName;
+	public void initializeGame() {
+		String myName = "";
 		List<String> choices = new ArrayList<>();
 		choices.add("ExampleGame");
 
@@ -56,15 +61,14 @@ public class EngineController {
 		if (result.isPresent()) {
 			myName = result.get();
 		} else {
-			//TODO: handle this case
-			throw new ResourceFailedException("Gamefile missing.");
+			// TODO: handle this case
+			System.err.println("Gamefile missing.");
 		}
 		myGame = new DataGame(myName);
 	}
-	
-	private RunGame dataGameToRunGame(DataGame dataGame){
+
+	private RunGame dataGameToRunGame(DataGame dataGame) {
 		return new RunGame(dataGame);
 	}
-	
-	
+
 }
