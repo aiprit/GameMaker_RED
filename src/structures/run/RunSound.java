@@ -10,7 +10,7 @@ public class RunSound {
     
     public RunSound(DataSound dataSound) {
         myAudioStream = dataSound.getAudio();
-        myName = dataSound.getFileName();
+        myName = dataSound.getName();
     }
     
     public void playSound() {
