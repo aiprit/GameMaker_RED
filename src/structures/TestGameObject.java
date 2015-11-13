@@ -14,7 +14,7 @@ public class TestGameObject {
         DataObject player = new DataObject("Player");
         DataObject coin = new DataObject("Coin");
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
-        
+
 
         DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
