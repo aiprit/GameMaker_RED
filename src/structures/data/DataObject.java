@@ -3,10 +3,9 @@ package structures.data;
 import java.awt.geom.Point2D;
 import java.util.Map;
 
-
-import authoring_environment.IEvent;
-import authoring_environment.IObject;
 import authoring_environment.Sprite;
+import structures.IEvent;
+import structures.IObject;
 import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {

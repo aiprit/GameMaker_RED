@@ -1,5 +1,6 @@
-package authoring_environment;
+package structures;
 
+import authoring_environment.Sprite;
 import javafx.geometry.Point2D;
 
 public interface IObject {
