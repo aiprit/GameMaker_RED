@@ -1,10 +1,11 @@
-package structures.data;
+package structures.data.actions;
 
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
 
 import exceptions.CompileTimeException;
+import structures.data.actions.params.IParameter;
 
 /**
  * Multiple Actions can be attached to an Event within an Object.
@@ -14,35 +15,39 @@ import exceptions.CompileTimeException;
  * what goes into the argument List.
  *
  */
-public class DataAction {
+public class DataAction implements IAction {
 
-	private final String myActionType;
-	private String mySyntax;
-    private List<String> myArguments;
+	private List<IParameter> myParameters;
     
-    public DataAction(String actionType) {
-    	myActionType = actionType;
-    	myArguments = new ArrayList<String>();
+    public DataAction() {
+
     }
     
     public void setSyntax(String syntax) {
-    	mySyntax = syntax;
-    }
-    
-    public void setArguments(List<String> arguments) {
-    	myArguments = arguments;
-    }
-    
-    public List<String> getArguments() {
-    	return myArguments;
     }
     
     public String compileSyntax() throws CompileTimeException {
-    	Object[] args = myArguments.toArray(new String[myArguments.size()]);
+    	/*
+    	List
+    	
+    	Object[] args = myParameters.toArray(new String[myArguments.size()]);
     	try {
     		return String.format(mySyntax, args);
     	} catch (IllegalFormatException ex) {
     		throw new CompileTimeException("Bad arguments for Action '%s': %s", myActionType, myArguments);
-    	}
+    	}*/
+    	return "";
     }
+
+	@Override
+	public List<IParameter> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
