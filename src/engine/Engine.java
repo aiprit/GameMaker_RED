@@ -11,7 +11,7 @@ public class Engine {
 	
 	private RunGame myGame;
 	private EventManager eventManager;
-	private IGamePlayListener myListener;
+	private IGamePlayHandler myListener;
 	private Queue<InputEvent> inputs;
 	
 	public Engine(RunGame runGame){
@@ -37,7 +37,7 @@ public class Engine {
 		
 	}
 
-	public IGamePlayListener getListeners() {
+	public IGamePlayHandler getListeners() {
 		return myListener;
 	}
 
