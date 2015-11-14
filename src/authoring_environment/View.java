@@ -1,8 +1,7 @@
 package authoring_environment;
 
-
 import java.awt.List;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,10 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+
 //import groovy.util.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -35,6 +31,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,6 +48,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import structures.data.*;
+
 public class View implements Observer{
 
 	
@@ -62,8 +60,10 @@ public class View implements Observer{
 	private static int DEFAULT_WIDTH = 1000;
 	private static int DEFAULT_HEIGHT = 1000;
 
+
 	private static int COLUMN_SPACE = 1;
 	private static int ROW_SPACE = 1;
+
 
 	public View(){
 		//myGame = new DataGame(DEFAULT_NAME);
@@ -84,14 +84,11 @@ public class View implements Observer{
 			 );
 		bp.setTop(toolBar);
 
-		
 		VBox rightWindow = new VBox();
 		addObjectWindow(bp);
 		addSoundWindow(rightWindow);
 		addSpriteWindow(rightWindow);
 		bp.setRight(rightWindow);
-		
-
 
 		Scene s = new Scene(bp, DEFAULT_WIDTH, DEFAULT_HEIGHT, Color.WHITE);
 		myStage.setScene(s);
@@ -103,6 +100,7 @@ public class View implements Observer{
 		RoomView.setVgap(10);
 		RoomView.setHgap(20);
 		Button plus = new Button(" + ");
+
 		plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
@@ -116,6 +114,7 @@ public class View implements Observer{
 				dialog.show();
 			}
 		});
+
 		RoomView.add(plus, COLUMN_SPACE, ROW_SPACE);
 		RoomView.add(new Button(), 2, 1);
 		bp.setCenter(RoomView);
@@ -124,6 +123,7 @@ public class View implements Observer{
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
+
 				 //Parent root;
 			        //			            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
 					//			            Stage stage = new Stage();
@@ -141,6 +141,9 @@ public class View implements Observer{
 					Scene dialogScene = new Scene(dialogVbox, 300, 200);
 					dialog.setScene(dialogScene);
 					dialog.show();
+
+				System.out.println("hey");
+
 			}
 		};
 		ListView<HBox> listView = makeHBox(sButtonClick);
