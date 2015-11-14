@@ -3,7 +3,6 @@ package authoring_environment.room;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
