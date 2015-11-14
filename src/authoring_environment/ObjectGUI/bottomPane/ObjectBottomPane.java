@@ -42,10 +42,16 @@ public class ObjectBottomPane {
 		TextField heightBox = createTextBox(String.valueOf(size[1]),Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
 		HBox height = createHBox(heightLabel, heightBox, Integer.parseInt(r.getString("heightTranslate")));
 		
-		Button b = new Button("Update");
+		Button b = new Button(r.getString("updateButtonTitle"));
 		b.setOnAction(e ->
 				update(nameBox.getText(), Double.parseDouble(widthBox.getText()), Double.parseDouble(heightBox.getText())));
-		root.getChildren().addAll(b,name, width, height);
+		Button save = new Button(r.getString("saveButtonTitle"));
+		save.setTranslateX(Integer.parseInt(r.getString("saveButtonTranslateX")));
+		save.setOnAction(e -> 
+				System.exit(0));
+		Button cancel = new Button(r.getString("cancelButtonTitle"));
+		cancel.setTranslateX(Integer.parseInt(r.getString("cancelButtonTranslateX")));
+		root.getChildren().addAll(b,name, width, height, save, cancel);
 
 		return root;
 	}
@@ -53,7 +59,6 @@ public class ObjectBottomPane {
 	private void update(String name, double width, double height) {
 		o.setName(name);
 		o.setSize(width, height);
-		System.out.println(o.getName());
 	}
 	
 	private TextField createTextBox(String s, int width, int height) {
