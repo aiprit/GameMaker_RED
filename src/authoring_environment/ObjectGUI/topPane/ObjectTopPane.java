@@ -12,7 +12,9 @@ public class ObjectTopPane {
 		root = new Group();
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();
 		Menu spriteMenu = sprite.makeMenu(null);
-		menu.getMenus().add(spriteMenu);
+		ObjectVisibleMenu visible = new ObjectVisibleMenu();
+		Menu visibleMenu = visible.makeMenu(null);
+		menu.getMenus().addAll(spriteMenu, visibleMenu);
 		root.getChildren().add(menu);
 		return root;
 		
