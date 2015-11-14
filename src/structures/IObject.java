@@ -1,5 +1,6 @@
 package structures;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
@@ -11,6 +12,7 @@ public interface IObject {
 	void deleteEvent(IDataEvent e);
 
 	void addSprite(DataSprite s);
+
 
 
 	void setName(String name);
@@ -30,4 +32,9 @@ public interface IObject {
 	void setRotation(double angle);
 
 	double getRotation();
+
+	void setSize(double width, double height);
+
+	ObservableList<IDataEvent> getEvents();
+
 }

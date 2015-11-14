@@ -92,11 +92,19 @@ public class DataObject implements IObject {
 	}
 
 	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
 
-	}
 	public ObservableList<IDataEvent> getEvents(){
 		return myEvents;
 	}
+
+	public void setSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
+	}
+
+	@Override
+	public void setName(String name) {
+		myName = name;
+	}
 }
+
