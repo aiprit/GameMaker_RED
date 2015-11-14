@@ -1,4 +1,11 @@
+
 import authoring_environment.ObjectGUI.ObjectGUI;
+
+import java.util.ResourceBundle;
+
+
+import authoring_environment.room.RoomEditor;
+
 import engine.EngineController;
 import exceptions.ResourceFailedException;
 import javafx.application.Application;
@@ -24,6 +31,7 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
 		btn.setText("Make/Edit Game");
@@ -31,7 +39,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-			
+
 				//TODO: Open the Authoring Environment here
 			}
 		});
