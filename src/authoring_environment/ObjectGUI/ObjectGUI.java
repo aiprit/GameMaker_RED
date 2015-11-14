@@ -42,10 +42,12 @@ public class ObjectGUI {
 		ObjectTopPane top = new ObjectTopPane();
 		ObjectRightPane right = new ObjectRightPane(myObject);
 		ObjectLeftPane left = new ObjectLeftPane();
+		ObjectCenterPane center = new ObjectCenterPane();
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.makeTopPane());
 		myPane.setLeft(left.init());
+		myPane.setCenter(center.init(null));
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 		myRoot.getChildren().add(myPane);
 		myEditor.setScene(new Scene(myRoot));
