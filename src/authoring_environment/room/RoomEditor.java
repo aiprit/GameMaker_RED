@@ -4,11 +4,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -86,34 +84,32 @@ public class RoomEditor {
 	}
 	
 	private void startObjectDrag(MouseEvent event) {
-		ImageView spriteInstance = myObjectsList.startObjectDragAndDrop(event);
+		ObjectInstance objectInstance = myObjectsList.startObjectDragAndDrop(event);
+		ImageView spriteInstance = objectInstance.getImageView();
 		if (spriteInstance != null) {
 			myRoot.getChildren().add(spriteInstance);
-			dragSpriteIntoPreview(spriteInstance);
+			dragSpriteIntoPreview(objectInstance);
 		}
 	}
 	
-	private void dragSpriteIntoPreview(ImageView sprite) {
-		sprite.setOnMousePressed(e -> setUpDraggingBehavior(sprite));
-//		Event.fireEvent(sprite, new MouseEvent(sprite, null, MouseEvent.MOUSE_ENTERED, sprite.getX(), sprite.getY(),
-//				sprite.getX(), sprite.getY(), MouseButton.PRIMARY, 1, false, false, false, false, true, false, false,
-//				true, false, false, null));
-//		Event.fireEvent(sprite, new MouseEvent(sprite, null, MouseEvent.MOUSE_DRAGGED, sprite.getX(), sprite.getY(),
-//				sprite.getX(), sprite.getY(), MouseButton.PRIMARY, 1, false, false, false, false, true, false, false,
-//				true, false, false, null));
+	private void dragSpriteIntoPreview(ObjectInstance objectInstance) {
+		ImageView sprite = objectInstance.getImageView();
+		sprite.setOnMousePressed(e -> setUpDraggingBehavior(objectInstance));
 	}
 	
-	private void setUpDraggingBehavior(ImageView sprite) {
-		sprite.setOnMouseDragged(e -> updateSpritePosition(e, sprite));
+	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
+		ImageView sprite = objectInstance.getImageView();
+		sprite.setOnMouseDragged(e -> objectInstance.updateSpritePosition(e));
+		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(objectInstance));
 	}
 	
-	/**
-	 * DUPLICATED
-	 */
-	private void updateSpritePosition(MouseEvent event, ImageView sprite) {
-		double x = event.getSceneX() - sprite.getImage().getWidth()/2;
-		double y = event.getSceneY() - sprite.getImage().getHeight()/2;
-		sprite.setX(x);
-		sprite.setY(y);
+	private void addSpriteToRoom(ObjectInstance objectInstance) {
+		if (objectInstance.inRoomBounds()) {
+			//TODO write object x,y to IObject
+			myPreview.addNode(objectInstance.getImageView());
+			myRoot.getChildren().remove(objectInstance.getImageView());
+			myRoomController.addObject(objectInstance.getObject());
+		}
 	}
+	
 }
