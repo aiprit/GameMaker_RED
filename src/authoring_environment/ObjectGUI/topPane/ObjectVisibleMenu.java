@@ -2,7 +2,10 @@ package authoring_environment.ObjectGUI.topPane;
 
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import structures.data.DataGame;
 
 public class ObjectVisibleMenu {
@@ -10,15 +13,20 @@ public class ObjectVisibleMenu {
 
 	public Menu makeMenu(DataGame game) {
 		Menu image = new Menu(r.getString("visibleTitle"));
-//		List<String> imageOptions = new ArrayList<String>();
-//		imageOptions.add(r.getString("imageItem1"));
-//		imageOptions.add(r.getString("imageItem2"));
-//		imageOptions.add(r.getString("imageItem3"));
-//		UpdateImage imageChanger = new UpdateImage(null, null);
-//		addMenuItem(image, imageOptions);
-//		for (MenuItem m : image.getItems()) {
-//			m.setOnAction((event) -> imageChanger.refreshImage(m.getText()));
-//		}
+		MenuItem yes = new MenuItem("true");
+		MenuItem no = new MenuItem("false");
+		image.getItems().add(yes);
+		image.getItems().add(no);
+		yes.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				//todo with controller
+			}
+		});
+		no.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				//todo with controller
+			}
+		});
 		return image;
 	}
 }

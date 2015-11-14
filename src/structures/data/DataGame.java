@@ -51,4 +51,7 @@ public class DataGame {
     public double getHeight() {
         return myScreenHeight;
     }
+    public ObservableMap<String, DataSprite> getSprites(){
+    	return mySprites;
+    }
 }
