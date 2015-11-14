@@ -14,7 +14,7 @@ public class ObjectLeftPane {
 		EventPopup e = new EventPopup();
 		Button b = new Button("Add New Event");
 		root.getChildren().add(b);
-		//b.setOnAction(e.popup())
+		b.setOnAction(e.popup())
 
 		return root;
 
