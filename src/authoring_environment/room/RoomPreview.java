@@ -17,6 +17,7 @@ public class RoomPreview extends ScrollPane {
 		super.setMinHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
 		super.setMinWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
 		myRoot = new Group();
+		super.setContent(myRoot);
 	}
 	
 	public void addNode(Node element) {

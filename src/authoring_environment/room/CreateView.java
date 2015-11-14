@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 public class CreateView {
 	
+	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
 	private double initialX;
 	private double initialY;
 	private ResourceBundle myResources;
@@ -24,7 +25,8 @@ public class CreateView {
 	public CreateView(ResourceBundle resources) {
 		myResources = resources;
 	}
-	public VBox create() {
+	
+	public Rectangle create() {
 		ButtonToolbar buttonToolbar = new ButtonToolbar(myResources);
 		HBox buttons = buttonToolbar.createButtons();
 		Group root = new Group();
@@ -46,25 +48,23 @@ public class CreateView {
 		rect.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				//System.out.println("Here");
-				double dragX = event.getSceneX();
+				double horizontalCorrection = Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
+				double dragX = event.getSceneX() - horizontalCorrection;
 				double dragY = event.getSceneY();
 				
-				double newX = initialX + dragX - rect.getWidth()/2;
-				double newY = initialY + dragY - rect.getHeight()/2;
-				if (newX == scrollRectangle.getX());
-					System.out.println("It is over the border");
+				double newX = dragX - rect.getWidth()/2;
+				double newY = dragY - rect.getHeight()/2;
+//				if (newX == scrollRectangle.getX());
+//					System.out.println("It is over the border");
 				rect.setX(newX);
 				rect.setY(newY);
-				//box.setTranslateX(newX);
-				//box.setTranslateY(newY);
 			}
 		});
 		rect.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				initialX = rect.getTranslateX();
-				initialY = rect.getTranslateY();
+				initialX = rect.getX();
+				initialY = rect.getY();
 			}
 		});
 		//box.getChildren().add(rect);
@@ -72,6 +72,6 @@ public class CreateView {
 		root.getChildren().add(rect);
 		view.getChildren().addAll(root, buttons);
 		//box.setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, null, null)));
-		return view;
+		return rect;
 	}
 }
