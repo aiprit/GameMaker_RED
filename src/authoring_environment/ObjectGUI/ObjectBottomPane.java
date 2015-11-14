@@ -3,13 +3,14 @@ package authoring_environment.ObjectGUI;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import structures.IObject;
 import structures.data.DataObject;
 
 public class ObjectBottomPane {
 	private String name;
 	private double[] size;
-	private DataObject o;
-	public ObjectBottomPane(DataObject object) {
+	private IObject o;
+	public ObjectBottomPane(IObject object) {
 		try {
 			o = object;
 			name = o.getName();
