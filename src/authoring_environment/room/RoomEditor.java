@@ -59,13 +59,6 @@ public class RoomEditor {
 	
 	public void createEditor() {
 		myEditor = new Stage();
-
-		initializeEditor();
-		CreateView view = new CreateView(myResources);
-		//ButtonToolbar toolbar = new ButtonToolbar(myResources);
-		myRoot.getChildren().add(view.create());
-		//myRoot.getChildren().add(toolbar.createButtons());
-		//myRoot.getChildren().add(addScrollPane());
 		//TODO populate the entire dialog
 		initializeEditor();
 		fillEditorWithComponents();
@@ -78,40 +71,26 @@ public class RoomEditor {
 		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
 		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
-	}
-	
-	private ScrollPane addScrollPane() {
-		ScrollPane scroll = new ScrollPane();
-		Rectangle rect = new Rectangle();
-		rect.setWidth(300);
-		rect.setHeight(300);
-//		rect.setX(500);
-//		rect.setY(500);
-		rect.setFill(Color.GREEN);
-		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setPrefSize(200, 200);
-//		scroll.setTranslateX(500);
-		//scroll.setTranslateY(500);
-		scroll.setContent(rect);
-		return scroll;
-	}
-
 		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
-	
+	}
 	
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
 		initializeObjectListAndPreview(totalPane);
+		ButtonToolbar buttons = new ButtonToolbar(myResources);
+		totalPane.getChildren().addAll(buttons.createButtons());
 		myRoot.getChildren().add(totalPane);
 	}
 	
 	private void initializeObjectListAndPreview(VBox totalPane) {
 		HBox objectsAndPreview = new HBox();
 		initializeObjectList();
+		Group theory = new Group();
 		myPreview = new RoomPreview(myResources);
-		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
-		totalPane.getChildren().add(objectsAndPreview);
+		CreateView view = new CreateView(myResources);
+		theory.getChildren().addAll(myPreview, view.create());
+		objectsAndPreview.getChildren().addAll(myObjectsList, theory);
+		totalPane.getChildren().addAll(objectsAndPreview);
 	}
 	
 	private void initializeObjectList() {
