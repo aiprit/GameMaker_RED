@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.bottomPane.ObjectBottomPane;
+import authoring_environment.ObjectGUI.centerPane.ObjectCenterPane;
+import authoring_environment.ObjectGUI.leftPane.ObjectLeftPane;
+import authoring_environment.ObjectGUI.rightPane.ObjectRightPane;
 import authoring_environment.ObjectGUI.topPane.ObjectTopPane;
 import authoring_environment.object.ObjectController;
 import javafx.scene.Group;
@@ -41,7 +44,7 @@ public class ObjectGUI {
 		ObjectBottomPane bottom = new ObjectBottomPane(myObject);
 		ObjectTopPane top = new ObjectTopPane();
 		ObjectRightPane right = new ObjectRightPane(myObject);
-		ObjectLeftPane left = new ObjectLeftPane();
+		ObjectLeftPane left = new ObjectLeftPane(null);
 		ObjectCenterPane center = new ObjectCenterPane();
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
