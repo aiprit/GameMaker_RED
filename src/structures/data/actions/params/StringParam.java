@@ -21,5 +21,15 @@ public class StringParam implements IParameter {
 	public String getTitle() {
 		return myTitle;
 	}
+
+	@Override
+	public String getValue() {
+		return myValue;
+	}
+	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.STRING;
+	}
 	
 }
