@@ -2,6 +2,14 @@ package authoring_environment.room;
 
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 import java.util.function.Consumer;
 
 import javafx.scene.Group;
@@ -21,6 +29,7 @@ public class RoomEditor {
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
 	private Map<String, IObject> myObjects;
+
 	
 	private Stage myEditor;
 	private Group myRoot;
@@ -50,9 +59,17 @@ public class RoomEditor {
 	
 	public void createEditor() {
 		myEditor = new Stage();
-		Scene scene = new Scene(myRoot);
+
+		initializeEditor();
+		CreateView view = new CreateView(myResources);
+		//ButtonToolbar toolbar = new ButtonToolbar(myResources);
+		myRoot.getChildren().add(view.create());
+		//myRoot.getChildren().add(toolbar.createButtons());
+		//myRoot.getChildren().add(addScrollPane());
+		//TODO populate the entire dialog
 		initializeEditor();
 		fillEditorWithComponents();
+		Scene scene = new Scene(myRoot);
 		myEditor.setScene(scene);
 		myEditor.show();
 	}
@@ -60,8 +77,28 @@ public class RoomEditor {
 	private void initializeEditor() {
 		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
-		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
+		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
 	}
+	
+	private ScrollPane addScrollPane() {
+		ScrollPane scroll = new ScrollPane();
+		Rectangle rect = new Rectangle();
+		rect.setWidth(300);
+		rect.setHeight(300);
+//		rect.setX(500);
+//		rect.setY(500);
+		rect.setFill(Color.GREEN);
+		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		scroll.setPrefSize(200, 200);
+//		scroll.setTranslateX(500);
+		//scroll.setTranslateY(500);
+		scroll.setContent(rect);
+		return scroll;
+	}
+
+		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
+	
 	
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
