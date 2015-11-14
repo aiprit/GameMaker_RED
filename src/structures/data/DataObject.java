@@ -1,102 +1,89 @@
 package structures.data;
 
-import java.awt.geom.Point2D;
-import java.util.Map;
+import java.util.List;
 
-import authoring_environment.Sprite;
-import structures.IEvent;
+import javafx.geometry.Point2D;
 import structures.IObject;
 import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
-	
-    Map<IDataEvent, DataAction> actions;
 
-    String name;
-    String sprite;
+	private List<IDataEvent> myEvents;
 
-    Point2D position;
-    double rotation, angularVelocity;
-    double scaleX, scaleY, alpha;
-    
-    boolean visible;
-    int zIndex;
+	private String myName;
+	private DataSprite mySprite;
 
-	@Override
-	public void addEvent(IEvent e) {
-		// TODO Auto-generated method stub
-		
+	private Point2D myPosition;
+	private double myRotation, myAngularVelocity;
+	private double myAlpha, myWidth, myHeight;
+
+	private boolean myVisible;
+	private int myZIndex;
+
+	public DataObject(String name, double width, double height){
+		myName = name;
+		myWidth = width;
+		myHeight = height;
+		myZIndex = 0;
 	}
 
 	@Override
-	public void deleteEvent(IEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void addEvent(IDataEvent e) {
+		myEvents.add(e);
+	}
+
+	@Override
+	public void deleteEvent(IDataEvent e) {
+		myEvents.remove(e);
 	}
 
 	@Override
 	public void addSprite(DataSprite s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		mySprite = s;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return myName;
 	}
 
-	@Override
-	public void setSize(double width, double height) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public double[] getSize() {
-		// TODO Auto-generated method stub
-		return null;
+		return new double[] {myWidth, myHeight};
 	}
 
 	@Override
-	public void setPosition(javafx.geometry.Point2D pos) {
-		// TODO Auto-generated method stub
-		
+	public void setPosition(Point2D pos) {
+		myPosition = pos;
 	}
 
 	@Override
 	public javafx.geometry.Point2D getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return myPosition;
 	}
 
 	@Override
 	public void setVisibility(boolean visible) {
-		// TODO Auto-generated method stub
-		
+		myVisible = visible;
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
+		return myVisible;
 	}
 
 	@Override
 	public void setRotation(double angle) {
-		// TODO Auto-generated method stub
-		
+		myRotation = angle;
 	}
 
 	@Override
 	public double getRotation() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myRotation;
+	}
+
+	public void setZIndex(int zIndex){
+		myZIndex = zIndex;
 	}
 }

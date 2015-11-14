@@ -1,21 +1,17 @@
 package structures;
 
-import authoring_environment.Sprite;
 import javafx.geometry.Point2D;
 import structures.data.DataSprite;
+import structures.data.events.IDataEvent;
 
 public interface IObject {
-	void addEvent(IEvent e);
+	void addEvent(IDataEvent e);
 	
-	void deleteEvent(IEvent e);
+	void deleteEvent(IDataEvent e);
 	
 	void addSprite(DataSprite s);
 	
-	void setName(String name);
-	
 	String getName();
-	
-	void setSize(double width, double height);
 	
 	double[] getSize();
 	
