@@ -1,7 +1,7 @@
 package structures.data;
 
 import java.util.List;
-
+import authoring_environment.Sprite;
 import javafx.geometry.Point2D;
 import structures.IObject;
 import structures.data.events.IDataEvent;
@@ -94,4 +94,16 @@ public class DataObject implements IObject {
 	public void setZIndex(int zIndex){
 		myZIndex = zIndex;
 	}
+
+    @Override
+    public Sprite getSprite () {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setName (String name) {
+        // TODO Auto-generated method stub
+        
+    }
 }
