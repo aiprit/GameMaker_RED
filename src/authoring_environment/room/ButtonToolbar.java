@@ -20,7 +20,7 @@ public class ButtonToolbar {
 	public HBox createButtons() {
 		HBox hbox = new HBox();
 		ButtonHandler handler = new ButtonHandler();
-		String[] buttonLabels = {SIZE_TITLE, BACKGROUND, VIEW_TITLE, SAVE_TITLE};
+		String[] buttonLabels = {myResources.getString(SIZE_TITLE), myResources.getString(BACKGROUND), myResources.getString(VIEW_TITLE), myResources.getString(SAVE_TITLE)};
 		Button[] arr = handler.create(4, buttonLabels);
 		hbox.getChildren().addAll(arr);
 		hbox.setSpacing(50);
