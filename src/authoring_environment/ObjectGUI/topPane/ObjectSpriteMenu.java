@@ -40,4 +40,7 @@ public class ObjectSpriteMenu {
 			});
 		}
 	}
+	private void loadimage(String spritename){
+
+	}
 }
