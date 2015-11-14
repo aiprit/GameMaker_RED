@@ -1,5 +1,6 @@
 package authoring_environment.ObjectGUI;
 
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -30,13 +31,14 @@ public class ObjectBottomPane {
 		width.setTranslateX(200);
 		TextArea height = new TextArea(String.valueOf(size[1]));
 		height.setTranslateX(300);
-		Button b = new Button("Update");		
-		b.setOnAction(e -> 
+		Button b = new Button("Update");
+		b.setOnAction(e ->
 				update(nameBox.getText(), Double.parseDouble(width.getText()), Double.parseDouble(height.getText())));
 		root.getChildren().addAll(nameBox, width, height, b);
+
 		return root;
 	}
-	
+
 	private void update(String name, double width, double height) {
 		o.setName(name);
 		o.setSize(width, height);
