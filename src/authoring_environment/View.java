@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import java.awt.List;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,7 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 //import groovy.util.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -30,6 +34,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import structures.data.*;
 public class View implements Observer{
@@ -75,7 +81,19 @@ public class View implements Observer{
 		RoomView.setVgap(10);
 		RoomView.setHgap(20);
 		Button plus = new Button(" + ");
-		
+		plus.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event){
+				final Stage dialog = new Stage();
+				dialog.initModality(Modality.APPLICATION_MODAL);
+				dialog.initOwner(myStage);
+				VBox dialogVbox = new VBox(20);
+				dialogVbox.getChildren().add(new Text("This is a Dialog"));
+				Scene dialogScene = new Scene(dialogVbox, 300, 200);
+				dialog.setScene(dialogScene);
+				dialog.show();
+			}
+		});
 		RoomView.add(plus, COLUMN_SPACE, ROW_SPACE);
 		RoomView.add(new Button(), 2, 1);
 		bp.setCenter(RoomView);
@@ -84,7 +102,23 @@ public class View implements Observer{
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
-				System.out.println("hey");
+				 //Parent root;
+			        //			            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
+					//			            Stage stage = new Stage();
+					//			            stage.setTitle("My New Stage Title");
+					//			            stage.setScene(new Scene(root, 450, 450));
+					//			            stage.show();
+					//
+					//			            //hide this current window (if this is whant you want
+					//			            ((Node)(event.getSource())).getScene().getWindow().hide();
+				 	final Stage dialog = new Stage();
+					dialog.initModality(Modality.APPLICATION_MODAL);
+					dialog.initOwner(myStage);
+					VBox dialogVbox = new VBox(20);
+					dialogVbox.getChildren().add(new Text("This is a Dialog"));
+					Scene dialogScene = new Scene(dialogVbox, 300, 200);
+					dialog.setScene(dialogScene);
+					dialog.show();
 			}
 		};
 		ListView<HBox> listView = makeHBox(sButtonClick);
