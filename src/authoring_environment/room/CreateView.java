@@ -4,12 +4,9 @@ import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 import javafx.scene.input.MouseEvent;
 
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -27,24 +24,11 @@ public class CreateView {
 	}
 	
 	public Rectangle create() {
-		ButtonToolbar buttonToolbar = new ButtonToolbar(myResources);
-		HBox buttons = buttonToolbar.createButtons();
-		Group root = new Group();
-		StackPane stack = new StackPane();
-		VBox view = new VBox();
 		Rectangle rect = new Rectangle();
-		ScrollPane scroll = new ScrollPane();
-		scroll.setPrefSize(400, 300);
-		Rectangle scrollRectangle = new Rectangle(600, 300);
-		scrollRectangle.setFill(Color.GREEN);
-		scroll.setContent(scrollRectangle);
-		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		VBox box = new VBox();
 		rect.setWidth(Double.parseDouble(myResources.getString(VIEW_WIDTH)));
 		rect.setHeight(Double.parseDouble(myResources.getString(VIEW_HEIGHT)));
 		rect.setFill(Color.BLUE);
-		rect.setCursor(Cursor.MOVE);
+		rect.setCursor(Cursor.CROSSHAIR);
 		rect.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -54,24 +38,10 @@ public class CreateView {
 				
 				double newX = dragX - rect.getWidth()/2;
 				double newY = dragY - rect.getHeight()/2;
-//				if (newX == scrollRectangle.getX());
-//					System.out.println("It is over the border");
 				rect.setX(newX);
 				rect.setY(newY);
 			}
 		});
-		rect.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				initialX = rect.getX();
-				initialY = rect.getY();
-			}
-		});
-		//box.getChildren().add(rect);
-		root.getChildren().add(scroll);
-		root.getChildren().add(rect);
-		view.getChildren().addAll(root, buttons);
-		//box.setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, null, null)));
 		return rect;
 	}
 }
