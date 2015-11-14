@@ -1,24 +1,89 @@
 package structures.data;
 
-import java.awt.geom.Point2D;
-import java.util.Map;
+import java.util.List;
 
-public class DataObject {
-    Map<DataEvent, DataObject> actions;
-    String compiledGroovyScript;
-    String objectTitle;
-    String spriteImage;
+import javafx.geometry.Point2D;
+import structures.IObject;
+import structures.data.events.IDataEvent;
 
-    Point2D position;
-    Point2D velocity;
-    double heading, angularVelocity;
-    double scaleX, scaleY, alpha;
+public class DataObject implements IObject {
 
-    boolean visible;
-    boolean justCreated;
-    boolean markedForDestruction;
+	private List<IDataEvent> myEvents;
 
-    int ID;
+	private String myName;
+	private DataSprite mySprite;
 
-    int zIndex;
+	private Point2D myPosition;
+	private double myRotation, myAngularVelocity;
+	private double myAlpha, myWidth, myHeight;
+
+	private boolean myVisible;
+	private int myZIndex;
+
+	public DataObject(String name, double width, double height){
+		myName = name;
+		myWidth = width;
+		myHeight = height;
+		myZIndex = 0;
+	}
+
+	@Override
+	public void addEvent(IDataEvent e) {
+		myEvents.add(e);
+	}
+
+	@Override
+	public void deleteEvent(IDataEvent e) {
+		myEvents.remove(e);
+	}
+
+	@Override
+	public void addSprite(DataSprite s) {
+		mySprite = s;
+	}
+
+	@Override
+	public String getName() {
+		return myName;
+	}
+
+
+	@Override
+	public double[] getSize() {
+		return new double[] {myWidth, myHeight};
+	}
+
+	@Override
+	public void setPosition(Point2D pos) {
+		myPosition = pos;
+	}
+
+	@Override
+	public javafx.geometry.Point2D getPosition() {
+		return myPosition;
+	}
+
+	@Override
+	public void setVisibility(boolean visible) {
+		myVisible = visible;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return myVisible;
+	}
+
+	@Override
+	public void setRotation(double angle) {
+		myRotation = angle;
+	}
+
+	@Override
+	public double getRotation() {
+		return myRotation;
+	}
+
+	public void setZIndex(int zIndex){
+		myZIndex = zIndex;
+	}
 }

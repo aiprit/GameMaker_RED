@@ -1,5 +1,6 @@
 package authoring_environment;
 
+
 import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +39,20 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import structures.data.*;
+
+import java.util.LinkedList;
+import authoring_environment.controller.*;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import structures.data.*;
 public class View implements Observer{
+
 	
 	private HashMap<DataRoom, Integer> myLevels;
 	private LinkedList<DataObject> myObjects;
@@ -47,8 +61,10 @@ public class View implements Observer{
 	private Controller myController;
 	private static int DEFAULT_WIDTH = 1000;
 	private static int DEFAULT_HEIGHT = 1000;
+
 	private static int COLUMN_SPACE = 1;
 	private static int ROW_SPACE = 1;
+
 	public View(){
 		//myGame = new DataGame(DEFAULT_NAME);
 		myLevels = new HashMap<DataRoom, Integer>();
@@ -58,13 +74,16 @@ public class View implements Observer{
 	}
 	public void init(){
 		BorderPane bp = new BorderPane();
+
 		makeCenterSpace(bp);
 		
+
 		ToolBar toolBar = new ToolBar(
 			     new Button("Open"),
 			     new Button("Save")  
 			 );
 		bp.setTop(toolBar);
+
 		
 		VBox rightWindow = new VBox();
 		addObjectWindow(bp);
@@ -72,10 +91,13 @@ public class View implements Observer{
 		addSpriteWindow(rightWindow);
 		bp.setRight(rightWindow);
 		
+
+
 		Scene s = new Scene(bp, DEFAULT_WIDTH, DEFAULT_HEIGHT, Color.WHITE);
 		myStage.setScene(s);
 		myStage.show();
 	}
+
 	private void makeCenterSpace(BorderPane bp) {
 		GridPane RoomView = new GridPane();
 		RoomView.setVgap(10);
@@ -182,4 +204,5 @@ public class View implements Observer{
 		
 	}
 	
+
 }

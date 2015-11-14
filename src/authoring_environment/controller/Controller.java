@@ -7,6 +7,7 @@ public class Controller {
 	public Controller(){
 		// myGame = new DataGame("GAME");
 	}
+
 	public void addObject(){
 		
 	}
@@ -19,4 +20,5 @@ public class Controller {
 	public void removeRoom(){
 		
 	}
+
 }

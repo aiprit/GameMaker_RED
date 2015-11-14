@@ -1,3 +1,5 @@
+# Design
+
 ### Introduction
 We are designing a robust gaming environment which allows users to create different genres of games which can be then loaded and played. The primary design goal of the project is to create the most general authoring environment which allows flexible level, unit and object creation. The primary architecture is mainly divided into two parts: the game creation and the game initializer. The game creation mainly consists of an interface which allows users to create a new game. A new game have four main components to it: Room, Object, Event, Action. Room are representations of level/usable area, this can be set to any size. Objects are general building blocks within the area which contains specific events and actions. This “Object” can be utilized in many different ways, depending on the events, images, pathing specified in an object. Examples of an object are the player character, walls, enemies, invisible boundaries,etc. This is designed to be as flexible as possible.  Events are triggers which when fulfilled would execute a list of actions it contains.  Action is probably self-explanatory. All this would stored in a game object which, upon being saved, would be converted to a xml file. Every bit of information is going to be stored in this xml file, including all the game specific information e.g. high scores. This file could then be read and the game object is rebuilt for playing/editing by the game player/authoring environment. The game initializer is also split into two parts: the game engine and the game player. The game player is the frontend which loads a particular xml game file, calls the game engine to run it and displays the results. The game engine is the backend which takes in the game object (containing all the info of a created game) and builds the game program and runs it.
 
@@ -13,6 +15,8 @@ In order to start working, the user will select from the top menu bar to load/st
 The blank canvas in the center of the environment window will have the game currently being worked on, specifically the list of rooms or levels in their game-play order for each.  In order to edit an already existing level or start from scratch, the user will click on the button to start a new room in the middle of the canvas or an existing room which will create a room editing window pop up.  Here, the user can select background graphics and view size from drop downs as well as add any previously created objects.  In order to add an object to the room, the user must select an object available on the left of the room editing window and drag and drop it to the appropriate location.  There, the user must click on the object and input parameters such as velocity, direction, scale size, etc.
 
 Once the room is sufficient, the user can save the room which will add it to the left side box in the environment window.  In order to create an object, the user can click on the add object button located in the right space which will open an object selection window pop up.  This will have several button options which contain a couple templates for objects we provide as well as a completely blank object to customize.  The user can select any of these which will open another object editor window popup.  The popup will contain the current sprite image on the left, the name on the top, and two spaces for events and actions.  The events box will contain any events designated to the object, and the action box will display the actions for a selected event.  The ability to add events or add actions to an event will be buttons in each box that brings a pop up selection window.  In order to remove an object from a room, the user can right click on the object and select delete.  In order to remove a room from a game, the user can right click a room and select to remove it. 
+
+In terms of the backend of the authoring environment, the main purpose of this part of the project is to get the data from the front-end of the authoring environment to the game data object. So, the back-end of the authoring environment will retrieve the data from the front-end of the authoring environment (where the user will be dragging and dropping items, setting preferences, etc), and using this data to form the game object. Another aspect of the back-end is the conversion of the game object to XML, which is how the game data object is being saved. This XML file is then going to be used to load the game from the engine. The exact flow will essentially be that as the front end of the authoring environment is being updated, the GameData Object will be updated as well (which is on the back-end), and then that will be converted to XML. 
 
 #### GameDataObject
 	
@@ -102,13 +106,262 @@ When a user clicks on a specific game (maybe through the thumbnail image), they 
 ![Game Player Game List](https://github.com/duke-compsci308-fall2015/voogasalad_RED/blob/master/Design/Images/GamePlayerMainGUI.png)
 
 ###Design Details
-The front end of the environment will be located in a package called environment.view.  This package will contain the classes View, RoomEditor, ObjectEditor, RoomObjectEditor, GamePopup, ObjectPopup, EventPopup, and ActionPopup.  There will be another package called Controller.  This package currently only contains one class called Controller.  The last package will be called environment.model which will contain classes GameDataObject, Room, Object, Action, and Event.
 
-The View has with a border pane, a map of rooms to integers, and an objects list.  The border pane is set to have a top menu bar, a canvas in the middle, and a box on the right.  The top menu bar will have a file button that creates a drop down to save the current workspace or load a game.  Saving a game means the environment calling the game controller which gets the current list of rooms in the current GameDataObject with all of the attributes and object instances and creating an appropriate XML file.  Loading is simply the reverse of this process: the view calls the controller to create a GameDataObject from an XML file.  The other option in the top menu bar is edit, which currently only has the option to change the order.  The “change order” option brings up the GamePopup which is structured through the map containing the rooms of the current games and their respective integer index.  Each room has a space next to it which gives the option to enter a new integer index.  The advantage of this top menu bar is it has the ability to be easily extended to handle new features for game authoring; the only resource needed for this is the access to XML files located in memory.  
+#### Authoring Environment Frontend
+The front end of the environment will be located in a package called environment.view.  This package will contain the classes View, RoomEditor, ObjectEditor, RoomObjectEditor, GamePopup, ObjectPopup, EventPopup, and ActionPopup.  There will be another package called Controller.  This package currently only contains one class called Controller.  The last package will be called environment.model which will contain classes Room, Object, Action, and Event.
+
+The View has with a border pane, a map of rooms to integers, and an objects list.  The border pane is set to have a top menu bar, a canvas in the middle, and a box on the right.  The top menu bar will have a file button that creates a drop down to save the current workspace or load a game.  Saving a game means the environment calling the game controller which gets the current list of rooms in the current game with all of the attributes and object instances and creating an appropriate XML file.  Loading is simply the reverse of this process.  The other option in the top menu bar is edit, which currently only has the option to change the order.  The “change order” option brings up the GamePopup which is structured through the map containing the rooms of the current games and their respective integer index.  Each room has a space next to it which gives the option to enter a new integer index.  The advantage of this top menu bar is it has the ability to be easily extended to handle new features for game authoring; the only resource needed for this is the access to XML files located in memory.  
 
 The canvas initially is blank with one button labeled “add room”.  When pressed, the button opens the RoomEditor window, which contains a the list of objects that have been made by the user and a borderpane of its own.  This borderpane only has three main parts, a bottom bar with the buttons for save or cancel, a left space to have the available objects displayed as well as several boxes/dropdowns to edit parameters and a canvas on the right.  If the user adds an object by dragging and dropping, the RoomObjectEditor popup is called and cannot be exited until the user inputs the necessary parameters or cancel.  Once the user is done, he or she can select save, which will add the room with its values to the room list in the environment window, or cancel which simply exits the window.  If the user selects save, the list containing rooms will be updated which will update the map of rooms in the back end.  If the user chooses to remove a room by right clicking the room, the back end will again be updated by an observable.  
 
 In the right space of the environment window, there is similarly only one button to start that says “add object”.  When clicked, this will call the ObjectPopup, which contains several templates we provide and a blank object.  These are all buttons that when pressed will call the ObjectEditor class which has several physical attributes and a map of events to a list of actions.  The templates come with several events and actions already defined as well as a built in sprite or shape.  The blank object has no features chosen at all.  This class needs to have access to a sprites image folder.  Like with the RoomEditor, the user will then have the option to save or cancel; if save is chosen, this will add an object to the environment’s list of objects which will update the right side space of the environment window and the back end through a second observable-observer.
+
+#### Authoring Environment Backend
+The backend of the authoring environment, as mentioned in the overview section, will essentially consist of the GameData Object and the conversion of this GameData object to XML which will later be read in to load a game. The GameData object will be generated and updated in real time as the user interacts with the front end of the authoring environment. For instance, when someone wants to add a room, the user will click the "add room" button or its functional equivalent, and then right when this is done, the GameData object will be edited to include this addition of the room. This thus establishes the interaction between the front-end of the authoring environment and the backend of the authoring environment. These kinds of changes will be performed for other things like adding objects, adding sprites, adding events, and other such things. The idea is that as the user is editing the game itself, the game object is being updated and edited simultaneously. The interfaces being used here are the ones under IDataGame (which will consist of multiple interfaces most likely). The other part of the back-end is the conversion of the game object to XML. This will require an XML writer class, that can convert each attribute of the game object (such as the rooms, objects, events, actions), to actual tags as part of the XML document. The communication between the backend and frontend will be done through the interfaces we have established as described in the Interfaces folder. These interfaces will ensure the proper data is being communicated to the back-end whenever something is updated on the front-end. To convert the game object to XML, we will need an XML writer class that can parse the game objec data and write to XML. The interface used here will be the IXMLEditor interface, which has the void method to writeXML that takes in a DataGame object. The other method (which we won't use as part of the backend) will be the readXML method that returns a DataGame object and takes in a File Path as an input parameter. 
+
+In terms of exceptions that we plan to throw to handle errors, we plan to throw exceptions whenever the user chooses an invalid object, room, event, or action, for example. This means the user chooses something that cannot be added to the game due to some sort of invalid input. Instead of the entire program crashing, we will handle these exceptions to ensure everything still works properly. Another case where we will do exception handling is when the user for instance loads and saves a file. They must be in the proper formats, and exception handling can be done to take care of this. 
+
+#### Game Engine Frontend
+The front end will be comprised of a borderpane.  The center pane will be a canvas on which the game is played.  This canvas will be updated according to the updateDisplay(GraphicalRepresentation) function, which holds all of the rotations, coordinates, sprites, and any other elements to be drawn to the canvas.  The right pane will be comprised of a listview which holds the list of high scores for the specific game being played.  This pane will be an observer/observable list so that the list can be updated whenever new high scores are entered.  The top pane will contain the menubar to choose between saving/loading a game (or even restarting from the most recent save).  
+
+The frontend should initialize the backend with:
+* A class that implements IGraphicalRepresentationEventListener
+ * The frontend should draw the current data returned from this object’s update method. This data includes: (see IGraphicalRepresentation below).
+
+#### Game Engine Backend
+Frontend to Backend Communication
+The backend will expose an API for the frontend to use. See further down for implementation details. This API is below:
+* void saveGame()
+* void resetGame()
+* void resetGameToSaveFile(String saveFilePath)
+* Map<String, Double> getHighScores()
+* Map<String, String> getSaveFileNameAndPaths()
+
+Backend Flow
+* Initialize the game
+ * Points, score, etc.
+ * Create new event registry
+  * Add global event handles
+* Use a new instance of GameDataObject to parse the given gamefile.XML
+* Get the first room of the game
+* Iterate through all object instances for that room
+ * Initialize all object instances from the room as Groovy objects (using our Groovy library methods)
+ * Add all object-mapped-event-handles to the event registry
+* Begin the event loop. Iterate over each object instance.
+ * Create - performs actions when object initialized
+  * The justCreated flag is set to FALSE after this method is called
+ * Destroy - performs actions when this object is removed from game
+  * If the markedForDestruction flag is TRUE, these actions will be called and then the groovy instance will be destroyed.
+ * Step - performs actions every keyframe
+  * At this point, object properties are updated according to the object physics model and object properties
+  * If the object’s id is the same as the current room’s view’s objectLock value, call view.centerOn
+  * fire mapped action*
+ * Collision - if colliding object-pair is registered in the event registry, fire this action*
+ * Keypress - if keypress is registered as an event for this object, fire action*
+ * Click - if click is registered, fire action*
+* At the end of the event loop, I call: GraphicalRepresentation.update(currentRoom) to draw everything.
+* *: an action object is given by the DataGame as a string-containing object that may be part of a singly-linkedlist. The string is groovy syntax, such as:
+ * ‘this.move(“nw”, 10)’
+ * ‘getObjectByID(“farmer”).move(“nw, 10)’
+* since an action object may be a list, we execute them one at a time, stepping through using a ActionListParser class
+ * this class has access to the groovy engine (see below for usage)
+ * it handles block execution and other syntactic features
+
+Groovy Library
+Our library has the following features:
+(Used by the engine backend)
+* Has support for multiple object instance handling
+ * e.g.: can select by ‘class’ or ‘id’
+* Supports all of the Actions in our spec (see below).
+
+and the following use cases:
+* add an object instance - engine.put(“farmer_0”, new DataGame(“Farmer”));
+* get object by id - engine.get(“farmer_0”)
+* get room by id - engine.get(“room_0”)
+* get object[] by class - engine.get(“farmer”)
+* execute move on this - engine.put(“currentObj”, this) - engine.eval(“currentObj.move(“nw”, 10)”)
+* execute move on obj - engine.eval(“farmer_0.move(“nw”, 10)”)
+
+Groovy is connected to the backend like this:
+* ScriptEngineManager manager = new ScriptEngineManager(); 
+* ScriptEngine engine = manager.getEngineByName("groovy"); 
+
+
+Save Files
+Save files will be generated when either the Frontend hits the BackendController.saveGame() method or the Groovy library function saveGame() is called. Once this happens, we:
+* Iterate over each room in GameDataObjecft:
+ * Remove all object instances (NOT DECLARATIONS)
+ * Put current object instances into the room by loading them from Groovy
+* Update GameDataObject metadata(play time, timestamp, save name)
+* Call GameDataObject.getXML()
+* Write new XML file to disk: savefile_gamename_timestamp.gamesave
+* Add this path and savename mapping to our internal list Map<String, String> savedGames
+
+Other API call implementations
+* void resetGame()
+ * Use GameDataObject to reload the gamefile.xml and start over
+* void resetGameToSaveFile(String saveFilePath)
+ * Use GameDataObject to load a savefile, start over
+* Map<String, Double> getHighScores()
+ * Return our internal list
+* Map<String, String> getSaveFileNameAndPaths()
+ * Return our internal list
+
+Class/Package Hierarchy
+* Engine.Backend.?
+* BackendController
+* Events.?
+ * EventRegistry
+ * IGraphicalRepresentationEvent
+ * IGraphicalRepresentationEventListener
+ * GraphicalRepresentationEvent
+ * GraphicalRepresentationEventListener
+* Graphics.?
+ * IGraphicalRepresentation
+ * GraphicalRepresentation
+* Groovy.?
+ * IGroovyLib
+ * GroovyLib
+* Parsing.?
+ * ActionListParser
+* Execution
+ * PhysicsModel
+
+(from “Object, Event and Action Types”)
+Events and their parameters:
+* Create - performs actions when object initialized
+* Destroy - performs actions when object is removed from game
+* Step - performs actions every keyframe
+* Collision - perform actions on collision with Object (or anything in list of Objects)
+ * Object (or list of Objects ?) collided with
+* Keypress - perform actions on key pressed
+ * Key
+* Click - perform actions on object clicked
+
+Actions and their parameters:
+* move
+ * n, nw, w, sw, s, se, e, ne
+ * speed
+ * who it applies to
+ * relative_coordinate_system_boolean
+ * example: 
+  * this.move(“nw”, 10)
+   * this is the current instance of the object
+  * getObjectByID(“farmer”).move(“nw, 10)
+   * you can use the ID of any object
+* move_angle
+ * angle degrees
+ * speed
+ * who it applies to
+ * relative_coordinate_system_boolean
+* move_towards_point
+ * x
+ * y
+ * speed
+ * who it applies to
+ * relative_coordinate_system_boolean
+* set_gravity
+ * acceleration
+ * who it applies to
+ * relative_coordinate_system_boolean
+* set_acceleration
+ * acceleration
+ * direction degree
+ * who it applies to
+ * relative_coordinate_system_boolean
+* set_friction
+ * acceleration
+ * direction degree
+ * who it applies to
+* move_to_xy
+ * x
+ * y
+ * who it applies to
+ * relative_coordinate_system_boolean
+* move_to_random
+ * who it applies to
+* wrap_around_room
+ * horizontal_boolean
+ * vertical_boolean
+ * who it applies to
+* create_object
+ * id
+ * x
+ * y
+ * relative_coordinate_system_boolean
+* create_object_with_parameters
+ * id
+ * x
+ * y
+ * xvel
+ * yvel
+ * xaccel
+ * yaccel
+ * relative_coordinate_system_boolean
+* destroy_instance
+ * who it applies to
+* change_sprite
+ * who it applies to
+* goto_room_id
+ * room_id
+  * this starts at 0
+ * relative_to_current_room_boolean
+* [conditional] get_room_id
+ * returns an int
+* savegame
+ * we create a new file for each save
+* display_message
+ * pop up a javafx messagebox
+ * string message
+* sleep
+ * milliseconds
+ * who it applies to
+* [conditional] check_overlap_with_other_objects
+ * who it applies to
+ * relative
+ * x
+ * y
+ * not
+* [conditional] is_object_at_position
+ * object id
+ * x
+ * y
+ * relative
+ * who it applies to
+* [conditional] get_random_odds
+ * upper_bound
+ * not
+* [conditional] get_mouse_button
+ * left | right
+ * not
+* [conditional] open_block
+* close_block
+* else_block
+* [conditional] repeat_block
+ * # times
+* run_script
+ * who it applies to
+ * script_string
+* set_variable
+ * variable_name
+ * value
+* [conditional] check_variable
+ * variable name
+ * value
+ * equal to | greater than | less than | >= | <=
+* set_score
+* [conditional] check_score
+* open_webpage
+ * url
+
+
+
+#### GameDataObject
+
+All of the data for authoring and playing the game will be stored in a GameDataObject. This object contains data about the objects, rooms, views, and actions designed in each game. This data storage element will also hold game save data and player specific information such as a list of high scores mapped to usernames. The GameDataObject will store a list of ObjectTypes which is a list of unique objects that have been authored by the game designer. An ObjectType will contain information that is not instance specific such as a list of porperties, an associated image, a groovy script, and an Event mapped to an Action. An Action object will contain a String of groovy and a pointer to the next action. The GameDataObject will also store a list of rooms. These rooms will be used to make different levels, win/lose screens, or any custom individual display the game designer wants to make. The rooms will contain a list of ObjectInstances which are specific instances of those ObjectTypes. These instance objects will hold information specific to that instance such as location, orientation, and ID. These object instances are associated with the room that contains them. These room object will also store a list of Views. These views are the camera view that the player will see when playing the game. Finally, the GameDataObject will contain a Data object. This Data object will store information about previous runs of the game including a user’s current room and score. The data object will be used to restore the previous session for a user and is instantiated by the Game Engine. Finally, the GameDataObject will contain Map of Usernames to High Scores for that specific game.
+
+The GameDataObject is initialized by the Authoring Environment and saved to XML by the XMLWriter when the game designer exports their game. This file along with the required resources to run the game such as images will be zipped into a file and written to disk. This file will be loaded back into the game engine to play the game. The GameEngine will recreate the GameDataObject from XML using the XMLReader and run the game. When the player saves their games state, reaches a checkpoint, or dies, the GameEngine will update the GameDataObject and write the updated state to XML using the XMLWriter.
+
 
 
 
@@ -131,7 +384,7 @@ Frogger is also timed. This game will implement the timer part of our authoring 
 A major design decision is to implement actions directly as Groovy scripts, and to write the Groovy script that the action consists of to the XML. No alternative design was proposed, but an underlying assumption of the whole design is that everything that needs to be done in the game can be represented in Groovy scripts executed on events on an object.
 Considerations include whether we should implement a parent-child hierarchy in the Authoring Environment and how that would best be implemented in the Engine. The current decision is to not implement it in our actual code, but to include it in our spec if we decide it is something we want to include later.
 Considerations from the game engine specifically include how events should be stored and monitored and read into the loop. On the one hand, to close the class the types of events should be read in from an external file. On the other hand, implementing an interface into all of the different types of events proves to be a challenging thing to do given the different types of accesses needed by different types of objects.
-Another consideration includes the way that the data being written to the XML is being stored by both the authoring environment and the engine. Because there is only one type of data object, both places have data stored that they don’t necessarily need access to. Yet this keeps our design flexible and ensures that any GameObject can be read in by both the authoring environment and the game engine.
+Another consideration includes the way that the data being written to the XML is being stored by both the authoring environment and the engine. Because there is only one type of data object, both places have data stored that they don’t necessarily need access to. Yet this keeps our design flexible and ensures that any DataGame can be read in by both the authoring environment and the game engine.
 Yet another consideration is to present the game player as the frontend to the game engine instead of the front end of the choosing between editing and playing games as well as the game front end. Because of this, our design currently has no data stored to a specific “Player” but instead writes all saved data (XML, games in progress) to either the XML that the game was read from, or creates a new file to record the data from the game in progress and includes it in the game folder containing all of the other files.
 
 ###Team Responsibilities

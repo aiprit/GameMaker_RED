@@ -1,59 +1,58 @@
 package engine;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
+import javafx.scene.input.InputEvent;
 import structures.data.DataGame;
-import structures.run.*;
+import structures.run.RunGame;
 
-public class Engine implements IEngine, IControlListener {
-	
+public class Engine {
+
+	private RunGame myOriginalGame;
 	private RunGame myGame;
-	private Draw myDraw;
-	private Logic myLogic;
-	
-	public Engine(DataGame dataGame, Canvas canvas){
-		myGame = dataGameToRunGame(dataGame);
-		myDraw = new Draw(canvas);
-		myLogic = new Logic(myGame);
+	private EventManager eventManager;
+	private IGamePlayHandler myListener;
+	private Queue<InputEvent> inputs;
+	private Map<String, Double> variables;
+
+	public Engine(RunGame runGame) {
+		inputs = new LinkedList<InputEvent>();
+		myGame = runGame;
+		myOriginalGame = runGame.clone();
+		eventManager = new EventManager(myGame, inputs);
+		myListener = new GamePlayListener(inputs);
 	}
 
-	@Override
-	public void load(DataGame dataGame) {
-		myGame = dataGameToRunGame(dataGame);
+	public void load(RunGame runGame) {
+		myGame = runGame;
+		myOriginalGame = runGame.clone();
 	}
-	
-	@Override
+
 	public void step() {
-		myLogic.step();
-		myDraw.draw(myGame.getCurrentRoom());
+		eventManager.loop();
 	}
 
-	@Override
 	public DataGame save() {
 		DataGame currentGameData = myGame.toData();
 		return currentGameData;
 	}
 
-	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private RunGame dataGameToRunGame(DataGame dataGame){
-		//change DataGame to RunGame
-		return null;
+		myGame = myOriginalGame;
 	}
 
-	@Override
-	public void onKeyEvent(KeyEvent event) {
-		myLogic.onKeyEvent(event);
+	public IGamePlayHandler getListeners() {
+		return myListener;
 	}
 
-	@Override
-	public void onMouseEvent(MouseEvent event) {
-		myLogic.onMouseEvent(event);
-	}
+	// @Override
+	// public void registerGameEventListener(IGameEventListener listener) {
+	// myListener = listener;
+	//
+	// myListener.() =
+	// }
 
 }
