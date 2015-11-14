@@ -146,6 +146,8 @@ public class RoomEditor {
 			myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
 			myRoomController.addObject(objectInstance.getObject());
+		} else {
+			//TODO get rid of the object
 		}
 	}
 	
