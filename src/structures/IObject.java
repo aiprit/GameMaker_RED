@@ -1,5 +1,7 @@
 package structures;
 
+import javafx.geometry.Point2D;
+import structures.data.DataSprite;
 import authoring_environment.Sprite;
 import javafx.geometry.Point2D;
 import structures.data.events.IDataEvent;
@@ -9,7 +11,9 @@ public interface IObject {
 	
 	void deleteEvent(IDataEvent e);
 	
-	void addSprite(Sprite s);
+	void addSprite(DataSprite s);
+	
+	Sprite getSprite();
 	
 	void setName(String name);
 	

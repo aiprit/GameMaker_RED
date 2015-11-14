@@ -1,6 +1,5 @@
 import java.util.ResourceBundle;
 
-
 import authoring_environment.room.RoomEditor;
 import engine.EngineController;
 import exceptions.ResourceFailedException;
