@@ -13,9 +13,15 @@ public class ObjectTopPane {
 
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();
 		Menu spriteMenu = sprite.makeMenu(null);
+		
 		ObjectVisibleMenu visible = new ObjectVisibleMenu();
 		Menu visibleMenu = visible.makeMenu(null);
-		menu.getMenus().addAll(spriteMenu, visibleMenu);
+		
+		ObjectEventMenu event = new ObjectEventMenu();
+		Menu eventMenu = event.makeMenu(null);
+		
+		menu.getMenus().addAll(spriteMenu, visibleMenu, eventMenu);
+		
 		root.getChildren().add(menu);
 		return root;
 

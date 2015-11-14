@@ -12,10 +12,9 @@ public class EventPopup {
 
 
 
-	public void popup(Stage primaryStage) {
+	public void popup() {
 		 Stage dialog = new Stage();
-         dialog.initModality(Modality.APPLICATION_MODAL);
-         dialog.initOwner(primaryStage);
+         
          EventGUI gui = new EventGUI(null,dialog);
 	}
 

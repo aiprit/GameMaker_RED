@@ -16,7 +16,7 @@ public class EventGUI {
 	private Group myRoot;
 	private IDataEvent myEvent;
 	private ObjectController myObjectController;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIProperties");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIProperties");
 	public EventGUI(IDataEvent event,Stage stage){
 		try{
 			myRoot = new Group();
