@@ -15,16 +15,20 @@ public class DataObject implements IObject {
 
 	private Point2D myPosition;
 	private double myRotation, myAngularVelocity;
-	private double myAlpha, myWidth, myHeight;
+	private int myAlpha, myWidth, myHeight;
 
 	private boolean myVisible;
 	private int myZIndex;
 
-	public DataObject(String name, double width, double height){
+	public DataObject(String name, int width, int height){
 		myName = name;
 		myWidth = width;
 		myHeight = height;
 		myZIndex = 0;
+	}
+	
+	public List<IDataEvent> getEvents() {
+	    return myEvents;
 	}
 
 	@Override
@@ -49,8 +53,8 @@ public class DataObject implements IObject {
 
 
 	@Override
-	public double[] getSize() {
-		return new double[] {myWidth, myHeight};
+	public int[] getSize() {
+		return new int[] {myWidth, myHeight};
 	}
 
 	@Override
@@ -81,6 +85,10 @@ public class DataObject implements IObject {
 	@Override
 	public double getRotation() {
 		return myRotation;
+	}
+	
+	public double getVelocity() {
+	    return myAngularVelocity;
 	}
 
 	public void setZIndex(int zIndex){

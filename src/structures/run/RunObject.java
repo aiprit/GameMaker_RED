@@ -3,27 +3,33 @@ package structures.run;
 import java.util.Map;
 import java.util.Vector;
 import javafx.event.EventType;
-import javafx.scene.image.ImageView;
 import structures.IObject;
+import structures.data.DataObject;
 
 public class RunObject implements IRunDrawable {
 	
-	private String name;
+	private String myName;
 	private String sprite;
-	double width;
-	double height;
+	int myWidth;
+	int myHeight;
 	double rotation;
-	Vector velocity;
+	double velocity;
 	Map<EventType, RunAction> myEvents;
 	double x;
 	double y;
 	
-	public String getName(){
-		return name;
+	public RunObject(DataObject dataObject) {
+	    myName = dataObject.getName();
+	    myWidth = dataObject.getSize()[0];
+	    myHeight = dataObject.getSize()[1];
+	    rotation = dataObject.getRotation();
+	    velocity = dataObject.getVelocity();
+	    x = dataObject.getPosition().getX();
+	    y = dataObject.getPosition().getY();
 	}
 	
-	public IObject toData() {
-	    return null;
+	public DataObject toData() {
+	    return new DataObject(myName, myWidth, myHeight);
 	}
 	
 	public void movementAngle(double angle, double velocity, boolean relative){
@@ -66,12 +72,12 @@ public class RunObject implements IRunDrawable {
 
 	@Override
 	public double getWidth() {
-		return width;
+		return myWidth;
 	}
 
 	@Override
 	public double getHeight() {
-		return height;
+		return myHeight;
 	}
 
 	@Override

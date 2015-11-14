@@ -1,6 +1,6 @@
 package structures.run;
 
-import java.util.List;
+import exceptions.ResourceFailedException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import structures.data.DataSprite;
@@ -8,12 +8,19 @@ import structures.data.DataSprite;
 public class RunSprite {
     
     private String myName;
-    private ImageView myImageView;
-    private List<Image> myImages;
-    private int myNumberOfImages;
+    private Image myImage;
     
-    public RunSprite(DataSprite dataSprite) {
-        myName = dataSprite.getFileName();
+    public RunSprite(DataSprite dataSprite) throws ResourceFailedException {
+        myName = dataSprite.getName();
+        myImage = dataSprite.getImage();
+    }
+    
+    public DataSprite toData() {
+        return new DataSprite(myName);
+    }
+    
+    public ImageView getImageView() {
+        return new ImageView(myImage);
     }
 
 }

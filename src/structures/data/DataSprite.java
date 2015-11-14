@@ -11,15 +11,6 @@ public class DataSprite implements IResource {
 	
 	public DataSprite(String fileName) {
 		myFileName = fileName;
-		try {
-			load();
-		} catch (ResourceFailedException e){
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public Image getImage() {
-		return myImage;
 	}
 
 	public String getName(){
@@ -28,13 +19,17 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load() throws ResourceFailedException {
-		String url = myFileName;
 		try {
-			myImage = new Image(url);
+			myImage = new Image(myFileName);
 		} catch (Exception ex) {
-			String message = String.format("Failed to load image '%s' for DataSprite", url);
+			String message = String.format("Failed to load image '%s' for DataSprite", myFileName);
 			throw new ResourceFailedException(message);
 		}
+	}
+	
+	public Image getImage() throws ResourceFailedException {
+	    load();
+	    return myImage;
 	}
 	
 }

@@ -13,7 +13,7 @@ public interface IObject {
 	
 	String getName();
 	
-	double[] getSize();
+	int[] getSize();
 	
 	void setPosition(Point2D pos);
 	

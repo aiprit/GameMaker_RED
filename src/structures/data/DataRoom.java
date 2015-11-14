@@ -5,13 +5,13 @@ import structures.IObject;
 import structures.IRoom;
 
 public class DataRoom implements IRoom {
-    private List<IObject> roomObjects;
+    private List<DataObject> roomObjects;
 	private DataView myView;
 	private IObject myBackground;
-	private double myWidth, myHeight;
+	private int myWidth, myHeight;
 	private String myName;
 
-	public DataRoom(String name, double width, double height){
+	public DataRoom(String name, int width, int height){
 		myName = name;
 		myWidth = width;
 		myHeight = height;
@@ -19,14 +19,18 @@ public class DataRoom implements IRoom {
 		//by default the view is set to be the entire room
 		myView = new DataView("MainView", width, height, 0, 0);
 	}
+	
+	public List<DataObject> getObjects() {
+	    return roomObjects;
+	}
 
 	@Override
-	public void addObject(IObject o) {
+	public void addObject(DataObject o) {
 		roomObjects.add(o);
 	}
 
 	@Override
-	public void removeObject(IObject o) {
+	public void removeObject(DataObject o) {
 		roomObjects.remove(o);
 	}
 
@@ -36,8 +40,8 @@ public class DataRoom implements IRoom {
 	}
 
 	@Override
-	public double[] getSize() {
-		return new double[] {myWidth, myHeight};
+	public int[] getSize() {
+		return new int[] {myWidth, myHeight};
 	}
 
 	@Override

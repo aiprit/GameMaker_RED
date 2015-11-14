@@ -19,10 +19,6 @@ public class DataSound implements IResource {
 		return myFileName;
 	}
 	
-	public void setFileName(String fileName) {
-		myFileName = fileName;
-	}
-	
 	@Override
 	public void load() throws ResourceFailedException {
             String url =  myFileName;

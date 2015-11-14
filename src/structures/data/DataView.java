@@ -1,7 +1,5 @@
 package structures.data;
 
-import java.awt.Rectangle;
-
 /**
  * The View that determines what the camera paints on the screen
  * within a Room. Views are always bound to a specific Room, and
@@ -16,9 +14,9 @@ public class DataView {
 	//myX and myY is the location on the screen where the top
 	//left corner of the view is drawn
 
-	private double myWidth, myHeight, myX, myY;
+	private int myWidth, myHeight, myX, myY;
 
-	public DataView(String name, double width, double height, double x, double y) {
+	public DataView(String name, int width, int height, int x, int y) {
 		myName = name;
 		myWidth = width;
 		myHeight = height;
@@ -31,11 +29,20 @@ public class DataView {
     }
 
 
-    public double[] getBounds() {
-		return new double[] {myWidth, myHeight};
-	}
+    public int getWidth() {
+	return myWidth;
+    }
+    
+    public int getHeight() {
+        return myHeight;
+    }
+    
+    public int getX() {
+        return myX;
+    }
 
-	public double[] getPosition(){
-		return new double[] {myX, myY};
-	}
+    public int getY() {
+        return myY;
+    }
+    
 }
