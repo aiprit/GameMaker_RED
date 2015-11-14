@@ -8,7 +8,7 @@ public class ObjectTopPane {
 	MenuBar menu = new MenuBar();
 	Group root;
 
-	public Group makeTopPane() {
+	public Group init() {
 		root = new Group();
 
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();

@@ -10,7 +10,6 @@ public class ObjectPopup {
 
 	public void popup(DataObject data) {
 		Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        ObjectGUI gui = new ObjectGUI(null,dialog);
+        ObjectGUI gui = new ObjectGUI(data);
 	}
 }

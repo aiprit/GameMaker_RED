@@ -15,8 +15,8 @@ public class ObjectCenterPane {
 	public Group init(DataGame game) {
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-		GraphicsContext gc = c.getGraphicsContext2D();
-		gc.drawImage(addSprite("arwing.png"), 250, 250);
+//		GraphicsContext gc = c.getGraphicsContext2D();
+//		gc.drawImage(addSprite("arwing.png"), 250, 250);
 		root.getChildren().add(c);
 		return root;
 	}

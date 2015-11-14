@@ -14,9 +14,11 @@ public class ObjectGUITester extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		DataObject object = new DataObject("dog",10,10);
-		object.addEvent(new KeyTypedEvent());
-//		DataSprite sprite = new DataSprite();
-//		object.addSprite(sprite);
+		for (int i = 0; i < 20; i++) {
+			object.addEvent(new KeyTypedEvent());
+		}
+		//		DataSprite sprite = new DataSprite();
+		//		object.addSprite(sprite);
 		ObjectGUI og = new ObjectGUI(object, primaryStage);
 		og.init();
 	}

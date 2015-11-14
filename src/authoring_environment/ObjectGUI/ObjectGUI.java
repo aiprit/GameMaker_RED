@@ -19,13 +19,12 @@ public class ObjectGUI {
 	private Scene myScene;
 	private Stage myEditor;
 	private Group myRoot;
-	private String objectName;
+	private  String objectName;
 	private DataObject myObject;
-	private Stage myStage;
 	private ObjectController myObjectController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIProperties");
 
-	public ObjectGUI(DataObject o,Stage stage) {
+	public ObjectGUI(DataObject o) {
 		myRoot = new Group();
 		try {
 		myObject = o;
@@ -49,7 +48,7 @@ public class ObjectGUI {
 		ObjectCenterPane center = new ObjectCenterPane();
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
-		myPane.setTop(top.makeTopPane());
+		myPane.setTop(top.init());
 		myPane.setLeft(left.init());
 		myPane.setCenter(center.init(null));
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));

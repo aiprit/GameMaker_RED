@@ -12,16 +12,15 @@ import structures.data.events.IDataEvent;
 
 public class EventGUI {
 	private Scene myScene;
-	private Stage myEditor;
+	private Stage myStage;
 	private Group myRoot;
 	private IDataEvent myEvent;
-	private ObjectController myObjectController;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIProperties");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
 	public EventGUI(IDataEvent event,Stage stage){
 		try{
 			myRoot = new Group();
 			myEvent = event;
-			myEditor = stage;
+			myStage = stage;
 			init();
 		}
 			catch (NullPointerException e){
@@ -33,20 +32,20 @@ public class EventGUI {
 
 		public void init() {
 
-			myEditor.setTitle(r.getString("title"));
+			myStage.setTitle(r.getString("title"));
 			BorderPane myPane = new BorderPane();
-//			ObjectBottomPane bottom = new ObjectBottomPane(myObject);
-//			ObjectTopPane top = new ObjectTopPane();
+			EventBottomPane bottom = new EventBottomPane();
+			EventTopPane top = new EventTopPane();
 //			ObjectRightPane right = new ObjectRightPane(myObject);
 //			ObjectLeftPane left = new ObjectLeftPane();
 //			myPane.setRight(right.init());
-//			myPane.setBottom(bottom.init());
-//			myPane.setTop(top.makeTopPane());
+			myPane.setBottom(bottom.init());
+			myPane.setTop(top.init());
 //			myPane.setLeft(left.init());
 			myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 			myRoot.getChildren().add(myPane);
-			myEditor.setScene(new Scene(myRoot));
-			myEditor.show();
+			myStage.setScene(new Scene(myRoot));
+			myStage.show();
 		}
 
 
