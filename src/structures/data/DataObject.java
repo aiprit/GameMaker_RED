@@ -86,4 +86,15 @@ public class DataObject implements IObject {
 	public void setZIndex(int zIndex){
 		myZIndex = zIndex;
 	}
+
+	@Override
+	public void setSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
+	}
+
+	@Override
+	public void setName(String name) {
+		myName = name;
+	}
 }

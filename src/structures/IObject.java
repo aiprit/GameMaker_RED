@@ -26,4 +26,8 @@ public interface IObject {
 	void setRotation(double angle);
 	
 	double getRotation();
+
+	void setSize(double width, double height);
+
+	void setName(String name);
 }

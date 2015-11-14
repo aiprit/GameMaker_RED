@@ -1,6 +1,6 @@
 import java.util.ResourceBundle;
 
-
+import authoring_environment.ObjectGUI.ObjectGUI;
 import authoring_environment.room.RoomEditor;
 import engine.EngineController;
 import exceptions.ResourceFailedException;
@@ -27,7 +27,9 @@ public class Launcher extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		RoomEditor room = new RoomEditor(resources);
+		ObjectGUI og = new ObjectGUI(null);
+		og.init();
+		//RoomEditor room = new RoomEditor(resources);
 //		primaryStage.setTitle("VOOGASalad Launcher");
 //		Button btn = new Button();
 //		btn.setText("Make/Edit Game");

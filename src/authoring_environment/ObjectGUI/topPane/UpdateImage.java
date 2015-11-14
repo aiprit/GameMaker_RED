@@ -1,17 +1,18 @@
-package authoring_environment.ObjectGUI;
+package authoring_environment.ObjectGUI.topPane;
 
+import structures.IObject;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 
 public class UpdateImage {
-		private DataObject display;
+		private IObject object;
 		private DataSprite sprite;
 		public UpdateImage(DataObject t, DataSprite s) {
-			display = t;
+			object = t;
 			sprite = s;
 		}
 		
 		public void refreshImage(String newImage) {
-			display.addSprite(sprite);
+			object.addSprite(sprite);
 		}
 }
