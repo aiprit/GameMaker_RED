@@ -37,6 +37,7 @@ public class ObjectGUI {
 
 	public void init() {
 		myEditor = new Stage();
+		myEditor.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
 		ObjectBottomPane bottom = new ObjectBottomPane(myObject);
 		ObjectTopPane top = new ObjectTopPane();
@@ -46,7 +47,7 @@ public class ObjectGUI {
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.makeTopPane());
-		myPane.setLeft(left.init());
+		myPane.setLeft(left.init(myEditor));
 		myPane.setCenter(center.init(null));
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 		myRoot.getChildren().add(myPane);
