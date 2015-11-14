@@ -38,11 +38,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					ec = new EngineController(primaryStage);
-				} catch (ResourceFailedException e) {
-					e.printStackTrace();
-				}
+				ec = new EngineController(primaryStage);
 			}
 		});
 

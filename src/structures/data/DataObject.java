@@ -2,27 +2,29 @@ package structures.data;
 
 import java.util.List;
 
-import authoring_environment.Sprite;
 import javafx.geometry.Point2D;
 import structures.IObject;
 import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
-	
-    List<IDataEvent> myEvents;
 
-    String myName;
-    Sprite mySprite;
+	private List<IDataEvent> myEvents;
 
-    Point2D myPosition;
-    double myRotation, myAngularVelocity;
-    double myAlpha, myWidth, myHeight;
-    
-    boolean myVisible;
-    int myZIndex;
+	private String myName;
+	private DataSprite mySprite;
 
-	public DataObject(String name){
+	private Point2D myPosition;
+	private double myRotation, myAngularVelocity;
+	private double myAlpha, myWidth, myHeight;
+
+	private boolean myVisible;
+	private int myZIndex;
+
+	public DataObject(String name, double width, double height){
 		myName = name;
+		myWidth = width;
+		myHeight = height;
+		myZIndex = 0;
 	}
 
 	@Override
@@ -36,13 +38,8 @@ public class DataObject implements IObject {
 	}
 
 	@Override
-	public void addSprite(Sprite s) {
+	public void addSprite(DataSprite s) {
 		mySprite = s;
-	}
-
-	@Override
-	public void setName(String name) {
-		myName = name;
 	}
 
 	@Override
@@ -50,11 +47,6 @@ public class DataObject implements IObject {
 		return myName;
 	}
 
-	@Override
-	public void setSize(double width, double height) {
-		myWidth = width;
-		myHeight = height;
-	}
 
 	@Override
 	public double[] getSize() {
@@ -89,5 +81,9 @@ public class DataObject implements IObject {
 	@Override
 	public double getRotation() {
 		return myRotation;
+	}
+
+	public void setZIndex(int zIndex){
+		myZIndex = zIndex;
 	}
 }

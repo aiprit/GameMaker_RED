@@ -3,6 +3,7 @@
  */
 package engine;
 
+import exceptions.CompileTimeException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -23,7 +24,6 @@ import structures.run.RunGame;
  * @author loganrooper
  */
 public class FrontEnd {
-	private Canvas myCanvas;
 	private Draw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
@@ -31,25 +31,27 @@ public class FrontEnd {
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
-	
-	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGameEngineHandler geHandler) {
+	private IRedrawHandler redrawHandler;
+
+	public FrontEnd(Stage stage, IGamePlayHandler gpHandler, RunGame game, IGameEngineHandler geHandler) throws CompileTimeException {
 		this.geHandler = geHandler;
 		this.gpHandler = gpHandler;
 		this.game = game;
 		this.stage = stage;
+		redrawHandler = new RedrawHandler();
 		setupFramework();
 	}
-	
-	private void setupFramework(){
+
+	private void setupFramework() throws CompileTimeException{
 		myGame = game;
 		myRoot = new Group();
 		Scene playScene = new Scene(myRoot, 400, 400);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-		    @Override
-		    public void handle(MouseEvent mouseEvent) {
-		    	gpHandler.setOnEvent(mouseEvent);
-		    }
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				gpHandler.setOnEvent(mouseEvent);
+			}
 		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
@@ -57,8 +59,6 @@ public class FrontEnd {
 				gpHandler.setOnEvent(event);
 			}
 		});
-		
-		
 		MenuBar myMenus = new MenuBar();
 		myMenus.useSystemMenuBarProperty().set(true);
 		Menu fileMenu = new Menu("File");
@@ -99,11 +99,16 @@ public class FrontEnd {
 		fileMenu.getItems().addAll(reset, save, close, pause);
 		view.getItems().addAll(highScore, showHelp);
 		myRoot.getChildren().add(myMenus);
+		setupCanvas();
 	}
-	
-	private void setupCanvas(){
-		myCanvas = new Canvas();
-		myCanvasDrawer = new Draw(myCanvas);
-		myCanvasDrawer.draw(myGame);
+
+	private void setupCanvas() throws CompileTimeException{
+		myCanvasDrawer = new Draw();
+		myRoot.getChildren().add(myCanvasDrawer);
+		redrawHandler.setDrawer(myCanvasDrawer);
+	}
+
+	public IRedrawHandler getRedrawHandler() {
+		return redrawHandler;
 	}
 }

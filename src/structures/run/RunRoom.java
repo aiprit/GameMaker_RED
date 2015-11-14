@@ -1,6 +1,8 @@
 package structures.run;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import structures.data.DataRoom;
 
 public class RunRoom {
@@ -13,6 +15,7 @@ public class RunRoom {
 	public RunRoom(DataRoom dataRoom) {
 		myName = dataRoom.toString();
 		myView = new RunView(dataRoom.getView());
+		myObjects = new ArrayList<RunObject>();
 	}
 	
 	public String getBackground(){

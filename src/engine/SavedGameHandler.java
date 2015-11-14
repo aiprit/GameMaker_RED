@@ -17,11 +17,15 @@ public class SavedGameHandler {
 		// filename -> friendlyname
 		saves = new HashMap<String, String>();
 
-		for (final File fileEntry : new File(String.format("Games/%s/saves"), myGame).listFiles()) {
-			saves.put(fileEntry.getName(), "todo: update this");
+		File folder = new File(String.format("./Games/%s/saves", myGame));
+
+		if(folder.listFiles() != null){
+			for (final File fileEntry : folder.listFiles()) {
+				saves.put(fileEntry.getName(), "todo: update this");
+			}
 		}
 	}
-	
+
 	//TODO:
 	public void saveGame() {}
 	public void loadGame(String filename) {}
