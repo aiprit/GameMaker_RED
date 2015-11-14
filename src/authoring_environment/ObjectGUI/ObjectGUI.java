@@ -25,7 +25,7 @@ public class ObjectGUI {
 	private ObjectController myObjectController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIProperties");
 
-	public ObjectGUI(DataObject o) {
+	public ObjectGUI(DataObject o,Stage stage) {
 		myRoot = new Group();
 		try {
 		myObject = o;
