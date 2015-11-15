@@ -15,9 +15,14 @@ public class DataGame {
     private String myStartRoomName, myCurrentRoomName;
     private double myScreenWidth;
     private double myScreenHeight;
+    private String myGameDirectory;
+    
+    public static final String SPRITE_REL_DIRECTORY = "images/";
+    public static final String SOUND_REL_DIRECTORY = "sounds/";
 
-    public DataGame(String name) {
+    public DataGame(String name, String gameDirectory) {
     	myName = name;
+    	myGameDirectory = gameDirectory;
     }
 
     public String getName() {
@@ -26,6 +31,13 @@ public class DataGame {
 
     public void setStartRoom(String roomName){
         myStartRoomName = roomName;
+    }
+    
+    public String getSpriteDirectory() {
+    	return myGameDirectory + SPRITE_REL_DIRECTORY;
+    }
+    public String getSoundDirectory() {
+    	return myGameDirectory + SOUND_REL_DIRECTORY;
     }
 
     public void addObject(IObject o){

@@ -3,9 +3,13 @@ package structures.run;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import engine.IDraw;
+import exceptions.ResourceFailedException;
 import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
+import structures.data.DataSprite;
 
 public class RunGame implements IRun {
 	
@@ -13,10 +17,11 @@ public class RunGame implements IRun {
 	private List<RunRoom> myRooms;
 	
 	private int myCurrentRoomNumber;
+	private RunResources myResources;
 	
-	public RunGame(DataGame dataGame) {
+	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException {
 		myName = dataGame.getName();
-		
+		myResources = loadResources(dataGame, drawingInterface);
 	}
 	
 	public String getName() {
@@ -25,6 +30,19 @@ public class RunGame implements IRun {
 	
 	public RunRoom getCurrentRoom() {
 		return myRooms.get(myCurrentRoomNumber);
+	}
+	
+	private RunResources loadResources(DataGame game, IDraw drawingInterface) throws ResourceFailedException {
+		
+		String spriteDir = game.getSpriteDirectory();
+		String soundDir = game.getSoundDirectory();
+		RunResources resources = new RunResources(drawingInterface, spriteDir, soundDir);
+		
+		for (DataSprite sprite : game.getSprites().values()) {
+			resources.loadSprite(sprite);
+		}
+		
+		return resources;
 	}
 	
 	@Override
