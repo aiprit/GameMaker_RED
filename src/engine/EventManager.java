@@ -2,6 +2,7 @@ package engine;
 
 import java.util.List;
 import java.util.Queue;
+import exceptions.CompileTimeException;
 import javafx.scene.input.InputEvent;
 import structures.run.RunGame;
 import structures.run.RunObject;
@@ -16,11 +17,7 @@ public class EventManager {
 		this.inputs = inputs;
 	}
 	
-	public void load(RunGame game) {
-	    myGame = game;
-	}
-	
-	void loop() {
+	void loop() throws CompileTimeException {
 		List<RunObject> it = myGame.getCurrentRoom().getObjects();
 		step(it);
 		checkKeyEvents(it);
