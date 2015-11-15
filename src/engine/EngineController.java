@@ -1,17 +1,11 @@
 package engine;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
 import XML.XMLReader;
 import XML.XMLWriter;
 import exceptions.CompileTimeException;
-import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -64,7 +58,7 @@ public class EngineController {
 			// TODO: handle this case
 			System.err.println("Gamefile missing.");
 		}
-		myGame = new DataGame(myName);
+		myGame = myReader.read(myName);
 	}
 
 	private RunGame dataGameToRunGame(DataGame dataGame) {

@@ -1,11 +1,6 @@
 package structures.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import authoring_environment.Sprite;
-
-import authoring_environment.Sprite;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -26,7 +21,7 @@ public class DataObject implements IObject {
 	private boolean myVisible;
 	private int myZIndex;
 
-	public DataObject(String name, int width, int height){
+	public DataObject(String name, double width, double height){
 		myName = name;
 		myWidth = width;
 		myHeight = height;

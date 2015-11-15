@@ -1,13 +1,7 @@
 
 import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
-
-import java.util.ResourceBundle;
-
-import authoring_environment.room.RoomEditor;
-
 import engine.EngineController;
-import exceptions.ResourceFailedException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,9 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import structures.data.DataObject;
-import structures.data.events.AKeyEvent;
-import structures.data.events.KeyTypedEvent;
 
 /**
  * @author loganrooper
@@ -35,16 +26,10 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-<<<<<<< HEAD
-=======
 //		DataObject object = new DataObject("dog",10,10);
 //		object.addEvent(new KeyTypedEvent());
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
-		
-		
-
->>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
 		btn.setText("Make/Edit Game");
@@ -52,12 +37,8 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-<<<<<<< HEAD
-				//TODO: Open the Authoring Environment here
-=======
 				view = new View();
 				view.init();
->>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 			}
 		});
 		Button btn1 = new Button();
@@ -66,15 +47,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-<<<<<<< HEAD
 				ec = new EngineController(primaryStage);
-=======
-				try {
-					ec = new EngineController(primaryStage);
-				} catch (ResourceFailedException e) {
-					e.printStackTrace();
-				}
->>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 			}
 		});
 

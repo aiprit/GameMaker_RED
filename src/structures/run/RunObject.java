@@ -10,10 +10,10 @@ public class RunObject implements IRunDrawable {
 	
 	private String myName;
 	private String sprite;
-	int myWidth;
-	int myHeight;
+	double myWidth;
+	double myHeight;
 	double rotation;
-	double velocity;
+	Vector velocity;
 	Map<EventType, RunAction> myEvents;
 	double x;
 	double y;
@@ -23,7 +23,7 @@ public class RunObject implements IRunDrawable {
 	    myWidth = dataObject.getSize()[0];
 	    myHeight = dataObject.getSize()[1];
 	    rotation = dataObject.getRotation();
-	    velocity = dataObject.getVelocity();
+	    velocity = new Vector((int) dataObject.getVelocity());
 	    x = dataObject.getPosition().getX();
 	    y = dataObject.getPosition().getY();
 	}
