@@ -2,11 +2,10 @@ package authoring_environment.ObjectGUI.bottomPane;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import structures.IObject;
@@ -15,12 +14,12 @@ public class ObjectBottomPane {
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/bottomPane/BottomPaneResources");
 	private String name;
 	private double[] size;
-	private IObject o;
-	public ObjectBottomPane(IObject object) {
+	private ObjectController myController;
+	public ObjectBottomPane(ObjectController controller) {
+		myController = controller;
 		try {
-			o = object;
-			name = o.getName();
-			size = o.getSize();
+			name = myController.getName();
+			size = myController.getSize();
 		}
 		catch (NullPointerException e) {
 			name = r.getString("tempName");
@@ -57,8 +56,8 @@ public class ObjectBottomPane {
 	}
 
 	private void update(String name, double width, double height) {
-		o.setName(name);
-		o.setSize(width, height);
+		myController.setName(name);
+		myController.setSize(width, height);
 	}
 	
 	private TextField createTextBox(String s, int width, int height) {

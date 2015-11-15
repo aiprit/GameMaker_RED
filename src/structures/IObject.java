@@ -15,8 +15,7 @@ public interface IObject {
 
 	void addSprite(DataSprite s);
 
-
-	Sprite getSprite();
+	DataSprite getSprite();
 
 	void setName(String name);
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import authoring_environment.Sprite;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -105,6 +106,11 @@ public class DataObject implements IObject {
 	@Override
 	public void setName(String name) {
 		myName = name;
+	}
+
+	@Override
+	public DataSprite getSprite() {
+		return mySprite;
 	}
 }
 
