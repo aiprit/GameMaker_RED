@@ -3,6 +3,7 @@ package authoring_environment.ObjectGUI.leftPane;
 import java.util.ResourceBundle;
 
 import authoring_environment.EventPopup;
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -15,15 +16,14 @@ import structures.data.events.IDataEvent;
 
 public class ObjectLeftPane {
 	private Group root;
-	private DataGame game;
+	private ObjectController myController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/LeftPaneResources");
 	private ObservableList<IDataEvent> list;
 	
-	public ObjectLeftPane(DataGame g) {
+	public ObjectLeftPane(ObjectController controller) {
+		myController = controller;
 		try{
-			game = g;
-			list = null;
-			//list = g.getEvents();
+			
 		}
 		catch(NullPointerException e){
 

@@ -12,7 +12,7 @@ import structures.data.DataGame;
 public class ObjectEventMenu {
 	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/topPane/TopPaneResources");
 
-	public Menu makeMenu(DataGame game) {
+	public Menu makeMenu() {
 		Menu event = new Menu(r.getString("eventTitle"));
 		MenuItem addEvent = new MenuItem(r.getString("addEventTitle"));	
 		event.getItems().add(addEvent);

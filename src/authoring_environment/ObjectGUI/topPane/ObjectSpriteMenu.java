@@ -19,10 +19,10 @@ public class ObjectSpriteMenu {
 
 	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/topPane/TopPaneResources");
 	Map<String, DataSprite> mySprites;
-	public Menu makeMenu(ObjectController controller) {
+	public Menu makeMenu(Map<String, DataSprite> sprites) {
 		Menu image = new Menu(r.getString("imageTitle"));
 		try{
-		mySprites = controller.getSprites();
+		mySprites = sprites;
 		addMenuItem(image,mySprites.keySet());
 		}
 		catch(NullPointerException e){

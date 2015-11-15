@@ -40,9 +40,9 @@ public class ObjectGUI {
 		myEditor.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
 		ObjectBottomPane bottom = new ObjectBottomPane(myController);
-		ObjectTopPane top = new ObjectTopPane();
+		ObjectTopPane top = new ObjectTopPane(myController);
 		ObjectRightPane right = new ObjectRightPane(myController);
-		ObjectLeftPane left = new ObjectLeftPane(null);
+		ObjectLeftPane left = new ObjectLeftPane(myController);
 		ObjectCenterPane center = new ObjectCenterPane();
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());

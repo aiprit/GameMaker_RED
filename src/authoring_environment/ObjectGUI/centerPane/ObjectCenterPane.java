@@ -27,7 +27,7 @@ public class ObjectCenterPane {
 		catch (NullPointerException e) {
 			sprite = addSprite("Mario.png");
 		}
-		gc.drawImage(sprite, 250, 250);
+		gc.drawImage(sprite, 50, 50);
 		root.getChildren().add(c);
 		return root;
 	}
