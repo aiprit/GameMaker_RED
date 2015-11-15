@@ -20,9 +20,12 @@ import structures.data.events.KeyPressedEvent;
 
 public class TestGameObject {
 
-    public TestGameObject(){
-        DataGame printGame = getTestGame();
+    public static void main(String[] args){
+        TestGameObject testGameObject = new TestGameObject();
 
+        DataGame printGame = testGameObject.getTestGame();
+
+        System.out.println(printGame.toString());
     }
 
     /*
