@@ -109,9 +109,8 @@ public class DataObject implements IObject {
 	}
 
 	@Override
-	public Sprite getSprite() {
-		// TODO Auto-generated method stub
-		return null;
+	public DataSprite getSprite() {
+		return mySprite;
 	}
 }
 

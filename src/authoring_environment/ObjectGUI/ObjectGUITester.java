@@ -2,6 +2,7 @@ package authoring_environment.ObjectGUI;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import structures.IObject;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.KeyTypedEvent;
@@ -13,13 +14,11 @@ public class ObjectGUITester extends Application{
 	}
 
 	public void start(Stage primaryStage) throws Exception {
-		DataObject object = new DataObject("dog",10,10);
-		for (int i = 0; i < 20; i++) {
-			object.addEvent(new KeyTypedEvent());
-		}
+		IObject object = new DataObject("dog", 10, 10);
+		ObjectController c = new ObjectController(object, null);
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);
-		ObjectGUI og = new ObjectGUI(object);
+		ObjectGUI og = new ObjectGUI(c);
 		og.init();
 	}
 }

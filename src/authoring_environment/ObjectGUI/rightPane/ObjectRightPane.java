@@ -2,6 +2,7 @@ package authoring_environment.ObjectGUI.rightPane;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -15,15 +16,18 @@ public class ObjectRightPane {
 	private DataObject o;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/rightPane/RightPaneResources");
 	private ObservableList<IDataEvent> list;
+	private ObjectController myController;
 	
-	public ObjectRightPane(DataObject object) {
-		try{
-			o = object;
-			list = object.getEvents();
-		}
-		catch(NullPointerException e){
-			
-		}
+	public ObjectRightPane(ObjectController controller) {
+		myController = controller;
+		list = controller.getEvents();
+//		try{
+//			o = object;
+//			list = controller.getEvents();
+//		}
+//		catch(NullPointerException e){
+//			
+//		}
 	}
 
 	public Group init() {
