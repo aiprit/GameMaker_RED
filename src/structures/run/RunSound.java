@@ -1,24 +1,35 @@
 package structures.run;
 
+import exceptions.CompileTimeException;
 import structures.data.DataSound;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 public class RunSound {
+	
+	public final String name;
+	
     private AudioStream myAudioStream;
-    private String myName;
+    private DataSound myDataSound;
     
-    public RunSound(DataSound dataSound) {
+    public RunSound(String name) {
+    	this.name = name;
+    }
+    public RunSound(DataSound dataSound) throws CompileTimeException {
+    	this.name = dataSound.getName();
+    	if (!dataSound.loaded()) {
+    		throw new CompileTimeException("Can't create RunSound from unloaded DataSound '%s'", this.name);
+    	}
         myAudioStream = dataSound.getAudio();
-        myName = dataSound.getName();
+        myDataSound = dataSound;
     }
     
-    public void playSound() {
+    public void play() {
         AudioPlayer.player.start(myAudioStream);
     }
     
-    public DataSound toData() {
-        return new DataSound(myName);
+    public DataSound getData() {
+    	return myDataSound;
     }
     
 }

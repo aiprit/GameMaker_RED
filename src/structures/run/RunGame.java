@@ -9,16 +9,14 @@ import structures.data.DataGame;
 
 public class RunGame implements IRun {
 	
-	private final String myName;
+	public final String myName;
 	private List<RunRoom> myRooms;
-	private double myWidth, myHeight;
 	
 	private int myCurrentRoomNumber;
 	
 	public RunGame(DataGame dataGame) {
 		myName = dataGame.getName();
-		myWidth = dataGame.getWidth();
-		myHeight = dataGame.getHeight();
+		
 	}
 	
 	public String getName() {
@@ -42,10 +40,6 @@ public class RunGame implements IRun {
 		String currentRoom = myRooms.get(myCurrentRoomNumber).myName;
 		String startRoom = myRooms.get(0).myName;
 		return new DataGame(myName);
-	}
-	
-	public RunGame clone() {
-	    return this.clone();
 	}
 
 }
