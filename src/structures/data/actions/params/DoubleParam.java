@@ -27,13 +27,18 @@ public class DoubleParam implements IParameter {
 		return myString;
 	}
 	
-	public double getValue() {
+	public Double getValue() {
 		return myValue;
 	}
 
 	@Override
 	public String getTitle() {
 		return myTitle;
+	}
+	
+	@Override
+	public IParameter.type getType() {
+		return IParameter.type.DOUBLE;
 	}
 	
 }

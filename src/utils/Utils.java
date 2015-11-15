@@ -21,6 +21,11 @@ public class Utils {
 		public C run(A input1, B input2) throws D;
 	}
 	
+	@FunctionalInterface
+	public interface Condition<A, E extends Throwable> {
+		public boolean condition(A input) throws E;
+	}
+	
 	/**
 	 * Same as below, but for a single input List.
 	 * 
@@ -99,6 +104,17 @@ public class Utils {
 	
 	public static double constrain(double value, double min, double max) {
 		return Math.min(max, Math.max(min, value));
+	}
+	
+	public static <T, E extends Throwable> T first(List<T> input, Condition<T, E> condition, T defaultValue) throws E {
+		T item;
+		for (int i = 0; i < input.size(); i++) {
+			item = input.get(i);
+			if (condition.condition(item)) {
+				return item;
+			}
+		}
+		return defaultValue;
 	}
 	
 	
