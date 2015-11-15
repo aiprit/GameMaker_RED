@@ -14,10 +14,17 @@ public class RoomPreview extends ScrollPane {
 	
 	public RoomPreview(ResourceBundle resources) {
 		super();
-		super.setMinHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
-		super.setMinWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
-		myRoot = new Group();
+		initializePreview(resources);
 		super.setContent(myRoot);
+	}
+	
+	private void initializePreview(ResourceBundle resources) {
+		super.setPrefHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
+		super.setPrefWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
+		RoomBackground background = new RoomBackground(resources);
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myRoot = new Group(background);
 	}
 	
 	public void addNode(Node element) {
