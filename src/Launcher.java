@@ -1,4 +1,5 @@
 
+import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
 
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ import structures.data.events.KeyTypedEvent;
  */
 public class Launcher extends Application {
 	EngineController ec;
+	View view;
 	ObjectGUI og;
 
 	public static void main(String[] args) {
@@ -33,6 +35,16 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+<<<<<<< HEAD
+=======
+//		DataObject object = new DataObject("dog",10,10);
+//		object.addEvent(new KeyTypedEvent());
+//		ObjectGUI og = new ObjectGUI(object);
+//		og.init();
+		
+		
+
+>>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
 		btn.setText("Make/Edit Game");
@@ -40,7 +52,12 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
+<<<<<<< HEAD
 				//TODO: Open the Authoring Environment here
+=======
+				view = new View();
+				view.init();
+>>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 			}
 		});
 		Button btn1 = new Button();
@@ -49,7 +66,15 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
+<<<<<<< HEAD
 				ec = new EngineController(primaryStage);
+=======
+				try {
+					ec = new EngineController(primaryStage);
+				} catch (ResourceFailedException e) {
+					e.printStackTrace();
+				}
+>>>>>>> 9ecd716f82d17a93eb9a2a5330e1366c40817d89
 			}
 		});
 

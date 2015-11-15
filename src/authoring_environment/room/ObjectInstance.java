@@ -20,7 +20,7 @@ public class ObjectInstance {
 		myResources = resources;
 		myObject = object;
 		myID = ID;
-		myImage = myObject.getSprite().getImage();
+		myImage = new ImageView(myObject.getSprite().getImage());
 	}
 	
 	public IObject getObject() {

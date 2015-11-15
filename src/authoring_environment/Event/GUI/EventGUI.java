@@ -2,7 +2,7 @@ package authoring_environment.Event.GUI;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.object.ObjectController;
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

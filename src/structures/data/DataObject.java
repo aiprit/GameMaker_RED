@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import authoring_environment.Sprite;
 
+import authoring_environment.Sprite;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -112,10 +113,9 @@ public class DataObject implements IObject {
 		myName = name;
 	}
 
-    @Override
-    public Sprite getSprite () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public DataSprite getSprite() {
+		return mySprite;
+	}
 }
 
