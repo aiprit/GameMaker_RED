@@ -1,3 +1,4 @@
+
 package authoring_environment;
 
 import java.awt.List;
@@ -75,6 +76,7 @@ public class View implements Observer{
 	public void init(){
 		BorderPane bp = new BorderPane();
 
+
 		makeCenterSpace(bp);
 		
 
@@ -84,11 +86,13 @@ public class View implements Observer{
 			 );
 		bp.setTop(toolBar);
 
+
 		VBox rightWindow = new VBox();
 		addObjectWindow(bp);
 		addSoundWindow(rightWindow);
 		addSpriteWindow(rightWindow);
 		bp.setRight(rightWindow);
+
 
 		Scene s = new Scene(bp, DEFAULT_WIDTH, DEFAULT_HEIGHT, Color.WHITE);
 		myStage.setScene(s);
