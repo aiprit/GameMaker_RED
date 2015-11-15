@@ -19,7 +19,7 @@ public class ObjectGUITester extends Application{
 		}
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);
-		ObjectGUI og = new ObjectGUI(object, primaryStage);
+		ObjectGUI og = new ObjectGUI(object);
 		og.init();
 	}
 }

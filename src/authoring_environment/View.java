@@ -37,9 +37,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import structures.data.*;
-<<<<<<< HEAD
-public class View implements Observer{
-=======
 
 import java.util.LinkedList;
 import authoring_environment.controller.*;
@@ -55,7 +52,6 @@ import structures.data.*;
 
 public class View implements Observer{
 
->>>>>>> d8bb805341e70cc45cf367b29acff75b7679bbc6
 	
 	private HashMap<DataRoom, Integer> myLevels;
 	private LinkedList<DataObject> myObjects;

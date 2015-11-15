@@ -14,15 +14,15 @@ public interface IObject {
 	void deleteEvent(IDataEvent e);
 
 	void addSprite(DataSprite s);
-	
+
 	Sprite getSprite();
-	
+
 	void setName(String name);
-	
+
 	String getName();
-	
+
 	void setSize(double width, double height);
-	
+
 	double[] getSize();
 
 	void setPosition(Point2D pos);
