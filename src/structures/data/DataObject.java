@@ -1,21 +1,26 @@
 package structures.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import authoring_environment.Sprite;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import structures.IObject;
 import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 
-	private List<IDataEvent> myEvents;
+	private ObservableList<IDataEvent> myEvents;
 
 	private String myName;
 	private DataSprite mySprite;
 
 	private Point2D myPosition;
 	private double myRotation, myAngularVelocity;
-	private int myAlpha, myWidth, myHeight;
+	private double myAlpha, myWidth, myHeight;
 
 	private boolean myVisible;
 	private int myZIndex;
@@ -25,10 +30,7 @@ public class DataObject implements IObject {
 		myWidth = width;
 		myHeight = height;
 		myZIndex = 0;
-	}
-	
-	public List<IDataEvent> getEvents() {
-	    return myEvents;
+		myEvents = FXCollections.observableList(new ArrayList<>());
 	}
 
 	@Override
@@ -36,7 +38,6 @@ public class DataObject implements IObject {
 		myEvents.add(e);
 	}
 
-	@Override
 	public void deleteEvent(IDataEvent e) {
 		myEvents.remove(e);
 	}
@@ -53,8 +54,8 @@ public class DataObject implements IObject {
 
 
 	@Override
-	public int[] getSize() {
-		return new int[] {myWidth, myHeight};
+	public double[] getSize() {
+		return new double[] {myWidth, myHeight};
 	}
 
 	@Override
@@ -95,15 +96,26 @@ public class DataObject implements IObject {
 		myZIndex = zIndex;
 	}
 
+	@Override
+
+	public ObservableList<IDataEvent> getEvents(){
+		return myEvents;
+	}
+
+	public void setSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
+	}
+
+	@Override
+	public void setName(String name) {
+		myName = name;
+	}
+
     @Override
     public Sprite getSprite () {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public void setName (String name) {
-        // TODO Auto-generated method stub
-        
-    }
 }
+
