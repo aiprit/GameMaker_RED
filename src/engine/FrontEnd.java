@@ -27,14 +27,14 @@ public class FrontEnd {
 	private Draw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
-	private IGameEngineHandler geHandler;
+	private IGUIHandler geHandler;
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
 	
-	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGameEngineHandler geHandler) {
+	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGUIHandler geHandler) {
 		this.geHandler = geHandler;
-		this.gpHandler = gpHandler;
+		this.gpHandler = listener;
 		this.game = game;
 		this.stage = stage;
 		setupFramework();

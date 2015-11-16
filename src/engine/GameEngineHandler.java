@@ -3,7 +3,7 @@ package engine;
 /**
  * @author loganrooper
  */
-public class GameEngineHandler implements IGameEngineHandler{
+public class GameEngineHandler implements IGUIHandler{
 	Boolean paused;
 	SavedGameHandler savedGames;
 

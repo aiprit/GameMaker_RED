@@ -23,7 +23,7 @@ public class EngineController {
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	private RunGame myRunningGame;
-	private IGameEngineHandler myGameEngineHandler;
+	private IGUIHandler myGameEngineHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
 
