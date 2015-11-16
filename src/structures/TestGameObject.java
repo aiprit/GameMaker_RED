@@ -34,19 +34,19 @@ public class TestGameObject {
      */
 
     public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game");
+        DataGame testGame = new DataGame("Test Game", "/Games/TestGame");
 
-        DataObject coin = new DataObject("Coin", 40, 40);
+        DataObject coin = new DataObject("Coin");
 
-        DataSprite coinSprite = new DataSprite("/resources/coin.png");
+        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 
-        coin.addSprite(coinSprite);
+        coin.setSprite(coinSprite);
 
-        DataObject player = new DataObject("Player", 40, 40);
+        DataObject player = new DataObject("Player");
 
 
-        DataSprite playerSprite = new DataSprite("/resources/square.png");
-        player.addSprite(playerSprite);
+        DataSprite playerSprite = new DataSprite("Square", "square.png");
+        player.setSprite(playerSprite);
 
         player.addEvent(new KeyPressedEvent(KeyCode.UP));
         player.addEvent(new KeyPressedEvent(KeyCode.DOWN));
@@ -54,20 +54,20 @@ public class TestGameObject {
         player.addEvent(new KeyPressedEvent(KeyCode.RIGHT));
         player.addEvent(new CollisionEvent(coin, player));
 
-        DataObject startScreenBackground = new DataObject("StartScreenBackground", 500, 500);
+        DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
-        DataSprite startScreenSprite = new DataSprite("/resources/StartScreen.png");
-        startScreenBackground.addSprite(startScreenSprite);
+        DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
+        startScreenBackground.setSprite(startScreenSprite);
 
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
 
         startScreenBackground.addEvent(startScreenChange);
 
 
-        DataObject winScreenBackground = new DataObject("WinScreenBackground", 500, 500);
+        DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
-        DataSprite winScreenSprite = new DataSprite("/resources/WinScreen.png");
-        winScreenBackground.addSprite(winScreenSprite);
+        DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
+        winScreenBackground.setSprite(winScreenSprite);
 
 
         DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
@@ -95,7 +95,7 @@ public class TestGameObject {
         testGame.addRoom(level1);
         testGame.addRoom(winScreen);
 
-        testGame.setStartRoom(startScreen.getName());
+        testGame.setStartRoom(startScreen);
 
         return testGame;
     }
