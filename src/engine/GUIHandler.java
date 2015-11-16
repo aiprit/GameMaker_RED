@@ -3,11 +3,11 @@ package engine;
 /**
  * @author loganrooper
  */
-public class GameEngineHandler implements IGameEngineHandler{
+public class GUIHandler implements IGUIHandler{
 	Boolean paused;
 	SavedGameHandler savedGames;
 
-	public GameEngineHandler(Boolean paused, SavedGameHandler savedGames) {
+	public GUIHandler(Boolean paused, SavedGameHandler savedGames) {
 		this.paused = paused;
 		this.savedGames = savedGames;
 	}

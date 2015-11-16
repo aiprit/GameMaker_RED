@@ -7,7 +7,7 @@ package engine;
  * @author loganrooper
  *
  */
-public interface IGameEngineHandler {
+public interface IGUIHandler {
 	void setOnReset();
 	void setOnStart();
 	void setOnPause();

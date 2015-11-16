@@ -1,16 +1,11 @@
 package engine;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import XML.XMLReader;
 import XML.XMLWriter;
-import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -24,17 +19,20 @@ public class EngineController {
 	private XMLReader myReader;
 	private XMLWriter myWriter;
 	private RunGame myRunningGame;
-	private IGameEngineHandler myGameEngineHandler;
+	private IGUIHandler myGUIHandler;
+	private IGamePlayHandler myPlayingHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myGameEngineHandler = new GameEngineHandler(paused, savedGames);
-		savedGames = new SavedGameHandler(myGame.getName());
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
-		myReader = new XMLReader();
-		myWriter = new XMLWriter();
+		
+		paused = false;
+		//savedGames = new SavedGameHandler(myGame.getName());
+		myGUIHandler = new GUIHandler(paused, savedGames);
+		//myPlayingHandler = new GamePlayListener(new LinkedList<InputEvent>());
+		
+		myFrontEnd = new FrontEnd(stage, myGUIHandler, myEngine.getListener(), myRunningGame);
 	}
 
 	public void init() throws ResourceFailedException {
@@ -58,13 +56,25 @@ public class EngineController {
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 
+		myReader = new XMLReader();
+		myWriter = new XMLWriter();
+		
+		//set myGame to the game that the user chooses
+		
 		// myGame = myReader.read(myName);
 		myGame = null;
-		try {
-			myRunningGame = new RunGame(myGame);
-		} catch (CompileTimeException | RuntimeException e) {
-			e.printStackTrace();
-		}
+		
+		//convert DataGame to a RunGame and pass that to the
+		//engine in the constructor
+		
+//		try {
+//			myRunningGame = new RunGame(myGame);
+//		} catch (CompileTimeException | RuntimeException e) {
+//			e.printStackTrace();
+//		}
+		
+		myRunningGame = null;
+		
 		myEngine = new Engine(myRunningGame);
 	}
 }
