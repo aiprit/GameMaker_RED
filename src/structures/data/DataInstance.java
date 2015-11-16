@@ -1,22 +1,36 @@
 package structures.data;
 
-import structures.IObject;
+import java.util.Random;
 
-/*
-    Used for instances of DataObjects
- */
+import utils.Point;
 
 public class DataInstance {
-    private String myObjectType;
-    private double myX, myY;
-    private long myID;
-    private IObject myParentObject;
-
-    public DataInstance(IObject parentObject, double x, double y){
-        myParentObject = parentObject;
-        myX = x;
-        myY = y;
-        myObjectType = parentObject.getName();
-        myID = System.currentTimeMillis();
-    }
+	
+	private DataObject myObject;
+	private Point myPosition;
+	private final long myInstanceID;
+	
+	public DataInstance(DataObject object) {
+		this(object, (new Random()).nextLong());
+	}
+	public DataInstance(DataObject object, long instanceID) {
+		myInstanceID = instanceID;
+		myObject = object;
+	}
+	
+	public long getInstanceId() {
+		return myInstanceID;
+	}
+	
+	public DataObject getDataObject() {
+		return myObject;
+	}
+	
+	
+	public Point getPosition() {
+		return myPosition;
+	}
+	public void setPosition(Point position) {
+		myPosition = position;
+	}
 }
