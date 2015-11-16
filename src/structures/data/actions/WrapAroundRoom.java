@@ -20,7 +20,7 @@ public class WrapAroundRoom extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.wrapAroundRoom(%s);";
+		return "current.wrap_around_room(%s);";
 	}
 
 }
