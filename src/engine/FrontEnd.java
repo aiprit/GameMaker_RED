@@ -34,7 +34,7 @@ public class FrontEnd {
 	
 	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGameEngineHandler geHandler) {
 		this.geHandler = geHandler;
-		this.gpHandler = gpHandler;
+		this.gpHandler = listener;
 		this.game = game;
 		this.stage = stage;
 		setupFramework();

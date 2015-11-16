@@ -27,17 +27,14 @@ public class RunResources {
 	
 	private Map<String, RunSprite> mySprites;
 	private Map<String, RunSound> mySounds;
-	
-	private IDraw myDrawingInterface;
-	
-	public RunResources(IDraw drawingInterface, String imageFolder, String soundFolder) {
+		
+	public RunResources(String imageFolder, String soundFolder) {
 		myImageFolder = imageFolder;
 		mySoundFolder = soundFolder;
 		
 		mySprites = new HashMap<String, RunSprite>();
 		mySounds = new HashMap<String, RunSound>();
 		
-		myDrawingInterface = drawingInterface;
 	}
 	
 	public void loadSprite(DataSprite sprite) throws ResourceFailedException {
@@ -47,7 +44,7 @@ public class RunResources {
 		
 		RunSprite runSprite = null;
 		try {
-			runSprite = new RunSprite(myDrawingInterface, sprite);
+			runSprite = new RunSprite(sprite);
 		} catch (CompileTimeException e) {
 			// This should never happen, as it throws if unloaded
 			e.printStackTrace();
