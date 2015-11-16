@@ -56,6 +56,10 @@ public interface IParameter {
 		DOUBLE,
 		INTEGER,
 		STRING,
-		CHECKBOX
+		CHECKBOX,
+		OBJECT_SELECT,
+		SPRITE_SELECT,
+		ROOM_SELECT,
+		SELECT
 	}
 }
