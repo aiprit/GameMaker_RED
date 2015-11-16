@@ -1,42 +1,51 @@
 package structures;
 
-import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
-import structures.data.DataSprite;
-import authoring_environment.Sprite;
-import javafx.geometry.Point2D;
-import structures.data.events.IDataEvent;
+import java.util.List;
 
+import javafx.collections.ObservableMap;
+import structures.data.DataSprite;
+import structures.data.actions.IAction;
+import structures.data.events.IDataEvent;
+import utils.Point;
 
 public interface IObject {
-	void addEvent(IDataEvent e);
 
-	void deleteEvent(IDataEvent e);
+	void bindEvent(IDataEvent event, List<IAction> actions);
 
-	void addSprite(DataSprite s);
+	void removeEvent(IDataEvent e);
 
-	DataSprite getSprite();
-
-	void setName(String name);
+	void setSprite(DataSprite s);
 
 	String getName();
+	
+	void setName(String name);
 
-	void setSize(double width, double height);
+	void setPosition(Point pos);
 
-	double[] getSize();
+	Point getPosition();
 
-	void setPosition(Point2D pos);
-
-	Point2D getPosition();
-
-	void setVisibility(boolean visible);
+	void setVisible(boolean visible);
 
 	boolean isVisible();
 
-	void setRotation(double angle);
+	void setAngle(double angle);
 
-	double getRotation();
+	double getAngle();
 
-	ObservableList<IDataEvent> getEvents();
+	void setZIndex(int zIndex);
+	
+	int getZIndex();
+	
+	void setAngularVelocity(double angularVelocity);
+	
+	double getAngularVelocity();
+	
+	double getAlpha();
+	
+	void setAlpha(double alpha);
+
+	ObservableMap<IDataEvent, List<IAction>> getEvents();
+
+	DataSprite getSprite();
 
 }

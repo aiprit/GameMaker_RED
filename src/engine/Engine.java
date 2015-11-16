@@ -21,14 +21,14 @@ public class Engine {
 	public Engine(RunGame runGame) {
 		inputs = new LinkedList<InputEvent>();
 		myGame = runGame;
-		myOriginalGame = runGame.clone();
+		myOriginalGame = runGame;
 		eventManager = new EventManager(myGame, inputs);
 		myListener = new GamePlayListener(inputs);
 	}
 
 	public void load(RunGame runGame) {
 		myGame = runGame;
-		myOriginalGame = runGame.clone();
+		myOriginalGame = runGame;
 	}
 
 	public void step() {

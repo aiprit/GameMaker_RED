@@ -1,23 +1,32 @@
 package structures.run;
 
 import java.util.Map;
-import java.util.Vector;
-import javafx.event.EventType;
-import javafx.scene.image.ImageView;
 import structures.IObject;
+import structures.data.events.IDataEvent;
+import utils.Vector;
 
 public class RunObject {
 	
-	String name;
-	ImageView mySprite;
-	double width;
-	double height;
-	double rotation;
-	Vector velocity;
-	Map<EventType, RunAction> myEvents;
+	public final String name;
+	public double scaleX;
+	public double scaleY;
+	public double angle;
+	public Vector velocity;
+	
+	private RunSprite mySprite;
+	private Map<IDataEvent, RunAction> myEvents;
+	
+	public RunObject(String name) {
+		this.name = name;
+	}
+	
+	public void trigger(IDataEvent event) {
+		// TODO: Groovy run event
+	}
 	
 	public IObject toData() {
-	    return null;
+		// TODO: What the hell is this method for?
+		return null;
 	}
 
 }

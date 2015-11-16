@@ -59,11 +59,7 @@ public class EngineController {
 
 		// myGame = myReader.read(myName);
 		myGame = null;
-		myRunningGame = dataGameToRunGame(myGame);
+		myRunningGame = new RunGame(myGame, new Draw(null));
 		myEngine = new Engine(myRunningGame);
-	}
-	
-	private RunGame dataGameToRunGame(DataGame dataGame){
-		return new RunGame(dataGame);
 	}
 }

@@ -6,37 +6,48 @@ import structures.IResource;
 
 public class DataSprite implements IResource {
 
-    private String myFileName;
-    private Image myImage;
+	private String myBaseFileName;
+	private String myName;
+	private Image myImage;
+	private boolean myHaveLoaded;
+	
+	public DataSprite(String name, String baseFileName) {
+		myBaseFileName = baseFileName;
+		myHaveLoaded = false;
+	}
+	
+	public Image getImage() {
+		return myImage;
+	}
 
-    public DataSprite(String fileName) {
-        myFileName = fileName;
-        /*
-        try {
-			load();
-		} catch (ResourceFailedException e){
-			System.out.println(e.getMessage());
+	public String getName() {
+		return myName;
+	}
+	public void setName(String name) {
+		myName = name;
+	}
+	
+	public String getBaseFileName() {
+		return myBaseFileName;
+	}
+	public void setBaseFileName(String baseFileName) {
+		myBaseFileName = baseFileName;
+	}
+	
+	@Override
+	public boolean loaded() {
+		return myHaveLoaded;
+	}
+
+	@Override
+	public void load(String directory) throws ResourceFailedException {
+		String url = directory + myBaseFileName;
+		try {
+			myImage = new Image(url);
+		} catch (Exception ex) {
+			String message = String.format("Failed to load image '%s' for DataSprite", url);
+			throw new ResourceFailedException(message);
 		}
-		*/
-    }
-
-    public Image getImage() {
-        return myImage;
-    }
-
-    public String getName() {
-        return myFileName;
-    }
-
-    @Override
-    public void load() throws ResourceFailedException {
-        String url = myFileName;
-        try {
-            myImage = new Image(url);
-        } catch (Exception ex) {
-            String message = String.format("Failed to load image '%s' for DataSprite", url);
-            throw new ResourceFailedException(message);
-        }
-    }
-
+		myHaveLoaded = true;
+	}
 }
