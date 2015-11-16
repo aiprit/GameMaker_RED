@@ -7,13 +7,15 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ResourceBundle;
 
 import authoring_environment.controller.*;
+import authoring_environment.room.RoomEditor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
+import javafx.scene.Group;
 //import groovy.util.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -51,50 +53,64 @@ import structures.data.*;
 
 public class View implements Observer{
 
-	
+	private ResourceBundle myResourceBundle;
 	private HashMap<DataRoom, Integer> myLevels;
 	private LinkedList<DataObject> myObjects;
-	private static String DEFAULT_NAME = "Game";
+	private static String GAME_NAME = "GameAuthorTitle";
 	private Stage myStage;
+	private Group myRoot;
 	private Controller myController;
-	private static int DEFAULT_WIDTH = 1000;
-	private static int DEFAULT_HEIGHT = 1000;
+	private RoomEditor editor;
+	private static String WIDTH = "ViewWidth";
+	private static String HEIGHT = "ViewHeight";
+	private static String OBJECT_TITLE = "ObjectListTitle";
+	private static String SPRITE_TITLE = "SpritesListTitle";
+	private static String SOUND_TITLE = "SoundsListTitle";
+	private static String LOAD = "Load";
+	private static String SAVE = "Save";
+	private static String NEW_ITEM = "MakeNewItem";
+	private static String EDIT_ITEM = "EditItem";
 
 
-	private static int COLUMN_SPACE = 1;
-	private static int ROW_SPACE = 1;
 
-
-	public View(){
+	public View(ResourceBundle resources){
 		//myGame = new DataGame(DEFAULT_NAME);
 		myLevels = new HashMap<DataRoom, Integer>();
 		myObjects = new LinkedList<DataObject>();
 		myController = new Controller();
 		myStage = new Stage();
+		myRoot = new Group();
+		myResourceBundle = resources;
+		
+		
 	}
 	public void init(){
 		BorderPane bp = new BorderPane();
-
 		makeCenterSpace(bp);
-		
-
-		ToolBar toolBar = new ToolBar(
-			     new Button("Open"),
-			     new Button("Save")  
-			 );
-		bp.setTop(toolBar);
-
-		VBox rightWindow = new VBox();
+		makeToolBar(bp);
 		addObjectWindow(bp);
-		addSoundWindow(rightWindow);
-		addSpriteWindow(rightWindow);
-		bp.setRight(rightWindow);
-
-		Scene s = new Scene(bp, DEFAULT_WIDTH, DEFAULT_HEIGHT, Color.WHITE);
+		makeRightWindow(bp);
+		
+		int width = Integer.parseInt(myResourceBundle.getString(WIDTH));
+		int height = Integer.parseInt(myResourceBundle.getString(HEIGHT));
+		Scene s = new Scene(bp, width, height, Color.WHITE);
 		myStage.setScene(s);
 		myStage.show();
 	}
+	private void makeToolBar(BorderPane bp) {
+		ToolBar toolBar = new ToolBar(
+			     new Button(myResourceBundle.getString(LOAD)),
+			     new Button(SAVE)  
+			 );
+		bp.setTop(toolBar);
 
+	}
+	private void makeRightWindow(BorderPane bp){
+		VBox rightWindow = new VBox();
+		addSoundWindow(rightWindow);
+		addSpriteWindow(rightWindow);
+		bp.setRight(rightWindow);
+	}
 	private void makeCenterSpace(BorderPane bp) {
 		GridPane RoomView = new GridPane();
 		RoomView.setVgap(10);
@@ -105,34 +121,19 @@ public class View implements Observer{
 			@Override
 			public void handle(ActionEvent event){
 				final Stage dialog = new Stage();
-				dialog.initModality(Modality.APPLICATION_MODAL);
-				dialog.initOwner(myStage);
-				VBox dialogVbox = new VBox(20);
-				dialogVbox.getChildren().add(new Text("This is a Dialog"));
-				Scene dialogScene = new Scene(dialogVbox, 300, 200);
-				dialog.setScene(dialogScene);
-				dialog.show();
+				ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
+				editor = new RoomEditor(resources);
 			}
 		});
 
-		RoomView.add(plus, COLUMN_SPACE, ROW_SPACE);
-		RoomView.add(new Button(), 2, 1);
+		RoomView.add(plus, 1, 1);
+
 		bp.setCenter(RoomView);
 	}
 	private void addObjectWindow(BorderPane bp){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
-
-				 //Parent root;
-			        //			            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
-					//			            Stage stage = new Stage();
-					//			            stage.setTitle("My New Stage Title");
-					//			            stage.setScene(new Scene(root, 450, 450));
-					//			            stage.show();
-					//
-					//			            //hide this current window (if this is whant you want
-					//			            ((Node)(event.getSource())).getScene().getWindow().hide();
 				 	final Stage dialog = new Stage();
 					dialog.initModality(Modality.APPLICATION_MODAL);
 					dialog.initOwner(myStage);
@@ -142,11 +143,10 @@ public class View implements Observer{
 					dialog.setScene(dialogScene);
 					dialog.show();
 
-				System.out.println("hey");
 
 			}
 		};
-		ListView<HBox> listView = makeHBox(sButtonClick);
+		ListView<HBox> listView = makeHBox(sButtonClick, 1, NEW_ITEM, OBJECT_TITLE);
 
 		bp.setLeft(listView);
 	}
@@ -157,7 +157,7 @@ public class View implements Observer{
 				System.out.println("hey");
 			}
 		};
-		makeListView(V, sButtonClick);
+		makeListView(V, sButtonClick, 1, NEW_ITEM, SPRITE_TITLE);
 	}
 	private void addSoundWindow(VBox V){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
@@ -167,25 +167,29 @@ public class View implements Observer{
 			}
 		};
 		
-		makeListView(V, sButtonClick);
+		makeListView(V, sButtonClick, 1, NEW_ITEM, SOUND_TITLE);
 	}
-	private void makeListView(VBox V, EventHandler<ActionEvent> e) {
-		ListView<HBox> listView = makeHBox(e);
+	private void makeListView(VBox V, EventHandler<ActionEvent> e, int n, String name, String title) {
+		ListView<HBox> listView = makeHBox(e, n, name, title);
 		
 		V.getChildren().add(listView);
 	}
-	private ListView<HBox> makeHBox(EventHandler<ActionEvent> e) {
+	private ListView<HBox> makeHBox(EventHandler<ActionEvent> e, int n, String name, String title) {
 		ArrayList<HBox> list = new ArrayList<HBox>();
-		for (int i = 0; i < 2; i++) {
+		HBox header = new HBox();
+		Label headerLabel = new Label(title);
+		header.getChildren().addAll(headerLabel);
+		list.add(header);
+		for (int i = 0; i < n; i++) {
            // list.add(new HBoxCell("Item " + i, "Button " + i));
 			Button plus = new Button(" + ");
 			plus.setOnAction(e);
-			Label label = new Label("(empty)");
+			Label label = new Label(name);
 			HBox hbox = new HBox();
-			label.setText("Hey");
+		
             label.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(label, Priority.ALWAYS);
-           
+            
             hbox.getChildren().addAll(label, plus);
             list.add(hbox);
 		}
