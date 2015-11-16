@@ -20,7 +20,7 @@ public class SetFriction extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.setFriction(%f);";
+		return "current.set_friction(%f);";
 	}
 
 }

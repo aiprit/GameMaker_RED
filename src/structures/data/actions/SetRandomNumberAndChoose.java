@@ -7,7 +7,7 @@ public class SetRandomNumberAndChoose extends DataAction {
 	
 	//needs to be intialized from somewhere in the back end
 	//but only one time
-	private double randomNumber;
+	//private double randomNumber;
 	
 	public SetRandomNumberAndChoose(){
 		init(new DoubleParam("MaximumNumber"), new StringParam("Operation"), new DoubleParam("Odds"));
@@ -26,7 +26,7 @@ public class SetRandomNumberAndChoose extends DataAction {
 	@Override
 	protected String getSyntax() {
 		//change to be a conditional somehow...
-		return "current.setRandomNumberAndChoose(%f);";
+		return "current.set_random_number_and_choose(%f);";
 	}
 
 }

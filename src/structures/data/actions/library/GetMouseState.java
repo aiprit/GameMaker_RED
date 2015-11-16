@@ -28,10 +28,10 @@ public class GetMouseState extends DataAction {
 	@Override
 	protected String getSyntax() {
 		if(((CheckboxParam) get("MouseBoolean")).getValue()){
-			return "if (library.getPressedMouseButton().equals(%s))";
+			return "if (library.get_mouse_state().equals(%s))";
 		}
 		else {
-			return "if ((!library.getPressedMouseButton()).equals(%s))";
+			return "if ((!library.get_mouse_state()).equals(%s))";
 		}
 	}
 

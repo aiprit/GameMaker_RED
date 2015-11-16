@@ -25,7 +25,7 @@ public class MovementAngle extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.movementAngle(%f, %f, %b);";
+		return "current.movement_angle(%f, %f, %b);";
 	}
 
 }

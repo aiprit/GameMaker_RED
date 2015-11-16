@@ -23,7 +23,7 @@ public class MoveToRandom extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.moveToRandom();";
+		return "current.move_to_random();";
 	}
 	
 }

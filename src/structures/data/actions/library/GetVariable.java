@@ -22,7 +22,7 @@ public class GetVariable extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "if (library.getVariable(%s) %s %f);";
+		return "if (library.get_variable(%s) %s %f);";
 	}
 
 }

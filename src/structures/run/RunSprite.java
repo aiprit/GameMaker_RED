@@ -13,6 +13,9 @@ public class RunSprite {
 	private DataSprite myDataSprite;
 	private IDraw myDrawInterface;
 	
+	private double width;
+	private double height;
+	
 	public RunSprite(IDraw drawInterface, String name) {
 		this.name = name;
 		myDrawInterface = drawInterface;

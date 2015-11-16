@@ -32,6 +32,10 @@ public class RunObject {
 		return null;
 	}
 	
+	public void change_sprite(){
+		//parameters?
+	}
+	
 	public void destroy(){
 		
 	}

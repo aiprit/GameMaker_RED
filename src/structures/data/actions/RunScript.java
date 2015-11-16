@@ -20,7 +20,7 @@ public class RunScript extends DataAction{
 
 	@Override
 	protected String getSyntax() {
-		return "current.runScript(%s);";
+		return "current.run_script(%s);";
 	}
 
 }
