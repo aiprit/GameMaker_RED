@@ -8,17 +8,21 @@ import utils.Vector;
 
 public class RunObject {
 	
+	public double x;
+	public double y;
+	
 	public final String name;
 	public double scaleX;
 	public double scaleY;
 	public double angle;
+	public double angularVelocity;
+	public boolean visible;
 	public Vector velocity;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
-	
-	public double x;
-	public double y;
+	private long myInstanceId;
+
 	
 	public RunObject(String name) {
 		this.name = name;
@@ -28,6 +32,10 @@ public class RunObject {
 		this.scaleY = 1.0;
 		this.angle = 0.0;
 		this.velocity = Vector.ZERO;
+		this.angularVelocity = 0.0;
+		this.visible = true;
+		
+		myInstanceId = 0L;
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -36,6 +44,13 @@ public class RunObject {
 	
 	protected void setSprite(RunSprite sprite) {
 		mySprite = sprite;
+	}
+	
+	protected void setInstanceId(long id) {
+		myInstanceId = id;
+	}
+	protected long getInstanceId() {
+		return myInstanceId;
 	}
 	
 	protected RunObject clone() {
@@ -51,6 +66,10 @@ public class RunObject {
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
 		return clone;
+	}
+	
+	public long instance_id() {
+		return myInstanceId;
 	}
 	
 	public void trigger(IDataEvent event) {

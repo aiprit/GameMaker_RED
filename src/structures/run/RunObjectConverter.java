@@ -55,6 +55,11 @@ public class RunObjectConverter {
 		run.scaleX = instance.getScaleX();
 		run.scaleY = instance.getScaleY();
 		run.velocity = instance.getVelocity();
-		return null;
+		run.angle = instance.getAngle();
+		run.angularVelocity = instance.getAngularVelocity();
+		run.visible = instance.isVisible();
+		run.setInstanceId(instance.getID());
+		
+		return run;
 	}
 }

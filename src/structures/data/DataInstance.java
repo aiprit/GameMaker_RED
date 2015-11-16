@@ -35,7 +35,7 @@ public class DataInstance {
         myVelocity = Vector.ZERO;
     }
 
-    public double getID() {
+    public long getID() {
         return myID;
     }
 
