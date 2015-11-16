@@ -14,13 +14,5 @@ public class CollisionEvent implements IDataEvent {
         myObject2 = object2;
     }
 
-    @Override
-    public void addAction(DataAction a) {
 
-    }
-
-    @Override
-    public void removeAction(DataAction a) {
-
-    }
 }

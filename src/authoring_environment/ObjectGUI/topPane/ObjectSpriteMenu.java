@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import authoring_environment.ObjectGUI.ObjectController;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,12 +19,12 @@ import structures.data.DataSprite;
 public class ObjectSpriteMenu {
 
 	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/topPane/TopPaneResources");
-	Map<String, DataSprite> mySprites;
-	public Menu makeMenu(Map<String, DataSprite> sprites) {
+	ObservableList<DataSprite> mySprites;
+	public Menu makeMenu(ObservableList<DataSprite> sprites) {
 		Menu image = new Menu(r.getString("imageTitle"));
 		try{
 		mySprites = sprites;
-		addMenuItem(image,mySprites.keySet());
+		addMenuItem(image,mySprites);
 		}
 		catch(NullPointerException e){
 
@@ -32,9 +33,9 @@ public class ObjectSpriteMenu {
 
 	}
 
-	private void addMenuItem(Menu menu, Set<String> options) {
-		for (String str :options) {
-			MenuItem m = new MenuItem(str);
+	private void addMenuItem(Menu menu, ObservableList<DataSprite> options) {
+		for (DataSprite str :options) {
+			MenuItem m = new MenuItem(str.getName());
 			menu.getItems().add(m);
 			m.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent t) {

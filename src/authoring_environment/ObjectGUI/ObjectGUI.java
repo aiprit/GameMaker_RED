@@ -21,7 +21,7 @@ public class ObjectGUI {
 	private String objectName;
 	private ObjectController myController;
 	//private DataObject myObject;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIProperties");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIResources");
 
 	public ObjectGUI(ObjectController controller) {
 		myRoot = new Group();
@@ -37,7 +37,7 @@ public class ObjectGUI {
 
 	public void init() {
 		myEditor = new Stage();
-		myEditor.setTitle(r.getString("title"));
+		myEditor.setTitle(r.getString("title") + objectName);
 		BorderPane myPane = new BorderPane();
 		ObjectBottomPane bottom = new ObjectBottomPane(myController);
 		ObjectTopPane top = new ObjectTopPane(myController);

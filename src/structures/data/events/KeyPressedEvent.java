@@ -9,13 +9,5 @@ public class KeyPressedEvent extends AKeyEvent implements IDataEvent {
         super(code);
     }
 
-    @Override
-    public void addAction(DataAction a) {
 
-    }
-
-    @Override
-    public void removeAction(DataAction a) {
-
-    }
 }
