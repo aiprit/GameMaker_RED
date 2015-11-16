@@ -30,4 +30,5 @@ public class CollisionEvent implements IDataEvent {
 	public String getName() {
 		return String.format("Collision with ", other.getName());
 	}
+
 }
