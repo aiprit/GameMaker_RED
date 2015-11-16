@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import exceptions.CompileTimeException;
 import exceptions.UnknownResourceException;
+import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -45,5 +46,10 @@ public class RunObjectConverter {
 		}
 		
 		return run;
+	}
+	
+	public RunObject instantiate(RunObject master, DataInstance instance) {
+		RunObject run = master.clone();
+		return null;
 	}
 }

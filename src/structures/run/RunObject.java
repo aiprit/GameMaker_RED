@@ -1,5 +1,6 @@
 package structures.run;
 
+import java.util.HashMap;
 import java.util.Map;
 import structures.IObject;
 import structures.data.events.IDataEvent;
@@ -35,6 +36,21 @@ public class RunObject {
 	
 	protected void setSprite(RunSprite sprite) {
 		mySprite = sprite;
+	}
+	
+	protected RunObject clone() {
+		RunObject clone = new RunObject(name);
+		clone.x = this.x;
+		clone.y = this.y;
+		clone.scaleX = this.scaleX;
+		clone.scaleY = this.scaleY;
+		clone.angle = this.angle;
+		clone.velocity = this.velocity;
+		clone.mySprite = this.mySprite;
+		
+		// This is OK because both IDataEvents and RunActions are immutable
+		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
+		return clone;
 	}
 	
 	public void trigger(IDataEvent event) {

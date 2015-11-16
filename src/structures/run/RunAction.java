@@ -1,6 +1,6 @@
 package structures.run;
 
-public class RunAction {
+public final class RunAction {
 	
 	public final String script;
 	
