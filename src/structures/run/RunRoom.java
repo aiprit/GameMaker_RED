@@ -10,8 +10,8 @@ public class RunRoom {
 	String background;
 	List<RunObject> myObjects;
 	
-	public RunRoom(DataRoom dataRoom) {
-		myName = dataRoom.toString();
+	public RunRoom(DataRoom dataRoom, RunObjectConverter converter) {
+		myName = dataRoom.getName();
 		myView = new RunView(dataRoom.getView());
 	}
 	

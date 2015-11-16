@@ -21,14 +21,16 @@ public class RunGame implements IRun {
 	
 	private int myCurrentRoomNumber;
 	private RunResources myResources;
-	private Map<String, RunObject> myMasterObjects;
+	private RunObjectConverter myConverter;
+	
 	
 	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		myName = dataGame.getName();
 		myResources = loadResources(dataGame, drawingInterface);
+		myConverter = new RunObjectConverter(myResources);
 		
 		// TODO: change all references from IObject to DataObject
-		myMasterObjects = convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
+		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
 	}
 	
 	public String getName() {
@@ -62,15 +64,22 @@ public class RunGame implements IRun {
 		return resources;
 	}
 	
-	private Map<String, RunObject> convertObjects(List<DataObject> dataObjects) throws CompileTimeException {
-		RunObjectConverter converter = new RunObjectConverter(myResources);
-		Map<String, RunObject> objectMap = new HashMap<>();
-		for (DataObject data : dataObjects) {
-			RunObject run = converter.convert(data);
-			objectMap.put(run.name, run);
+	/**
+	 * Part of the internal data-to-run conversion. Uses the RunObjectConverter
+	 * class to help "compile" the Actions of the DataObject into a single RunAction.
+	 * Stores them in a Map of the Objects' names in the RunObjectConverter for easy
+	 * access during runtime when we want to create RunObjects by name.
+	 * 
+	 * @param dataObjects
+	 * @return
+	 * @throws CompileTimeException
+	 */
+	private void convertObjects(List<DataObject> dataObjects) throws CompileTimeException {
+		for (DataObject obj : dataObjects) {
+			myConverter.convert(obj);
 		}
-		return objectMap;
 	}
+	
 	
 	@Override
 	public DataGame toData(){
