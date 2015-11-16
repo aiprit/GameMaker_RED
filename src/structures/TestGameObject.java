@@ -1,7 +1,13 @@
 package structures;
 
+import java.util.Collections;
+import java.util.List;
+
+import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
+import structures.data.actions.IAction;
+import structures.data.actions.MoveTo;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 
@@ -47,12 +53,30 @@ public class TestGameObject {
 
         DataSprite playerSprite = new DataSprite("Square", "square.png");
         player.setSprite(playerSprite);
+        
+        MoveTo left = new MoveTo();
+        MoveTo right = new MoveTo();
+        try {
+	        
+	        left.getParameters().get(0).parse("-10");
+	        left.getParameters().get(1).parse("0");
+	        left.getParameters().get(2).parse("true");
+	        
+	        
+	        right.getParameters().get(0).parse("10");
+	        right.getParameters().get(1).parse("0");
+	        right.getParameters().get(2).parse("true");
+	        
+        } catch (ParameterParseException ex) {
+        	System.out.println(ex.getMessage());
+        }
+        
+        List<IAction> leftActions = Collections.singletonList(left);
+        List<IAction> rightActions = Collections.singletonList(right);
 
-        player.addEvent(new KeyPressedEvent(KeyCode.UP));
-        player.addEvent(new KeyPressedEvent(KeyCode.DOWN));
-        player.addEvent(new KeyPressedEvent(KeyCode.LEFT));
-        player.addEvent(new KeyPressedEvent(KeyCode.RIGHT));
-        player.addEvent(new CollisionEvent(coin));
+        player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
+        player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+        //player.addEvent(new CollisionEvent(coin));
 
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
@@ -61,7 +85,7 @@ public class TestGameObject {
 
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
 
-        startScreenBackground.addEvent(startScreenChange);
+        //startScreenBackground.addEvent(startScreenChange);
 
 
         DataObject winScreenBackground = new DataObject("WinScreenBackground");
