@@ -8,6 +8,7 @@ public class DataInstance {
     private boolean myVisible;
     private int myZIndex;
     private double myAngle, myAngularVelocity;
+    private double myScaleX, myScaleY;
     private double myAlpha;
 
     public DataInstance(DataObject parentObject, double x, double y) {
@@ -23,6 +24,8 @@ public class DataInstance {
         myID = ID;
         myZIndex = parentObject.getZIndex();
         myVisible = true;
+        myScaleX = 1.0;
+        myScaleY = 1.0;
     }
 
     public double getID() {
@@ -37,6 +40,7 @@ public class DataInstance {
     public DataObject getParentObject() {
         return myParentObject;
     }
+    
 
     public double[] getPosition() {
         return new double[]{myX, myY};
@@ -47,43 +51,58 @@ public class DataInstance {
     public double getY() {
     	return myY;
     }
+    
 
     public boolean isVisible() {
         return myVisible;
     }
-
     public void setVisible(boolean visible) {
         myVisible = visible;
     }
+    
 
     public double getAngle() {
         return myAngle;
     }
-
     public void setAngle(double angle) {
         myAngle = angle;
     }
+    
 
     public int getZIndex() {
         return myZIndex;
     }
-
     public void setZIndex(int zIndex) {
         myZIndex = zIndex;
     }
+    
 
     public double getAngularVelocity() {
         return myAngularVelocity;
     }
-
     public void setAngularVelocity(double angularVelocity) {
         myAngularVelocity = angularVelocity;
     }
+    
+    
+    public double getScaleX() {
+    	return myScaleX;
+    }
+    public void setScaleX(double scaleX) {
+    	myScaleX = scaleX;
+    }
+    
+    public double getScaleY() {
+    	return myScaleY;
+    }
+    public void setScaleY(double scale) {
+    	myScaleY = scale;
+    }
+    
 
     public double getAlpha() {
         return myAlpha;
     }
-
     public void setAlpha(double alpha) {
         myAlpha = alpha;
     }

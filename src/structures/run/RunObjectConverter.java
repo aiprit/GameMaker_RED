@@ -50,6 +50,8 @@ public class RunObjectConverter {
 	
 	public RunObject instantiate(RunObject master, DataInstance instance) {
 		RunObject run = master.clone();
+		run.x = instance.getX();
+		run.y = instance.getY();
 		return null;
 	}
 }

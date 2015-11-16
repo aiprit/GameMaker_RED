@@ -16,14 +16,11 @@ public class DataObject implements IObject {
 	private String myName;
 	private DataSprite mySprite;
 
-	private double myScaleX, myScaleY;
 	private int myZIndex;
 
 	public DataObject(String name) {
 		myName = name;
 		myEvents = FXCollections.observableMap(new HashMap<>());
-		myScaleX = 1.0;
-		myScaleY = 1.0;
 		myZIndex = 0;
 	}
 
@@ -57,24 +54,6 @@ public class DataObject implements IObject {
 	@Override
 	public DataSprite getSprite() {
 		return mySprite;
-	}
-
-	@Override
-	public void setScaleX(double scale) {
-		myScaleX = scale;
-	}
-	@Override
-	public double getScaleX() {
-		return myScaleX;
-	}
-
-	@Override
-	public void setScaleY(double scale) {
-		myScaleY = scale;
-	}
-	@Override
-	public double getScaleY() {
-		return myScaleY;
 	}
 	
 	public int getZIndex() {
