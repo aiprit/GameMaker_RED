@@ -2,13 +2,14 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 import utils.Point;
+
+import java.util.ArrayList;
 
 public class DataObject implements IObject {
 

@@ -50,5 +50,4 @@ public class DataSprite implements IResource {
 		}
 		myHaveLoaded = true;
 	}
-	
 }

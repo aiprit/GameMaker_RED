@@ -1,10 +1,11 @@
 package structures.data;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import exceptions.ResourceFailedException;
 import structures.IResource;
 import sun.audio.AudioStream;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class DataSound implements IResource {
 	

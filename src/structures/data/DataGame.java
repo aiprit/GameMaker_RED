@@ -5,6 +5,8 @@ import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.IRoom;
 
+import java.util.HashMap;
+
 public class DataGame {
 
     ObservableList<IRoom> myRooms;
@@ -27,7 +29,7 @@ public class DataGame {
     }
 
     public String getName() {
-    	return myName;
+        return myName;
     }
 
     public void setStartRoom(IRoom room){
