@@ -27,13 +27,13 @@ public class FrontEnd {
 	private Draw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
-	private IGUIHandler geHandler;
+	private IGUIHandler guiHandler;
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
 	
-	public FrontEnd(Stage stage, IGamePlayHandler listener, RunGame game, IGUIHandler geHandler) {
-		this.geHandler = geHandler;
+	public FrontEnd(Stage stage, IGUIHandler guiHandler, IGamePlayHandler listener, RunGame game) {
+		this.guiHandler = guiHandler;
 		this.gpHandler = listener;
 		this.game = game;
 		this.stage = stage;
@@ -66,21 +66,21 @@ public class FrontEnd {
 		reset.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				geHandler.setOnReset();
+				guiHandler.setOnReset();
 			}
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				geHandler.setOnSave();
+				guiHandler.setOnSave();
 			}
 		});
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				geHandler.setOnSave();
+				guiHandler.setOnSave();
 				stage.close();
 			}
 		});
@@ -88,7 +88,7 @@ public class FrontEnd {
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				geHandler.setOnPause();
+				guiHandler.setOnPause();
 			}
 		});
 		Menu savedGames = new Menu("Saved Games");

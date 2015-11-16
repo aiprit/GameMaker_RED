@@ -1,11 +1,5 @@
 package engine;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-
-import javafx.scene.input.InputEvent;
 import structures.data.DataGame;
 import structures.run.RunGame;
 
@@ -13,26 +7,19 @@ public class Engine {
 
 	private RunGame myOriginalGame;
 	private RunGame myGame;
-	private EventManager eventManager;
 	private IGamePlayHandler myListener;
-	private Queue<InputEvent> inputs;
-	private Map<String, Double> variables;
+	private RoomLoop myLevel;
 
 	public Engine(RunGame runGame) {
-		inputs = new LinkedList<InputEvent>();
 		myGame = runGame;
 		myOriginalGame = runGame;
-		eventManager = new EventManager(myGame, inputs);
-		myListener = new GamePlayListener(inputs);
+		myListener = new GamePlayListener();
+		updateLevel();
 	}
 
 	public void load(RunGame runGame) {
 		myGame = runGame;
 		myOriginalGame = runGame;
-	}
-
-	public void step() {
-		eventManager.loop();
 	}
 
 	public DataGame save() {
@@ -43,16 +30,14 @@ public class Engine {
 	public void reset() {
 		myGame = myOriginalGame;
 	}
-
-	public IGamePlayHandler getListeners() {
+	
+	public void updateLevel(){
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener);
+		myLevel.start();
+	}
+	
+	public IGamePlayHandler getListener(){
 		return myListener;
 	}
-
-	// @Override
-	// public void registerGameEventListener(IGameEventListener listener) {
-	// myListener = listener;
-	//
-	// myListener.() =
-	// }
 
 }
