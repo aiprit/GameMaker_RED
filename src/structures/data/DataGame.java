@@ -1,18 +1,19 @@
 package structures.data;
 
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.IRoom;
 
 public class DataGame {
 
-    ObservableMap<String, IRoom> myRooms;
-	ObservableMap<String, IObject> myObjects;
-	ObservableMap<String, DataSprite> mySprites;
-	ObservableMap<String, DataSound> mySounds;
+    ObservableList<IRoom> myRooms;
+	ObservableList<IObject> myObjects;
+	ObservableList<DataSprite> mySprites;
+	ObservableList<DataSound> mySounds;
 
-    private final String myName;
-    private String myStartRoomName, myCurrentRoomName;
+    private String myName;
+    private IRoom myStartRoom, myCurrentRoom;
     private double myScreenWidth;
     private double myScreenHeight;
     private String myGameDirectory;
@@ -29,8 +30,8 @@ public class DataGame {
     	return myName;
     }
 
-    public void setStartRoom(String roomName){
-        myStartRoomName = roomName;
+    public void setStartRoom(IRoom room){
+        myStartRoom = room;
     }
     
     public String getSpriteDirectory() {
@@ -41,19 +42,19 @@ public class DataGame {
     }
 
     public void addObject(IObject o){
-        myObjects.put(o.getName(), o);
+        myObjects.add(o);
     }
 
     public void addSprite(DataSprite s){
-        mySprites.put(s.getName(), s);
+        mySprites.add(s);
     }
 
     public void addSound(DataSound s){
-        mySounds.put(s.getName(), s);
+        mySounds.add(s);
     }
 
    public void addRoom(DataRoom room){
-       myRooms.put(room.getName(), room);
+       myRooms.add(room);
    }
 
     public double getWidth() {
@@ -63,7 +64,7 @@ public class DataGame {
     public double getHeight() {
         return myScreenHeight;
     }
-    public ObservableMap<String, DataSprite> getSprites(){
+    public ObservableList<DataSprite> getSprites(){
     	return mySprites;
     }
 }

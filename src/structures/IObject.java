@@ -14,9 +14,11 @@ public interface IObject {
 
 	void removeEvent(IDataEvent e);
 
-	void setSprite(String s);
+	void setSprite(DataSprite s);
 
 	String getName();
+	
+	void setName(String name);
 
 	void setPosition(Point pos);
 
@@ -44,6 +46,6 @@ public interface IObject {
 
 	ObservableMap<IDataEvent, List<IAction>> getEvents();
 
-	String getSprite();
+	DataSprite getSprite();
 
 }

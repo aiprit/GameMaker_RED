@@ -23,9 +23,15 @@ public class DataSprite implements IResource {
 	public String getName() {
 		return myName;
 	}
+	public void setName(String name) {
+		myName = name;
+	}
 	
 	public String getBaseFileName() {
 		return myBaseFileName;
+	}
+	public void setBaseFileName(String baseFileName) {
+		myBaseFileName = baseFileName;
 	}
 	
 	@Override

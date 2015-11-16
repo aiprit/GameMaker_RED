@@ -14,8 +14,8 @@ public class DataObject implements IObject {
 
 	private ObservableMap<IDataEvent, List<IAction>> myEvents;
 
-	private final String myName;
-	private String mySprite;
+	private String myName;
+	private DataSprite mySprite;
 
 	private Point myPosition;
 	private double myAngle, myAngularVelocity;
@@ -38,6 +38,10 @@ public class DataObject implements IObject {
 	public String getName() {
 		return myName;
 	}
+	@Override
+	public void setName(String name) {
+		myName = name;
+	}
 	
 
 	@Override
@@ -55,11 +59,11 @@ public class DataObject implements IObject {
 	
 
 	@Override
-	public void setSprite(String sprite) {
+	public void setSprite(DataSprite sprite) {
 		mySprite = sprite; 
 	}
 	@Override
-	public String getSprite() {
+	public DataSprite getSprite() {
 		return mySprite;
 	}
 	

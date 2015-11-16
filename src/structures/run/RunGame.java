@@ -48,7 +48,7 @@ public class RunGame implements IRun {
 		String soundDir = game.getSoundDirectory();
 		RunResources resources = new RunResources(drawingInterface, spriteDir, soundDir);
 		
-		for (DataSprite sprite : game.getSprites().values()) {
+		for (DataSprite sprite : game.getSprites()) {
 			resources.loadSprite(sprite);
 		}
 		
