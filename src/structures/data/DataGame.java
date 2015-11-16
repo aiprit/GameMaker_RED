@@ -6,6 +6,8 @@ import structures.IObject;
 import structures.IRoom;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class DataGame {
 
@@ -66,8 +68,21 @@ public class DataGame {
     @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
-        r.append("Printing " + myName + "\n");
+        r.append(myName + "\n");
 
+        Iterator it = myRooms.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            r.append(pair.getKey() + " = " + pair.getValue() + "\n");
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+
+        Iterator it = myRooms.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            r.append(pair.getKey() + " = " + pair.getValue() + "\n");
+            it.remove(); // avoids a ConcurrentModificationException
+        }
 
         return r.toString();
     }
