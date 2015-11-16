@@ -20,7 +20,7 @@ public class ScaleSprite extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.scaleSprite(%f, %f);";
+		return "current.scale_sprite(%f, %f);";
 	}
 
 }

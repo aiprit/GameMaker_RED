@@ -20,7 +20,7 @@ public class ChangeSprite extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.changeSprite(%s);";
+		return "current.change_sprite(%s);";
 	}
 
 }

@@ -25,7 +25,7 @@ public class MovementTowards extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.movementTowards(%f, %f, %f, %b)";
+		return "current.movement_towards(%f, %f, %f, %b)";
 	}
 
 }
