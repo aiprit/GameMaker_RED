@@ -1,5 +1,7 @@
 package structures.data;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import structures.IObject;
 import structures.IRoom;
@@ -66,6 +68,9 @@ public class DataGame {
     }
     public ObservableList<DataSprite> getSprites(){
     	return mySprites;
+    }
+    public ObservableList<IObject> getObjects() {
+    	return myObjects;
     }
 
     @Override

@@ -11,7 +11,7 @@ public class KeyReleasedEvent implements IDataEvent {
     }
     
     public int hashCode() {
-    	return 20000 + keyCode.hashCode();
+    	return this.getClass().hashCode() ^ this.keyCode.hashCode();
     }
     
     public boolean equals(Object obj) {

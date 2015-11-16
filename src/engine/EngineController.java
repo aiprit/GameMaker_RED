@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import XML.XMLReader;
 import XML.XMLWriter;
+import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -59,7 +60,11 @@ public class EngineController {
 
 		// myGame = myReader.read(myName);
 		myGame = null;
-		myRunningGame = new RunGame(myGame, new Draw(null));
+		try {
+			myRunningGame = new RunGame(myGame);
+		} catch (CompileTimeException | RuntimeException e) {
+			e.printStackTrace();
+		}
 		myEngine = new Engine(myRunningGame);
 	}
 }

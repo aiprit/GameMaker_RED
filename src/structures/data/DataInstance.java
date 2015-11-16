@@ -1,35 +1,41 @@
 package structures.data;
 
-import structures.IObject;
+import utils.Vector;
 
 public class DataInstance {
-    private String myObjectType;
+	
     private double myX, myY;
 
     private long myID;
-    private IObject myParentObject;
+    private DataObject myParentObject;
     private boolean myVisible;
     private int myZIndex;
-    private double myAngle, myAngularVelocity;
-    private double myAlpha;
+    private double	myAngle,
+    				myAngularVelocity,
+    				myScaleX,
+    				myScaleY,
+    				myAlpha;
+    private Vector myVelocity;
 
-    public DataInstance(IObject parentObject, double x, double y, int zIndex) {
-        this(parentObject, System.currentTimeMillis(), x, y, zIndex);
+    public DataInstance(DataObject parentObject, double x, double y) {
+        this(parentObject, System.currentTimeMillis(), x, y);
     }
 
-    public DataInstance(IObject parentObject, long ID, double x, double y, int zIndex) {
+    public DataInstance(DataObject parentObject, long ID, double x, double y) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
         myX = x;
         myY = y;
-        myObjectType = parentObject.getName();
         myID = ID;
-        myZIndex = zIndex;
+        myZIndex = parentObject.getZIndex();
         myVisible = true;
+        myScaleX = 1.0;
+        myScaleY = 1.0;
+        myVelocity = Vector.ZERO;
     }
 
-    public double getID() {
+    public long getID() {
         return myID;
     }
 
@@ -38,50 +44,80 @@ public class DataInstance {
         myY = y;
     }
 
-    public IObject getParentObject() {
+    public DataObject getParentObject() {
         return myParentObject;
     }
+    
 
     public double[] getPosition() {
         return new double[]{myX, myY};
     }
+    public double getX() {
+    	return myX;
+    }
+    public double getY() {
+    	return myY;
+    }
+    
 
     public boolean isVisible() {
         return myVisible;
     }
-
     public void setVisible(boolean visible) {
         myVisible = visible;
     }
+    
+    
+    public void setVelocity(Vector velocity) {
+    	myVelocity = velocity;
+    }
+    public Vector getVelocity() {
+    	return myVelocity;
+    }
+    
 
     public double getAngle() {
         return myAngle;
     }
-
     public void setAngle(double angle) {
         myAngle = angle;
     }
+    
 
     public int getZIndex() {
         return myZIndex;
     }
-
     public void setZIndex(int zIndex) {
         myZIndex = zIndex;
     }
+    
 
     public double getAngularVelocity() {
         return myAngularVelocity;
     }
-
     public void setAngularVelocity(double angularVelocity) {
         myAngularVelocity = angularVelocity;
     }
+    
+    
+    public double getScaleX() {
+    	return myScaleX;
+    }
+    public void setScaleX(double scaleX) {
+    	myScaleX = scaleX;
+    }
+    
+    public double getScaleY() {
+    	return myScaleY;
+    }
+    public void setScaleY(double scale) {
+    	myScaleY = scale;
+    }
+    
 
     public double getAlpha() {
         return myAlpha;
     }
-
     public void setAlpha(double alpha) {
         myAlpha = alpha;
     }
