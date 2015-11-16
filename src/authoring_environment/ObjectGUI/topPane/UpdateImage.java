@@ -13,6 +13,6 @@ public class UpdateImage {
 		}
 		
 		public void refreshImage(String newImage) {
-			object.addSprite(sprite);
+			object.setSprite(sprite);
 		}
 }

@@ -3,22 +3,25 @@ package structures.run;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import engine.IDraw;
+import exceptions.ResourceFailedException;
 import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
+import structures.data.DataSprite;
 
 public class RunGame implements IRun {
 	
-	private final String myName;
+	public final String myName;
 	private List<RunRoom> myRooms;
-	private double myWidth, myHeight;
 	
 	private int myCurrentRoomNumber;
+	private RunResources myResources;
 	
-	public RunGame(DataGame dataGame) {
+	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException {
 		myName = dataGame.getName();
-		myWidth = dataGame.getWidth();
-		myHeight = dataGame.getHeight();
+		myResources = loadResources(dataGame, drawingInterface);
 	}
 	
 	public String getName() {
@@ -27,6 +30,29 @@ public class RunGame implements IRun {
 	
 	public RunRoom getCurrentRoom() {
 		return myRooms.get(myCurrentRoomNumber);
+	}
+	
+	/**
+	 * Part of the internal data-to-run conversion. Creates the RunResources
+	 * object, which we hold and is in turn the container that holds all of
+	 * the resources we load from files (images, sounds).
+	 * 
+	 * @param game				The GameData object to pull the GameSprites and GameSounds from
+	 * @param drawingInterface	GameSprites need to be initialized with an IDraw to draw on
+	 * @return
+	 * @throws ResourceFailedException
+	 */
+	private RunResources loadResources(DataGame game, IDraw drawingInterface) throws ResourceFailedException {
+		
+		String spriteDir = game.getSpriteDirectory();
+		String soundDir = game.getSoundDirectory();
+		RunResources resources = new RunResources(drawingInterface, spriteDir, soundDir);
+		
+		for (DataSprite sprite : game.getSprites()) {
+			resources.loadSprite(sprite);
+		}
+		
+		return resources;
 	}
 	
 	@Override
@@ -41,11 +67,7 @@ public class RunGame implements IRun {
 		}
 		String currentRoom = myRooms.get(myCurrentRoomNumber).myName;
 		String startRoom = myRooms.get(0).myName;
-		return new DataGame(myName);
-	}
-	
-	public RunGame clone() {
-	    return this.clone();
+		return new DataGame(myName, "");
 	}
 
 }
