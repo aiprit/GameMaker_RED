@@ -10,7 +10,6 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.events.IDataEvent;
-import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 
@@ -20,9 +19,11 @@ public class EventManager {
 	private IGamePlayHandler inputs;
 	
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
+	private EventFactory myEventFactory;
 	
 	public EventManager(RunRoom room, IGamePlayHandler inputs){
 		myRoom = room;
+		myEventFactory = new EventFactory();
 		
 		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
 		
@@ -51,14 +52,8 @@ public class EventManager {
 
 	private void processEvents(Queue<InputEvent> events){
 		for(InputEvent e : events){
-			if(e instanceof MouseEvent){
-				//get event out of map and execute it
-				System.out.println("mouse event");
-			}
-			else if(e instanceof KeyEvent){
-				System.out.println("key event");
-				System.out.println(((KeyEvent) e).getText());
-			}
+			IDataEvent runEvent = myEventFactory.getEvent(e);
+			//execute events in myEvents.get(runEvent);
 		}
 		events.clear();
 	}
