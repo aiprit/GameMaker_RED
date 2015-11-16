@@ -1,38 +1,49 @@
 package structures.data;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import exceptions.ResourceFailedException;
 import structures.IResource;
 import sun.audio.AudioStream;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 public class DataSound implements IResource {
 	
-	private String myFileName;
+	private String myName;
+	private String myBaseFileName;
 	private AudioStream myAudioStream;
+	private boolean myHaveLoaded;
 	
-	public DataSound(String fileName) {
-		myFileName = fileName;
+	public DataSound(String name, String baseFileName) {
+		myName = name;
+		myBaseFileName = baseFileName;
+		myHaveLoaded = false;
 	}
 	
 	public String getName() {
-		return myFileName;
+		return myName;
 	}
 	
-	public void setFileName(String fileName) {
-		myFileName = fileName;
+	public String getBaseFileName() {
+		return myBaseFileName;
 	}
 	
 	@Override
-	public void load() throws ResourceFailedException {
-            String url =  myFileName;
-            try {
-                InputStream in = new FileInputStream(url);
-                myAudioStream = new AudioStream(in);
-            } catch (Exception ex) {
-                    String message = String.format("Failed to load image '%s' for DataSprite %s", url, myFileName);
-                    throw new ResourceFailedException(message);
-            }
+	public boolean loaded() {
+		return myHaveLoaded;
+	}
+
+	@Override
+	public void load(String directory) throws ResourceFailedException {
+		String url =  directory + myBaseFileName;
+		try {
+			InputStream in = new FileInputStream(url);
+			myAudioStream = new AudioStream(in);
+		} catch (Exception ex) {
+			String message = String.format("Failed to load sound '%s' for DataSound %s", url, myName);
+			throw new ResourceFailedException(message);
+		}
+		myHaveLoaded = true;
 	}
 	
 	public AudioStream getAudio() {

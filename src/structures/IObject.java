@@ -1,37 +1,57 @@
 package structures;
 
-import javafx.geometry.Point2D;
+import java.util.List;
+
+import javafx.collections.ObservableMap;
 import structures.data.DataSprite;
-import authoring_environment.Sprite;
-import javafx.geometry.Point2D;
+import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
+import utils.Point;
 
 public interface IObject {
-	void addEvent(IDataEvent e);
-	
-	void deleteEvent(IDataEvent e);
-	
-	void addSprite(DataSprite s);
-	
-	Sprite getSprite();
-	
-	void setName(String name);
-	
+
+	void bindEvent(IDataEvent event, List<IAction> actions);
+
+	void removeEvent(IDataEvent e);
+
+	void setSprite(DataSprite s);
+
 	String getName();
 	
-	void setSize(double width, double height);
-	
-	double[] getSize();
-	
-	void setPosition(Point2D pos);
-	
-	Point2D getPosition();
-	
-	void setVisibility(boolean visible);
-	
+	void setName(String name);
+
+	void setPosition(Point pos);
+
+	Point getPosition();
+
+	void setVisible(boolean visible);
+
 	boolean isVisible();
+
+	void setAngle(double angle);
+
+	double getAngle();
+
+	void setZIndex(int zIndex);
 	
-	void setRotation(double angle);
+	int getZIndex();
 	
-	double getRotation();
+	void setAngularVelocity(double angularVelocity);
+	
+	double getAngularVelocity();
+	
+	double getAlpha();
+	
+	void setAlpha(double alpha);
+
+	ObservableMap<IDataEvent, List<IAction>> getEvents();
+
+	DataSprite getSprite();
+	
+	double getScaleX();
+	double getScaleY();
+	
+	void setScaleX(double x);
+	void setScaleY(double y);
+
 }

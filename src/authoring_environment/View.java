@@ -1,3 +1,4 @@
+
 package authoring_environment;
 
 import java.awt.List;
@@ -7,23 +8,34 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import authoring_environment.controller.*;
 import authoring_environment.room.RoomEditor;
+import exceptions.FormattedException;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 //import groovy.util.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -37,6 +49,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import structures.data.*;
 
 import java.util.LinkedList;
@@ -61,6 +74,8 @@ public class View implements Observer{
 	private Group myRoot;
 	private Controller myController;
 	private RoomEditor editor;
+	private double ViewWidth;
+	private double ViewHeight;
 	private static String WIDTH = "ViewWidth";
 	private static String HEIGHT = "ViewHeight";
 	private static String OBJECT_TITLE = "ObjectListTitle";
@@ -86,6 +101,7 @@ public class View implements Observer{
 	}
 	public void init(){
 		BorderPane bp = new BorderPane();
+
 		makeCenterSpace(bp);
 		makeToolBar(bp);
 		addObjectWindow(bp);
@@ -98,18 +114,27 @@ public class View implements Observer{
 		myStage.show();
 	}
 	private void makeToolBar(BorderPane bp) {
-		ToolBar toolBar = new ToolBar(
-			     new Button(myResourceBundle.getString(LOAD)),
-			     new Button(SAVE)  
-			 );
+		Button Load = new Button(myResourceBundle.getString(LOAD));
+		Button Save = new Button(myResourceBundle.getString(SAVE));
+		Button Edit = new Button("Edit View");
+		Edit.setOnAction(new EventHandler<ActionEvent>(){
+	    	 @Override
+	    	 public void handle(ActionEvent event){
+	    		 addViewInput();
+	    	 }
+		});
+		ToolBar toolBar = new ToolBar(Load, Save, Edit );
 		bp.setTop(toolBar);
+
 
 	}
 	private void makeRightWindow(BorderPane bp){
+
 		VBox rightWindow = new VBox();
 		addSoundWindow(rightWindow);
 		addSpriteWindow(rightWindow);
 		bp.setRight(rightWindow);
+
 	}
 	private void makeCenterSpace(BorderPane bp) {
 		GridPane RoomView = new GridPane();
@@ -146,7 +171,8 @@ public class View implements Observer{
 
 			}
 		};
-		ListView<HBox> listView = makeHBox(sButtonClick, 1, NEW_ITEM, OBJECT_TITLE);
+		
+		ListView<HBox> listView = makeHBox(sButtonClick, 1, myResourceBundle.getString(NEW_ITEM), myResourceBundle.getString(OBJECT_TITLE));
 
 		bp.setLeft(listView);
 	}
@@ -157,7 +183,7 @@ public class View implements Observer{
 				System.out.println("hey");
 			}
 		};
-		makeListView(V, sButtonClick, 1, NEW_ITEM, SPRITE_TITLE);
+		makeListView(V, sButtonClick, 1, myResourceBundle.getString(NEW_ITEM), myResourceBundle.getString(SPRITE_TITLE));
 	}
 	private void addSoundWindow(VBox V){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
@@ -167,12 +193,71 @@ public class View implements Observer{
 			}
 		};
 		
-		makeListView(V, sButtonClick, 1, NEW_ITEM, SOUND_TITLE);
+		makeListView(V, sButtonClick, 1, myResourceBundle.getString(NEW_ITEM), myResourceBundle.getString(SOUND_TITLE));
 	}
 	private void makeListView(VBox V, EventHandler<ActionEvent> e, int n, String name, String title) {
 		ListView<HBox> listView = makeHBox(e, n, name, title);
 		
 		V.getChildren().add(listView);
+	}
+	private void addViewInput(){
+
+		 Dialog<Pair<String, String>> dialog = new Dialog<>();
+		 dialog.setTitle("Set height and width for view");
+
+		    // Set the button types.
+		 ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+		 dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+		 GridPane gridPane = new GridPane();
+		 gridPane.setHgap(10);
+		 gridPane.setVgap(10);
+		 gridPane.setPadding(new Insets(20, 150, 10, 10));
+
+		 TextField from = new TextField();
+		 from.setPromptText("Height");
+		 TextField to = new TextField();
+		 to.setPromptText("Width");
+		 gridPane.add(new Label("Height:"), 0, 0);
+		 gridPane.add(from, 1, 0);
+		 gridPane.add(new Label("Width:"), 0, 1);
+		 gridPane.add(to, 1, 1);
+
+		 dialog.getDialogPane().setContent(gridPane);
+
+		    // Request focus on the username field by default.
+		 Platform.runLater(() -> from.requestFocus());
+
+		    // Convert the result to a username-password-pair when the login button is clicked.
+		 dialog.setResultConverter(dialogButton -> {
+		     if (dialogButton == loginButtonType) {
+		          return new Pair<>(from.getText(), to.getText());
+		     }
+	        return null;
+		 });
+
+		 Optional<Pair<String, String>> result = dialog.showAndWait();
+
+		 result.ifPresent(pair -> {
+		     setViewSize(pair.getKey(),  pair.getValue());
+		 });
+	}
+	private void setViewSize(String height, String width) {
+		boolean check = true;
+		try  
+		  {  
+		    double h = Double.parseDouble(height);  
+		    double w = Double.parseDouble(width);
+		  }  
+		  catch(NumberFormatException nfe)  
+		  {  
+		      System.out.println("not a number");
+		      check = false;
+		  }  
+		if(check){
+		  ViewHeight = Double.parseDouble(height);  
+		  ViewWidth = Double.parseDouble(width);
+		}
 	}
 	private ListView<HBox> makeHBox(EventHandler<ActionEvent> e, int n, String name, String title) {
 		ArrayList<HBox> list = new ArrayList<HBox>();
