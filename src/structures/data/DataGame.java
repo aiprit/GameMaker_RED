@@ -1,11 +1,11 @@
 package structures.data;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.IRoom;
 
-import java.util.HashMap;
 
 public class DataGame {
 
@@ -68,5 +68,33 @@ public class DataGame {
     }
     public ObservableList<DataSprite> getSprites(){
     	return mySprites;
+    }
+    public ObservableList<IObject> getObjects() {
+    	return myObjects;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append(myName + "\n");
+
+        for(IObject o : myObjects){
+            r.append(o.getName() + "\n");
+        }
+
+        for(DataSprite s : mySprites){
+            r.append(s.getName() + "\n");
+        }
+
+        for(DataSound s : mySounds){
+            r.append(s.getName() + "\n");
+        }
+
+
+        for(IRoom room : myRooms){
+            r.append(room.getName() + "\n");
+        }
+
+        return r.toString();
     }
 }

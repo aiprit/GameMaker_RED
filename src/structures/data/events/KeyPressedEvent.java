@@ -11,7 +11,7 @@ public class KeyPressedEvent implements IDataEvent {
     }
     
     public int hashCode() {
-    	return 10000 + keyCode.hashCode();
+    	return this.getClass().hashCode() ^ this.keyCode.hashCode();
     }
     
     public boolean equals(Object obj) {
