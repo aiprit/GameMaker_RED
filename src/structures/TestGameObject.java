@@ -52,7 +52,7 @@ public class TestGameObject {
         player.addEvent(new KeyPressedEvent(KeyCode.DOWN));
         player.addEvent(new KeyPressedEvent(KeyCode.LEFT));
         player.addEvent(new KeyPressedEvent(KeyCode.RIGHT));
-        player.addEvent(new CollisionEvent(coin, player));
+        player.addEvent(new CollisionEvent(coin));
 
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
@@ -74,8 +74,8 @@ public class TestGameObject {
         startScreen.setBackground(startScreenBackground);
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
-        level1.addObject(player);
-        level1.addObject(coin);
+        level1.addObjectInstance(new DataInstance(player, 40, 40));
+        level1.addObjectInstance(new DataInstance(coin, 90, 140));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
         winScreen.setBackground(winScreenBackground);
