@@ -1,31 +1,27 @@
 package structures.data;
 
-import structures.IObject;
-
 public class DataInstance {
-    private String myObjectType;
     private double myX, myY;
 
     private long myID;
-    private IObject myParentObject;
+    private DataObject myParentObject;
     private boolean myVisible;
     private int myZIndex;
     private double myAngle, myAngularVelocity;
     private double myAlpha;
 
-    public DataInstance(IObject parentObject, double x, double y, int zIndex) {
-        this(parentObject, System.currentTimeMillis(), x, y, zIndex);
+    public DataInstance(DataObject parentObject, double x, double y) {
+        this(parentObject, System.currentTimeMillis(), x, y);
     }
 
-    public DataInstance(IObject parentObject, long ID, double x, double y, int zIndex) {
+    public DataInstance(DataObject parentObject, long ID, double x, double y) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
         myX = x;
         myY = y;
-        myObjectType = parentObject.getName();
         myID = ID;
-        myZIndex = zIndex;
+        myZIndex = parentObject.getZIndex();
         myVisible = true;
     }
 
@@ -38,7 +34,7 @@ public class DataInstance {
         myY = y;
     }
 
-    public IObject getParentObject() {
+    public DataObject getParentObject() {
         return myParentObject;
     }
 
