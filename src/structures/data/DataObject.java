@@ -7,7 +7,6 @@ import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
-import utils.Point;
 
 
 public class DataObject implements IObject {
@@ -17,24 +16,11 @@ public class DataObject implements IObject {
 	private String myName;
 	private DataSprite mySprite;
 
-	private Point myPosition;
-	private double myAngle, myAngularVelocity;
-	private double myAlpha;
-
-	private double myScaleX;
-	private double myScaleY;
-
-	private boolean myVisible;
-	private int myZIndex;
+	private double myScaleX, myScaleY;
 
 	public DataObject(String name) {
 		myName = name;
-		myZIndex = 0;
-		myPosition = Point.ORIGIN;
-		myAngle = 0.0;
-		myAngularVelocity = 0.0;
-		myVisible = true;
-		myEvents = FXCollections.observableMap(new HashMap<IDataEvent, List<IAction>>());
+		myEvents = FXCollections.observableMap(new HashMap<>());
 		myScaleX = 1.0;
 		myScaleY = 1.0;
 	}
@@ -47,7 +33,6 @@ public class DataObject implements IObject {
 	public void setName(String name) {
 		myName = name;
 	}
-
 
 	@Override
 	public void bindEvent(IDataEvent event, List<IAction> actions) {
@@ -62,7 +47,6 @@ public class DataObject implements IObject {
 		return myEvents;
 	}
 
-
 	@Override
 	public void setSprite(DataSprite sprite) {
 		mySprite = sprite;
@@ -71,55 +55,6 @@ public class DataObject implements IObject {
 	@Override
 	public DataSprite getSprite() {
 		return mySprite;
-	}
-
-
-	@Override
-	public void setPosition(Point pos) {
-		myPosition = pos;
-	}
-	@Override
-	public Point getPosition() {
-		return myPosition;
-	}
-
-
-	@Override
-	public void setVisible(boolean visible) {
-		myVisible = visible;
-	}
-	@Override
-	public boolean isVisible() {
-		return myVisible;
-	}
-
-
-	@Override
-	public void setAngle(double angle) {
-		myAngle = angle;
-	}
-	@Override
-	public double getAngle() {
-		return myAngle;
-	}
-
-	@Override
-	public void setAngularVelocity(double angularVelocity) {
-		myAngularVelocity = angularVelocity;
-	}
-	@Override
-	public double getAngularVelocity() {
-		return myAngularVelocity;
-	}
-
-
-	@Override
-	public double getAlpha() {
-		return myAlpha;
-	}
-	@Override
-	public void setAlpha(double alpha) {
-		myAlpha = alpha;
 	}
 
 	@Override
@@ -138,15 +73,6 @@ public class DataObject implements IObject {
 	@Override
 	public double getScaleY() {
 		return myScaleY;
-	}
-
-
-	@Override
-	public void setZIndex(int zIndex){
-		myZIndex = zIndex;
-	}
-	public int getZIndex() {
-		return myZIndex;
 	}
 }
 
