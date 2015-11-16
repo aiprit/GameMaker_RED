@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
@@ -29,12 +30,12 @@ public class RoomEditor {
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
 	private Map<String, IObject> myObjects;
-
 	
 	private Stage myEditor;
 	private Group myRoot;
 	private ObjectListContainer myObjectsList;
 	private RoomPreview myPreview;
+	private ButtonToolbar myToolbar;
 	
 	
 	/**
@@ -77,18 +78,19 @@ public class RoomEditor {
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
 		initializeObjectListAndPreview(totalPane);
-		ButtonToolbar buttons = new ButtonToolbar(myResources);
-		totalPane.getChildren().addAll(buttons.createButtons());
+		initializeButtonsToolbar(totalPane);
 		myRoot.getChildren().add(totalPane);
 	}
 	
 	private void initializeObjectListAndPreview(VBox totalPane) {
 		HBox objectsAndPreview = new HBox();
 		initializeObjectList();
+		//TODO CLEANUP
 		Group theory = new Group();
 		myPreview = new RoomPreview(myResources);
 		CreateView view = new CreateView(myResources);
 		theory.getChildren().addAll(myPreview, view.create());
+		///
 		objectsAndPreview.getChildren().addAll(myObjectsList, theory);
 		totalPane.getChildren().addAll(objectsAndPreview);
 	}
@@ -122,12 +124,18 @@ public class RoomEditor {
 	private void addSpriteToRoom(ObjectInstance objectInstance) {
 		if (objectInstance.inRoomBounds()) {
 			//TODO write object x,y to IObject
-			myPreview.addNode(objectInstance.getImageView());
+			//myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
 			myRoomController.addObject(objectInstance.getObject());
 		} else {
 			//TODO get rid of the object
 		}
+	}
+	
+	private void initializeButtonsToolbar(VBox totalPane) {
+		ButtonHandler handler = new ButtonHandler(myResources, myPreview);
+		myToolbar = new ButtonToolbar(myResources, handler.getButtons());
+		totalPane.getChildren().add(myToolbar);
 	}
 	
 }
