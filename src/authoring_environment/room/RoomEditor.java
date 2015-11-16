@@ -124,7 +124,7 @@ public class RoomEditor {
 	private void addSpriteToRoom(ObjectInstance objectInstance) {
 		if (objectInstance.inRoomBounds()) {
 			//TODO write object x,y to IObject
-			myPreview.addNode(objectInstance.getImageView());
+			//myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
 			myRoomController.addObject(objectInstance.getObject());
 		} else {
