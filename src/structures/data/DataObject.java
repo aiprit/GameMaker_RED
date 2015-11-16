@@ -67,6 +67,7 @@ public class DataObject implements IObject {
 	public void setSprite(DataSprite sprite) {
 		mySprite = sprite;
 	}
+
 	@Override
 	public DataSprite getSprite() {
 		return mySprite;
