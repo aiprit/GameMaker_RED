@@ -2,11 +2,7 @@ package structures.data;
 
 import structures.IObject;
 
-/*
-    Used for instances of DataObjects
- */
-
-public class DataInstance{
+public class DataInstance {
     private String myObjectType;
     private double myX, myY;
 
@@ -17,14 +13,18 @@ public class DataInstance{
     private double myAngle, myAngularVelocity;
     private double myAlpha;
 
-    public DataInstance(IObject parentObject, double x, double y, int zIndex){
+    public DataInstance(IObject parentObject, double x, double y, int zIndex) {
+        this(parentObject, System.currentTimeMillis(), x, y, zIndex);
+    }
+
+    public DataInstance(IObject parentObject, long ID, double x, double y, int zIndex) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
         myX = x;
         myY = y;
         myObjectType = parentObject.getName();
-        myID = System.currentTimeMillis();
+        myID = ID;
         myZIndex = zIndex;
         myVisible = true;
     }
@@ -38,40 +38,44 @@ public class DataInstance{
         myY = y;
     }
 
-    public double[] getPosition() {
-        return new double[] {myX, myY};
+    public IObject getParentObject() {
+        return myParentObject;
     }
 
-    public void setVisible(boolean visible) {
-        myVisible = visible;
+    public double[] getPosition() {
+        return new double[]{myX, myY};
     }
 
     public boolean isVisible() {
         return myVisible;
     }
 
-    public void setAngle(double angle) {
-        myAngle = angle;
+    public void setVisible(boolean visible) {
+        myVisible = visible;
     }
 
     public double getAngle() {
         return myAngle;
     }
 
-    public void setZIndex(int zIndex) {
-        myZIndex = zIndex;
+    public void setAngle(double angle) {
+        myAngle = angle;
     }
 
     public int getZIndex() {
         return myZIndex;
     }
 
-    public void setAngularVelocity(double angularVelocity) {
-        myAngularVelocity = angularVelocity;
+    public void setZIndex(int zIndex) {
+        myZIndex = zIndex;
     }
 
     public double getAngularVelocity() {
         return myAngularVelocity;
+    }
+
+    public void setAngularVelocity(double angularVelocity) {
+        myAngularVelocity = angularVelocity;
     }
 
     public double getAlpha() {

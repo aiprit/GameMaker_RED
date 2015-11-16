@@ -7,7 +7,6 @@ import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
-import utils.Point;
 
 
 public class DataObject implements IObject {
