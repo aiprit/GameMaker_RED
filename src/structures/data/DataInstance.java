@@ -1,15 +1,21 @@
 package structures.data;
 
+import utils.Vector;
+
 public class DataInstance {
+	
     private double myX, myY;
 
     private long myID;
     private DataObject myParentObject;
     private boolean myVisible;
     private int myZIndex;
-    private double myAngle, myAngularVelocity;
-    private double myScaleX, myScaleY;
-    private double myAlpha;
+    private double	myAngle,
+    				myAngularVelocity,
+    				myScaleX,
+    				myScaleY,
+    				myAlpha;
+    private Vector myVelocity;
 
     public DataInstance(DataObject parentObject, double x, double y) {
         this(parentObject, System.currentTimeMillis(), x, y);
@@ -26,6 +32,7 @@ public class DataInstance {
         myVisible = true;
         myScaleX = 1.0;
         myScaleY = 1.0;
+        myVelocity = Vector.ZERO;
     }
 
     public double getID() {
@@ -58,6 +65,14 @@ public class DataInstance {
     }
     public void setVisible(boolean visible) {
         myVisible = visible;
+    }
+    
+    
+    public void setVelocity(Vector velocity) {
+    	myVelocity = velocity;
+    }
+    public Vector getVelocity() {
+    	return myVelocity;
     }
     
 

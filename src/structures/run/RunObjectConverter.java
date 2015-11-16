@@ -52,6 +52,9 @@ public class RunObjectConverter {
 		RunObject run = master.clone();
 		run.x = instance.getX();
 		run.y = instance.getY();
+		run.scaleX = instance.getScaleX();
+		run.scaleY = instance.getScaleY();
+		run.velocity = instance.getVelocity();
 		return null;
 	}
 }
