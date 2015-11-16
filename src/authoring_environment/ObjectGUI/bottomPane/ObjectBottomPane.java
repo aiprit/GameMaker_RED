@@ -15,7 +15,6 @@ public class ObjectBottomPane {
 	private String name;
 	private double[] size;
 	private ObjectController myController;
-	private IObject o;
 	public ObjectBottomPane(ObjectController controller) {
 		myController = controller;
 		try {
@@ -57,8 +56,8 @@ public class ObjectBottomPane {
 	}
 
 	private void update(String name, double width, double height) {
-		o.setName(name);
-		o.setSize(width, height);
+		myController.setName(name);
+		myController.setSize(width, height);
 	}
 	
 	private TextField createTextBox(String s, int width, int height) {

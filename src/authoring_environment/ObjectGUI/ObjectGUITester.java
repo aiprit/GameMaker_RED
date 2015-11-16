@@ -14,7 +14,7 @@ public class ObjectGUITester extends Application{
 	}
 
 	public void start(Stage primaryStage) throws Exception {
-		IObject object = new DataObject("dog", 10, 10);
+		IObject object = new DataObject("dog", 100, 100);
 		ObjectController c = new ObjectController(object, null);
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);

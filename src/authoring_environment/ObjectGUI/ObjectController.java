@@ -19,6 +19,14 @@ public class ObjectController {
 		mySprites = map;
 	}
 	
+	public void setName(String name) {
+		myObject.setName(name);
+	}
+	
+	public void setSize(double width, double height) {
+		myObject.setSize(width, height);
+	}
+	
 	public Map<String, DataSprite> getSprites() {
 		return mySprites;
 	}
@@ -53,7 +61,10 @@ public class ObjectController {
 	
 	public DataSprite getCurrentSprite() {
 		return myObject.getSprite();
-		
+	}
+
+	public boolean getVisibile() {
+		return myObject.isVisible();
 	}
 	
 }
