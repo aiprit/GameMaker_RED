@@ -16,8 +16,8 @@ public class RunObject {
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	
-	private double x;
-	private double y;
+	public double x;
+	public double y;
 	
 	public RunObject(String name) {
 		this.name = name;
