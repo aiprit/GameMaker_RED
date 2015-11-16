@@ -52,6 +52,9 @@ public class CreateView {
 		return rect;
 	}
 	
+	/**
+	 * Warning...magic values --> refactor this later
+	 */
 	private boolean viewBoxInXBounds(double x, Rectangle viewBox) {
 		return x >= 101 && x <= 562;
 	}

@@ -29,12 +29,12 @@ public class RoomEditor {
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
 	private Map<String, IObject> myObjects;
-
 	
 	private Stage myEditor;
 	private Group myRoot;
 	private ObjectListContainer myObjectsList;
 	private RoomPreview myPreview;
+	private ButtonToolbar myToolbar;
 	
 	
 	/**
@@ -77,8 +77,7 @@ public class RoomEditor {
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
 		initializeObjectListAndPreview(totalPane);
-		ButtonToolbar buttons = new ButtonToolbar(myResources);
-		totalPane.getChildren().addAll(buttons.createButtons());
+		initializeButtonsToolbar(totalPane);
 		myRoot.getChildren().add(totalPane);
 	}
 	
@@ -130,6 +129,12 @@ public class RoomEditor {
 		} else {
 			//TODO get rid of the object
 		}
+	}
+	
+	private void initializeButtonsToolbar(VBox totalPane) {
+		ButtonHandler handler = new ButtonHandler(myResources, myPreview);
+		myToolbar = new ButtonToolbar(myResources, handler.getButtons());
+		totalPane.getChildren().add(myToolbar);
 	}
 	
 }
