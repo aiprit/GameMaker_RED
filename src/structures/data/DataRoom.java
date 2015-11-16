@@ -32,6 +32,10 @@ public class DataRoom implements IRoom {
     public void removeObjectInstance(DataInstance o) {
         roomObjects.remove(o);
     }
+    
+    public List<DataInstance> getObjectInstances() {
+    	return roomObjects;
+    }
 
     @Override
     public void setSize(double width, double height) {
