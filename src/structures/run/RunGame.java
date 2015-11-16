@@ -32,6 +32,16 @@ public class RunGame implements IRun {
 		return myRooms.get(myCurrentRoomNumber);
 	}
 	
+	/**
+	 * Part of the internal data-to-run conversion. Creates the RunResources
+	 * object, which we hold and is in turn the container that holds all of
+	 * the resources we load from files (images, sounds).
+	 * 
+	 * @param game				The GameData object to pull the GameSprites and GameSounds from
+	 * @param drawingInterface	GameSprites need to be initialized with an IDraw to draw on
+	 * @return
+	 * @throws ResourceFailedException
+	 */
 	private RunResources loadResources(DataGame game, IDraw drawingInterface) throws ResourceFailedException {
 		
 		String spriteDir = game.getSpriteDirectory();
@@ -57,7 +67,7 @@ public class RunGame implements IRun {
 		}
 		String currentRoom = myRooms.get(myCurrentRoomNumber).myName;
 		String startRoom = myRooms.get(0).myName;
-		return new DataGame(myName);
+		return new DataGame(myName, "");
 	}
 
 }
