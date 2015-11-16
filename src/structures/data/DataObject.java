@@ -9,7 +9,6 @@ import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 import utils.Point;
 
-import java.util.ArrayList;
 
 public class DataObject implements IObject {
 
@@ -21,6 +20,9 @@ public class DataObject implements IObject {
 	private Point myPosition;
 	private double myAngle, myAngularVelocity;
 	private double myAlpha;
+	
+	private double myScaleX;
+	private double myScaleY;
 
 	private boolean myVisible;
 	private int myZIndex;
@@ -115,6 +117,20 @@ public class DataObject implements IObject {
 	@Override
 	public void setAlpha(double alpha) {
 		myAlpha = alpha;
+	}
+	
+	public void setScaleX(double scale) {
+		myScaleX = scale;
+	}
+	public double getScaleX() {
+		return myScaleX;
+	}
+	
+	public void setScaleY(double scale) {
+		myScaleY = scale;
+	}
+	public double getScaleY() {
+		return myScaleY;
 	}
 	
 

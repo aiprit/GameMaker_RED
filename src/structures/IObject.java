@@ -47,5 +47,11 @@ public interface IObject {
 	ObservableMap<IDataEvent, List<IAction>> getEvents();
 
 	DataSprite getSprite();
+	
+	double getScaleX();
+	double getScaleY();
+	
+	void setScaleX(double x);
+	void setScaleY(double y);
 
 }
