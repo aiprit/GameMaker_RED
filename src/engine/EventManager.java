@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -18,10 +19,22 @@ public class EventManager {
 	private RunRoom myRoom;
 	private IGamePlayHandler inputs;
 	
-	private Map<IDataEvent, List<RunObject>> myEvents;
+	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	
 	public EventManager(RunRoom room, IGamePlayHandler inputs){
 		myRoom = room;
+		
+		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
+		
+		for(RunObject o : room.getObjects()){
+			for(IDataEvent e : o.getEvents()){
+				if(!myEvents.containsKey(e)){
+					myEvents.put(e, new ArrayList<RunObject>());
+				}
+				myEvents.get(e).add(o);
+			}
+		}
+		
 		this.inputs = inputs;
 	}
 	
