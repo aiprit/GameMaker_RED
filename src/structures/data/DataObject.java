@@ -119,16 +119,20 @@ public class DataObject implements IObject {
 		myAlpha = alpha;
 	}
 	
+	@Override
 	public void setScaleX(double scale) {
 		myScaleX = scale;
 	}
+	@Override
 	public double getScaleX() {
 		return myScaleX;
 	}
 	
+	@Override
 	public void setScaleY(double scale) {
 		myScaleY = scale;
 	}
+	@Override
 	public double getScaleY() {
 		return myScaleY;
 	}
