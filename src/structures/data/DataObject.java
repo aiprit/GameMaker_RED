@@ -20,7 +20,7 @@ public class DataObject implements IObject {
 	private Point myPosition;
 	private double myAngle, myAngularVelocity;
 	private double myAlpha;
-	
+
 	private double myScaleX;
 	private double myScaleY;
 
@@ -35,8 +35,10 @@ public class DataObject implements IObject {
 		myAngularVelocity = 0.0;
 		myVisible = true;
 		myEvents = FXCollections.observableMap(new HashMap<IDataEvent, List<IAction>>());
+		myScaleX = 1.0;
+		myScaleY = 1.0;
 	}
-	
+
 	@Override
 	public String getName() {
 		return myName;
@@ -45,7 +47,7 @@ public class DataObject implements IObject {
 	public void setName(String name) {
 		myName = name;
 	}
-	
+
 
 	@Override
 	public void bindEvent(IDataEvent event, List<IAction> actions) {
@@ -59,17 +61,17 @@ public class DataObject implements IObject {
 	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
 		return myEvents;
 	}
-	
+
 
 	@Override
 	public void setSprite(DataSprite sprite) {
-		mySprite = sprite; 
+		mySprite = sprite;
 	}
 	@Override
 	public DataSprite getSprite() {
 		return mySprite;
 	}
-	
+
 
 	@Override
 	public void setPosition(Point pos) {
@@ -79,7 +81,7 @@ public class DataObject implements IObject {
 	public Point getPosition() {
 		return myPosition;
 	}
-	
+
 
 	@Override
 	public void setVisible(boolean visible) {
@@ -89,7 +91,7 @@ public class DataObject implements IObject {
 	public boolean isVisible() {
 		return myVisible;
 	}
-	
+
 
 	@Override
 	public void setAngle(double angle) {
@@ -99,7 +101,7 @@ public class DataObject implements IObject {
 	public double getAngle() {
 		return myAngle;
 	}
-	
+
 	@Override
 	public void setAngularVelocity(double angularVelocity) {
 		myAngularVelocity = angularVelocity;
@@ -108,8 +110,8 @@ public class DataObject implements IObject {
 	public double getAngularVelocity() {
 		return myAngularVelocity;
 	}
-	
-	
+
+
 	@Override
 	public double getAlpha() {
 		return myAlpha;
@@ -118,7 +120,7 @@ public class DataObject implements IObject {
 	public void setAlpha(double alpha) {
 		myAlpha = alpha;
 	}
-	
+
 	@Override
 	public void setScaleX(double scale) {
 		myScaleX = scale;
@@ -127,7 +129,7 @@ public class DataObject implements IObject {
 	public double getScaleX() {
 		return myScaleX;
 	}
-	
+
 	@Override
 	public void setScaleY(double scale) {
 		myScaleY = scale;
@@ -136,7 +138,7 @@ public class DataObject implements IObject {
 	public double getScaleY() {
 		return myScaleY;
 	}
-	
+
 
 	@Override
 	public void setZIndex(int zIndex){
