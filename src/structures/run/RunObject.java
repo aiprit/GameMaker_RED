@@ -21,6 +21,20 @@ public class RunObject {
 	
 	public RunObject(String name) {
 		this.name = name;
+		this.x = 0.0;
+		this.y = 0.0;
+		this.scaleX = 1.0;
+		this.scaleY = 1.0;
+		this.angle = 0.0;
+		this.velocity = Vector.ZERO;
+	}
+	
+	protected void bindEvent(IDataEvent event, RunAction action) {
+		myEvents.put(event, action);
+	}
+	
+	protected void setSprite(RunSprite sprite) {
+		mySprite = sprite;
 	}
 	
 	public void trigger(IDataEvent event) {
