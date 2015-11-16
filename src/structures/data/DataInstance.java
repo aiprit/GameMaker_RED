@@ -41,6 +41,12 @@ public class DataInstance {
     public double[] getPosition() {
         return new double[]{myX, myY};
     }
+    public double getX() {
+    	return myX;
+    }
+    public double getY() {
+    	return myY;
+    }
 
     public boolean isVisible() {
         return myVisible;
