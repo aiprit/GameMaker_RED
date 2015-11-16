@@ -6,7 +6,6 @@ import javafx.collections.ObservableMap;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
-import utils.Point;
 
 public interface IObject {
 
@@ -23,11 +22,5 @@ public interface IObject {
 	ObservableMap<IDataEvent, List<IAction>> getEvents();
 
 	DataSprite getSprite();
-	
-	double getScaleX();
-	double getScaleY();
-	
-	void setScaleX(double x);
-	void setScaleY(double y);
 
 }

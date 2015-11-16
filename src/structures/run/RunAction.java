@@ -1,7 +1,11 @@
 package structures.run;
 
-public class RunAction {
+public final class RunAction {
 	
-	String myGroovyScript;
+	public final String script;
+	
+	public RunAction(String script) {
+		this.script = script;
+	}
 
 }

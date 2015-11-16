@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import engine.IDraw;
+import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
+import structures.data.DataObject;
 import structures.data.DataSprite;
+import utils.Utils;
 
 public class RunGame implements IRun {
 	
@@ -18,10 +21,14 @@ public class RunGame implements IRun {
 	
 	private int myCurrentRoomNumber;
 	private RunResources myResources;
+	private Map<String, RunObject> myMasterObjects;
 	
-	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException {
+	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		myName = dataGame.getName();
 		myResources = loadResources(dataGame, drawingInterface);
+		
+		// TODO: change all references from IObject to DataObject
+		myMasterObjects = convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
 	}
 	
 	public String getName() {
@@ -35,7 +42,7 @@ public class RunGame implements IRun {
 	/**
 	 * Part of the internal data-to-run conversion. Creates the RunResources
 	 * object, which we hold and is in turn the container that holds all of
-	 * the resources we load from files (images, sounds).
+	 * the resources we load from files (sprite images, sounds).
 	 * 
 	 * @param game				The GameData object to pull the GameSprites and GameSounds from
 	 * @param drawingInterface	GameSprites need to be initialized with an IDraw to draw on
@@ -53,6 +60,16 @@ public class RunGame implements IRun {
 		}
 		
 		return resources;
+	}
+	
+	private Map<String, RunObject> convertObjects(List<DataObject> dataObjects) throws CompileTimeException {
+		RunObjectConverter converter = new RunObjectConverter(myResources);
+		Map<String, RunObject> objectMap = new HashMap<>();
+		for (DataObject data : dataObjects) {
+			RunObject run = converter.convert(data);
+			objectMap.put(run.name, run);
+		}
+		return objectMap;
 	}
 	
 	@Override

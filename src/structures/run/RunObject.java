@@ -1,5 +1,6 @@
 package structures.run;
 
+import java.util.HashMap;
 import java.util.Map;
 import structures.IObject;
 import structures.data.events.IDataEvent;
@@ -7,20 +8,68 @@ import utils.Vector;
 
 public class RunObject {
 	
+	public double x;
+	public double y;
+	
 	public final String name;
 	public double scaleX;
 	public double scaleY;
 	public double angle;
+	public double angularVelocity;
+	public boolean visible;
 	public Vector velocity;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
-	
-	private double x;
-	private double y;
+	private long myInstanceId;
+
 	
 	public RunObject(String name) {
 		this.name = name;
+		this.x = 0.0;
+		this.y = 0.0;
+		this.scaleX = 1.0;
+		this.scaleY = 1.0;
+		this.angle = 0.0;
+		this.velocity = Vector.ZERO;
+		this.angularVelocity = 0.0;
+		this.visible = true;
+		
+		myInstanceId = 0L;
+	}
+	
+	protected void bindEvent(IDataEvent event, RunAction action) {
+		myEvents.put(event, action);
+	}
+	
+	protected void setSprite(RunSprite sprite) {
+		mySprite = sprite;
+	}
+	
+	protected void setInstanceId(long id) {
+		myInstanceId = id;
+	}
+	protected long getInstanceId() {
+		return myInstanceId;
+	}
+	
+	protected RunObject clone() {
+		RunObject clone = new RunObject(name);
+		clone.x = this.x;
+		clone.y = this.y;
+		clone.scaleX = this.scaleX;
+		clone.scaleY = this.scaleY;
+		clone.angle = this.angle;
+		clone.velocity = this.velocity;
+		clone.mySprite = this.mySprite;
+		
+		// This is OK because both IDataEvents and RunActions are immutable
+		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
+		return clone;
+	}
+	
+	public long instance_id() {
+		return myInstanceId;
 	}
 	
 	public void trigger(IDataEvent event) {
