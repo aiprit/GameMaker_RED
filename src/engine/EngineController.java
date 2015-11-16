@@ -61,7 +61,7 @@ public class EngineController {
 		// myGame = myReader.read(myName);
 		myGame = null;
 		try {
-			myRunningGame = new RunGame(myGame, new Draw(null));
+			myRunningGame = new RunGame(myGame);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}

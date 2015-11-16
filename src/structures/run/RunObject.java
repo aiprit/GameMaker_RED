@@ -2,6 +2,8 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import engine.IDraw;
 import structures.IObject;
 import structures.data.events.IDataEvent;
 import utils.Vector;
@@ -66,6 +68,12 @@ public class RunObject {
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
 		return clone;
+	}
+	
+	public void draw(IDraw drawInterface, RunView view) {
+		if (mySprite != null) {
+			mySprite.draw(drawInterface, view, this);
+		}
 	}
 	
 	public long instance_id() {

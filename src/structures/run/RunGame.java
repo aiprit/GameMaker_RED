@@ -24,14 +24,14 @@ public class RunGame implements IRun {
 	private RunObjectConverter myConverter;
 	
 	
-	public RunGame(DataGame dataGame, IDraw drawingInterface) throws ResourceFailedException, CompileTimeException, RuntimeException {
+	public RunGame(DataGame dataGame) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		myName = dataGame.getName();
-		myResources = loadResources(dataGame, drawingInterface);
+		myResources = loadResources(dataGame);
 		myConverter = new RunObjectConverter(myResources);
 		
 		// TODO: change all references from IObject to DataObject
 		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
-	}
+	} 
 	
 	public String getName() {
 		return myName;
@@ -51,11 +51,11 @@ public class RunGame implements IRun {
 	 * @return
 	 * @throws ResourceFailedException
 	 */
-	private RunResources loadResources(DataGame game, IDraw drawingInterface) throws ResourceFailedException {
+	private RunResources loadResources(DataGame game) throws ResourceFailedException {
 		
 		String spriteDir = game.getSpriteDirectory();
 		String soundDir = game.getSoundDirectory();
-		RunResources resources = new RunResources(drawingInterface, spriteDir, soundDir);
+		RunResources resources = new RunResources(spriteDir, soundDir);
 		
 		for (DataSprite sprite : game.getSprites()) {
 			resources.loadSprite(sprite);
