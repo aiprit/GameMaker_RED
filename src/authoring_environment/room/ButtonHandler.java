@@ -25,7 +25,7 @@ public class ButtonHandler {
 	 */
 	//TODO
 	private void addButtons(RoomPreview preview) {
-		myButtons.add(new SetSizeButton(myResources));
+		myButtons.add(new SetSizeButton(myResources, preview.getRoomBackground()));
 		myButtons.add(new SetBackgroundButton(myResources, preview.getRoomBackground()));
 		myButtons.add(new ShowViewButton(myResources));
 	}
