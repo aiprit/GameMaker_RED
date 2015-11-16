@@ -16,6 +16,9 @@ public class RunObject {
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	
+	private double x;
+	private double y;
+	
 	public RunObject(String name) {
 		this.name = name;
 	}
@@ -27,6 +30,61 @@ public class RunObject {
 	public IObject toData() {
 		// TODO: What the hell is this method for?
 		return null;
+	}
+	
+	public void destroy(){
+		
+	}
+	
+	public void movement_angle(double angle, double acceleration, boolean relative){
+		
+	}
+	
+	public void movement_towards(double x, double y, double acceleration, boolean relative){
+		
+	}
+
+	public void move_to(double x, double y, boolean relative){
+		double xOffset = 0;
+		double yOffset = 0;
+		if(relative){
+			xOffset = this.x;
+			yOffset = this.y;
+		}
+		this.x = xOffset + x;
+		this.y = yOffset + y;
+	}
+	
+	public void move_to_random(){
+		//TODO: is this a parameter or do we calculate it here?
+	}
+	
+	public void run_script(String script){
+		
+	}
+	
+	public void scale_sprite(double width, double height){
+		
+	}
+	
+	public void set_acceleration(double acceleration){
+		
+	}
+	
+	public void set_friction(double friction){
+		
+	}
+	
+	public void set_random_number_and_choose(double odds){
+		//TODO: I don't know how to make this work
+	}
+	
+	public void sleep(double time){
+		
+	}
+	
+	public void wrap_around_room(boolean value){
+		
 	}
 
 }
