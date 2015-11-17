@@ -1,5 +1,6 @@
 package engine;
 
+import exceptions.CompileTimeException;
 import structures.data.DataGame;
 import structures.run.RunGame;
 
@@ -22,9 +23,15 @@ public class Engine {
 		myOriginalGame = runGame;
 	}
 
-	public DataGame save() {
-		DataGame currentGameData = myGame.toData();
-		return currentGameData;
+	public DataGame save() throws CompileTimeException {
+	    DataGame currentGameData;
+            try {
+                currentGameData = myGame.toData();
+            }
+            catch (CompileTimeException e) {
+                throw new CompileTimeException(e.getMessage());
+            }
+            return currentGameData;
 	}
 
 	public void reset() {
