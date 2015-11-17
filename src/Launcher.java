@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
-import structures.data.events.KeyTypedEvent;
 
 /**
  * @author loganrooper

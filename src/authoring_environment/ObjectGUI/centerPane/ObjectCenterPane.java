@@ -37,11 +37,11 @@ public class ObjectCenterPane {
 		Button b = new Button(r.getString("buttonText"));
 		b.setOnAction(e ->  {
 			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-			if (myController.getVisibile()) {
+//			if (myController.getVisibile()) {
 				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2*spriteWidth;
 				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2*spriteHeight;
 				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
-			}
+//			}
 		});
 		root.getChildren().addAll(c, b);
 		return root;

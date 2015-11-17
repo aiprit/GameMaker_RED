@@ -1,18 +1,16 @@
 package structures.data;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.IRoom;
 
-import java.util.HashMap;
 
 public class DataGame {
 
     ObservableList<IRoom> myRooms;
-	ObservableList<IObject> myObjects;
-	ObservableList<DataSprite> mySprites;
-	ObservableList<DataSound> mySounds;
+    ObservableList<IObject> myObjects;
+    ObservableList<DataSprite> mySprites;
+    ObservableList<DataSound> mySounds; 
 
     private String myName;
     private IRoom myStartRoom, myCurrentRoom;
@@ -30,6 +28,10 @@ public class DataGame {
 
     public String getName() {
         return myName;
+    }
+    
+    public ObservableList<IRoom> getRooms() {
+        return myRooms;
     }
 
     public void setStartRoom(IRoom room){
@@ -68,5 +70,33 @@ public class DataGame {
     }
     public ObservableList<DataSprite> getSprites(){
     	return mySprites;
+    }
+    public ObservableList<IObject> getObjects() {
+    	return myObjects;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append(myName + "\n");
+
+        for(IObject o : myObjects){
+            r.append(o.getName() + "\n");
+        }
+
+        for(DataSprite s : mySprites){
+            r.append(s.getName() + "\n");
+        }
+
+        for(DataSound s : mySounds){
+            r.append(s.getName() + "\n");
+        }
+
+
+        for(IRoom room : myRooms){
+            r.append(room.getName() + "\n");
+        }
+
+        return r.toString();
     }
 }

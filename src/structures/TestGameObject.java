@@ -1,7 +1,13 @@
 package structures;
 
+import java.util.Collections;
+import java.util.List;
+
+import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
+import structures.data.actions.IAction;
+import structures.data.actions.MoveTo;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 
@@ -34,48 +40,66 @@ public class TestGameObject {
      */
 
     public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game");
+        DataGame testGame = new DataGame("Test Game", "/Games/TestGame");
 
-        DataObject coin = new DataObject("Coin", 40, 40);
+        DataObject coin = new DataObject("Coin");
 
-        DataSprite coinSprite = new DataSprite("/resources/coin.png");
+        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 
-        coin.addSprite(coinSprite);
+        coin.setSprite(coinSprite);
 
-        DataObject player = new DataObject("Player", 40, 40);
+        DataObject player = new DataObject("Player");
 
 
-        DataSprite playerSprite = new DataSprite("/resources/square.png");
-        player.addSprite(playerSprite);
+        DataSprite playerSprite = new DataSprite("Square", "square.png");
+        player.setSprite(playerSprite);
+        
+        MoveTo left = new MoveTo();
+        MoveTo right = new MoveTo();
+        try {
+	        
+	        left.getParameters().get(0).parse("-10");
+	        left.getParameters().get(1).parse("0");
+	        left.getParameters().get(2).parse("true");
+	        
+	        
+	        right.getParameters().get(0).parse("10");
+	        right.getParameters().get(1).parse("0");
+	        right.getParameters().get(2).parse("true");
+	        
+        } catch (ParameterParseException ex) {
+        	System.out.println(ex.getMessage());
+        }
+        
+        List<IAction> leftActions = Collections.singletonList(left);
+        List<IAction> rightActions = Collections.singletonList(right);
 
-        player.addEvent(new KeyPressedEvent(KeyCode.UP));
-        player.addEvent(new KeyPressedEvent(KeyCode.DOWN));
-        player.addEvent(new KeyPressedEvent(KeyCode.LEFT));
-        player.addEvent(new KeyPressedEvent(KeyCode.RIGHT));
-        player.addEvent(new CollisionEvent(coin, player));
+        player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
+        player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+        //player.addEvent(new CollisionEvent(coin));
 
-        DataObject startScreenBackground = new DataObject("StartScreenBackground", 500, 500);
+        DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
-        DataSprite startScreenSprite = new DataSprite("/resources/StartScreen.png");
-        startScreenBackground.addSprite(startScreenSprite);
+        DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
+        startScreenBackground.setSprite(startScreenSprite);
 
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
 
-        startScreenBackground.addEvent(startScreenChange);
+        //startScreenBackground.addEvent(startScreenChange);
 
 
-        DataObject winScreenBackground = new DataObject("WinScreenBackground", 500, 500);
+        DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
-        DataSprite winScreenSprite = new DataSprite("/resources/WinScreen.png");
-        winScreenBackground.addSprite(winScreenSprite);
+        DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
+        winScreenBackground.setSprite(winScreenSprite);
 
 
         DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
         startScreen.setBackground(startScreenBackground);
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
-        level1.addObject(player);
-        level1.addObject(coin);
+        level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
+        level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
         winScreen.setBackground(winScreenBackground);
@@ -95,7 +119,7 @@ public class TestGameObject {
         testGame.addRoom(level1);
         testGame.addRoom(winScreen);
 
-        testGame.setStartRoom(startScreen.getName());
+        testGame.setStartRoom(startScreen);
 
         return testGame;
     }

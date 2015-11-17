@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataRoom implements IRoom {
-    private List<IObject> roomObjects;
+    private List<DataInstance> roomObjects;
     private DataView myView;
     private IObject myBackground;
     private double myWidth, myHeight;
@@ -24,13 +24,21 @@ public class DataRoom implements IRoom {
     }
 
     @Override
-    public void addObject(IObject o) {
+    public void addObjectInstance(DataInstance o) {
         roomObjects.add(o);
+    }
+    
+    public void setRoomObjects(List<DataInstance> roomObjects) {
+        this.roomObjects = roomObjects;
     }
 
     @Override
-    public void removeObject(IObject o) {
+    public void removeObjectInstance(DataInstance o) {
         roomObjects.remove(o);
+    }
+    
+    public List<DataInstance> getObjectInstances() {
+    	return roomObjects;
     }
 
     @Override

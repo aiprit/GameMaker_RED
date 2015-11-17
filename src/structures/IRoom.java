@@ -1,12 +1,13 @@
 package structures;
 
+import structures.data.DataInstance;
 import structures.data.DataView;
 
 public interface IRoom {
 
-	void addObject(IObject o);
+	void addObjectInstance(DataInstance o);
 
-	void removeObject(IObject o);
+	void removeObjectInstance(DataInstance o);
 
 	void setSize(double width, double height);
 

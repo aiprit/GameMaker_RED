@@ -1,15 +1,11 @@
 package engine;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import XML.XMLReader;
-import XML.XMLWriter;
+import XML.XMLEditor;
+import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -20,28 +16,28 @@ public class EngineController {
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
-	private XMLReader myReader;
-	private XMLWriter myWriter;
+	private XMLEditor myEditor;
 	private RunGame myRunningGame;
-	private IGameEngineHandler myGameEngineHandler;
+	private IGUIHandler myGUIHandler;
+	private IGamePlayHandler myPlayingHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
-		myGameEngineHandler = new GameEngineHandler(paused, savedGames);
-		savedGames = new SavedGameHandler(myGame.getName());
-		myFrontEnd = new FrontEnd(stage, myEngine.getListeners(), myRunningGame, myGameEngineHandler);
-		myReader = new XMLReader();
-		myWriter = new XMLWriter();
+		
+		paused = false;
+		//savedGames = new SavedGameHandler(myGame.getName());
+		myGUIHandler = new GUIHandler(paused, savedGames);
+		//myPlayingHandler = new GamePlayListener(new LinkedList<InputEvent>());
+		
+		myFrontEnd = new FrontEnd(stage, myGUIHandler, myEngine.getListener(), myRunningGame);
 	}
 
 	public void init() throws ResourceFailedException {
 		String myName;
-		List<String> choices = new ArrayList<>();
-		choices.add("Mario");
-		choices.add("Recent Game 2");
-		choices.add("Dog");
+		List<String> choices = addGamesFromDirectory();
+		
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");
@@ -56,10 +52,27 @@ public class EngineController {
 			// handle this case
 			throw new ResourceFailedException("Gamefile missing.");
 		}
-
-		// myGame = myReader.read(myName);
-		myGame = null;
-		myRunningGame = new RunGame(myGame, new Draw(null));
+		
+		//set myGame to the game that the user chooses
+		myEditor = new XMLEditor();
+		myGame = myEditor.readXML(myName);
+		
+		//convert DataGame to a RunGame and pass that to the
+		//engine in the constructor
+		try {
+			myRunningGame = new RunGame(myGame);
+		} catch (CompileTimeException | RuntimeException e) {
+			e.printStackTrace();
+		}
+		
 		myEngine = new Engine(myRunningGame);
+	}
+
+	private List<String> addGamesFromDirectory() {
+		List<String> choices =  new ArrayList<String>();
+		for (final File fileEntry : new File("Games/").listFiles()) {
+			choices.add(fileEntry.getName());
+		}
+		return choices;
 	}
 }
