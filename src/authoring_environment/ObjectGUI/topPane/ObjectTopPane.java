@@ -20,9 +20,6 @@ public class ObjectTopPane {
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();
 		Menu spriteMenu = sprite.makeMenu(myController.getSprites());
 
-//		ObjectVisibleMenu visible = new ObjectVisibleMenu();
-//		Menu visibleMenu = visible.makeMenu(myController);
-
 		ObjectEventMenu event = new ObjectEventMenu();
 		Menu eventMenu = event.makeMenu();
 

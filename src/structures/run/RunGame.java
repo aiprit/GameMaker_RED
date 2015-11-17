@@ -1,10 +1,10 @@
 package structures.run;
 
+import java.util.ArrayList;
 import java.util.List;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
-import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
@@ -21,18 +21,21 @@ public class RunGame implements IRun {
 	private RunObjectConverter myConverter;
 	private DataGame myDataGame;
 	
+	private int myRoomCounter;
 	
 	public RunGame(DataGame dataGame) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		myDataGame = dataGame;
 	        myName = dataGame.getName();
 		myResources = loadResources(dataGame);
 		myConverter = new RunObjectConverter(myResources);
-		for (IRoom dataRoom : dataGame.getRooms()) {
+		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
+		myRooms = new ArrayList<RunRoom>();
+		for (DataRoom dataRoom : dataGame.getRooms()) {
 		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
-		myCurrentRoom = myRooms.get(0);
+		myRoomCounter = 0;
+		myCurrentRoom = myRooms.get(myRoomCounter);
 		// TODO: change all references from IObject to DataObject
-		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
 	}
 	
 	public RunSound getSound(String soundName) throws UnknownResourceException {
@@ -49,6 +52,10 @@ public class RunGame implements IRun {
 	
 	public void setCurrentRoom(int roomNumber) {
 	    myCurrentRoom = myRooms.get(roomNumber);
+	}
+	
+	public int getCurrentRoomNumber(){
+		return myRoomCounter;
 	}
 	
 	/**
@@ -92,7 +99,7 @@ public class RunGame implements IRun {
 	
 	@Override
 	public DataGame toData() throws CompileTimeException {
-	        List<IRoom> dataRooms = myDataGame.getRooms();
+	        List<DataRoom> dataRooms = myDataGame.getRooms();
 		for(int i = 0; i < myRooms.size(); i++) {
     		    try {
                         dataRooms.set(i, myRooms.get(i).toData());

@@ -3,19 +3,20 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import structures.IObject;
 import structures.data.DataGame;
+import javafx.collections.ObservableMap;
+import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class ObjectController {
-	private IObject myObject;
+	private DataObject myObject;
 	ObservableList<DataSprite>  mySprites;
 	double displayX, displayY;
 	private DataGame game;
 
-	public ObjectController(IObject object, ObservableList<DataSprite> map, DataGame g) {
+	public ObjectController(DataObject object, ObservableList<DataSprite> map, DataGame g) {
 		myObject = object;
 		mySprites = map;
 		displayX= 1.0;
@@ -25,12 +26,6 @@ public class ObjectController {
 
 	public void setName(String name) {
 		myObject.setName(name);
-	}
-
-	public void setSize(double x, double y) {
-
-		displayX = x;
-		displayY = y;
 	}
 
 	public ObservableList<DataSprite> getSprites() {
@@ -45,10 +40,6 @@ public class ObjectController {
 		return myObject.getName();
 	}
 
-	public double[] getSize() {
-		return new double [] {displayX,displayY};
-	}
-
 	public void addSprite(DataSprite sprite) {
 		myObject.setSprite(sprite);
 	}
@@ -61,13 +52,11 @@ public class ObjectController {
 		myObject.removeEvent(e);
 	}
 
-
-
 	public DataSprite getCurrentSprite() {
 		return myObject.getSprite();
 	}
 
-	public List<IObject> getObjects() {
+	public List<DataObject> getObjects() {
 		return game.getObjects();
 	}
 

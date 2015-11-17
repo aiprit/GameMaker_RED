@@ -11,9 +11,12 @@ public class RoomLoop {
 	
 	private Timeline myGameLoop;
 	private EventManager eventManager;
+	private RunRoom myRoom;
 	
-	public RoomLoop(RunRoom room, IGamePlayHandler listener){
-		eventManager = new EventManager(room, listener);
+	public RoomLoop(RunRoom room, IGamePlayHandler listener, IDraw drawListener){
+		myRoom = room;
+		eventManager = new EventManager(room, listener, drawListener);
+		createRoomLoop();
 	}
 	
 	public void createRoomLoop(){

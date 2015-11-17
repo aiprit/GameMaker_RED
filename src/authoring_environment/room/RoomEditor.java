@@ -18,8 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import structures.IObject;
 import structures.data.DataInstance;
+=======
+import structures.data.DataObject;
+>>>>>>> 263c6f5fa4cb5314c3c7ff0ea2adf81d11b4aff5
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -28,7 +32,12 @@ public class RoomEditor {
 	
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
+<<<<<<< HEAD
 	private Map<String, IObject> myObjects;
+=======
+	private Map<String, DataObject> myObjects;
+
+>>>>>>> 263c6f5fa4cb5314c3c7ff0ea2adf81d11b4aff5
 	
 	private Stage myEditor;
 	private Group myRoot;
@@ -49,7 +58,7 @@ public class RoomEditor {
 	/**
 	 * Map passed in as unmodifiable collection
 	 */
-	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, IObject> objects) {
+	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoomController = controller;
 		myObjects = objects;

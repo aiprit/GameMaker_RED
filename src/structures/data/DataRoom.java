@@ -1,15 +1,12 @@
 package structures.data;
 
-import structures.IObject;
-import structures.IRoom;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRoom implements IRoom {
+public class DataRoom{
     private List<DataInstance> roomObjects;
     private DataView myView;
-    private IObject myBackground;
+    private String myBackgroundColor;
     private double myWidth, myHeight;
     private String myName;
 
@@ -23,7 +20,6 @@ public class DataRoom implements IRoom {
         myView = new DataView("MainView", width, height, 0, 0);
     }
 
-    @Override
     public void addObjectInstance(DataInstance o) {
         roomObjects.add(o);
     }
@@ -32,7 +28,6 @@ public class DataRoom implements IRoom {
         this.roomObjects = roomObjects;
     }
 
-    @Override
     public void removeObjectInstance(DataInstance o) {
         roomObjects.remove(o);
     }
@@ -41,37 +36,31 @@ public class DataRoom implements IRoom {
     	return roomObjects;
     }
 
-    @Override
     public void setSize(double width, double height) {
 
     }
 
-    @Override
+    public String getBackgroundColor(){
+        return myBackgroundColor;
+    }
+
+    public void setBackgroundColor(String color){
+        myBackgroundColor = color;
+    }
+
     public double[] getSize() {
         return new double[]{myWidth, myHeight};
     }
 
-    @Override
-    public Object getBackground() {
-        return myBackground;
-    }
 
-    @Override
-    public void setBackground(IObject o) {
-        myBackground = o;
-    }
-
-    @Override
     public DataView getView() {
         return myView;
     }
 
-    @Override
     public void setView(DataView view) {
         myView = view;
     }
 
-    @Override
     public String getName() {
         return myName;
     }
