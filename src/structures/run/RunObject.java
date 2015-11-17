@@ -40,6 +40,7 @@ public class RunObject {
 		this.visible = true;
 		this.alpha = 1.0;
 		myInstanceId = 0L;
+		myEvents = new HashMap<IDataEvent, RunAction>();
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {

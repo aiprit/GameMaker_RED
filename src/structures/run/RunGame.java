@@ -1,5 +1,6 @@
 package structures.run;
 
+import java.util.ArrayList;
 import java.util.List;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
@@ -21,18 +22,21 @@ public class RunGame implements IRun {
 	private RunObjectConverter myConverter;
 	private DataGame myDataGame;
 	
+	private int myRoomCounter;
 	
 	public RunGame(DataGame dataGame) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		myDataGame = dataGame;
 	        myName = dataGame.getName();
 		myResources = loadResources(dataGame);
 		myConverter = new RunObjectConverter(myResources);
+		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
+		myRooms = new ArrayList<RunRoom>();
 		for (IRoom dataRoom : dataGame.getRooms()) {
 		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
-		myCurrentRoom = myRooms.get(0);
+		myRoomCounter = 0;
+		myCurrentRoom = myRooms.get(myRoomCounter);
 		// TODO: change all references from IObject to DataObject
-		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
 	}
 	
 	public RunSound getSound(String soundName) throws UnknownResourceException {
@@ -49,6 +53,10 @@ public class RunGame implements IRun {
 	
 	public void setCurrentRoom(int roomNumber) {
 	    myCurrentRoom = myRooms.get(roomNumber);
+	}
+	
+	public int getCurrentRoomNumber(){
+		return myRoomCounter;
 	}
 	
 	/**
