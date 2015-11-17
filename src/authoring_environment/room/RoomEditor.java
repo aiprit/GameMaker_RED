@@ -127,6 +127,7 @@ public class RoomEditor {
 			//TODO write object x,y to IObject
 			//myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
+
 			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
 		} else {
 			//TODO get rid of the object

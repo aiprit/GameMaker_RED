@@ -25,6 +25,7 @@ public class ObjectController {
 	}
 
 	public void setSize(double x, double y) {
+
 		displayX = x;
 		displayY = y;
 	}
@@ -57,16 +58,11 @@ public class ObjectController {
 		myObject.removeEvent(e);
 	}
 
-//	public void changeVisibility(boolean b) {
-//		myObject.setVisible(b);
-//	}
+
 
 	public DataSprite getCurrentSprite() {
 		return myObject.getSprite();
 	}
 
-//	public boolean getVisibile() {
-//		return myObject.isVisible();
-//	}
 
 }

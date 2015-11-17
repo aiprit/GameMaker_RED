@@ -4,12 +4,9 @@ import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 import javafx.scene.input.MouseEvent;
 
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -42,6 +39,7 @@ public class CreateView {
 				double horizontalCorrection = Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
 				double dragX = event.getSceneX() - horizontalCorrection;
 				double dragY = event.getSceneY();
+
 				if (viewBoxInXBounds(dragX, rect)) {
 					double newX = dragX - rect.getWidth()/2;
 					rect.setX(newX);
