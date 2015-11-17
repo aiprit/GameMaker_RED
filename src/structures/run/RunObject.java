@@ -2,6 +2,7 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import engine.IDraw;
 import structures.IObject;
@@ -69,6 +70,10 @@ public class RunObject {
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
 		return clone;
+	}
+	
+	public Set<IDataEvent> getEvents(){
+		return myEvents.keySet();
 	}
 	
 	public void draw(IDraw drawInterface, RunView view) {

@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -9,7 +10,6 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.events.IDataEvent;
-import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 
@@ -18,10 +18,24 @@ public class EventManager {
 	private RunRoom myRoom;
 	private IGamePlayHandler inputs;
 	
-	private Map<IDataEvent, List<RunObject>> myEvents;
+	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
+	private EventFactory myEventFactory;
 	
 	public EventManager(RunRoom room, IGamePlayHandler inputs){
 		myRoom = room;
+		myEventFactory = new EventFactory();
+		
+		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
+		
+		for(RunObject o : room.getObjects()){
+			for(IDataEvent e : o.getEvents()){
+				if(!myEvents.containsKey(e)){
+					myEvents.put(e, new ArrayList<RunObject>());
+				}
+				myEvents.get(e).add(o);
+			}
+		}
+		
 		this.inputs = inputs;
 	}
 	
@@ -38,14 +52,8 @@ public class EventManager {
 
 	private void processEvents(Queue<InputEvent> events){
 		for(InputEvent e : events){
-			if(e instanceof MouseEvent){
-				//get event out of map and execute it
-				System.out.println("mouse event");
-			}
-			else if(e instanceof KeyEvent){
-				System.out.println("key event");
-				System.out.println(((KeyEvent) e).getText());
-			}
+			IDataEvent runEvent = myEventFactory.getEvent(e);
+			//execute events in myEvents.get(runEvent);
 		}
 		events.clear();
 	}
