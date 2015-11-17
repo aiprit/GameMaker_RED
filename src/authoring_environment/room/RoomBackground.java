@@ -10,15 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
-import java.util.ResourceBundle;
-
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 
 
 public class RoomBackground extends Canvas {
@@ -93,26 +85,9 @@ public class RoomBackground extends Canvas {
 				}
 			}
 		}
-		
-		//	for (Image image : myObjectMap.keySet()) {
-			//image contains click
-			//if (contains(x, y, image)) {
-				//this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
-				//for (Image obj : myObjectMap.keySet()) {
-				//	this.getGraphicsContext2D().drawImage(obj, myObjectMap.get(obj).getX(), myObjectMap.get(obj).getY());
-				//}
-				//this.getGraphicsContext2D().drawImage(image, x, y);
-				//myObjectMap.put(image, new Point2D(x, y));
-		//	}
-				
-		//}
-		//this.getGraphicsContext2D().clearRect(0, 0, luigi.getWidth(), luigi.getHeight());
 	}
 	
 	private boolean contains(double x, double y, DraggableNode node) {
-		//System.out.println("Image x cor is " + myObjectMap.get(image).getX());
-		//System.out.println("Image y cor is " + myObjectMap.get(image).getY());
-
 		return (x > node.getX() && x <= node.getX() + node.getImage().getWidth() && 
 				y > node.getY() && y <= node.getY() + node.getImage().getHeight());
 	}
