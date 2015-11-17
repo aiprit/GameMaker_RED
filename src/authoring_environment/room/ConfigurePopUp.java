@@ -44,5 +44,7 @@ public class ConfigurePopUp extends Stage {
 		myScene = new Scene(popUp);
 		this.setScene(myScene);
 		this.show();
+		
+		//TODO set action on save button clicked
 	}
 }

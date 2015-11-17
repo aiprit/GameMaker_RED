@@ -103,6 +103,7 @@ public class RoomBackground extends Canvas {
 	private void setColorFill(Color fill) {
 		this.getGraphicsContext2D().setFill(fill);
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
+		//TODO redraw already existing nodes on canvas after changing background
 	}
 	
 	private void setImageFill(Image image) {
