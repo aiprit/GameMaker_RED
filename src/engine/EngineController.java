@@ -4,9 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import XML.XMLReader;
-import XML.XMLWriter;
+import XML.XMLEditor;
+import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
@@ -17,8 +16,7 @@ public class EngineController {
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
-	private XMLReader myReader;
-	private XMLWriter myWriter;
+	private XMLEditor myEditor;
 	private RunGame myRunningGame;
 	private IGUIHandler myGUIHandler;
 	private IGamePlayHandler myPlayingHandler;
@@ -54,23 +52,18 @@ public class EngineController {
 			// handle this case
 			throw new ResourceFailedException("Gamefile missing.");
 		}
-
-		myReader = new XMLReader();
-		myWriter = new XMLWriter();
 		
-		// myGame = myReader.read(myName);
-		myGame = null;
+		//set myGame to the game that the user chooses
+		myEditor = new XMLEditor();
+		myGame = myEditor.readXML(myName);
 		
 		//convert DataGame to a RunGame and pass that to the
 		//engine in the constructor
-		
-//		try {
-//			myRunningGame = new RunGame(myGame);
-//		} catch (CompileTimeException | RuntimeException e) {
-//			e.printStackTrace();
-//		}
-		
-		myRunningGame = null;
+		try {
+			myRunningGame = new RunGame(myGame);
+		} catch (CompileTimeException | RuntimeException e) {
+			e.printStackTrace();
+		}
 		
 		myEngine = new Engine(myRunningGame);
 	}

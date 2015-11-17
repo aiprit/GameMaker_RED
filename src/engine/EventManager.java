@@ -5,38 +5,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import structures.data.events.IDataEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 
-public class EventManager {
+public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler {
 	
-	private RunRoom myRoom;
 	private IGamePlayHandler inputs;
 	
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	private EventFactory myEventFactory;
 	
 	public EventManager(RunRoom room, IGamePlayHandler inputs){
-		myRoom = room;
-		myEventFactory = new EventFactory();
-		
-		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
-		
-		for(RunObject o : room.getObjects()){
-			for(IDataEvent e : o.getEvents()){
-				if(!myEvents.containsKey(e)){
-					myEvents.put(e, new ArrayList<RunObject>());
-				}
-				myEvents.get(e).add(o);
-			}
-		}
-		
-		this.inputs = inputs;
+	        this.inputs = inputs;
+		init(room);
+	}
+	
+	private void init(RunRoom room) {
+	    myEventFactory = new EventFactory();
+            
+            myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
+            
+            for(RunObject o : room.getObjects()){
+                    for(IDataEvent e : o.getEvents()){
+                            if(!myEvents.containsKey(e)){
+                                    myEvents.put(e, new ArrayList<RunObject>());
+                            }
+                            myEvents.get(e).add(o);
+                    }
+            }
 	}
 	
 	void loop() {
@@ -57,5 +55,29 @@ public class EventManager {
 		}
 		events.clear();
 	}
+
+    @Override
+    public void onRoomChanged (RunRoom runRoom) {
+        init(runRoom);
+    }
+
+    @Override
+    public void onObjectCreate (RunObject runObject) {
+        for(IDataEvent e : runObject.getEvents()){
+            if(!myEvents.containsKey(e)){
+                    myEvents.put(e, new ArrayList<RunObject>());
+            }
+            myEvents.get(e).add(runObject);
+        }
+    }
+
+    @Override
+    public void onObjectDestroy (RunObject runObject) {
+        for(IDataEvent e : runObject.getEvents()){
+            if(myEvents.containsKey(e)){
+                myEvents.get(e).remove(runObject);
+            }
+        }
+    }
 
 }

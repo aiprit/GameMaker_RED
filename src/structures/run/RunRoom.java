@@ -29,6 +29,10 @@ public class RunRoom {
 		}
 	}
 	
+	public String toString() {
+	    return myName;
+	}
+	
 	public String getBackground(){
 		return background;
 	}
