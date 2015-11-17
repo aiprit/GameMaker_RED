@@ -17,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import structures.data.DataObject;
 
 /**
  * @author loganrooper
@@ -47,7 +46,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				view = new View();
+				view = new View(null);
 				view.init();
 			}
 		});

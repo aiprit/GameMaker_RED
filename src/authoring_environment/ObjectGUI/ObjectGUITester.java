@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import structures.IObject;
+import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.actions.Destroy;
@@ -22,13 +23,18 @@ public class ObjectGUITester extends Application{
 	}
 
 	public void start(Stage primaryStage) throws Exception {
+		DataGame game = new DataGame("TestGame", "/home/nicholas");
 		DataObject object = new DataObject("dog");
+<<<<<<< HEAD
 		IDataEvent a = new ObjectCreateEvent();
 		List<IAction> c = new ArrayList<IAction>();
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
 		ObjectController ct = new ObjectController(object, null);
+=======
+		ObjectController c = new ObjectController(object, null, game);
+>>>>>>> refs/remotes/origin/Nick
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);
 		ObjectGUI og = new ObjectGUI(ct);

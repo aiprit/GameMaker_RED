@@ -29,10 +29,6 @@ public class DataGame {
     public String getName() {
         return myName;
     }
-    
-    public ObservableList<IRoom> getRooms() {
-        return myRooms;
-    }
 
     public void setStartRoom(IRoom room){
         myStartRoom = room;
@@ -73,6 +69,10 @@ public class DataGame {
     }
     public ObservableList<IObject> getObjects() {
     	return myObjects;
+    }
+
+    public ObservableList<DataSound> getSounds() {
+    	return mySounds;
     }
 
     @Override

@@ -3,9 +3,8 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import structures.IObject;
-import structures.data.DataObject;
+import structures.data.DataGame;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -14,12 +13,14 @@ public class ObjectController {
 	private IObject myObject;
 	ObservableList<DataSprite>  mySprites;
 	double displayX, displayY;
+	private DataGame game;
 
-	public ObjectController(IObject object, ObservableList<DataSprite> map) {
+	public ObjectController(IObject object, ObservableList<DataSprite> map, DataGame g) {
 		myObject = object;
 		mySprites = map;
 		displayX= 1.0;
 		displayY= 1.0;
+		game = g;
 	}
 
 	public void setName(String name) {
@@ -27,6 +28,7 @@ public class ObjectController {
 	}
 
 	public void setSize(double x, double y) {
+
 		displayX = x;
 		displayY = y;
 	}
@@ -59,16 +61,14 @@ public class ObjectController {
 		myObject.removeEvent(e);
 	}
 
-//	public void changeVisibility(boolean b) {
-//		myObject.setVisible(b);
-//	}
+
 
 	public DataSprite getCurrentSprite() {
 		return myObject.getSprite();
 	}
 
-//	public boolean getVisibile() {
-//		return myObject.isVisible();
-//	}
+	public List<IObject> getObjects() {
+		return game.getObjects();
+	}
 
 }

@@ -11,7 +11,8 @@ import structures.data.DataObject;
 public class ObjectPopup {
 
 	public void popup(DataObject data, DataGame game) {
-		ObjectController controller = new ObjectController(data, game.getSprites());
+		Stage dialog = new Stage();
+		ObjectController controller = new ObjectController(data, game.getSprites(), game);
         ObjectGUI gui = new ObjectGUI(controller);
 	}
 }
