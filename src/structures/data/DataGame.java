@@ -74,6 +74,12 @@ public class DataGame {
     public ObservableList<IObject> getObjects() {
     	return myObjects;
     }
+    public ObservableList<IRoom> getRooms() {
+    	return myRooms;
+    }
+    public ObservableList<DataSound> getSounds() {
+    	return mySounds;
+    }
 
     @Override
     public String toString() {
