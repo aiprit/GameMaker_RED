@@ -8,12 +8,12 @@ import structures.data.DataSprite;
 
 public class ObjectGUITester extends Application{
 	public static void main(String[] args) {
-		launch(args);		
+		launch(args);
 
 	}
 
 	public void start(Stage primaryStage) throws Exception {
-		IObject object = new DataObject("dog");
+		DataObject object = new DataObject("dog");
 		ObjectController c = new ObjectController(object, null);
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);

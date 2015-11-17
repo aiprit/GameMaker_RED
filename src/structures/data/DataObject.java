@@ -2,6 +2,8 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import structures.IObject;
@@ -55,7 +57,7 @@ public class DataObject implements IObject {
 	public DataSprite getSprite() {
 		return mySprite;
 	}
-	
+
 	public int getZIndex() {
 		return myZIndex;
 	}

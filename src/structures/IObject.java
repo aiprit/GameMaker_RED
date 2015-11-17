@@ -18,7 +18,7 @@ public interface IObject {
 	void setSprite(DataSprite s);
 
 	String getName();
-	
+
 	void setName(String name);
 
 	ObservableMap<IDataEvent, List<IAction>> getEvents();

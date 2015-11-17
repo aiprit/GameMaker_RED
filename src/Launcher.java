@@ -41,8 +41,8 @@ public class Launcher extends Application {
 //		object.addEvent(new KeyTypedEvent());
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
-		
-		
+
+
 
 //		primaryStage.setTitle("VOOGASalad Launcher");
 //		Button btn = new Button();
