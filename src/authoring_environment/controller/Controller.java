@@ -42,9 +42,9 @@ public class Controller {
 		ObservableList<IObject> objects = myGame.getObjects();
 		
 	}
-	public ObservableList<IRoom> getRooms(){
-		return myGame.getRooms();
-	}
+//	public ObservableList<IRoom> getRooms(){
+//		return myGame.getRooms();
+//	}
 	public ObservableList<DataSprite> getSprites() {
 		return myGame.getSprites();
 	}

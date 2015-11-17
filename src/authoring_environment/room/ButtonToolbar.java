@@ -2,29 +2,14 @@ package authoring_environment.room;
 
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
+import javafx.scene.control.ToolBar;
 
-public class ButtonToolbar {
-	
-	private ResourceBundle myResources;
-	private static final String SIZE_TITLE = "SizeTitle";
-	private static final String BACKGROUND = "Background";
-	private static final String VIEW_TITLE = "ViewTitle";
-	private static final String SAVE_TITLE = "SaveTitle";
+public class ButtonToolbar extends ToolBar {
+	private static final String BUTTON_TOOLBAR_HEIGHT = "ButtonToolbarHeight";
 
-	public ButtonToolbar(ResourceBundle resources) {
-		myResources = resources;
+	public ButtonToolbar(ResourceBundle resources, Node... buttons) {
+		super(buttons);
+		this.setPrefHeight(Double.parseDouble(resources.getString(BUTTON_TOOLBAR_HEIGHT)));
 	}
-	
-	public HBox createButtons() {
-		HBox hbox = new HBox();
-		ButtonHandler handler = new ButtonHandler();
-		String[] buttonLabels = {myResources.getString(SIZE_TITLE), myResources.getString(BACKGROUND), myResources.getString(VIEW_TITLE), myResources.getString(SAVE_TITLE)};
-		Button[] arr = handler.create(4, buttonLabels);
-		hbox.getChildren().addAll(arr);
-		hbox.setSpacing(50);
-		return hbox;
-	}
-	
 }

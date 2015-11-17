@@ -64,5 +64,11 @@ public class DataObject implements IObject {
 	public void setZIndex(int zIndex) {
 		myZIndex = zIndex;
 	}
+
+	@Override
+	public void addSprite(DataSprite s) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
