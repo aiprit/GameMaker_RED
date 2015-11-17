@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
@@ -69,5 +70,8 @@ public class ObjectListWindow {
 		ObservableList<HBox> myObservableList = FXCollections.observableList(list);
 		listView.setItems(myObservableList);
 		return listView;
+	}
+	public void update(ObservableList<IObject> newList){
+		
 	}
 }
