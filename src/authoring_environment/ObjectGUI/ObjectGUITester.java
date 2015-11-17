@@ -2,9 +2,8 @@ package authoring_environment.ObjectGUI;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import structures.IObject;
 import structures.data.DataObject;
-import structures.data.DataSprite;
+
 
 public class ObjectGUITester extends Application{
 	public static void main(String[] args) {

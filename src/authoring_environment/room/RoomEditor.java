@@ -3,23 +3,18 @@ package authoring_environment.room;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.function.Consumer;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import structures.IObject;
-import structures.data.DataInstance;
+import structures.data.DataObject;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -28,7 +23,7 @@ public class RoomEditor {
 	
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 	
 	private Stage myEditor;
 	private Group myRoot;
@@ -40,16 +35,17 @@ public class RoomEditor {
 	/**
 	 * for TESTING purposes
 	 */
-	public RoomEditor(ResourceBundle resources) {
+	public RoomEditor(ResourceBundle resources, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoot = new Group();
+		myObjects = objects;
 		createEditor();
 	}
 	
 	/**
 	 * Map passed in as unmodifiable collection
 	 */
-	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, IObject> objects) {
+	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoomController = controller;
 		myObjects = objects;
@@ -84,13 +80,8 @@ public class RoomEditor {
 	private void initializeObjectListAndPreview(VBox totalPane) {
 		HBox objectsAndPreview = new HBox();
 		initializeObjectList();
-		//TODO CLEANUP
-		Group theory = new Group();
-		myPreview = new RoomPreview(myResources);
-		CreateView view = new CreateView(myResources);
-		theory.getChildren().addAll(myPreview, view.create());
-		///
-		objectsAndPreview.getChildren().addAll(myObjectsList, theory);
+		myPreview = new RoomPreview(myResources, myRoomController);
+		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
 		totalPane.getChildren().addAll(objectsAndPreview);
 	}
 	
@@ -116,22 +107,19 @@ public class RoomEditor {
 	
 	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
-		sprite.setOnMouseDragged(e -> objectInstance.updateSpritePosition(e));
-		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(e, objectInstance));
+		sprite.setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
 	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
-		double sceneX = e.getSceneX();
-		double sceneY = e.getSceneY();
+		objectInstance.updateSpritePosition(e);
+		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
 		if (objectInstance.inRoomBounds()) {
-			//TODO write object x,y to IObject
-			//myPreview.addNode(objectInstance.getImageView());
+			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
+			objectInstance.setDataInstancePosition(canvasPoint);
+			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
 			myRoot.getChildren().remove(objectInstance.getImageView());
-
-			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
-		} else {
-			//TODO get rid of the object
-		}
+			myRoomController.addObject(objectInstance.getDataInstance());
+		} 
 	}
 	
 	private void initializeButtonsToolbar(VBox totalPane) {

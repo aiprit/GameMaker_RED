@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import structures.IRoom;
 import structures.data.DataRoom;
 
 public class RoomListView {
@@ -35,7 +34,7 @@ public class RoomListView {
 
 		bp.setCenter(RoomView);
 	}
-	public void update(ObservableList<IRoom> levels){
+	public void update(ObservableList<DataRoom> levels){
 		
 	}
 }

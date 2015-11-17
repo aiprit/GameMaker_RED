@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import structures.IObject;
 import structures.data.DataObject;
 
 public class ObjectListWindow {
@@ -32,7 +31,7 @@ public class ObjectListWindow {
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){			 	
-					IObject object = new DataObject("dog");
+					DataObject object = new DataObject("dog");
 					ObjectController c = new ObjectController(object, null);
 
 					ObjectGUI og = new ObjectGUI(c);
@@ -71,7 +70,7 @@ public class ObjectListWindow {
 		listView.setItems(myObservableList);
 		return listView;
 	}
-	public void update(ObservableList<IObject> newList){
+	public void update(ObservableList<DataObject> newList){
 		
 	}
 }
