@@ -3,6 +3,7 @@ package authoring_environment.room;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,6 +40,7 @@ public class ConfigurePopUp extends Stage {
 		visibility.getChildren().add(new RadioButton());
 		popUp.getChildren().add(visibility);
 		popUp.getChildren().add(new Button("Save Changes"));
+		popUp.setAlignment(Pos.CENTER);
 		myScene = new Scene(popUp);
 		this.setScene(myScene);
 		this.show();
