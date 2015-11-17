@@ -1,4 +1,4 @@
-package authoring_environment.ObjectGUI.leftPane;
+package authoring_environment.Event.GUI.PopUps;
 
 import java.util.ResourceBundle;
 
@@ -18,15 +18,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.events.KeyPressedEvent;
 
-public class KeyPressPopUp {
+public abstract class KeyPopUp {
 	private Scene myScene;
-	private Stage myStage;
+	protected Stage myStage;
 	private Group myRoot;
 	String keyPress;
 	Label myInfo;
 	KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/KeyPressResources");
-	public KeyPressPopUp(){
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/PopUps/KeyPressResources");
+	public KeyPopUp(){
 		myRoot = new Group();
 		init();
 		keyPress = " ";
@@ -37,9 +37,7 @@ public class KeyPressPopUp {
 		myStage.setTitle(r.getString("title"));
 		BorderPane pane = new BorderPane();
 		myInfo = new Label(keyPress);
-
 		Label text = new Label(r.getString("info"));
-
 		myInfo.setMinWidth(Integer.parseInt(r.getString("screenWidth")));
 		myInfo.setMinHeight(Integer.parseInt(r.getString("screenHeight")));
 	//	myInfo.setTranslateY(Integer.parseInt(r.getString("infoY")));
@@ -58,13 +56,8 @@ public class KeyPressPopUp {
 		myStage.setScene(myScene);
 		myStage.show();
 	}
-	private void eventPopup(KeyCode code) {
-		EventPopup p = new EventPopup();
-		myStage.getScene().getWindow().hide();
-		p.popup(new KeyPressedEvent(code));
-		myStage.close();
+	protected abstract void eventPopup(KeyCode code);
 
-	}
 	private void handleKeyInput(KeyCode code) {
 
 		StringProperty p = new SimpleStringProperty(code.getName());

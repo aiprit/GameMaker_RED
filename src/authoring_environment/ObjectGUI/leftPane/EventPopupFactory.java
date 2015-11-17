@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import javax.swing.KeyStroke;
 
+import authoring_environment.Event.GUI.PopUps.KeyPopUp;
+import authoring_environment.Event.GUI.PopUps.KeyPressPopUp;
+import authoring_environment.Event.GUI.PopUps.KeyReleasePopUp;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
@@ -25,16 +28,15 @@ public class EventPopupFactory {
 		//
 		//		}
 		if (event.equalsIgnoreCase("On Key Press Event")) {
-			KeyPressPopUp kp = new KeyPressPopUp();
+			KeyPopUp kp = new KeyPressPopUp();
 			kp.init();
 
 		}
-		//		if (event.equalsIgnoreCase("On Key Release Event")) {
-		//
-		//		}
-		//		if (event.equalsIgnoreCase("On Key Release Event")) {
-		//
-		//		}
+		if (event.equalsIgnoreCase("On Key Release Event")) {
+			KeyPopUp kp = new KeyReleasePopUp();
+			kp.init();
+		}
+
 		//		if (event.equalsIgnoreCase("On Object Create Event")) {
 		//
 		//		}

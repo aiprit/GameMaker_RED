@@ -14,7 +14,6 @@ public class EventPopup {
 
 
 	public void popup(IDataEvent event) {
-
 		 EventController control = new EventController(event);
          EventGUI gui = new EventGUI(control);
 	}
