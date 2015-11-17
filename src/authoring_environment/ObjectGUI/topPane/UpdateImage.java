@@ -1,6 +1,5 @@
 package authoring_environment.ObjectGUI.topPane;
 
-import structures.IObject;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 

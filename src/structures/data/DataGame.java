@@ -1,22 +1,18 @@
 package structures.data;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import structures.IObject;
-import structures.IRoom;
 
 
 public class DataGame {
 
-    ObservableList<IRoom> myRooms;
-    ObservableList<IObject> myObjects;
+    ObservableList<DataRoom> myRooms;
+    ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
     ObservableList<DataSound> mySounds; 
 
     private String myName;
-    private IRoom myStartRoom, myCurrentRoom;
+    private DataRoom myStartRoom, myCurrentRoom;
     private double myScreenWidth;
     private double myScreenHeight;
     private String myGameDirectory;
@@ -37,11 +33,11 @@ public class DataGame {
         return myName;
     }
     
-    public ObservableList<IRoom> getRooms() {
+    public ObservableList<DataRoom> getRooms() {
         return myRooms;
     }
 
-    public void setStartRoom(IRoom room){
+    public void setStartRoom(DataRoom room){
         myStartRoom = room;
     }
     
@@ -52,7 +48,7 @@ public class DataGame {
     	return myGameDirectory + SOUND_REL_DIRECTORY;
     }
 
-    public void addObject(IObject o){
+    public void addObject(DataObject o){
         myObjects.add(o);
     }
 
@@ -78,16 +74,15 @@ public class DataGame {
     public ObservableList<DataSprite> getSprites(){
     	return mySprites;
     }
-    public ObservableList<IObject> getObjects() {
+    public ObservableList<DataObject> getObjects() {
     	return myObjects;
     }
 
-    @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
         r.append(myName + "\n");
 
-        for(IObject o : myObjects){
+        for(DataObject o : myObjects){
             r.append(o.getName() + "\n");
         }
 
@@ -100,7 +95,7 @@ public class DataGame {
         }
 
 
-        for(IRoom room : myRooms){
+        for(DataRoom room : myRooms){
             r.append(room.getName() + "\n");
         }
 

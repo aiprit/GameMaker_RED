@@ -5,7 +5,6 @@ import java.util.List;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
-import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
@@ -31,7 +30,7 @@ public class RunGame implements IRun {
 		myConverter = new RunObjectConverter(myResources);
 		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
 		myRooms = new ArrayList<RunRoom>();
-		for (IRoom dataRoom : dataGame.getRooms()) {
+		for (DataRoom dataRoom : dataGame.getRooms()) {
 		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
 		myRoomCounter = 0;
@@ -100,7 +99,7 @@ public class RunGame implements IRun {
 	
 	@Override
 	public DataGame toData() throws CompileTimeException {
-	        List<IRoom> dataRooms = myDataGame.getRooms();
+	        List<DataRoom> dataRooms = myDataGame.getRooms();
 		for(int i = 0; i < myRooms.size(); i++) {
     		    try {
                         dataRooms.set(i, myRooms.get(i).toData());
