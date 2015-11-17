@@ -1,5 +1,6 @@
 package structures.data;
 
+import structures.IObject;
 import utils.Vector;
 
 public class DataInstance {
@@ -7,7 +8,7 @@ public class DataInstance {
     private double myX, myY;
 
     private long myID;
-    private DataObject myParentObject;
+    private IObject myParentObject;
     private boolean myVisible;
     private int myZIndex;
     private double	myAngle,
@@ -17,11 +18,11 @@ public class DataInstance {
     				myAlpha;
     private Vector myVelocity;
 
-    public DataInstance(DataObject parentObject, double x, double y) {
+    public DataInstance(IObject parentObject, double x, double y) {
         this(parentObject, System.currentTimeMillis(), x, y);
     }
 
-    public DataInstance(DataObject parentObject, long ID, double x, double y) {
+    public DataInstance(IObject parentObject, long ID, double x, double y) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
@@ -45,7 +46,7 @@ public class DataInstance {
         myY = y;
     }
 
-    public DataObject getParentObject() {
+    public IObject getParentObject() {
         return myParentObject;
     }
     
