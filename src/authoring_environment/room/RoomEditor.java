@@ -3,6 +3,7 @@ package authoring_environment.room;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
@@ -35,9 +36,10 @@ public class RoomEditor {
 	/**
 	 * for TESTING purposes
 	 */
-	public RoomEditor(ResourceBundle resources) {
+	public RoomEditor(ResourceBundle resources, Map<String, IObject> objects) {
 		myResources = resources;
 		myRoot = new Group();
+		myObjects = objects;
 		createEditor();
 	}
 	
@@ -111,18 +113,18 @@ public class RoomEditor {
 	
 	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
-		sprite.setOnMouseDragged(e -> objectInstance.updateSpritePosition(e));
+		sprite.setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
 		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
 	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
-		double sceneX = e.getSceneX();
-		double sceneY = e.getSceneY();
+		objectInstance.updateSpritePosition(e);
+		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
 		if (objectInstance.inRoomBounds()) {
-			//TODO calculate x,y in canvas coordinates
-			//add Image() to canvas
+			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
+			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
 			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
+			myRoomController.addObject(new DataInstance(objectInstance.getObject(), canvasPoint.getX(), canvasPoint.getY()));
 		} else {
 			//TODO get rid of the object
 		}

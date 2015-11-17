@@ -38,6 +38,7 @@ public class RoomBackground extends Canvas {
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
 
+		//FOR TESTING
 		luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
 		DraggableNode luigi = new DraggableNode(luigiImage, 0, 0);
 
@@ -50,9 +51,17 @@ public class RoomBackground extends Canvas {
 		myObjectMap = new HashMap<DraggableNode, Point2D>();
 		myObjectMap.put(luigi, new Point2D(luigi.getX(), luigi.getY()));
 		myObjectMap.put(mario, new Point2D(mario.getX(), mario.getY()));
+		//////
+		
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
+	}
+	
+	public void addNodeToMap(Image image, Point2D point) {
+		DraggableNode dragNode = new DraggableNode(image, point.getX(), point.getY());
+		this.getGraphicsContext2D().drawImage(image, point.getX(), point.getY());
+		myObjectMap.put(dragNode, point);
 	}
 	
 	private void press(MouseEvent event) {
@@ -93,29 +102,13 @@ public class RoomBackground extends Canvas {
 				}
 			}
 		}
-		
-		//	for (Image image : myObjectMap.keySet()) {
-			//image contains click
-			//if (contains(x, y, image)) {
-				//this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
-				//for (Image obj : myObjectMap.keySet()) {
-				//	this.getGraphicsContext2D().drawImage(obj, myObjectMap.get(obj).getX(), myObjectMap.get(obj).getY());
-				//}
-				//this.getGraphicsContext2D().drawImage(image, x, y);
-				//myObjectMap.put(image, new Point2D(x, y));
-		//	}
-				
-		//}
-		//this.getGraphicsContext2D().clearRect(0, 0, luigi.getWidth(), luigi.getHeight());
 	}
 	
 	private boolean contains(double x, double y, DraggableNode node) {
-		//System.out.println("Image x cor is " + myObjectMap.get(image).getX());
-		//System.out.println("Image y cor is " + myObjectMap.get(image).getY());
-
 		return (x > node.getX() && x <= node.getX() + node.getImage().getWidth() && 
 				y > node.getY() && y <= node.getY() + node.getImage().getHeight());
 	}
+	
 	private void setColorFill(Color fill) {
 		this.getGraphicsContext2D().setFill(fill);
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -165,59 +158,5 @@ public class RoomBackground extends Canvas {
 			myImageFileName = fileName;
 		}
 	}
-
-	private class DraggableNode {
-		private boolean draggable;
-		private Image image;
-		private double xCor;
-		private double yCor;
-		private double xOffset;
-		private double yOffset;
-		
-		public DraggableNode(Image imageObj, double x, double y) {
-			image = imageObj;
-			draggable = false;
-			xCor = x;
-			yCor = y;
-		}
-		
-		public double getXOffset() {
-			return xOffset;
-		}
-		public double getYOffset() {
-			return yOffset;
-		}
-		
-		public void setXOffset(double xOff) {
-			xOffset = xOff;
-		}
-		
-		public void setYOffset(double yOff) {
-			yOffset = yOff;
-		}
-		
-		public double getX() {
-			return xCor;
-		}
-		public boolean getDraggable() {
-			return draggable;
-		}
-		public double getY() {
-			return yCor;
-		}
-		public void setDraggable(boolean bool) {
-			draggable = bool;
-		}
-		public Image getImage() {
-			return image;
-		}
-		public void setX(double x) {
-			xCor = x;
-		}
-		public void setY(double y) {
-			yCor = y;
-		}
-	}
-
 	
 }

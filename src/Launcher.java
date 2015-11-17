@@ -1,7 +1,10 @@
 
+import authoring_environment.TestObject;
 import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.RoomEditor;
@@ -17,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import structures.IObject;
 import structures.data.DataObject;
 
 /**
@@ -33,8 +37,12 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		TestObject test = new TestObject();
+		DataObject myObject = test.getDataObject();
+		Map<String, IObject> objectMap = new HashMap<String, IObject>();
+		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		RoomEditor room = new RoomEditor(resources);
+		RoomEditor room = new RoomEditor(resources, objectMap);
 		
 		
 		//		DataObject object = new DataObject("dog",10,10);
