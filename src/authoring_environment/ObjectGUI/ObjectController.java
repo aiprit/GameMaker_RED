@@ -20,12 +20,12 @@ public class ObjectController {
 	private ObservableList<DataObject>  objects;
 	private Stage myStage;
 
-	public ObjectController(DataObject object, ObservableList<DataSprite> map, ObservableList<DataObject> obj,Stage st) {
+	public ObjectController(DataObject object, DataGame game,Stage st) {
 		myObject = object;
-		mySprites = map;
+		mySprites = game.getSprites();
 		displayX= 1.0;
 		displayY= 1.0;
-		objects = obj;
+		objects = game.getObjects();
 		myStage =st;
 	}
 

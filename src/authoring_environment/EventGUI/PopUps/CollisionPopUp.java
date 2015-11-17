@@ -21,7 +21,7 @@ public class CollisionPopUp implements PopUp{
 	private Group myRoot;
 	private Stage myStage;
 	private Scene myScene;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftpane/CollisionResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/CollisionResources");
 
 	public CollisionPopUp(ObjectController controller) {
 		myController = controller;

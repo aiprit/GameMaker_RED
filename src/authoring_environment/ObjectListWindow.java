@@ -30,17 +30,18 @@ public class ObjectListWindow {
 	public void init(BorderPane bp, Stage s, ResourceBundle resources){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event){			 	
-					DataObject object = new DataObject("dog");
-					ObjectController c = new ObjectController(object, null);
+			public void handle(ActionEvent event){			 
+				Stage myStage = new Stage();
+				DataObject object = new DataObject("dog");
+				ObjectController c = new ObjectController(object, null, myStage);
 
-					ObjectGUI og = new ObjectGUI(c);
-					og.init();
+				ObjectGUI og = new ObjectGUI(c);
+				og.init();
 
 
 			}
 		};
-		
+
 		ListView<HBox> listView = makeHBox(sButtonClick, 1, resources.getString(NEW_ITEM), resources.getString(OBJECT_TITLE));
 
 		bp.setLeft(listView);
@@ -52,17 +53,17 @@ public class ObjectListWindow {
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
 		for (int i = 0; i < n; i++) {
-           // list.add(new HBoxCell("Item " + i, "Button " + i));
+			// list.add(new HBoxCell("Item " + i, "Button " + i));
 			Button plus = new Button(" + ");
 			plus.setOnAction(e);
 			Label label = new Label(name);
 			HBox hbox = new HBox();
-		
-            label.setMaxWidth(Double.MAX_VALUE);
-            HBox.setHgrow(label, Priority.ALWAYS);
-            
-            hbox.getChildren().addAll(label, plus);
-            list.add(hbox);
+
+			label.setMaxWidth(Double.MAX_VALUE);
+			HBox.setHgrow(label, Priority.ALWAYS);
+
+			hbox.getChildren().addAll(label, plus);
+			list.add(hbox);
 		}
 
 		ListView<HBox> listView = new ListView<HBox>();
@@ -71,6 +72,6 @@ public class ObjectListWindow {
 		return listView;
 	}
 	public void update(ObservableList<DataObject> newList){
-		
+
 	}
 }

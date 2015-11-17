@@ -32,7 +32,7 @@ public class ObjectGUITester extends Application{
 		c.add(new Sleep());
 		object.bindEvent(a,c);
 		Stage cc = new Stage();
-		ObjectController ct = new ObjectController(object, null, null,cc);
+		ObjectController ct = new ObjectController(object, game,cc);
 
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);

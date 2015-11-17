@@ -11,6 +11,7 @@ import authoring_environment.EventGUI.PopUps.KeyReleasePopUp;
 import authoring_environment.EventGUI.PopUps.ObjectCreatePopUp;
 import authoring_environment.EventGUI.PopUps.ObjectDestroyPopUp;
 import authoring_environment.EventGUI.PopUps.PopUp;
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataObject;
@@ -24,7 +25,7 @@ import structures.data.events.IDataEvent;
 
 public class EventPopupFactory {
 	PopUp kp;
-	public void create(String event,ObservableMap<IDataEvent,List<IAction>> m,ObservableList list) {
+	public void create(String event, ObservableMap<IDataEvent,List<IAction>> m, ObservableList list, ObjectController controller) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
@@ -32,7 +33,7 @@ public class EventPopupFactory {
 			kp = new GameEndPopUp(m);
 		}
 		if (event.equalsIgnoreCase("Collision Event")) {
-			kp = new CollisionPopUp(m,list);
+			kp = new CollisionPopUp(controller);
 		}
 		if (event.equalsIgnoreCase("On Game Start Event")) {
 			kp = new GameStartPopUp(m);
