@@ -2,7 +2,6 @@ package authoring_environment.Event.GUI;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.Event.EventController;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;

@@ -1,10 +1,9 @@
-package authoring_environment.Event;
+package authoring_environment.Event.GUI;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import authoring_environment.Event.GUI.EventGUI;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.stage.Stage;

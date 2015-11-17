@@ -5,7 +5,7 @@ import structures.data.DataInstance;
 
 public class RoomController {
 	private IRoom myRoom;
-	
+
 	public RoomController(IRoom room) {
 		myRoom = room;
 	}
@@ -14,7 +14,7 @@ public class RoomController {
 	public String getName() {
 		return myRoom.getName();
 	}
-	
+
 	public void addObject(DataInstance object) {
 		myRoom.addObjectInstance(object);
 	}
