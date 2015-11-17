@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
-import structures.data.events.AKeyEvent;
 import structures.data.events.KeyTypedEvent;
 
 /**
@@ -39,8 +38,8 @@ public class Launcher extends Application {
 //		object.addEvent(new KeyTypedEvent());
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
-		
-		
+
+
 
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();

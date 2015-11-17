@@ -1,6 +1,7 @@
 package structures;
 
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableMap;
 import structures.data.DataSprite;
@@ -17,7 +18,7 @@ public interface IObject {
 	void setSprite(DataSprite s);
 
 	String getName();
-	
+
 	void setName(String name);
 
 	void setPosition(Point pos);
@@ -33,24 +34,24 @@ public interface IObject {
 	double getAngle();
 
 	void setZIndex(int zIndex);
-	
+
 	int getZIndex();
-	
+
 	void setAngularVelocity(double angularVelocity);
-	
+
 	double getAngularVelocity();
-	
+
 	double getAlpha();
-	
+
 	void setAlpha(double alpha);
 
-	ObservableMap<IDataEvent, List<IAction>> getEvents();
+	Map<IDataEvent, List<IAction>> getEvents();
 
 	DataSprite getSprite();
-	
+
 	double getScaleX();
 	double getScaleY();
-	
+
 	void setScaleX(double x);
 	void setScaleY(double y);
 

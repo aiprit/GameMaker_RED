@@ -1,5 +1,6 @@
 package authoring_environment.ObjectGUI;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -30,7 +31,7 @@ public class ObjectController {
 		return mySprites;
 	}
 
-	public ObservableMap<IDataEvent, List<IAction>>  getEvents() {
+	public Map<IDataEvent, List<IAction>>  getEvents() {
 		return myObject.getEvents();
 	}
 

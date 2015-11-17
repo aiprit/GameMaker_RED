@@ -2,6 +2,8 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import structures.IObject;
@@ -12,7 +14,7 @@ import utils.Point;
 
 public class DataObject implements IObject {
 
-	private ObservableMap<IDataEvent, List<IAction>> myEvents;
+	private Map<IDataEvent, List<IAction>> myEvents;
 
 	private String myName;
 	private DataSprite mySprite;
@@ -58,7 +60,7 @@ public class DataObject implements IObject {
 		myEvents.remove(e);
 	}
 	@Override
-	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
+	public Map<IDataEvent, List<IAction>> getEvents(){
 		return myEvents;
 	}
 
