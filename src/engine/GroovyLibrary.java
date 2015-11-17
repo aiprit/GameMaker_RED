@@ -1,6 +1,14 @@
 package engine;
 
+import structures.run.RunGame;
+
 public class GroovyLibrary {
+    
+        private RunGame myRunGame;
+    
+        public GroovyLibrary(RunGame runGame) {
+            myRunGame = runGame;
+        }
 
 	public void create_object(String id, double x, double y){
 		
