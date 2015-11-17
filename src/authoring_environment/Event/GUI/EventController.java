@@ -14,8 +14,7 @@ import structures.data.events.IDataEvent;
 public class EventController {
 	DataObject myObject;
 	IDataEvent myEvent;
-	public EventController(IDataEvent e,Stage stage){
-		myObject = o;
+	public EventController(IDataEvent e){
 		myEvent = e;
 	}
 

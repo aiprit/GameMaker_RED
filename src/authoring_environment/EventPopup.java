@@ -7,15 +7,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import structures.data.events.IDataEvent;
 
 public class EventPopup {
 
 
 
-	public void popup() {
-		 Stage dialog = new Stage();
-		 EventController control = new EventController
-         EventGUI gui = new EventGUI(null,dialog);
+	public void popup(IDataEvent event) {
+
+		 EventController control = new EventController(event);
+         EventGUI gui = new EventGUI(control);
 	}
 
 }

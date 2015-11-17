@@ -25,10 +25,9 @@ public class EventGUI {
 	private EventController myController;
 	private ObservableList actionList;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
-	public EventGUI(EventController event,Stage stage){
+	public EventGUI(EventController event){
 
 		myRoot = new Group();
-		myStage = stage;
 		myController = event;
 		try{
 			actionList =FXCollections.observableList(myController.getActions());
@@ -42,7 +41,7 @@ public class EventGUI {
 	}
 
 	public void init() {
-
+		myStage = new Stage();
 		myStage.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
 		EventBottomPane bottom = new EventBottomPane();
