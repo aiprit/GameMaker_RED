@@ -14,8 +14,7 @@ import structures.data.events.KeyPressedEvent;
 
 public class EventPopupFactory {
 
-	public Object create(String event) {
-		return event;
+	public void create(String event) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
@@ -25,10 +24,11 @@ public class EventPopupFactory {
 		//		if (event.equalsIgnoreCase("On Game Start Event")) {
 		//
 		//		}
-		//		if (event.equalsIgnoreCase("On Key Press Event")) {
-		//			KeyPressPopup
-		//
-		//		}
+		if (event.equalsIgnoreCase("On Key Press Event")) {
+			KeyPressPopUp kp = new KeyPressPopUp();
+			kp.init();
+
+		}
 		//		if (event.equalsIgnoreCase("On Key Release Event")) {
 		//
 		//		}
@@ -43,6 +43,6 @@ public class EventPopupFactory {
 		//		}
 		//	}
 
+	}
 
-
-	}}
+}
