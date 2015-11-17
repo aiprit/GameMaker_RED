@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import structures.run.RunGame;
@@ -24,7 +25,7 @@ import structures.run.RunGame;
  */
 public class FrontEnd {
 	private Canvas myCanvas;
-	private Draw myCanvasDrawer;
+	private IDraw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
 	private IGUIHandler guiHandler;
@@ -38,6 +39,7 @@ public class FrontEnd {
 		this.game = game;
 		this.stage = stage;
 		setupFramework();
+		setupCanvas();
 	}
 	
 	private void setupFramework(){
@@ -58,7 +60,6 @@ public class FrontEnd {
 			}
 		});
 		
-		
 		MenuBar myMenus = new MenuBar();
 		myMenus.useSystemMenuBarProperty().set(true);
 		Menu fileMenu = new Menu("File");
@@ -66,21 +67,21 @@ public class FrontEnd {
 		reset.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.setOnReset();
+				guiHandler.onReset();
 			}
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.setOnSave();
+				guiHandler.onSave();
 			}
 		});
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.setOnSave();
+				guiHandler.onSave();
 				stage.close();
 			}
 		});
@@ -88,7 +89,7 @@ public class FrontEnd {
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.setOnPause();
+				guiHandler.onPause();
 			}
 		});
 		Menu savedGames = new Menu("Saved Games");
@@ -104,6 +105,10 @@ public class FrontEnd {
 	private void setupCanvas(){
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		myCanvasDrawer.draw(myGame);
+		myRoot.getChildren().add((StackPane) myCanvasDrawer);
+	}
+	
+	public IDraw getDrawListener(){
+		return myCanvasDrawer;
 	}
 }

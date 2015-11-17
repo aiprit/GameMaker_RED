@@ -1,5 +1,8 @@
 package structures.data;
 
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import structures.IObject;
 import structures.IRoom;
@@ -18,12 +21,16 @@ public class DataGame {
     private double myScreenHeight;
     private String myGameDirectory;
     
-    public static final String SPRITE_REL_DIRECTORY = "images/";
-    public static final String SOUND_REL_DIRECTORY = "sounds/";
+    public static final String SPRITE_REL_DIRECTORY = "/resources/";
+    public static final String SOUND_REL_DIRECTORY = "/sounds/";
 
     public DataGame(String name, String gameDirectory) {
     	myName = name;
     	myGameDirectory = gameDirectory;
+    	myRooms = FXCollections.observableArrayList();
+    	myObjects = FXCollections.observableArrayList();
+    	mySprites = FXCollections.observableArrayList();
+    	mySounds = FXCollections.observableArrayList();
     }
 
     public String getName() {

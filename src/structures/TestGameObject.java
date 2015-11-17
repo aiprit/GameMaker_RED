@@ -50,7 +50,6 @@ public class TestGameObject {
 
         DataObject player = new DataObject("Player");
 
-
         DataSprite playerSprite = new DataSprite("Square", "square.png");
         player.setSprite(playerSprite);
         
