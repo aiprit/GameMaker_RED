@@ -67,6 +67,8 @@ public class RoomBackground extends Canvas {
 	
 	private void press(MouseEvent event) {
 		if (contains(event.getX(), event.getY(), myRoomView)) {
+			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
+			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
 			myRoomView.setDraggable(true);
 		} else {
 			for (DraggableImage node : myObjectMap.keySet()) {
