@@ -3,6 +3,7 @@ package authoring_environment.ObjectGUI.leftPane;
 
 import java.util.List;
 
+import authoring_environment.EventGUI.PopUps.CollisionPopUp;
 import authoring_environment.EventGUI.PopUps.GameEndPopUp;
 import authoring_environment.EventGUI.PopUps.GameStartPopUp;
 import authoring_environment.EventGUI.PopUps.KeyPressPopUp;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
+import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 
 
@@ -28,6 +30,9 @@ public class EventPopupFactory {
 		//		}
 		if (event.equalsIgnoreCase("Game End Event")) {
 			kp = new GameEndPopUp(m);
+		}
+		if (event.equalsIgnoreCase("Collision Event")) {
+			kp = new CollisionPopUp(m,list);
 		}
 		if (event.equalsIgnoreCase("On Game Start Event")) {
 			kp = new GameStartPopUp(m);

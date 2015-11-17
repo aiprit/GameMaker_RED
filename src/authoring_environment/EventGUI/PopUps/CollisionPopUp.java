@@ -1,4 +1,4 @@
-package authoring_environment.ObjectGUI.leftPane;
+package authoring_environment.EventGUI.PopUps;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.events.IDataEvent;
 
-public class CollisionPopUp {
+public class CollisionPopUp implements PopUp{
 	private ObjectController myController;
 	private Group myRoot;
 	private Stage myStage;
@@ -42,6 +42,12 @@ public class CollisionPopUp {
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
 		myStage.show();
+		
+	}
+
+	@Override
+	public void eventPopup() {
+		init();
 		
 	}
 
