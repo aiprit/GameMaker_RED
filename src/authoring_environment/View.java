@@ -135,10 +135,10 @@ public class View implements Observer{
 		myObjects = myController.getObjects();
 		myObjectListView.update(myObjects);
 	}
-//	private void updateRoomCanvas(){
-//		myLevels = myController.getRooms();
-//		myRoomListView.update(myLevels);
-//	}
+	private void updateRoomCanvas(){
+		myLevels = myController.getRooms();
+		myRoomListView.update(myLevels);
+	}
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

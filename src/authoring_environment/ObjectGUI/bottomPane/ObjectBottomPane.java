@@ -34,6 +34,7 @@ public class ObjectBottomPane {
 		HBox name = createHBox(nameLabel, nameBox, Integer.parseInt(r.getString("nameTranslate")));
 		
 		Label widthLabel = new Label(r.getString("widthTitle"));
+
 		TextField widthBox = createTextBox(String.valueOf(size[0]),Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
 		HBox width = createHBox(widthLabel, widthBox, Integer.parseInt(r.getString("widthTranslate")));
 		

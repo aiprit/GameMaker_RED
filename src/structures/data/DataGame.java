@@ -74,7 +74,9 @@ public class DataGame {
     public ObservableList<DataSound> getSounds() {
     	return mySounds;
     }
-
+    public ObservableList<IRoom> getRooms(){
+    	return myRooms;
+    }
     @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
