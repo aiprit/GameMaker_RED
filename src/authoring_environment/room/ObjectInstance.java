@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import structures.IObject;
 
 public class ObjectInstance {
@@ -14,12 +15,10 @@ public class ObjectInstance {
 	private ResourceBundle myResources;
 	private ImageView myImage;
 	private IObject myObject;
-	private int myID;
 	
-	public ObjectInstance(ResourceBundle resources, IObject object, int ID) {
+	public ObjectInstance(ResourceBundle resources, IObject object) {
 		myResources = resources;
 		myObject = object;
-		myID = ID;
 		myImage = new ImageView(myObject.getSprite().getImage());
 	}
 	
@@ -38,11 +37,11 @@ public class ObjectInstance {
 		myImage.setY(y);
 	}
 	
-	public boolean inRoomBounds() {
-		double roomRightBound = Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH));
-		double roomLeftBound = Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
-		double roomUpperBound = 0;
-		double roomLowerBound = Double.parseDouble(myResources.getString(PREVIEW_HEIGHT));
+	public boolean inRoomBounds() {		
+		double roomRightBound = 662 - myImage.getImage().getWidth()/2;
+		double roomLeftBound = myImage.getImage().getWidth()/2 + 1;
+		double roomUpperBound = myImage.getImage().getHeight()/2;
+		double roomLowerBound = 622 - myImage.getImage().getHeight()/2;
 		return myImage.getX() > roomLeftBound && myImage.getX() < roomRightBound && 
 				myImage.getY() > roomUpperBound && myImage.getY() < roomLowerBound;
 	}

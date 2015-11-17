@@ -5,29 +5,19 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import structures.IObject;
 
 public class ObjectListContainer extends VBox {
-	////FOR TESTING
-	private static String[] temp = {"testing1", "testing2", "testing3"};
-	private static ObservableList<String> myObjectList = FXCollections.<String>observableArrayList(temp);
-	//////
-	
 	private ResourceBundle myResources;
 	private Map<String, IObject> myObjects;
 	private ObjectListView myObjectsList;
 	private ObjectListHeader myObjectListHeader;
-	private int myIDCounter;
 	
 	public ObjectListContainer(ResourceBundle resources, Map<String, IObject> objects) {
 		super();
 		myResources = resources;
-		myIDCounter = 0;
 		myObjects = objects;
 		initializeListHeader();
 		initializeObjectListView();
@@ -39,10 +29,10 @@ public class ObjectListContainer extends VBox {
 	}
 	
 	private void initializeObjectListView() {
-		//myObjectsList = new ObjectListView(myResources, FXCollections.<String>observableArrayList(myObjects.keySet()));
+		myObjectsList = new ObjectListView(myResources, FXCollections.<String>observableArrayList(myObjects.keySet()));
 		
 		////FOR TESTING
-		myObjectsList = new ObjectListView(myResources, myObjectList);
+		//myObjectsList = new ObjectListView(myResources, myObjectList);
 		//////
 	}
 	
@@ -54,13 +44,11 @@ public class ObjectListContainer extends VBox {
 		int selectedIdx = myObjectsList.getSelectionModel().getSelectedIndex();
 		if (selectedIdx != -1) {
 			String objectName = myObjectsList.getObjectsList().get(selectedIdx);
-			ObjectInstance object = new ObjectInstance(myResources, myObjects.get(objectName), myIDCounter++);
-			//ImageView sprite = object.getImageView();
+			ObjectInstance object = new ObjectInstance(myResources, myObjects.get(objectName));
 			
 			///// FOR TESTING
-			ImageView sprite = new ImageView(new Image("authoring_environment/room/smallstar.png"));
+			//ImageView sprite = new ImageView(new Image("authoring_environment/room/smallstar.png"));
 			//////
-			
 			object.updateSpritePosition(event);
 			myObjectsList.getSelectionModel().select(-1);
 			return object;

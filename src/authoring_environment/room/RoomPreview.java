@@ -3,6 +3,7 @@ package authoring_environment.room;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 
@@ -40,11 +41,15 @@ public class RoomPreview extends ScrollPane {
 	public void setRoomBackground(RoomBackground myBackground) {
 		this.myBackground = myBackground;
 	}
+	
+	public Point2D translateSceneCoordinates(Point2D scenePoint) {
+		return myBackground.sceneToLocal(scenePoint);
+	}
 
-//	public void addNode(Node element) {
-//		myBackground.getChildren().add(element);
-//	}
-//	
+	public void addImage(Image element, Point2D canvasPoint) {
+		myBackground.addNodeToMap(element, canvasPoint);
+	}
+	
 //	public void removeNode(Node element) {
 //		myRoot.getChildren().remove(element);
 //	}
