@@ -3,9 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import structures.IObject;
-import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
