@@ -1,7 +1,9 @@
 package authoring_environment.ObjectGUI.leftPane;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring_environment.EventPopup;
@@ -33,9 +35,10 @@ public class ObjectLeftPane {
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
 		ListView<String> listview = new ListView<String>();
 		Enumeration <String> keys = l.getKeys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			String value = l.getString(key);
+		List<String> keylist = Collections.list(keys);
+		Collections.sort(keylist);
+		for (String str:keylist) {
+			String value = l.getString(str);
 			list.add(value);
 
 		}

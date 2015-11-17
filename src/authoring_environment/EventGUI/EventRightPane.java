@@ -51,7 +51,7 @@ public class EventRightPane {
 		delete(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
-	private void delete(String e){
+	public void delete(String e){
 		IAction event = null;
 		for(IAction key: actionList){
 			if(key.getTitle().equals(e)){
@@ -61,6 +61,11 @@ public class EventRightPane {
 		}
 		actionList.remove(event);
 		list.remove(e);
+	}
+	public void add(IAction e){
+
+		actionList.add(e);
+		list.add(e.getTitle());
 	}
 
 

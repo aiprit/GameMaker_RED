@@ -1,8 +1,12 @@
 package authoring_environment.EventGUI;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -20,12 +24,15 @@ import structures.data.events.IDataEvent;
 public class EventLeftPane {
 	private EventController myController;
 	private DataObject o;
+	EventRightPane myRight;
 	private ObservableList<String> list= FXCollections.observableList(new ArrayList<String>());
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/EventGUI/ActionListResources");
-	private ResourceBundle fact = ResourceBundle.getBundle("authoring_environment/EventGUI/ActionFactoryResources");
-	public EventLeftPane(EventController control) {
+
+
+	public EventLeftPane(EventController control,EventRightPane right) {
 		myController = control;
+		myRight = right;
 	}
 
 	public Group init() {
@@ -34,9 +41,10 @@ public class EventLeftPane {
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
 		ListView<String> listview = new ListView<String>();
 		Enumeration <String> keys = l.getKeys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			String value = l.getString(key);
+		List<String> keylist = Collections.list(keys);
+		Collections.sort(keylist);
+		for (String str:keylist) {
+			String value = l.getString(str);
 			list.add(value);
 
 		}
@@ -54,26 +62,42 @@ public class EventLeftPane {
 	}
 	private void addAction(String str){
 		String className = str.replaceAll("\\s+","");
-		Class cls;
-		Field f=null;
+		Class c;
+		IAction act;
 		try {
-			cls = Class.forName(className,true,null);
-			f = cls.getField("getTitle");
-
+			c = Class.forName("structures.data.actions.library." +className);
+			try {
+				act = (IAction) c.getDeclaredConstructor().newInstance();
+				String fieldname = act.getTitle();
+				System.out.println(fieldname);
+				myRight.add(act);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		String fieldname = f.getName();
-		System.out.println(fieldname);
+
+
+
 	}
 
 }
