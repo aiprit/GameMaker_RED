@@ -41,7 +41,7 @@ public class ObjectCenterPane {
 //				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
 //			}
 //		});
-		root.getChildren().addAll(c); //, b);
+		//root.getChildren().addAll(c); //, b);
 
 		spriteWidth =sprite.getWidth();
 		spriteHeight =sprite.getHeight();
@@ -57,7 +57,7 @@ public class ObjectCenterPane {
 				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
 //			}
 		});
-		root.getChildren().addAll(c, b);
+		root.getChildren().addAll(c,b);
 		return root;
 	}
 
