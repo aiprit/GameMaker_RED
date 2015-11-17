@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
-import structures.data.DataSprite;
 
 
 public class ObjectGUITester extends Application{

@@ -29,6 +29,16 @@ public class RunRoom {
 		}
 	}
 	
+	public RunObject instantiate(String name, double x, double y) throws GameRuntimeException {
+		RunObject obj = myConverter.instantiate(name, x, y);
+		myObjects.add(obj);
+		return obj;
+	}
+	
+	public String getName() {
+		return myName;
+	}
+	
 	public String toString() {
 	    return myName;
 	}

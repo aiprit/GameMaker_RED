@@ -12,15 +12,11 @@ public class DataSprite implements IResource {
 	private double myCenterX, myCenterY, myScaleX, myScaleY;
 	private boolean myHaveLoaded;
 	
-	public DataSprite(String name, String baseFileName, String directory) {
+	public DataSprite(String name, String baseFileName) {
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
 		myCenterX = 0.0;
 		myCenterY = 0.0;
-		try {
-			this.load(directory);
-		} catch (ResourceFailedException e){
-		}
 	}
 	
 	public Image getImage() {
@@ -72,7 +68,6 @@ public class DataSprite implements IResource {
 		return myCenterY;
 	}
 	
-	
 	@Override
 	public boolean loaded() {
 		return myHaveLoaded;
@@ -80,14 +75,16 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load(String directory) throws ResourceFailedException {
+		//COMMENTED OUT IS ELIZABETH'S TESTING CODE - CAN REMOVE IN MASTER
 		String url = directory + myBaseFileName;
-		url = url.substring(url.indexOf("/Games/") + 6);
 		try {
+			//myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));
 			myImage = new Image(url);
-			//myImage = new Image(this.getClass().getClassLoader().getResource("coin.png").getPath());
 		} catch (Exception ex) {
-			String message = String.format("Failed to load image '%s' for DataSprite", "stupid");
-			throw new ResourceFailedException(message);
+			//String message = String.format("Failed to load image '%s' for DataSprite", url);
+			//throw new ResourceFailedException("Elizabeth's testing code");
+			String message = "Failed to load image '%s' for DataSprite '%s'";
+			throw new ResourceFailedException(message, url, myName);
 		}
 		myHaveLoaded = true;
 	}

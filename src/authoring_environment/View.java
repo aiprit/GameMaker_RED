@@ -50,8 +50,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import structures.IObject;
-import structures.IRoom;
 import structures.data.*;
 
 import java.util.LinkedList;
@@ -69,8 +67,8 @@ import structures.data.*;
 public class View implements Observer{
 
 	private ResourceBundle myResourceBundle;
-	private ObservableList<IRoom> myLevels;
-	private ObservableList<IObject> myObjects;
+	private ObservableList<DataRoom> myLevels;
+	private ObservableList<DataObject> myObjects;
 	private static String GAME_NAME = "GameAuthorTitle";
 	private Stage myStage;
 	private Group myRoot;
@@ -135,10 +133,10 @@ public class View implements Observer{
 		myObjects = myController.getObjects();
 		myObjectListView.update(myObjects);
 	}
-//	private void updateRoomCanvas(){
-//		myLevels = myController.getRooms();
-//		myRoomListView.update(myLevels);
-//	}
+	private void updateRoomCanvas(){
+		myLevels = myController.getRooms();
+		myRoomListView.update(myLevels);
+	}
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub

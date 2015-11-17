@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
-import structures.IObject;
-import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
@@ -31,20 +29,20 @@ public class Controller {
 	public void removeRoom(){
 		
 	}
-	public ObservableList<IObject> getObjects(){
-		ObservableList<IObject> objects = myGame.getObjects();
+	public ObservableList<DataObject> getObjects(){
+		ObservableList<DataObject> objects = myGame.getObjects();
 		return objects;
 	}
 	public void setRooms(HashMap<DataRoom, Integer> levels){
 		
 	}
 	public void setObjects(){
-		ObservableList<IObject> objects = myGame.getObjects();
+		ObservableList<DataObject> objects = myGame.getObjects();
 		
 	}
-//	public ObservableList<IRoom> getRooms(){
-//		return myGame.getRooms();
-//	}
+	public ObservableList<DataRoom> getRooms(){
+		return myGame.getRooms();
+	}
 	public ObservableList<DataSprite> getSprites() {
 		return myGame.getSprites();
 	}

@@ -74,7 +74,7 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 	}
 
 	@Override
-	public void onObjectCreate (RunObject runObject) {
+	public void onObjectCreate(RunObject runObject) {
 		for(IDataEvent e : runObject.getEvents()){
 			if(!myEvents.containsKey(e)){
 				myEvents.put(e, new ArrayList<RunObject>());
@@ -84,7 +84,7 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 	}
 
 	@Override
-	public void onObjectDestroy (RunObject runObject) {
+	public void onObjectDestroy(RunObject runObject) {
 		for(IDataEvent e : runObject.getEvents()){
 			if(myEvents.containsKey(e)){
 				myEvents.get(e).remove(runObject);
