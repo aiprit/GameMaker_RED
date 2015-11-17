@@ -33,6 +33,14 @@ public class DataGame {
         return myName;
     }
     
+    public DataRoom getCurrentRoom() {
+    	return myCurrentRoom;
+    }
+    
+    public DataRoom getStartRoom() {
+    	return myStartRoom;
+    }
+    
     public ObservableList<DataRoom> getRooms() {
         return myRooms;
     }
