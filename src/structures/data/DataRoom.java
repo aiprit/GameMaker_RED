@@ -9,7 +9,7 @@ import java.util.List;
 public class DataRoom implements IRoom {
     private List<DataInstance> roomObjects;
     private DataView myView;
-    private IObject myBackground;
+    private String myBackgroundColor;
     private double myWidth, myHeight;
     private String myName;
 
@@ -44,6 +44,10 @@ public class DataRoom implements IRoom {
     @Override
     public void setSize(double width, double height) {
 
+    }
+
+    public String getBackgroundColor(){
+        return myBackgroundColor;
     }
 
     @Override

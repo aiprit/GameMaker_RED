@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import structures.IObject;
 import structures.data.DataObject;
-import structures.data.DataSprite;
-import structures.data.events.KeyTypedEvent;
 
 public class ObjectGUITester extends Application{
 	public static void main(String[] args) {

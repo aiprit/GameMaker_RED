@@ -1,6 +1,6 @@
 package testing;
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.*;
+import org.junit.*;
 import exceptions.ParameterParseException;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
