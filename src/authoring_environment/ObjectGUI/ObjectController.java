@@ -21,11 +21,6 @@ public class ObjectController {
 		myObject.setName(name);
 	}
 
-	public void setSize(double x, double y) {
-		myObject.getSprite().setScaleX(x);
-		myObject.getSprite().setScaleY(y);
-	}
-
 	public ObservableList<DataSprite> getSprites() {
 		return mySprites;
 	}
@@ -36,10 +31,6 @@ public class ObjectController {
 
 	public String getName() {
 		return myObject.getName();
-	}
-
-	public double[] getSize() {
-		return new double [] {myObject.getSprite().getScaleX(),myObject.getSprite().getScaleY()};
 	}
 
 	public void addSprite(DataSprite sprite) {
