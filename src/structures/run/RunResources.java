@@ -2,8 +2,6 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import engine.IDraw;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
