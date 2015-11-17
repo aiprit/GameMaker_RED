@@ -38,8 +38,8 @@ public class EngineController {
 
 	public void init() throws ResourceFailedException {
 		String myName;
-		List<String> choices = new ArrayList<>();
-		addGamesFromDirectory(choices);
+		List<String> choices = addGamesFromDirectory();
+		
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");
@@ -75,9 +75,11 @@ public class EngineController {
 		myEngine = new Engine(myRunningGame);
 	}
 
-	private void addGamesFromDirectory(List<String> choices) {
+	private List<String> addGamesFromDirectory() {
+		List<String> choices =  new ArrayList<String>();
 		for (final File fileEntry : new File("Games/").listFiles()) {
 			choices.add(fileEntry.getName());
 		}
+		return choices;
 	}
 }
