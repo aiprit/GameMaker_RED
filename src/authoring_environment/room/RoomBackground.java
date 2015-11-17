@@ -21,7 +21,7 @@ public class RoomBackground extends Canvas {
 	private String myImageFileName;
 	private Image luigiImage;
 	private Map<DraggableNode, Point2D> myObjectMap;
-	
+	private ResourceBundle myResources;
 
 
 	public RoomBackground(ResourceBundle resources) {
@@ -29,7 +29,7 @@ public class RoomBackground extends Canvas {
 				Double.parseDouble(resources.getString("PreviewHeight"))-1);
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
-
+		myResources = resources;
 		//FOR TESTING
 		luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
 		DraggableNode luigi = new DraggableNode(luigiImage, 0, 0);
@@ -54,6 +54,8 @@ public class RoomBackground extends Canvas {
 		DraggableNode dragNode = new DraggableNode(image, point.getX(), point.getY());
 		this.getGraphicsContext2D().drawImage(image, point.getX(), point.getY());
 		myObjectMap.put(dragNode, point);
+		ConfigurePopUp configurePopUp = new ConfigurePopUp(myResources);
+		configurePopUp.initializePopUp();
 	}
 	
 	private void press(MouseEvent event) {

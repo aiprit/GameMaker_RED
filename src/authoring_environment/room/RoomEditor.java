@@ -124,7 +124,7 @@ public class RoomEditor {
 			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
 			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
 			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(new DataInstance(objectInstance.getObject(), canvasPoint.getX(), canvasPoint.getY()));
+			//myRoomController.addObject(new DataInstance(objectInstance.getObject(), canvasPoint.getX(), canvasPoint.getY()));
 		} else {
 			//TODO get rid of the object
 		}
