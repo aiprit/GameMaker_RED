@@ -15,6 +15,7 @@ public class RunSound {
     public RunSound(String name) {
     	this.name = name;
     }
+    
     public RunSound(DataSound dataSound) throws CompileTimeException {
     	this.name = dataSound.getName();
     	if (!dataSound.loaded()) {

@@ -3,6 +3,7 @@ package structures.run;
 import java.util.List;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
+import exceptions.UnknownResourceException;
 import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -15,7 +16,7 @@ public class RunGame implements IRun {
 	public final String myName;
 	private List<RunRoom> myRooms;
 	
-	private int myCurrentRoomNumber;
+	private RunRoom myCurrentRoom;
 	private RunResources myResources;
 	private RunObjectConverter myConverter;
 	private DataGame myDataGame;
@@ -29,9 +30,13 @@ public class RunGame implements IRun {
 		for (IRoom dataRoom : dataGame.getRooms()) {
 		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
-		
+		myCurrentRoom = myRooms.get(0);
 		// TODO: change all references from IObject to DataObject
 		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
+	}
+	
+	public RunSound getSound(String soundName) throws UnknownResourceException {
+	    return myResources.fetchSound(soundName);
 	}
 	
 	public String getName() {
@@ -39,7 +44,11 @@ public class RunGame implements IRun {
 	}
 	
 	public RunRoom getCurrentRoom() {
-		return myRooms.get(myCurrentRoomNumber);
+		return myCurrentRoom;
+	}
+	
+	public void setCurrentRoom(int roomNumber) {
+	    myCurrentRoom = myRooms.get(roomNumber);
 	}
 	
 	/**
