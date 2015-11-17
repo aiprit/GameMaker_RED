@@ -48,4 +48,5 @@ public interface IAction {
 	 * @throws CompileTimeException
 	 */
 	public String compileSyntax() throws CompileTimeException;
+	
 }

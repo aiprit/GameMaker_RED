@@ -19,17 +19,17 @@ public class ObjectLeftPane {
 	private ObjectController myController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/LeftPaneResources");
 	private ObservableList<IDataEvent> list;
-	
+
 	public ObjectLeftPane(ObjectController controller) {
 		myController = controller;
 		try{
-			
+
 		}
 		catch(NullPointerException e){
 
 		}
 	}
-	
+
 	public Group init() {
 		Group root = new Group();
 		Text title = new Text(r.getString("text"));
@@ -46,7 +46,7 @@ public class ObjectLeftPane {
 		delete(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
-	
+
 	private void delete(IDataEvent e) {
 		list.remove(e);
 	}

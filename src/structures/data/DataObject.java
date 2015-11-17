@@ -1,116 +1,72 @@
 package structures.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import authoring_environment.Sprite;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
+import javafx.collections.ObservableMap;
 import structures.IObject;
+import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
+
 
 public class DataObject implements IObject {
 
-	private ObservableList<IDataEvent> myEvents;
+	private ObservableMap<IDataEvent, List<IAction>> myEvents;
 
 	private String myName;
 	private DataSprite mySprite;
 
-	private Point2D myPosition;
-	private double myRotation, myAngularVelocity;
-	private double myAlpha, myWidth, myHeight;
-
-	private boolean myVisible;
 	private int myZIndex;
 
-	public DataObject(String name, double width, double height){
+	public DataObject(String name) {
 		myName = name;
-		myWidth = width;
-		myHeight = height;
+		myEvents = FXCollections.observableMap(new HashMap<>());
 		myZIndex = 0;
-		myEvents = FXCollections.observableList(new ArrayList<>());
-	}
-
-	@Override
-	public void addEvent(IDataEvent e) {
-		myEvents.add(e);
-	}
-
-	public void deleteEvent(IDataEvent e) {
-		myEvents.remove(e);
-	}
-
-	@Override
-	public void addSprite(DataSprite s) {
-		mySprite = s;
 	}
 
 	@Override
 	public String getName() {
 		return myName;
 	}
-
-
-	@Override
-	public double[] getSize() {
-		return new double[] {myWidth, myHeight};
-	}
-
-	@Override
-	public void setPosition(Point2D pos) {
-		myPosition = pos;
-	}
-
-	@Override
-	public javafx.geometry.Point2D getPosition() {
-		return myPosition;
-	}
-
-	@Override
-	public void setVisibility(boolean visible) {
-		myVisible = visible;
-	}
-
-	@Override
-	public boolean isVisible() {
-		return myVisible;
-	}
-
-	@Override
-	public void setRotation(double angle) {
-		myRotation = angle;
-	}
-
-	@Override
-	public double getRotation() {
-		return myRotation;
-	}
-
-	public void setZIndex(int zIndex){
-		myZIndex = zIndex;
-	}
-
-	@Override
-
-	public ObservableList<IDataEvent> getEvents(){
-		return myEvents;
-	}
-
-	public void setSize(double width, double height) {
-		myWidth = width;
-		myHeight = height;
-	}
-
 	@Override
 	public void setName(String name) {
 		myName = name;
 	}
 
 	@Override
+	public void bindEvent(IDataEvent event, List<IAction> actions) {
+		myEvents.put(event, actions);
+	}
+	@Override
+	public void removeEvent(IDataEvent e) {
+		myEvents.remove(e);
+	}
+	@Override
+	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
+		return myEvents;
+	}
+
+	@Override
+	public void setSprite(DataSprite sprite) {
+		mySprite = sprite;
+	}
+
+	@Override
 	public DataSprite getSprite() {
 		return mySprite;
+	}
+	
+	public int getZIndex() {
+		return myZIndex;
+	}
+	public void setZIndex(int zIndex) {
+		myZIndex = zIndex;
+	}
+
+	@Override
+	public void addSprite(DataSprite s) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

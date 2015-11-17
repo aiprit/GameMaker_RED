@@ -2,25 +2,33 @@ package structures.data.events;
 
 
 import structures.data.DataObject;
-import structures.data.actions.DataAction;
 
 public class CollisionEvent implements IDataEvent {
 
-    private DataObject myObject1;
-    private DataObject myObject2;
+    public final DataObject other;
 
-    public CollisionEvent(DataObject object1, DataObject object2){
-        myObject1 = object1;
-        myObject2 = object2;
+    public CollisionEvent(DataObject other){
+        this.other = other;
     }
-
+    
     @Override
-    public void addAction(DataAction a) {
-
+    public int hashCode() {
+    	return this.hashCode() ^ other.hashCode();
     }
-
+    
     @Override
-    public void removeAction(DataAction a) {
-
+    public boolean equals(Object obj) {
+    	if (this.getClass().equals(obj.getClass())) {
+    		if (this.other.getName().equals(((CollisionEvent)obj).other.getName())) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
+
+	@Override
+	public String getName() {
+		return String.format("Collision with ", other.getName());
+	}
+
 }

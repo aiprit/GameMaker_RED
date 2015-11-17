@@ -1,5 +1,3 @@
-// This entire file is part of my masterpiece.
-// Austin McKee
 package utils;
 
 import java.util.ArrayList;
