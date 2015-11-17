@@ -33,12 +33,10 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-//		DataObject object = new DataObject("dog",10,10);
-//		object.addEvent(new KeyTypedEvent());
-//		ObjectGUI og = new ObjectGUI(object);
-//		og.init();
-		
-		
+		//		DataObject object = new DataObject("dog",10,10);
+		//		object.addEvent(new KeyTypedEvent());
+		//		ObjectGUI og = new ObjectGUI(object);
+		//		og.init();
 
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();

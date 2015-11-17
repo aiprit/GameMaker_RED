@@ -34,7 +34,7 @@ public class RunGame implements IRun {
 		for (IRoom dataRoom : dataGame.getRooms()) {
 		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
-		myRoomCounter = 0;
+		myRoomCounter = 1;
 		myCurrentRoom = myRooms.get(myRoomCounter);
 		// TODO: change all references from IObject to DataObject
 	}
