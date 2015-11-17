@@ -24,10 +24,8 @@ import javafx.stage.Stage;
 import structures.data.DataObject;
 
 public class ObjectListWindow {
-	private static String NEW_ITEM = "MakeNewItem";
-	private static String EDIT_ITEM = "EditItem";
-	private static String OBJECT_TITLE = "ObjectListTitle";
-	public void init(BorderPane bp, Stage s, ResourceBundle resources){
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	public void init(BorderPane bp, Stage s){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){			 
@@ -42,7 +40,7 @@ public class ObjectListWindow {
 			}
 		};
 
-		ListView<HBox> listView = makeHBox(sButtonClick, 1, resources.getString(NEW_ITEM), resources.getString(OBJECT_TITLE));
+		ListView<HBox> listView = makeHBox(sButtonClick, 1, r.getString("MakeNewItem"), r.getString("ObjectListTitle"));
 
 		bp.setLeft(listView);
 	}
