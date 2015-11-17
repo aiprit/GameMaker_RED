@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 
 import engine.EngineController;
@@ -21,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.DataRoom;
 
 /**
  * @author loganrooper
@@ -41,7 +43,7 @@ public class Launcher extends Application {
 		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
 		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		RoomEditor room = new RoomEditor(resources, objectMap);
+		RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 		
 		
 		//		DataObject object = new DataObject("dog",10,10);
