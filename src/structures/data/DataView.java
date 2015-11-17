@@ -35,6 +35,4 @@ public class DataView {
     public void setView(Rectangle rect) {
     	myView = rect;
     }
-    
-    
 }
