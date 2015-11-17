@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class ObjectListContainer extends VBox {
 	////FOR TESTING
@@ -19,12 +19,12 @@ public class ObjectListContainer extends VBox {
 	//////
 	
 	private ResourceBundle myResources;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 	private ObjectListView myObjectsList;
 	private ObjectListHeader myObjectListHeader;
 	private int myIDCounter;
 	
-	public ObjectListContainer(ResourceBundle resources, Map<String, IObject> objects) {
+	public ObjectListContainer(ResourceBundle resources, Map<String, DataObject> objects) {
 		super();
 		myResources = resources;
 		myIDCounter = 0;

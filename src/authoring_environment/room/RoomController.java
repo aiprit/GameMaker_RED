@@ -1,13 +1,14 @@
 package authoring_environment.room;
 
 
-import structures.IObject;
-import structures.IRoom;
+import structures.data.DataInstance;
+import structures.data.DataObject;
+import structures.data.DataRoom;
 
 public class RoomController {
-	private IRoom myRoom;
+	private DataRoom myRoom;
 	
-	public RoomController(IRoom room) {
+	public RoomController(DataRoom room) {
 		myRoom = room;
 	}
 
@@ -16,7 +17,7 @@ public class RoomController {
 		return myRoom.getName();
 	}
 	
-	public void addObject(IObject object) {
-		myRoom.addObject(object);
+	public void addObject(DataObject object) {
+		myRoom.addObjectInstance(new DataInstance(object, 0, 0));
 	}
 }

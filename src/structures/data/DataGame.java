@@ -1,109 +1,104 @@
 package structures.data;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import structures.IObject;
-import structures.IRoom;
 
 
 public class DataGame {
 
-	ObservableList<IRoom> myRooms;
-	ObservableList<IObject> myObjects;
-	ObservableList<DataSprite> mySprites;
-	ObservableList<DataSound> mySounds; 
+    ObservableList<DataRoom> myRooms;
+    ObservableList<DataObject> myObjects;
+    ObservableList<DataSprite> mySprites;
+    ObservableList<DataSound> mySounds; 
 
-	private String myName;
-	
-	// myCurrentRoom remains null for authoring
-	private IRoom myStartRoom, myCurrentRoom;
-	private String myGameDirectory;
+    private String myName;
+    private DataRoom myStartRoom, myCurrentRoom;
+    private double myScreenWidth;
+    private double myScreenHeight;
+    private String myGameDirectory;
+    
+    public static final String SPRITE_REL_DIRECTORY = "/resources/";
+    public static final String SOUND_REL_DIRECTORY = "/sounds/";
 
-	public static final String SPRITE_REL_DIRECTORY = "/resources/";
-	public static final String SOUND_REL_DIRECTORY = "/sounds/";
+    public DataGame(String name, String gameDirectory) {
+    	myName = name;
+    	myGameDirectory = gameDirectory;
+    	myRooms = FXCollections.observableArrayList();
+    	myObjects = FXCollections.observableArrayList();
+    	mySprites = FXCollections.observableArrayList();
+    	mySounds = FXCollections.observableArrayList();
+    }
 
-	public DataGame(String name, String gameDirectory) {
-		myName = name;
-		myGameDirectory = gameDirectory;
-		myRooms = FXCollections.observableArrayList();
-		myObjects = FXCollections.observableArrayList();
-		mySprites = FXCollections.observableArrayList();
-		mySounds = FXCollections.observableArrayList();
-	}
+    public String getName() {
+        return myName;
+    }
+    
+    public ObservableList<DataRoom> getRooms() {
+        return myRooms;
+    }
 
-	public String getName() {
-		return myName;
-	}
+    public void setStartRoom(DataRoom room){
+        myStartRoom = room;
+    }
+    
+    public String getSpriteDirectory() {
+    	return myGameDirectory + SPRITE_REL_DIRECTORY;
+    }
+    public String getSoundDirectory() {
+    	return myGameDirectory + SOUND_REL_DIRECTORY;
+    }
 
-	public ObservableList<IRoom> getRooms() {
-		return myRooms;
-	}
+    public void addObject(DataObject o){
+        myObjects.add(o);
+    }
 
-	public void setStartRoom(IRoom room){
-		myStartRoom = room;
-	}
-	
-	public DataRoom getCurrentRoom() {
-		return (DataRoom)myCurrentRoom;
-	}
-	public DataRoom getStartRoom() {
-		return (DataRoom)myStartRoom;
-	}
+    public void addSprite(DataSprite s){
+        mySprites.add(s);
+    }
 
-	public String getSpriteDirectory() {
-		return myGameDirectory + SPRITE_REL_DIRECTORY;
-	}
-	public String getSoundDirectory() {
-		return myGameDirectory + SOUND_REL_DIRECTORY;
-	}
+    public void addSound(DataSound s){
+        mySounds.add(s);
+    }
 
-	public void addObject(IObject o){
-		myObjects.add(o);
-	}
+   public void addRoom(DataRoom room){
+       myRooms.add(room);
+   }
 
-	public void addSprite(DataSprite s){
-		mySprites.add(s);
-	}
+    public double getWidth() {
+        return myScreenWidth;
+    }
 
-	public void addSound(DataSound s){
-		mySounds.add(s);
-	}
+    public double getHeight() {
+        return myScreenHeight;
+    }
+    public ObservableList<DataSprite> getSprites(){
+    	return mySprites;
+    }
+    public ObservableList<DataObject> getObjects() {
+    	return myObjects;
+    }
 
-	public void addRoom(DataRoom room){
-		myRooms.add(room);
-	}
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append(myName + "\n");
 
-	public ObservableList<DataSprite> getSprites(){
-		return mySprites;
-	}
-	public ObservableList<IObject> getObjects() {
-		return myObjects;
-	}
+        for(DataObject o : myObjects){
+            r.append(o.getName() + "\n");
+        }
 
-	@Override
-	public String toString() {
-		StringBuilder r = new StringBuilder();
-		r.append(myName + "\n");
+        for(DataSprite s : mySprites){
+            r.append(s.getName() + "\n");
+        }
 
-		for(IObject o : myObjects){
-			r.append(o.getName() + "\n");
-		}
-
-		for(DataSprite s : mySprites){
-			r.append(s.getName() + "\n");
-		}
-
-		for(DataSound s : mySounds){
-			r.append(s.getName() + "\n");
-		}
+        for(DataSound s : mySounds){
+            r.append(s.getName() + "\n");
+        }
 
 
-		for(IRoom room : myRooms){
-			r.append(room.getName() + "\n");
-		}
+        for(DataRoom room : myRooms){
+            r.append(room.getName() + "\n");
+        }
 
-		return r.toString();
-	}
+        return r.toString();
+    }
 }

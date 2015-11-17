@@ -6,7 +6,6 @@ import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
-import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
@@ -36,8 +35,8 @@ public class RunGame implements IRun {
 		
 		// Convert Rooms
 		myRooms = new ArrayList<RunRoom>();
-		for (IRoom dataRoom : dataGame.getRooms()) {
-			myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
+		for (DataRoom dataRoom : dataGame.getRooms()) {
+		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
 		}
 		
 		// How we know if this a saved load: is the current Room null?
@@ -133,7 +132,7 @@ public class RunGame implements IRun {
 
 	@Override
 	public DataGame toData() throws CompileTimeException {
-		List<IRoom> dataRooms = myDataGame.getRooms();
+        List<DataRoom> dataRooms = myDataGame.getRooms();
 		for(int i = 0; i < myRooms.size(); i++) {
 			try {
 				dataRooms.set(i, myRooms.get(i).toData());

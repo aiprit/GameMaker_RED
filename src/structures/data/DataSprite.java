@@ -9,14 +9,18 @@ public class DataSprite implements IResource {
 	private String myBaseFileName;
 	private String myName;
 	private Image myImage;
-	private double myCenterX, myCenterY;
+	private double myCenterX, myCenterY, myScaleX, myScaleY;
 	private boolean myHaveLoaded;
 	
-	public DataSprite(String name, String baseFileName) {
+	public DataSprite(String name, String baseFileName, String directory) {
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
 		myCenterX = 0.0;
 		myCenterY = 0.0;
+		try {
+			this.load(directory);
+		} catch (ResourceFailedException e){
+		}
 	}
 	
 	public Image getImage() {
@@ -29,10 +33,27 @@ public class DataSprite implements IResource {
 	public void setName(String name) {
 		myName = name;
 	}
-	
+
+	public double getScaleX(){
+		return myScaleX;
+	}
+
+	public double getScaleY(){
+		return myScaleY;
+	}
+
+	public void setScaleX(double scale){
+		myScaleX = scale;
+	}
+
+	public void setScaleY(double scale){
+		myScaleY = scale;
+	}
+
 	public String getBaseFileName() {
 		return myBaseFileName;
 	}
+
 	public void setBaseFileName(String baseFileName) {
 		myBaseFileName = baseFileName;
 	}
