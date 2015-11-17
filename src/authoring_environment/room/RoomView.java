@@ -3,66 +3,70 @@ package authoring_environment.room;
 import structures.data.DataView;
 import java.util.ResourceBundle;
 
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
-import javafx.scene.input.MouseEvent;
-
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-public class RoomView extends Rectangle {
-	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
+public class RoomView {
 	private static final String VIEW_WIDTH = "ViewWidth";
 	private static final String VIEW_HEIGHT = "ViewHeight";
 	
 	private ResourceBundle myResources;
 	private DataView myDataView;
-	private double myWidth;
-	private double myHeight;
-	private double myX;
-	private double myY;
+	private DoubleProperty myWidth;
+	private DoubleProperty myHeight;
+	private DoubleProperty myX;
+	private DoubleProperty myY;
 	
-	public RoomView(ResourceBundle resources) {
+	public RoomView(ResourceBundle resources, DoubleProperty x, DoubleProperty y) {
 		myResources = resources;
-		myWidth = Double.parseDouble(myResources.getString(VIEW_WIDTH));
-		myHeight = Double.parseDouble(myResources.getString(VIEW_HEIGHT));
-		myX = 0;
-		myY = 0;
-		myDataView = new DataView("View", myWidth, myHeight, myX, myY);
+		initializeDoublePropertyValues(x, y);
+		myDataView = new DataView("View", myWidth.getValue(), myHeight.getValue(), 
+				myX.getValue(), myY.getValue());
 	}
 	
-	public void create() {
-		this.setWidth(myWidth);
-		this.setHeight(myHeight);
-		this.setFill(Color.TRANSPARENT);
-		this.setStroke(Color.LIMEGREEN);
-		this.setCursor(Cursor.CROSSHAIR);
-		this.setOnMouseDragged(e -> moveViewBox(e));
+	public double getWidth() {
+		return myWidth.get();
 	}
 	
-	private void moveViewBox(MouseEvent event) {
-		double horizontalCorrection = Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
-		double dragX = event.getSceneX() - horizontalCorrection;
-		double dragY = event.getSceneY();
-
-		if (viewBoxInXBounds(dragX)) {
-			double newX = dragX - myWidth/2;
-			this.setX(newX);
-			//myDataView.setXPosition(newX);
-		}
-		if (viewBoxInYBounds(dragY)) {
-			double newY = dragY - myHeight/2;
-			this.setY(newY);
-			//myDataView.setYPosition(newY);
-		}
-	}
-
-	private boolean viewBoxInXBounds(double x) {
-		return x >= myWidth/2 + 1 && x <= 662 - myWidth/2;
+	public double getHeight() {
+		return myHeight.get();
 	}
 	
-	private boolean viewBoxInYBounds(double y) {
-		return y >= myHeight/2 + 1 && y <= 622 - myHeight/2;
+	public double getX() {
+		return myX.get();
+	}
+	
+	public double getY() {
+		return myY.get();
+	}
+	
+	private void initializeDoublePropertyValues(DoubleProperty x, DoubleProperty y) {
+		myWidth = new SimpleDoubleProperty();
+		myWidth.set(Double.parseDouble(myResources.getString(VIEW_WIDTH)));
+		myHeight = new SimpleDoubleProperty();
+		myHeight.set(Double.parseDouble(myResources.getString(VIEW_HEIGHT)));
+		myX = x;
+		myY = y;
+		myWidth.addListener(dataViewListener());
+		myHeight.addListener(dataViewListener());
+		myX.addListener(dataViewListener());
+		myY.addListener(dataViewListener());
+	}
+	
+	private ChangeListener<? super Number> dataViewListener() {
+		ChangeListener<? super Number> listener = new ChangeListener<Number>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				updateDataViewObject();
+			}
+		};
+		return listener;
+	}
+	
+	private void updateDataViewObject() {
+		myDataView.setView(new utils.Rectangle(myX.get(), myY.get(), myWidth.get(), myHeight.get()));
 	}
 }
