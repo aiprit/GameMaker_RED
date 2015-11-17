@@ -14,64 +14,52 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class CreateView {
-	
-	private double initialX;
-	private double initialY;
-	private ResourceBundle myResources;
+	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
 	private static final String VIEW_WIDTH = "ViewWidth";
 	private static final String VIEW_HEIGHT = "ViewHeight";
 	
+	private double myWidth;
+	private double myHeight;
+	
+	private ResourceBundle myResources;
+	
 	public CreateView(ResourceBundle resources) {
 		myResources = resources;
+		myWidth = Double.parseDouble(myResources.getString(VIEW_WIDTH));
+		myHeight = Double.parseDouble(myResources.getString(VIEW_HEIGHT));
 	}
-	public VBox create() {
-		ButtonToolbar buttonToolbar = new ButtonToolbar(myResources);
-		HBox buttons = buttonToolbar.createButtons();
-		Group root = new Group();
-		StackPane stack = new StackPane();
-		VBox view = new VBox();
+	
+	public Rectangle create() {
 		Rectangle rect = new Rectangle();
-		ScrollPane scroll = new ScrollPane();
-		scroll.setPrefSize(400, 300);
-		Rectangle scrollRectangle = new Rectangle(600, 300);
-		scrollRectangle.setFill(Color.GREEN);
-		scroll.setContent(scrollRectangle);
-		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		VBox box = new VBox();
-		rect.setWidth(Double.parseDouble(myResources.getString(VIEW_WIDTH)));
-		rect.setHeight(Double.parseDouble(myResources.getString(VIEW_HEIGHT)));
-		rect.setFill(Color.BLUE);
-		rect.setCursor(Cursor.MOVE);
+		rect.setWidth(myWidth);
+		rect.setHeight(myHeight);
+		rect.setFill(Color.TRANSPARENT);
+		rect.setStroke(Color.LIMEGREEN);
+		rect.setCursor(Cursor.CROSSHAIR);
 		rect.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				//System.out.println("Here");
-				double dragX = event.getSceneX();
+				double horizontalCorrection = Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
+				double dragX = event.getSceneX() - horizontalCorrection;
 				double dragY = event.getSceneY();
-				
-				double newX = initialX + dragX - rect.getWidth()/2;
-				double newY = initialY + dragY - rect.getHeight()/2;
-				if (newX == scrollRectangle.getX());
-					System.out.println("It is over the border");
-				rect.setX(newX);
-				rect.setY(newY);
-				//box.setTranslateX(newX);
-				//box.setTranslateY(newY);
+				if (viewBoxInXBounds(dragX, rect)) {
+					double newX = dragX - rect.getWidth()/2;
+					rect.setX(newX);
+				}
+				if (viewBoxInYBounds(dragY, rect)) {
+					double newY = dragY - rect.getHeight()/2;
+					rect.setY(newY);
+				}
 			}
 		});
-		rect.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				initialX = rect.getTranslateX();
-				initialY = rect.getTranslateY();
-			}
-		});
-		//box.getChildren().add(rect);
-		root.getChildren().add(scroll);
-		root.getChildren().add(rect);
-		view.getChildren().addAll(root, buttons);
-		//box.setBorder(new Border(new BorderStroke(Color.BLUE, BorderStrokeStyle.SOLID, null, null)));
-		return view;
+		return rect;
+	}
+
+	private boolean viewBoxInXBounds(double x, Rectangle viewBox) {
+		return x >= myWidth/2 + 1 && x <= 662 - myWidth/2;
+	}
+	
+	private boolean viewBoxInYBounds(double y, Rectangle viewBox) {
+		return y >= myHeight/2 + 1 && y <= 622 - myHeight/2;
 	}
 }

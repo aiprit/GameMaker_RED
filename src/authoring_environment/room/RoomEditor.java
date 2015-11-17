@@ -12,14 +12,14 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.function.Consumer;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
+import structures.data.DataInstance;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -29,12 +29,12 @@ public class RoomEditor {
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
 	private Map<String, IObject> myObjects;
-
 	
 	private Stage myEditor;
 	private Group myRoot;
 	private ObjectListContainer myObjectsList;
 	private RoomPreview myPreview;
+	private ButtonToolbar myToolbar;
 	
 	
 	/**
@@ -59,13 +59,6 @@ public class RoomEditor {
 	
 	public void createEditor() {
 		myEditor = new Stage();
-
-		initializeEditor();
-		CreateView view = new CreateView(myResources);
-		//ButtonToolbar toolbar = new ButtonToolbar(myResources);
-		myRoot.getChildren().add(view.create());
-		//myRoot.getChildren().add(toolbar.createButtons());
-		//myRoot.getChildren().add(addScrollPane());
 		//TODO populate the entire dialog
 		initializeEditor();
 		fillEditorWithComponents();
@@ -78,40 +71,27 @@ public class RoomEditor {
 		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
 		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
-	}
-	
-	private ScrollPane addScrollPane() {
-		ScrollPane scroll = new ScrollPane();
-		Rectangle rect = new Rectangle();
-		rect.setWidth(300);
-		rect.setHeight(300);
-//		rect.setX(500);
-//		rect.setY(500);
-		rect.setFill(Color.GREEN);
-		scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		scroll.setPrefSize(200, 200);
-//		scroll.setTranslateX(500);
-		//scroll.setTranslateY(500);
-		scroll.setContent(rect);
-		return scroll;
-	}
-
 		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
-	
+	}
 	
 	private void fillEditorWithComponents() {
 		VBox totalPane = new VBox();
 		initializeObjectListAndPreview(totalPane);
+		initializeButtonsToolbar(totalPane);
 		myRoot.getChildren().add(totalPane);
 	}
 	
 	private void initializeObjectListAndPreview(VBox totalPane) {
 		HBox objectsAndPreview = new HBox();
 		initializeObjectList();
+		//TODO CLEANUP
+		Group theory = new Group();
 		myPreview = new RoomPreview(myResources);
-		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
-		totalPane.getChildren().add(objectsAndPreview);
+		CreateView view = new CreateView(myResources);
+		theory.getChildren().addAll(myPreview, view.create());
+		///
+		objectsAndPreview.getChildren().addAll(myObjectsList, theory);
+		totalPane.getChildren().addAll(objectsAndPreview);
 	}
 	
 	private void initializeObjectList() {
@@ -137,16 +117,26 @@ public class RoomEditor {
 	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
 		sprite.setOnMouseDragged(e -> objectInstance.updateSpritePosition(e));
-		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(objectInstance));
+		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
-	private void addSpriteToRoom(ObjectInstance objectInstance) {
+	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
+		double sceneX = e.getSceneX();
+		double sceneY = e.getSceneY();
 		if (objectInstance.inRoomBounds()) {
 			//TODO write object x,y to IObject
-			myPreview.addNode(objectInstance.getImageView());
+			//myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(objectInstance.getObject());
+			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
+		} else {
+			//TODO get rid of the object
 		}
+	}
+	
+	private void initializeButtonsToolbar(VBox totalPane) {
+		ButtonHandler handler = new ButtonHandler(myResources, myPreview);
+		myToolbar = new ButtonToolbar(myResources, handler.getButtons());
+		totalPane.getChildren().add(myToolbar);
 	}
 	
 }
