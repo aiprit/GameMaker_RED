@@ -22,6 +22,10 @@ public class ObjectLeftPane {
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/EventListResources");
 	private ObservableList<String> list= FXCollections.observableList(new ArrayList<String>());
 	private EventPopupFactory popupfact = new EventPopupFactory();
+	private ObjectController myController;
+	public ObjectLeftPane (ObjectController control){
+		myController = control;
+	}
 
 	public Group init() {
 		Group root = new Group();
@@ -43,7 +47,7 @@ public class ObjectLeftPane {
 		root.getChildren().addAll(title,listview,b);
 		b.setAlignment(Pos.BOTTOM_RIGHT);
 		b.setOnAction(e ->
-		popupfact.create(listview.getSelectionModel().getSelectedItem()));
+		popupfact.create(listview.getSelectionModel().getSelectedItem(),myController.getEvents(),myController.getObjects()));
 		return root;
 	}
 

@@ -9,22 +9,23 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import structures.IObject;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class EventController {
-	DataObject myObject;
 	IDataEvent myEvent;
 	Stage myStage;
-	public EventController(IDataEvent e,Stage st){
+	ObservableMap<IDataEvent, List<IAction>> map;
+	public EventController(IDataEvent e,Stage st, ObservableMap<IDataEvent, List<IAction>> m){
 		myEvent = e;
 		myStage = st;
+		map =m;
 	}
 
 
 	public List<IAction> getActions() {
-		Map<IDataEvent, List<IAction>> map = myObject.getEvents();
 		if(map.containsKey(myEvent))
 			return map.get(myEvent);
 		return new ArrayList<IAction>();

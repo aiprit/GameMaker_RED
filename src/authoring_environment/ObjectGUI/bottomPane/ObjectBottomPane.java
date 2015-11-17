@@ -50,7 +50,7 @@ public class ObjectBottomPane {
 		myController.close(e));
 		Button cancel = new Button(r.getString("cancelButtonTitle"));
 		cancel.setTranslateX(Integer.parseInt(r.getString("cancelButtonTranslateX")));
-		save.setOnAction(e ->
+		cancel.setOnAction(e ->
 		myController.close(e));
 		root.getChildren().addAll(b,name, width, height, save, cancel);
 

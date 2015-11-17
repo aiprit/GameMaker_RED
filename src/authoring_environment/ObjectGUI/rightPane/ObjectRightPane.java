@@ -74,7 +74,7 @@ public class ObjectRightPane {
 			}
 		}
 		EventPopup p = new EventPopup();
-		p.popup(event);
+		p.popup(event,myController.getEvents());
 
 	}
 

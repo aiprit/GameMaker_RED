@@ -11,12 +11,12 @@ public interface IObject {
 
 	void bindEvent(IDataEvent event, List<IAction> actions);
 
-	void addSprite(DataSprite s);	
+	void addSprite(DataSprite s);
 
 	void removeEvent(IDataEvent e);
 
 	void setSprite(DataSprite s);
-	
+
 	DataSprite getSprite();
 
 	String getName();

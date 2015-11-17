@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import authoring_environment.EventPopup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import structures.data.DataObject;
 import structures.data.events.KeyPressedEvent;
 
 public abstract class KeyPopUp implements PopUp{
@@ -26,10 +28,12 @@ public abstract class KeyPopUp implements PopUp{
 	Label myInfo;
 	protected KeyCode key;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/KeyPressResources");
-	public KeyPopUp(){
+	protected ObservableMap myMap;
+	public KeyPopUp(ObservableMap m){
 		myRoot = new Group();
 		init();
 		keyPress = " ";
+		myMap = m;
 	}
 	public void init() {
 		myRoot = new Group();

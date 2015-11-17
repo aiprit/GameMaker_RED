@@ -3,11 +3,13 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import structures.IObject;
 import structures.data.DataGame;
+import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -16,15 +18,15 @@ public class ObjectController {
 	private IObject myObject;
 	ObservableList<DataSprite>  mySprites;
 	double displayX, displayY;
-	private DataGame game;
+	private ObservableList<IObject>  objects;
 	private Stage myStage;
 
-	public ObjectController(IObject object, ObservableList<DataSprite> map, DataGame g,Stage st) {
+	public ObjectController(IObject object, ObservableList<DataSprite> map, ObservableList<IObject> obj,Stage st) {
 		myObject = object;
 		mySprites = map;
 		displayX= 1.0;
 		displayY= 1.0;
-		game = g;
+		objects = obj;
 		myStage =st;
 	}
 
@@ -42,7 +44,7 @@ public class ObjectController {
 		return mySprites;
 	}
 
-	public Map<IDataEvent, List<IAction>>  getEvents() {
+	public ObservableMap<IDataEvent, List<IAction>>  getEvents() {
 		return myObject.getEvents();
 	}
 
@@ -58,7 +60,7 @@ public class ObjectController {
 		myObject.setSprite(sprite);
 	}
 
-	public void addEvent(IDataEvent e,List<IAction> actions) {
+	public void addEvent(IDataEvent e,ObservableList<IAction> actions) {
 		myObject.bindEvent(e,actions);
 	}
 
@@ -72,14 +74,17 @@ public class ObjectController {
 		return myObject.getSprite();
 	}
 
-	public List<IObject> getObjects() {
-		return game.getObjects();
+	public ObservableList<IObject> getObjects() {
+		return objects;
 	}
 
 	public void close(ActionEvent e) {
 		 Node  source = (Node)  e.getSource();
 		 Stage stage  = (Stage) source.getScene().getWindow();
 		 stage.close();
+	}
+	public DataObject getObject(){
+		return (DataObject) myObject;
 	}
 
 }
