@@ -1,5 +1,6 @@
 package engine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,10 +36,8 @@ public class EngineController {
 
 	public void init() throws ResourceFailedException {
 		String myName;
-		List<String> choices = new ArrayList<>();
-		choices.add("Mario");
-		choices.add("Recent Game 2");
-		choices.add("Dog");
+		List<String> choices = addGamesFromDirectory();
+		
 
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");
@@ -67,5 +66,13 @@ public class EngineController {
 		}
 		
 		myEngine = new Engine(myRunningGame);
+	}
+
+	private List<String> addGamesFromDirectory() {
+		List<String> choices =  new ArrayList<String>();
+		for (final File fileEntry : new File("Games/").listFiles()) {
+			choices.add(fileEntry.getName());
+		}
+		return choices;
 	}
 }

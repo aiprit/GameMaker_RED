@@ -8,9 +8,9 @@ package engine;
  *
  */
 public interface IGUIHandler {
-	void setOnReset();
-	void setOnStart();
-	void setOnPause();
-	void setOnLoadSave(String path);
-	void setOnSave();
+	void onReset();
+	void onStart();
+	void onPause();
+	void onLoadSave(String path);
+	void onSave();
 }
