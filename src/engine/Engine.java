@@ -10,18 +10,12 @@ public class Engine {
 	private RunGame myGame;
 	private IGamePlayHandler myListener;
 	private RoomLoop myLevel;
-	private EventManager myEventManager;
+	private IDraw myFrontendListener;
 
 	public Engine(RunGame runGame) {
 		myGame = runGame;
 		myOriginalGame = runGame;
 		myListener = new GamePlayListener();
-		updateLevel();
-		myEventManager = new EventManager(myGame.getCurrentRoom(), myListener);
-	}
-	
-	public EventManager getEventManager() {
-	    return myEventManager;
 	}
 
 	public void load(RunGame runGame) {
@@ -40,17 +34,24 @@ public class Engine {
             return currentGameData;
 	}
 
+	//called when the drawing listener is passed to the engine
 	public void reset() {
 		myGame = myOriginalGame;
 	}
 	
-	public void updateLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener);
+	public void runLevel(){
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener, myFrontendListener);
 		myLevel.start();
 	}
 	
 	public IGamePlayHandler getListener(){
 		return myListener;
+	}
+	
+	public void setDrawListener(IDraw drawListener){
+		//starts the first game loop
+		myFrontendListener = drawListener;
+		runLevel();
 	}
 
 }

@@ -2,7 +2,7 @@ package utils;
 /**
  * I ended up doing so much vector math I thought
  * a class would simplify things. You can init a
- * vector with x and y or with lenght and direction,
+ * vector with x and y or with length and direction,
  * but then you must supply a third argument with
  * true. Vectors are immutable.
  * 

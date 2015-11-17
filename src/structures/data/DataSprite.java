@@ -9,11 +9,14 @@ public class DataSprite implements IResource {
 	private String myBaseFileName;
 	private String myName;
 	private Image myImage;
+	private double myCenterX, myCenterY, myScaleX, myScaleY;
 	private boolean myHaveLoaded;
 	
 	public DataSprite(String name, String baseFileName) {
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
+		myCenterX = 0.0;
+		myCenterY = 0.0;
 	}
 	
 	public Image getImage() {
@@ -26,12 +29,43 @@ public class DataSprite implements IResource {
 	public void setName(String name) {
 		myName = name;
 	}
-	
+
+	public double getScaleX(){
+		return myScaleX;
+	}
+
+	public double getScaleY(){
+		return myScaleY;
+	}
+
+	public void setScaleX(double scale){
+		myScaleX = scale;
+	}
+
+	public void setScaleY(double scale){
+		myScaleY = scale;
+	}
+
 	public String getBaseFileName() {
 		return myBaseFileName;
 	}
+
 	public void setBaseFileName(String baseFileName) {
 		myBaseFileName = baseFileName;
+	}
+	
+	public void setCenterX(double centerX) {
+		myCenterX = centerX;
+	}
+	public double getCenterX() {
+		return myCenterX;
+	}
+	
+	public void setCenterY(double centerY) {
+		myCenterY = centerY;
+	}
+	public double getCenterY() {
+		return myCenterY;
 	}
 	
 	@Override
@@ -41,12 +75,16 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load(String directory) throws ResourceFailedException {
+		//COMMENTED OUT IS ELIZABETH'S TESTING CODE - CAN REMOVE IN MASTER
 		String url = directory + myBaseFileName;
 		try {
+			//myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));
 			myImage = new Image(url);
 		} catch (Exception ex) {
-			String message = String.format("Failed to load image '%s' for DataSprite", url);
-			throw new ResourceFailedException(message);
+			//String message = String.format("Failed to load image '%s' for DataSprite", url);
+			//throw new ResourceFailedException("Elizabeth's testing code");
+			String message = "Failed to load image '%s' for DataSprite '%s'";
+			throw new ResourceFailedException(message, url, myName);
 		}
 		myHaveLoaded = true;
 	}

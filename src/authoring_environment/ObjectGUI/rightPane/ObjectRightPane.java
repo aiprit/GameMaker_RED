@@ -2,6 +2,7 @@ package authoring_environment.ObjectGUI.rightPane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
@@ -20,7 +21,7 @@ import structures.data.events.IDataEvent;
 public class ObjectRightPane {
 	private DataObject o;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/rightPane/RightPaneResources");
-	private ObservableMap<IDataEvent, List<IAction>> map;
+	private Map<IDataEvent, List<IAction>> map;
 	private ObjectController myController;
 
 	public ObjectRightPane(ObjectController controller) {

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import structures.IObject;
 
 public class ObjectBottomPane {
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/bottomPane/BottomPaneResources");
@@ -19,7 +18,7 @@ public class ObjectBottomPane {
 		myController = controller;
 		try {
 			name = myController.getName();
-			size = myController.getSize();
+		//	size = myController.getSize();
 		}
 		catch (NullPointerException e) {
 			name = r.getString("tempName");
