@@ -18,21 +18,10 @@ import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 
 public class ObjectLeftPane {
-	private Group root;
-	private ObjectController myController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/LeftPaneResources");
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/EventListResources");
 	private ObservableList<String> list= FXCollections.observableList(new ArrayList<String>());
 	private EventPopupFactory popupfact = new EventPopupFactory();
-	public ObjectLeftPane(ObjectController controller) {
-		myController = controller;
-		try{
-
-		}
-		catch(NullPointerException e){
-
-		}
-	}
 
 	public Group init() {
 		Group root = new Group();
@@ -47,7 +36,7 @@ public class ObjectLeftPane {
 
 		}
 		listview.setItems((ObservableList<String>) list);
-		Button b = new Button("Add");
+		Button b = new Button(r.getString("add"));
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
 		listview.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));

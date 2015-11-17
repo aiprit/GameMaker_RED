@@ -23,11 +23,11 @@ public class ObjectTopPane {
 //		ObjectVisibleMenu visible = new ObjectVisibleMenu();
 //		Menu visibleMenu = visible.makeMenu(myController);
 
-		ObjectEventMenu event = new ObjectEventMenu();
-		Menu eventMenu = event.makeMenu();
+//		ObjectEventMenu event = new ObjectEventMenu();
+//		Menu eventMenu = event.makeMenu();
 
 //		menu.getMenus().addAll(spriteMenu, visibleMenu, eventMenu);
-		menu.getMenus().addAll(spriteMenu,  eventMenu);
+		menu.getMenus().addAll(spriteMenu);
 		root.getChildren().add(menu);
 		return root;
 

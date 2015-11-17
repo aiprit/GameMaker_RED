@@ -1,4 +1,4 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
 import java.util.ResourceBundle;
 
@@ -15,7 +15,7 @@ public class EventRightPane {
 
 	private ObservableList<IAction> list;
 	private EventController myController;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	public EventRightPane(EventController controller) {
 		try{
 			myController = controller;

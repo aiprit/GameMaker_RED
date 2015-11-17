@@ -1,51 +1,43 @@
 package authoring_environment.ObjectGUI.leftPane;
 
-import java.lang.reflect.Field;
-import java.util.Optional;
 
-import javax.swing.KeyStroke;
+import authoring_environment.EventGUI.PopUps.GameEndPopUp;
+import authoring_environment.EventGUI.PopUps.GameStartPopUp;
+import authoring_environment.EventGUI.PopUps.KeyPressPopUp;
+import authoring_environment.EventGUI.PopUps.KeyReleasePopUp;
+import authoring_environment.EventGUI.PopUps.ObjectCreatePopUp;
+import authoring_environment.EventGUI.PopUps.ObjectDestroyPopUp;
+import authoring_environment.EventGUI.PopUps.PopUp;
 
-import authoring_environment.Event.GUI.PopUps.KeyPopUp;
-import authoring_environment.Event.GUI.PopUps.KeyPressPopUp;
-import authoring_environment.Event.GUI.PopUps.KeyReleasePopUp;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.input.KeyCode;
-import structures.data.events.KeyPressedEvent;
+
 
 public class EventPopupFactory {
-
+	PopUp kp;
 	public void create(String event) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
-		//		if (event.equalsIgnoreCase("Game End Event")) {
-		//
-		//		}
-		//		if (event.equalsIgnoreCase("On Game Start Event")) {
-		//
-		//		}
+		if (event.equalsIgnoreCase("Game End Event")) {
+			kp = new GameEndPopUp();
+		}
+		if (event.equalsIgnoreCase("On Game Start Event")) {
+			kp = new GameStartPopUp();
+		}
 		if (event.equalsIgnoreCase("On Key Press Event")) {
-			KeyPopUp kp = new KeyPressPopUp();
-			kp.init();
-
+			kp = new KeyPressPopUp();
 		}
 		if (event.equalsIgnoreCase("On Key Release Event")) {
-			KeyPopUp kp = new KeyReleasePopUp();
-			kp.init();
+			kp = new KeyReleasePopUp();
 		}
-
-		//		if (event.equalsIgnoreCase("On Object Create Event")) {
-		//
-		//		}
-		//		if (event.equalsIgnoreCase("On Object Destroy Event")) {
-		//
-		//		}
+		if (event.equalsIgnoreCase("On Object Create Event")) {
+			kp = new ObjectCreatePopUp();
+		}
+		if (event.equalsIgnoreCase("On Object Destroy Event")) {
+			kp = new ObjectDestroyPopUp();
+		}
 		//	}
 
-
+		kp.init();
 
 	}
 

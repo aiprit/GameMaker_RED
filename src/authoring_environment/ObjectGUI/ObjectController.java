@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import structures.IObject;
 import structures.data.DataGame;
 import structures.data.DataSprite;
@@ -14,13 +17,15 @@ public class ObjectController {
 	ObservableList<DataSprite>  mySprites;
 	double displayX, displayY;
 	private DataGame game;
+	private Stage myStage;
 
-	public ObjectController(IObject object, ObservableList<DataSprite> map, DataGame g) {
+	public ObjectController(IObject object, ObservableList<DataSprite> map, DataGame g,Stage st) {
 		myObject = object;
 		mySprites = map;
 		displayX= 1.0;
 		displayY= 1.0;
 		game = g;
+		myStage =st;
 	}
 
 	public void setName(String name) {
@@ -69,6 +74,12 @@ public class ObjectController {
 
 	public List<IObject> getObjects() {
 		return game.getObjects();
+	}
+
+	public void close(ActionEvent e) {
+		 Node  source = (Node)  e.getSource();
+		 Stage stage  = (Stage) source.getScene().getWindow();
+		 stage.close();
 	}
 
 }

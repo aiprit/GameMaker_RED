@@ -1,4 +1,4 @@
-package authoring_environment.Event.GUI.PopUps;
+package authoring_environment.EventGUI.PopUps;
 
 import java.util.ResourceBundle;
 
@@ -18,14 +18,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.events.KeyPressedEvent;
 
-public abstract class KeyPopUp {
+public abstract class KeyPopUp implements PopUp{
 	private Scene myScene;
 	protected Stage myStage;
 	private Group myRoot;
-	String keyPress;
+	private String keyPress;
 	Label myInfo;
-	KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/PopUps/KeyPressResources");
+	protected KeyCode key;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/KeyPressResources");
 	public KeyPopUp(){
 		myRoot = new Group();
 		init();
@@ -45,7 +45,7 @@ public abstract class KeyPopUp {
 		Button b = new Button("ok");
 	//	myInfo.setTranslateX(Integer.parseInt(r.getString("buttonY")));
 		b.setOnAction(e ->
-		eventPopup(key));
+		eventPopup());
 		pane.setTop(myInfo);
 		pane.setCenter(text);
 		pane.setBottom(b);
@@ -56,7 +56,7 @@ public abstract class KeyPopUp {
 		myStage.setScene(myScene);
 		myStage.show();
 	}
-	protected abstract void eventPopup(KeyCode code);
+	public abstract void eventPopup();
 
 	private void handleKeyInput(KeyCode code) {
 

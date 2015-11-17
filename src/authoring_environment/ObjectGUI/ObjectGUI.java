@@ -42,7 +42,7 @@ public class ObjectGUI {
 		ObjectBottomPane bottom = new ObjectBottomPane(myController);
 		ObjectTopPane top = new ObjectTopPane(myController);
 		ObjectRightPane right = new ObjectRightPane(myController);
-		ObjectLeftPane left = new ObjectLeftPane(myController);
+		ObjectLeftPane left = new ObjectLeftPane();
 		ObjectCenterPane center = new ObjectCenterPane();
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());

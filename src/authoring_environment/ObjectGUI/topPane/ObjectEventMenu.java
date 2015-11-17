@@ -14,15 +14,15 @@ public class ObjectEventMenu {
 
 	public Menu makeMenu() {
 		Menu event = new Menu(r.getString("eventTitle"));
-		MenuItem addEvent = new MenuItem(r.getString("addEventTitle"));	
-		event.getItems().add(addEvent);
-		EventPopup popup = new EventPopup();
-		
-		addEvent.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent t) {
-				popup.popup();
-			}
-		});
+//		MenuItem addEvent = new MenuItem(r.getString("addEventTitle"));
+//		event.getItems().add(addEvent);
+//		EventPopup popup = new EventPopup();
+//
+//		addEvent.setOnAction(new EventHandler<ActionEvent>() {
+//			public void handle(ActionEvent t) {
+//				popup.popup();
+//			}
+//		});
 		return event;
 	}
 }

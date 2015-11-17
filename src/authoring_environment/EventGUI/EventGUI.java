@@ -1,4 +1,4 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class EventGUI {
 	private Group myRoot;
 	private EventController myController;
 	private ObservableList actionList;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	public EventGUI(EventController event){
 
 		myRoot = new Group();
@@ -44,10 +44,10 @@ public class EventGUI {
 		myStage = new Stage();
 		myStage.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
-		EventBottomPane bottom = new EventBottomPane();
+		EventBottomPane bottom = new EventBottomPane(myController);
 		EventTopPane top = new EventTopPane();
 		EventRightPane right = new EventRightPane(myController);
-		EventLeftPane left = new EventLeftPane();
+		EventLeftPane left = new EventLeftPane(myController);
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.init());

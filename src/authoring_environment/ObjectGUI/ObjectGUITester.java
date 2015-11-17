@@ -25,16 +25,15 @@ public class ObjectGUITester extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		DataGame game = new DataGame("TestGame", "/home/nicholas");
 		DataObject object = new DataObject("dog");
-<<<<<<< HEAD
+
 		IDataEvent a = new ObjectCreateEvent();
 		List<IAction> c = new ArrayList<IAction>();
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
-		ObjectController ct = new ObjectController(object, null);
-=======
-		ObjectController c = new ObjectController(object, null, game);
->>>>>>> refs/remotes/origin/Nick
+		Stage cc = new Stage();
+		ObjectController ct = new ObjectController(object, null, game,cc);
+
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);
 		ObjectGUI og = new ObjectGUI(ct);
