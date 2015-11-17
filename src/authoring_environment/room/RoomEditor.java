@@ -12,8 +12,6 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.function.Consumer;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -21,6 +19,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
+import structures.data.DataInstance;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -118,15 +117,17 @@ public class RoomEditor {
 	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
 		sprite.setOnMouseDragged(e -> objectInstance.updateSpritePosition(e));
-		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(objectInstance));
+		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
-	private void addSpriteToRoom(ObjectInstance objectInstance) {
+	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
+		double sceneX = e.getSceneX();
+		double sceneY = e.getSceneY();
 		if (objectInstance.inRoomBounds()) {
 			//TODO write object x,y to IObject
 			//myPreview.addNode(objectInstance.getImageView());
 			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(objectInstance.getObject());
+			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
 		} else {
 			//TODO get rid of the object
 		}
