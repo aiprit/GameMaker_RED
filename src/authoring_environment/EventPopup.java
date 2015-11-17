@@ -14,7 +14,7 @@ public class EventPopup {
 
 	public void popup() {
 		 Stage dialog = new Stage();
-		 EventController control = new EventController(null, null, dialog);
+		 EventController control = new EventController(null, null);
          EventGUI gui = new EventGUI(null,dialog);
 	}
 

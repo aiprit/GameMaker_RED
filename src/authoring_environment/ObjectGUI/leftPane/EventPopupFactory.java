@@ -15,33 +15,34 @@ import structures.data.events.KeyPressedEvent;
 public class EventPopupFactory {
 
 	public Object create(String event) {
-//		if (event.equalsIgnoreCase("Collision Event")) {
-//
-//		}
-//		if (event.equalsIgnoreCase("Game End Event")) {
-//
-//		}
-//		if (event.equalsIgnoreCase("On Game Start Event")) {
-//
-//		}
-		if (event.equalsIgnoreCase("On Key Press Event")) {
-			KeyPressPopup
+		return event;
+		//		if (event.equalsIgnoreCase("Collision Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("Game End Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Game Start Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Key Press Event")) {
+		//			KeyPressPopup
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Key Release Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Key Release Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Object Create Event")) {
+		//
+		//		}
+		//		if (event.equalsIgnoreCase("On Object Destroy Event")) {
+		//
+		//		}
+		//	}
 
-		}
-//		if (event.equalsIgnoreCase("On Key Release Event")) {
-//
-//		}
-//		if (event.equalsIgnoreCase("On Key Release Event")) {
-//
-//		}
-//		if (event.equalsIgnoreCase("On Object Create Event")) {
-//
-//		}
-//		if (event.equalsIgnoreCase("On Object Destroy Event")) {
-//
-//		}
-//	}
 
 
-
-}
+	}}
