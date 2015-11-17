@@ -80,13 +80,8 @@ public class RoomEditor {
 	private void initializeObjectListAndPreview(VBox totalPane) {
 		HBox objectsAndPreview = new HBox();
 		initializeObjectList();
-		//TODO CLEANUP
-		Group theory = new Group();
-		myPreview = new RoomPreview(myResources);
-		CreateView view = new CreateView(myResources);
-		theory.getChildren().addAll(myPreview, view.create());
-		///
-		objectsAndPreview.getChildren().addAll(myObjectsList, theory);
+		myPreview = new RoomPreview(myResources, myRoomController);
+		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
 		totalPane.getChildren().addAll(objectsAndPreview);
 	}
 	

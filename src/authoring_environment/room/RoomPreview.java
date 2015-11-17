@@ -2,28 +2,24 @@ package authoring_environment.room;
 
 import java.util.ResourceBundle;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 
 import javafx.scene.control.ScrollPane;
 
 import javafx.scene.image.*;
-import javafx.scene.input.MouseEvent;
+
+
 public class RoomPreview extends ScrollPane {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
-	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
-	private Group myRoot;
-	private ResourceBundle myResources;
 	
 	private RoomBackground myBackground;
 	
-	public RoomPreview(ResourceBundle resources) {
+	public RoomPreview(ResourceBundle resources, RoomController controller) {
 		super();
 		initializePreview(resources);
-		myBackground = new RoomBackground(resources);
+		myBackground = new RoomBackground(resources, controller);
 		super.setContent(myBackground);
 	}
 	

@@ -35,4 +35,24 @@ public class DataView {
     public double[] getPosition() {
         return new double[]{myX, myY};
     }
+    
+    public void setWidth(double width) {
+    	myWidth = width;
+    }
+    
+    public void setHeight(double height) {
+    	myHeight = height;
+    }
+    
+    public void setXPosition(double x) {
+    	myX = x; 
+    }
+    
+    public void setYPosition(double y) {
+    	myY = y; 
+    }
+    
+    public void setPosition(double x, double y) {
+    	myX = x; myY = y;
+    }
 }
