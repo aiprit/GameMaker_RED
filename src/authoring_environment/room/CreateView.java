@@ -28,7 +28,6 @@ public class CreateView {
 	
 	public Rectangle create() {
 		Rectangle rect = new Rectangle();
-
 		rect.setWidth(myWidth);
 		rect.setHeight(myHeight);
 		rect.setFill(Color.TRANSPARENT);

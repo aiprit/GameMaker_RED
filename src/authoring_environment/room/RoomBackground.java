@@ -13,6 +13,14 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.ResourceBundle;
+
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+
+
 public class RoomBackground extends Canvas {
 	public static final Color DEFAULT_COLOR = Color.WHITE;
 	
@@ -22,11 +30,14 @@ public class RoomBackground extends Canvas {
 	private Image luigiImage;
 	private Map<DraggableNode, Point2D> myObjectMap;
 	
+
+
 	public RoomBackground(ResourceBundle resources) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight"))-1);
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
+
 		luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
 		DraggableNode luigi = new DraggableNode(luigiImage, 0, 0);
 
@@ -154,6 +165,7 @@ public class RoomBackground extends Canvas {
 			myImageFileName = fileName;
 		}
 	}
+
 	private class DraggableNode {
 		private boolean draggable;
 		private Image image;
@@ -206,4 +218,6 @@ public class RoomBackground extends Canvas {
 			yCor = y;
 		}
 	}
+
+	
 }
