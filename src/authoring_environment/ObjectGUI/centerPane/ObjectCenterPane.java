@@ -16,7 +16,7 @@ public class ObjectCenterPane {
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/centerPane/CenterPaneResources");
 	private ObjectController myController;
 	private	Image sprite;
-	private double xPos, yPos;
+	private double xPos, yPos,spriteWidth,spriteHeight;
 
 	public Group init(ObjectController controller) {
 		myController = controller;
@@ -29,17 +29,19 @@ public class ObjectCenterPane {
 		catch (NullPointerException e) {
 			sprite = addSprite("Mario.png");
 		}
-		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
+		spriteWidth =sprite.getWidth();
+		spriteHeight =sprite.getHeight();
+		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2*spriteWidth;
+		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2*spriteHeight;
+		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
 		Button b = new Button(r.getString("buttonText"));
 		b.setOnAction(e ->  {
 			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-			if (myController.getVisibile()) {
-				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
-			}
+//			if (myController.getVisibile()) {
+				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2*spriteWidth;
+				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2*spriteHeight;
+				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
+//			}
 		});
 		root.getChildren().addAll(c, b);
 		return root;
@@ -47,6 +49,6 @@ public class ObjectCenterPane {
 
 
 	private Image addSprite(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s), myController.getSize()[0], myController.getSize()[1], false, false);
+		return new Image(getClass().getClassLoader().getResourceAsStream(s));
 	}
 }
