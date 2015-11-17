@@ -1,38 +1,40 @@
 package structures.data;
 
+import utils.Rectangle;
+
 /**
  * The View that determines what the camera paints on the screen
  * within a Room. Views are always bound to a specific Room, and
  * they must have a unique name within a Room.
+ * 
+ * Use the access to the mutable Rectangle in .getRectangle()
+ * to modify our coordinates.
  */
 public class DataView {
 
     private final String myName;
+    private Rectangle myView;
 
-    //width and height of the view
-    //myX and myY is the location on the screen where the top
-    //left corner of the view is drawn
-
-    private double myWidth, myHeight, myX, myY;
-
-    public DataView(String name, double width, double height, double x, double y) {
+    public DataView(String name, double x, double y, double width, double height) {
         myName = name;
-        myWidth = width;
-        myHeight = height;
-        myX = x;
-        myY = y;
+        myView = new Rectangle(x, y, width, height);
+    }
+    public DataView(String name, Rectangle rect) {
+    	myName = name;
+    	myView = rect;
     }
 
     public String getName() {
         return myName;
     }
-
-
-    public double[] getBounds() {
-        return new double[]{myWidth, myHeight};
+    
+    public Rectangle getView() {
+    	return myView;
     }
-
-    public double[] getPosition() {
-        return new double[]{myX, myY};
+    
+    public void setView(Rectangle rect) {
+    	myView = rect;
     }
+    
+    
 }

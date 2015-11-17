@@ -9,6 +9,9 @@ public class RunSprite implements IDrawable {
 	
 	public final String name;
 	
+	public double centerX;
+	public double centerY;
+	
 	private Image myImage;
 	private DataSprite myDataSprite;
 	
@@ -25,6 +28,9 @@ public class RunSprite implements IDrawable {
 			throw new CompileTimeException("Can't create RunSprite from unloaded DataSprite '%s'", name);
 		}
 		myImage = dataSprite.getImage();
+		
+		centerX = dataSprite.getCenterX();
+		centerY = dataSprite.getCenterY();
 	}
 	
 	public DataSprite getData() {
@@ -33,8 +39,7 @@ public class RunSprite implements IDrawable {
 
 	@Override
 	public void draw(IDraw drawInterface, RunView view, RunObject object) {
-		// TODO Draw this Sprite!
-		
+		drawInterface.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
 	}
 	
 }

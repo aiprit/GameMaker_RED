@@ -9,11 +9,14 @@ public class DataSprite implements IResource {
 	private String myBaseFileName;
 	private String myName;
 	private Image myImage;
+	private double myCenterX, myCenterY;
 	private boolean myHaveLoaded;
 	
 	public DataSprite(String name, String baseFileName) {
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
+		myCenterX = 0.0;
+		myCenterY = 0.0;
 	}
 	
 	public Image getImage() {
@@ -33,6 +36,21 @@ public class DataSprite implements IResource {
 	public void setBaseFileName(String baseFileName) {
 		myBaseFileName = baseFileName;
 	}
+	
+	public void setCenterX(double centerX) {
+		myCenterX = centerX;
+	}
+	public double getCenterX() {
+		return myCenterX;
+	}
+	
+	public void setCenterY(double centerY) {
+		myCenterY = centerY;
+	}
+	public double getCenterY() {
+		return myCenterY;
+	}
+	
 	
 	@Override
 	public boolean loaded() {
