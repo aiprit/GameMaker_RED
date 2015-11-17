@@ -117,6 +117,12 @@ public class RunObjectConverter {
 		
 		return run;
 	}
+	public RunObject instantiate(String name, double x, double y) throws GameRuntimeException {
+		RunObject run = fetchMaster(name).clone();
+		run.x = x;
+		run.y = y;
+		return run;
+	}
 	
 	public DataInstance toData(RunObject runObject) throws GameRuntimeException {
             
