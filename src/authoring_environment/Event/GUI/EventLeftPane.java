@@ -1,5 +1,8 @@
 package authoring_environment.Event.GUI;
 
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -14,13 +17,12 @@ import structures.data.events.IDataEvent;
 
 public class EventLeftPane {
 	private DataObject o;
-	private ObservableList<IDataEvent> list;
+	private List<String> list;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
+	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
 	public EventLeftPane() {
 		try{
-//			o = object;
-//			list = object.getEvents();
-			// get list of events
+
 		}
 		catch(NullPointerException e){
 		}
@@ -30,20 +32,25 @@ public class EventLeftPane {
 		Group root = new Group();
 		Text title = new Text(r.getString("LeftPane"));
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
-		ListView<IDataEvent> listview = new ListView<IDataEvent>();
-		listview.setItems(list);
-		Button b = new Button("Delete");
+		ListView<String> listview = new ListView<String>();
+		Enumeration <String> keys = l.getKeys();
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			list.add(l.getString(key));
+		}
+		listview.setItems((ObservableList<String>) list);
+		Button b = new Button("Add");
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
 		listview.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));
 		root.getChildren().addAll(title,listview,b);
 		b.setAlignment(Pos.BOTTOM_RIGHT);
 		b.setOnAction(e ->
-		delete(listview.getSelectionModel().getSelectedItem()));
+		add(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
-	private void delete(IDataEvent e){
-		list.remove(e);
+	private void add(String str){
+//		list.remove(e);
 	}
 
 }
