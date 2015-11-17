@@ -66,6 +66,7 @@ public abstract class KeyPopUp implements PopUp{
 
 		StringProperty p = new SimpleStringProperty(code.getName());
 		myInfo.textProperty().bind(p);
+		key = code;
 
 	}
 }

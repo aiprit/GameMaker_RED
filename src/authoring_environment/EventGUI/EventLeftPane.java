@@ -1,5 +1,6 @@
 package authoring_environment.EventGUI;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class EventLeftPane {
@@ -21,6 +23,7 @@ public class EventLeftPane {
 	private ObservableList<String> list= FXCollections.observableList(new ArrayList<String>());
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/EventGUI/ActionListResources");
+	private ResourceBundle fact = ResourceBundle.getBundle("authoring_environment/EventGUI/ActionFactoryResources");
 	public EventLeftPane(EventController control) {
 		myController = control;
 	}
@@ -50,7 +53,27 @@ public class EventLeftPane {
 		return root;
 	}
 	private void addAction(String str){
+		String className = str.replaceAll("\\s+","");
+		Class cls;
+		Field f=null;
+		try {
+			cls = Class.forName(className,true,null);
+			f = cls.getField("getTitle");
 
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String fieldname = f.getName();
+		System.out.println(fieldname);
 	}
 
 }

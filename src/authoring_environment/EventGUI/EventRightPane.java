@@ -41,7 +41,6 @@ public class EventRightPane {
 			list.add(key.getTitle());
 		}
 		listview.setItems(list);
-		listview.setItems(list);
 		Button b = new Button("Delete");
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
