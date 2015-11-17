@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -23,7 +23,7 @@ public class RoomEditor {
 	
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 	
 	private Stage myEditor;
 	private Group myRoot;
@@ -35,7 +35,7 @@ public class RoomEditor {
 	/**
 	 * for TESTING purposes
 	 */
-	public RoomEditor(ResourceBundle resources, Map<String, IObject> objects) {
+	public RoomEditor(ResourceBundle resources, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoot = new Group();
 		myObjects = objects;
@@ -45,7 +45,7 @@ public class RoomEditor {
 	/**
 	 * Map passed in as unmodifiable collection
 	 */
-	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, IObject> objects) {
+	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoomController = controller;
 		myObjects = objects;

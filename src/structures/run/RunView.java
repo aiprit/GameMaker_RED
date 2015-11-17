@@ -1,26 +1,30 @@
 package structures.run;
 
-import java.awt.Rectangle;
 import structures.data.DataView;
+import utils.Rectangle;
 
 public class RunView {
-	
-        private String myName;
-        private String myRoomName;
-        private Rectangle myView;
-	
+
+	private final String myName;
+	private Rectangle myView;
+	private DataView myDataView;
+
 	public RunView(DataView dataView) {
-	    myName = dataView.getName();
-	    //myRoomName = dataView.getRoomName();
-	    //myView = new Rectangle(dataView.getView());
+		myDataView = dataView;
+		myName = dataView.getName();
+		myView = dataView.getView().clone();
+	}
+
+	public String getName() {
+		return myName;
+	}
+
+	public void updateLocation(int x, int y) {
+		myView.move(x, y);
 	}
 	
-	//public DataView toData() {
-	    //return new DataView(myRoomName, myName, myView.width, myView.height, myView.x, myView.y);
-	//}
-	
-	public void updateLocation(int x, int y) {
-	    myView.setLocation(x, y);
+	public Rectangle getView() {
+		return myView;
 	}
 
 }

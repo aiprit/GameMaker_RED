@@ -3,15 +3,16 @@ package authoring_environment.room;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import structures.IObject;
 import structures.data.DataInstance;
+import structures.data.DataObject;
+
 
 public class ObjectInstance {
 	private ImageView myImage;
-	private IObject myObject;
 	private DataInstance myInstance;
+	private DataObject myObject;
 	
-	public ObjectInstance(IObject object) {
+	public ObjectInstance(DataObject object) {
 		myObject = object;
 		myImage = new ImageView(myObject.getSprite().getImage());
 		myInstance = new DataInstance(object, 0, 0);
@@ -25,7 +26,7 @@ public class ObjectInstance {
 		myInstance = instance;
 	}
 	
-	public IObject getObject() {
+	public DataObject getObject() {
 		return myObject;
 	}
 	

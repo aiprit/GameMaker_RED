@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import structures.IObject;
 import structures.data.DataObject;
 
 /**
@@ -39,7 +38,7 @@ public class Launcher extends Application {
 	public void start(Stage primaryStage) {
 		TestObject test = new TestObject();
 		DataObject myObject = test.getDataObject();
-		Map<String, IObject> objectMap = new HashMap<String, IObject>();
+		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
 		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
 		RoomEditor room = new RoomEditor(resources, objectMap);

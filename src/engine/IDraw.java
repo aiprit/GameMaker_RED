@@ -1,9 +1,10 @@
 package engine;
 
-import structures.run.RunGame;
+import javafx.scene.image.Image;
+import structures.run.RunView;
 
 public interface IDraw {
 	
-	void draw(RunGame myGame);
+	void drawImage(Image image, RunView view, double x, double y, double centerX, double centerY, double scaleX, double scaleY, double angle);
 
 }

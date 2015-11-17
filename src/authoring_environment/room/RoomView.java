@@ -49,12 +49,12 @@ public class RoomView extends Rectangle {
 		if (viewBoxInXBounds(dragX)) {
 			double newX = dragX - myWidth/2;
 			this.setX(newX);
-			myDataView.setXPosition(newX);
+			//myDataView.setXPosition(newX);
 		}
 		if (viewBoxInYBounds(dragY)) {
 			double newY = dragY - myHeight/2;
 			this.setY(newY);
-			myDataView.setYPosition(newY);
+			//myDataView.setYPosition(newY);
 		}
 	}
 

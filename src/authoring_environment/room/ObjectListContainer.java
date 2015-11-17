@@ -7,15 +7,15 @@ import java.util.function.Consumer;
 import javafx.collections.FXCollections;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class ObjectListContainer extends VBox {
 	private ResourceBundle myResources;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 	private ObjectListView myObjectsList;
 	private ObjectListHeader myObjectListHeader;
 	
-	public ObjectListContainer(ResourceBundle resources, Map<String, IObject> objects) {
+	public ObjectListContainer(ResourceBundle resources, Map<String, DataObject> objects) {
 		super();
 		myResources = resources;
 		myObjects = objects;

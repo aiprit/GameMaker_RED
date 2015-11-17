@@ -8,8 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class ObjectCenterPane {
 
@@ -24,10 +22,10 @@ public class ObjectCenterPane {
 		Canvas c = new Canvas(Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
 		GraphicsContext gc = c.getGraphicsContext2D();
 		try {
-			sprite = addSprite(myController.getCurrentSprite().getName());
+			//sprite = addSprite(myController.getCurrentSprite().getName());
 		}
 		catch (NullPointerException e) {
-			sprite = addSprite("Mario.png");
+			//sprite = addSprite("Mario.png");
 		}
 //		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
 //		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
@@ -60,7 +58,6 @@ public class ObjectCenterPane {
 		root.getChildren().addAll(c, b);
 		return root;
 	}
-
 
 	private Image addSprite(String s) {
 		return new Image(getClass().getClassLoader().getResourceAsStream(s)) ; //, myController.getSize()[0], myController.getSize()[1], false, false);
