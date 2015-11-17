@@ -1,16 +1,12 @@
 package structures.run;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import engine.IDraw;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
-import structures.IObject;
 import structures.IRoom;
 import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.DataRoom;
 import structures.data.DataSprite;
 import utils.Utils;
 
@@ -22,16 +18,21 @@ public class RunGame implements IRun {
 	private int myCurrentRoomNumber;
 	private RunResources myResources;
 	private RunObjectConverter myConverter;
+	private DataGame myDataGame;
 	
 	
 	public RunGame(DataGame dataGame) throws ResourceFailedException, CompileTimeException, RuntimeException {
-		myName = dataGame.getName();
+		myDataGame = dataGame;
+	        myName = dataGame.getName();
 		myResources = loadResources(dataGame);
 		myConverter = new RunObjectConverter(myResources);
+		for (IRoom dataRoom : dataGame.getRooms()) {
+		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
+		}
 		
 		// TODO: change all references from IObject to DataObject
 		convertObjects(Utils.transform(dataGame.getObjects(), e -> (DataObject)e));
-	} 
+	}
 	
 	public String getName() {
 		return myName;
@@ -80,20 +81,18 @@ public class RunGame implements IRun {
 		}
 	}
 	
-	
 	@Override
-	public DataGame toData(){
-		Map<String, IRoom> rooms = new HashMap<>();
-		Map<String, IObject> objects = new HashMap<>();
-		for (RunRoom runRoom : myRooms) {
-		    rooms.put(runRoom.myName, runRoom.toData());
-		    for (RunObject runObject : runRoom.myObjects) {
-		        objects.put(runObject.name, runObject.toData());
-		    }
+	public DataGame toData() throws CompileTimeException {
+	        List<IRoom> dataRooms = myDataGame.getRooms();
+		for(int i = 0; i < myRooms.size(); i++) {
+    		    try {
+                        dataRooms.set(i, myRooms.get(i).toData());
+    		    }
+                    catch (CompileTimeException e) {
+                        throw new CompileTimeException(e.getMessage());
+                    }
 		}
-		String currentRoom = myRooms.get(myCurrentRoomNumber).myName;
-		String startRoom = myRooms.get(0).myName;
-		return new DataGame(myName, "");
+		return myDataGame;
 	}
 
 }

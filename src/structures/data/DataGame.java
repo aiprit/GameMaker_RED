@@ -1,7 +1,5 @@
 package structures.data;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import structures.IObject;
 import structures.IRoom;
@@ -10,9 +8,9 @@ import structures.IRoom;
 public class DataGame {
 
     ObservableList<IRoom> myRooms;
-	ObservableList<IObject> myObjects;
-	ObservableList<DataSprite> mySprites;
-	ObservableList<DataSound> mySounds;
+    ObservableList<IObject> myObjects;
+    ObservableList<DataSprite> mySprites;
+    ObservableList<DataSound> mySounds; 
 
     private String myName;
     private IRoom myStartRoom, myCurrentRoom;
@@ -30,6 +28,10 @@ public class DataGame {
 
     public String getName() {
         return myName;
+    }
+    
+    public ObservableList<IRoom> getRooms() {
+        return myRooms;
     }
 
     public void setStartRoom(IRoom room){
