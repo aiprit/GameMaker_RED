@@ -41,6 +41,10 @@ public class RunRoom {
 		return myObjects;
 	}
 	
+	public RunView getView() {
+		return myView;
+	}
+	
 	public DataRoom toData() throws CompileTimeException {
 	    try {
                 myDataRoom.setRoomObjects(Utils.transform(myObjects, e -> myConverter.toData(e)));

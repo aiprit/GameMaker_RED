@@ -134,6 +134,6 @@ public class RunObjectConverter {
 	    dataInstance.setAlpha(runObject.alpha);
 	    dataInstance.setVelocity(runObject.velocity);
             
-            return dataInstance;
+        return dataInstance;
     }
 }

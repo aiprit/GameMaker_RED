@@ -12,12 +12,10 @@ public class RoomLoop {
 	private Timeline myGameLoop;
 	private EventManager eventManager;
 	private RunRoom myRoom;
-	private IDraw drawingListener;
 	
 	public RoomLoop(RunRoom room, IGamePlayHandler listener, IDraw drawListener){
 		myRoom = room;
-		drawingListener = drawListener;
-		eventManager = new EventManager(room, listener);
+		eventManager = new EventManager(room, listener, drawListener);
 		createRoomLoop();
 	}
 	
@@ -31,7 +29,6 @@ public class RoomLoop {
             public void handle(ActionEvent event) {
 
                 step();
-                draw();
 
             }
         });
@@ -45,10 +42,6 @@ public class RoomLoop {
 	
 	public void step() {
 		eventManager.loop();
-	}
-	
-	public void draw(){
-		drawingListener.draw(myRoom);
 	}
 	
 	public void start(){
