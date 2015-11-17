@@ -25,4 +25,6 @@ public interface IObject {
 
 	DataSprite getSprite();
 
+	int getZIndex();
+
 }
