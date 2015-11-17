@@ -32,6 +32,7 @@ public class DataInstance {
         myVisible = true;
         myScaleX = 1.0;
         myScaleY = 1.0;
+        myAlpha = 1.0;
         myVelocity = Vector.ZERO;
     }
 

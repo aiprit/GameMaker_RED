@@ -3,6 +3,7 @@
  */
 package engine;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
@@ -18,15 +19,15 @@ public class GamePlayListener implements IGamePlayHandler {
 	private Queue<InputEvent> inputs;
 	private MouseEvent mouseState;
 	
-	public GamePlayListener(Queue<InputEvent> inputs) {
-		this.inputs = inputs;
+	public GamePlayListener() {
+		this.inputs = new LinkedList<InputEvent>();
 	}
 
 	@Override
 	public void setOnEvent(InputEvent m) {
 		inputs.add(m);
-		if (m instanceof MouseEvent)
-			mouseState = (MouseEvent) m;
+		/*if (m instanceof MouseEvent)
+			mouseState = (MouseEvent) m;*/
 	}
 	
 	public Queue<InputEvent> getEvents() {
