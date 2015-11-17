@@ -1,6 +1,7 @@
 package authoring_environment.ObjectGUI.leftPane;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.FXCollections;
@@ -10,32 +11,38 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.events.IDataEvent;
 
 public class CollisionPopUp {
 	private ObjectController myController;
+	private Group myRoot;
 	private Stage myStage;
-	
+	private Scene myScene;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftpane/CollisionResources");
+
 	public CollisionPopUp(ObjectController controller) {
 		myController = controller;
+		init();
 	}
-	
-	private Group init() {
-	Group root = new Group();
-	Text title = new Text("Objects");
-	title.setTranslateX(8);
-	ListView<IDataEvent> listview = new ListView<IDataEvent>();
-	ObservableList<IDataEvent>list = FXCollections.observableList(new ArrayList<IDataEvent>());
-	list.addAll(myController.getEvents().keySet());
-	listview.setItems(list);
-	listview.setTranslateY(8);
-	return root;
-	}
-	
-	public void popup() {
-		myStage.setScene(new Scene(init()));
+
+	public void init() {
+		myRoot = new Group();
+		myStage = new Stage();
+		myStage.setTitle(r.getString("title"));
+		Text title = new Text(r.getString("objects"));
+		ListView<IDataEvent> listview = new ListView<IDataEvent>();
+		ObservableList<IDataEvent>list = FXCollections.observableList(new ArrayList<IDataEvent>());
+		list.addAll(myController.getEvents().keySet());
+		listview.setItems(list);
+		listview.setTranslateY(8);
+		myRoot.getChildren().add(listview);
+		myScene = new Scene(myRoot);
+		myStage.setScene(myScene);
 		myStage.show();
+		
 	}
+
 }

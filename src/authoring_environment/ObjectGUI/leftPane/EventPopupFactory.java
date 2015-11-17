@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.swing.KeyStroke;
 
+import authoring_environment.ObjectGUI.ObjectController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Menu;
@@ -14,10 +15,10 @@ import structures.data.events.KeyPressedEvent;
 
 public class EventPopupFactory {
 
-	public void create(String event) {
-		//		if (event.equalsIgnoreCase("Collision Event")) {
-		//
-		//		}
+	public void create(String event, ObjectController controller) {
+				if (event.equalsIgnoreCase("Collision Event")) {
+					CollisionPopUp cp = new CollisionPopUp(controller);
+				}
 		//		if (event.equalsIgnoreCase("Game End Event")) {
 		//
 		//		}
