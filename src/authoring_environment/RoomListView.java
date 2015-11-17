@@ -1,6 +1,7 @@
 package authoring_environment;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.RoomEditor;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class RoomListView {
@@ -20,13 +22,13 @@ public class RoomListView {
 		RoomView.setVgap(10);
 		RoomView.setHgap(20);
 		Button plus = new Button(" + ");
-
+		Map<String, DataObject> roomObjects = new HashMap<String, DataObject>();
 		plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
 				final Stage dialog = new Stage();
 				ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-				RoomEditor = new RoomEditor(resources);
+				RoomEditor = new RoomEditor(resources, roomObjects);
 			}
 		});
 
