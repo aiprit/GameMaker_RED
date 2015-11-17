@@ -15,8 +15,7 @@ import structures.data.DataSprite;
  * structures. Therefore, it is also the structure
  * that holds the actual (image, sound) resources
  * loaded from file into the game. 
- * 
- * @author Austin
+ *
  */
 public class RunResources {
 	

@@ -3,17 +3,18 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
-import structures.IObject;
+import javafx.collections.ObservableMap;
+import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class ObjectController {
-	private IObject myObject;
+	private DataObject myObject;
 	ObservableList<DataSprite>  mySprites;
 	double displayX, displayY;
 
-	public ObjectController(IObject object, ObservableList<DataSprite> map) {
+	public ObjectController(DataObject object, ObservableList<DataSprite> map) {
 		myObject = object;
 		mySprites = map;
 		displayX= 1.0;
@@ -23,7 +24,6 @@ public class ObjectController {
 	public void setName(String name) {
 		myObject.setName(name);
 	}
-
 	public void setSize(double x, double y) {
 
 		displayX = x;
@@ -46,6 +46,7 @@ public class ObjectController {
 		return new double [] {displayX,displayY};
 	}
 
+
 	public void addSprite(DataSprite sprite) {
 		myObject.setSprite(sprite);
 	}
@@ -57,12 +58,9 @@ public class ObjectController {
 	public void deleteEvent(IDataEvent e) {
 		myObject.removeEvent(e);
 	}
-
-
-
+	
 	public DataSprite getCurrentSprite() {
 		return myObject.getSprite();
 	}
-
 
 }

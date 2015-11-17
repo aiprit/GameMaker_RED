@@ -29,9 +29,7 @@ public class ObjectVisibleMenu {
 		no.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
 				//todo with controller
-				//controller.changeVisibility(false);
 
-//				controller.changeVisibility(false);
 			}
 		});
 		return image;

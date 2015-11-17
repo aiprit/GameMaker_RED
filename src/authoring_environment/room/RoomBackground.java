@@ -16,22 +16,23 @@ import javafx.scene.paint.ImagePattern;
 public class RoomBackground extends Canvas {
 	public static final Color DEFAULT_COLOR = Color.WHITE;
 	
+	private RoomController myController;
 	private Color myColor;
 	private Image myImage;
 	private String myImageFileName;
-	private Image luigiImage;
 	private Map<DraggableNode, Point2D> myObjectMap;
 	private ResourceBundle myResources;
-
-
-	public RoomBackground(ResourceBundle resources) {
+	
+	public RoomBackground(ResourceBundle resources, RoomController controller) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight"))-1);
+		myController = controller;
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
+
 		myResources = resources;
 		//FOR TESTING
-		luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
+		Image luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
 		DraggableNode luigi = new DraggableNode(luigiImage, 0, 0);
 
 		Image marioImage = new Image(getClass().getClassLoader().getResourceAsStream("Mario.png"));
@@ -40,11 +41,10 @@ public class RoomBackground extends Canvas {
 		
 		this.getGraphicsContext2D().drawImage(luigi.getImage(), luigi.getX(), luigi.getY());
 		this.getGraphicsContext2D().drawImage(mario.getImage(), mario.getX(), mario.getY());
+
 		myObjectMap = new HashMap<DraggableNode, Point2D>();
 		myObjectMap.put(luigi, new Point2D(luigi.getX(), luigi.getY()));
 		myObjectMap.put(mario, new Point2D(mario.getX(), mario.getY()));
-		//////
-		
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
@@ -64,8 +64,6 @@ public class RoomBackground extends Canvas {
 					node.setXOffset(node.getX() - event.getX());
 					node.setYOffset(node.getY() - event.getY());
 					node.setDraggable(true);
-					//just break out of for loop for now, get first node that is clicked
-					System.out.println("Hi");
 					break;
 			}
 		}
@@ -80,13 +78,12 @@ public class RoomBackground extends Canvas {
 	private void drag(MouseEvent event) {
 		double x = event.getSceneX() - 270;
 		double y = event.getSceneY();
-		System.out.println("Event x is " + x);
-		System.out.println("Event y is " + y);
 		for (DraggableNode node : myObjectMap.keySet()) {
 			//if node is being dragged
 			if (node.getDraggable()) {
 				double adjustedX = x + node.getXOffset();
 				double adjustedY = y + node.getYOffset();
+				//HERE
 				node.setX(adjustedX);
 				node.setY(adjustedY);
 				myObjectMap.put(node, new Point2D(adjustedX, adjustedY));
@@ -133,7 +130,7 @@ public class RoomBackground extends Canvas {
 		myImageFileName = name;
 	}
 	
-	//TODO write this to IRoom as well
+	//TODO write this through RoomController as well
 	public void setBackground(Color color, Image image, String fileName) {
 		if (image != null) {
 			setImageFill(image);

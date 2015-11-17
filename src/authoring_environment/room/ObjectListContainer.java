@@ -7,15 +7,15 @@ import java.util.function.Consumer;
 import javafx.collections.FXCollections;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class ObjectListContainer extends VBox {
 	private ResourceBundle myResources;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 	private ObjectListView myObjectsList;
 	private ObjectListHeader myObjectListHeader;
 	
-	public ObjectListContainer(ResourceBundle resources, Map<String, IObject> objects) {
+	public ObjectListContainer(ResourceBundle resources, Map<String, DataObject> objects) {
 		super();
 		myResources = resources;
 		myObjects = objects;
@@ -30,10 +30,6 @@ public class ObjectListContainer extends VBox {
 	
 	private void initializeObjectListView() {
 		myObjectsList = new ObjectListView(myResources, FXCollections.<String>observableArrayList(myObjects.keySet()));
-		
-		////FOR TESTING
-		//myObjectsList = new ObjectListView(myResources, myObjectList);
-		//////
 	}
 	
 	public void setOnMouseClicked(Consumer<MouseEvent> f) {
@@ -44,11 +40,7 @@ public class ObjectListContainer extends VBox {
 		int selectedIdx = myObjectsList.getSelectionModel().getSelectedIndex();
 		if (selectedIdx != -1) {
 			String objectName = myObjectsList.getObjectsList().get(selectedIdx);
-			ObjectInstance object = new ObjectInstance(myResources, myObjects.get(objectName));
-			
-			///// FOR TESTING
-			//ImageView sprite = new ImageView(new Image("authoring_environment/room/smallstar.png"));
-			//////
+			ObjectInstance object = new ObjectInstance(myObjects.get(objectName));
 			object.updateSpritePosition(event);
 			myObjectsList.getSelectionModel().select(-1);
 			return object;
