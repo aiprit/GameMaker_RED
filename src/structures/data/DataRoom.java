@@ -27,6 +27,10 @@ public class DataRoom implements IRoom {
     public void addObjectInstance(DataInstance o) {
         roomObjects.add(o);
     }
+    
+    public void setRoomObjects(List<DataInstance> roomObjects) {
+        this.roomObjects = roomObjects;
+    }
 
     @Override
     public void removeObjectInstance(DataInstance o) {

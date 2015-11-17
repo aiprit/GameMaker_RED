@@ -21,6 +21,7 @@ public class RunObject {
 	public double angularVelocity;
 	public boolean visible;
 	public Vector velocity;
+	public double alpha;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
@@ -37,7 +38,7 @@ public class RunObject {
 		this.velocity = Vector.ZERO;
 		this.angularVelocity = 0.0;
 		this.visible = true;
-		
+		this.alpha = 1.0;
 		myInstanceId = 0L;
 	}
 	

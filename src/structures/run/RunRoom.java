@@ -13,9 +13,13 @@ public class RunRoom {
 	RunView myView;
 	String background;
 	List<RunObject> myObjects;
+	private RunObjectConverter myConverter;
+	private DataRoom myDataRoom;
 	
 	public RunRoom(DataRoom dataRoom, RunObjectConverter converter) throws CompileTimeException {
 		myName = dataRoom.getName();
+		myDataRoom = dataRoom;
+		myConverter = converter;
 		myView = new RunView(dataRoom.getView());
 		
 		try {
@@ -33,8 +37,13 @@ public class RunRoom {
 		return myObjects;
 	}
 	
-	public DataRoom toData() {
-	    return null;
+	public DataRoom toData() throws CompileTimeException {
+	    try {
+                myDataRoom.setRoomObjects(Utils.transform(myObjects, e -> myConverter.toData(e)));
+        } catch (GameRuntimeException e) {
+                throw new CompileTimeException(e.getMessage());
+        }
+	    return myDataRoom;
 	}
 
 }
