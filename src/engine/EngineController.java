@@ -22,6 +22,7 @@ public class EngineController {
 	private IGamePlayHandler myPlayingHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
+	private GroovyLibrary myGroovyLibrary;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
@@ -32,6 +33,10 @@ public class EngineController {
 		//myPlayingHandler = new GamePlayListener(new LinkedList<InputEvent>());
 		
 		myFrontEnd = new FrontEnd(stage, myGUIHandler, myEngine.getListener(), myRunningGame);
+		
+		myGroovyLibrary = new GroovyLibrary(myRunningGame);
+		myGroovyLibrary.setObectModifiedHandler(myEngine.getEventManager());
+		myGroovyLibrary.setRoomChangedHandler(myEngine.getEventManager());
 	}
 
 	public void init() throws ResourceFailedException {

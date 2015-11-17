@@ -10,12 +10,18 @@ public class Engine {
 	private RunGame myGame;
 	private IGamePlayHandler myListener;
 	private RoomLoop myLevel;
+	private EventManager myEventManager;
 
 	public Engine(RunGame runGame) {
 		myGame = runGame;
 		myOriginalGame = runGame;
 		myListener = new GamePlayListener();
 		updateLevel();
+		myEventManager = new EventManager(myGame.getCurrentRoom(), null);
+	}
+	
+	public EventManager getEventManager() {
+	    return myEventManager;
 	}
 
 	public void load(RunGame runGame) {
