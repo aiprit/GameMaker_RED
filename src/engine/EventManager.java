@@ -16,9 +16,14 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	private EventFactory myEventFactory;
+	
+	private IDraw drawListener;
+	private RunRoom myRoom;
 
-	public EventManager(RunRoom room, IGamePlayHandler inputs){
+	public EventManager(RunRoom room, IGamePlayHandler inputs, IDraw drawListener){
 		this.inputs = inputs;
+		this.drawListener = drawListener;
+		myRoom = room;
 		init(room);
 	}
 
@@ -42,6 +47,7 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 		List<RunObject> it = new ArrayList<RunObject>();
 		step(it);
 		processEvents(inputs.getEvents());
+		draw();
 	}
 
 	private void step(List<RunObject> it) {
@@ -54,6 +60,12 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 			System.out.println("Event: " + runEvent.getName());
 		}
 		events.clear();
+	}
+	
+	public void draw(){
+		for(RunObject o : myRoom.getObjects()){
+			o.draw(drawListener, myRoom.getView());
+		}
 	}
 
 	@Override
