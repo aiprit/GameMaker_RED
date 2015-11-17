@@ -17,7 +17,7 @@ public class Engine {
 		myOriginalGame = runGame;
 		myListener = new GamePlayListener();
 		updateLevel();
-		myEventManager = new EventManager(myGame.getCurrentRoom(), null);
+		myEventManager = new EventManager(myGame.getCurrentRoom(), myListener);
 	}
 	
 	public EventManager getEventManager() {
