@@ -5,17 +5,12 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.util.function.Consumer;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
@@ -124,10 +119,9 @@ public class RoomEditor {
 		double sceneX = e.getSceneX();
 		double sceneY = e.getSceneY();
 		if (objectInstance.inRoomBounds()) {
-			//TODO write object x,y to IObject
-			//myPreview.addNode(objectInstance.getImageView());
+			//TODO calculate x,y in canvas coordinates
+			//add Image() to canvas
 			myRoot.getChildren().remove(objectInstance.getImageView());
-
 			myRoomController.addObject(new DataInstance(objectInstance.getObject(), sceneX, sceneY));
 		} else {
 			//TODO get rid of the object

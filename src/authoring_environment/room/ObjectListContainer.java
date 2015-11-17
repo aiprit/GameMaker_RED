@@ -39,10 +39,10 @@ public class ObjectListContainer extends VBox {
 	}
 	
 	private void initializeObjectListView() {
-		//myObjectsList = new ObjectListView(myResources, FXCollections.<String>observableArrayList(myObjects.keySet()));
+		myObjectsList = new ObjectListView(myResources, FXCollections.<String>observableArrayList(myObjects.keySet()));
 		
 		////FOR TESTING
-		myObjectsList = new ObjectListView(myResources, myObjectList);
+		//myObjectsList = new ObjectListView(myResources, myObjectList);
 		//////
 	}
 	
@@ -55,10 +55,9 @@ public class ObjectListContainer extends VBox {
 		if (selectedIdx != -1) {
 			String objectName = myObjectsList.getObjectsList().get(selectedIdx);
 			ObjectInstance object = new ObjectInstance(myResources, myObjects.get(objectName), myIDCounter++);
-			//ImageView sprite = object.getImageView();
 			
 			///// FOR TESTING
-			ImageView sprite = new ImageView(new Image("authoring_environment/room/smallstar.png"));
+			//ImageView sprite = new ImageView(new Image("authoring_environment/room/smallstar.png"));
 			//////
 			
 			object.updateSpritePosition(event);
