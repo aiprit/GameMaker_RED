@@ -70,8 +70,6 @@ public class RoomBackground extends Canvas {
 					node.setXOffset(node.getX() - event.getX());
 					node.setYOffset(node.getY() - event.getY());
 					node.setDraggable(true);
-					//just break out of for loop for now, get first node that is clicked
-					System.out.println("Hi");
 					break;
 			}
 		}
@@ -86,8 +84,6 @@ public class RoomBackground extends Canvas {
 	private void drag(MouseEvent event) {
 		double x = event.getSceneX() - 270;
 		double y = event.getSceneY();
-		System.out.println("Event x is " + x);
-		System.out.println("Event y is " + y);
 		for (DraggableNode node : myObjectMap.keySet()) {
 			//if node is being dragged
 			if (node.getDraggable()) {

@@ -15,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.IObject;
-import structures.data.DataInstance;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -114,7 +113,6 @@ public class RoomEditor {
 	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
 		sprite.setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
-		sprite.setOnMouseDragReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
 	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
@@ -122,12 +120,11 @@ public class RoomEditor {
 		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
 		if (objectInstance.inRoomBounds()) {
 			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
+			objectInstance.setDataInstancePosition(canvasPoint);
 			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
 			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(new DataInstance(objectInstance.getObject(), canvasPoint.getX(), canvasPoint.getY()));
-		} else {
-			//TODO get rid of the object
-		}
+			myRoomController.addObject(objectInstance.getDataInstance());
+		} 
 	}
 	
 	private void initializeButtonsToolbar(VBox totalPane) {

@@ -1,25 +1,28 @@
 package authoring_environment.room;
 
-import java.util.ResourceBundle;
-
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
 import structures.IObject;
+import structures.data.DataInstance;
 
 public class ObjectInstance {
-	private static final String PREVIEW_HEIGHT = "PreviewHeight";
-	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
-	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
-	
-	private ResourceBundle myResources;
 	private ImageView myImage;
 	private IObject myObject;
+	private DataInstance myInstance;
 	
-	public ObjectInstance(ResourceBundle resources, IObject object) {
-		myResources = resources;
+	public ObjectInstance(IObject object) {
 		myObject = object;
 		myImage = new ImageView(myObject.getSprite().getImage());
+		myInstance = new DataInstance(object, 0, 0);
+	}
+	
+	public DataInstance getDataInstance() {
+		return myInstance;
+	}
+	
+	public void setDataInstance(DataInstance instance) {
+		myInstance = instance;
 	}
 	
 	public IObject getObject() {
@@ -30,6 +33,10 @@ public class ObjectInstance {
 		return myImage;
 	}
 	
+	public void setDataInstancePosition(Point2D position) {
+		myInstance.setPosition(position.getX(), position.getY());
+	}
+	
 	public void updateSpritePosition(MouseEvent event) {
 		double x = event.getSceneX() - myImage.getImage().getWidth()/2;
 		double y = event.getSceneY() - myImage.getImage().getHeight()/2;
@@ -37,6 +44,7 @@ public class ObjectInstance {
 		myImage.setY(y);
 	}
 	
+	//TODO logic needs to be fixed here
 	public boolean inRoomBounds() {		
 		double roomRightBound = 662 - myImage.getImage().getWidth()/2;
 		double roomLeftBound = myImage.getImage().getWidth()/2 + 1;
