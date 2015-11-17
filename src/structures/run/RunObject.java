@@ -2,6 +2,7 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import engine.IDraw;
 import structures.IObject;
@@ -20,6 +21,7 @@ public class RunObject {
 	public double angularVelocity;
 	public boolean visible;
 	public Vector velocity;
+	public double alpha;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
@@ -36,7 +38,7 @@ public class RunObject {
 		this.velocity = Vector.ZERO;
 		this.angularVelocity = 0.0;
 		this.visible = true;
-		
+		this.alpha = 1.0;
 		myInstanceId = 0L;
 	}
 	
@@ -68,6 +70,10 @@ public class RunObject {
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
 		return clone;
+	}
+	
+	public Set<IDataEvent> getEvents(){
+		return myEvents.keySet();
 	}
 	
 	public void draw(IDraw drawInterface, RunView view) {

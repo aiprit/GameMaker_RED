@@ -14,7 +14,6 @@ public class SavedGameHandler {
 	Map<String, String> saves;
 
 	SavedGameHandler(String myGame) {
-		// filename -> friendlyname
 		saves = new HashMap<String, String>();
 
 		for (final File fileEntry : new File(String.format("Games/%s/saves"), myGame).listFiles()) {

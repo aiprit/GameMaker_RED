@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
@@ -29,10 +28,12 @@ public class RunObjectConverter {
 	
 	private RunResources myResources;
 	private Map<String, RunObject> myMasterObjects;
+	private Map<String, DataObject> myMasterDataObjects;
 	
 	public RunObjectConverter(RunResources resources) {
 		myResources = resources;
 		myMasterObjects = new HashMap<String, RunObject>();
+		myMasterDataObjects = new HashMap<String, DataObject>();
 	}
 	
 	/**
@@ -46,6 +47,7 @@ public class RunObjectConverter {
 	 */
 	public void convert(DataObject data) throws CompileTimeException {
 		RunObject run = new RunObject(data.getName());
+		myMasterDataObjects.put(data.getName(), data);
 		
 		// Compile all of the IActions of the DataObject into a single RunAction
 		for (Entry<IDataEvent, List<IAction>> event : data.getEvents().entrySet()) {
@@ -115,4 +117,23 @@ public class RunObjectConverter {
 		
 		return run;
 	}
+	
+	public DataInstance toData(RunObject runObject) throws GameRuntimeException {
+            
+	    DataObject parentObject = myMasterDataObjects.get(runObject.name);
+	    long ID = runObject.instance_id();
+	    double x = runObject.x;
+	    double y = runObject.y;
+	    DataInstance dataInstance = new DataInstance(parentObject, ID, x, y);
+            
+	    dataInstance.setVisible(runObject.visible);
+	    dataInstance.setAngle(runObject.angle);
+	    dataInstance.setAngularVelocity(runObject.angularVelocity);
+	    dataInstance.setScaleX(runObject.scaleX);
+	    dataInstance.setScaleY(runObject.scaleY);
+	    dataInstance.setAlpha(runObject.alpha);
+	    dataInstance.setVelocity(runObject.velocity);
+            
+            return dataInstance;
+    }
 }
