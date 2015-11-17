@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring_environment.Event.EventController;
 import authoring_environment.ObjectGUI.ObjectController;
 import authoring_environment.ObjectGUI.leftPane.ObjectLeftPane;
 import authoring_environment.ObjectGUI.rightPane.ObjectRightPane;
