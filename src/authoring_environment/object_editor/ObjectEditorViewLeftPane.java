@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 

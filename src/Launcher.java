@@ -1,33 +1,28 @@
-import authoring_environment.TestObject;
-import authoring_environment.View;
-import authoring_environment.ObjectGUI.ObjectView;
+import authoring_environment.main.MainController;
 
+import authoring_environment.ObjectGUI.ObjectView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
-
 import engine.EngineController;
 import exceptions.ResourceFailedException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import structures.data.DataObject;
-import structures.data.DataRoom;
-import structures.data.events.KeyPressedEvent;
 
 public class Launcher extends Application {
 	EngineController ec;
-	View view;
-	ObjectView og;
+	MainController controller;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -35,6 +30,7 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		
 		/*TestObject test = new TestObject();
 		DataObject myObject = test.getDataObject();
@@ -46,47 +42,8 @@ public class Launcher extends Application {
 <<<<<<< HEAD
 		*/
 
-<<<<<<< HEAD
 
-		primaryStage.setTitle("VOOGASalad Launcher");
-		Button btn = new Button();
-		btn.setText("Make/Edit Game");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				view = new View();
-				view.init();
-			}
-		});
-		Button btn1 = new Button();
-		btn1.setText("Play Game");
-		btn1.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				try {
-					ec = new EngineController(primaryStage);
-				} catch (ResourceFailedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		Pane root = new Pane();
-		HBox a = new HBox(5);
-		Insets pad = new Insets(10, 10, 10, 10);
-		a.setPadding(pad);
-		btn.setPadding(pad);
-		btn1.setPadding(pad);
-		root.getChildren().add(a);
-		a.getChildren().addAll(btn, btn1);
-		primaryStage.setScene(new Scene(root));
-		primaryStage.show();
-=======
-=======
-<<<<<<< HEAD
-//		DataObject object = new DataObject("dog");
-//		ObjectGUI og = new ObjectGUI(object);
-//		og.init();
->>>>>>> cd19373b4f686f85ba90fa104dee7bd802a1cdda
+
 //
 //		primaryStage.setTitle("VOOGASalad Launcher");
 //		Button btn = new Button();
@@ -124,25 +81,24 @@ public class Launcher extends Application {
 //		a.getChildren().addAll(btn, btn1);
 //		primaryStage.setScene(new Scene(root));
 //		primaryStage.show();
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/Nick
-=======
-=======
-		*/
+
+
 
 
 		primaryStage.setTitle("VOOGASalad Launcher");
-		Button btn = new Button();
-		btn.setText("Make/Edit Game");
-		btn.setOnAction(new EventHandler<ActionEvent>() {
+		
+		Button openBtn = new Button();
+		openBtn.setText("Make Games");
+		openBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				view = new View();
-				view.init();
+				controller = new MainController(primaryStage);
 			}
 		});
+
+		
 		Button btn1 = new Button();
-		btn1.setText("Play Game");
+		btn1.setText("Play Games");
 		btn1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -157,13 +113,11 @@ public class Launcher extends Application {
 		HBox a = new HBox(5);
 		Insets pad = new Insets(10, 10, 10, 10);
 		a.setPadding(pad);
-		btn.setPadding(pad);
+		openBtn.setPadding(pad);
 		btn1.setPadding(pad);
 		root.getChildren().add(a);
-		a.getChildren().addAll(btn, btn1);
+		a.getChildren().addAll(openBtn, btn1);
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
->>>>>>> c505b2e63fb48c456037e0f96e61244376ae1985
->>>>>>> cd19373b4f686f85ba90fa104dee7bd802a1cdda
 	}
 }

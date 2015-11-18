@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 public class ObjectEditorViewBottomPane {
@@ -14,9 +15,10 @@ public class ObjectEditorViewBottomPane {
 	private Button save, cancel;
 	private TextField nameBox;
 	private String objectName;
+	private Group root;
 	
-	public ObjectEditorViewBottomPane(String name) {
-		objectName = name;
+	public ObjectEditorViewBottomPane() {
+		init();
 	}
 	public String getNameBoxText() {
 		return nameBox.getText();
@@ -30,8 +32,8 @@ public class ObjectEditorViewBottomPane {
 		return cancel;
 	}
 
-	private Group init() {
-		Group root = new Group();
+	public Group init() {
+		root = new Group();
 		Label nameLabel = new Label(bottomResources.getString("nameTitle"));
 		nameBox = createTextBox(objectName,Integer.parseInt(bottomResources.getString("prefWidth")),Integer.parseInt(bottomResources.getString("prefHeight")));
 		HBox nameHBox = createHBox(nameLabel, nameBox, Integer.parseInt(bottomResources.getString("nameTranslate")));
@@ -61,4 +63,8 @@ public class ObjectEditorViewBottomPane {
 		hb.setTranslateX(translate);
 		return hb;
 	}	
+	
+	public Group getGroup() {
+		return root;
+	}
 }

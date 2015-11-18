@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
@@ -16,11 +16,11 @@ public class ObjectEditorViewCenterPane {
 	private GraphicsContext centerGC;
 	private String spriteName;
 
-	public ObjectEditorViewCenterPane(String name) {
-		spriteName = name;
+	public ObjectEditorViewCenterPane() {
+		init();
 	}
 	
-	public Group init(String spriteName) {
+	public Group init() {
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
 		centerGC = c.getGraphicsContext2D();

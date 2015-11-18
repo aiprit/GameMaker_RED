@@ -1,10 +1,9 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -22,11 +21,6 @@ public class ObjectEditorViewRightPane {
 	private Map<IDataEvent, List<IAction>> map;
 	private ListView<String> listview = new ListView<String>();
 	ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-
-	public ObjectEditorViewRightPane(ObservableList<String> l) {
-		list = l;
-		listview.setItems(list);
-	}
 
 
 	public Button getDeleteButton() {
@@ -49,7 +43,7 @@ public class ObjectEditorViewRightPane {
 		title.setTranslateX(Integer.parseInt(rightResources.getString("textTranslateX")));
 
 		listview = new ListView<String>();
-		listview.setItems(list);
+		//listview.setItems(list);
 		listview.setTranslateY(Integer.parseInt(rightResources.getString("listTranslateY")));
 
 
@@ -63,7 +57,7 @@ public class ObjectEditorViewRightPane {
 		edit.setTranslateY(Integer.parseInt(rightResources.getString("buttonTranslateYedit")));
 		edit.setTranslateX(Integer.parseInt(rightResources.getString("buttonTranslateXedit")));
 
-		eventPopup(listview.getSelectionModel().getSelectedItem());
+		//eventPopup(listview.getSelectionModel().getSelectedItem());
 
 		root.getChildren().addAll(title, listview, delete, edit);
 		return root;
