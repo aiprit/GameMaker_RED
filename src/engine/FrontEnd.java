@@ -26,15 +26,13 @@ public class FrontEnd implements IRoomChangedHandler {
 	private IDraw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
-	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
 	private Scene playScene;
 	private EventManager myEventManager;
 	
-	public FrontEnd(Stage stage, EventManager eventManager, IGamePlayHandler listener, RunGame game) {
+	public FrontEnd(RunGame game, EventManager eventManager, Stage stage) {
 		myEventManager = eventManager;
-		this.gpHandler = listener;
 		this.game = game;
 		this.stage = stage;
 		setupFramework();
@@ -49,13 +47,13 @@ public class FrontEnd implements IRoomChangedHandler {
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
-		    	gpHandler.setOnEvent(mouseEvent);
+		    	myEventManager.setOnEvent(mouseEvent);
 		    }
 		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				gpHandler.setOnEvent(event);
+				myEventManager.setOnEvent(event);
 			}
 		});
 		

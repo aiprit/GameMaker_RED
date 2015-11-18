@@ -15,7 +15,6 @@ import javafx.scene.input.MouseEvent;
  */
 public class GamePlayListener implements IGamePlayHandler {
 
-		
 	private Queue<InputEvent> inputs;
 	private MouseEvent mouseState;
 	
@@ -26,8 +25,6 @@ public class GamePlayListener implements IGamePlayHandler {
 	@Override
 	public void setOnEvent(InputEvent m) {
 		inputs.add(m);
-		/*if (m instanceof MouseEvent)
-			mouseState = (MouseEvent) m;*/
 	}
 	
 	public Queue<InputEvent> getEvents() {

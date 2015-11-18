@@ -26,7 +26,6 @@ import structures.run.RunRoom;
 
 public class GameEventManager implements IObjectModifiedHandler {
 
-	private IGamePlayHandler gameplayInputs;
 	private EventManager myEventManager;
 
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
@@ -34,8 +33,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	
 	private RunRoom myRoom;
 
-	public GameEventManager(RunRoom room, IGamePlayHandler inputs, EventManager eventManager){
-		this.gameplayInputs = inputs;
+	public GameEventManager(RunRoom room, EventManager eventManager){
 		myEventManager = eventManager;
 		myEventFactory = new EventFactory();
 		myRoom = room;
@@ -62,7 +60,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 
 	void loop() {
 		step(myRoom.getObjects());
-		processGameplayEvents(gameplayInputs.getEvents());
+		processGameplayEvents(myEventManager.getEvents());
 		draw();
 	}
 

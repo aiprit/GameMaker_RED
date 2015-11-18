@@ -3,12 +3,12 @@ package engine;
 /**
  * @author loganrooper
  */
-public class GUIHandler implements IGUIHandler{
+public class GUIListener implements IGUIHandler{
 	Boolean paused;
 	SavedGameHandler savedGames;
 	Engine engine;
 
-	public GUIHandler(Engine engine, Boolean paused, SavedGameHandler savedGames) {
+	public GUIListener(Engine engine, Boolean paused, SavedGameHandler savedGames) {
 		this.engine = engine;
 		this.paused = paused;
 		this.savedGames = savedGames;
