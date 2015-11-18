@@ -2,16 +2,19 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import javafx.scene.image.Image;
+import javafx.scene.input.InputEvent;
 import structures.run.RunRoom;
 import structures.run.RunView;
 
-public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler {
+public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler, IGamePlayHandler {
 	
 	private IDraw myDraw;
 	private IGUIHandler myGUI;
 	private List<IRoomChangedHandler> myRoomChanged;
+	private IGamePlayHandler myUserInput;
 	
 	public EventManager(){
 		myRoomChanged = new ArrayList<IRoomChangedHandler>();
@@ -27,6 +30,10 @@ public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler {
 	
 	public void addRoomChangedInterface(IRoomChangedHandler roomChanged){
 		myRoomChanged.add(roomChanged);
+	}
+	
+	public void addUserInputInterface(IGamePlayHandler userInput){
+		myUserInput = userInput;
 	}
 	
 	public void drawImage(Image image, RunView view, double x, double y, double centerX, double centerY, double scaleX, double scaleY, double angle){
@@ -61,6 +68,16 @@ public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler {
 		for(IRoomChangedHandler roomHandler : myRoomChanged){
 			roomHandler.onRoomChanged(runRoom);
 		}
+	}
+
+	@Override
+	public void setOnEvent(InputEvent m) {
+		myUserInput.setOnEvent(m);
+	}
+
+	@Override
+	public Queue<InputEvent> getEvents() {
+		return myUserInput.getEvents();
 	}
 
 }

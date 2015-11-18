@@ -21,8 +21,8 @@ public class RoomLoop {
 	private Timeline myGameLoop;
 	private GameEventManager gameManager;
 	
-	public RoomLoop(RunRoom room, IGamePlayHandler listener, EventManager eventManager){
-		gameManager = new GameEventManager(room, listener, eventManager);
+	public RoomLoop(RunRoom room, EventManager eventManager){
+		gameManager = new GameEventManager(room, eventManager);
 		createRoomLoop();
 	}
 	

@@ -127,7 +127,7 @@ public class TestGameObject {
         testGame.addRoom(level1);
         testGame.addRoom(winScreen);
 
-        testGame.setStartRoom(startScreen);
+        testGame.setStartRoom(level1);
 
         return testGame;
     }
