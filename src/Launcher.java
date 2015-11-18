@@ -1,5 +1,10 @@
-import authoring_environment.ObjectGUI.ObjectGUI;
 import authoring_environment.main.MainController;
+import authoring_environment.ObjectGUI.ObjectView;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+import authoring_environment.room.RoomController;
+import authoring_environment.room.RoomEditor;
 import engine.EngineController;
 import exceptions.ResourceFailedException;
 import javafx.application.Application;
@@ -17,7 +22,6 @@ import javafx.stage.Stage;
 public class Launcher extends Application {
 	EngineController ec;
 	MainController controller;
-	ObjectGUI og;
 
 	public static void main(String[] args) {
 		launch(args);
