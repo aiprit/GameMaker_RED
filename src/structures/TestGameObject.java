@@ -40,7 +40,7 @@ public class TestGameObject {
      */
 
     public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game", "/Games/TestGame");
+        DataGame testGame = new DataGame("Test Game", "/TestGame");
 
         DataObject coin = new DataObject("Coin");
 
@@ -91,14 +91,14 @@ public class TestGameObject {
         winScreenBackground.setSprite(winScreenSprite);
 
         DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
-        startScreen.setBackground(startScreenBackground);
+        startScreen.setBackgroundColor("#FFFFFF");
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
         level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
         level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
-        winScreen.setBackground(winScreenBackground);
+        winScreen.setBackgroundColor("#FFFFFF");
 
 
         testGame.addObject(coin);

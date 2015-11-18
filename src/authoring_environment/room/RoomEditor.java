@@ -12,14 +12,12 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.function.Consumer;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
@@ -28,7 +26,7 @@ public class RoomEditor {
 	
 	private ResourceBundle myResources;
 	private RoomController myRoomController;
-	private Map<String, IObject> myObjects;
+	private Map<String, DataObject> myObjects;
 
 	
 	private Stage myEditor;
@@ -49,7 +47,7 @@ public class RoomEditor {
 	/**
 	 * Map passed in as unmodifiable collection
 	 */
-	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, IObject> objects) {
+	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, DataObject> objects) {
 		myResources = resources;
 		myRoomController = controller;
 		myObjects = objects;

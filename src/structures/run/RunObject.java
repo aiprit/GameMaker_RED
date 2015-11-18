@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
-import structures.IObject;
+import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.Vector;
 
@@ -91,7 +91,7 @@ public class RunObject {
 		// TODO: Groovy run event
 	}
 	
-	public IObject toData() {
+	public DataObject toData() {
 		// TODO: What the hell is this method for?
 		return null;
 	}

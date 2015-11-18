@@ -1,9 +1,11 @@
 package exceptions;
 
-public class ResourceFailedException extends Exception {
+public class ResourceFailedException extends FormattedException {
+	
 	private static final long serialVersionUID = -1972252724670814972L;
-
-	public ResourceFailedException(String resource) {
-		System.err.println(String.format("Resource not found: %s", resource));
+	
+	public ResourceFailedException(String message, Object... args) {
+		super(message, args);
 	}
+
 }

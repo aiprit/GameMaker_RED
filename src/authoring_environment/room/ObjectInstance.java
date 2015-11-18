@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import structures.IObject;
+import structures.data.DataObject;
 
 public class ObjectInstance {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
@@ -13,17 +13,17 @@ public class ObjectInstance {
 	
 	private ResourceBundle myResources;
 	private ImageView myImage;
-	private IObject myObject;
+	private DataObject myObject;
 	private int myID;
 	
-	public ObjectInstance(ResourceBundle resources, IObject object, int ID) {
+	public ObjectInstance(ResourceBundle resources, DataObject object, int ID) {
 		myResources = resources;
 		myObject = object;
 		myID = ID;
 		myImage = new ImageView(myObject.getSprite().getImage());
 	}
 	
-	public IObject getObject() {
+	public DataObject getObject() {
 		return myObject;
 	}
 	
