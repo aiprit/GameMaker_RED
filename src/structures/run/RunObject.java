@@ -26,7 +26,6 @@ public class RunObject {
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
-
 	
 	public RunObject(String name) {
 		this.name = name;
@@ -78,6 +77,7 @@ public class RunObject {
 	}
 	
 	public void draw(IDraw drawInterface, RunView view) {
+		System.out.println("*" + mySprite);
 		if (mySprite != null) {
 			mySprite.draw(drawInterface, view, this);
 		}

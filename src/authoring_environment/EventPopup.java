@@ -1,21 +1,25 @@
 package authoring_environment;
 
-import authoring_environment.Event.EventController;
-import authoring_environment.Event.GUI.EventGUI;
+import java.util.List;
+
+import authoring_environment.EventGUI.EventController;
+import authoring_environment.EventGUI.EventGUI;
+import javafx.collections.ObservableMap;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import structures.data.DataObject;
+import structures.data.actions.IAction;
+import structures.data.events.IDataEvent;
 
 public class EventPopup {
 
+	public void popup(IDataEvent event,	DataObject obj){
 
-
-	public void popup() {
-		 Stage dialog = new Stage();
-         
-         EventGUI gui = new EventGUI(null,dialog);
+		 EventController control = new EventController(event,obj);
+         EventGUI gui = new EventGUI(control);
 	}
 
 }

@@ -1,4 +1,3 @@
-
 import authoring_environment.TestObject;
 import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
@@ -24,9 +23,6 @@ import javafx.stage.Stage;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 
-/**
- * @author loganrooper
- */
 public class Launcher extends Application {
 	EngineController ec;
 	View view;
@@ -46,13 +42,13 @@ public class Launcher extends Application {
 		RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 		
 		
-		//		DataObject object = new DataObject("dog",10,10);
+//		DataObject object = new DataObject("dog",10,10);
 //		object.addEvent(new KeyTypedEvent());
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
 
 
-
+//
 //		primaryStage.setTitle("VOOGASalad Launcher");
 //		Button btn = new Button();
 //		btn.setText("Make/Edit Game");
@@ -60,7 +56,7 @@ public class Launcher extends Application {
 //
 //			@Override
 //			public void handle(ActionEvent event) {
-//				view = new View();
+//				view = new View(resources);
 //				view.init();
 //			}
 //		});
