@@ -10,12 +10,12 @@ public class CollisionEvent implements IDataEvent {
     public CollisionEvent(DataObject other){
         this.other = other;
     }
-    
+
     @Override
     public int hashCode() {
     	return this.hashCode() ^ other.hashCode();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
     	if (this.getClass().equals(obj.getClass())) {
@@ -31,4 +31,9 @@ public class CollisionEvent implements IDataEvent {
 		return String.format("Collision with ", other.getName());
 	}
 
+
+	@Override
+    public String toString(){
+    	return this.getName();
+    }
 }

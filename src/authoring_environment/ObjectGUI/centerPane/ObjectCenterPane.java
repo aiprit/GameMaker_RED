@@ -16,8 +16,7 @@ public class ObjectCenterPane {
 	private	Image sprite;
 	private double xPos, yPos,spriteWidth,spriteHeight;
 
-	public Group init(ObjectController controller) {
-		myController = controller;
+	public Group init() {
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
 		GraphicsContext gc = c.getGraphicsContext2D();
@@ -27,20 +26,6 @@ public class ObjectCenterPane {
 		catch (NullPointerException e) {
 			sprite = addSprite("Mario.png");
 		}
-
-		//		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-		//		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-		//		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
-		//		Button b = new Button(r.getString("buttonText"));
-		//		b.setOnAction(e ->  {
-		//			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-		//			if (myController.getVisibile()) {
-		//				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-		//				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-		//				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
-		//			}
-		//		});
-		//root.getChildren().addAll(c); //, b);
 
 		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - sprite.getWidth()/2;// - myController.getSize()[0]/2*spriteWidth;
 		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - sprite.getHeight()/2;// - myController.getSize()[1]/2*spriteHeight;
@@ -64,7 +49,7 @@ public class ObjectCenterPane {
 	}
 
 	private Image addSprite(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s)) ; //, myController.getSize()[0], myController.getSize()[1], false, false);
+		return new Image(getClass().getClassLoader().getResourceAsStream(s)); //, myController.getSize()[0], myController.getSize()[1], false, false);
 
 		//return new Image(getClass().getClassLoader().getResourceAsStream(s));
 	}

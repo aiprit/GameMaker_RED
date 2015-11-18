@@ -1,29 +1,25 @@
-package authoring_environment.ObjectGUI;
+package authoring_environment.Event;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import authoring_environment.Event.EventController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
-import structures.data.DataSprite;
 import structures.data.actions.Destroy;
 import structures.data.actions.IAction;
 import structures.data.actions.Sleep;
-import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
-import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 
-public class ObjectGUITester extends Application{
+public class EventTester  extends Application{
 	public static void main(String[] args) {
 		launch(args);
 
 	}
-
 	public void start(Stage primaryStage) throws Exception {
 		DataGame game = new DataGame("TestGame", "/home/nicholas");
 		DataObject object = new DataObject("Luigi");
@@ -38,15 +34,8 @@ public class ObjectGUITester extends Application{
 		game.addObject(object);
 		game.addObject(object2);
 		Stage cc = new Stage();
-		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
+		EventController gui = new EventController(a,object);
 
-		DataSprite sprite = new DataSprite("Luigi.png", "");
-		DataSprite sprite2 = new DataSprite("black.png", "");
-		object.addSprite(sprite);
-		object.addSprite(sprite2);
-		object.setSprite(sprite);
-		object2.setSprite(sprite2);
-		ObjectView og = new ObjectView(ct);
-		og.init();
 	}
+
 }

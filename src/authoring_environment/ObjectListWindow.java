@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
-import authoring_environment.ObjectGUI.ObjectGUI;
+import authoring_environment.ObjectGUI.ObjectView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,18 +26,19 @@ import structures.data.DataSprite;
 
 public class ObjectListWindow {
 
+
 	private static String NEW_ITEM = "MakeNewItem";
 	private static String EDIT_ITEM = "EditItem";
 	private static String OBJECT_TITLE = "ObjectListTitle";
 	public void init(ObservableList<DataObject> newObjects, ObservableList<DataSprite> newSprites, BorderPane bp, Stage s, ResourceBundle resources){
 		update(newObjects, newSprites, bp, s, resources);
-		
+
 	}
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 //	public void init(BorderPane bp, Stage s){
 //		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 //			@Override
-//			public void handle(ActionEvent event){			 
+//			public void handle(ActionEvent event){
 //				Stage myStage = new Stage();
 //				DataObject object = new DataObject("dog");
 //				ObjectController c = new ObjectController(object,  myStage);
@@ -57,7 +58,7 @@ public class ObjectListWindow {
 
 	public void update(ObservableList<DataObject> newObjects, ObservableList<DataSprite> newSprites, BorderPane bp, Stage s, ResourceBundle resources){
 		//ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
-		
+
 		ArrayList<HBox> list = new ArrayList<HBox>();
 		HBox header = new HBox();
 		Label headerLabel = new Label("Object");
@@ -67,19 +68,19 @@ public class ObjectListWindow {
 		for(int i = 0; i <newObjects.size(); i++){
 			Button edit = new Button("EDIT");
 			Label label = new Label(newObjects.get(i).getName());
-			
+
 			HBox hbox = new HBox();
 			final int j  = i;
             label.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(label, Priority.ALWAYS);
 			EventHandler<ActionEvent> objectClick = new EventHandler<ActionEvent>() {
 				@Override
-				public void handle(ActionEvent event){		
+				public void handle(ActionEvent event){
 						final Stage s = new Stage();
 						DataObject object = newObjects.get(j);
 						ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
-						ObjectGUI og = new ObjectGUI(c);
+	//					ObjectGUI og = new ObjectGUI(c);
 						og.init();
 
 
@@ -111,12 +112,12 @@ public class ObjectListWindow {
         HBox.setHgrow(label, Priority.ALWAYS);
         EventHandler<ActionEvent> objectClick = new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event){		
-					
+			public void handle(ActionEvent event){
+
 					DataObject object = new DataObject("Dog");
 					ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
-					ObjectGUI og = new ObjectGUI(c);
+		//			ObjectGUI og = new ObjectGUI(c);
 					og.init();
 
 
