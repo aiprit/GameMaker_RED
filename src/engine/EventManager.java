@@ -48,7 +48,7 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 	 * 
 	 * @param room
 	 */
-	private void init(RunRoom room) {
+	private void init(RunRoom room) { 
 		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
 		for(RunObject o : room.getObjects()){
 			for(IDataEvent e : o.getEvents()){
@@ -59,9 +59,9 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 			}
 		}
 	}
-
+	
 	void loop() {
-		step(myRoom.getObjects());
+		step(myEvents.get(new StepEvent()));
 		processGameplayEvents(gameplayInputs.getEvents());
 		draw();
 	}
@@ -95,6 +95,10 @@ public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler
 			}
 		}
 		events.clear();
+	}
+	
+	private void processCollisionEvents() {
+		
 	}
 	
 	/**

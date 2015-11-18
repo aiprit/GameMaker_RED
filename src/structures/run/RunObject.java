@@ -69,7 +69,7 @@ public class RunObject {
 		return myInstanceId;
 	}
 	
-	protected IRectangle getBounds() {
+	public IRectangle getBounds() {
 		myBounds.move(x, y);
 		myBounds.angle(this.angle);
 		return myBounds.getImmutable();

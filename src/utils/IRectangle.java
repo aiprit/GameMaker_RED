@@ -12,7 +12,7 @@ public interface IRectangle {
 
 	boolean contains(Point p);
 
-	boolean intersects(Rectangle rect);
+	boolean intersects(IRectangle rect);
 
 	double x();
 

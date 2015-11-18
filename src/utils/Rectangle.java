@@ -55,7 +55,7 @@ public class Rectangle implements IRectangle {
 	
 	
 	@Override
-	public boolean intersects(Rectangle rect) {
+	public boolean intersects(IRectangle rect) {
 		return IRectangle.intersects(this, rect);
 	}
 	
