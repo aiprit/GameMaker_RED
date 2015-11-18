@@ -2,10 +2,10 @@
 package authoring_environment.main;
 
 import java.util.ResourceBundle;
+
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ import structures.data.DataRoom;
 import structures.data.DataSound;
 import structures.data.DataSprite;
 
-public class MainController {
+public class MainController implements IUpdateHandle {
 
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private DataGame dataGame;
@@ -42,9 +42,30 @@ public class MainController {
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
 		update();
+
+		// Get updates
+		objectListWindow.setUpdateHandle((IUpdateHandle) this);
+
+		// @steve
+		DataObject n1 = new DataObject("TestObject 1");
+		DataObject n2 = new DataObject("TestObject 2");
+		DataObject n3 = new DataObject("TestObject 3");
+		dataGame.addObject(n1, n2, n3);
+		
+		//showing that you can call update from either here, or from objectListWindow
+		objectListWindow.testNewButtonAdding();
+		// or 
+		update();
+	}
+
+	public void refreshViews() {
+		// Set mainView's views
+		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), new RightView(spriteListView, soundListView).getPane());
 	}
 
 	public void update() {
+		System.out.println("Updating...");
+
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
 
@@ -52,12 +73,14 @@ public class MainController {
 		objectListWindow.init();
 		// Add objects to objectList
 		for (DataObject o : dataGame.getObjects()) {
+			System.out.println("Adding object: " + o.getName());
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @nick. Need to call the ObjectComponent here (edit
 					// game).
 					// use the DataObject o for this.
+					System.out.println("Opening object editor with context: edit object(" + o.getName() + ")");
 				}
 			});
 		}
@@ -68,6 +91,7 @@ public class MainController {
 			public void handle(ActionEvent event) {
 				// TODO: @nick. Need to call the ObjectComponent here (new
 				// game).
+				System.out.println("Opening object editor with context: new object");
 			}
 		});
 
@@ -137,17 +161,11 @@ public class MainController {
 		topMenuBar.getEditMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				//TODO: handle edit event
+				// TODO: handle edit event
 				System.out.println("Clicked Edit");
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());
-		
-		// Set mainView's views
-		BorderPane rightPane = new BorderPane();
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(spriteListView.getPane(), soundListView.getPane());
-		rightPane.setCenter(vbox);
-		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), rightPane);
+		refreshViews();
 	}
 }
