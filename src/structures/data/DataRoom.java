@@ -17,7 +17,7 @@ public class DataRoom{
         roomObjects = new ArrayList<>();
 
         //by default the view is set to be the entire room
-        myView = new DataView("MainView", width, height, 0, 0);
+        myView = new DataView("MainView", 0, 0, width, height);
     }
 
     public void addObjectInstance(DataInstance o) {
@@ -37,7 +37,7 @@ public class DataRoom{
     }
 
     public void setSize(double width, double height) {
-
+    	myWidth = width; myHeight = height;
     }
 
     public String getBackgroundColor(){

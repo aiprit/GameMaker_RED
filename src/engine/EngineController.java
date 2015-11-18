@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
+import structures.run.RunObject;
 
 public class EngineController {
 	private DataGame myGame;
@@ -70,6 +71,7 @@ public class EngineController {
 			e.printStackTrace();
 		}
 		
+		//myRunningGame.getCurrentRoom().getObjects();
 		myEngine = new Engine(myRunningGame);
 	}
 
