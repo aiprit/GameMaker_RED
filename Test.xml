@@ -16,4 +16,10 @@
     <object name="StartScreenBackground" sprite="Start Screen" zIndex="0"/>
     <object name="WinScreenBackground" sprite="Win Screen" zIndex="0"/>
   </objects>
+  <sprites>
+    <sprite baseFileName="coin.png" centerX="0.0" centerY="0.0" name="Coin" scaleX="0.0" scaleY="0.0"/>
+    <sprite baseFileName="square.png" centerX="0.0" centerY="0.0" name="Square" scaleX="0.0" scaleY="0.0"/>
+    <sprite baseFileName="StartScreen.png" centerX="0.0" centerY="0.0" name="Start Screen" scaleX="0.0" scaleY="0.0"/>
+    <sprite baseFileName="WinScreen.png" centerX="0.0" centerY="0.0" name="Win Screen" scaleX="0.0" scaleY="0.0"/>
+  </sprites>
 </game>
