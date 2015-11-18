@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import XML.XMLEditor;
+import engine.events.EventManager;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
@@ -87,7 +88,6 @@ public class EngineController {
 	}
 	
 	public void setupEventManager(EventManager eventManager){
-		eventManager.setDrawInterface(myFrontEnd.getDrawListener());
 		eventManager.setGUIInterface(myEngine.getGUIHandler());
 		eventManager.addRoomChangedInterface(myFrontEnd.getRoomChangedHandler());
 		eventManager.addRoomChangedInterface(myEngine.getRoomChangedHandler());

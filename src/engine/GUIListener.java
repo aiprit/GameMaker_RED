@@ -1,5 +1,7 @@
 package engine;
 
+import engine.events.IGUIHandler;
+
 /**
  * @author loganrooper
  */

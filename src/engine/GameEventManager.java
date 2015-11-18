@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+
+import engine.events.EventManager;
+import engine.events.IObjectModifiedHandler;
 import javafx.scene.input.InputEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;

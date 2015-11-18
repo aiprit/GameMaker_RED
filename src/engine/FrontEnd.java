@@ -3,6 +3,8 @@
  */
 package engine;
 
+import engine.events.EventManager;
+import engine.events.IRoomChangedHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
