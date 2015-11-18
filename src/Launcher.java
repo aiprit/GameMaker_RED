@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.events.KeyPressedEvent;
 
 public class Launcher extends Application {
 	EngineController ec;
@@ -42,11 +43,9 @@ public class Launcher extends Application {
 		RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 		
 		
-//		DataObject object = new DataObject("dog",10,10);
-//		object.addEvent(new KeyTypedEvent());
+//		DataObject object = new DataObject("dog");
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
-
 //
 //		primaryStage.setTitle("VOOGASalad Launcher");
 //		Button btn = new Button();
@@ -55,7 +54,7 @@ public class Launcher extends Application {
 //
 //			@Override
 //			public void handle(ActionEvent event) {
-//				view = new View(resources);
+//				view = new View();
 //				view.init();
 //			}
 //		});
