@@ -1,12 +1,17 @@
 package structures.data;
 
+
+import javafx.beans.InvalidationListener;
+import java.util.Observable;
+
 import java.util.ResourceBundle;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class DataGame {
+public class DataGame extends Observable {
 
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
@@ -18,7 +23,7 @@ public class DataGame {
     private double myScreenWidth;
     private double myScreenHeight;
     private String myGameDirectory;
-    private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+    private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
     
 
     public DataGame(String name, String gameDirectory) {
@@ -51,26 +56,30 @@ public class DataGame {
     }
     
     public String getSpriteDirectory() {
-    	return myGameDirectory + r.getString("spriteRelativeDirectory");
+    	return myGameDirectory + fileFormat.getString("RelativeSpriteDirectory");
     }
     public String getSoundDirectory() {
-    	return myGameDirectory + r.getString("soundsRelativeDirectory");
+    	return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
     public void addObject(DataObject o){
         myObjects.add(o);
+        update();
     }
 
     public void addSprite(DataSprite s){
         mySprites.add(s);
+        update();
     }
 
     public void addSound(DataSound s){
         mySounds.add(s);
+        update();
     }
 
    public void addRoom(DataRoom room){
        myRooms.add(room);
+       update();
    }
 
     public double getWidth() {
@@ -115,4 +124,8 @@ public class DataGame {
 
         return r.toString();
     }
+    private void update(){
+    	notifyObservers();
+    }
+	
 }

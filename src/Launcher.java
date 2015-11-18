@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 
 import engine.EngineController;
@@ -20,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.DataRoom;
 
 public class Launcher extends Application {
 	EngineController ec;
@@ -32,26 +34,21 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-//		TestObject test = new TestObject();
-//		DataObject myObject = test.getDataObject();
-//		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
-//		objectMap.put("Mario Object", myObject);
+		
+		/*TestObject test = new TestObject();
+		DataObject myObject = test.getDataObject();
+		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
+		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-//		RoomEditor room = new RoomEditor(resources, objectMap);
+		//RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 		
-		
-//		DataObject object = new DataObject("dog",10,10);
-//		object.addEvent(new KeyTypedEvent());
-//		ObjectGUI og = new ObjectGUI(object);
-//		og.init();
-
+		*/
 
 
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
 		btn.setText("Make/Edit Game");
 		btn.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				view = new View();
@@ -61,7 +58,6 @@ public class Launcher extends Application {
 		Button btn1 = new Button();
 		btn1.setText("Play Game");
 		btn1.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				try {
@@ -71,11 +67,9 @@ public class Launcher extends Application {
 				}
 			}
 		});
-
 		Pane root = new Pane();
 		HBox a = new HBox(5);
 		Insets pad = new Insets(10, 10, 10, 10);
-
 		a.setPadding(pad);
 		btn.setPadding(pad);
 		btn1.setPadding(pad);

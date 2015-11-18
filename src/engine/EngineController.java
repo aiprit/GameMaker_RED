@@ -9,6 +9,7 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
+import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
@@ -24,6 +25,7 @@ public class EngineController {
 	private IGamePlayHandler myPlayingHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
+	private GroovyLibrary myGroovyLibrary;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
@@ -36,6 +38,8 @@ public class EngineController {
 		myFrontEnd = new FrontEnd(stage, myGUIHandler, myEngine.getListener(), myRunningGame);
 		//starts the first room loop
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
+		myGroovyLibrary = new GroovyLibrary(myRunningGame);
+		myGroovyLibrary.setRoomChangedHandler(myFrontEnd);
 	}
 
 	public void init() throws ResourceFailedException {
@@ -60,7 +64,7 @@ public class EngineController {
 		//set myGame to the game that the user chooses
 		myEditor = new XMLEditor();
 		//myGame = myEditor.readXML(myName);
-		TestGameObject tgo = new TestGameObject();
+		TestGame2 tgo = new TestGame2();
 		myGame = tgo.getTestGame();
 		
 		//convert DataGame to a RunGame and pass that to the
