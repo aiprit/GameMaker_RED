@@ -80,6 +80,8 @@ public class DataSprite implements IResource {
 
 		//COMMENTED OUT IS ELIZABETH'S TESTING CODE - CAN REMOVE IN MASTER
 		String url =  myBaseFileName;
+
+		//String url =  myBaseFileName;
 		try {
 			myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));
 			//myImage = new Image(url);

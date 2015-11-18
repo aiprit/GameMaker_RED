@@ -78,10 +78,10 @@ public class RoomBackground extends Canvas {
 	
 	private void initializeView(ResourceBundle resources) {
 		DoubleProperty x = new SimpleDoubleProperty();
-		x.set(0);
 		DoubleProperty y = new SimpleDoubleProperty();
-		y.set(0);
-		myRoomView = new DraggableView(resources, x, y);
+		x.set(myController.getView().getView().x());
+		y.set(myController.getView().getView().y());
+		myRoomView = new DraggableView(myController.getView(), x, y);
 		drawView();
 	}
 	

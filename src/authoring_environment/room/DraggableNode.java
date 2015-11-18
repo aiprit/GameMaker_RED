@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 
+
 public abstract class DraggableNode {
 	private boolean draggable;
 	private DoubleProperty xCor;
@@ -41,21 +42,25 @@ public abstract class DraggableNode {
 	public double getX() {
 		return xCor.get();
 	}
+	
 	public boolean getDraggable() {
 		return draggable;
 	}
+	
 	public double getY() {
 		return yCor.get();
 	}
+	
 	public void setDraggable(boolean bool) {
 		draggable = bool;
 	}
+	
 	public void setX(double x) {
 		xCor.set(x);
 	}
+	
 	public void setY(double y) {
 		yCor.set(y);
 	}
-
 
 }
