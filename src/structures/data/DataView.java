@@ -6,7 +6,7 @@ import utils.Rectangle;
  * The View that determines what the camera paints on the screen
  * within a Room. Views are always bound to a specific Room, and
  * they must have a unique name within a Room.
- * 
+ * <p>
  * Use the access to the mutable Rectangle in .getRectangle()
  * to modify our coordinates.
  */
@@ -19,20 +19,21 @@ public class DataView {
         myName = name;
         myView = new Rectangle(x, y, width, height);
     }
+
     public DataView(String name, Rectangle rect) {
-    	myName = name;
-    	myView = rect;
+        myName = name;
+        myView = rect;
     }
 
     public String getName() {
         return myName;
     }
-    
+
     public Rectangle getView() {
-    	return myView;
+        return myView;
     }
-    
+
     public void setView(Rectangle rect) {
-    	myView = rect;
+        myView = rect;
     }
 }

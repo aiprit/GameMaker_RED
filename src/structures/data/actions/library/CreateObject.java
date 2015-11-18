@@ -22,7 +22,7 @@ public class CreateObject extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.create_object(%s, %f, %f);";
+		return "library.create_object('%s', %f, %f);";
 	}
 
 }
