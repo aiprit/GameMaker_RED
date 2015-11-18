@@ -61,6 +61,7 @@ public class DataObject{
 	}
 
 	public void addSprite(DataSprite s) {
+		mySprite = s;
 		// TODO Auto-generated method stub
 	}
 }

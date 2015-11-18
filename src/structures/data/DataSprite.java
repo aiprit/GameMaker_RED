@@ -13,6 +13,7 @@ public class DataSprite implements IResource {
 	private boolean myHaveLoaded;
 	
 	public DataSprite(String name, String baseFileName) {
+		myName = name;
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
 		myCenterX = 0.0;
