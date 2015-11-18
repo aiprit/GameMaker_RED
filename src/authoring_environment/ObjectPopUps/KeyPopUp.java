@@ -2,7 +2,7 @@ package authoring_environment.ObjectPopUps;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.EventPopup;
+import authoring_environment.main.EventPopup;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableMap;

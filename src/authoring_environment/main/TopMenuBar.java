@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.main;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,7 +21,7 @@ import javafx.util.Pair;
 public class TopMenuBar {
 
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	public void init(BorderPane bp, View myView){
+	public void init(BorderPane bp, MainController myView){
 		Button Load = new Button(r.getString("Load"));
 		Button Save = new Button(r.getString("Save"));
 		Button Edit = new Button(r.getString("EditView"));
@@ -34,7 +34,7 @@ public class TopMenuBar {
 		ToolBar toolBar = new ToolBar(Load, Save, Edit );
 		bp.setTop(toolBar);
 	}
-	private void addViewInput(View view){
+	private void addViewInput(MainController view){
 
 		 Dialog<Pair<String, String>> dialog = new Dialog<>();
 		 dialog.setTitle(r.getString("viewInputTitle"));
@@ -76,7 +76,7 @@ public class TopMenuBar {
 		     setViewSize(pair.getKey(),  pair.getValue(), view);
 		 });
 	}
-	private void setViewSize(String height, String width, View view) {
+	private void setViewSize(String height, String width, MainController view) {
 		boolean check = true;
 		try  
 		  {  
