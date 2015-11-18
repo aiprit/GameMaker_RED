@@ -29,18 +29,17 @@ public class ObjectBottomPane {
 		TextField nameBox = createTextBox(name,Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
 		HBox name = createHBox(nameLabel, nameBox, Integer.parseInt(r.getString("nameTranslate")));
 
-		Button b = new Button(r.getString("updateButtonTitle"));
-		b.setOnAction(e ->
-				update(nameBox.getText()));
 		Button save = new Button(r.getString("saveButtonTitle"));
 		save.setTranslateX(Integer.parseInt(r.getString("saveButtonTranslateX")));
-		save.setOnAction(e ->
-		myController.close(e));
+		save.setOnAction(e -> {
+			update(nameBox.getText());
+			myController.close(e);
+		});
 		Button cancel = new Button(r.getString("cancelButtonTitle"));
 		cancel.setTranslateX(Integer.parseInt(r.getString("cancelButtonTranslateX")));
 		cancel.setOnAction(e ->
 		myController.close(e));
-		root.getChildren().addAll(b,name, save, cancel);
+		root.getChildren().addAll(name, save, cancel);
 
 		return root;
 	}
