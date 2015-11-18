@@ -29,6 +29,7 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		primaryStage.setTitle("VOOGASalad Launcher");
 		
 		Button openBtn = new Button();

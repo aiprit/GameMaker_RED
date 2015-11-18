@@ -1,7 +1,7 @@
 /**
  * 
  */
-package engine;
+package engine.events;
 
 /**
  * @author loganrooper

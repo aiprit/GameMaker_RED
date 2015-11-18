@@ -1,6 +1,7 @@
 package structures.run;
 
 import engine.IDraw;
+import engine.events.EventManager;
 import exceptions.CompileTimeException;
 import javafx.scene.image.Image;
 import structures.data.DataSprite;
@@ -38,8 +39,16 @@ public class RunSprite implements IDrawable {
 	}
 
 	@Override
-	public void draw(IDraw drawInterface, RunView view, RunObject object) {
-		drawInterface.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
+	public void draw(IDraw drawListener, RunView view, RunObject object) {
+		drawListener.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
+	}
+	
+	public double getWidth() {
+		return myImage.getWidth();
+	}
+	
+	public double getHeight() {
+		return myImage.getHeight();
 	}
 	
 }

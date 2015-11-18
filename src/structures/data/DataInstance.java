@@ -3,18 +3,18 @@ package structures.data;
 import utils.Vector;
 
 public class DataInstance {
-	
+
     private double myX, myY;
 
     private long myID;
     private DataObject myParentObject;
     private boolean myVisible;
     private int myZIndex;
-    private double	myAngle,
-    				myAngularVelocity,
-    				myScaleX,
-    				myScaleY,
-    				myAlpha;
+    private double myAngle,
+            myAngularVelocity,
+            myScaleX,
+            myScaleY,
+            myAlpha;
     private Vector myVelocity;
 
     public DataInstance(DataObject parentObject, double x, double y) {
@@ -48,77 +48,85 @@ public class DataInstance {
     public DataObject getParentObject() {
         return myParentObject;
     }
-    
+
 
     public double[] getPosition() {
         return new double[]{myX, myY};
     }
+
     public double getX() {
-    	return myX;
+        return myX;
     }
+
     public double getY() {
-    	return myY;
+        return myY;
     }
-    
+
 
     public boolean isVisible() {
         return myVisible;
     }
+
     public void setVisible(boolean visible) {
         myVisible = visible;
     }
-    
-    
-    public void setVelocity(Vector velocity) {
-    	myVelocity = velocity;
-    }
+
     public Vector getVelocity() {
-    	return myVelocity;
+        return myVelocity;
     }
-    
+
+    public void setVelocity(Vector velocity) {
+        myVelocity = velocity;
+    }
 
     public double getAngle() {
         return myAngle;
     }
+
     public void setAngle(double angle) {
         myAngle = angle;
     }
-    
+
 
     public int getZIndex() {
         return myZIndex;
     }
+
     public void setZIndex(int zIndex) {
         myZIndex = zIndex;
     }
-    
+
 
     public double getAngularVelocity() {
         return myAngularVelocity;
     }
+
     public void setAngularVelocity(double angularVelocity) {
         myAngularVelocity = angularVelocity;
     }
-    
-    
+
+
     public double getScaleX() {
-    	return myScaleX;
+        return myScaleX;
     }
+
     public void setScaleX(double scaleX) {
-    	myScaleX = scaleX;
+        myScaleX = scaleX;
     }
-    
+
     public double getScaleY() {
-    	return myScaleY;
+        return myScaleY;
     }
+
     public void setScaleY(double scale) {
-    	myScaleY = scale;
+        myScaleY = scale;
     }
-    
+
 
     public double getAlpha() {
         return myAlpha;
     }
+
     public void setAlpha(double alpha) {
         myAlpha = alpha;
     }

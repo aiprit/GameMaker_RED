@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -60,9 +60,7 @@ public class MainController implements IUpdateHandle {
 
 	public void refreshViews() {
 		// Set mainView's views
-		Pane rightPane = new Pane();
-		rightPane.getChildren().addAll(spriteListView.getPane(), soundListView.getPane());
-		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), rightPane);
+		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), new RightView(spriteListView, soundListView).getPane());
 	}
 
 	public void update() {
