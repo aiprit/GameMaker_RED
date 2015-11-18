@@ -3,6 +3,8 @@ package authoring_environment.room;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -55,7 +57,6 @@ public class RoomEditor {
 	
 	public void createEditor() {
 		myEditor = new Stage();
-		//TODO populate the entire dialog
 		initializeEditor();
 		fillEditorWithComponents();
 		Scene scene = new Scene(myRoot);
@@ -67,7 +68,7 @@ public class RoomEditor {
 		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
 		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
-		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
+		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
 	}
 	
 	private void fillEditorWithComponents() {
@@ -92,7 +93,7 @@ public class RoomEditor {
 	}
 	
 	private void startObjectDrag(MouseEvent event) {
-		ObjectInstance objectInstance = myObjectsList.startObjectDragAndDrop(event);
+		PotentialObjectInstance objectInstance = myObjectsList.startObjectDragAndDrop(event);
 		ImageView spriteInstance = objectInstance.getImageView();
 		if (spriteInstance != null) {
 			myRoot.getChildren().add(spriteInstance);
@@ -100,24 +101,28 @@ public class RoomEditor {
 		}
 	}
 	
-	private void dragSpriteIntoPreview(ObjectInstance objectInstance) {
+	private void dragSpriteIntoPreview(PotentialObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
 		sprite.setOnMousePressed(e -> setUpDraggingBehavior(objectInstance));
 	}
 	
-	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
+	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance) {
 		ImageView sprite = objectInstance.getImageView();
 		sprite.setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
-	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
-		objectInstance.updateSpritePosition(e);
+	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
+		potentialObjectInstance.updateSpritePosition(e);
 		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
-		if (objectInstance.inRoomBounds()) {
+		if (potentialObjectInstance.inRoomBounds()) {
 			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
-			objectInstance.setDataInstancePosition(canvasPoint);
-			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
-			myRoot.getChildren().remove(objectInstance.getImageView());
+			DoubleProperty x = new SimpleDoubleProperty();
+			DoubleProperty y = new SimpleDoubleProperty();
+			x.set(canvasPoint.getX());
+			y.set(canvasPoint.getY());
+			ObjectInstance objectInstance = new ObjectInstance(potentialObjectInstance.getObject(), x, y);
+			myPreview.addImage(objectInstance, canvasPoint);
+			myRoot.getChildren().remove(potentialObjectInstance.getImageView());
 			myRoomController.addObject(objectInstance.getDataInstance());
 		} 
 	}

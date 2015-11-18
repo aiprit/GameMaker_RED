@@ -12,15 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-
-import java.util.ResourceBundle;
-
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 
 
 public class RoomBackground extends Canvas {
@@ -46,13 +37,13 @@ public class RoomBackground extends Canvas {
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
-	public void addNodeToMap(Image image, Point2D point) {
+	public void addNodeToMap(ObjectInstance objectInstance, Point2D point) {
 		DoubleProperty x = new SimpleDoubleProperty();
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(point.getX());
 		y.set(point.getY());
-		DraggableImage dragNode = new DraggableImage(image, x, y);
-		this.getGraphicsContext2D().drawImage(image, point.getX(), point.getY());
+		DraggableImage dragNode = new DraggableImage(objectInstance);
+		this.getGraphicsContext2D().drawImage(dragNode.getImage(), point.getX(), point.getY());
 		myObjectMap.put(dragNode, point);
 	}
 	

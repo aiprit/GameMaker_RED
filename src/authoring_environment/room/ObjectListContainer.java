@@ -36,11 +36,11 @@ public class ObjectListContainer extends VBox {
 		myObjectsList.setOnMousePressed(e -> f.accept(e));
 	}
 	
-	public ObjectInstance startObjectDragAndDrop(MouseEvent event) {
+	public PotentialObjectInstance startObjectDragAndDrop(MouseEvent event) {
 		int selectedIdx = myObjectsList.getSelectionModel().getSelectedIndex();
 		if (selectedIdx != -1) {
 			String objectName = myObjectsList.getObjectsList().get(selectedIdx);
-			ObjectInstance object = new ObjectInstance(myObjects.get(objectName));
+			PotentialObjectInstance object = new PotentialObjectInstance(myObjects.get(objectName));
 			object.updateSpritePosition(event);
 			myObjectsList.getSelectionModel().select(-1);
 			return object;

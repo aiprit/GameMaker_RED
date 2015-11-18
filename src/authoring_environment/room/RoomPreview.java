@@ -42,7 +42,7 @@ public class RoomPreview extends ScrollPane {
 		return myBackground.sceneToLocal(scenePoint);
 	}
 
-	public void addImage(Image element, Point2D canvasPoint) {
+	public void addImage(ObjectInstance element, Point2D canvasPoint) {
 		myBackground.addNodeToMap(element, canvasPoint);
 	}
 	

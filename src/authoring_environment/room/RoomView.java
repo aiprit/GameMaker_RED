@@ -9,10 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class RoomView {
-	private static final String VIEW_WIDTH = "ViewWidth";
-	private static final String VIEW_HEIGHT = "ViewHeight";
-	
-	private ResourceBundle myResources;
 	private DataView myDataView;
 	private DoubleProperty myWidth;
 	private DoubleProperty myHeight;
@@ -48,16 +44,6 @@ public class RoomView {
 	
 	public double getY() {
 		return myY.get();
-	}
-	
-	private void initializeDoublePropertyValues(DoubleProperty x, DoubleProperty y) {
-		myWidth = new SimpleDoubleProperty();
-		myWidth.set(Double.parseDouble(myResources.getString(VIEW_WIDTH)));
-		myHeight = new SimpleDoubleProperty();
-		myHeight.set(Double.parseDouble(myResources.getString(VIEW_HEIGHT)));
-		myX = x;
-		myY = y;
-		addListeners();
 	}
 	
 	private void addListeners() {

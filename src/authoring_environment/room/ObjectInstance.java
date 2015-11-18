@@ -1,8 +1,9 @@
 package authoring_environment.room;
 
-import javafx.geometry.Point2D;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 
@@ -11,11 +12,24 @@ public class ObjectInstance {
 	private ImageView myImage;
 	private DataInstance myInstance;
 	private DataObject myObject;
+	private DoubleProperty myX;
+	private DoubleProperty myY;
 	
-	public ObjectInstance(DataObject object) {
+	public ObjectInstance(DataObject object, DoubleProperty x, DoubleProperty y) {
 		myObject = object;
 		myImage = new ImageView(myObject.getSprite().getImage());
-		myInstance = new DataInstance(object, 0, 0);
+		myX = x;
+		myY = y;
+		addListeners();
+		myInstance = new DataInstance(object, x.get(), y.get());
+	}
+	
+	public DoubleProperty getXProperty() {
+		return myX;
+	}
+	
+	public DoubleProperty getYProperty() {
+		return myY;
 	}
 	
 	public DataInstance getDataInstance() {
@@ -34,25 +48,24 @@ public class ObjectInstance {
 		return myImage;
 	}
 	
-	public void setDataInstancePosition(Point2D position) {
-		myInstance.setPosition(position.getX(), position.getY());
+	private void addListeners() {
+		myX.addListener(dataInstanceListener());
+		myY.addListener(dataInstanceListener());
 	}
 	
-	public void updateSpritePosition(MouseEvent event) {
-		double x = event.getSceneX() - myImage.getImage().getWidth()/2;
-		double y = event.getSceneY() - myImage.getImage().getHeight()/2;
-		myImage.setX(x);
-		myImage.setY(y);
+	private ChangeListener<? super Number> dataInstanceListener() {
+		ChangeListener<? super Number> listener = new ChangeListener<Number>() {
+			
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				updateDataInstancePosition();
+			}
+		};
+		return listener;
 	}
 	
-	//TODO logic needs to be fixed here
-	public boolean inRoomBounds() {		
-		double roomRightBound = 662 - myImage.getImage().getWidth()/2;
-		double roomLeftBound = myImage.getImage().getWidth()/2 + 1;
-		double roomUpperBound = myImage.getImage().getHeight()/2;
-		double roomLowerBound = 622 - myImage.getImage().getHeight()/2;
-		return myImage.getX() > roomLeftBound && myImage.getX() < roomRightBound && 
-				myImage.getY() > roomUpperBound && myImage.getY() < roomLowerBound;
+	private void updateDataInstancePosition() {
+		myInstance.setPosition(myX.get(), myY.get());
 	}
 
 }
