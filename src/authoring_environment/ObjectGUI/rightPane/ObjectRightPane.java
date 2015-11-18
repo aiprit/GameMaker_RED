@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import authoring_environment.EventPopup;
 import authoring_environment.ObjectGUI.ObjectController;
+<<<<<<< HEAD
+import authoring_environment.main.EventPopup;
+=======
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+>>>>>>> authoring_environment
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
