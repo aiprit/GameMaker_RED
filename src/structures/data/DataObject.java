@@ -1,5 +1,6 @@
 package structures.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class DataObject{
 
 	private String myName;
 	private DataSprite mySprite;
-
+	private ArrayList<DataSprite> mySprites = new ArrayList<DataSprite>();
 	private int myZIndex;
 
 	public DataObject(String name) {
@@ -64,7 +65,11 @@ public class DataObject{
 	}
 
 	public void addSprite(DataSprite s) {
+<<<<<<< HEAD
 		mySprite = s;
+=======
+		mySprites.add(s);
+>>>>>>> refs/remotes/origin/Nick
 	}
 }
 
