@@ -9,17 +9,18 @@ public class Engine implements IRoomChangedHandler {
 
 	private RunGame myOriginalGame;
 	private RunGame myGame;
-	private IGamePlayHandler myListener;
 	private RoomLoop myLevel;
 	private EventManager myEventManager;
 	private IGUIHandler myGUIHandler;
+	private IGamePlayHandler myGameplayHandler;
 
 	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
-		myGUIHandler = new GUIHandler(this, false, new SavedGameHandler(myGame.getName()));
+		//SavedGameHandler thisIsBroken = new SavedGameHandler(myGame.getName());
+		myGUIHandler = new GUIListener(this, false, null);
+		myGameplayHandler = new GamePlayListener();
 		myOriginalGame = runGame;
 		myEventManager = eventManager;
-		myListener = new GamePlayListener();
 		runLevel();
 	}
 
@@ -45,7 +46,7 @@ public class Engine implements IRoomChangedHandler {
 	}
 	
 	public void runLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener, myEventManager);
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager);
 		myLevel.start();
 	}
 	
@@ -53,12 +54,12 @@ public class Engine implements IRoomChangedHandler {
 		return myGUIHandler;
 	}
 	
-	public IRoomChangedHandler getRoomChangedHandler(){
-		return this;
+	public IGamePlayHandler getGamePlayHandler(){
+		return myGameplayHandler;
 	}
 	
-	public IGamePlayHandler getListener(){
-		return myListener;
+	public IRoomChangedHandler getRoomChangedHandler(){
+		return this;
 	}
 
 	public void pause() {

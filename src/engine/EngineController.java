@@ -29,7 +29,7 @@ public class EngineController {
 		RunGame runGame = readObject(gameChoice, eventManager);
 		
 		myEngine = new Engine(runGame, eventManager);
-		myFrontEnd = new FrontEnd(stage, eventManager, myEngine.getListener(), runGame);
+		myFrontEnd = new FrontEnd(runGame, eventManager, stage);
 		
 		//starts the first room loop
 		myGroovyLibrary = new GroovyLibrary(runGame);
@@ -91,5 +91,6 @@ public class EngineController {
 		eventManager.setGUIInterface(myEngine.getGUIHandler());
 		eventManager.addRoomChangedInterface(myFrontEnd.getRoomChangedHandler());
 		eventManager.addRoomChangedInterface(myEngine.getRoomChangedHandler());
+		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
 	}
 }
