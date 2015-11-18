@@ -13,6 +13,10 @@ import structures.data.events.IDataEvent;
 import utils.Point;
 import utils.Vector;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class RunObject {
 	
 	public double x;
@@ -43,7 +47,7 @@ public class RunObject {
 		this.visible = true;
 		this.alpha = 1.0;
 		myInstanceId = 0L;
-		myEvents = new HashMap<IDataEvent, RunAction>();
+		myEvents = new HashMap<>();
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -72,7 +76,7 @@ public class RunObject {
 		clone.mySprite = this.mySprite;
 		
 		// This is OK because both IDataEvents and RunActions are immutable
-		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
+		clone.myEvents = new HashMap<>(myEvents);
 		return clone;
 	}
 	
