@@ -31,6 +31,7 @@ public class EngineController {
 		
 		myEngine = new Engine(runGame, eventManager);
 		myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 		
 		//starts the first room loop
 		myGroovyLibrary = new GroovyLibrary(runGame);
