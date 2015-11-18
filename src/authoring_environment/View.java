@@ -69,6 +69,8 @@ public class View implements Observer{
 	private ResourceBundle myResourceBundle;
 	private ObservableList<DataRoom> myLevels;
 	private ObservableList<DataObject> myObjects;
+	private ObservableList<DataSprite> mySprites;
+	private ObservableList<DataSound> mySounds;
 	private static String GAME_NAME = "GameAuthorTitle";
 	private Stage myStage;
 	private Group myRoot;
@@ -96,7 +98,7 @@ public class View implements Observer{
 		//myGame = new DataGame(DEFAULT_NAME);
 		
 		
-		myController = new Controller();
+		myController = new Controller(this);
 		myStage = new Stage();
 		myRoot = new Group();
 		myResourceBundle = resources;
@@ -109,7 +111,7 @@ public class View implements Observer{
 	public void init(){
 		BorderPane bp = new BorderPane();
 
-		myObjectListView.init(bp, myStage, myResourceBundle);
+		myObjectListView.init(myController.getObjects(),bp, myStage, myResourceBundle);
 		myRoomListView.init(bp, myStage, myResourceBundle);
 		myTopToolBar.init(bp, myResourceBundle, this);
 		myRightWindowView.init(bp, myResourceBundle, new VBox());
@@ -129,21 +131,32 @@ public class View implements Observer{
 		ViewWidth = width;
 	}
 
-	private void updateObjectList(){
+	private void updateObjectList(BorderPane bp){
 		myObjects = myController.getObjects();
-		myObjectListView.update(myObjects);
+		myObjectListView.update(myObjects, bp, myStage, myResourceBundle);
 	}
-	private void updateRoomCanvas(){
+	private void updateRoomCanvas(BorderPane bp){
 		myLevels = myController.getRooms();
-		myRoomListView.update(myLevels);
+		myRoomListView.update(myLevels, bp, myStage, myResourceBundle);
 	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		updateObjectList();
-		updateRoomCanvas();
+		BorderPane bp = new BorderPane();
+		updateObjectList(bp);
+		updateRoomCanvas(bp);
+		updateRightWindow(bp);
 		
 	}
+	private void updateRightWindow(BorderPane bp) {
+		
+		mySprites = myController.getSprites();
+		mySounds =  myController.getSounds();
+		
+	}
+	
+
 	
 
 }
