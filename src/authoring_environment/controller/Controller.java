@@ -26,9 +26,9 @@ public class Controller {
 
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	
-	public Controller(){
+	public Controller(View view){
 		myGame = new DataGame(r.getString("GameTitle") , r.getString("FileTitle"));
-
+		myView = view;
 	}
 
 	public void addObject(){
