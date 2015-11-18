@@ -2,7 +2,7 @@ package authoring_environment.ObjectPopUps;
 
 import java.util.List;
 
-import authoring_environment.EventPopup;
+import authoring_environment.Event.EventController;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import structures.data.DataObject;
@@ -20,8 +20,7 @@ public class GameEndPopUp extends BasicPopUp{
 
 	@Override
 	public void eventPopup() {
-		EventPopup p = new EventPopup();
-		p.popup(new GameEndEvent(),myObject);
+		EventController p = new EventController(new GameEndEvent(),myObject);
 
 	}
 

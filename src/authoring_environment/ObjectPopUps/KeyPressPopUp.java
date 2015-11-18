@@ -1,6 +1,6 @@
 package authoring_environment.ObjectPopUps;
 
-import authoring_environment.EventPopup;
+import authoring_environment.Event.EventController;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -24,8 +24,7 @@ public class KeyPressPopUp extends KeyPopUp {
 			nullAlert();
 		}
 		else{
-			EventPopup p = new EventPopup();
-			p.popup(new KeyPressedEvent(key),myObject);
+			EventController p = new EventController(new KeyPressedEvent(key),myObject);
 
 		}
 	}

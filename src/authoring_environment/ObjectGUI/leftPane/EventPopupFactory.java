@@ -25,7 +25,7 @@ import structures.data.events.IDataEvent;
 
 public class EventPopupFactory {
 	PopUp kp;
-	public void create(String event,DataObject obj, ObjectController controller) {
+	public void create(String event,DataObject obj, ObservableList<DataObject> list) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
@@ -33,7 +33,7 @@ public class EventPopupFactory {
 			kp = new GameEndPopUp(obj);
 		}
 		if (event.equalsIgnoreCase("Collision Event")) {
-			kp = new CollisionPopUp(controller);
+			kp = new CollisionPopUp(list);
 		}
 		if (event.equalsIgnoreCase("On Game Start Event")) {
 			kp = new GameStartPopUp(obj);

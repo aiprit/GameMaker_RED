@@ -3,18 +3,15 @@ package authoring_environment.ObjectPopUps;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import authoring_environment.EventPopup;
-import authoring_environment.ObjectGUI.ObjectController;
+import authoring_environment.Event.EventController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.DataObject;
@@ -22,15 +19,18 @@ import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
 
-public class CollisionPopUp implements PopUp{
-	private ObjectController myController;
+public class CollisionPopUp extends BasicPopUp{
 	private Group myRoot;
 	private Stage myStage;
 	private Scene myScene;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/CollisionResources");
+	private ObservableList<DataObject> myList;
+	ListView<DataObject> listview;
+	private DataObject selectedObject;
+	public CollisionPopUp(DataObject data, ObservableList<DataObject> list) {
+		super(data);
+		myList = list;
 
-	public CollisionPopUp(ObjectController controller) {
-		myController = controller;
 	}
 
 	public void init() {
@@ -40,13 +40,12 @@ public class CollisionPopUp implements PopUp{
 		Text title = new Text(r.getString("objects"));
 		Button b = new Button(r.getString("ok"));
 
-		ListView<DataObject> listview = new ListView<DataObject>();
+		listview = new ListView<DataObject>();
 		ObservableList<DataObject>list = FXCollections.observableList(new ArrayList<DataObject>());
-		list.addAll(myController.getObjects());
+		list.addAll(myList);
 		listview.setItems(list);
 		listview.setTranslateY(8);
-
-		b.setOnAction(e -> eventPopup(listview));
+		b.setOnAction(e -> { select(e);close(e);});
 		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
@@ -54,13 +53,14 @@ public class CollisionPopUp implements PopUp{
 
 	}
 
-	public void eventPopup(ListView<DataObject> listview) {
-		EventPopup p = new EventPopup();
-		p.popup(new CollisionEvent(listview.getSelectionModel().getSelectedItem()), myController.getObject());
-	}
 
+	private void select(ActionEvent e) {
+		selectedObject = listview.getSelectionModel().getSelectedItem();
+	}
 
 	@Override
 	public void eventPopup() {
+		EventController p = new EventController(new CollisionEvent(selectedObject),myObject);
 	}
+
 }
