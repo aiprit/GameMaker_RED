@@ -35,7 +35,7 @@ public class RoomEditor {
 	/**
 	 * for TESTING purposes
 	 */
-	public RoomEditor(ResourceBundle resources, Map<String, DataObject> objects) {
+	public RoomEditor() {
 		myResources = resources;
 		myRoot = new Group();
 		myObjects = objects;

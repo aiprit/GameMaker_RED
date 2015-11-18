@@ -9,9 +9,12 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
+import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
+import structures.run.RunObject;
+import utils.GameSelector;
 
 public class EngineController {
 	private DataGame myGame;
@@ -23,6 +26,7 @@ public class EngineController {
 	private IGamePlayHandler myPlayingHandler;
 	private Boolean paused;
 	private SavedGameHandler savedGames;
+	private GroovyLibrary myGroovyLibrary;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		init();
@@ -35,32 +39,12 @@ public class EngineController {
 		myFrontEnd = new FrontEnd(stage, myGUIHandler, myEngine.getListener(), myRunningGame);
 		//starts the first room loop
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
+		myGroovyLibrary = new GroovyLibrary(myRunningGame);
+		myGroovyLibrary.setRoomChangedHandler(myFrontEnd);
 	}
 
 	public void init() throws ResourceFailedException {
-		String myName;
-		List<String> choices = addGamesFromDirectory();
-		
-
-		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
-		dialog.setTitle("Select a Game");
-		dialog.setHeaderText("Select a Game");
-		dialog.setContentText("Choose a game:");
-
-		// Traditional way to get the response value.
-		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()) {
-			myName = result.get();
-		} else {
-			// handle this case
-			throw new ResourceFailedException("Gamefile missing.");
-		}
-		
-		//set myGame to the game that the user chooses
-		myEditor = new XMLEditor();
-		//myGame = myEditor.readXML(myName);
-		TestGameObject tgo = new TestGameObject();
-		myGame = tgo.getTestGame();
+		myGame = GameSelector.getGameChoice();
 		
 		//convert DataGame to a RunGame and pass that to the
 		//engine in the constructor
@@ -70,14 +54,7 @@ public class EngineController {
 			e.printStackTrace();
 		}
 		
+		//myRunningGame.getCurrentRoom().getObjects();
 		myEngine = new Engine(myRunningGame);
-	}
-
-	private List<String> addGamesFromDirectory() {
-		List<String> choices =  new ArrayList<String>();
-		for (final File fileEntry : new File("Games/").listFiles()) {
-			choices.add(fileEntry.getName());
-		}
-		return choices;
 	}
 }

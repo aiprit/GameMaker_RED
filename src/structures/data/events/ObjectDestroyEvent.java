@@ -6,5 +6,9 @@ public class ObjectDestroyEvent extends AbstractBasicEvent {
 	public String getName() {
 		return "Object Destroyed";
 	}
+	@Override
+    public String toString(){
+    	return this.getName();
+    }
 
 }
