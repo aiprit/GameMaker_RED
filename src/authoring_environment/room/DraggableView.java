@@ -1,15 +1,15 @@
 package authoring_environment.room;
 
-import java.util.ResourceBundle;
 
 import javafx.beans.property.DoubleProperty;
+import structures.data.DataView;
 
 public class DraggableView extends DraggableNode {
-	RoomView myView;
-
-	public DraggableView(ResourceBundle resources, DoubleProperty x, DoubleProperty y) {
+	private RoomView myView;
+	
+	public DraggableView(DataView view, DoubleProperty x, DoubleProperty y) {
 		super(x, y);
-		myView = new RoomView(resources, x, y);
+		myView = new RoomView(view, x, y);
 	}
 
 	@Override
@@ -23,6 +23,10 @@ public class DraggableView extends DraggableNode {
 	
 	public double getHeight() {
 		return myView.getHeight();
+	}
+	
+	public DataView getDataView() {
+		return myView.getDataView();
 	}
 
 }

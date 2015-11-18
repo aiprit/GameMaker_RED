@@ -19,11 +19,19 @@ public class RoomView {
 	private DoubleProperty myX;
 	private DoubleProperty myY;
 	
-	public RoomView(ResourceBundle resources, DoubleProperty x, DoubleProperty y) {
-		myResources = resources;
-		initializeDoublePropertyValues(x, y);
-		myDataView = new DataView("View", myWidth.getValue(), myHeight.getValue(), 
-				myX.getValue(), myY.getValue());
+	public RoomView(DataView view, DoubleProperty x, DoubleProperty y) {
+		myDataView = view;
+		myWidth = new SimpleDoubleProperty();
+		myHeight = new SimpleDoubleProperty();
+		myWidth.set(myDataView.getView().width());
+		myHeight.set(myDataView.getView().height());
+		myX = x;
+		myY = y;
+		addListeners();
+	}
+	
+	public DataView getDataView() {
+		return myDataView;
 	}
 	
 	public double getWidth() {
@@ -49,6 +57,10 @@ public class RoomView {
 		myHeight.set(Double.parseDouble(myResources.getString(VIEW_HEIGHT)));
 		myX = x;
 		myY = y;
+		addListeners();
+	}
+	
+	private void addListeners() {
 		myWidth.addListener(dataViewListener());
 		myHeight.addListener(dataViewListener());
 		myX.addListener(dataViewListener());

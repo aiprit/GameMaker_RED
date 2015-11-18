@@ -2,6 +2,7 @@ package authoring_environment.room;
 
 import structures.data.DataInstance;
 import structures.data.DataRoom;
+import structures.data.DataView;
 
 
 public class RoomController {
@@ -25,5 +26,13 @@ public class RoomController {
 	
 	public void setSize(double width, double height) {
 		myRoom.setSize(width, height);
+	}
+	
+	public void setView(DataView view) {
+		myRoom.setView(view);
+	}
+	
+	public DataView getView() {
+		return myRoom.getView();
 	}
 }
