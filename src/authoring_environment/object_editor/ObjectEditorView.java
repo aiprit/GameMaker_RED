@@ -20,6 +20,8 @@ public class ObjectEditorView {
 	ObjectEditorViewBottomPane bottom;
 	ObjectEditorViewRightPane right;
 	ObjectEditorViewCenterPane center;
+	ObjectEditorViewLeftPane left;
+	ObjectEditorViewTopPane top;
 	BorderPane bp;
 	
 	public ObjectEditorView() {
@@ -34,13 +36,31 @@ public class ObjectEditorView {
 		bottom = new ObjectEditorViewBottomPane();
 		right = new ObjectEditorViewRightPane();
 		center = new ObjectEditorViewCenterPane();
+		left = new ObjectEditorViewLeftPane();
+		top = new ObjectEditorViewTopPane();
 		myPane.setBottom(bottom.init());
 		myPane.setRight(right.init());
 		myPane.setCenter(center.init());
+		myPane.setLeft(left.init());
+		myPane.setTop(top.init());
 		myRoot.getChildren().add(myPane);
 		myStage.setScene(new Scene(myRoot));
 		myStage.show();
 	}
 	
-
+	public ObjectEditorViewBottomPane getBottomPane() {
+		return bottom;
+	}
+	public ObjectEditorViewLeftPane getLeftPane() {
+		return left;
+	}
+	public ObjectEditorViewCenterPane getCenterPane() {
+		return center;
+	}
+	public ObjectEditorViewRightPane getRightPane() {
+		return right;
+	}
+	public ObjectEditorViewTopPane getTopPane() {
+		return top;
+	}
 }
