@@ -91,7 +91,7 @@ public class View implements Observer{
 		//myGame = new DataGame(DEFAULT_NAME);
 		
 		
-		myController = new Controller();
+		myController = new Controller(this);
 		myStage = new Stage();
 		myRoot = new Group();
 		myObjectListView = new ObjectListWindow();
@@ -105,9 +105,9 @@ public class View implements Observer{
 
 
 		myObjectListView.init(myController.getObjects(), myController.getSprites(), bp, myStage, myResourceBundle);
-		myRoomListView.init(bp, myStage);
+		myRoomListView.init(myController.getRooms(),bp, myStage);
 		myTopToolBar.init(bp, this);
-		myRightWindowView.init(bp, new VBox());
+		myRightWindowView.init(bp, new VBox(), myController.getSounds(), myController.getSprites());
 
 
 		int width = Integer.parseInt(myResourceBundle.getString("ViewWidth"));
@@ -131,7 +131,7 @@ public class View implements Observer{
 	}
 	private void updateRoomCanvas(BorderPane bp){
 		myLevels = myController.getRooms();
-		myRoomListView.update(myLevels, bp, myStage, myResourceBundle);
+		myRoomListView.update(myLevels, bp, myStage);
 	}
 	
 	@Override
@@ -147,7 +147,7 @@ public class View implements Observer{
 		
 		mySprites = myController.getSprites();
 		mySounds =  myController.getSounds();
-		
+		myRightWindowView.update(bp, new VBox(), mySounds, mySprites);
 	}
 	
 
