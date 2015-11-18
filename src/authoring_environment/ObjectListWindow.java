@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import structures.data.DataGame;
 import structures.data.DataObject;
 
 public class ObjectListWindow {
@@ -31,7 +32,8 @@ public class ObjectListWindow {
 			public void handle(ActionEvent event){			 
 				Stage myStage = new Stage();
 				DataObject object = new DataObject("dog");
-				ObjectController c = new ObjectController(object, null, myStage);
+				DataGame game = new DataGame(null, null);
+				ObjectController c = new ObjectController(object, game, myStage);
 
 				ObjectGUI og = new ObjectGUI(c);
 				og.init();

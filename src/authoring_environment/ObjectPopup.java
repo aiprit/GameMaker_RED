@@ -12,7 +12,7 @@ public class ObjectPopup {
 
 	public void popup(DataObject data, DataGame game) {
 		Stage dialog = new Stage();
-		ObjectController controller = new ObjectController(data, game,dialog);
+		ObjectController controller = new ObjectController(data, game.getObjects(),game.getSprites(),dialog);
         ObjectGUI gui = new ObjectGUI(controller);
 	}
 }

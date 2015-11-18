@@ -17,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import structures.data.DataObject;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
@@ -30,7 +31,6 @@ public class CollisionPopUp implements PopUp{
 
 	public CollisionPopUp(ObjectController controller) {
 		myController = controller;
-		init();
 	}
 
 	public void init() {
@@ -38,21 +38,24 @@ public class CollisionPopUp implements PopUp{
 		myStage = new Stage();
 		myStage.setTitle(r.getString("title"));
 		Text title = new Text(r.getString("objects"));
+		Button b = new Button(r.getString("ok"));
+		
 		ListView<IDataEvent> listview = new ListView<IDataEvent>();
 		ObservableList<IDataEvent>list = FXCollections.observableList(new ArrayList<IDataEvent>());
 		list.addAll(myController.getEvents().keySet());
 		listview.setItems(list);
 		listview.setTranslateY(8);
-		myRoot.getChildren().add(listview);
+		
+		b.setOnAction(e -> eventPopup(listview));
+		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
 		myStage.show();
 		
 	}
-
-	@Override
-	public void eventPopup() {
-		if (myController.getName().equals(listview.getSelectionModel().getSelectedItem().getName())) {
+	
+	public void eventPopup(ListView<IDataEvent> list) {
+		if (myController.getName().equals(list.getSelectionModel().getSelectedItem().getName())) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Object can't collide with itself!");
@@ -61,10 +64,13 @@ public class CollisionPopUp implements PopUp{
 		}
 		else {
 			EventPopup p = new EventPopup();
-			p.popup(new CollisionEvent(myController.getObjects().get(listview.getSelectionModel().getSelectedItem())), myController.getEvents());
+			p.popup(new CollisionEvent(myController.getObjects().get(list.getSelectionModel().getSelectedIndex())), myController.getEvents());
 			myStage.close();
 		}
 		
 	}
 
+	@Override
+	public void eventPopup() {
+	}
 }

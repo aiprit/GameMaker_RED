@@ -41,7 +41,7 @@ public class Launcher extends Application {
 		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
 		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		RoomEditor room = new RoomEditor(resources, objectMap);
+		//RoomEditor room = new RoomEditor(resources, objectMap);
 		
 		
 		//		DataObject object = new DataObject("dog",10,10);

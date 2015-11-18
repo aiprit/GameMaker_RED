@@ -31,7 +31,6 @@ public abstract class KeyPopUp implements PopUp{
 	protected ObservableMap myMap;
 	public KeyPopUp(ObservableMap m){
 		myRoot = new Group();
-		init();
 		keyPress = " ";
 		myMap = m;
 	}
