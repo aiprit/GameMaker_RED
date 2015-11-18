@@ -1,18 +1,17 @@
 
 package authoring_environment.main;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-
-import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.DataSound;
+import structures.data.DataSprite;
 
 public class MainController {
 
@@ -27,7 +26,8 @@ public class MainController {
 	private MainView mainView;
 	private ObjectListWindow objectListWindow;
 	private RoomListView roomListView;
-	private RightWindowView rightWindowView;
+	private SpriteListView spriteListView;
+	private SoundListView soundListView;
 	private TopMenuBar topMenuBar;
 
 	public MainController(Stage myStage) {
@@ -36,16 +36,18 @@ public class MainController {
 		objectListWindow = new ObjectListWindow();
 		roomListView = new RoomListView();
 		topMenuBar = new TopMenuBar();
-		rightWindowView = new RightWindowView();
+		spriteListView = new SpriteListView();
+		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		init();
+		update();
 	}
 
-	public void init() {
-		myStage.setTitle("Authoring Environment - Editing: "+dataGame.getName());
+	public void update() {
+		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
-		objectListWindow.init();
 
+		// Object List
+		objectListWindow.init();
 		// Add objects to objectList
 		for (DataObject o : dataGame.getObjects()) {
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
@@ -67,18 +69,81 @@ public class MainController {
 			}
 		});
 
+		// Room List
 		roomListView.init();
 		for (DataRoom o : dataGame.getRooms()) {
 			roomListView.addRoom(o).setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
-					//TODO: @ankit - use the RoomData object o here and open your Room Editor (edit room)
+					// TODO: @ankit - use the RoomData object o here and open
+					// your Room Editor (edit room)
 				}
 			});
 		}
-		// topMenuBar.init();
-		// rightWindowView.init();
 
+		roomListView.addPlusButton().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO: @ankit - open your Room Editor (new room)
+			}
+		});
+
+		// Right Pane: Sprites and Sounds
+		// Sprites Pane
+		spriteListView.init();
+
+		// Add sprites to list
+		for (DataSprite o : dataGame.getSprites()) {
+			spriteListView.addSprite(o).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO: @steve call the sprite editor here (edit sprite o)
+				}
+			});
+		}
+
+		// Add plus
+		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO: @steve call the sprite editor here (new sprite)
+			}
+		});
+
+		// Sound Pane
+		soundListView.init();
+
+		// Add sounds to list
+		for (DataSound o : dataGame.getSounds()) {
+			soundListView.addSound(o).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO: @steve call the sound editor here (edit sound o)
+				}
+			});
+		}
+
+		// Add plus
+		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO: @steve call the sound editor here (new sound)
+			}
+		});
+
+		// TopMenuBar
+		topMenuBar.init();
+		topMenuBar.getEditMenu().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				//TODO: handle edit event
+				System.out.println("Clicked Edit");
+			}
+		});
+		mainView.setMenuBar(topMenuBar.getMenu());
+		
 		// Set mainView's views
-		mainView.setPanes(objectListWindow.getPane());
+		Pane rightPane = new Pane();
+		rightPane.getChildren().addAll(spriteListView.getPane(), soundListView.getPane());
+		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), rightPane);
 	}
 }
