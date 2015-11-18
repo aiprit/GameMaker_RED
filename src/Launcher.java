@@ -1,7 +1,9 @@
-
+import authoring_environment.TestObject;
 import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.RoomEditor;
@@ -19,9 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 
-/**
- * @author loganrooper
- */
 public class Launcher extends Application {
 	EngineController ec;
 	View view;
@@ -33,10 +32,20 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		//		DataObject object = new DataObject("dog",10,10);
-		//		object.addEvent(new KeyTypedEvent());
-		//		ObjectGUI og = new ObjectGUI(object);
-		//		og.init();
+//		TestObject test = new TestObject();
+//		DataObject myObject = test.getDataObject();
+//		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
+//		objectMap.put("Mario Object", myObject);
+		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
+//		RoomEditor room = new RoomEditor(resources, objectMap);
+		
+		
+//		DataObject object = new DataObject("dog",10,10);
+//		object.addEvent(new KeyTypedEvent());
+//		ObjectGUI og = new ObjectGUI(object);
+//		og.init();
+
+
 
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
@@ -45,7 +54,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				view = new View();
+				view = new View(resources);
 				view.init();
 			}
 		});

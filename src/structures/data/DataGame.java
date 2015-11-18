@@ -86,6 +86,12 @@ public class DataGame {
     	return myObjects;
     }
 
+    public ObservableList<DataSound> getSounds() {
+    	return mySounds;
+    }
+
+    @Override
+
     public String toString() {
         StringBuilder r = new StringBuilder();
         r.append(myName + "\n");
