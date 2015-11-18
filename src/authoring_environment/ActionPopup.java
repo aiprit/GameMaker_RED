@@ -1,7 +1,7 @@
 package authoring_environment;
 
 import authoring_environment.Action.GUI.ActionGUI;
-import authoring_environment.Event.GUI.EventGUI;
+import authoring_environment.EventGUI.EventGUI;
 import javafx.stage.Stage;
 
 public class ActionPopup {

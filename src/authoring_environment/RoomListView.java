@@ -17,8 +17,13 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class RoomListView {
+
 	
-	public void init(BorderPane bp, Stage s, ResourceBundle resources){
+//	public void init(BorderPane bp, Stage s, ResourceBundle resources){
+	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	private RoomEditor RoomEditor;
+	public void init(BorderPane bp, Stage s){
+
 		GridPane RoomView = new GridPane();
 		RoomView.setVgap(10);
 		RoomView.setHgap(20);
@@ -29,7 +34,8 @@ public class RoomListView {
 			@Override
 			public void handle(ActionEvent event){
 				final Stage dialog = new Stage();
-				RoomEditor editor = new RoomEditor(resources, roomObjects);
+				ResourceBundle r = ResourceBundle.getBundle("resources/RoomResources");
+				RoomEditor editor = new RoomEditor(r, roomObjects);
 			}
 		});
 

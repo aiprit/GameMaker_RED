@@ -1,7 +1,6 @@
 package authoring_environment;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
@@ -21,18 +20,42 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.DataSprite;
 
 public class ObjectListWindow {
+
 	private static String NEW_ITEM = "MakeNewItem";
 	private static String EDIT_ITEM = "EditItem";
 	private static String OBJECT_TITLE = "ObjectListTitle";
-	public void init(ObservableList<DataObject> newList, BorderPane bp, Stage s, ResourceBundle resources){
-		update(newList, bp, s, resources);
+	public void init(ObservableList<DataObject> newObjects, ObservableList<DataSprite> newSprites, BorderPane bp, Stage s, ResourceBundle resources){
+		update(newObjects, newSprites, bp, s, resources);
 		
 	}
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+//	public void init(BorderPane bp, Stage s){
+//		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event){			 
+//				Stage myStage = new Stage();
+//				DataObject object = new DataObject("dog");
+//				ObjectController c = new ObjectController(object,  myStage);
+//
+//				ObjectGUI og = new ObjectGUI(c);
+//				og.init();
+//
+//
+//			}
+//		};
+//
+//		ListView<HBox> listView = makeHBox(sButtonClick, 1, r.getString("MakeNewItem"), r.getString("ObjectListTitle"));
+//
+//		bp.setLeft(listView);
+//>>>>>>> 2062fea3d02538dc7f929387ef0eca04904bf61b
+//	}
 
-	public void update(ObservableList<DataObject> newList, BorderPane bp, Stage s, ResourceBundle resources){
+	public void update(ObservableList<DataObject> newObjects, ObservableList<DataSprite> newSprites, BorderPane bp, Stage s, ResourceBundle resources){
 		//ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
 		
 		ArrayList<HBox> list = new ArrayList<HBox>();
@@ -40,9 +63,10 @@ public class ObjectListWindow {
 		Label headerLabel = new Label("Object");
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
-		for(int i = 0; i <newList.size(); i++){
+
+		for(int i = 0; i <newObjects.size(); i++){
 			Button edit = new Button("EDIT");
-			Label label = new Label(newList.get(i).getName());
+			Label label = new Label(newObjects.get(i).getName());
 			
 			HBox hbox = new HBox();
 			final int j  = i;
@@ -51,9 +75,9 @@ public class ObjectListWindow {
 			EventHandler<ActionEvent> objectClick = new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event){		
-						
-						DataObject object = newList.get(j);
-						ObjectController c = new ObjectController(object, null);
+						final Stage s = new Stage();
+						DataObject object = newObjects.get(j);
+						ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
 						ObjectGUI og = new ObjectGUI(c);
 						og.init();
@@ -64,6 +88,21 @@ public class ObjectListWindow {
 			edit.setOnAction(objectClick);
 			hbox.getChildren().addAll(label, edit);
             list.add(hbox);
+//=======
+//		for (int i = 0; i < n; i++) {
+//			// list.add(new HBoxCell("Item " + i, "Button " + i));
+//			Button plus = new Button(" + ");
+//			plus.setOnAction(e);
+//			Label label = new Label(name);
+//			HBox hbox = new HBox();
+//
+//			label.setMaxWidth(Double.MAX_VALUE);
+//			HBox.setHgrow(label, Priority.ALWAYS);
+//
+//			hbox.getChildren().addAll(label, plus);
+//			list.add(hbox);
+//>>>>>>> 2062fea3d02538dc7f929387ef0eca04904bf61b
+//		}
 		}
 		Button plus = new Button(" + ");
 		Label label = new Label("New");
@@ -75,7 +114,7 @@ public class ObjectListWindow {
 			public void handle(ActionEvent event){		
 					
 					DataObject object = new DataObject("Dog");
-					ObjectController c = new ObjectController(object, null);
+					ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
 					ObjectGUI og = new ObjectGUI(c);
 					og.init();
@@ -90,6 +129,12 @@ public class ObjectListWindow {
 		ListView<HBox> listView = new ListView<HBox>();
 		ObservableList<HBox> myObservableList = FXCollections.observableList(list);
 		listView.setItems(myObservableList);
+
 		bp.setLeft(listView);
+
+		//return listView;
+	}
+	public void update(ObservableList<DataObject> newList){
+
 	}
 }

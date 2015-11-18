@@ -1,7 +1,6 @@
 package authoring_environment;
 
 
-import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,9 +14,7 @@ public class ViewTester extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		String file = "resources/EnvironmentGUIResources";
-		ResourceBundle resources = ResourceBundle.getBundle(file);
-		View environment = new View(resources);
+		View environment = new View();
 		environment.init();
 	}
 }

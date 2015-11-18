@@ -66,12 +66,14 @@ import structures.data.*;
 
 public class View implements Observer{
 
-	private ResourceBundle myResourceBundle;
+	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private ObservableList<DataRoom> myLevels;
 	private ObservableList<DataObject> myObjects;
+
 	private ObservableList<DataSprite> mySprites;
 	private ObservableList<DataSound> mySounds;
 	private static String GAME_NAME = "GameAuthorTitle";
+
 	private Stage myStage;
 	private Group myRoot;
 	private Controller myController;
@@ -82,26 +84,16 @@ public class View implements Observer{
 	private RoomListView myRoomListView;
 	private RightWindowView myRightWindowView;
 	private TopMenuBar myTopToolBar;
-	private static String WIDTH = "ViewWidth";
-	private static String HEIGHT = "ViewHeight";
-	private static String OBJECT_TITLE = "ObjectListTitle";
-	private static String SPRITE_TITLE = "SpritesListTitle";
-	private static String SOUND_TITLE = "SoundsListTitle";
-	private static String LOAD = "Load";
-	private static String SAVE = "Save";
-	private static String NEW_ITEM = "MakeNewItem";
-	private static String EDIT_ITEM = "EditItem";
 
 
 
-	public View(ResourceBundle resources){
+	public View(){
 		//myGame = new DataGame(DEFAULT_NAME);
 		
 		
-		myController = new Controller(this);
+		myController = new Controller();
 		myStage = new Stage();
 		myRoot = new Group();
-		myResourceBundle = resources;
 		myObjectListView = new ObjectListWindow();
 		myRoomListView = new RoomListView();
 		myTopToolBar = new TopMenuBar();
@@ -111,13 +103,15 @@ public class View implements Observer{
 	public void init(){
 		BorderPane bp = new BorderPane();
 
-		myObjectListView.init(myController.getObjects(),bp, myStage, myResourceBundle);
-		myRoomListView.init(bp, myStage, myResourceBundle);
-		myTopToolBar.init(bp, myResourceBundle, this);
-		myRightWindowView.init(bp, myResourceBundle, new VBox());
-		
-		int width = Integer.parseInt(myResourceBundle.getString(WIDTH));
-		int height = Integer.parseInt(myResourceBundle.getString(HEIGHT));
+
+		myObjectListView.init(myController.getObjects(), myController.getSprites(), bp, myStage, myResourceBundle);
+		myRoomListView.init(bp, myStage);
+		myTopToolBar.init(bp, this);
+		myRightWindowView.init(bp, new VBox());
+
+
+		int width = Integer.parseInt(myResourceBundle.getString("ViewWidth"));
+		int height = Integer.parseInt(myResourceBundle.getString("ViewHeight"));
 		Scene s = new Scene(bp, width, height, Color.WHITE);
 		myStage.setScene(s);
 		myStage.show();
@@ -133,7 +127,7 @@ public class View implements Observer{
 
 	private void updateObjectList(BorderPane bp){
 		myObjects = myController.getObjects();
-		myObjectListView.update(myObjects, bp, myStage, myResourceBundle);
+		myObjectListView.update(myObjects,mySprites, bp, myStage, myResourceBundle);
 	}
 	private void updateRoomCanvas(BorderPane bp){
 		myLevels = myController.getRooms();

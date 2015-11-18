@@ -1,11 +1,10 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring_environment.Event.EventController;
 import authoring_environment.ObjectGUI.ObjectController;
 import authoring_environment.ObjectGUI.leftPane.ObjectLeftPane;
 import authoring_environment.ObjectGUI.rightPane.ObjectRightPane;
@@ -25,11 +24,10 @@ public class EventGUI {
 	private Group myRoot;
 	private EventController myController;
 	private ObservableList actionList;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
-	public EventGUI(EventController event,Stage stage){
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
+	public EventGUI(EventController event){
 
 		myRoot = new Group();
-		myStage = stage;
 		myController = event;
 		try{
 			actionList =FXCollections.observableList(myController.getActions());
@@ -43,13 +41,13 @@ public class EventGUI {
 	}
 
 	public void init() {
-
+		myStage = new Stage();
 		myStage.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
-		EventBottomPane bottom = new EventBottomPane();
+		EventBottomPane bottom = new EventBottomPane(myController);
 		EventTopPane top = new EventTopPane();
 		EventRightPane right = new EventRightPane(myController);
-		EventLeftPane left = new EventLeftPane();
+		EventLeftPane left = new EventLeftPane(myController,right);
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.init());

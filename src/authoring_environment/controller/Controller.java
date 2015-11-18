@@ -2,8 +2,11 @@ package authoring_environment.controller;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+
 import java.util.Observable;
 import java.util.Observer;
+
+import java.util.ResourceBundle;
 
 import authoring_environment.View;
 import javafx.collections.ListChangeListener;
@@ -16,11 +19,16 @@ import structures.data.DataSprite;
 
 public class Controller {
 	private DataGame myGame;
+
 	private View myView;
 	
-	public Controller(View view){
-		myGame = new DataGame("GAME" , "file");
-		myView = view;
+	
+
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	
+	public Controller(){
+		myGame = new DataGame(r.getString("GameTitle") , r.getString("FileTitle"));
+
 	}
 
 	public void addObject(){
