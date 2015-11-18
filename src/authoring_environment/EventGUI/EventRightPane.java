@@ -66,6 +66,7 @@ public class EventRightPane {
 
 		actionList.add(e);
 		list.add(e.getTitle());
+		myController.saveActions(actionList);
 	}
 
 

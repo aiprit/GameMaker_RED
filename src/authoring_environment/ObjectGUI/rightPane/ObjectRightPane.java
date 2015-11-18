@@ -42,6 +42,8 @@ public class ObjectRightPane {
 	public Group init() {
 		Group root = new Group();
 		Text title = new Text(r.getString("text"));
+
+
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
 		ListView<String> listview = new ListView<String>();
 		for(IDataEvent key: map.keySet()){
@@ -49,19 +51,24 @@ public class ObjectRightPane {
 		}
 		listview.setItems(list);
 		listview.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));
+
+
 		Button b = new Button(r.getString("delete"));
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
-
 		b.setAlignment(Pos.BOTTOM_RIGHT);
 		b.setOnAction(e ->
 		delete(listview.getSelectionModel().getSelectedItem()));
+
+
 		Button edit = new Button(r.getString("edit"));
 		edit.setAlignment(Pos.BOTTOM_RIGHT);
 		edit.setTranslateY(Integer.parseInt(r.getString("buttonTranslateYedit")));
 		edit.setTranslateX(Integer.parseInt(r.getString("buttonTranslateXedit")));
 		edit.setOnAction(e ->
 		eventPopup(listview.getSelectionModel().getSelectedItem()));
+
+
 		root.getChildren().addAll(title,listview,b,edit);
 		return root;
 	}
@@ -74,7 +81,7 @@ public class ObjectRightPane {
 			}
 		}
 		EventPopup p = new EventPopup();
-		p.popup(event,myController.getEvents());
+		p.popup(event,myController.getObject());
 
 	}
 
@@ -89,4 +96,10 @@ public class ObjectRightPane {
 		map.remove(event);
 		list.remove(e);
 	}
+	public void add(IDataEvent e,List<IAction> alist){
+
+		map.put(e,alist);
+		list.add(e.getName());
+	}
+
 }

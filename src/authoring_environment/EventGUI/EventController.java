@@ -15,17 +15,18 @@ import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class EventController {
-	IDataEvent myEvent;
-	Stage myStage;
-	ObservableMap<IDataEvent, List<IAction>> map;
-	public EventController(IDataEvent e,Stage st, ObservableMap<IDataEvent, List<IAction>> m){
+	private IDataEvent myEvent;
+	private ObservableMap<IDataEvent, List<IAction>> map;
+	private List<IAction> alist;
+	private DataObject myObject;
+	public EventController(IDataEvent e, DataObject obj){
 		myEvent = e;
-		myStage = st;
-		map =m;
+		myObject = obj;
 	}
 
 
 	public List<IAction> getActions() {
+		map = myObject.getEvents();
 		if(map.containsKey(myEvent))
 			return map.get(myEvent);
 		return new ArrayList<IAction>();
@@ -38,4 +39,12 @@ public class EventController {
 		 stage.close();
 	}
 
+	public void save(){
+		myObject.bindEvent(myEvent,alist);
+	}
+
+
+	public void saveActions(List<IAction> l) {
+		alist= l;
+	}
 }

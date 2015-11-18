@@ -68,8 +68,8 @@ public class EventLeftPane {
 			c = Class.forName("structures.data.actions.library." +className);
 			try {
 				act = (IAction) c.getDeclaredConstructor().newInstance();
-				String fieldname = act.getTitle();
-				System.out.println(fieldname);
+//				String fieldname = act.getTitle();
+//				System.out.println(fieldname);
 				myRight.add(act);
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block

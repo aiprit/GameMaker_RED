@@ -4,27 +4,24 @@ import java.util.List;
 
 import authoring_environment.EventPopup;
 import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
+import structures.data.DataObject;
 import structures.data.actions.IAction;
 import structures.data.events.GameEndEvent;
 import structures.data.events.IDataEvent;
 
-public class GameEndPopUp implements PopUp{
-	private ObservableMap<IDataEvent,List<IAction>> myMap;
+public class GameEndPopUp extends BasicPopUp{
 
-	public GameEndPopUp(ObservableMap<IDataEvent,List<IAction>> m){
-		myMap = m;
-	}
 
-	@Override
-	public void init() {
-		eventPopup();
-
+	public GameEndPopUp(DataObject obj) {
+		super(obj);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void eventPopup() {
 		EventPopup p = new EventPopup();
-		p.popup(new GameEndEvent(),myMap);
+		p.popup(new GameEndEvent(),myObject);
 
 	}
 
