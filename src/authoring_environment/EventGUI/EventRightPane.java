@@ -16,8 +16,7 @@ import structures.data.events.IDataEvent;
 
 public class EventRightPane {
 
-	private List<IAction> actionList;
-	ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
+	private ObservableList<IAction> actionList;
 	private EventController myController;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	public EventRightPane(EventController controller) {
@@ -35,12 +34,9 @@ public class EventRightPane {
 		Group root = new Group();
 		Text title = new Text(r.getString("RightPane"));
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
-		ListView<String> listview = new ListView<String>();
+		ListView<IAction> listview = new ListView<IAction>();
 		actionList = myController.getActions();
-		for(IAction key: actionList){
-			list.add(key.getTitle());
-		}
-		listview.setItems(list);
+		listview.setItems(actionList);
 		Button b = new Button("Delete");
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
@@ -51,21 +47,13 @@ public class EventRightPane {
 		delete(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
-	public void delete(String e){
-		IAction event = null;
-		for(IAction key: actionList){
-			if(key.getTitle().equals(e)){
-				event = key;
-				break;
-			}
-		}
-		actionList.remove(event);
-		list.remove(e);
+	public void delete(IAction e){
+		actionList.remove(e);
+
 	}
 	public void add(IAction e){
 
 		actionList.add(e);
-		list.add(e.getTitle());
 		myController.saveActions(actionList);
 	}
 

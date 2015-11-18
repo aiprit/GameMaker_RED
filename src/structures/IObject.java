@@ -2,6 +2,7 @@ package structures;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataSprite;
 import structures.data.actions.IAction;
@@ -9,7 +10,7 @@ import structures.data.events.IDataEvent;
 
 public interface IObject {
 
-	void bindEvent(IDataEvent event, List<IAction> actions);
+	void bindEvent(IDataEvent event, ObservableList<IAction> actions);
 
 	void addSprite(DataSprite s);
 
@@ -23,7 +24,7 @@ public interface IObject {
 
 	void setName(String name);
 
-	ObservableMap<IDataEvent, List<IAction>> getEvents();
+	ObservableMap<IDataEvent, ObservableList<IAction>> getEvents();
 
 	int getZIndex();
 

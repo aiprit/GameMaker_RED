@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.IObject;
 import structures.data.actions.IAction;
@@ -13,7 +14,7 @@ import structures.data.events.IDataEvent;
 
 public class DataObject implements IObject {
 
-	private ObservableMap<IDataEvent, List<IAction>> myEvents;
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
 
 	private String myName;
 	private DataSprite mySprite;
@@ -36,7 +37,7 @@ public class DataObject implements IObject {
 	}
 
 	@Override
-	public void bindEvent(IDataEvent event, List<IAction> actions) {
+	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
 		myEvents.put(event, actions);
 	}
 	@Override
@@ -44,7 +45,7 @@ public class DataObject implements IObject {
 		myEvents.remove(e);
 	}
 	@Override
-	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getEvents(){
 		return myEvents;
 	}
 

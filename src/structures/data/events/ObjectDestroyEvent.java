@@ -3,7 +3,7 @@ package structures.data.events;
 public class ObjectDestroyEvent extends AbstractBasicEvent {
 
 	@Override
-	public String getName() {
+	public String toString() {
 		return "Object Destroyed";
 	}
 

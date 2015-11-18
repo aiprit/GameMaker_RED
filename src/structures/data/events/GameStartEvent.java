@@ -3,7 +3,7 @@ package structures.data.events;
 public class GameStartEvent extends AbstractBasicEvent {
 
 	@Override
-	public String getName() {
+	public String toString() {
 		return "Game Start";
 	}
 
