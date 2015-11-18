@@ -2,7 +2,6 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -62,7 +61,6 @@ public class DataObject{
 
 	public void addSprite(DataSprite s) {
 		mySprite = s;
-		// TODO Auto-generated method stub
 	}
 }
 
