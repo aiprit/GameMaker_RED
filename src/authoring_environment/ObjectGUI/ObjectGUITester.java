@@ -33,17 +33,17 @@ public class ObjectGUITester extends Application{
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
-		game.addObject(object);
-		game.addObject(object2);
-		Stage cc = new Stage();
-		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
-
 		DataSprite sprite = new DataSprite("Luigi.png", "");
 		DataSprite sprite2 = new DataSprite("black.png", "");
 		object.addSprite(sprite);
 		object.addSprite(sprite2);
 		object.setSprite(sprite);
 		object2.setSprite(sprite2);
+		game.addObject(object);
+		game.addObject(object2);
+		Stage cc = new Stage();
+		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
+
 		ObjectGUI og = new ObjectGUI(ct);
 		og.init();
 	}

@@ -54,7 +54,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				view = new View(resources);
+				view = new View();
 				view.init();
 			}
 		});

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -16,7 +17,7 @@ public class DataObject{
 
 	private String myName;
 	private DataSprite mySprite;
-
+	private ObservableList<DataSprite> mySprites;
 	private int myZIndex;
 
 	public DataObject(String name) {
@@ -61,8 +62,7 @@ public class DataObject{
 	}
 
 	public void addSprite(DataSprite s) {
-		mySprite = s;
-		// TODO Auto-generated method stub
+		mySprites.add(s);
 	}
 }
 

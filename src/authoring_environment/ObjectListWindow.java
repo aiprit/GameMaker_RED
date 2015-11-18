@@ -25,7 +25,7 @@ import structures.data.DataObject;
 
 public class ObjectListWindow {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	public void init(BorderPane bp, Stage s){
+	public void init(BorderPane bp, DataGame game){
 		EventHandler<ActionEvent> sButtonClick = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){			 

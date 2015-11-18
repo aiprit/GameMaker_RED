@@ -20,11 +20,13 @@ public class ObjectSpriteMenu {
 
 	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/topPane/TopPaneResources");
 	ObservableList<DataSprite> mySprites;
-	public Menu makeMenu(ObservableList<DataSprite> sprites) {
+	ObjectController myController;
+	public Menu makeMenu(ObjectController controller, ObservableList<DataSprite> sprites) {
 		Menu image = new Menu(r.getString("imageTitle"));
 		try{
-		mySprites = sprites;
-		addMenuItem(image,mySprites);
+			mySprites = sprites;
+			System.out.println(mySprites.toString());
+			addMenuItem(image,mySprites);
 		}
 		catch(NullPointerException e){
 
@@ -39,12 +41,9 @@ public class ObjectSpriteMenu {
 			menu.getItems().add(m);
 			m.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent t) {
-					loadimage(m.getText());
+					myController.getObject().setSprite(str);
 				}
 			});
 		}
-	}
-	private void loadimage(String spritename){
-
 	}
 }
