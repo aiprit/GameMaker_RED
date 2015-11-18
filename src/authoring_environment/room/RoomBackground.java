@@ -22,6 +22,7 @@ public class RoomBackground extends Canvas {
 	private Color myColor;
 	private Image myImage;
 	private String myImageFileName;
+	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
 	private ResourceBundle myResources;
 	private DraggableView myRoomView;
