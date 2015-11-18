@@ -42,4 +42,12 @@ public class RunSprite implements IDrawable {
 		drawInterface.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
 	}
 	
+	public double getWidth() {
+		return myImage.getWidth();
+	}
+	
+	public double getHeight() {
+		return myImage.getHeight();
+	}
+	
 }

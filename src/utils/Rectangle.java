@@ -128,6 +128,10 @@ public class Rectangle implements IRectangle {
 		return angle;
 	}
 	
+	public void angle(double angle) {
+		this.angle = angle;
+	}
+	
 	@Override
 	public Rectangle clone() {
 		Rectangle rect = new Rectangle(x, y, width, height);
