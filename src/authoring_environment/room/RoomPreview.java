@@ -2,29 +2,52 @@ package authoring_environment.room;
 
 import java.util.ResourceBundle;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
+
 import javafx.scene.control.ScrollPane;
+
+import javafx.scene.image.*;
+
 
 public class RoomPreview extends ScrollPane {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
 	
-	private Group myRoot;
+	private RoomBackground myBackground;
 	
-	public RoomPreview(ResourceBundle resources) {
+	public RoomPreview(ResourceBundle resources, RoomController controller) {
 		super();
-		super.setMinHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
-		super.setMinWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
-		myRoot = new Group();
+		initializePreview(resources);
+		myBackground = new RoomBackground(resources, controller);
+		super.setContent(myBackground);
 	}
 	
-	public void addNode(Node element) {
-		myRoot.getChildren().add(element);
+	private void initializePreview(ResourceBundle resources) {
+		super.setPrefHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
+		super.setPrefWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 	}
 	
-	public void removeNode(Node element) {
-		myRoot.getChildren().remove(element);
+	public RoomBackground getRoomBackground() {
+		return myBackground;
 	}
+
+	public void setRoomBackground(RoomBackground myBackground) {
+		this.myBackground = myBackground;
+	}
+	
+	public Point2D translateSceneCoordinates(Point2D scenePoint) {
+		return myBackground.sceneToLocal(scenePoint);
+	}
+
+	public void addImage(Image element, Point2D canvasPoint) {
+		myBackground.addNodeToMap(element, canvasPoint);
+	}
+	
+//	public void removeNode(Node element) {
+//		myRoot.getChildren().remove(element);
+//	}
 
 }

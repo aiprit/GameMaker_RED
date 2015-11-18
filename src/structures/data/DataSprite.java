@@ -69,7 +69,6 @@ public class DataSprite implements IResource {
 		return myCenterY;
 	}
 	
-	
 	@Override
 	public boolean loaded() {
 		return myHaveLoaded;
@@ -77,14 +76,12 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load(String directory) throws ResourceFailedException {
-		String url = directory + myBaseFileName;
-		url = url.substring(url.indexOf("/Games/") + 6);
+		String url =  directory + myBaseFileName;
 		try {
-			myImage = new Image(url);
-			//myImage = new Image(this.getClass().getClassLoader().getResource("coin.png").getPath());
+			myImage = new Image(getClass().getClassLoader().getResourceAsStream(url));
 		} catch (Exception ex) {
-			String message = String.format("Failed to load image '%s' for DataSprite", "stupid");
-			throw new ResourceFailedException(message);
+			String message = "Failed to load image '%s' for DataSprite '%s'";
+			throw new ResourceFailedException(message, url, myName);
 		}
 		myHaveLoaded = true;
 	}

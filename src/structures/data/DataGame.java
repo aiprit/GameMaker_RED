@@ -1,10 +1,14 @@
 package structures.data;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Observable;
+import java.util.ResourceBundle;
 
-public class DataGame {
+
+public class DataGame extends Observable {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
@@ -14,6 +18,7 @@ public class DataGame {
     ObservableList<DataSound> mySounds;
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
+    private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
 
     public DataGame(String name, String gameDirectory) {
         myName = name;
@@ -36,8 +41,12 @@ public class DataGame {
         return myRooms.get(myStartRoom);
     }
 
+    public void setStartRoom(int index) {
+        myStartRoom = index;
+    }
+
     public void setStartRoom(DataRoom room) {
-        if(myRooms.contains(room)){
+        if (myRooms.contains(room)) {
             myStartRoom = myRooms.indexOf(room);
         }
     }
@@ -46,42 +55,42 @@ public class DataGame {
         return myRooms.get(myCurrentRoom);
     }
 
+    public void setCurrentRoom(int index) {
+        myCurrentRoom = index;
+    }
+
     public void setCurrentRoom(DataRoom room) {
-        if(myRooms.contains(room)){
+        if (myRooms.contains(room)) {
             myCurrentRoom = myRooms.indexOf(room);
         }
     }
 
-    public void setCurrentRoom(int index){
-        myCurrentRoom = index;
-    }
-
-    public void setStartRoom(int index){
-        myStartRoom = index;
-    }
-
     public String getSpriteDirectory() {
-        return myGameDirectory + SPRITE_REL_DIRECTORY;
+        return myGameDirectory + fileFormat.getString("RelativeSpriteDirectory");
     }
 
     public String getSoundDirectory() {
-        return myGameDirectory + SOUND_REL_DIRECTORY;
+        return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
     public void addObject(DataObject o) {
         myObjects.add(o);
+        update();
     }
 
     public void addSprite(DataSprite s) {
         mySprites.add(s);
+        update();
     }
 
     public void addSound(DataSound s) {
         mySounds.add(s);
+        update();
     }
 
     public void addRoom(DataRoom room) {
         myRooms.add(room);
+        update();
     }
 
     public ObservableList<DataSprite> getSprites() {
@@ -92,6 +101,11 @@ public class DataGame {
         return myObjects;
     }
 
+    public ObservableList<DataSound> getSounds() {
+        return mySounds;
+    }
+
+    @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
         r.append("Game title: " + myName + "\n");
@@ -132,4 +146,9 @@ public class DataGame {
 
         return r.toString();
     }
+
+    private void update() {
+        notifyObservers();
+    }
+
 }

@@ -44,11 +44,6 @@ public class Engine {
 		myLevel.start();
 	}
 	
-	public void advanceLevel(){
-		myGame.setCurrentRoom(myGame.getCurrentRoomNumber() + 1);
-		runLevel();
-	}
-	
 	public IGamePlayHandler getListener(){
 		return myListener;
 	}

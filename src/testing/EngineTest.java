@@ -1,7 +1,8 @@
 /*
 package testing;
-import static org.junit.*;
-import org.junit.*;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.*; 
 import exceptions.ParameterParseException;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
