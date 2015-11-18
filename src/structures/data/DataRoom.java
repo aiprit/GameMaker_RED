@@ -37,7 +37,7 @@ public class DataRoom{
     }
 
     public void setSize(double width, double height) {
-
+    	myWidth = width; myHeight = height;
     }
 
     public String getBackgroundColor(){

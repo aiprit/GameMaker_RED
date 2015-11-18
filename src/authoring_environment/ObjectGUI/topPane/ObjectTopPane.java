@@ -9,25 +9,25 @@ public class ObjectTopPane {
 	MenuBar menu = new MenuBar();
 	Group root;
 	private ObjectController myController;
-	
+
 	public ObjectTopPane(ObjectController controller) {
 		myController = controller;
 	}
 
 	public Group init() {
-		root = new Group();		
-		
+		root = new Group();
+
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();
 		Menu spriteMenu = sprite.makeMenu(myController.getSprites());
-		
-		ObjectVisibleMenu visible = new ObjectVisibleMenu();
-		Menu visibleMenu = visible.makeMenu(myController);
-		
-		ObjectEventMenu event = new ObjectEventMenu();
-		Menu eventMenu = event.makeMenu();
-		
-		menu.getMenus().addAll(spriteMenu, visibleMenu, eventMenu);
-		
+
+//		ObjectVisibleMenu visible = new ObjectVisibleMenu();
+//		Menu visibleMenu = visible.makeMenu(myController);
+
+//		ObjectEventMenu event = new ObjectEventMenu();
+//		Menu eventMenu = event.makeMenu();
+
+//		menu.getMenus().addAll(spriteMenu, visibleMenu, eventMenu);
+		menu.getMenus().addAll(spriteMenu);
 		root.getChildren().add(menu);
 		return root;
 

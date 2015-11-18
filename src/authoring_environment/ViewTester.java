@@ -1,6 +1,7 @@
 package authoring_environment;
 
 
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
