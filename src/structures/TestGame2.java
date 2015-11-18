@@ -24,15 +24,7 @@ import structures.data.events.KeyPressedEvent;
     The win screen is a static screen with a background image.
  */
 
-public class TestGameObject {
-
-    public static void main(String[] args){
-        TestGameObject testGameObject = new TestGameObject();
-
-        DataGame printGame = testGameObject.getTestGame();
-
-        System.out.println(printGame.toString());
-    }
+public class TestGame2 {
 
     /*
      Events are not associated with actions, they will be when
@@ -40,17 +32,17 @@ public class TestGameObject {
      */
 
     public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game", "TestGame/");
+        DataGame testGame = new DataGame("Test Game 2", "TestGame2/");
 
-        DataObject coin = new DataObject("Coin");
+        DataObject wall = new DataObject("Wall");
 
-        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
-        coin.setSprite(coinSprite);
+        DataSprite wallSprite = new DataSprite("Wall", "beaten_brick_tiled.png");
+        wall.setSprite(wallSprite);
 
-        DataObject player = new DataObject("Player");
+        DataObject mario = new DataObject("Mario");
 
-        DataSprite playerSprite = new DataSprite("Square", "square.png");
-        player.setSprite(playerSprite);
+        DataSprite marioSprite = new DataSprite("Mario", "mario.png");
+        mario.setSprite(marioSprite);
         
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
@@ -72,16 +64,9 @@ public class TestGameObject {
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
 
-        player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
-        player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
         //player.addEvent(new CollisionEvent(coin));
-
-        DataObject startScreenBackground = new DataObject("StartScreenBackground");
-
-        DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
-        startScreenBackground.setSprite(startScreenSprite);
-
-        KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
 
         //startScreenBackground.addEvent(startScreenChange);
 
@@ -90,31 +75,20 @@ public class TestGameObject {
         DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
         winScreenBackground.setSprite(winScreenSprite);
 
-        DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
-        startScreen.setBackgroundColor("#FFFFFF");
-
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
-        level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
-        level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
+        level1.addObjectInstance(new DataInstance(wall, 0, 100));
+        level1.addObjectInstance(new DataInstance(wall, 64, 100));
+        level1.addObjectInstance(new DataInstance(wall, 128, 100));
+        level1.addObjectInstance(new DataInstance(mario, 140, 20));
 
-        DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
-        winScreen.setBackgroundColor("#FFFFFF");
 
+        testGame.addObject(mario);
+        testGame.addObject(wall);
 
-        testGame.addObject(coin);
-        testGame.addObject(player);
-        testGame.addObject(startScreenBackground);
-        testGame.addObject(winScreenBackground);
+        testGame.addSprite(wallSprite);
+        testGame.addSprite(marioSprite);
 
-        testGame.addSprite(coinSprite);
-        testGame.addSprite(playerSprite);
-        testGame.addSprite(startScreenSprite);
-        testGame.addSprite(winScreenSprite);
-
-        testGame.addRoom(startScreen);
         testGame.addRoom(level1);
-        testGame.addRoom(winScreen);
-
         testGame.setStartRoom(level1);
 
         return testGame;

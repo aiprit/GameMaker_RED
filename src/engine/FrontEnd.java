@@ -19,11 +19,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import structures.run.RunGame;
+import structures.run.RunRoom;
 
 /**
  * @author loganrooper
  */
-public class FrontEnd {
+public class FrontEnd implements IRoomChangedHandler {
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private RunGame myGame;
@@ -32,6 +33,7 @@ public class FrontEnd {
 	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
+	private Scene playScene;
 	
 	public FrontEnd(Stage stage, IGUIHandler guiHandler, IGamePlayHandler listener, RunGame game) {
 		this.guiHandler = guiHandler;
@@ -45,7 +47,7 @@ public class FrontEnd {
 	private void setupFramework(){
 		myGame = game;
 		myRoot = new Group();
-		Scene playScene = new Scene(myRoot, 400, 400);
+		playScene = new Scene(myRoot, 400, 400);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
@@ -110,5 +112,11 @@ public class FrontEnd {
 	
 	public IDraw getDrawListener(){
 		return myCanvasDrawer;
+	}
+
+	@Override
+	public void onRoomChanged(RunRoom runRoom) {
+		stage.setWidth(runRoom.getView().getView().width());
+		stage.setHeight(runRoom.getView().getView().height());
 	}
 }

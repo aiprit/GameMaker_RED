@@ -76,16 +76,14 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load(String directory) throws ResourceFailedException {
-		//String url = directory + myBaseFileName;
-		//String url =  myBaseFileName;
+		String url = directory + myBaseFileName;
 		try {
-			myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));
+			myImage = new Image(getClass().getClassLoader().getResourceAsStream(url));
 			//myImage = new Image(url);
 		} catch (Exception ex) {
 			//String message = String.format("Failed to load image '%s' for DataSprite", url);
-			throw new ResourceFailedException("Elizabeth's testing code");
-			//String message = "Failed to load image '%s' for DataSprite '%s'";
-			//throw new ResourceFailedException(message, url, myName);
+			String message = "Failed to load image '%s' for DataSprite '%s'";
+			throw new ResourceFailedException(message, url, myName);
 		}
 		myHaveLoaded = true;
 	}
