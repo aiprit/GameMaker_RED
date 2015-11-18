@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
-import authoring_environment.main.EventPopup;
+//import authoring_environment.main.EventPopup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
