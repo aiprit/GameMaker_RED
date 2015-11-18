@@ -16,6 +16,20 @@ public class CollisionManager {
 		myCollider = new RectangleCollider();
 	}
 	
+	public void addToCollideables(RunObject obj) {
+		if (!myCollideables.containsKey(obj.name)) {
+			myCollideables.put(obj.name, new ArrayList<RunObject>());
+		}
+		myCollideables.get(obj.name).add(obj);
+	}
+	
+	public void removeFromCollideables(RunObject obj) {
+		List<RunObject> list = myCollideables.get(obj.name);
+		if (list != null) {
+			list.remove(obj);
+		}
+	}
+	
 	public List<Pair<RunObject>> detectCollisions(String name1, String name2) {
 		List<Pair<RunObject>> collisions = new ArrayList<>();
 		
