@@ -9,7 +9,9 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
+import utils.IRectangle;
 import utils.Point;
+import utils.Rectangle;
 import utils.Vector;
 
 public class RunObject {
@@ -30,6 +32,8 @@ public class RunObject {
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
 	
+	private Rectangle myBounds;
+	
 	public RunObject(String name) {
 		this.name = name;
 		this.x = 0.0;
@@ -42,7 +46,9 @@ public class RunObject {
 		this.visible = true;
 		this.alpha = 1.0;
 		myInstanceId = 0L;
-		myEvents = new HashMap<>();
+		myEvents = new HashMap<IDataEvent, RunAction>();
+		
+		myBounds = new Rectangle(0, 0, 0, 0);
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -51,6 +57,9 @@ public class RunObject {
 	
 	protected void setSprite(RunSprite sprite) {
 		mySprite = sprite;
+		myBounds.width(mySprite.getWidth() * scaleX);
+		myBounds.height(mySprite.getHeight() * scaleY);
+		myBounds.center(mySprite.centerX, mySprite.centerY);
 	}
 	
 	protected void setInstanceId(long id) {
@@ -58,6 +67,12 @@ public class RunObject {
 	}
 	protected long getInstanceId() {
 		return myInstanceId;
+	}
+	
+	public IRectangle getBounds() {
+		myBounds.move(x, y);
+		myBounds.angle(this.angle);
+		return myBounds.getImmutable();
 	}
 	
 	protected RunObject clone() {
