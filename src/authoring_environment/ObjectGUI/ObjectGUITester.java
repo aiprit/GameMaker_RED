@@ -41,7 +41,7 @@ public class ObjectGUITester extends Application{
 		object.addSprite(sprite2);
 		object.setSprite(sprite);
 		object2.setSprite(sprite2);
-<<<<<<< HEAD
+
 		game.addObject(object);
 		game.addObject(object2);
 		game.addSprite(sprite);
@@ -49,10 +49,8 @@ public class ObjectGUITester extends Application{
 		Stage cc = new Stage();
 		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
-		ObjectGUI og = new ObjectGUI(ct);
-=======
 		ObjectView og = new ObjectView(ct);
->>>>>>> c505b2e63fb48c456037e0f96e61244376ae1985
+
 		og.init();
 	}
 }
