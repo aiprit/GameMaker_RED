@@ -3,7 +3,6 @@ package structures.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,7 @@ import structures.data.events.IDataEvent;
 
 public class DataObject{
 
-	private ObservableMap<IDataEvent, List<IAction>> myEvents;
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
 
 	private String myName;
 	private DataSprite mySprite;
@@ -35,7 +34,8 @@ public class DataObject{
 		myName = name;
 	}
 
-	public void bindEvent(IDataEvent event, List<IAction> actions) {
+
+	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
 		myEvents.put(event, actions);
 	}
 
@@ -43,7 +43,8 @@ public class DataObject{
 		myEvents.remove(e);
 	}
 
-	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getEvents(){
+
 		return myEvents;
 	}
 
@@ -58,12 +59,13 @@ public class DataObject{
 	public int getZIndex() {
 		return myZIndex;
 	}
+
 	public void setZIndex(int zIndex) {
 		myZIndex = zIndex;
 	}
 
 	public void addSprite(DataSprite s) {
-		mySprites.add(s);
+		mySprite = s;
 	}
 }
 

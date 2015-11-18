@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -29,7 +31,7 @@ public class ObjectGUITester extends Application{
 
 
 		IDataEvent a = new ObjectCreateEvent();
-		List<IAction> c = new ArrayList<IAction>();
+		ObservableList<IAction> c =FXCollections.observableList( new ArrayList<IAction>());
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
@@ -39,6 +41,7 @@ public class ObjectGUITester extends Application{
 		object.addSprite(sprite2);
 		object.setSprite(sprite);
 		object2.setSprite(sprite2);
+<<<<<<< HEAD
 		game.addObject(object);
 		game.addObject(object2);
 		game.addSprite(sprite);
@@ -47,6 +50,9 @@ public class ObjectGUITester extends Application{
 		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
 		ObjectGUI og = new ObjectGUI(ct);
+=======
+		ObjectView og = new ObjectView(ct);
+>>>>>>> c505b2e63fb48c456037e0f96e61244376ae1985
 		og.init();
 	}
 }

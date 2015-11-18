@@ -3,15 +3,15 @@ package authoring_environment.ObjectGUI.leftPane;
 
 import java.util.List;
 
-import authoring_environment.EventGUI.PopUps.CollisionPopUp;
-import authoring_environment.EventGUI.PopUps.GameEndPopUp;
-import authoring_environment.EventGUI.PopUps.GameStartPopUp;
-import authoring_environment.EventGUI.PopUps.KeyPressPopUp;
-import authoring_environment.EventGUI.PopUps.KeyReleasePopUp;
-import authoring_environment.EventGUI.PopUps.ObjectCreatePopUp;
-import authoring_environment.EventGUI.PopUps.ObjectDestroyPopUp;
-import authoring_environment.EventGUI.PopUps.PopUp;
 import authoring_environment.ObjectGUI.ObjectController;
+import authoring_environment.ObjectPopUps.CollisionPopUp;
+import authoring_environment.ObjectPopUps.GameEndPopUp;
+import authoring_environment.ObjectPopUps.GameStartPopUp;
+import authoring_environment.ObjectPopUps.KeyPressPopUp;
+import authoring_environment.ObjectPopUps.KeyReleasePopUp;
+import authoring_environment.ObjectPopUps.ObjectCreatePopUp;
+import authoring_environment.ObjectPopUps.ObjectDestroyPopUp;
+import authoring_environment.ObjectPopUps.PopUp;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataObject;

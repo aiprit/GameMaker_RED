@@ -18,7 +18,6 @@ public class ObjectBottomPane {
 		try {
 			name = myController.getName();
 
-	
 		}
 		catch (NullPointerException e) {
 			name = r.getString("tempName");
