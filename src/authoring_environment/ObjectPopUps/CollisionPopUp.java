@@ -1,4 +1,4 @@
-package authoring_environment.EventGUI.PopUps;
+package authoring_environment.ObjectPopUps;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;

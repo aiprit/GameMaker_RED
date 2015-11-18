@@ -1,28 +1,29 @@
-package authoring_environment.EventGUI.PopUps;
+package authoring_environment.ObjectPopUps;
 
 import java.util.List;
 
 import authoring_environment.EventPopup;
 import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
-import structures.data.events.GameEndEvent;
 import structures.data.events.IDataEvent;
+import structures.data.events.ObjectCreateEvent;
 
-public class GameEndPopUp extends BasicPopUp{
-
-
-	public GameEndPopUp(DataObject obj) {
+public class ObjectCreatePopUp extends BasicPopUp{
+	public ObjectCreatePopUp(DataObject obj) {
 		super(obj);
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public void init() {
+		eventPopup();
+
 	}
 
 	@Override
 	public void eventPopup() {
 		EventPopup p = new EventPopup();
-		p.popup(new GameEndEvent(),myObject);
+		p.popup(new ObjectCreateEvent(),myObject);
 
 	}
-
 }

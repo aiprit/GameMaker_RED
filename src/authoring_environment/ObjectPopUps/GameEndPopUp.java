@@ -1,4 +1,4 @@
-package authoring_environment.EventGUI.PopUps;
+package authoring_environment.ObjectPopUps;
 
 import java.util.List;
 
@@ -7,13 +7,13 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
-import structures.data.events.GameStartEvent;
+import structures.data.events.GameEndEvent;
 import structures.data.events.IDataEvent;
 
-public class GameStartPopUp  extends BasicPopUp{
+public class GameEndPopUp extends BasicPopUp{
 
 
-	public GameStartPopUp(DataObject obj) {
+	public GameEndPopUp(DataObject obj) {
 		super(obj);
 		// TODO Auto-generated constructor stub
 	}
@@ -21,7 +21,7 @@ public class GameStartPopUp  extends BasicPopUp{
 	@Override
 	public void eventPopup() {
 		EventPopup p = new EventPopup();
-		p.popup(new GameStartEvent(),myObject);
+		p.popup(new GameEndEvent(),myObject);
 
 	}
 
