@@ -41,9 +41,7 @@ public class ObjectGUITester extends Application{
 		object.addSprite(sprite2);
 		object.setSprite(sprite);
 		object2.setSprite(sprite2);
-<<<<<<< HEAD
-		ObjectView og = new ObjectView(ct);
-=======
+
 		game.addObject(object);
 		game.addObject(object2);
 		game.addSprite(sprite);
@@ -51,8 +49,8 @@ public class ObjectGUITester extends Application{
 		Stage cc = new Stage();
 		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
-		ObjectGUI og = new ObjectGUI(ct);
->>>>>>> refs/remotes/origin/Nick
+		ObjectView og = new ObjectView(ct);
+
 		og.init();
 	}
 }
