@@ -19,10 +19,10 @@ import structures.run.RunRoom;
 public class RoomLoop {
 	
 	private Timeline myGameLoop;
-	private EventManager eventManager;
+	private GameEventManager gameManager;
 	
-	public RoomLoop(RunRoom room, IGamePlayHandler listener, IDraw drawListener){
-		eventManager = new EventManager(room, listener, drawListener);
+	public RoomLoop(RunRoom room, IGamePlayHandler listener, EventManager eventManager){
+		gameManager = new GameEventManager(room, listener, eventManager);
 		createRoomLoop();
 	}
 	
@@ -51,7 +51,7 @@ public class RoomLoop {
 	}
 	
 	public void step() {
-		eventManager.loop();
+		gameManager.loop();
 	}
 	
 	public void start(){

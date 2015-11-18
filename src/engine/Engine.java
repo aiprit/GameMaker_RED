@@ -3,19 +3,24 @@ package engine;
 import exceptions.CompileTimeException;
 import structures.data.DataGame;
 import structures.run.RunGame;
+import structures.run.RunRoom;
 
-public class Engine {
+public class Engine implements IRoomChangedHandler {
 
 	private RunGame myOriginalGame;
 	private RunGame myGame;
 	private IGamePlayHandler myListener;
 	private RoomLoop myLevel;
-	private IDraw myFrontendListener;
+	private EventManager myEventManager;
+	private IGUIHandler myGUIHandler;
 
-	public Engine(RunGame runGame) {
+	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
+		myGUIHandler = new GUIHandler(this, false, new SavedGameHandler(myGame.getName()));
 		myOriginalGame = runGame;
+		myEventManager = eventManager;
 		myListener = new GamePlayListener();
+		runLevel();
 	}
 
 	public void load(RunGame runGame) {
@@ -40,18 +45,29 @@ public class Engine {
 	}
 	
 	public void runLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener, myFrontendListener);
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener, myEventManager);
 		myLevel.start();
+	}
+	
+	public IGUIHandler getGUIHandler(){
+		return myGUIHandler;
+	}
+	
+	public IRoomChangedHandler getRoomChangedHandler(){
+		return this;
 	}
 	
 	public IGamePlayHandler getListener(){
 		return myListener;
 	}
-	
-	public void setDrawListener(IDraw drawListener){
-		//starts the first game loop
-		myFrontendListener = drawListener;
-		runLevel();
+
+	public void pause() {
+		myLevel.pause();
+	}
+
+	@Override
+	public void onRoomChanged(RunRoom runRoom) {
+		// TODO Auto-generated method stub
 	}
 
 }
