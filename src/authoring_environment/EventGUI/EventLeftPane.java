@@ -62,39 +62,44 @@ public class EventLeftPane {
 	}
 	private void addAction(String str){
 		String className = str.replaceAll("\\s+","");
-		Class c;
-		IAction act;
+		Class c = null;
+		IAction act = null;
 		try {
 			c = Class.forName("structures.data.actions.library." +className);
-			try {
-				act = (IAction) c.getDeclaredConstructor().newInstance();
-//				String fieldname = act.getTitle();
-//				System.out.println(fieldname);
-				myRight.add(act);
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 		} catch (ClassNotFoundException e) {
+			try {
+				c = Class.forName("structures.data.actions." +className);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
+		try {
+			act = (IAction) c.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+//		String fieldname = act.getTitle();
+//		System.out.println(fieldname);
+		myRight.add(act);
 
 
 
