@@ -58,6 +58,10 @@ public class ObjectController {
 
 
 	public void addSprite(DataSprite sprite) {
+		myObject.addSprite(sprite);
+	}
+	
+	public void setSprite(DataSprite sprite) {
 		myObject.setSprite(sprite);
 	}
 

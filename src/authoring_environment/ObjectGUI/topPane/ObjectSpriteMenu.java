@@ -25,7 +25,7 @@ public class ObjectSpriteMenu {
 		Menu image = new Menu(r.getString("imageTitle"));
 		try{
 			mySprites = sprites;
-			System.out.println(mySprites.toString());
+			System.out.println(mySprites);
 			addMenuItem(image,mySprites);
 		}
 		catch(NullPointerException e){
@@ -38,12 +38,12 @@ public class ObjectSpriteMenu {
 	private void addMenuItem(Menu menu, ObservableList<DataSprite> options) {
 		for (DataSprite str :options) {
 			MenuItem m = new MenuItem(str.getName());
-			menu.getItems().add(m);
-			m.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent t) {
-					myController.getObject().setSprite(str);
-				}
+			m.setOnAction((event) -> {
+				System.out.println(str);
+				myController.setSprite(str);
 			});
+			menu.getItems().add(m);
+			
 		}
 	}
 }

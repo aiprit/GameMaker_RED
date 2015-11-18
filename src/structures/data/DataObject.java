@@ -1,5 +1,6 @@
 package structures.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class DataObject{
 
 	private String myName;
 	private DataSprite mySprite;
-	private ObservableList<DataSprite> mySprites;
+	private ArrayList<DataSprite> mySprites = new ArrayList<DataSprite>();
 	private int myZIndex;
 
 	public DataObject(String name) {
