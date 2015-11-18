@@ -2,7 +2,7 @@ package authoring_environment.EventGUI.PopUps;
 
 import java.util.List;
 
-import authoring_environment.EventPopup;
+import authoring_environment.main.EventPopup;
 import javafx.collections.ObservableMap;
 import structures.data.DataObject;
 import structures.data.actions.IAction;

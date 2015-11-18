@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.main;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;

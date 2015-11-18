@@ -2,8 +2,8 @@ package authoring_environment.EventGUI;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.ActionPopup;
-import authoring_environment.EventPopup;
+import authoring_environment.main.ActionPopup;
+import authoring_environment.main.EventPopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;

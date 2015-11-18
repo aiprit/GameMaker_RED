@@ -1,4 +1,4 @@
-package authoring_environment;
+package authoring_environment.main;
 
 
 import authoring_environment.ObjectGUI.ObjectController;
