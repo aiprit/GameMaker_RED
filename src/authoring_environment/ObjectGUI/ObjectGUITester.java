@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import structures.IObject;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
@@ -28,13 +27,14 @@ public class ObjectGUITester extends Application{
 		DataGame game = new DataGame("TestGame", "/home/nicholas");
 		DataObject object = new DataObject("dog");
 
+
 		IDataEvent a = new ObjectCreateEvent();
 		ObservableList<IAction> c =FXCollections.observableList( new ArrayList<IAction>());
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
 		Stage cc = new Stage();
-		ObjectController ct = new ObjectController(object, null, null,cc);
+		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
 		//		DataSprite sprite = new DataSprite();
 		//		object.addSprite(sprite);

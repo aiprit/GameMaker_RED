@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
-import structures.IObject;
+import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.Vector;
 
@@ -40,6 +40,7 @@ public class RunObject {
 		this.visible = true;
 		this.alpha = 1.0;
 		myInstanceId = 0L;
+		myEvents = new HashMap<IDataEvent, RunAction>();
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -90,7 +91,7 @@ public class RunObject {
 		// TODO: Groovy run event
 	}
 	
-	public IObject toData() {
+	public DataObject toData() {
 		// TODO: What the hell is this method for?
 		return null;
 	}

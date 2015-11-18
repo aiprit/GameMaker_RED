@@ -1,12 +1,14 @@
 package authoring_environment.room;
 
-import structures.IRoom;
+
 import structures.data.DataInstance;
+import structures.data.DataRoom;
+
 
 public class RoomController {
-	private IRoom myRoom;
-
-	public RoomController(IRoom room) {
+	private DataRoom myRoom;
+	
+	public RoomController(DataRoom room) {
 		myRoom = room;
 	}
 

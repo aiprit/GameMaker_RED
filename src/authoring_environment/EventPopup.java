@@ -16,8 +16,6 @@ import structures.data.events.IDataEvent;
 
 public class EventPopup {
 
-
-
 	public void popup(IDataEvent event,	DataObject obj){
 
 		 EventController control = new EventController(event,obj);

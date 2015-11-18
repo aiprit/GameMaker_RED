@@ -48,7 +48,7 @@ public class ObjectLeftPane {
 		root.getChildren().addAll(title,listview,b);
 		b.setAlignment(Pos.BOTTOM_RIGHT);
 		b.setOnAction(e ->
-		popupfact.create(listview.getSelectionModel().getSelectedItem(),myController.getObject(),myController.getObjects()));
+		popupfact.create(listview.getSelectionModel().getSelectedItem(), myController.getObject(), myController));
 		return root;
 	}
 

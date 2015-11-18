@@ -35,7 +35,6 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	public KeyPopUp(DataObject obj){
 		super(obj);
 		myRoot = new Group();
-		init();
 		keyPress = " ";
 
 	}
