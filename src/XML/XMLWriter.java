@@ -2,10 +2,7 @@ package XML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import structures.data.DataGame;
-import structures.data.DataObject;
-import structures.data.DataSprite;
+import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
@@ -36,8 +33,7 @@ public class XMLWriter {
             root.setAttribute("title", game.getName());
             root.setAttribute("directory", game.getGameDirectory());
 
-            root.appendChild(getElementFromDataObjects(doc, game));
-            root.appendChild(getElementFromSprites(doc, game));
+            processGame(doc, game, root);
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -55,12 +51,33 @@ public class XMLWriter {
         }
     }
 
-    private Element getElementFromDataObjects(Document doc, DataGame game){
-        Element objects = doc.createElement("objects");
-        for(DataObject dataObject : game.getObjects()){
-            objects.appendChild(getElementFromObject(doc, dataObject));
+    private void processGame(Document doc, DataGame game, Element root){
+        root.appendChild(getElementFromList(doc, game, "objects"));
+        root.appendChild(getElementFromList(doc, game, "sprites"));
+        root.appendChild(getElementFromList(doc, game, "sounds"));
+        root.appendChild(getElementFromList(doc, game, "rooms"));
+    }
+
+    private Element getElementFromList(Document doc, DataGame game, String type){
+        Element e = doc.createElement(type);
+        if(type.equals("objects")){
+            for(DataObject dataObject : game.getObjects()){
+                e.appendChild(getElementFromObject(doc, dataObject));
+            }
+        } else if(type.equals("sprites")){
+            for(DataSprite dataSprite : game.getSprites()){
+                e.appendChild(getElementFromSprite(doc, dataSprite));
+            }
+        } else if(type.equals("sounds")){
+            for(DataSound dataSound : game.getSounds()){
+                e.appendChild(getElementFromSound(doc, dataSound));
+            }
+        } else if(type.equals("rooms")){
+            for(DataRoom dataRoom : game.getRooms()){
+                e.appendChild(getElementFromRoom(doc, dataRoom));
+            }
         }
-        return objects;
+        return e;
     }
 
     private Element getElementFromObject(Document doc, DataObject dataObject){
@@ -92,14 +109,6 @@ public class XMLWriter {
         return action;
     }
 
-    private Element getElementFromSprites(Document doc, DataGame game){
-        Element sprites = doc.createElement("sprites");
-        for(DataSprite dataSprite : game.getSprites()){
-            sprites.appendChild(getElementFromSprite(doc, dataSprite));
-        }
-        return sprites;
-    }
-
     private Element getElementFromSprite(Document doc, DataSprite dataSprite) {
         Element sprite = doc.createElement("sprite");
         sprite.setAttribute("name", dataSprite.getName());
@@ -109,5 +118,18 @@ public class XMLWriter {
         sprite.setAttribute("scaleX", Double.toString(dataSprite.getScaleX()));
         sprite.setAttribute("scaleY", Double.toString(dataSprite.getScaleY()));
         return sprite;
+    }
+
+    private Element getElementFromSound(Document doc, DataSound dataSound) {
+        Element sound = doc.createElement("sound");
+        sound.setAttribute("name", dataSound.getName());
+        sound.setAttribute("baseFileName", dataSound.getBaseFileName());
+        return sound;
+    }
+
+    private Element getElementFromRoom(Document doc, DataRoom dataRoom) {
+        Element room = doc.createElement("room");
+        room.setAttribute("name", dataRoom.getName());
+        return room;
     }
 }
