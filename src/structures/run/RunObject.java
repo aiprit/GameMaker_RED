@@ -7,6 +7,7 @@ import java.util.Set;
 import engine.IDraw;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
+import utils.Point;
 import utils.Vector;
 
 public class RunObject {
@@ -77,8 +78,8 @@ public class RunObject {
 	}
 	
 	public void draw(IDraw drawInterface, RunView view) {
-		System.out.println("*" + mySprite);
 		if (mySprite != null) {
+			System.out.println(name +  "drawing at " + new Point(x, y));
 			mySprite.draw(drawInterface, view, this);
 		}
 	}

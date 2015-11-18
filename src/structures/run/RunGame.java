@@ -105,6 +105,7 @@ public class RunGame implements IRun {
 
 		String spriteDir = game.getSpriteDirectory();
 		String soundDir = game.getSoundDirectory();
+		System.out.println(spriteDir);
 		RunResources resources = new RunResources(spriteDir, soundDir);
 
 		for (DataSprite sprite : game.getSprites()) {

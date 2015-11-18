@@ -23,7 +23,7 @@ public class DataGame extends Observable {
     private double myScreenWidth;
     private double myScreenHeight;
     private String myGameDirectory;
-    private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+    private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
     
 
     public DataGame(String name, String gameDirectory) {
@@ -56,10 +56,10 @@ public class DataGame extends Observable {
     }
     
     public String getSpriteDirectory() {
-    	return myGameDirectory + r.getString("spriteRelativeDirectory");
+    	return myGameDirectory + fileFormat.getString("RelativeSpriteDirectory");
     }
     public String getSoundDirectory() {
-    	return myGameDirectory + r.getString("soundsRelativeDirectory");
+    	return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
     public void addObject(DataObject o){
