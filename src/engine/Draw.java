@@ -18,8 +18,8 @@ public class Draw extends StackPane implements IDraw {
 	public Draw(Canvas canvas) {
 		myCanvas = canvas;
 		myGraphicsContext = canvas.getGraphicsContext2D();
-        myCanvas.setWidth(400);
-        myCanvas.setHeight(400);
+        myCanvas.setWidth(1000);
+        myCanvas.setHeight(1000);
         myBackgroundPane = new Pane();
         myBackgroundPane.setPrefWidth(400);
         myBackgroundPane.setPrefHeight(400);
@@ -31,6 +31,7 @@ public class Draw extends StackPane implements IDraw {
 	public void drawImage(	Image image, RunView view, double x, double y,
 							double centerX, double centerY,
 							double scaleX, double scaleY, double angle) {
+		System.out.println("drawing!");
 		
 		Rectangle disp = view.getView();
 		myGraphicsContext.save();

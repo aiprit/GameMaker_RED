@@ -40,7 +40,7 @@ public class TestGameObject {
      */
 
     public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game", "/Games/TestGame");
+        DataGame testGame = new DataGame("Test Game", "/TestGame");
 
         DataObject coin = new DataObject("Coin");
 
