@@ -2,7 +2,6 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,13 +58,13 @@ public class DataObject{
 	public int getZIndex() {
 		return myZIndex;
 	}
+
 	public void setZIndex(int zIndex) {
 		myZIndex = zIndex;
 	}
 
 	public void addSprite(DataSprite s) {
 		mySprite = s;
-		// TODO Auto-generated method stub
 	}
 }
 
