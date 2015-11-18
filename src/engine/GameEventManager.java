@@ -2,17 +2,22 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
+import engine.collisions.CollisionManager;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
 import javafx.scene.input.InputEvent;
+import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
+import utils.Pair;
 
 /**
  * EventManager facilitates the running of the game loop
@@ -36,8 +41,10 @@ public class GameEventManager implements IObjectModifiedHandler {
 	private EventFactory myEventFactory;
 	
 	private GroovyEngine myGroovyEngine;
-	
 	private RunRoom myRoom;
+	
+	private CollisionManager myCollisionManager;
+	private Set<Pair<String>> myCollidingObjectPairs;
 
 	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
@@ -45,6 +52,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 		myGroovyEngine = groovyEngine;
 		myEventFactory = new EventFactory();
 		myRoom = room;
+		myCollisionManager = new CollisionManager();
 		init(room);
 	}
 
@@ -56,19 +64,35 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 */
 	private void init(RunRoom room) {
 		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
+		myCollidingObjectPairs = new HashSet<>();
+		
+		// Add Events to Map
 		for(RunObject o : room.getObjects()){
 			for(IDataEvent e : o.getEvents()){
+				
+				// Add Event to Map
 				if(!myEvents.containsKey(e)){
 					myEvents.put(e, new ArrayList<RunObject>());
 				}
 				myEvents.get(e).add(o);
+				
+				// If Collision, add both objects' names to objects that collide
+				if (e instanceof CollisionEvent) {
+					myCollidingObjectPairs.add(new Pair<>(o.name, ((CollisionEvent)e).other.getName()));
+				}
 			}
+		}
+		
+		// Which objects need to be checked for collisions?
+		for (RunObject o : room.getObjects()) {
+			potentiallyAddToCollideables(o);
 		}
 	}
 
 	void loop() {
 		step(myEvents.get(new StepEvent()));
 		processGameplayEvents(myEventManager.getEvents());
+		processCollisionEvents();
 		draw();
 	}
 
@@ -105,6 +129,24 @@ public class GameEventManager implements IObjectModifiedHandler {
 		events.clear();
 	}
 	
+	private void processCollisionEvents() {
+		for (Pair<String> pair : myCollidingObjectPairs) {
+			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
+			for (Pair<RunObject> collisionPair : collisions) {
+				collisionPair.one.doAction(new CollisionEvent(collisionPair.two.name));
+				collisionPair.two.doAction(new CollisionEvent(collisionPair.one.name));
+			}
+		}
+	}
+	
+	private void potentiallyAddToCollideables(RunObject obj) {
+		for (Pair<String> pair : myCollidingObjectPairs) {
+			if (pair.contains(obj.name)) {
+				myCollisionManager.addToCollideables(obj);
+			}
+		}
+	}
+	
 	/**
 	 * Draws each RunObject on the canvas.
 	 */
@@ -120,6 +162,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 */
 	@Override
 	public void onObjectCreate(RunObject runObject) {
+		potentiallyAddToCollideables(runObject);
+		
 		for(IDataEvent e : runObject.getEvents()){
 			if(!myEvents.containsKey(e)){
 				myEvents.put(e, new ArrayList<RunObject>());
@@ -134,6 +178,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 */
 	@Override
 	public void onObjectDestroy(RunObject runObject) {
+		myCollisionManager.removeFromCollideables(runObject);
 		for(IDataEvent e : runObject.getEvents()){
 			if(myEvents.containsKey(e)){
 				myEvents.get(e).remove(runObject);
