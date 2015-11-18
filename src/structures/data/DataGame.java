@@ -51,6 +51,10 @@ public class DataGame extends Observable {
         }
     }
 
+    public String getGameDirectory(){
+        return myGameDirectory;
+    }
+
     public void setStartRoom(int index) {
         myStartRoom = index;
     }
@@ -121,15 +125,14 @@ public class DataGame extends Observable {
         r.append("Objects: \n");
 
         for (DataObject o : myObjects) {
-            r.append("- " + o.getName() + "\n");
-
+            r.append("  " + o.getName() + "\n");
 
             for (Map.Entry<IDataEvent, List<IAction>> e : o.getEvents().entrySet()) {
-                r.append("-- Event: " + e.getKey().getName() + "\n");
+                r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 
                 for (IAction a : actions) {
-                    r.append("--- Action: " + a.getTitle() + "\n");
+                    r.append("          Action: " + a.getTitle() + "\n");
                 }
             }
         }
@@ -138,23 +141,22 @@ public class DataGame extends Observable {
         r.append("Sprites: \n");
 
         for (DataSprite s : mySprites) {
-            r.append("- " + s.getName() + "\n");
+            r.append("  " + s.getName() + "\n");
         }
 
         r.append("\n");
         r.append("Sounds: \n");
 
         for (DataSound s : mySounds) {
-            r.append("- " + s.getName() + "\n");
+            r.append("  " + s.getName() + "\n");
         }
 
         r.append("\n");
         r.append("Rooms: \n");
         for (DataRoom room : myRooms) {
-            r.append("- " + room.getName() + "\n");
-
+            r.append("  " + room.getName() + "\n");
             for (DataInstance di : room.getObjectInstances()) {
-                r.append("-- Object Instance: ID: " + di.getID() + " Object type: " + di.getParentObject().getName() + "\n");
+                r.append("      Object Instance: ID: " + di.getID() + " Object type: " + di.getParentObject().getName() + "\n");
             }
         }
 
