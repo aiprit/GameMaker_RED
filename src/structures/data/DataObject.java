@@ -55,6 +55,7 @@ public class DataObject{
 	public int getZIndex() {
 		return myZIndex;
 	}
+
 	public void setZIndex(int zIndex) {
 		myZIndex = zIndex;
 	}

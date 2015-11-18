@@ -1,20 +1,17 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
-import structures.data.DataGame;
-import structures.data.DataInstance;
-import structures.data.DataObject;
-import structures.data.DataRoom;
-import structures.data.DataSprite;
+import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
 import structures.data.events.KeyPressedEvent;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 /*
     This class generates a sample game object. The game consists
@@ -31,7 +28,7 @@ import structures.data.events.KeyPressedEvent;
 
 public class TestGameObject {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         TestGameObject testGameObject = new TestGameObject();
 
         DataGame printGame = testGameObject.getTestGame();
@@ -44,7 +41,7 @@ public class TestGameObject {
      the action library has been built out in the game engine
      */
 
-    public DataGame getTestGame(){
+    public DataGame getTestGame() {
         DataGame testGame = new DataGame("Test Game", "TestGame/");
 
         DataObject coin = new DataObject("Coin");
@@ -56,38 +53,38 @@ public class TestGameObject {
 
         DataSprite playerSprite = new DataSprite("Square", "square.png");
         player.setSprite(playerSprite);
-        
+
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
         IAction spaceBarAction = new MoveTo();
-		List<IParameter> moveToParams = spaceBarAction.getParameters();
-		try {
-			moveToParams.get(0).parse("200");
-			moveToParams.get(1).parse("200");
-			moveToParams.get(2).parse("false");
-		} catch (ParameterParseException e1) {
-			e1.printStackTrace();
-		}
-		List<IAction> actions = new ArrayList<IAction>();
-		actions.add(spaceBarAction);
+        List<IParameter> moveToParams = spaceBarAction.getParameters();
+        try {
+            moveToParams.get(0).parse("200");
+            moveToParams.get(1).parse("200");
+            moveToParams.get(2).parse("false");
+        } catch (ParameterParseException e1) {
+            e1.printStackTrace();
+        }
+        List<IAction> actions = new ArrayList<>();
+        actions.add(spaceBarAction);
         player.bindEvent(startScreenChange, actions);
-        
+
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
         try {
-	        
-	        left.getParameters().get(0).parse("-10");
-	        left.getParameters().get(1).parse("0");
-	        left.getParameters().get(2).parse("true");
-	        
-	        
-	        right.getParameters().get(0).parse("10");
-	        right.getParameters().get(1).parse("0");
-	        right.getParameters().get(2).parse("true");
-	        
+
+            left.getParameters().get(0).parse("-10");
+            left.getParameters().get(1).parse("0");
+            left.getParameters().get(2).parse("true");
+
+
+            right.getParameters().get(0).parse("10");
+            right.getParameters().get(1).parse("0");
+            right.getParameters().get(2).parse("true");
+
         } catch (ParameterParseException ex) {
-        	System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
         }
-        
+
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
 

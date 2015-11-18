@@ -1,9 +1,5 @@
 package structures.run;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import engine.IDraw;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -11,6 +7,10 @@ import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.Point;
 import utils.Vector;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class RunObject {
 	
