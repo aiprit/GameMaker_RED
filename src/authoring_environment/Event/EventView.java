@@ -16,7 +16,7 @@ public class EventView {
 	EventLeftPane left;
 	private Stage myStage;
 	private Group myRoot;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
 	public EventView(){
 		init();
 	}

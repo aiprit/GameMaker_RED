@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import structures.data.actions.IAction;
 
 public class EventRightPane {
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
 	private ListView<IAction> listView;
 	Button delete;
 	public Group init() {
