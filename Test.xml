@@ -1,6 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_60" class="java.beans.XMLDecoder">
- <object class="javax.swing.JButton">
-  <string>Hello, world</string>
- </object>
-</java>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game directory="TestGame/" title="Test Game">
+  <objects>
+    <object name="Coin" sprite="Coin" zIndex="0"/>
+    <object name="Player" sprite="Square" zIndex="0">
+      <event title="Key Press Right">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Left">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Space">
+        <action title="Move"/>
+      </event>
+    </object>
+    <object name="StartScreenBackground" sprite="Start Screen" zIndex="0"/>
+    <object name="WinScreenBackground" sprite="Win Screen" zIndex="0"/>
+  </objects>
+</game>

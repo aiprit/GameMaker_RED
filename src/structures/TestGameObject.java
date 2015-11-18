@@ -1,5 +1,6 @@
 package structures;
 
+import XML.XMLEditor;
 import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
@@ -34,6 +35,8 @@ public class TestGameObject {
         DataGame printGame = testGameObject.getTestGame();
 
         System.out.println(printGame.toString());
+        XMLEditor xml = new XMLEditor();
+        xml.writeXML(printGame, "test.xml");
     }
 
     /*
