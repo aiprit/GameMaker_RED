@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import engine.IDraw;
 import engine.events.EventManager;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -106,10 +107,10 @@ public class RunObject {
 		shell.evaluate(act.script);
 	}
 	
-	public void draw(EventManager eventManager, RunView view) {
+	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			System.out.println(name +  "drawing at " + new Point(x, y));
-			mySprite.draw(eventManager, view, this);
+			mySprite.draw(drawListener, view, this);
 		}
 	}
 	

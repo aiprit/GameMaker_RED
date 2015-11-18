@@ -30,14 +30,16 @@ import structures.run.RunRoom;
 public class GameEventManager implements IObjectModifiedHandler {
 
 	private EventManager myEventManager;
+	private IDraw myDrawListener;
 
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	private EventFactory myEventFactory;
 	
 	private RunRoom myRoom;
 
-	public GameEventManager(RunRoom room, EventManager eventManager){
+	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener){
 		myEventManager = eventManager;
+		myDrawListener = drawListener;
 		myEventFactory = new EventFactory();
 		myRoom = room;
 		init(room);
@@ -103,7 +105,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 */
 	public void draw(){
 		for(RunObject o : myRoom.getObjects()){
-			o.draw(myEventManager, myRoom.getView());
+			o.draw(myDrawListener, myRoom.getView());
 		}
 	}
 

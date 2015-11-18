@@ -70,6 +70,8 @@ public class TestGameObject {
 
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
+        MoveTo up = new MoveTo();
+        MoveTo down = new MoveTo();
         try {
 
             left.getParameters().get(0).parse("-10");
@@ -80,6 +82,16 @@ public class TestGameObject {
             right.getParameters().get(0).parse("10");
             right.getParameters().get(1).parse("0");
             right.getParameters().get(2).parse("true");
+            
+            
+            up.getParameters().get(0).parse("0");
+            up.getParameters().get(1).parse("-10");
+            up.getParameters().get(2).parse("true");
+            
+            
+            down.getParameters().get(0).parse("0");
+            down.getParameters().get(1).parse("10");
+            down.getParameters().get(2).parse("true");
 
         } catch (ParameterParseException ex) {
             System.out.println(ex.getMessage());
@@ -87,9 +99,13 @@ public class TestGameObject {
 
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
+        List<IAction> upActions = Collections.singletonList(up);
+        List<IAction> downActions = Collections.singletonList(down);
 
         player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
         player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+        player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
+        player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
 
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
@@ -123,8 +139,8 @@ public class TestGameObject {
         testGame.addSprite(startScreenSprite);
         testGame.addSprite(winScreenSprite);
 
-        testGame.addRoom(startScreen);
         testGame.addRoom(level1);
+        testGame.addRoom(startScreen);
         testGame.addRoom(winScreen);
 
         testGame.setStartRoom(level1);

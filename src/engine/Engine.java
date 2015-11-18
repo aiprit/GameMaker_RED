@@ -17,6 +17,7 @@ public class Engine implements IRoomChangedHandler {
 	private EventManager myEventManager;
 	private IGUIHandler myGUIHandler;
 	private IGamePlayHandler myGameplayHandler;
+	private IDraw myDrawListener;
 
 	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
@@ -25,7 +26,6 @@ public class Engine implements IRoomChangedHandler {
 		myGameplayHandler = new GamePlayListener();
 		myOriginalGame = runGame;
 		myEventManager = eventManager;
-		runLevel();
 	}
 
 	public void load(RunGame runGame) {
@@ -50,7 +50,7 @@ public class Engine implements IRoomChangedHandler {
 	}
 	
 	public void runLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager);
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener);
 		myLevel.start();
 	}
 	
@@ -68,6 +68,11 @@ public class Engine implements IRoomChangedHandler {
 
 	public void pause() {
 		myLevel.pause();
+	}
+	
+	public void setDrawListener(IDraw drawListener){
+		myDrawListener = drawListener;
+		runLevel();
 	}
 
 	@Override
