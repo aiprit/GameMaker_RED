@@ -66,9 +66,14 @@ import structures.data.*;
 
 public class View implements Observer{
 
-	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private ObservableList<DataRoom> myLevels;
 	private ObservableList<DataObject> myObjects;
+
+	private ObservableList<DataSprite> mySprites;
+	private ObservableList<DataSound> mySounds;
+	private static String GAME_NAME = "GameAuthorTitle";
+
 	private Stage myStage;
 	private Group myRoot;
 	private Controller myController;
@@ -98,13 +103,15 @@ public class View implements Observer{
 	public void init(){
 		BorderPane bp = new BorderPane();
 
-		myObjectListView.init(bp, myStage);
+
+		myObjectListView.init(myController.getObjects(), myController.getSprites(), bp, myStage, myResourceBundle);
 		myRoomListView.init(bp, myStage);
 		myTopToolBar.init(bp, this);
 		myRightWindowView.init(bp, new VBox());
-		
-		int width = Integer.parseInt(r.getString("ViewWidth"));
-		int height = Integer.parseInt(r.getString("ViewHeight"));
+
+
+		int width = Integer.parseInt(myResourceBundle.getString("ViewWidth"));
+		int height = Integer.parseInt(myResourceBundle.getString("ViewHeight"));
 		Scene s = new Scene(bp, width, height, Color.WHITE);
 		myStage.setScene(s);
 		myStage.show();
@@ -118,21 +125,32 @@ public class View implements Observer{
 		ViewWidth = width;
 	}
 
-	private void updateObjectList(){
+	private void updateObjectList(BorderPane bp){
 		myObjects = myController.getObjects();
-		myObjectListView.update(myObjects);
+		myObjectListView.update(myObjects,mySprites, bp, myStage, myResourceBundle);
 	}
-	private void updateRoomCanvas(){
+	private void updateRoomCanvas(BorderPane bp){
 		myLevels = myController.getRooms();
-		myRoomListView.update(myLevels);
+		myRoomListView.update(myLevels, bp, myStage, myResourceBundle);
 	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		updateObjectList();
-		updateRoomCanvas();
+		BorderPane bp = new BorderPane();
+		updateObjectList(bp);
+		updateRoomCanvas(bp);
+		updateRightWindow(bp);
 		
 	}
+	private void updateRightWindow(BorderPane bp) {
+		
+		mySprites = myController.getSprites();
+		mySounds =  myController.getSounds();
+		
+	}
+	
+
 	
 
 }
