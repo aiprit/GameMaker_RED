@@ -1,21 +1,25 @@
 package authoring_environment.room;
 
-import javafx.scene.image.Image;
+import javafx.beans.property.DoubleProperty;
 
-public class DraggableNode {
+public abstract class DraggableNode {
 	private boolean draggable;
-	private Image image;
-	private double xCor;
-	private double yCor;
+	private DoubleProperty xCor;
+	private DoubleProperty yCor;
 	private double xOffset;
 	private double yOffset;
 	
-	public DraggableNode(Image imageObj, double x, double y) {
-		image = imageObj;
+	public DraggableNode(DoubleProperty x, DoubleProperty y) {
 		draggable = false;
 		xCor = x;
 		yCor = y;
 	}
+	
+	public abstract Object getImage();
+	
+	public abstract double getWidth();
+	
+	public abstract double getHeight();
 	
 	public double getXOffset() {
 		return xOffset;
@@ -33,26 +37,27 @@ public class DraggableNode {
 	}
 	
 	public double getX() {
-		return xCor;
+		return xCor.get();
 	}
+	
 	public boolean getDraggable() {
 		return draggable;
 	}
+	
 	public double getY() {
-		return yCor;
+		return yCor.get();
 	}
+	
 	public void setDraggable(boolean bool) {
 		draggable = bool;
 	}
-	public Image getImage() {
-		return image;
-	}
+	
 	public void setX(double x) {
-		xCor = x;
+		xCor.set(x);
 	}
+	
 	public void setY(double y) {
-		yCor = y;
+		yCor.set(y);
 	}
-
 
 }

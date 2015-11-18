@@ -3,7 +3,7 @@ package structures.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRoom{
+public class DataRoom {
     private List<DataInstance> roomObjects;
     private DataView myView;
     private String myBackgroundColor;
@@ -17,13 +17,13 @@ public class DataRoom{
         roomObjects = new ArrayList<>();
 
         //by default the view is set to be the entire room
-        myView = new DataView("MainView", width, height, 0, 0);
+        myView = new DataView("MainView", 0, 0, width, height);
     }
 
     public void addObjectInstance(DataInstance o) {
         roomObjects.add(o);
     }
-    
+
     public void setRoomObjects(List<DataInstance> roomObjects) {
         this.roomObjects = roomObjects;
     }
@@ -31,20 +31,21 @@ public class DataRoom{
     public void removeObjectInstance(DataInstance o) {
         roomObjects.remove(o);
     }
-    
+
     public List<DataInstance> getObjectInstances() {
-    	return roomObjects;
+        return roomObjects;
     }
 
     public void setSize(double width, double height) {
-
+        myWidth = width;
+        myHeight = height;
     }
 
-    public String getBackgroundColor(){
+    public String getBackgroundColor() {
         return myBackgroundColor;
     }
 
-    public void setBackgroundColor(String color){
+    public void setBackgroundColor(String color) {
         myBackgroundColor = color;
     }
 
