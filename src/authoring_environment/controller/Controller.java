@@ -2,6 +2,7 @@ package authoring_environment.controller;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import structures.data.DataGame;
@@ -12,9 +13,10 @@ import structures.data.DataSprite;
 
 public class Controller {
 	private DataGame myGame;
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	
 	public Controller(){
-		myGame = new DataGame("GAME" , "file");
+		myGame = new DataGame(r.getString("GameTitle") , r.getString("FileTitle"));
 	}
 
 	public void addObject(){

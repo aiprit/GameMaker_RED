@@ -16,16 +16,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class RightWindowView {
-	private static String NEW_ITEM = "MakeNewItem";
-	private static String EDIT_ITEM = "EditItem";
-	private static String SPRITE_TITLE = "SpritesListTitle";
-	private static String SOUND_TITLE = "SoundsListTitle";
-	public void init(BorderPane bp, ResourceBundle resources, VBox window){
-		makeSpriteWindow(resources, window);
-		makeSoundWindow(resources, window);
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	public void init(BorderPane bp, VBox window){
+		makeSpriteWindow(window);
+		makeSoundWindow(window);
 		bp.setRight(window);
 	}
-	private void makeSoundWindow(ResourceBundle resources, VBox window) {
+	private void makeSoundWindow(VBox window) {
 		EventHandler<ActionEvent> newSounds = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
@@ -33,16 +30,16 @@ public class RightWindowView {
 			}
 		};
 		
-		makeListView(window, newSounds, 1, resources.getString(NEW_ITEM), resources.getString(SOUND_TITLE));
+		makeListView(window, newSounds, 1, r.getString("MakeNewItem"), r.getString("SoundsListTitle"));
 	}
-	private void makeSpriteWindow(ResourceBundle resources, VBox window) {
+	private void makeSpriteWindow(VBox window) {
 		EventHandler<ActionEvent> newSprite = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
 				System.out.println("hey");
 			}
 		};
-		makeListView(window, newSprite, 1, resources.getString(NEW_ITEM), resources.getString(SPRITE_TITLE));
+		makeListView(window, newSprite, 1, r.getString("MakeNewItem"), r.getString("SpritesListTitle"));
 	}
 	private void makeListView(VBox V, EventHandler<ActionEvent> e, int n, String name, String title) {
 		ListView<HBox> listView = makeHBox(e, n, name, title);

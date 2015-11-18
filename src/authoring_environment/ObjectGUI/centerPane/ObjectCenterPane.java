@@ -22,39 +22,43 @@ public class ObjectCenterPane {
 		Canvas c = new Canvas(Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
 		GraphicsContext gc = c.getGraphicsContext2D();
 		try {
-			//sprite = addSprite(myController.getCurrentSprite().getName());
+			sprite = addSprite(myController.getCurrentSprite().getName());
 		}
 		catch (NullPointerException e) {
-			//sprite = addSprite("Mario.png");
+			sprite = addSprite("Mario.png");
 		}
-//		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-//		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-//		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
-//		Button b = new Button(r.getString("buttonText"));
-//		b.setOnAction(e ->  {
-//			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-//			if (myController.getVisibile()) {
-//				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
-//				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
-//				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
-//			}
-//		});
-		root.getChildren().addAll(c); //, b);
 
-		spriteWidth =sprite.getWidth();
-		spriteHeight =sprite.getHeight();
-		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2*spriteWidth;
-		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2*spriteHeight;
-		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
+		//		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
+		//		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
+		//		gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
+		//		Button b = new Button(r.getString("buttonText"));
+		//		b.setOnAction(e ->  {
+		//			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
+		//			if (myController.getVisibile()) {
+		//				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2;
+		//				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2;
+		//				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0], myController.getSize()[1]);
+		//			}
+		//		});
+		//root.getChildren().addAll(c); //, b);
+
+		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - sprite.getWidth()/2;// - myController.getSize()[0]/2*spriteWidth;
+		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - sprite.getHeight()/2;// - myController.getSize()[1]/2*spriteHeight;
+		gc.drawImage(sprite, xPos, yPos); //, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
 		Button b = new Button(r.getString("buttonText"));
-		b.setOnAction(e ->  {
+		b.setOnAction(e -> {
 			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-//			if (myController.getVisibile()) {
-				xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - myController.getSize()[0]/2*spriteWidth;
-				yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - myController.getSize()[1]/2*spriteHeight;
-				gc.drawImage(sprite, xPos, yPos, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
-//			}
+			try {
+				sprite = addSprite(myController.getCurrentSprite().getName());
+			}
+			catch (NullPointerException x) {
+				sprite = addSprite("Mario.png");
+			}
+			xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - sprite.getWidth()/2;
+			yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - sprite.getHeight()/2;
+			gc.drawImage(sprite, xPos, yPos);
 		});
+
 		root.getChildren().addAll(c, b);
 		return root;
 	}
