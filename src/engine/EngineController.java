@@ -89,7 +89,7 @@ public class EngineController {
 	}
 	
 	public void setupEventManager(EventManager eventManager){
-		eventManager.setGUIInterface(myEngine.getGUIHandler());
+		eventManager.addGUIInterface(myEngine.getGUIHandler());
 		eventManager.addRoomChangedInterface(myFrontEnd.getRoomChangedHandler());
 		eventManager.addRoomChangedInterface(myEngine.getRoomChangedHandler());
 		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
