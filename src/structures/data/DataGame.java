@@ -1,5 +1,7 @@
 package structures.data;
 
+import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,16 +18,15 @@ public class DataGame {
     private double myScreenWidth;
     private double myScreenHeight;
     private String myGameDirectory;
+    private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
     
-    public static final String SPRITE_REL_DIRECTORY = "/resources/";
-    public static final String SOUND_REL_DIRECTORY = "/sounds/";
 
     public DataGame(String name, String gameDirectory) {
     	myName = name;
     	myGameDirectory = gameDirectory;
     	myRooms = FXCollections.observableArrayList();
     	myObjects = FXCollections.observableArrayList();
-    	mySprites = FXCollections.observableArrayList();
+    	mySprites = FXCollections.observableArrayList(); 
     	mySounds = FXCollections.observableArrayList();
     }
 
@@ -50,10 +51,10 @@ public class DataGame {
     }
     
     public String getSpriteDirectory() {
-    	return myGameDirectory + SPRITE_REL_DIRECTORY;
+    	return myGameDirectory + r.getString("spriteRelativeDirectory");
     }
     public String getSoundDirectory() {
-    	return myGameDirectory + SOUND_REL_DIRECTORY;
+    	return myGameDirectory + r.getString("soundsRelativeDirectory");
     }
 
     public void addObject(DataObject o){
