@@ -24,7 +24,7 @@ public class SpriteListView {
 		list = new ArrayList<HBox>();
 
 		HBox header = new HBox();
-		Label headerLabel = new Label("Sprite");
+		Label headerLabel = new Label(r.getString("SpritesListTitle"));
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
 		
@@ -35,7 +35,7 @@ public class SpriteListView {
 	}
 
 	public Button addSprite(DataSprite o) {
-		Button edit = new Button("EDIT");
+		Button edit = new Button(r.getString("EditItem"));
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
@@ -46,8 +46,8 @@ public class SpriteListView {
 	}
 	
 	public Button addPlus() {
-		Button plus = new Button(" + ");
-		Label label = new Label("New");
+		Button plus = new Button(r.getString("plus"));
+		Label label = new Label(r.getString("MakeNewItem"));
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
 		HBox.setHgrow(label, Priority.ALWAYS);
