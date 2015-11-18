@@ -11,12 +11,19 @@ public class RoomController {
 		myRoom = room;
 	}
 
-
 	public String getName() {
 		return myRoom.getName();
 	}
 
 	public void addObject(DataInstance object) {
 		myRoom.addObjectInstance(object);
+	}
+	
+	public double[] getSize() {
+		return myRoom.getSize();
+	}
+	
+	public void setSize(double width, double height) {
+		myRoom.setSize(width, height);
 	}
 }
