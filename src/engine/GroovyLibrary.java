@@ -18,7 +18,7 @@ public class GroovyLibrary {
 		myRunGame = runGame;
 	}
 
-	public void setObectModifiedHandler(IObjectModifiedHandler objectModifiedHandler) {
+	public void setObjectModifiedHandler(IObjectModifiedHandler objectModifiedHandler) {
 		myOMH = objectModifiedHandler;
 	}
 
@@ -96,6 +96,7 @@ public class GroovyLibrary {
 		}	
 		myRCH.onRoomChanged(myRunGame.getCurrentRoom());
 	}
+	
 	public void go_to_room(String name) {
 		try {
 			myRunGame.setCurrentRoom(myRunGame.getRoom(name));

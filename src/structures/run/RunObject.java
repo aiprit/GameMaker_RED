@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import engine.IDraw;
 import engine.events.EventManager;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -94,22 +95,17 @@ public class RunObject {
 		return myEvents.keySet();
 	}
 	
-	public void doAction(IDataEvent e){
+	public RunAction getAction(IDataEvent e){
 		if(!myEvents.containsKey(e)){
-			return;
+			return null;
 		}
-		RunAction act = myEvents.get(e);
-		Binding binding = new Binding();
-		binding.setProperty("current", this);
-		GroovyShell shell = new GroovyShell(binding);
-		System.out.println(act.script);
-		shell.evaluate(act.script);
+		return myEvents.get(e);
 	}
 	
-	public void draw(EventManager eventManager, RunView view) {
+	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			System.out.println(name +  "drawing at " + new Point(x, y));
-			mySprite.draw(eventManager, view, this);
+			mySprite.draw(drawListener, view, this);
 		}
 	}
 	

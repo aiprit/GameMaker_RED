@@ -35,16 +35,21 @@ import utils.Pair;
 public class GameEventManager implements IObjectModifiedHandler {
 
 	private EventManager myEventManager;
+	private IDraw myDrawListener;
 
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	private EventFactory myEventFactory;
+	
+	private GroovyEngine myGroovyEngine;
 	private RunRoom myRoom;
 	
 	private CollisionManager myCollisionManager;
 	private Set<Pair<String>> myCollidingObjectPairs;
 
-	public GameEventManager(RunRoom room, EventManager eventManager){
+	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
+		myDrawListener = drawListener;
+		myGroovyEngine = groovyEngine;
 		myEventFactory = new EventFactory();
 		myRoom = room;
 		myCollisionManager = new CollisionManager();
@@ -85,7 +90,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	}
 
 	void loop() {
-		step(myRoom.getObjects());
+		step(myEvents.get(new StepEvent()));
 		processGameplayEvents(myEventManager.getEvents());
 		processCollisionEvents();
 		draw();
@@ -97,8 +102,11 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 * @param it
 	 */
 	private void step(List<RunObject> it) {
+		if(it == null){
+			return;
+		}
 		for(RunObject o : it){
-			o.doAction(new StepEvent());
+			myGroovyEngine.runScript(o, o.getAction(new StepEvent()));
 		}
 	}
 
@@ -114,8 +122,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 			if(myEvents.containsKey(runEvent)){
 				List<RunObject> os = myEvents.get(runEvent);
 				for(RunObject o : os){
-					System.out.println("i'm running!");
-					o.doAction(runEvent);
+					myGroovyEngine.runScript(o, o.getAction(runEvent));
 				}
 			}
 		}
@@ -145,7 +152,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 */
 	public void draw(){
 		for(RunObject o : myRoom.getObjects()){
-			o.draw(myEventManager, myRoom.getView());
+			o.draw(myDrawListener, myRoom.getView());
 		}
 	}
 
