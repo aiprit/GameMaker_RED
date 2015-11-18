@@ -2,6 +2,7 @@ package XML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 public class XMLWriter {
 
-    public void write(DataGame game, String fileName){
+    public void write(DataGame game, String fileName) {
         try {
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -51,36 +52,36 @@ public class XMLWriter {
         }
     }
 
-    private void processGame(Document doc, DataGame game, Element root){
+    private void processGame(Document doc, DataGame game, Element root) {
         root.appendChild(getElementFromList(doc, game, "objects"));
         root.appendChild(getElementFromList(doc, game, "sprites"));
         root.appendChild(getElementFromList(doc, game, "sounds"));
         root.appendChild(getElementFromList(doc, game, "rooms"));
     }
 
-    private Element getElementFromList(Document doc, DataGame game, String type){
+    private Element getElementFromList(Document doc, DataGame game, String type) {
         Element e = doc.createElement(type);
-        if(type.equals("objects")){
-            for(DataObject dataObject : game.getObjects()){
+        if (type.equals("objects")) {
+            for (DataObject dataObject : game.getObjects()) {
                 e.appendChild(getElementFromObject(doc, dataObject));
             }
-        } else if(type.equals("sprites")){
-            for(DataSprite dataSprite : game.getSprites()){
+        } else if (type.equals("sprites")) {
+            for (DataSprite dataSprite : game.getSprites()) {
                 e.appendChild(getElementFromSprite(doc, dataSprite));
             }
-        } else if(type.equals("sounds")){
-            for(DataSound dataSound : game.getSounds()){
+        } else if (type.equals("sounds")) {
+            for (DataSound dataSound : game.getSounds()) {
                 e.appendChild(getElementFromSound(doc, dataSound));
             }
-        } else if(type.equals("rooms")){
-            for(DataRoom dataRoom : game.getRooms()){
+        } else if (type.equals("rooms")) {
+            for (DataRoom dataRoom : game.getRooms()) {
                 e.appendChild(getElementFromRoom(doc, dataRoom));
             }
         }
         return e;
     }
 
-    private Element getElementFromObject(Document doc, DataObject dataObject){
+    private Element getElementFromObject(Document doc, DataObject dataObject) {
         Element object = doc.createElement("object");
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
@@ -92,18 +93,18 @@ public class XMLWriter {
         return object;
     }
 
-    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e){
+    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e) {
         Element event = doc.createElement("event");
         event.setAttribute("title", e.getKey().getName());
 
-        for(IAction a : e.getValue()){
+        for (IAction a : e.getValue()) {
             event.appendChild(getElementFromAction(doc, a));
         }
 
         return event;
     }
 
-    private Element getElementFromAction(Document doc, IAction a){
+    private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
         action.setAttribute("title", a.getTitle());
         return action;
@@ -130,6 +131,21 @@ public class XMLWriter {
     private Element getElementFromRoom(Document doc, DataRoom dataRoom) {
         Element room = doc.createElement("room");
         room.setAttribute("name", dataRoom.getName());
+        room.setAttribute("width", Double.toString(dataRoom.getSize()[0]));
+        room.setAttribute("height", Double.toString(dataRoom.getSize()[1]));
+        room.setAttribute("backgroundColor", dataRoom.getBackgroundColor());
+
+        room.appendChild(getElementFromView(doc, dataRoom.getView()));
+        room.appendChild(getElementFromObjectInstances(doc, dataRoom.getObjectInstances()));
+
         return room;
+    }
+
+    private Element getElementFromView(Document doc, DataView view) {
+        return null;
+    }
+
+    private Element getElementFromObjectInstances(Document doc, List<DataInstance> objectInstances) {
+        return null;
     }
 }
