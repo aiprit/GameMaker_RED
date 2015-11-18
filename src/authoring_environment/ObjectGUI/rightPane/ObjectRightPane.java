@@ -77,8 +77,8 @@ public class ObjectRightPane {
 		edit.setAlignment(Pos.BOTTOM_RIGHT);
 		edit.setTranslateY(Integer.parseInt(r.getString("buttonTranslateYedit")));
 		edit.setTranslateX(Integer.parseInt(r.getString("buttonTranslateXedit")));
-		//		edit.setOnAction(e ->
-		//		eventPopup(listview.getSelectionModel().getSelectedItem()));
+				edit.setOnAction(e ->
+				eventPopup(listview.getSelectionModel().getSelectedItem()));
 
 
 		root.getChildren().addAll(title,listview,b,edit);
