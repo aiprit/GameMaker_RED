@@ -1,6 +1,6 @@
 package utils;
 
-public class Rectangle {
+public class Rectangle implements IRectangle {
 
 	private double x, y, centerX, centerY, width, height, angle;
 
@@ -25,58 +25,38 @@ public class Rectangle {
 	}
 
 	public void setAngle(double angle) {
-		this.angle = Math.toRadians(angle);
+		this.angle = angle;
 	}
 
+	@Override
 	public Point topLeft() {
-		double thetac = angle - Math.atan2(centerY, centerX);
-		double h = Math.hypot(centerX, centerY);
-		return new Point(this.x - h * Math.cos(thetac), this.y + h * Math.sin(thetac));
+		return IRectangle.topLeft(this);
 	}
 
+	@Override
 	public Point topRight() {
-		double thetac = angle + Math.atan2(centerY,width - centerX);
-		double h = Math.hypot(width - centerX, centerY);
-		return new Point(this.x + h * Math.cos(thetac), this.y + h * Math.sin(thetac));	
+		return IRectangle.topRight(this);
 	}
 
+	@Override
 	public Point bottomLeft() {
-		double thetac = angle - Math.atan2(height - centerY, centerX);
-		double h = Math.hypot(centerX, height - centerY);
-		return new Point(this.x - h * Math.cos(thetac), this.y + h * Math.sin(thetac));		
+		return IRectangle.bottomLeft(this);	
 	}
 
+	@Override
 	public Point bottomRight() {
-		double thetac = angle + Math.atan2(height - centerY, width - centerX);
-		double h = Math.hypot(width - centerX, height - centerY);
-		return new Point(this.x + h * Math.cos(thetac), this.y + h * Math.sin(thetac));			
+		return IRectangle.bottomRight(this);
 	}
 
+	@Override
 	public boolean contains(Point p) {
-		double s = Math.sin(-1 * angle);
-		double c = Math.cos(-1 * angle);
-		
-		double p2x = c * (p.x - x) - s * (p.y - y) + x;
-		double p2y = s * (p.x - x) + c * (p.y - y) + y;
-		
-		double ax = x - centerX;
-		double ay = y - centerY;
-		double dx = x - centerX + width;
-		double dy = y - centerY + height;
-		
-		if ((dy > ay && p2y > ay && p2y < dy) || (dy < ay && p2y < ay && p2y > dy )) {
-			if ((dx > ax && p2x > ax && p2x < dx) || (dx < ax && p2x < ax && p2x > dx)) {
-				return true;
-			}
-		}
-		return false;
-	}
+		return IRectangle.contains(this, p);
+	}	
 	
+	
+	@Override
 	public boolean intersects(Rectangle rect) {
-		return	contains(rect.topLeft()) ||
-				contains(rect.bottomRight()) ||
-				contains(rect.topLeft()) ||
-				contains(rect.bottomLeft());
+		return IRectangle.intersects(this, rect);
 	}
 	
 	public void move(double x, double y) {
@@ -89,6 +69,7 @@ public class Rectangle {
 		this.height = height;
 	}
 	
+	@Override
 	public double x() {
 		return x;
 	}
@@ -97,6 +78,7 @@ public class Rectangle {
 		this.x = x;
 	}
 
+	@Override
 	public double y() {
 		return y;
 	}
@@ -105,22 +87,25 @@ public class Rectangle {
 		this.y = y;
 	}
 
-	public double getCenterX() {
+	@Override
+	public double centerX() {
 		return centerX;
 	}
 
-	public void setCenterX(double centerX) {
+	public void centerX(double centerX) {
 		this.centerX = centerX;
 	}
 
-	public double getCenterY() {
+	@Override
+	public double centerY() {
 		return centerY;
 	}
 
-	public void setCenterY(double centerY) {
+	public void centerY(double centerY) {
 		this.centerY = centerY;
 	}
 
+	@Override
 	public double width() {
 		return width;
 	}
@@ -129,6 +114,7 @@ public class Rectangle {
 		this.width = width;
 	}
 
+	@Override
 	public double height() {
 		return height;
 	}
@@ -137,6 +123,7 @@ public class Rectangle {
 		this.height = height;
 	}
 
+	@Override
 	public double angle() {
 		return angle;
 	}
@@ -148,5 +135,9 @@ public class Rectangle {
 		rect.centerX = centerX;
 		rect.centerY = centerY;
 		return rect;
+	}
+	
+	public ImmutableRectangle getImmutable() {
+		return new ImmutableRectangle(x, y, width, height, centerX, centerY, angle);
 	}
 }

@@ -10,6 +10,7 @@ import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.Point;
+import utils.Rectangle;
 import utils.Vector;
 
 public class RunObject {
@@ -29,6 +30,8 @@ public class RunObject {
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
+	
+	private Rectangle myBounds;
 	
 	public RunObject(String name) {
 		this.name = name;
@@ -58,6 +61,10 @@ public class RunObject {
 	}
 	protected long getInstanceId() {
 		return myInstanceId;
+	}
+	
+	protected Rectangle getBounds() {
+		
 	}
 	
 	protected RunObject clone() {
