@@ -81,7 +81,6 @@ public class ObjectListWindow {
 						ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
 	//					ObjectGUI og = new ObjectGUI(c);
-						og.init();
 
 
 				}
@@ -118,7 +117,6 @@ public class ObjectListWindow {
 					ObjectController c = new ObjectController(object, newObjects,newSprites, s );
 
 		//			ObjectGUI og = new ObjectGUI(c);
-					og.init();
 
 
 			}

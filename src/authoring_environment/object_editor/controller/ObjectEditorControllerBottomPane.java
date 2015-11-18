@@ -5,6 +5,7 @@ import authoring_environment.object_editor.model.ObjectEditorModelBottomPane;
 import authoring_environment.object_editor.view.ObjectEditorViewBottomPane;
 import javafx.scene.Node;
 import javafx.scene.control.Dialog;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 
@@ -48,4 +49,5 @@ public ObjectEditorControllerBottomPane() {
 	public String getText() {
 		return view.getNameBoxText();
 	}
+
 }
