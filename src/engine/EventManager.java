@@ -32,6 +32,10 @@ public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler {
 	public void drawImage(Image image, RunView view, double x, double y, double centerX, double centerY, double scaleX, double scaleY, double angle){
 		myDraw.drawImage(image, view, x, y, centerX, centerY, scaleX, scaleY, angle);
 	}
+    
+	private void processCollisionEvents() {
+		
+	}
 	
 	public void onReset(){
 		myGUI.onReset();
