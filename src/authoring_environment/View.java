@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import authoring_environment.controller.*;
+import authoring_environment.main.TopMenuBar;
 import authoring_environment.room.RoomEditor;
 import exceptions.FormattedException;
 import javafx.application.Platform;
@@ -106,7 +107,7 @@ public class View implements Observer{
 
 		myObjectListView.init(myController.getObjects(), myController.getSprites(), bp, myStage, myResourceBundle);
 		myRoomListView.init(myController.getRooms(),bp, myStage);
-		myTopToolBar.init(bp, this);
+		myTopToolBar.init();
 		myRightWindowView.init(bp, new VBox(), myController.getSounds(), myController.getSprites());
 
 

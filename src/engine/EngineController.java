@@ -14,6 +14,11 @@ import javafx.stage.Stage;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
+<<<<<<< HEAD
+=======
+import structures.run.RunObject;
+import utils.GameSelector;
+>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
 public class EngineController {
 	
@@ -36,6 +41,7 @@ public class EngineController {
 		setupEventManager(eventManager);
 	}
 
+<<<<<<< HEAD
 	public String getUserChoice() throws ResourceFailedException {
 		List<String> choices = addGamesFromDirectory();
 		
@@ -69,6 +75,10 @@ public class EngineController {
 		//use for testing
 		TestGameObject tgo = new TestGameObject();
 		myGame = tgo.getTestGame();
+=======
+	public void init() throws ResourceFailedException {
+		myGame = GameSelector.getGameChoice();
+>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 		
 		RunGame game = null;
 		
@@ -82,6 +92,7 @@ public class EngineController {
 		return game;
 		
 	}
+<<<<<<< HEAD
 	
 	public void setupEventManager(EventManager eventManager){
 		eventManager.addGUIInterface(myEngine.getGUIHandler());
@@ -90,4 +101,6 @@ public class EngineController {
 		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 	}
+=======
+>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 }

@@ -1,6 +1,7 @@
 package structures.data;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -11,7 +12,11 @@ import java.util.List;
 
 public class DataObject {
 
-    private ObservableMap<IDataEvent, List<IAction>> myEvents;
+//<<<<<<< HEAD
+//    private ObservableMap<IDataEvent, List<IAction>> myEvents;
+//=======
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
+//>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
     private String myName;
     private DataSprite mySprite;
@@ -32,17 +37,31 @@ public class DataObject {
         myName = name;
     }
 
-    public void bindEvent(IDataEvent event, List<IAction> actions) {
-        myEvents.put(event, actions);
-    }
+//<<<<<<< HEAD
+//    public void bindEvent(IDataEvent event, List<IAction> actions) {
+//        myEvents.put(event, actions);
+//    }
+//=======
+
+	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
+		myEvents.put(event, actions);
+	}
+//>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
     public void removeEvent(IDataEvent e) {
         myEvents.remove(e);
     }
 
-    public ObservableMap<IDataEvent, List<IAction>> getEvents() {
-        return myEvents;
-    }
+//<<<<<<< HEAD
+//    public ObservableMap<IDataEvent, List<IAction>> getEvents() {
+//        return myEvents;
+//    }
+//=======
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getEvents(){
+
+		return myEvents;
+	}
+//>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
     public DataSprite getSprite() {
         return mySprite;

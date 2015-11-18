@@ -43,7 +43,7 @@ public class ObjectController {
 		return mySprites;
 	}
 
-	public ObservableMap<IDataEvent, List<IAction>>  getEvents() {
+	public ObservableMap<IDataEvent, ObservableList<IAction>>  getEvents() {
 		return myObject.getEvents();
 	}
 

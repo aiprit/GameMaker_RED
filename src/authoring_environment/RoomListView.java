@@ -39,12 +39,12 @@ public class RoomListView {
 			b.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event){
-					TestObject test = new TestObject();
-					DataObject myObject = test.getDataObject();
-					Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
-					objectMap.put("Mario Object", myObject);
-					ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-					RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
+					
+//					DataObject myObject = test.getDataObject();
+//					Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
+//					objectMap.put("Mario Object", myObject);
+//					ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
+//					RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 				}
 			});
 			buttons.add(b);
@@ -59,12 +59,12 @@ public class RoomListView {
 		plus.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event){
-				TestObject test = new TestObject();
-				DataObject myObject = test.getDataObject();
-				Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
-				objectMap.put("Mario Object", myObject);
-				ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-				RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
+//				TestObject test = new TestObject();
+//				DataObject myObject = test.getDataObject();
+//				Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
+//				objectMap.put("Mario Object", myObject);
+//				ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
+//				RoomEditor room = new RoomEditor(resources, new RoomController(new DataRoom("Room", 500, 500)), objectMap);
 			}
 		});
 
