@@ -1,7 +1,6 @@
 package authoring_environment;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
@@ -32,8 +31,7 @@ public class ObjectListWindow {
 			public void handle(ActionEvent event){			 
 				Stage myStage = new Stage();
 				DataObject object = new DataObject("dog");
-				DataGame game = new DataGame(null, null);
-				ObjectController c = new ObjectController(object, game, myStage);
+				ObjectController c = new ObjectController(object,  myStage);
 
 				ObjectGUI og = new ObjectGUI(c);
 				og.init();

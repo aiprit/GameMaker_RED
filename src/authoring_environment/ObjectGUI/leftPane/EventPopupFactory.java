@@ -25,27 +25,30 @@ import structures.data.events.IDataEvent;
 
 public class EventPopupFactory {
 	PopUp kp;
-	public void create(String event, ObservableMap<IDataEvent,List<IAction>> m, ObservableList list, ObjectController controller) {
+	public void create(String event,DataObject obj, ObjectController controller) {
+		//		if (event.equalsIgnoreCase("Collision Event")) {
+		//
+		//		}
 		if (event.equalsIgnoreCase("Game End Event")) {
-			kp = new GameEndPopUp(m);
+			kp = new GameEndPopUp(obj);
 		}
 		if (event.equalsIgnoreCase("Collision Event")) {
 			kp = new CollisionPopUp(controller);
 		}
 		if (event.equalsIgnoreCase("On Game Start Event")) {
-			kp = new GameStartPopUp(m);
+			kp = new GameStartPopUp(obj);
 		}
 		if (event.equalsIgnoreCase("On Key Press Event")) {
-			kp = new KeyPressPopUp(m);
+			kp = new KeyPressPopUp(obj);
 		}
 		if (event.equalsIgnoreCase("On Key Release Event")) {
-			kp = new KeyReleasePopUp(m);
+			kp = new KeyReleasePopUp(obj);
 		}
 		if (event.equalsIgnoreCase("On Object Create Event")) {
-			kp = new ObjectCreatePopUp(m);
+			kp = new ObjectCreatePopUp(obj);
 		}
 		if (event.equalsIgnoreCase("On Object Destroy Event")) {
-			kp = new ObjectDestroyPopUp(m);
+			kp = new ObjectDestroyPopUp(obj);
 		}
 		//	}
 

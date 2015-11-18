@@ -83,5 +83,9 @@ public class ObjectController {
 		 stage.close();
 	}
 
+	public DataObject getObject() {
+		return myObject;
+	}
+
 
 }

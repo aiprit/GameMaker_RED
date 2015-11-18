@@ -1,7 +1,9 @@
 package authoring_environment.ObjectGUI.leftPane;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring_environment.EventPopup;
@@ -13,9 +15,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
-import structures.data.DataGame;
-import structures.data.DataObject;
-import structures.data.events.IDataEvent;
+
 
 public class ObjectLeftPane {
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/LeftPaneResources");
@@ -33,9 +33,10 @@ public class ObjectLeftPane {
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
 		ListView<String> listview = new ListView<String>();
 		Enumeration <String> keys = l.getKeys();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			String value = l.getString(key);
+		List<String> keylist = Collections.list(keys);
+		Collections.sort(keylist);
+		for (String str:keylist) {
+			String value = l.getString(str);
 			list.add(value);
 
 		}
@@ -47,7 +48,7 @@ public class ObjectLeftPane {
 		root.getChildren().addAll(title,listview,b);
 		b.setAlignment(Pos.BOTTOM_RIGHT);
 		b.setOnAction(e ->
-		popupfact.create(listview.getSelectionModel().getSelectedItem(),myController.getEvents(),myController.getObjects(), myController));
+		popupfact.create(listview.getSelectionModel().getSelectedItem(), myController.getObject(), myController));
 		return root;
 	}
 

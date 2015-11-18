@@ -16,10 +16,10 @@ import structures.data.events.IDataEvent;
 
 public class EventPopup {
 
-	public void popup(IDataEvent event,	ObservableMap<IDataEvent,List<IAction>> m){
-		Stage dialog = new Stage();
-		EventController control = new EventController(event,dialog,m);
-		EventGUI gui = new EventGUI(control);
+	public void popup(IDataEvent event,	DataObject obj){
+
+		 EventController control = new EventController(event,obj);
+         EventGUI gui = new EventGUI(control);
 	}
 
 }

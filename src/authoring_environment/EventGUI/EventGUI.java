@@ -47,7 +47,7 @@ public class EventGUI {
 		EventBottomPane bottom = new EventBottomPane(myController);
 		EventTopPane top = new EventTopPane();
 		EventRightPane right = new EventRightPane(myController);
-		EventLeftPane left = new EventLeftPane(myController);
+		EventLeftPane left = new EventLeftPane(myController,right);
 		myPane.setRight(right.init());
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.init());

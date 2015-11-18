@@ -39,36 +39,26 @@ public class CollisionPopUp implements PopUp{
 		myStage.setTitle(r.getString("title"));
 		Text title = new Text(r.getString("objects"));
 		Button b = new Button(r.getString("ok"));
-		
-		ListView<IDataEvent> listview = new ListView<IDataEvent>();
-		ObservableList<IDataEvent>list = FXCollections.observableList(new ArrayList<IDataEvent>());
-		list.addAll(myController.getEvents().keySet());
+
+		ListView<DataObject> listview = new ListView<DataObject>();
+		ObservableList<DataObject>list = FXCollections.observableList(new ArrayList<DataObject>());
+		list.addAll(myController.getObjects());
 		listview.setItems(list);
 		listview.setTranslateY(8);
-		
+
 		b.setOnAction(e -> eventPopup(listview));
 		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
 		myStage.show();
-		
+
 	}
-	
-	public void eventPopup(ListView<IDataEvent> list) {
-		if (myController.getName().equals(list.getSelectionModel().getSelectedItem().getName())) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Object can't collide with itself!");
-			alert.setContentText("Please choose a different object");
-			alert.showAndWait();
-		}
-		else {
-			EventPopup p = new EventPopup();
-			p.popup(new CollisionEvent(myController.getObjects().get(list.getSelectionModel().getSelectedIndex())), myController.getEvents());
-			myStage.close();
-		}
-		
+
+	public void eventPopup(ListView<DataObject> listview) {
+		EventPopup p = new EventPopup();
+		p.popup(new CollisionEvent(listview.getSelectionModel().getSelectedItem()), myController.getObject());
 	}
+
 
 	@Override
 	public void eventPopup() {
