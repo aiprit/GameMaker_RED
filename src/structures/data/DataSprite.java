@@ -12,15 +12,12 @@ public class DataSprite implements IResource {
 	private double myCenterX, myCenterY, myScaleX, myScaleY;
 	private boolean myHaveLoaded;
 	
-	public DataSprite(String name, String baseFileName, String directory) {
+	public DataSprite(String name, String baseFileName) {
+		myName = name;
 		myBaseFileName = baseFileName;
 		myHaveLoaded = false;
 		myCenterX = 0.0;
 		myCenterY = 0.0;
-		try {
-			this.load(directory);
-		} catch (ResourceFailedException e){
-		}
 	}
 	
 	public Image getImage() {

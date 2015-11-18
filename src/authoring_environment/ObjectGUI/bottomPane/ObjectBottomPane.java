@@ -18,7 +18,6 @@ public class ObjectBottomPane {
 		myController = controller;
 		try {
 			name = myController.getName();
-			size = myController.getSize();
 		}
 		catch (NullPointerException e) {
 			name = r.getString("tempName");
@@ -56,7 +55,6 @@ public class ObjectBottomPane {
 
 	private void update(String name, double width, double height) {
 		myController.setName(name);
-		myController.setSize(width, height);
 	}
 	
 	private TextField createTextBox(String s, int width, int height) {

@@ -1,7 +1,11 @@
 package structures;
 
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Exchanger;
 
 import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
@@ -10,6 +14,8 @@ import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
+
+import javax.swing.*;
 
 /*
     This class generates a sample game object. The game consists
@@ -83,9 +89,6 @@ public class TestGameObject {
         startScreenBackground.setSprite(startScreenSprite);
 
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
-
-        //startScreenBackground.addEvent(startScreenChange);
-
 
         DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
