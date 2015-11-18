@@ -65,15 +65,10 @@ public class DataObject{
 	}
 
 	public void addSprite(DataSprite s) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		mySprite = s;
-=======
 		mySprites.add(s);
->>>>>>> refs/remotes/origin/Nick
-=======
-		mySprite = s;
->>>>>>> cd19373b4f686f85ba90fa104dee7bd802a1cdda
+
 	}
 }
 

@@ -2,7 +2,10 @@ package authoring_environment.ObjectPopUps;
 
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import authoring_environment.main.EventPopup;
+=======
+>>>>>>> a729fee0b69507a58aff9d3d702b022182226556
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableMap;
@@ -73,11 +76,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 		key = code;
 
 	}
-	protected void close(ActionEvent e) {
-		 Node  source = (Node)  e.getSource();
-		 Stage stage  = (Stage) source.getScene().getWindow();
-		 stage.close();
-	}
+
 	protected void nullAlert(){
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");

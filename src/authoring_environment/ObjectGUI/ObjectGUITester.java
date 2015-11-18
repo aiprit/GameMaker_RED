@@ -49,7 +49,7 @@ public class ObjectGUITester extends Application{
 		Stage cc = new Stage();
 		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
-		ObjectView og = new ObjectView(ct);
+		ObjectEditorView og = new ObjectEditorView();
 
 		og.init();
 	}
