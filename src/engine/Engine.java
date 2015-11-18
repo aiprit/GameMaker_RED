@@ -1,5 +1,9 @@
 package engine;
 
+import engine.events.EventManager;
+import engine.events.IGUIHandler;
+import engine.events.IGamePlayHandler;
+import engine.events.IRoomChangedHandler;
 import exceptions.CompileTimeException;
 import structures.data.DataGame;
 import structures.run.RunGame;

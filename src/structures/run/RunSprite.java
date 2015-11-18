@@ -1,7 +1,7 @@
 package structures.run;
 
-import engine.EventManager;
 import engine.IDraw;
+import engine.events.EventManager;
 import exceptions.CompileTimeException;
 import javafx.scene.image.Image;
 import structures.data.DataSprite;

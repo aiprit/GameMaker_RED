@@ -1,5 +1,7 @@
 package engine;
 
+import engine.events.IObjectModifiedHandler;
+import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
 import structures.run.RunGame;
