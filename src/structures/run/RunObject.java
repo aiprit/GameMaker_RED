@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.Vector;
@@ -76,6 +78,18 @@ public class RunObject {
 		return myEvents.keySet();
 	}
 	
+	public void doAction(IDataEvent e){
+		if(!myEvents.containsKey(e)){
+			return;
+		}
+		RunAction act = myEvents.get(e);
+		Binding binding = new Binding();
+		binding.setProperty("current", this);
+		GroovyShell shell = new GroovyShell(binding);
+		System.out.println(act.script);
+		shell.evaluate(act.script);
+	}
+	
 	public void draw(IDraw drawInterface, RunView view) {
 		System.out.println("*" + mySprite);
 		if (mySprite != null) {
@@ -121,6 +135,7 @@ public class RunObject {
 		}
 		this.x = xOffset + x;
 		this.y = yOffset + y;
+		System.out.println("moved to: " + this.x + " " + this.y);
 	}
 	
 	public void move_to_random(){
