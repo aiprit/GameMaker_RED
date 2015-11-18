@@ -1,4 +1,4 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
 import authoring_environment.ObjectGUI.topPane.ObjectSpriteMenu;
 import javafx.scene.Group;

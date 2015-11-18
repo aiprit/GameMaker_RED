@@ -17,7 +17,7 @@ import structures.data.DataRoom;
 
 public class RoomListView {
 	private RoomEditor RoomEditor;
-	public void init(BorderPane bp, Stage s, ResourceBundle resources){
+	public void init(BorderPane bp, Stage s){
 		GridPane RoomView = new GridPane();
 		RoomView.setVgap(10);
 		RoomView.setHgap(20);

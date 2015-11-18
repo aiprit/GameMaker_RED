@@ -1,4 +1,4 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
 import java.util.ResourceBundle;
 
@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import structures.data.DataGame;
 
 public class EventActionMenu {
-	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
+	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 
 	public Menu makeMenu(DataGame game) {
 		Menu event = new Menu(r.getString("actionTitle"));
