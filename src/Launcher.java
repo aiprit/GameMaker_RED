@@ -1,4 +1,3 @@
-
 import authoring_environment.TestObject;
 import authoring_environment.View;
 import authoring_environment.ObjectGUI.ObjectGUI;
@@ -22,9 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 
-/**
- * @author loganrooper
- */
 public class Launcher extends Application {
 	EngineController ec;
 	View view;
@@ -36,15 +32,15 @@ public class Launcher extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		TestObject test = new TestObject();
-		DataObject myObject = test.getDataObject();
-		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
-		objectMap.put("Mario Object", myObject);
+//		TestObject test = new TestObject();
+//		DataObject myObject = test.getDataObject();
+//		Map<String, DataObject> objectMap = new HashMap<String, DataObject>();
+//		objectMap.put("Mario Object", myObject);
 		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		//RoomEditor room = new RoomEditor(resources, objectMap);
+//		RoomEditor room = new RoomEditor(resources, objectMap);
 		
 		
-		//		DataObject object = new DataObject("dog",10,10);
+//		DataObject object = new DataObject("dog",10,10);
 //		object.addEvent(new KeyTypedEvent());
 //		ObjectGUI og = new ObjectGUI(object);
 //		og.init();
@@ -58,7 +54,7 @@ public class Launcher extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				view = new View();
+				view = new View(resources);
 				view.init();
 			}
 		});
