@@ -13,6 +13,7 @@ import structures.data.DataSprite;
 import structures.data.actions.Destroy;
 import structures.data.actions.IAction;
 import structures.data.actions.Sleep;
+import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
@@ -25,7 +26,8 @@ public class ObjectGUITester extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		DataGame game = new DataGame("TestGame", "/home/nicholas");
-		DataObject object = new DataObject("dog");
+		DataObject object = new DataObject("Luigi");
+		DataObject object2 = new DataObject("cat");
 
 
 		IDataEvent a = new ObjectCreateEvent();
@@ -33,11 +35,17 @@ public class ObjectGUITester extends Application{
 		c.add(new Destroy());
 		c.add(new Sleep());
 		object.bindEvent(a,c);
+		game.addObject(object);
+		game.addObject(object2);
 		Stage cc = new Stage();
 		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
 
-		//		DataSprite sprite = new DataSprite();
-		//		object.addSprite(sprite);
+		DataSprite sprite = new DataSprite("Luigi.png", "");
+		DataSprite sprite2 = new DataSprite("black.png", "");
+		object.addSprite(sprite);
+		object.addSprite(sprite2);
+		object.setSprite(sprite);
+		object2.setSprite(sprite2);
 		ObjectGUI og = new ObjectGUI(ct);
 		og.init();
 	}

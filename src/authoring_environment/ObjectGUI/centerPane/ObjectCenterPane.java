@@ -42,14 +42,20 @@ public class ObjectCenterPane {
 		//		});
 		//root.getChildren().addAll(c); //, b);
 
-		xPos = Integer.parseInt(r.getString("canvasWidth"))/4;// - myController.getSize()[0]/2*spriteWidth;
-		yPos = Integer.parseInt(r.getString("canvasHeight"))/4;// - myController.getSize()[1]/2*spriteHeight;
+		xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - sprite.getWidth()/2;// - myController.getSize()[0]/2*spriteWidth;
+		yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - sprite.getHeight()/2;// - myController.getSize()[1]/2*spriteHeight;
 		gc.drawImage(sprite, xPos, yPos); //, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
 		Button b = new Button(r.getString("buttonText"));
 		b.setOnAction(e -> {
 			gc.clearRect(0, 0, Integer.parseInt(r.getString("canvasWidth")), Integer.parseInt(r.getString("canvasHeight")));
-			xPos = Integer.parseInt(r.getString("canvasWidth"))/4;
-			yPos = Integer.parseInt(r.getString("canvasHeight"))/4;
+			try {
+				sprite = addSprite(myController.getCurrentSprite().getName());
+			}
+			catch (NullPointerException x) {
+				sprite = addSprite("Mario.png");
+			}
+			xPos = Integer.parseInt(r.getString("canvasWidth"))/2 - sprite.getWidth()/2;
+			yPos = Integer.parseInt(r.getString("canvasHeight"))/2 - sprite.getHeight()/2;
 			gc.drawImage(sprite, xPos, yPos);
 		});
 
