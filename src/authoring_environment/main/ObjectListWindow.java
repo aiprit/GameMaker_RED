@@ -23,7 +23,7 @@ public class ObjectListWindow {
 		bp = new BorderPane();
 		list = new ArrayList<>();
 		HBox header = new HBox();
-		Label headerLabel = new Label("Object");
+		Label headerLabel = new Label(r.getString("ObjectListTitle"));
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
 		addPlusButton(bp);
@@ -38,7 +38,7 @@ public class ObjectListWindow {
 	}
 
 	public Button addObject(DataObject o) {
-		Button edit = new Button("EDIT"); // need to add resources usage @steve
+		Button edit = new Button(r.getString("EditItem")); // need to add resources usage @steve
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
@@ -50,8 +50,8 @@ public class ObjectListWindow {
 
 	private void addPlusButton(BorderPane bp) {
 		// Plus button
-		plusButton = new Button(" + ");
-		Label label = new Label("New");
+		plusButton = new Button(r.getString("plus"));
+		Label label = new Label(r.getString("MakeNewItem"));
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
 		HBox.setHgrow(label, Priority.ALWAYS);

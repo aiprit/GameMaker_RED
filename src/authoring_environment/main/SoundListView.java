@@ -24,7 +24,7 @@ public class SoundListView {
 	public void init() {
 		list = new ArrayList<HBox>();
 		HBox header = new HBox();
-		Label headerLabel = new Label("Object");
+		Label headerLabel = new Label("Sounds");
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
 
@@ -55,11 +55,11 @@ public class SoundListView {
         return plus;
 	}
 
-	public Node getPane() {
-		Pane gp = new Pane();
-		for (HBox h : list) {
-			gp.getChildren().add(h);
-		}
-		return gp;
+	public ListView<HBox> getPane() {
+		
+		ListView<HBox> listView = new ListView<HBox>();
+		ObservableList<HBox> myObservableList = FXCollections.observableList(list);
+		listView.setItems(myObservableList);
+		return listView;
 	}
 }

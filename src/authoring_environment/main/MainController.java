@@ -5,7 +5,9 @@ import java.util.ResourceBundle;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -142,8 +144,10 @@ public class MainController {
 		mainView.setMenuBar(topMenuBar.getMenu());
 		
 		// Set mainView's views
-		Pane rightPane = new Pane();
-		rightPane.getChildren().addAll(spriteListView.getPane(), soundListView.getPane());
+		BorderPane rightPane = new BorderPane();
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(spriteListView.getPane(), soundListView.getPane());
+		rightPane.setCenter(vbox);
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), rightPane);
 	}
 }

@@ -1,16 +1,19 @@
 package structures.run;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import engine.IDraw;
+import engine.events.EventManager;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
+import utils.IRectangle;
 import utils.Point;
+import utils.Rectangle;
 import utils.Vector;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class RunObject {
 	
@@ -30,6 +33,8 @@ public class RunObject {
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
 	
+	private Rectangle myBounds;
+	
 	public RunObject(String name) {
 		this.name = name;
 		this.x = 0.0;
@@ -43,6 +48,8 @@ public class RunObject {
 		this.alpha = 1.0;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
+		
+		myBounds = new Rectangle(0, 0, 0, 0);
 	}
 	
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -51,6 +58,9 @@ public class RunObject {
 	
 	protected void setSprite(RunSprite sprite) {
 		mySprite = sprite;
+		myBounds.width(mySprite.getWidth() * scaleX);
+		myBounds.height(mySprite.getHeight() * scaleY);
+		myBounds.center(mySprite.centerX, mySprite.centerY);
 	}
 	
 	protected void setInstanceId(long id) {
@@ -58,6 +68,12 @@ public class RunObject {
 	}
 	protected long getInstanceId() {
 		return myInstanceId;
+	}
+	
+	public IRectangle getBounds() {
+		myBounds.move(x, y);
+		myBounds.angle(this.angle);
+		return myBounds.getImmutable();
 	}
 	
 	protected RunObject clone() {
@@ -71,7 +87,7 @@ public class RunObject {
 		clone.mySprite = this.mySprite;
 		
 		// This is OK because both IDataEvents and RunActions are immutable
-		clone.myEvents = new HashMap<IDataEvent, RunAction>(myEvents);
+		clone.myEvents = new HashMap<>(myEvents);
 		return clone;
 	}
 	
@@ -79,22 +95,17 @@ public class RunObject {
 		return myEvents.keySet();
 	}
 	
-	public void doAction(IDataEvent e){
+	public RunAction getAction(IDataEvent e){
 		if(!myEvents.containsKey(e)){
-			return;
+			return null;
 		}
-		RunAction act = myEvents.get(e);
-		Binding binding = new Binding();
-		binding.setProperty("current", this);
-		GroovyShell shell = new GroovyShell(binding);
-		System.out.println(act.script);
-		shell.evaluate(act.script);
+		return myEvents.get(e);
 	}
 	
-	public void draw(IDraw drawInterface, RunView view) {
+	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			System.out.println(name +  "drawing at " + new Point(x, y));
-			mySprite.draw(drawInterface, view, this);
+			mySprite.draw(drawListener, view, this);
 		}
 	}
 	
