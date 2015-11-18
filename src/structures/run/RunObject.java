@@ -95,16 +95,11 @@ public class RunObject {
 		return myEvents.keySet();
 	}
 	
-	public void doAction(IDataEvent e){
+	public RunAction getAction(IDataEvent e){
 		if(!myEvents.containsKey(e)){
-			return;
+			return null;
 		}
-		RunAction act = myEvents.get(e);
-		Binding binding = new Binding();
-		binding.setProperty("current", this);
-		GroovyShell shell = new GroovyShell(binding);
-		System.out.println(act.script);
-		shell.evaluate(act.script);
+		return myEvents.get(e);
 	}
 	
 	public void draw(IDraw drawListener, RunView view) {

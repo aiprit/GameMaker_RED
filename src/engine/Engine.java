@@ -3,6 +3,7 @@ package engine;
 import engine.events.EventManager;
 import engine.events.IGUIHandler;
 import engine.events.IGamePlayHandler;
+import engine.events.IObjectModifiedHandler;
 import engine.events.IRoomChangedHandler;
 import exceptions.CompileTimeException;
 import structures.data.DataGame;
@@ -17,7 +18,9 @@ public class Engine implements IRoomChangedHandler {
 	private EventManager myEventManager;
 	private IGUIHandler myGUIHandler;
 	private IGamePlayHandler myGameplayHandler;
+	private IObjectModifiedHandler myObjectHandler;
 	private IDraw myDrawListener;
+	private GroovyEngine myGroovyEngine;
 
 	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
@@ -26,6 +29,7 @@ public class Engine implements IRoomChangedHandler {
 		myGameplayHandler = new GamePlayListener();
 		myOriginalGame = runGame;
 		myEventManager = eventManager;
+		myGroovyEngine = new GroovyEngine(myGame, eventManager);
 	}
 
 	public void load(RunGame runGame) {
@@ -50,7 +54,8 @@ public class Engine implements IRoomChangedHandler {
 	}
 	
 	public void runLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener);
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
+		myObjectHandler = myLevel.getObjectHandler();
 		myLevel.start();
 	}
 	
@@ -64,6 +69,10 @@ public class Engine implements IRoomChangedHandler {
 	
 	public IRoomChangedHandler getRoomChangedHandler(){
 		return this;
+	}
+	
+	public IObjectModifiedHandler getObjectHandler(){
+		return myObjectHandler;
 	}
 
 	public void pause() {

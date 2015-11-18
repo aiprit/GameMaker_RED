@@ -6,18 +6,21 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
+import structures.run.RunObject;
 import structures.run.RunRoom;
 
-public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlayHandler {
+public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlayHandler, IObjectModifiedHandler {
 
 	private List<IGUIHandler> myGUI;
 	private List<IRoomChangedHandler> myRoomChanged;
 	private List<IGamePlayHandler> myUserInput;
+	private List<IObjectModifiedHandler> myObjectModified;
 
 	public EventManager(){
-		myGUI = new ArrayList<IGUIHandler>();
-		myRoomChanged = new ArrayList<IRoomChangedHandler>();
-		myUserInput = new ArrayList<IGamePlayHandler>();
+		myGUI = new ArrayList<>();
+		myRoomChanged = new ArrayList<>();
+		myUserInput = new ArrayList<>();
+		myObjectModified = new ArrayList<>();
 	}
 
 	public void addGUIInterface(IGUIHandler gui){
@@ -30,6 +33,10 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 
 	public void addUserInputInterface(IGamePlayHandler userInput){
 		myUserInput.add(userInput);
+	}
+	
+	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
+		myObjectModified.add(objectModified);
 	}
 
 	public void onReset(){
@@ -75,13 +82,29 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 		}
 	}
 
+	//get and clear events
 	@Override
 	public Queue<InputEvent> getEvents() {
 		Queue<InputEvent> currentEvents = new LinkedList<>();
 		for(IGamePlayHandler i : myUserInput){
 			currentEvents.addAll(i.getEvents());
+			i.getEvents().clear();
 		}
 		return currentEvents;
+	}
+
+	@Override
+	public void onObjectCreate(RunObject runObject) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.onObjectCreate(runObject);
+		}
+	}
+
+	@Override
+	public void onObjectDestroy(RunObject runObject) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.onObjectDestroy(runObject);
+		}
 	}
 
 }

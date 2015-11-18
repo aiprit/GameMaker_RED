@@ -35,11 +35,14 @@ public class GameEventManager implements IObjectModifiedHandler {
 	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
 	private EventFactory myEventFactory;
 	
+	private GroovyEngine myGroovyEngine;
+	
 	private RunRoom myRoom;
 
-	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener){
+	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
 		myDrawListener = drawListener;
+		myGroovyEngine = groovyEngine;
 		myEventFactory = new EventFactory();
 		myRoom = room;
 		init(room);
@@ -64,7 +67,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	}
 
 	void loop() {
-		step(myRoom.getObjects());
+		step(myEvents.get(new StepEvent()));
 		processGameplayEvents(myEventManager.getEvents());
 		draw();
 	}
@@ -75,8 +78,11 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 * @param it
 	 */
 	private void step(List<RunObject> it) {
+		if(it == null){
+			return;
+		}
 		for(RunObject o : it){
-			o.doAction(new StepEvent());
+			myGroovyEngine.runScript(o, o.getAction(new StepEvent()));
 		}
 	}
 
@@ -92,8 +98,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 			if(myEvents.containsKey(runEvent)){
 				List<RunObject> os = myEvents.get(runEvent);
 				for(RunObject o : os){
-					System.out.println("i'm running!");
-					o.doAction(runEvent);
+					myGroovyEngine.runScript(o, o.getAction(runEvent));
 				}
 			}
 		}
