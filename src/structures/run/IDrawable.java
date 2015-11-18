@@ -1,7 +1,7 @@
 package structures.run;
 
-import engine.IDraw;
+import engine.EventManager;
 
 public interface IDrawable {
-	public void draw(IDraw drawInterface, RunView view, RunObject object);
+	public void draw(EventManager eventManager, RunView view, RunObject object);
 }

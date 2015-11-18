@@ -1,140 +1,61 @@
 package engine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import javafx.scene.input.InputEvent;
-import structures.data.events.IDataEvent;
-import structures.data.events.StepEvent;
-import structures.run.RunObject;
+
+import javafx.scene.image.Image;
 import structures.run.RunRoom;
+import structures.run.RunView;
 
-/**
- * EventManager facilitates the running of the game loop
- * by calling the step event on each object in the room,
- * 
- * then calling gameplay (mouse click, key press) events
- * on the RunObjects that have a corresponding action for them.
- * 
- * It then calls the draw event on each object in the room.
- * 
- * @author baileyewall
- *
- */
-
-public class EventManager implements IObjectModifiedHandler, IRoomChangedHandler {
-
-	private IGamePlayHandler gameplayInputs;
-	private IDraw drawListener;
-
-	private Map<IDataEvent, ArrayList<RunObject>> myEvents;
-	private EventFactory myEventFactory;
+public class EventManager implements IDraw, IGUIHandler, IRoomChangedHandler {
 	
-	private RunRoom myRoom;
-
-	public EventManager(RunRoom room, IGamePlayHandler inputs, IDraw drawListener){
-		this.gameplayInputs = inputs;
-		this.drawListener = drawListener;
-		myEventFactory = new EventFactory();
-		myRoom = room;
-		init(room);
-	}
-
-	/**
-	 * Creates a map of GameplayEvents to a list of RunObjects
-	 * that have a corresponding action for them.
-	 * 
-	 * @param room
-	 */
-	private void init(RunRoom room) {
-		myEvents = new HashMap<IDataEvent, ArrayList<RunObject>>();
-		for(RunObject o : room.getObjects()){
-			for(IDataEvent e : o.getEvents()){
-				if(!myEvents.containsKey(e)){
-					myEvents.put(e, new ArrayList<RunObject>());
-				}
-				myEvents.get(e).add(o);
-			}
-		}
-	}
-
-	void loop() {
-		step(myRoom.getObjects());
-		processGameplayEvents(gameplayInputs.getEvents());
-		draw();
-	}
-
-	/**
-	 * Calls each object in the room's step event.
-	 * 
-	 * @param it
-	 */
-	private void step(List<RunObject> it) {
-		for(RunObject o : it){
-			o.doAction(new StepEvent());
-		}
-	}
-
-	/**
-	 * Calls each GameplayEvent on the correct corresponding
-	 * RunObject, and then clears the events.
-	 * 
-	 * @param events
-	 */
-	private void processGameplayEvents(Queue<InputEvent> events){
-		for(InputEvent e : events){
-			IDataEvent runEvent = myEventFactory.getEvent(e);
-			if(myEvents.containsKey(runEvent)){
-				List<RunObject> os = myEvents.get(runEvent);
-				for(RunObject o : os){
-					System.out.println("i'm running!");
-					o.doAction(runEvent);
-				}
-			}
-		}
-		events.clear();
+	private IDraw myDraw;
+	private IGUIHandler myGUI;
+	private List<IRoomChangedHandler> myRoomChanged;
+	
+	public EventManager(){
+		myRoomChanged = new ArrayList<IRoomChangedHandler>();
 	}
 	
-	/**
-	 * Draws each RunObject on the canvas.
-	 */
-	public void draw(){
-		for(RunObject o : myRoom.getObjects()){
-			o.draw(drawListener, myRoom.getView());
-		}
+	public void setDrawInterface(IDraw draw){
+		myDraw = draw;
 	}
-
-	@Override
-	public void onRoomChanged (RunRoom runRoom) {
-		init(runRoom);
+	
+	public void setGUIInterface(IGUIHandler gui){
+		myGUI = gui;
 	}
-
-	/**
-	 * When an object in the room is created, adds its
-	 * GameplayEvents to the map.
-	 */
-	@Override
-	public void onObjectCreate(RunObject runObject) {
-		for(IDataEvent e : runObject.getEvents()){
-			if(!myEvents.containsKey(e)){
-				myEvents.put(e, new ArrayList<RunObject>());
-			}
-			myEvents.get(e).add(runObject);
-		}
+	
+	public void addRoomChangedInterface(IRoomChangedHandler roomChanged){
+		myRoomChanged.add(roomChanged);
 	}
-
-	/**
-	 * When an object in the room is deleted, removes its
-	 * GameplayEvents from the map.
-	 */
-	@Override
-	public void onObjectDestroy(RunObject runObject) {
-		for(IDataEvent e : runObject.getEvents()){
-			if(myEvents.containsKey(e)){
-				myEvents.get(e).remove(runObject);
-			}
+	
+	public void drawImage(Image image, RunView view, double x, double y, double centerX, double centerY, double scaleX, double scaleY, double angle){
+		myDraw.drawImage(image, view, x, y, centerX, centerY, scaleX, scaleY, angle);
+	}
+	
+	public void onReset(){
+		myGUI.onReset();
+	}
+	
+	public void onStart(){
+		myGUI.onStart();
+	}
+	
+	public void onPause(){
+		myGUI.onPause();
+	}
+	
+	public void onLoadSave(String path){
+		myGUI.onLoadSave(path);
+	}
+	
+	public void onSave(){
+		myGUI.onSave();
+	}
+	
+	public void onRoomChanged(RunRoom runRoom){
+		for(IRoomChangedHandler roomHandler : myRoomChanged){
+			roomHandler.onRoomChanged(runRoom);
 		}
 	}
 

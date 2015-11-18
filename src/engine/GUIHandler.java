@@ -6,8 +6,10 @@ package engine;
 public class GUIHandler implements IGUIHandler{
 	Boolean paused;
 	SavedGameHandler savedGames;
+	Engine engine;
 
-	public GUIHandler(Boolean paused, SavedGameHandler savedGames) {
+	public GUIHandler(Engine engine, Boolean paused, SavedGameHandler savedGames) {
+		this.engine = engine;
 		this.paused = paused;
 		this.savedGames = savedGames;
 	}
@@ -25,6 +27,7 @@ public class GUIHandler implements IGUIHandler{
 	@Override
 	public void onPause() {
 		paused = true;
+		engine.pause();
 	}
 
 	@Override
