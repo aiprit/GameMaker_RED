@@ -21,7 +21,6 @@ public class EngineController {
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
-	private GroovyLibrary myGroovyLibrary;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		
@@ -32,10 +31,6 @@ public class EngineController {
 		myEngine = new Engine(runGame, eventManager);
 		myFrontEnd = new FrontEnd(runGame, eventManager, stage);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
-		
-		//starts the first room loop
-		myGroovyLibrary = new GroovyLibrary(runGame);
-		myGroovyLibrary.setRoomChangedHandler(myFrontEnd);
 		
 		//sets up the event manager
 		setupEventManager(eventManager);
@@ -93,5 +88,6 @@ public class EngineController {
 		eventManager.addRoomChangedInterface(myFrontEnd.getRoomChangedHandler());
 		eventManager.addRoomChangedInterface(myEngine.getRoomChangedHandler());
 		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
+		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 	}
 }

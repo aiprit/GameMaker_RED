@@ -5,6 +5,7 @@ import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
+import structures.data.actions.library.CreateObject;
 import structures.data.actions.params.IParameter;
 import structures.data.events.KeyPressedEvent;
 
@@ -71,7 +72,7 @@ public class TestGameObject {
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
         MoveTo up = new MoveTo();
-        MoveTo down = new MoveTo();
+        CreateObject down = new CreateObject();
         try {
 
             left.getParameters().get(0).parse("-10");
@@ -89,9 +90,9 @@ public class TestGameObject {
             up.getParameters().get(2).parse("true");
             
             
-            down.getParameters().get(0).parse("0");
-            down.getParameters().get(1).parse("10");
-            down.getParameters().get(2).parse("true");
+            down.getParameters().get(0).parse("Coin");
+            down.getParameters().get(1).parse("0");
+            down.getParameters().get(2).parse("0");
 
         } catch (ParameterParseException ex) {
             System.out.println(ex.getMessage());
@@ -123,7 +124,7 @@ public class TestGameObject {
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
         level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
-        level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
+        //level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
         winScreen.setBackgroundColor("#FFFFFF");
