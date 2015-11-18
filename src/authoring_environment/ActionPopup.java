@@ -1,13 +1,14 @@
 package authoring_environment;
 
-import authoring_environment.Action.GUI.ActionGUI;
-import authoring_environment.EventGUI.EventGUI;
+
+import authoring_environment.Event.EventRightPane;
+import authoring_environment.OtherGUI.ActionGUI;
 import javafx.stage.Stage;
 
 public class ActionPopup {
-	public void popup() {
+	public void popup(EventRightPane right) {
 		 Stage dialog = new Stage();
 
-        ActionGUI gui = new ActionGUI(dialog);
+        ActionGUI gui = new ActionGUI(dialog,right);
 	}
 }

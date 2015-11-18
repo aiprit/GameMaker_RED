@@ -3,6 +3,7 @@ package authoring_environment.EventGUI;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -19,6 +20,7 @@ import javafx.scene.text.Text;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
+import structures.data.actions.params.IParameter;
 import structures.data.events.IDataEvent;
 
 public class EventLeftPane {
@@ -78,6 +80,10 @@ public class EventLeftPane {
 		}
 		try {
 			act = (IAction) c.getDeclaredConstructor().newInstance();
+			List<IParameter> params = act.getParameters();
+			for(IParameter p :params){
+				
+			}
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

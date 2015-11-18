@@ -23,8 +23,12 @@ public class KeyPressedEvent implements IDataEvent {
     	return false;
     }
 
-    public String toString() {
+    public String getName() {
     	return String.format("Key Press %s", keyCode.getName());
+    }
+    @Override
+    public String toString(){
+    	return this.getName();
     }
 
 }

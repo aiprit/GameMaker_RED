@@ -23,8 +23,12 @@ public class KeyReleasedEvent implements IDataEvent {
     	return false;
     }
 
-    public String toString() {
+    public String getName() {
     	return String.format("Key Release %s", keyCode.getName());
+    }
+    @Override
+    public String toString(){
+    	return this.getName();
     }
 
 }

@@ -1,6 +1,6 @@
 import authoring_environment.TestObject;
 import authoring_environment.View;
-import authoring_environment.ObjectGUI.ObjectGUI;
+import authoring_environment.ObjectGUI.ObjectView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ import structures.data.DataRoom;
 public class Launcher extends Application {
 	EngineController ec;
 	View view;
-	ObjectGUI og;
+	ObjectView og;
 
 	public static void main(String[] args) {
 		launch(args);

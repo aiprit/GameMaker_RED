@@ -14,18 +14,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 
-public class ObjectGUI {
+public class ObjectView {
 	private Scene myScene;
-	private Stage myEditor;
+	private Stage myStage;
 	private Group myRoot;
 	private String objectName;
 	private ObjectController myController;
 	//private DataObject myObject;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIResources");
 
-	public ObjectGUI(ObjectController controller) {
+	public ObjectView(ObjectController controller) {
 		myRoot = new Group();
-		myController = controller;
 		try {
 		objectName = myController.getName();
 		}
@@ -36,8 +35,8 @@ public class ObjectGUI {
 	}
 
 	public void init() {
-		myEditor = new Stage();
-		myEditor.setTitle(r.getString("title") + objectName);
+		myStage = new Stage();
+		myStage.setTitle(r.getString("title") + objectName);
 		BorderPane myPane = new BorderPane();
 		ObjectBottomPane bottom = new ObjectBottomPane(myController);
 		ObjectTopPane top = new ObjectTopPane(myController);
@@ -51,8 +50,8 @@ public class ObjectGUI {
 		myPane.setCenter(center.init(myController));
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 		myRoot.getChildren().add(myPane);
-		myEditor.setScene(new Scene(myRoot));
-		myEditor.show();
+		myStage.setScene(new Scene(myRoot));
+		myStage.show();
 	}
 
 }

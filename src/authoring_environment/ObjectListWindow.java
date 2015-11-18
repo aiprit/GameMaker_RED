@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import authoring_environment.ObjectGUI.ObjectController;
-import authoring_environment.ObjectGUI.ObjectGUI;
+import authoring_environment.ObjectGUI.ObjectView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,7 +33,7 @@ public class ObjectListWindow {
 				DataObject object = new DataObject("dog");
 				ObjectController c = new ObjectController(object,  myStage);
 
-				ObjectGUI og = new ObjectGUI(c);
+				ObjectView og = new ObjectView(c);
 				og.init();
 
 

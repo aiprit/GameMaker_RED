@@ -27,8 +27,13 @@ public class CollisionEvent implements IDataEvent {
     }
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return String.format("Collision with ", other.getName());
 	}
 
+
+	@Override
+    public String toString(){
+    	return this.getName();
+    }
 }
