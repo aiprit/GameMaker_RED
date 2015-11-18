@@ -1,9 +1,7 @@
-package authoring_environment.object_editor.controller;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.object_editor.model.ObjectEditorModel;
-import authoring_environment.object_editor.view.ObjectEditorView;
 import javafx.scene.Node;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
@@ -23,7 +21,7 @@ public class ObjectEditorController {
 		this.myStage = myStage;
 		game = g;
 		object = o;
-		view = new ObjectEditorView(myStage);
+		view = new ObjectEditorView();
 		model = new ObjectEditorModel(game, object);
 		
 	}
@@ -33,7 +31,7 @@ public class ObjectEditorController {
 		game = g;
 		object = new DataObject(String.valueOf(new Dialog().showAndWait().get()));
 		model = new ObjectEditorModel(g,object);
-		view = new ObjectEditorView(myStage);
+		view = new ObjectEditorView();
 	}
 	
 	public void init() {

@@ -1,8 +1,6 @@
-package authoring_environment.object_editor.controller;
+package authoring_environment.object_editor;
 
 
-import authoring_environment.object_editor.model.ObjectEditorModelBottomPane;
-import authoring_environment.object_editor.view.ObjectEditorViewBottomPane;
 import javafx.scene.Node;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;

@@ -1,12 +1,10 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import authoring_environment.EventPopup;
-import authoring_environment.ObjectGUI.ObjectController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -22,14 +20,12 @@ public class ObjectEditorViewRightPane {
 	private ResourceBundle rightResources = ResourceBundle.getBundle("authoring_environment/ObjectGUI/rightPane/RightPaneResources");
 	private Button edit, delete;
 	private Map<IDataEvent, List<IAction>> map;
-	private ListView<String> listview = new ListView<String>();
+	private ListView<IDataEvent> listview;
 	ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 
-	public ObjectEditorViewRightPane(ObservableList<String> l) {
-		list = l;
-		listview.setItems(list);
+	public ObjectEditorViewRightPane() {
+		init();
 	}
-	
 	
 	public Button getDeleteButton() {
 		return delete;
@@ -41,7 +37,7 @@ public class ObjectEditorViewRightPane {
 	public ObservableList<String> getList() {
 		return list;
 	}
-	public ListView<String> getListView() {
+	public ListView<IDataEvent> getListView() {
 		return listview;
 	}
 			
@@ -50,8 +46,8 @@ public class ObjectEditorViewRightPane {
 		Text title = new Text(rightResources.getString("text"));
 		title.setTranslateX(Integer.parseInt(rightResources.getString("textTranslateX")));
 		
-		listview = new ListView<String>();
-		listview.setItems(list);
+		listview = new ListView<>();
+		//listview.setItems(list);
 		listview.setTranslateY(Integer.parseInt(rightResources.getString("listTranslateY")));
 
 
@@ -65,9 +61,10 @@ public class ObjectEditorViewRightPane {
 		edit.setTranslateY(Integer.parseInt(rightResources.getString("buttonTranslateYedit")));
 		edit.setTranslateX(Integer.parseInt(rightResources.getString("buttonTranslateXedit")));
 		
-		eventPopup(listview.getSelectionModel().getSelectedItem());
+		//eventPopup(listview.getSelectionModel().getSelectedItem());
 		
 		root.getChildren().addAll(title, listview, delete, edit);
+		return root;
 
 	}
 

@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.view;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
@@ -17,8 +17,8 @@ public class ObjectEditorViewBottomPane {
 	private String objectName;
 	private Group root;
 	
-	public ObjectEditorViewBottomPane(String name) {
-		objectName = name;
+	public ObjectEditorViewBottomPane() {
+		init();
 	}
 	public String getNameBoxText() {
 		return nameBox.getText();
@@ -32,7 +32,7 @@ public class ObjectEditorViewBottomPane {
 		return cancel;
 	}
 
-	private Group init() {
+	public Group init() {
 		root = new Group();
 		Label nameLabel = new Label(bottomResources.getString("nameTitle"));
 		nameBox = createTextBox(objectName,Integer.parseInt(bottomResources.getString("prefWidth")),Integer.parseInt(bottomResources.getString("prefHeight")));

@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.model;
+package authoring_environment.object_editor;
 
 import structures.data.DataGame;
 import structures.data.DataObject;

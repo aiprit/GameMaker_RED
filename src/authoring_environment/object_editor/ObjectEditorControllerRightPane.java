@@ -1,9 +1,7 @@
-package authoring_environment.object_editor.controller;
+package authoring_environment.object_editor;
 
 import java.util.List;
 
-import authoring_environment.object_editor.model.ObjectEditorModelRightPane;
-import authoring_environment.object_editor.view.ObjectEditorViewRightPane;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataGame;

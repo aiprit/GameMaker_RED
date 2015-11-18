@@ -1,9 +1,7 @@
-package authoring_environment.object_editor.controller;
+package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.object_editor.model.ObjectEditorModelCenterPane;
-import authoring_environment.object_editor.view.ObjectEditorViewCenterPane;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import structures.data.DataObject;

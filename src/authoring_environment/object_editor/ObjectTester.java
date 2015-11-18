@@ -1,4 +1,4 @@
-package authoring_environment.object_editor.controller;
+package authoring_environment.object_editor;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
