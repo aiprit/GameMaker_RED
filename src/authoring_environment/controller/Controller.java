@@ -2,8 +2,14 @@ package authoring_environment.controller;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import java.util.Observable;
+import java.util.Observer;
+
 import java.util.ResourceBundle;
 
+import authoring_environment.View;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -13,10 +19,16 @@ import structures.data.DataSprite;
 
 public class Controller {
 	private DataGame myGame;
+
+	private View myView;
+	
+	
+
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	
 	public Controller(){
 		myGame = new DataGame(r.getString("GameTitle") , r.getString("FileTitle"));
+
 	}
 
 	public void addObject(){
@@ -50,6 +62,9 @@ public class Controller {
 	}
 	public ObservableList<DataSound> getSounds() {
 		return myGame.getSounds();
+	}
+	public void addObserversToGame(){
+		myGame.addObserver(myView);
 	}
 	
 }
