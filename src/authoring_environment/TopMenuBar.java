@@ -19,12 +19,12 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 public class TopMenuBar {
-	private static String LOAD = "Load";
-	private static String SAVE = "Save";
-	public void init(BorderPane bp, ResourceBundle resources, View myView){
-		Button Load = new Button(resources.getString(LOAD));
-		Button Save = new Button(resources.getString(SAVE));
-		Button Edit = new Button("Edit View");
+
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	public void init(BorderPane bp, View myView){
+		Button Load = new Button(r.getString("Load"));
+		Button Save = new Button(r.getString("Save"));
+		Button Edit = new Button(r.getString("EditView"));
 		Edit.setOnAction(new EventHandler<ActionEvent>(){
 	    	 @Override
 	    	 public void handle(ActionEvent event){
@@ -37,10 +37,10 @@ public class TopMenuBar {
 	private void addViewInput(View view){
 
 		 Dialog<Pair<String, String>> dialog = new Dialog<>();
-		 dialog.setTitle("Set height and width for view");
+		 dialog.setTitle(r.getString("viewInputTitle"));
 
 		    // Set the button types.
-		 ButtonType loginButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+		 ButtonType loginButtonType = new ButtonType(r.getString("okay"), ButtonData.OK_DONE);
 		 dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
 
 		 GridPane gridPane = new GridPane();
@@ -49,12 +49,12 @@ public class TopMenuBar {
 		 gridPane.setPadding(new Insets(20, 150, 10, 10));
 
 		 TextField from = new TextField();
-		 from.setPromptText("Height");
+		 from.setPromptText(r.getString("height"));
 		 TextField to = new TextField();
-		 to.setPromptText("Width");
-		 gridPane.add(new Label("Height:"), 0, 0);
+		 to.setPromptText(r.getString("width"));
+		 gridPane.add(new Label(r.getString("heightLabel")), 0, 0);
 		 gridPane.add(from, 1, 0);
-		 gridPane.add(new Label("Width:"), 0, 1);
+		 gridPane.add(new Label(r.getString("widthLabel")), 0, 1);
 		 gridPane.add(to, 1, 1);
 
 		 dialog.getDialogPane().setContent(gridPane);
@@ -85,7 +85,7 @@ public class TopMenuBar {
 		  }  
 		  catch(NumberFormatException nfe)  
 		  {  
-		      System.out.println("not a number");
+		      System.out.println(r.getString("NaN"));
 		      check = false;
 		  }  
 		if(check){

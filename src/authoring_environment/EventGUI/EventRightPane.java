@@ -1,8 +1,10 @@
-package authoring_environment.Event.GUI;
+package authoring_environment.EventGUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring_environment.Event.EventController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -14,9 +16,10 @@ import structures.data.events.IDataEvent;
 
 public class EventRightPane {
 
-	private ObservableList<IAction> list;
+	private List<IAction> actionList;
+	ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 	private EventController myController;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/GUI/EventGUIResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/EventGUIResources");
 	public EventRightPane(EventController controller) {
 		try{
 			myController = controller;
@@ -32,7 +35,11 @@ public class EventRightPane {
 		Group root = new Group();
 		Text title = new Text(r.getString("RightPane"));
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
-		ListView<IAction> listview = new ListView<IAction>();
+		ListView<String> listview = new ListView<String>();
+		actionList = myController.getActions();
+		for(IAction key: actionList){
+			list.add(key.getTitle());
+		}
 		listview.setItems(list);
 		Button b = new Button("Delete");
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
@@ -44,9 +51,24 @@ public class EventRightPane {
 		delete(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
-	private void delete(IAction e){
+	public void delete(String e){
+		IAction event = null;
+		for(IAction key: actionList){
+			if(key.getTitle().equals(e)){
+				event = key;
+				break;
+			}
+		}
+		actionList.remove(event);
 		list.remove(e);
 	}
+	public void add(IAction e){
+
+		actionList.add(e);
+		list.add(e.getTitle());
+		myController.saveActions(actionList);
+	}
+
 
 }
 
