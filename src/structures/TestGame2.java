@@ -76,12 +76,12 @@ public class TestGame2 {
         winScreenBackground.setSprite(winScreenSprite);
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
-        level1.addObjectInstance(new DataInstance(wall, 0, 200, 1, 1));
-        level1.addObjectInstance(new DataInstance(wall, 64, 200, 1, 1));
-        level1.addObjectInstance(new DataInstance(wall, 128, 200, 1, 1));
-        level1.addObjectInstance(new DataInstance(wall, 192, 200, 1, 1));
-        level1.addObjectInstance(new DataInstance(wall, 448, 200, 1, 1));
-        level1.addObjectInstance(new DataInstance(mario, 140, 20, 1, 1));
+        level1.addObjectInstance(new DataInstance(wall, 0, 200));
+        level1.addObjectInstance(new DataInstance(wall, 64, 200));
+        level1.addObjectInstance(new DataInstance(wall, 128, 200));
+        level1.addObjectInstance(new DataInstance(wall, 192, 200));
+        level1.addObjectInstance(new DataInstance(wall, 448, 200));
+        level1.addObjectInstance(new DataInstance(mario, 140, 20));
 
 
         testGame.addObject(mario);
