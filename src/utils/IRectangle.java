@@ -75,16 +75,14 @@ public interface IRectangle {
 	}
 	
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
-		boolean topLeftOne = rect1.contains(rect2.topLeft());
-		boolean topRightOne = rect1.contains(rect2.topRight());
-		boolean bottomLeftOne = rect1.contains(rect2.bottomLeft());
-		boolean bottomRightOne = rect1.contains(rect2.bottomRight());
-		boolean topLeftTwo = rect2.contains(rect1.topLeft());
-		boolean topRightTwo = rect2.contains(rect1.topRight());
-		boolean bottomLeftTwo = rect2.contains(rect1.bottomLeft());
-		boolean bottomRightTwo = rect2.contains(rect1.bottomRight());
-		return (topLeftOne || topRightOne || bottomLeftOne || bottomRightOne 
-				|| topLeftTwo || topRightTwo || bottomLeftTwo || bottomRightTwo);
+		return (rect1.contains(rect2.topLeft()) ||
+				rect1.contains(rect2.topRight()) ||
+				rect1.contains(rect2.bottomLeft()) ||
+				rect1.contains(rect2.bottomRight()) ||
+				rect2.contains(rect1.topLeft()) ||
+				rect2.contains(rect1.topRight()) ||
+				rect2.contains(rect1.bottomLeft()) ||
+				rect2.contains(rect1.bottomRight()));
 	}
 
 }
