@@ -6,5 +6,9 @@ public class GameEndEvent extends AbstractBasicEvent {
 	public String getName() {
 		return "Game End";
 	}
-	
+	@Override
+    public String toString(){
+    	return this.getName();
+    }
+
 }

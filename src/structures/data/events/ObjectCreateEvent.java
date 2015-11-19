@@ -6,5 +6,10 @@ public class ObjectCreateEvent extends AbstractBasicEvent {
 	public String getName() {
 		return "Object Created";
 	}
-	
+	@Override
+    public String toString(){
+    	return this.getName();
+    }
+
+
 }

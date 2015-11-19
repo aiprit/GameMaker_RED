@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import structures.IResource;
 
 public class DataSprite implements IResource {
-
 	private String myBaseFileName;
 	private String myName;
 	private Image myImage;

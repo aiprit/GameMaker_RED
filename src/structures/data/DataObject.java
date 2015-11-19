@@ -1,68 +1,89 @@
 package structures.data;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
+import java.util.HashMap;
+import java.util.List;
 
-public class DataObject{
 
-	private ObservableMap<IDataEvent, List<IAction>> myEvents;
+public class DataObject {
 
-	private String myName;
-	private DataSprite mySprite;
 
-	private int myZIndex;
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
 
-	public DataObject(String name) {
-		myName = name;
-		myEvents = FXCollections.observableMap(new HashMap<>());
-		myZIndex = 0;
-	}
 
-	public String getName() {
-		return myName;
-	}
+    private String myName;
+    private DataSprite mySprite;
 
-	public void setName(String name) {
-		myName = name;
-	}
+    private int myZIndex;
 
-	public void bindEvent(IDataEvent event, List<IAction> actions) {
+
+    public DataObject(String name) {
+        myName = name;
+        myEvents = FXCollections.observableMap(new HashMap<>());
+        myZIndex = 0;
+    }
+    public DataObject(DataObject obj){
+    	myName = obj.getName();
+    	myEvents = obj.getEvents();
+    	myZIndex = obj.getZIndex();
+    	mySprite = obj.getSprite();
+
+    }
+
+    public String getName() {
+        return myName;
+    }
+
+    public void setName(String name) {
+        myName = name;
+    }
+
+
+
+	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
 		myEvents.put(event, actions);
 	}
 
-	public void removeEvent(IDataEvent e) {
-		myEvents.remove(e);
-	}
 
-	public ObservableMap<IDataEvent, List<IAction>> getEvents(){
+    public void removeEvent(IDataEvent e) {
+        myEvents.remove(e);
+    }
+
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getEvents(){
+
 		return myEvents;
 	}
+    public DataSprite getSprite() {
+        return mySprite;
+    }
 
-	public void setSprite(DataSprite sprite) {
-		mySprite = sprite;
-	}
+    public void setSprite(DataSprite sprite) {
+        mySprite = sprite;
+    }
 
-	public DataSprite getSprite() {
-		return mySprite;
-	}
+    public int getZIndex() {
+        return myZIndex;
+    }
 
-	public int getZIndex() {
-		return myZIndex;
-	}
-	public void setZIndex(int zIndex) {
-		myZIndex = zIndex;
-	}
+    public void setZIndex(int zIndex) {
+        myZIndex = zIndex;
+    }
 
-	public void addSprite(DataSprite s) {
-		mySprite = s;
-		// TODO Auto-generated method stub
-	}
+
+    public void addSprite(DataSprite s) {
+        mySprite = s;
+    }
+    @Override
+    public String toString(){
+    	return myName;
+    }
+
 }
 
