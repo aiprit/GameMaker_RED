@@ -33,7 +33,7 @@ public class RoomLoop {
 	 */
 	public void createRoomLoop(){
 		
-		final Duration oneFrameAmt = Duration.millis(1000);
+		final Duration oneFrameAmt = Duration.millis(100);
         final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
                                                new EventHandler<ActionEvent>() {
 

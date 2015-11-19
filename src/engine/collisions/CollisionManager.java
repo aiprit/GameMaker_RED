@@ -1,6 +1,7 @@
 package engine.collisions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class CollisionManager {
 	
 	public CollisionManager() {
 		myCollider = new RectangleCollider();
+		myCollideables = new HashMap<>();
 	}
 	
 	public void addToCollideables(RunObject obj) {

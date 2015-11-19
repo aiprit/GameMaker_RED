@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game directory="TestGame/" title="Test Game">
   <objects>
-    <object name="Coin" sprite="Coin" zIndex="0"/>
+    <object name="Coin" sprite="Square" zIndex="0"/>
     <object name="Player" sprite="Square" zIndex="0">
-      <event title="Key Press Right">
-        <action title="Move"/>
-      </event>
       <event title="Key Press Left">
         <action title="Move"/>
       </event>
+      <event title="Key Press Up">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Down">
+        <action title="Move"/>
+      </event>
       <event title="Key Press Space">
+        <action title="Move"/>
+      </event>
+      <event title="Collision with ">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Right">
         <action title="Move"/>
       </event>
     </object>
@@ -17,7 +26,6 @@
     <object name="WinScreenBackground" sprite="Win Screen" zIndex="0"/>
   </objects>
   <sprites>
-    <sprite baseFileName="coin.png" centerX="0.0" centerY="0.0" name="Coin" scaleX="0.0" scaleY="0.0"/>
     <sprite baseFileName="square.png" centerX="0.0" centerY="0.0" name="Square" scaleX="0.0" scaleY="0.0"/>
     <sprite baseFileName="StartScreen.png" centerX="0.0" centerY="0.0" name="Start Screen" scaleX="0.0" scaleY="0.0"/>
     <sprite baseFileName="WinScreen.png" centerX="0.0" centerY="0.0" name="Win Screen" scaleX="0.0" scaleY="0.0"/>

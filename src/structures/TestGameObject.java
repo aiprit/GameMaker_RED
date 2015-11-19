@@ -8,6 +8,7 @@ import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.library.CreateObject;
 import structures.data.actions.params.IParameter;
+import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 
 import java.util.ArrayList;
@@ -30,15 +31,6 @@ import java.util.List;
 
 public class TestGameObject {
 
-    public static void main(String[] args) {
-        TestGameObject testGameObject = new TestGameObject();
-
-        DataGame printGame = testGameObject.getTestGame();
-
-        System.out.println(printGame.toString());
-        XMLEditor xml = new XMLEditor();
-        xml.writeXML(printGame, "test.xml");
-    }
 
     /*
      Events are not associated with actions, they will be when
@@ -50,13 +42,15 @@ public class TestGameObject {
 
         DataObject coin = new DataObject("Coin");
 
-        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
-        coin.setSprite(coinSprite);
+//        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
+//        coin.setSprite(coinSprite);
 
         DataObject player = new DataObject("Player");
 
         DataSprite playerSprite = new DataSprite("Square", "square.png");
         player.setSprite(playerSprite);
+        
+        coin.setSprite(playerSprite);
 
         KeyPressedEvent startScreenChange = new KeyPressedEvent(KeyCode.SPACE);
         IAction spaceBarAction = new MoveTo();
@@ -75,7 +69,7 @@ public class TestGameObject {
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
         MoveTo up = new MoveTo();
-        CreateObject down = new CreateObject();
+        MoveTo down = new MoveTo();
         try {
 
             left.getParameters().get(0).parse("-10");
@@ -93,9 +87,9 @@ public class TestGameObject {
             up.getParameters().get(2).parse("true");
             
             
-            down.getParameters().get(0).parse("Coin");
-            down.getParameters().get(1).parse("0");
-            down.getParameters().get(2).parse("0");
+            down.getParameters().get(0).parse("0");
+            down.getParameters().get(1).parse("10");
+            down.getParameters().get(2).parse("true");
 
         } catch (ParameterParseException ex) {
             System.out.println(ex.getMessage());
@@ -110,7 +104,19 @@ public class TestGameObject {
         player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
         player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
         player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
+        
+        MoveTo zero = new MoveTo();
+        try {
+	        zero.getParameters().get(0).parse("0");
+	        zero.getParameters().get(1).parse("0");
+	        zero.getParameters().get(2).parse("false");
+        } catch (Exception ex) {
+        	
+        }
 
+        CollisionEvent collide = new CollisionEvent(coin);
+        player.bindEvent(collide, Collections.singletonList(zero));
+        
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
         DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
@@ -127,7 +133,7 @@ public class TestGameObject {
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
         level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
-        //level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
+        level1.addObjectInstance(new DataInstance(coin, 640, 640, 0));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
         winScreen.setBackgroundColor("#FFFFFF");
@@ -138,7 +144,7 @@ public class TestGameObject {
         testGame.addObject(startScreenBackground);
         testGame.addObject(winScreenBackground);
 
-        testGame.addSprite(coinSprite);
+        //testGame.addSprite(coinSprite);
         testGame.addSprite(playerSprite);
         testGame.addSprite(startScreenSprite);
         testGame.addSprite(winScreenSprite);

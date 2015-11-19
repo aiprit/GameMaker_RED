@@ -15,6 +15,7 @@ import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;
+import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
@@ -133,8 +134,10 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
-				collisionPair.one.doAction(new CollisionEvent(collisionPair.two.name));
-				collisionPair.two.doAction(new CollisionEvent(collisionPair.one.name));
+				RunAction action1 = collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name));
+				RunAction action2 = collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name));
+				myGroovyEngine.runScript(collisionPair.one, action1);
+				myGroovyEngine.runScript(collisionPair.two, action2);
 			}
 		}
 	}
