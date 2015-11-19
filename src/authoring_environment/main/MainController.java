@@ -2,6 +2,8 @@
 package authoring_environment.main;
 
 import java.util.ResourceBundle;
+
+import authoring_environment.ObjectGUI.ObjectGUITester;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,6 +60,13 @@ public class MainController {
 					// TODO: @nick. Need to call the ObjectComponent here (edit
 					// game).
 					// use the DataObject o for this.
+					ObjectGUITester window = new ObjectGUITester();
+					try {
+						window.start(myStage);;
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 		}
@@ -68,6 +77,14 @@ public class MainController {
 			public void handle(ActionEvent event) {
 				// TODO: @nick. Need to call the ObjectComponent here (new
 				// game).
+				
+				ObjectGUITester window = new ObjectGUITester();
+				try {
+					window.start(myStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
