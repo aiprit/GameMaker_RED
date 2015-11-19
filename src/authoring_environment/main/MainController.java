@@ -119,8 +119,11 @@ public class MainController implements IUpdateHandle {
 
 		// Room List
 		roomListView.init();
-		for (DataRoom o : dataGame.getRooms()) {
-			roomListView.addRoom(o).setOnAction(new EventHandler<ActionEvent>() {
+		//for (DataRoom o : dataGame.getRooms()) {
+		for(int i = 0; i< dataGame.getRooms().size(); i++){
+			DataRoom o = dataGame.getRooms().get(i);
+			
+			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
 					// your Room Editor (edit room)

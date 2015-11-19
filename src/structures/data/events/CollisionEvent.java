@@ -12,12 +12,12 @@ public class CollisionEvent implements IDataEvent {
         this.other = other;
         this.otherName = null;
     }
-    
+
     public CollisionEvent(String other) {
     	this.other = null;
     	this.otherName = other;
     }
-    
+
     public String otherName() {
     	return this.other == null ? otherName : this.other.getName();
     }
@@ -45,6 +45,6 @@ public class CollisionEvent implements IDataEvent {
 
 	@Override
     public String toString(){
-    	return this.getName();
+    	return "Collision with " + other.toString();
     }
 }

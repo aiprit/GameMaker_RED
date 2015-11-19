@@ -101,6 +101,10 @@ public class DataGame extends Observable {
         myRooms.add(room);
         update();
     }
+    public void removeObject(DataObject o){
+    	 myObjects.remove(o);
+         update();
+    }
 
     public ObservableList<DataSprite> getSprites() {
         return mySprites;
