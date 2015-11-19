@@ -29,9 +29,9 @@ public class Draw extends StackPane implements IDraw {
 		Rectangle disp = view.getView();
 		
 		myGraphicsContext.save();
-		myGraphicsContext.translate(x - disp.x(), y - disp.y() + 200);
+		myGraphicsContext.translate(x - disp.x(), y - disp.y());
 		myGraphicsContext.rotate(-1 * angle);
-		myGraphicsContext.scale(1.0 / scaleX, 1.0 / scaleY);
+		myGraphicsContext.scale(scaleX, scaleY);
 		//myGraphicsContext.drawImage(image, -1 * x, -1 * y);
 		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
 		myGraphicsContext.restore();

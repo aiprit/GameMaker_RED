@@ -78,7 +78,7 @@ public class TestGame2 {
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
         level1.addObjectInstance(new DataInstance(wall, 0, 100));
         level1.addObjectInstance(new DataInstance(wall, 64, 100));
-        level1.addObjectInstance(new DataInstance(wall, 128, 100));
+        level1.addObjectInstance(new DataInstance(wall, 0, 0));
         level1.addObjectInstance(new DataInstance(mario, 140, 20));
 
 
