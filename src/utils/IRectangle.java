@@ -42,8 +42,8 @@ public interface IRectangle {
 		double dx = rect.x() - rect.centerX() + rect.width();
 		double dy = rect.y() - rect.centerY() + rect.height();
 		
-		if ((dy > ay && p2y > ay && p2y < dy) || (dy < ay && p2y < ay && p2y > dy )) {
-			if ((dx > ax && p2x > ax && p2x < dx) || (dx < ax && p2x < ax && p2x > dx)) {
+		if ((dy > ay && p2y >= ay && p2y <= dy) || (dy < ay && p2y <= ay && p2y >= dy )) {
+			if ((dx > ax && p2x >= ax && p2x <= dx) || (dx < ax && p2x <= ax && p2x >= dx)) {
 				return true;
 			}
 		}
@@ -59,7 +59,7 @@ public interface IRectangle {
 	public static Point bottomLeft(IRectangle rect) {
 		double thetac = Math.toRadians(rect.angle()) - Math.atan2(rect.height() - rect.centerY(), rect.centerX());
 		double h = Math.hypot(rect.centerX(), rect.height() - rect.centerY());
-		return new Point(rect.x() - h * Math.cos(thetac), rect.y() + h * Math.sin(thetac));		
+		return new Point(rect.x() - h * Math.cos(thetac), rect.y() - h * Math.sin(thetac));		
 	}
 	
 	public static Point topRight(IRectangle rect) {
@@ -75,10 +75,16 @@ public interface IRectangle {
 	}
 	
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
-		return	rect1.contains(rect2.topLeft()) ||
-				rect1.contains(rect2.bottomRight()) ||
-				rect1.contains(rect2.topLeft()) ||
-				rect1.contains(rect2.bottomLeft());
+		boolean topLeftOne = rect1.contains(rect2.topLeft());
+		boolean topRightOne = rect1.contains(rect2.topRight());
+		boolean bottomLeftOne = rect1.contains(rect2.bottomLeft());
+		boolean bottomRightOne = rect1.contains(rect2.bottomRight());
+		boolean topLeftTwo = rect2.contains(rect1.topLeft());
+		boolean topRightTwo = rect2.contains(rect1.topRight());
+		boolean bottomLeftTwo = rect2.contains(rect1.bottomLeft());
+		boolean bottomRightTwo = rect2.contains(rect1.bottomRight());
+		return (topLeftOne || topRightOne || bottomLeftOne || bottomRightOne 
+				|| topLeftTwo || topRightTwo || bottomLeftTwo || bottomRightTwo);
 	}
 
 }

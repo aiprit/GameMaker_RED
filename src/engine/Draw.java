@@ -4,7 +4,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import structures.run.RunView;
+import utils.IRectangle;
 import utils.Rectangle;
 
 public class Draw extends StackPane implements IDraw {
@@ -27,14 +30,24 @@ public class Draw extends StackPane implements IDraw {
 		
 		//draw the new object
 		Rectangle disp = view.getView();
-		
 		myGraphicsContext.save();
-		myGraphicsContext.translate(x - disp.x(), y - disp.y() + 200);
+		myGraphicsContext.translate(x - disp.x(), y - disp.y());
 		myGraphicsContext.rotate(-1 * angle);
-		myGraphicsContext.scale(1.0 / scaleX, 1.0 / scaleY);
-		//myGraphicsContext.drawImage(image, -1 * x, -1 * y);
+		myGraphicsContext.scale(scaleX, scaleY);
 		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
 		myGraphicsContext.restore();
 
+	}
+	
+	@Override
+	public void drawRectangle(IRectangle rect, RunView view, Paint paint) {
+		Rectangle disp = view.getView();
+		myGraphicsContext.setStroke(paint);
+		myGraphicsContext.strokeRect(rect.x() - disp.x(), rect.y() - disp.y(), rect.width(), rect.height());
+	}
+	
+	public void drawBackground(Image image, RunView view){
+		Rectangle disp = view.getView();
+		myGraphicsContext.clearRect(0, 0, disp.width(), disp.height());
 	}
 }

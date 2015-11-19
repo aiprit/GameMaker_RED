@@ -14,11 +14,10 @@ import javafx.stage.Stage;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
-<<<<<<< HEAD
-=======
+
 import structures.run.RunObject;
 import utils.GameSelector;
->>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
+
 
 public class EngineController {
 	
@@ -32,16 +31,15 @@ public class EngineController {
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
-		
-		myEngine = new Engine(runGame, eventManager);
-		myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+                myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+		//starts the first room loop
+                myEngine = new Engine(runGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 		
 		//sets up the event manager
 		setupEventManager(eventManager);
 	}
 
-<<<<<<< HEAD
 	public String getUserChoice() throws ResourceFailedException {
 		List<String> choices = addGamesFromDirectory();
 		
@@ -71,17 +69,11 @@ public class EngineController {
 		
 		//set myGame to the game that the user chooses
 		myEditor = new XMLEditor();
-		//myGame = myEditor.readXML(userGame);
+		myGame = myEditor.readXML(userGame);
 		//use for testing
 		TestGameObject tgo = new TestGameObject();
 		myGame = tgo.getTestGame();
-=======
-	public void init() throws ResourceFailedException {
-		myGame = GameSelector.getGameChoice();
->>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
-		
 		RunGame game = null;
-		
 		//convert DataGame to a RunGame
 		try {
 			game = new RunGame(myGame);
@@ -92,7 +84,26 @@ public class EngineController {
 		return game;
 		
 	}
-<<<<<<< HEAD
+	
+//	public void init() throws ResourceFailedException {
+//		myGame = GameSelector.getGameChoice();
+//		//TestGame2 tgo = new TestGame2();
+//		//myGame = tgo.getTestGame();
+//		
+//		TestGameObject tgo2 = new TestGameObject();
+//		
+//		DataGame game2 = tgo2.getTestGame();
+//		RunGame game = null;
+//		//convert DataGame to a RunGame
+//		try {
+//			game = new RunGame(game2);
+//		} catch (CompileTimeException | RuntimeException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return game;
+//		
+//	}
 	
 	public void setupEventManager(EventManager eventManager){
 		eventManager.addGUIInterface(myEngine.getGUIHandler());
@@ -101,6 +112,4 @@ public class EngineController {
 		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 	}
-=======
->>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 }

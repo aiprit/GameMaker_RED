@@ -22,6 +22,6 @@ public class GetScore extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "“if (library.get_score() %s %f)";
+		return "if (library.get_score() %s %f) ";
 	}
 }

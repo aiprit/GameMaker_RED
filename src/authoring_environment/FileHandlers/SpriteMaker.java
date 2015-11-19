@@ -39,7 +39,12 @@ public class SpriteMaker {
 			
 		    ImageIO.write(img, "png", outputfile);
 		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
-
+//		    try {
+//				newSprite.load("images/");
+//			} catch (ResourceFailedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		    sprites.add(newSprite);
 		    
 		} catch (IOException e1) {

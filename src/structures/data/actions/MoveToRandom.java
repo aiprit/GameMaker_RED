@@ -3,6 +3,7 @@ package structures.data.actions;
 public class MoveToRandom extends DataAction {
 
 	public MoveToRandom(){
+		init();
 		//generate a random x and y coordinate
 		//need to generate it here?
 		

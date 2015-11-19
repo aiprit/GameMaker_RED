@@ -5,26 +5,21 @@ import javafx.scene.image.Image;
 import structures.IResource;
 
 public class DataSprite implements IResource {
-
-	private String myBaseFileName;
-	private String myName;
-	private Image myImage;
-	private double myCenterX, myCenterY, myScaleX, myScaleY;
-	private boolean myHaveLoaded;
 	
-	public DataSprite(String name, String baseFileName) {
-		myName = name;
-		myBaseFileName = baseFileName;
-		try {
-			load("images/");
-		} catch (ResourceFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		myHaveLoaded = false;
-		myCenterX = 0.0;
-		myCenterY = 0.0;
-	}
+	 private String myBaseFileName;
+	    private String myName;
+	    private Image myImage;
+	    private double myCenterX, myCenterY;
+	    private boolean myHaveLoaded;
+
+	    public DataSprite(String name, String baseFileName) {
+	        myName = name;
+	        myBaseFileName = baseFileName;
+	        myHaveLoaded = false;
+	        myCenterX = 0.0;
+	        myCenterY = 0.0;
+	        
+	    }
 	
 	public Image getImage() {
 		return myImage;
@@ -35,22 +30,6 @@ public class DataSprite implements IResource {
 	}
 	public void setName(String name) {
 		myName = name;
-	}
-
-	public double getScaleX(){
-		return myScaleX;
-	}
-
-	public double getScaleY(){
-		return myScaleY;
-	}
-
-	public void setScaleX(double scale){
-		myScaleX = scale;
-	}
-
-	public void setScaleY(double scale){
-		myScaleY = scale;
 	}
 
 	public String getBaseFileName() {
@@ -80,10 +59,8 @@ public class DataSprite implements IResource {
 		return myHaveLoaded;
 	}
 
-	@Override
-	public void load(String directory) throws ResourceFailedException {
-		
-		myImage = new Image(getClass().getClassLoader().getResourceAsStream(myBaseFileName));
+    @Override
+    public void load(String directory) throws ResourceFailedException {
         String url = directory + myBaseFileName;
         try {
             myImage = new Image(getClass().getClassLoader().getResourceAsStream(url));

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
 import engine.collisions.CollisionManager;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -15,6 +14,7 @@ import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;
+import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
@@ -78,7 +78,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 				
 				// If Collision, add both objects' names to objects that collide
 				if (e instanceof CollisionEvent) {
-					myCollidingObjectPairs.add(new Pair<>(o.name, ((CollisionEvent)e).other.getName()));
+					Pair<String> collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
+					myCollidingObjectPairs.add(collideThese);
 				}
 			}
 		}
@@ -133,8 +134,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
-				collisionPair.one.doAction(new CollisionEvent(collisionPair.two.name));
-				collisionPair.two.doAction(new CollisionEvent(collisionPair.one.name));
+				myGroovyEngine.runScript(collisionPair.one, collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name)));
+				myGroovyEngine.runScript(collisionPair.two, collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name)));
 			}
 		}
 	}
@@ -151,6 +152,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 * Draws each RunObject on the canvas.
 	 */
 	public void draw(){
+		myDrawListener.drawBackground(null, myRoom.getView());
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());
 		}
