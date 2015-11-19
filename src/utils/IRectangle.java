@@ -59,7 +59,7 @@ public interface IRectangle {
 	public static Point bottomLeft(IRectangle rect) {
 		double thetac = Math.toRadians(rect.angle()) - Math.atan2(rect.height() - rect.centerY(), rect.centerX());
 		double h = Math.hypot(rect.centerX(), rect.height() - rect.centerY());
-		return new Point(rect.x() - h * Math.cos(thetac), rect.y() + h * Math.sin(thetac));		
+		return new Point(rect.x() - h * Math.cos(thetac), rect.y() - h * Math.sin(thetac));		
 	}
 	
 	public static Point topRight(IRectangle rect) {
