@@ -35,15 +35,15 @@ import java.util.List;
 
 public class TestGameObject {
 
-	//	public static void main(String[] args) {
-	//		TestGameObject testGameObject = new TestGameObject();
-	//
-	//		DataGame printGame = testGameObject.getTestGame();
-	//
-	//		System.out.println(printGame.toString());
-	//		XMLEditor xml = new XMLEditor();
-	//		xml.writeXML(printGame, "test.xml");
-	//	}
+		public static void main(String[] args) {
+			TestGameObject testGameObject = new TestGameObject();
+
+			DataGame printGame = testGameObject.getTestGame();
+
+			System.out.println(printGame.toString());
+			XMLEditor xml = new XMLEditor();
+			xml.writeXML(printGame, "test.xml");
+		}
 
 	/*
      Events are not associated with actions, they will be when
