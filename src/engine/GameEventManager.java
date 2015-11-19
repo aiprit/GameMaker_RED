@@ -78,7 +78,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 				
 				// If Collision, add both objects' names to objects that collide
 				if (e instanceof CollisionEvent) {
-					myCollidingObjectPairs.add(new Pair<>(o.name, ((CollisionEvent)e).other.getName()));
+					Pair collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
+					myCollidingObjectPairs.add(collideThese);
 				}
 			}
 		}
@@ -153,6 +154,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 	 * Draws each RunObject on the canvas.
 	 */
 	public void draw(){
+		myDrawListener.drawBackground(null, myRoom.getView());
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());
 		}

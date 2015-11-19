@@ -9,7 +9,7 @@ public class DataSprite implements IResource {
     private String myBaseFileName;
     private String myName;
     private Image myImage;
-    private double myCenterX, myCenterY, myScaleX, myScaleY;
+    private double myCenterX, myCenterY;
     private boolean myHaveLoaded;
 
     public DataSprite(String name, String baseFileName) {
@@ -18,6 +18,8 @@ public class DataSprite implements IResource {
         myHaveLoaded = false;
         myCenterX = 0.0;
         myCenterY = 0.0;
+        myScaleX = 1.0;
+        myScaleY = 1.0;
     }
 
     public Image getImage() {
@@ -30,22 +32,6 @@ public class DataSprite implements IResource {
 
     public void setName(String name) {
         myName = name;
-    }
-
-    public double getScaleX() {
-        return myScaleX;
-    }
-
-    public void setScaleX(double scale) {
-        myScaleX = scale;
-    }
-
-    public double getScaleY() {
-        return myScaleY;
-    }
-
-    public void setScaleY(double scale) {
-        myScaleY = scale;
     }
 
     public String getBaseFileName() {

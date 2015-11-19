@@ -42,8 +42,8 @@ public interface IRectangle {
 		double dx = rect.x() - rect.centerX() + rect.width();
 		double dy = rect.y() - rect.centerY() + rect.height();
 		
-		if ((dy > ay && p2y > ay && p2y < dy) || (dy < ay && p2y < ay && p2y > dy )) {
-			if ((dx > ax && p2x > ax && p2x < dx) || (dx < ax && p2x < ax && p2x > dx)) {
+		if ((dy > ay && p2y >= ay && p2y <= dy) || (dy < ay && p2y <= ay && p2y >= dy )) {
+			if ((dx > ax && p2x >= ax && p2x <= dx) || (dx < ax && p2x <= ax && p2x >= dx)) {
 				return true;
 			}
 		}
@@ -75,10 +75,11 @@ public interface IRectangle {
 	}
 	
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
-		return	rect1.contains(rect2.topLeft()) ||
-				rect1.contains(rect2.bottomRight()) ||
-				rect1.contains(rect2.topLeft()) ||
-				rect1.contains(rect2.bottomLeft());
+		boolean topLeft = rect1.contains(rect2.topLeft());
+		boolean topRight = rect1.contains(rect2.topRight());
+		boolean bottomLeft = rect1.contains(rect2.bottomLeft());
+		boolean bottomRight = rect1.contains(rect2.bottomRight());
+		return (topLeft || topRight || bottomLeft || bottomRight);
 	}
 
 }

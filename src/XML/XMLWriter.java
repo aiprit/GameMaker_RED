@@ -2,7 +2,6 @@ package XML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
@@ -33,6 +32,8 @@ public class XMLWriter {
 
             root.setAttribute("title", game.getName());
             root.setAttribute("directory", game.getGameDirectory());
+            root.setAttribute("startRoom", Integer.toString(game.getStartRoomIndex()));
+            root.setAttribute("currentRoom", Integer.toString(game.getCurrentRoomIndex()));
 
             processGame(doc, game, root);
 
@@ -78,6 +79,7 @@ public class XMLWriter {
                 e.appendChild(getElementFromRoom(doc, dataRoom));
             }
         }
+
         return e;
     }
 
@@ -90,6 +92,7 @@ public class XMLWriter {
         for (Map.Entry<IDataEvent, List<IAction>> e : dataObject.getEvents().entrySet()) {
             object.appendChild(getElementFromEvent(doc, e));
         }
+
         return object;
     }
 
@@ -107,6 +110,7 @@ public class XMLWriter {
     private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
         action.setAttribute("title", a.getTitle());
+
         return action;
     }
 
@@ -118,6 +122,7 @@ public class XMLWriter {
         sprite.setAttribute("centerY", Double.toString(dataSprite.getCenterY()));
         sprite.setAttribute("scaleX", Double.toString(dataSprite.getScaleX()));
         sprite.setAttribute("scaleY", Double.toString(dataSprite.getScaleY()));
+
         return sprite;
     }
 
@@ -125,6 +130,7 @@ public class XMLWriter {
         Element sound = doc.createElement("sound");
         sound.setAttribute("name", dataSound.getName());
         sound.setAttribute("baseFileName", dataSound.getBaseFileName());
+
         return sound;
     }
 
@@ -134,18 +140,46 @@ public class XMLWriter {
         room.setAttribute("width", Double.toString(dataRoom.getSize()[0]));
         room.setAttribute("height", Double.toString(dataRoom.getSize()[1]));
         room.setAttribute("backgroundColor", dataRoom.getBackgroundColor());
-
         room.appendChild(getElementFromView(doc, dataRoom.getView()));
         room.appendChild(getElementFromObjectInstances(doc, dataRoom.getObjectInstances()));
 
         return room;
     }
 
-    private Element getElementFromView(Document doc, DataView view) {
-        return null;
+    private Element getElementFromView(Document doc, DataView dataView) {
+        Element view = doc.createElement("view");
+        view.setAttribute("name", dataView.getName());
+        view.setAttribute("x",  Double.toString(dataView.getX()));
+        view.setAttribute("y", Double.toString(dataView.getY()));
+        view.setAttribute("width", Double.toString(dataView.getWidth()));
+        view.setAttribute("height", Double.toString(dataView.getHeight()));
+
+        return view;
     }
 
     private Element getElementFromObjectInstances(Document doc, List<DataInstance> objectInstances) {
-        return null;
+        Element instances = doc.createElement("objectInstances");
+        for (DataInstance dataInstance : objectInstances) {
+            instances.appendChild(getElementFromObjectInstance(doc, dataInstance));
+        }
+
+        return instances;
+    }
+
+    private Element getElementFromObjectInstance(Document doc, DataInstance dataInstance) {
+        Element instance = doc.createElement("objectInstance");
+        instance.setAttribute("x", Double.toString(dataInstance.getX()));
+        instance.setAttribute("y", Double.toString(dataInstance.getX()));
+        instance.setAttribute("ID", Long.toString(dataInstance.getID()));
+        instance.setAttribute("parentObject", dataInstance.getParentObject().getName());
+        instance.setAttribute("visibility", Boolean.toString(dataInstance.isVisible()));
+        instance.setAttribute("zIndex", Integer.toString(dataInstance.getZIndex()));
+        instance.setAttribute("angle", Double.toString(dataInstance.getAngle()));
+        instance.setAttribute("angularVelocity", Double.toString(dataInstance.getAngularVelocity()));
+        instance.setAttribute("scaleX", Double.toString(dataInstance.getScaleX()));
+        instance.setAttribute("scaleY", Double.toString(dataInstance.getScaleY()));
+        instance.setAttribute("alpha", Double.toString(dataInstance.getAlpha()));
+
+        return instance;
     }
 }

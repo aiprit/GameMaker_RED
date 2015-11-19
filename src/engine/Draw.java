@@ -4,6 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import structures.run.RunView;
 import utils.Rectangle;
 
@@ -27,14 +28,17 @@ public class Draw extends StackPane implements IDraw {
 		
 		//draw the new object
 		Rectangle disp = view.getView();
-		
 		myGraphicsContext.save();
 		myGraphicsContext.translate(x - disp.x(), y - disp.y());
 		myGraphicsContext.rotate(-1 * angle);
 		myGraphicsContext.scale(scaleX, scaleY);
-		//myGraphicsContext.drawImage(image, -1 * x, -1 * y);
 		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
 		myGraphicsContext.restore();
 
+	}
+	
+	public void drawBackground(Image image, RunView view){
+		Rectangle disp = view.getView();
+		myGraphicsContext.clearRect(0, 0, disp.width(), disp.height());
 	}
 }

@@ -41,6 +41,10 @@ public class DataGame extends Observable {
         return myRooms;
     }
 
+    public String getGameDirectory(){
+        return myGameDirectory;
+    }
+
     public DataRoom getStartRoom() {
         return myRooms.get(myStartRoom);
     }
@@ -48,15 +52,13 @@ public class DataGame extends Observable {
     public void setStartRoom(DataRoom room) {
         if (myRooms.contains(room)) {
             myStartRoom = myRooms.indexOf(room);
+            myCurrentRoom = myStartRoom;
         }
-    }
-
-    public String getGameDirectory(){
-        return myGameDirectory;
     }
 
     public void setStartRoom(int index) {
         myStartRoom = index;
+        myCurrentRoom = index;
     }
 
     public DataRoom getCurrentRoom() {
@@ -71,6 +73,14 @@ public class DataGame extends Observable {
 
     public void setCurrentRoom(int index) {
         myCurrentRoom = index;
+    }
+
+    public int getStartRoomIndex(){
+        return myStartRoom;
+    }
+
+    public int getCurrentRoomIndex(){
+        return myCurrentRoom;
     }
 
     public String getSpriteDirectory() {

@@ -86,7 +86,9 @@ public class Engine implements IRoomChangedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-		// TODO Auto-generated method stub
+		//how else need to change the level?
+		myLevel.pause();
+		runLevel();
 	}
 
 }

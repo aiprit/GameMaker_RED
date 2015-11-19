@@ -4,6 +4,10 @@ import structures.data.actions.DataAction;
 
 public class Else extends DataAction {
 
+	public Else(){
+		init();
+	}
+	
 	@Override
 	public String getTitle() {
 		return "Else";
@@ -16,7 +20,7 @@ public class Else extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "} \n else { ";
+		return "\n} else {\n";
 	}
 
 }
