@@ -106,6 +106,7 @@ public class RoomBackground extends Canvas {
 
 	private void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
+		setColorFill(myColor);
 		for (DraggableImage drag : myObjectMap.keySet()) {
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
@@ -164,6 +165,7 @@ public class RoomBackground extends Canvas {
 			myImage = image;
 			myImageFileName = fileName;
 		}
+		redrawCanvas();
 	}
 	
 	public void setRoomWidth(double width) {
