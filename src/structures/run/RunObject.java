@@ -106,7 +106,7 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
-			drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
+			//drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
 	

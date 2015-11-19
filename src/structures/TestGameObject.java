@@ -2,6 +2,8 @@ package structures;
 
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.IAction;
@@ -47,7 +49,8 @@ public class TestGameObject {
 	/*
      Events are not associated with actions, they will be when
      the action library has been built out in the game engine
-	 */
+<<<<<<< HEAD
+     */
 
 	public DataGame getTestGame() {
 		DataGame testGame = new DataGame("Test Game", "TestGame/");
@@ -59,10 +62,10 @@ public class TestGameObject {
 
 		DataObject player = new DataObject("Player");
 		
-		CollisionEvent collideCoin = new CollisionEvent(player);
-		MoveToRandom mtr = new MoveToRandom();
-		List<IAction> responseActions = Collections.singletonList(mtr);
-		coin.bindEvent(collideCoin, responseActions);
+//		CollisionEvent collideCoin = new CollisionEvent(player);
+//		MoveToRandom mtr = new MoveToRandom();
+//		List<IAction> responseActions = Collections.singletonList(mtr);
+//		coin.bindEvent(collideCoin, responseActions);
 
 		DataSprite playerSprite = new DataSprite("Mario", "mario.png");
 		player.setSprite(playerSprite);
@@ -79,8 +82,9 @@ public class TestGameObject {
 		}
 		List<IAction> actions = new ArrayList<>();
 		actions.add(spaceBarAction);
-		player.bindEvent(startScreenChange, actions);
-
+		ObservableList<IAction> actionsO = FXCollections.observableList(actions);
+		player.bindEvent(startScreenChange, actionsO);
+		
 		MoveTo left = new MoveTo();
 		MoveTo right = new MoveTo();
 		MoveTo up = new MoveTo();
@@ -111,14 +115,18 @@ public class TestGameObject {
 		}
 
 		List<IAction> leftActions = Collections.singletonList(left);
+		ObservableList<IAction> leftActionsO = FXCollections.observableList(leftActions);
 		List<IAction> rightActions = Collections.singletonList(right);
+		ObservableList<IAction> rightActionsO = FXCollections.observableList(rightActions);
 		List<IAction> upActions = Collections.singletonList(up);
+		ObservableList<IAction> upActionsO = FXCollections.observableList(upActions);
 		List<IAction> downActions = Collections.singletonList(down);
+		ObservableList<IAction> downActionsO = FXCollections.observableList(downActions);
 
-		player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
-		player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
-		player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
-		player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
+		player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
+		player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
+		player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
+		player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
 		GetScore getScore = new GetScore();
@@ -163,7 +171,8 @@ public class TestGameObject {
 		zeroActions.add(addOne);
 		zeroActions.add(zero);
 		zeroActions.add(close);
-		player.bindEvent(collide, zeroActions);
+		ObservableList<IAction> zeroActionsO = FXCollections.observableList(zeroActions);
+		player.bindEvent(collide, zeroActionsO);
 
 		//		CollisionEvent collide2 = new CollisionEvent(player);
 		//		MoveTo stay = new MoveTo();
@@ -195,7 +204,8 @@ public class TestGameObject {
 		}
 		List<IAction> startActions = new ArrayList<>();
 		startActions.add(goToStart);
-		startScreenBackground.bindEvent(new KeyPressedEvent(KeyCode.SPACE), startActions);
+		ObservableList<IAction> startActionsO = FXCollections.observableList(startActions);
+		startScreenBackground.bindEvent(new KeyPressedEvent(KeyCode.SPACE), startActionsO);
 
 		DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
