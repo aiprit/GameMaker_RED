@@ -13,6 +13,8 @@ public class GroovyLibrary {
 	private RunGame myRunGame;
 	IObjectModifiedHandler myOMH;
 	IRoomChangedHandler myRCH;
+	
+	int score = 0;
 
 	public GroovyLibrary(RunGame runGame) {
 		myRunGame = runGame;
@@ -25,7 +27,7 @@ public class GroovyLibrary {
 	public void setRoomChangedHandler(IRoomChangedHandler roomChangedHandler) {
 		myRCH = roomChangedHandler;
 	}
-	
+
 	private void fatalError(String message, Object... args) {
 		// Do nothing
 	}
@@ -63,12 +65,12 @@ public class GroovyLibrary {
 //	}
 	//	
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
-			//			boolean border, double borderWidth){
-		//		
-		//	}
+	//			boolean border, double borderWidth){
+	//		
+	//	}
 	//	
 	//	public void draw_text(String text){
-		//		
+	//		
 	//	}
 
 	//	public void get_mouse_state(){
@@ -79,9 +81,9 @@ public class GroovyLibrary {
 		return myRunGame.getCurrentRoom().toString();
 	}
 
-	//	public void get_score(){
-	//	    
-	//	}
+	public int get_score(){
+		return score;
+	}
 
 	//	public void get_variable(String key){
 	//	    
@@ -89,6 +91,7 @@ public class GroovyLibrary {
 	//	}
 
 	public void go_to_room(int roomNumber) {
+		System.out.println("change room!");
 		try {
 			myRunGame.setCurrentRoom(roomNumber);
 		} catch (GameRuntimeException ex) {
@@ -96,7 +99,7 @@ public class GroovyLibrary {
 		}	
 		myRCH.onRoomChanged(myRunGame.getCurrentRoom());
 	}
-	
+
 	public void go_to_room(String name) {
 		try {
 			myRunGame.setCurrentRoom(myRunGame.getRoom(name));
@@ -123,6 +126,11 @@ public class GroovyLibrary {
 	//	public void set_score(double score){
 	//		
 	//	}
+	
+	public void change_score(int score){
+		this.score += score;
+	}
+	
 	//	
 	//	public void set_variable(String key, double value){
 	//		

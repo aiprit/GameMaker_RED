@@ -15,6 +15,7 @@ public class DataObject {
 
     private String myName;
     private DataSprite mySprite;
+    private double myScaleX, myScaleY;
 
     private int myZIndex;
 
@@ -22,6 +23,8 @@ public class DataObject {
         myName = name;
         myEvents = FXCollections.observableMap(new HashMap<>());
         myZIndex = 0;
+        myScaleX = 1.0;
+        myScaleY = 1.0;
     }
 
     public String getName() {
@@ -62,6 +65,22 @@ public class DataObject {
 
     public void addSprite(DataSprite s) {
         mySprite = s;
+    }
+    
+    public double getScaleX() {
+        return myScaleX;
+    }
+
+    public void setScaleX(double scale) {
+        myScaleX = scale;
+    }
+
+    public double getScaleY() {
+        return myScaleY;
+    }
+
+    public void setScaleY(double scale) {
+        myScaleY = scale;
     }
 }
 

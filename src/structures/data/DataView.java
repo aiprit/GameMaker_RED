@@ -36,4 +36,20 @@ public class DataView {
     public void setView(Rectangle rect) {
         myView = rect;
     }
+
+    public double getX(){
+        return myView.x();
+    }
+
+    public double getY(){
+        return myView.y();
+    }
+
+    public double getWidth(){
+        return myView.width();
+    }
+
+    public double getHeight(){
+        return myView.height();
+    }
 }

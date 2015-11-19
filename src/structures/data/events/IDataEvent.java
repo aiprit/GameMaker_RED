@@ -1,5 +1,9 @@
 package structures.data.events;
 
+import java.util.Map;
+
 public interface IDataEvent {
-	public String getName();
+    String getName();
+
+    Map<String, String> dumpContents();
 }
