@@ -77,7 +77,8 @@ public class EventController {
 			List<IParameter> params = act.getParameters();
 			if(params !=null){
 				for(IParameter p :params){
-				paramPopUps(p);
+					if(!paramPopUps(p))
+						break;
 				}
 			}
 			myModel.addAction(act);
@@ -106,30 +107,32 @@ public class EventController {
 
 	}
 
-	private void paramPopUps(IParameter p) {
+	private boolean paramPopUps(IParameter p) {
 
-			TextInputDialog dialog = new TextInputDialog(p.getType().toString());
-			dialog.setTitle("Set Parameters");
-			dialog.setHeaderText("Please Enter Value");
-			dialog.setContentText(p.getTitle()+" "+p.getType());
-			Optional<String> result = dialog.showAndWait();
-			if (result.isPresent()){
-				try {
-					p.parse(result.get());
-				} catch (ParameterParseException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Invalid Parameter");
-					alert.setContentText("Please Reenter");
-					alert.showAndWait();
-					paramPopUps(p);
-				}
-			}
-			else{
+		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
+		dialog.setTitle("Set Parameters");
+		dialog.setHeaderText("Please Enter Value");
+		dialog.setContentText(p.getTitle()+" "+p.getType());
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+			try {
+				p.parse(result.get());
+			} catch (ParameterParseException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Invalid Parameter");
+				alert.setContentText("Please Reenter");
+				alert.showAndWait();
 				paramPopUps(p);
 			}
+			System.out.println(result.get());
+			return true;
 		}
+		else
+			return false;
+
 	}
+}
 
 
 
