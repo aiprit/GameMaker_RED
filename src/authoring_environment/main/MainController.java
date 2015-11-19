@@ -89,13 +89,15 @@ public class MainController implements IUpdateHandle {
 				public void handle(ActionEvent event) {
 					
 					ObjectTester window = new ObjectTester();
+					
 					try {
 						window.start(myStage);
+						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
+					update();
 	
 				}
 			});
@@ -109,11 +111,13 @@ public class MainController implements IUpdateHandle {
 				ObjectTester window = new ObjectTester();
 				try {
 					window.start(myStage);
+					
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				update();
 			}
 		});
 
@@ -148,6 +152,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
+					
 				}
 			});
 		}
@@ -157,7 +162,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				SpriteMaker.load(myStage, dataGame.getSprites());
-				 
+				 update();
 
 			}
 		});
@@ -180,6 +185,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				SoundMaker.load(myStage, dataGame.getSounds());
+				update();
 			}
 		});
 
