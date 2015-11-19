@@ -1,5 +1,7 @@
 package engine;
 
+import engine.events.IObjectModifiedHandler;
+import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
 import structures.run.RunGame;
@@ -16,7 +18,7 @@ public class GroovyLibrary {
 		myRunGame = runGame;
 	}
 
-	public void setObectModifiedHandler(IObjectModifiedHandler objectModifiedHandler) {
+	public void setObjectModifiedHandler(IObjectModifiedHandler objectModifiedHandler) {
 		myOMH = objectModifiedHandler;
 	}
 
@@ -56,9 +58,9 @@ public class GroovyLibrary {
 		myOMH.onObjectCreate(runObject);
 	}
 
-	public void display_message(String message){
-
-	}
+//	public void display_message(String message){
+//
+//	}
 	//	
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 			//			boolean border, double borderWidth){
@@ -94,6 +96,7 @@ public class GroovyLibrary {
 		}	
 		myRCH.onRoomChanged(myRunGame.getCurrentRoom());
 	}
+	
 	public void go_to_room(String name) {
 		try {
 			myRunGame.setCurrentRoom(myRunGame.getRoom(name));

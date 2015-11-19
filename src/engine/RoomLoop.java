@@ -1,5 +1,7 @@
 package engine;
 
+import engine.events.EventManager;
+import engine.events.IObjectModifiedHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -19,10 +21,10 @@ import structures.run.RunRoom;
 public class RoomLoop {
 	
 	private Timeline myGameLoop;
-	private EventManager eventManager;
+	private GameEventManager gameManager;
 	
-	public RoomLoop(RunRoom room, IGamePlayHandler listener, IDraw drawListener){
-		eventManager = new EventManager(room, listener, drawListener);
+	public RoomLoop(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
+		gameManager = new GameEventManager(room, eventManager, drawListener, groovyEngine);
 		createRoomLoop();
 	}
 	
@@ -51,15 +53,19 @@ public class RoomLoop {
 	}
 	
 	public void step() {
-		eventManager.loop();
+		gameManager.loop();
 	}
-	
+	 
 	public void start(){
 		myGameLoop.play();
 	}
 	
 	public void pause(){
 		myGameLoop.pause();
+	}
+	
+	public IObjectModifiedHandler getObjectHandler(){
+		return gameManager;
 	}
 
 }

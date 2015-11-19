@@ -44,7 +44,6 @@ public class Launcher extends Application {
 		
 		*/
 
-
 		primaryStage.setTitle("VOOGASalad Launcher");
 		Button btn = new Button();
 		btn.setText("Make/Edit Game");
