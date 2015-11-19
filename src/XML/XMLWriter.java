@@ -88,6 +88,8 @@ public class XMLWriter {
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
         object.setAttribute("sprite", dataObject.getSprite().getName());
+        object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
+        object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
 
         for (Map.Entry<IDataEvent, List<IAction>> e : dataObject.getEvents().entrySet()) {
             object.appendChild(getElementFromEvent(doc, e));
@@ -98,8 +100,14 @@ public class XMLWriter {
 
     private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e) {
         Element event = doc.createElement("event");
-        event.setAttribute("title", e.getKey().getName());
 
+        IDataEvent dataEvent = e.getKey();
+        Map<String, String> map = dataEvent.dumpContents();
+
+        for (Map.Entry<String, String> element : map.entrySet()) {
+            event.setAttribute(element.getKey(), element.getValue());
+        }
+        
         for (IAction a : e.getValue()) {
             event.appendChild(getElementFromAction(doc, a));
         }
@@ -120,8 +128,7 @@ public class XMLWriter {
         sprite.setAttribute("baseFileName", dataSprite.getBaseFileName());
         sprite.setAttribute("centerX", Double.toString(dataSprite.getCenterX()));
         sprite.setAttribute("centerY", Double.toString(dataSprite.getCenterY()));
-        sprite.setAttribute("scaleX", Double.toString(dataSprite.getScaleX()));
-        sprite.setAttribute("scaleY", Double.toString(dataSprite.getScaleY()));
+
 
         return sprite;
     }

@@ -43,19 +43,19 @@ public class TestGame2 {
 
         DataSprite marioSprite = new DataSprite("Mario", "mario.png");
         mario.setSprite(marioSprite);
-        
+
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
         MoveTo origin = new MoveTo();
         MoveTo up = new MoveTo();
         MoveTo down = new MoveTo();
         try {
-	        
+
 	        left.getParameters().get(0).parse("-10");
 	        left.getParameters().get(1).parse("0");
 	        left.getParameters().get(2).parse("true");
-	        
-	        
+
+
 	        right.getParameters().get(0).parse("10");
 	        right.getParameters().get(1).parse("0");
 	        right.getParameters().get(2).parse("true");
@@ -71,11 +71,11 @@ public class TestGame2 {
 	        origin.getParameters().get(0).parse("20");
 	        origin.getParameters().get(1).parse("20");
 	        origin.getParameters().get(2).parse("false");
-	        
+
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
         }
-        
+
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
         List<IAction> upActions = Collections.singletonList(up);
