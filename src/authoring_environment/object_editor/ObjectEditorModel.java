@@ -12,6 +12,7 @@ import javafx.collections.ObservableMap;
 import javafx.scene.control.Dialog;
 import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.DataSprite;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
@@ -56,6 +57,10 @@ public class ObjectEditorModel {
 	public String getSpriteName() {
 		return object.getSprite().getName();
 	}
+	
+	public void setSprite(DataSprite sprite) {
+		object.setSprite(sprite);
+	}
 
 	public ObservableList<IDataEvent> getEvents() {
 		eventList.clear();
@@ -93,6 +98,9 @@ public class ObjectEditorModel {
 	}
 	public void saveObject() {
 		game.addObject(object);
+	}
+	public ObservableList<DataSprite> getSprites() {
+		return game.getSprites();
 	}
 
 }
