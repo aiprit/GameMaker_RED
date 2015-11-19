@@ -19,17 +19,12 @@ public class ObjectEditorViewCenterPane {
 	public ObjectEditorViewCenterPane() {
 		init();
 	}
-	
+
 	public Group init() {
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
 		centerGC = c.getGraphicsContext2D();
-		try {
-			sprite = addSprite(spriteName);
-		}
-		catch (NullPointerException e) {
-			sprite = addSprite("Mario.png");
-		}
+		sprite = addSprite(spriteName);
 		xPos = Integer.parseInt(centerResources.getString("canvasWidth"))/2 - sprite.getWidth()/2;
 		yPos = Integer.parseInt(centerResources.getString("canvasHeight"))/2 - sprite.getHeight()/2;
 		centerGC.drawImage(sprite, xPos, yPos); //, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
@@ -37,15 +32,20 @@ public class ObjectEditorViewCenterPane {
 		root.getChildren().addAll(c,spriteUpdate);
 		return root;
 	}
-	
+
 	public Image addSprite(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s)) ;
+		try {
+			return new Image(getClass().getClassLoader().getResourceAsStream(s)) ;
+		}
+		catch (NullPointerException e) {
+			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("marioImage"))) ;
+		}
 	}
-	
+
 	public GraphicsContext getGC() {
 		return centerGC;
 	}
-	
+
 	public Button getSpriteUpdateButton() {
 		return spriteUpdate;
 	}
