@@ -91,7 +91,7 @@ public class ObjectEditorController {
 		MenuItem m = new MenuItem(s.getName());
 		m.setOnAction(e-> model.setSprite(s));
 		System.out.println(s.getName());
-		menu.getMenus().add(m);
+		menu.getItems().add(m);
 	}
 
 }

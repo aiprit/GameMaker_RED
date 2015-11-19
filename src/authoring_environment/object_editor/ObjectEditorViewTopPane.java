@@ -22,5 +22,4 @@ public class ObjectEditorViewTopPane {
 	public Menu getMenu() {
 		return spriteMenu;
 	}
-	
 }
