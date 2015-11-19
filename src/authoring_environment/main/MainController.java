@@ -27,7 +27,6 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 
 public class MainController implements IUpdateHandle {
-
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private DataGame dataGame;
 	private Stage myStage;
@@ -63,7 +62,8 @@ public class MainController implements IUpdateHandle {
 		DataObject n3 = new DataObject("TestObject 3");
 		dataGame.addObject(n1, n2, n3);
 
-		//showing that you can call update from either here, or from objectListWindow
+		// showing that you can call update from either here, or from
+		// objectListWindow
 		objectListWindow.testNewButtonAdding();
 		// or
 		update();
@@ -71,7 +71,8 @@ public class MainController implements IUpdateHandle {
 
 	public void refreshViews() {
 		// Set mainView's views
-		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), new RightView(spriteListView, soundListView).getPane());
+		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
+				new RightView(spriteListView, soundListView).getPane());
 	}
 
 	public void update() {
@@ -88,12 +89,8 @@ public class MainController implements IUpdateHandle {
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-
-
-					ObjectEditorController window = new ObjectEditorController(dataGame,o);
-					update();
-
-
+					ObjectEditorController window = new ObjectEditorController(dataGame, o);
+					window.setOnClose(getUpdater());
 				}
 			});
 		}
@@ -102,17 +99,16 @@ public class MainController implements IUpdateHandle {
 		objectListWindow.getPlusButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
 				ObjectEditorController window = new ObjectEditorController(dataGame);
 				update();
-
+				window.setOnClose(getUpdater());
 			}
 		});
 
 		// Room List
 		roomListView.init();
-		//for (DataRoom o : dataGame.getRooms()) {
-		for(int i = 0; i< dataGame.getRooms().size(); i++){
+		// for (DataRoom o : dataGame.getRooms()) {
+		for (int i = 0; i < dataGame.getRooms().size(); i++) {
 			DataRoom o = dataGame.getRooms().get(i);
 
 			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
@@ -150,8 +146,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				SpriteMaker.load(myStage, dataGame.getSprites());
-				 update();
-
+				update();
 
 			}
 		});
@@ -189,5 +184,9 @@ public class MainController implements IUpdateHandle {
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());
 		refreshViews();
+	}
+	
+	private IUpdateHandle getUpdater() {
+		return (IUpdateHandle) this;
 	}
 }

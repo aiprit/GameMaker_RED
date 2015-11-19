@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import authoring_environment.Event.EventController;
+import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.collections.MapChangeListener.Change;
 import javafx.event.ActionEvent;
@@ -24,6 +25,8 @@ import structures.data.events.IDataEvent;
 public class ObjectEditorController {
 	ObjectEditorView view;
 	ObjectEditorModel model;
+	IUpdateHandle updater;
+	
 	public ObjectEditorController(DataGame g, DataObject o) {
 
 		view = new ObjectEditorView();
@@ -102,6 +105,7 @@ public class ObjectEditorController {
 		Node  source = (Node)  e.getSource();
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
+		updater.update();
 	}
 
 
@@ -110,6 +114,10 @@ public class ObjectEditorController {
 		m.setOnAction(e-> model.setSprite(s));
 		System.out.println(s.getName());
 		menu.getItems().add(m);
+	}
+
+	public void setOnClose(IUpdateHandle updateHandle) {
+		updater = updateHandle;
 	}
 
 }
