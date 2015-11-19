@@ -2,7 +2,7 @@ package authoring_environment.ObjectGUI.topPane;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.main.EventPopup;
+//import authoring_environment.main.EventPopup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;

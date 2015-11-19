@@ -3,7 +3,11 @@ package structures.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import structures.data.actions.IAction;
+import structures.data.events.IDataEvent;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -41,28 +45,32 @@ public class DataGame extends Observable {
         return myRooms.get(myStartRoom);
     }
 
-    public void setStartRoom(int index) {
-        myStartRoom = index;
-    }
-
     public void setStartRoom(DataRoom room) {
         if (myRooms.contains(room)) {
             myStartRoom = myRooms.indexOf(room);
         }
     }
 
-    public DataRoom getCurrentRoom() {
-        return myRooms.get(myCurrentRoom);
+    public String getGameDirectory(){
+        return myGameDirectory;
     }
 
-    public void setCurrentRoom(int index) {
-        myCurrentRoom = index;
+    public void setStartRoom(int index) {
+        myStartRoom = index;
+    }
+
+    public DataRoom getCurrentRoom() {
+        return myRooms.get(myCurrentRoom);
     }
 
     public void setCurrentRoom(DataRoom room) {
         if (myRooms.contains(room)) {
             myCurrentRoom = myRooms.indexOf(room);
         }
+    }
+
+    public void setCurrentRoom(int index) {
+        myCurrentRoom = index;
     }
 
     public String getSpriteDirectory() {
@@ -73,8 +81,8 @@ public class DataGame extends Observable {
         return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
-    public void addObject(DataObject o) {
-        myObjects.add(o);
+    public void addObject(DataObject... o) {
+        myObjects.addAll(o);
         update();
     }
 
@@ -104,7 +112,9 @@ public class DataGame extends Observable {
     public ObservableList<DataSound> getSounds() {
         return mySounds;
     }
-
+    public ObservableList<IRoom> getRooms(){
+    	return myRooms;
+    }
     @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
@@ -117,30 +127,38 @@ public class DataGame extends Observable {
         r.append("Objects: \n");
 
         for (DataObject o : myObjects) {
-            r.append("- " + o.getName() + "\n");
+            r.append("  " + o.getName() + "\n");
+
+            for (Map.Entry<IDataEvent, List<IAction>> e : o.getEvents().entrySet()) {
+                r.append("      Event: " + e.getKey().getName() + "\n");
+                List<IAction> actions = e.getValue();
+
+                for (IAction a : actions) {
+                    r.append("          Action: " + a.getTitle() + "\n");
+                }
+            }
         }
 
         r.append("\n");
         r.append("Sprites: \n");
 
         for (DataSprite s : mySprites) {
-            r.append("- " + s.getName() + "\n");
+            r.append("  " + s.getName() + "\n");
         }
 
         r.append("\n");
         r.append("Sounds: \n");
 
         for (DataSound s : mySounds) {
-            r.append("- " + s.getName() + "\n");
+            r.append("  " + s.getName() + "\n");
         }
 
         r.append("\n");
         r.append("Rooms: \n");
         for (DataRoom room : myRooms) {
-            r.append("- " + room.getName() + "\n");
-
+            r.append("  " + room.getName() + "\n");
             for (DataInstance di : room.getObjectInstances()) {
-                r.append("-- Object Instance: ID: " + di.getID() + " Object type: " + di.getParentObject().getName() + "\n");
+                r.append("      Object Instance: ID: " + di.getID() + " Object type: " + di.getParentObject().getName() + "\n");
             }
         }
 

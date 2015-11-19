@@ -47,7 +47,7 @@ public class ObjectView {
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.init());
 		myPane.setLeft(left.init());
-		myPane.setCenter(center.init(myController));
+		myPane.setCenter(center.init());
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 		myRoot.getChildren().add(myPane);
 		myStage.setScene(new Scene(myRoot));

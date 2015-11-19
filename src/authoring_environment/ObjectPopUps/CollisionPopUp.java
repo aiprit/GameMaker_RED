@@ -5,10 +5,14 @@ import java.util.ResourceBundle;
 
 <<<<<<< HEAD
 import authoring_environment.ObjectGUI.ObjectController;
+<<<<<<< HEAD
 import authoring_environment.main.EventPopup;
 =======
 import authoring_environment.Event.EventController;
 >>>>>>> a729fee0b69507a58aff9d3d702b022182226556
+=======
+//import authoring_environment.main.EventPopup;
+>>>>>>> e3f04b8aced0d2490528973bdfdfb2cce5fdc73d
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
