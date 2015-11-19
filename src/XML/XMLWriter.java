@@ -100,8 +100,14 @@ public class XMLWriter {
 
     private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e) {
         Element event = doc.createElement("event");
-        event.setAttribute("title", e.getKey().getName());
 
+        IDataEvent dataEvent = e.getKey();
+        Map<String, String> map = dataEvent.dumpContents();
+
+        for (Map.Entry<String, String> element : map.entrySet()) {
+            event.setAttribute(element.getKey(), element.getValue());
+        }
+        
         for (IAction a : e.getValue()) {
             event.appendChild(getElementFromAction(doc, a));
         }
