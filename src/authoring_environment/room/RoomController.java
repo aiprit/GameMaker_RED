@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.object_instance.ObjectInstanceController;
+import authoring_environment.room.object_list.ObjectListController;
 import authoring_environment.room.view.ViewController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -27,7 +28,7 @@ public class RoomController {
 	private DataRoom model;
 	private RoomEditor view;
 	
-	private ObjectListContainer myObjectListContainer;
+	private ObjectListController myObjectListController;
 	private ButtonToolbar myButtonToolbar;
 	private ViewController myView;
 	
@@ -56,10 +57,10 @@ public class RoomController {
 	}
 	
 	private void initializeObjectListContainer(DataGame gameObject) {
-		myObjectListContainer = new ObjectListContainer(myResources, gameObject.getObjects());
+		myObjectListController = new ObjectListController(myResources, gameObject.getObjects());
 		Consumer<MouseEvent> dragStarterFunction = e -> startObjectDrag(e);
-		myObjectListContainer.setOnMouseClicked(dragStarterFunction);
-		view.getObjectsAndPreview().getChildren().add(myObjectListContainer);
+		myObjectListController.setOnMouseClicked(dragStarterFunction);
+		view.getObjectsAndPreview().getChildren().add(myObjectListController.getObjectListContainer());
 		view.getObjectsAndPreview().getChildren().add(view.getPreview());
 	}
 	
@@ -104,7 +105,7 @@ public class RoomController {
 	}
 	
 	private void startObjectDrag(MouseEvent event) {
-		PotentialObjectInstance objectInstance = myObjectListContainer.startObjectDragAndDrop(event);
+		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
 		ImageView spriteInstance = objectInstance.getImageView();
 		if (spriteInstance != null) {
 			view.getRoot().getChildren().add(spriteInstance);
