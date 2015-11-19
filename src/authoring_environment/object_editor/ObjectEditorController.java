@@ -51,6 +51,9 @@ public class ObjectEditorController {
 			model.getObject().setName(view.getBottomPane().getNameBoxText());
 			close(e);
 		});
+		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
+			view.getCenterPane().update(model.getSpriteName());
+		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
 		view.getRightPane().getDeleteButton().setOnAction(e-> {
@@ -63,9 +66,9 @@ public class ObjectEditorController {
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
 					model.getObject(), model.getObjectList());
-		});
+		});		
 		for (DataSprite s: model.getSprites()) {
-			addSpriteToMenu(s, view.getTopPane().getMenu());
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e->model.setSprite(s)));
 		}
 		model.getMap().addListener(new MapChangeListener() {
 
@@ -92,14 +95,6 @@ public class ObjectEditorController {
 		Node  source = (Node)  e.getSource();
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
-	}
-
-
-	private void addSpriteToMenu(DataSprite s, Menu menu) {
-		MenuItem m = new MenuItem(s.getName());
-		m.setOnAction(e-> model.setSprite(s));
-		System.out.println(s.getName());
-		menu.getItems().add(m);
 	}
 
 }
