@@ -5,10 +5,14 @@ import java.util.Map;
 
 public class ObjectDestroyEvent extends AbstractBasicEvent {
 
-    @Override
-    public String getName() {
-        return "Object Destroyed";
-    }
+	@Override
+	public String getName() {
+		return "Object Destroyed";
+	}
+	@Override
+    public String toString(){
+    	return this.getName();
+	}
 
     @Override
     public Map<String, String> dumpContents() {

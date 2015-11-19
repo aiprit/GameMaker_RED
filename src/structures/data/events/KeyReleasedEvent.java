@@ -18,16 +18,22 @@ public class KeyReleasedEvent implements IDataEvent {
     }
 
     public boolean equals(Object obj) {
-        if (obj.getClass().equals(this.getClass())) {
-            if (((KeyPressedEvent) obj).keyCode.hashCode() == this.keyCode.hashCode()) {
-                return true;
-            }
-        }
-        return false;
+    	if(obj !=null){
+    	if (obj.getClass().equals(this.getClass())) {
+    		if (((KeyReleasedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
+    			return true;
+    		}
+    	}
+    }
+    	return false;
     }
 
     public String getName() {
         return String.format("Key Release %s", keyCode.getName());
+    }
+    @Override
+    public String toString(){
+    	return this.getName();
     }
 
     @Override

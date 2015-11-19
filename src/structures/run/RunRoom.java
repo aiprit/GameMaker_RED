@@ -20,7 +20,7 @@ public class RunRoom {
 		myName = dataRoom.getName();
 		myDataRoom = dataRoom;
 		myConverter = converter;
-		myView = new RunView(dataRoom.getView());
+		myView = new RunView(dataRoom.getDataView());
 		
 		try {
 			myObjects = Utils.transform(dataRoom.getObjectInstances(), e -> converter.instantiate(e));
