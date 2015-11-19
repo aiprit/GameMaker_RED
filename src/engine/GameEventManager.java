@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
 import engine.collisions.CollisionManager;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -15,6 +14,7 @@ import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;
+import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
@@ -133,8 +133,10 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
-				collisionPair.one.doAction(new CollisionEvent(collisionPair.two.name));
-				collisionPair.two.doAction(new CollisionEvent(collisionPair.one.name));
+				RunAction actionOne = collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name));
+				RunAction actionTwo = collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name));
+				myGroovyEngine.runScript(collisionPair.one, actionOne);
+				myGroovyEngine.runScript(collisionPair.two, actionTwo);
 			}
 		}
 	}
