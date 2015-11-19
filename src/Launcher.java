@@ -32,7 +32,7 @@ public class Launcher extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("VOOGASalad Launcher");
-		
+
 		Button openBtn = new Button();
 		openBtn.setText("Make Games");
 		openBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -42,7 +42,7 @@ public class Launcher extends Application {
 			}
 		});
 
-		
+
 		Button btn1 = new Button();
 		btn1.setText("Play Games");
 		btn1.setOnAction(new EventHandler<ActionEvent>() {

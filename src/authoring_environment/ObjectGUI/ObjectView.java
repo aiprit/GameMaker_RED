@@ -19,14 +19,13 @@ public class ObjectView {
 	private Stage myStage;
 	private Group myRoot;
 	private String objectName;
-	private ObjectController myController;
 	//private DataObject myObject;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIResources");
 
-	public ObjectView(ObjectController controller) {
+	public ObjectView() {
 		myRoot = new Group();
 		try {
-		objectName = myController.getName();
+
 		}
 		catch (NullPointerException e){
 			objectName = "";

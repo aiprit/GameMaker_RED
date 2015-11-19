@@ -3,7 +3,6 @@ package authoring_environment;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import authoring_environment.ObjectGUI.ObjectController;
 import authoring_environment.ObjectGUI.ObjectView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,6 +58,9 @@ public class ObjectListWindow {
 				public void handle(ActionEvent event){
 						final Stage s = new Stage();
 						DataObject object = newObjects.get(j);
+//						ObjectController c = new ObjectController(object, newObjects,newSprites, s );
+
+
 
 
 				}
@@ -78,6 +80,10 @@ public class ObjectListWindow {
 			public void handle(ActionEvent event){
 
 					DataObject object = new DataObject("Dog");
+//					ObjectController c = new ObjectController(object, newObjects,newSprites, s );
+
+		//			ObjectGUI og = new ObjectGUI(c);
+
 
 
 

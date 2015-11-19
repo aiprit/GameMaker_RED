@@ -1,5 +1,6 @@
 package structures.data;
 
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,17 +14,15 @@ import java.util.List;
 
 public class DataObject {
 
-//<<<<<<< HEAD
-//    private ObservableMap<IDataEvent, List<IAction>> myEvents;
-//=======
+
 	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
-//>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
 
     private String myName;
     private DataSprite mySprite;
 
     private int myZIndex;
+
 
     public DataObject(String name) {
         myName = name;
@@ -81,8 +80,10 @@ public class DataObject {
         myZIndex = zIndex;
     }
 
+
     public void addSprite(DataSprite s) {
         mySprite = s;
     }
+
 }
 

@@ -2,10 +2,6 @@ package authoring_environment.ObjectPopUps;
 
 import java.util.ResourceBundle;
 
-<<<<<<< HEAD
-import authoring_environment.main.EventPopup;
-=======
->>>>>>> a729fee0b69507a58aff9d3d702b022182226556
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableMap;
@@ -34,7 +30,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	private String keyPress;
 	Label myInfo;
 	protected KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/KeyPressResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
 	public KeyPopUp(DataObject obj){
 		super(obj);
 		myRoot = new Group();

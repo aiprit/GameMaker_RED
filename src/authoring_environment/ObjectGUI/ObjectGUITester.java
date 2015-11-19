@@ -3,6 +3,7 @@ package authoring_environment.ObjectGUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring_environment.object_editor.ObjectEditorView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,10 +48,9 @@ public class ObjectGUITester extends Application{
 		game.addSprite(sprite);
 		game.addSprite(sprite2);
 		Stage cc = new Stage();
-		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
-
+//		ObjectController ct = new ObjectController(object,game.getObjects(),game.getSprites() ,cc);
+//
 		ObjectEditorView og = new ObjectEditorView();
-
 		og.init();
 	}
 }
