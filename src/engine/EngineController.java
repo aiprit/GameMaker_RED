@@ -68,8 +68,8 @@ public class EngineController {
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
 		//use for testing
-		TestGame2 tgo = new TestGame2();
-		myGame = tgo.getTestGame();
+		//TestGame2 tgo = new TestGame2();
+		//myGame = tgo.getTestGame();
 		
 		TestGameObject tgo2 = new TestGameObject();
 		
@@ -77,7 +77,7 @@ public class EngineController {
 		RunGame game = null;
 		//convert DataGame to a RunGame
 		try {
-			game = new RunGame(myGame);
+			game = new RunGame(game2);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}

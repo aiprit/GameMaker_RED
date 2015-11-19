@@ -26,13 +26,10 @@ import java.util.List;
 /*
     This class generates a sample game object. The game consists
     of three rooms.
-
     The first room is displayed on startup and has a background image.
-
     The second room contains two objects. A player that responds to keyboard
     inputs and a coin that, when hit by the player, advances the player to the
     next room (the win screen);
-
     The win screen is a static screen with a background image.
  */
 
@@ -208,15 +205,15 @@ public class TestGameObject {
 
 		DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
 		startScreen.setBackgroundColor("#FFFFFF");
-		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0));
+		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .5, .5));
 
 		DataRoom level1 = new DataRoom("Level 1", 500, 500);
-		level1.addObjectInstance(new DataInstance(player, 40, 40));
-		level1.addObjectInstance(new DataInstance(coin, 340, 300));
+		level1.addObjectInstance(new DataInstance(player, 40, 40, 0, .5, .5));
+		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
 
 		DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
 		winScreen.setBackgroundColor("#FFFFFF");
-		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0));
+		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0, 0, .5, .5));
 
 
 		testGame.addObject(coin);
