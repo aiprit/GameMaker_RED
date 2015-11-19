@@ -3,11 +3,7 @@ package structures.run;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import engine.IDraw;
-import engine.events.EventManager;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
