@@ -91,5 +91,8 @@ public class ObjectEditorModel {
 	public ObservableMap<IDataEvent, ObservableList<IAction>> getMap(){
 		return object.getEvents();
 	}
+	public void saveObject() {
+		game.addObject(object);
+	}
 
 }
