@@ -76,6 +76,7 @@ public class RunGame implements IRun {
 		}
 		myCurrentRoom = myRooms.get(roomNumber);
 	}
+	
 	public void setCurrentRoom(RunRoom room) {
 		myCurrentRoom = room;
 	}
@@ -87,6 +88,7 @@ public class RunGame implements IRun {
 		}
 		return room;
 	}
+	
 	public int getCurrentRoomNumber() {
 		return myRooms.indexOf(myCurrentRoom);
 	}

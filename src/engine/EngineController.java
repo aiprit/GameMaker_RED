@@ -31,7 +31,6 @@ public class EngineController {
 		//starts the first room loop
                 myEngine = new Engine(runGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
-		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 		
 		//sets up the event manager
 		setupEventManager(eventManager);
