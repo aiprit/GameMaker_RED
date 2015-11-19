@@ -84,6 +84,10 @@ public class DataObject {
     public void addSprite(DataSprite s) {
         mySprite = s;
     }
+    @Override
+    public String toString(){
+    	return myName;
+    }
 
 }
 
