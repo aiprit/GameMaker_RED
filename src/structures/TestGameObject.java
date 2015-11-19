@@ -60,10 +60,10 @@ public class TestGameObject {
 
 		DataObject player = new DataObject("Player");
 		
-		CollisionEvent collideCoin = new CollisionEvent(player);
-		MoveToRandom mtr = new MoveToRandom();
-		List<IAction> responseActions = Collections.singletonList(mtr);
-		coin.bindEvent(collideCoin, responseActions);
+//		CollisionEvent collideCoin = new CollisionEvent(player);
+//		MoveToRandom mtr = new MoveToRandom();
+//		List<IAction> responseActions = Collections.singletonList(mtr);
+//		coin.bindEvent(collideCoin, responseActions);
 
 		DataSprite playerSprite = new DataSprite("Mario", "mario.png");
 		player.setSprite(playerSprite);
