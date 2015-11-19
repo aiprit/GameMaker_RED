@@ -40,8 +40,12 @@ public class RoomPreview extends ScrollPane {
 		return myCanvas.sceneToLocal(scenePoint);
 	}
 
-	public void addImage(DraggableImage element, ConfigureView popup) {
-		myCanvas.addNodeToMap(element, popup);
+//	public void addImage(DraggableImage element, ConfigureView popup) {
+//		myCanvas.addNodeToMap(element, popup);
+//	}
+	
+	public void addImage(DraggableImage element) {
+		myCanvas.addNodeToMap(element);
 	}
 
 }

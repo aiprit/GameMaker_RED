@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.ConfigurePopup;
 import authoring_environment.room.RoomController;
 import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
@@ -41,10 +42,18 @@ public class RoomCanvas extends Canvas {
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
-	public void addNodeToMap(DraggableImage image, ConfigureView popup) {
+//	public void addNodeToMap(DraggableImage image, ConfigureView popup) {
+//		Point2D point = new Point2D(image.getX(), image.getY());
+//		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
+//		myObjectMap.put(image, point);
+//		popup.initializePopUp();
+//	}
+	
+	public void addNodeToMap(DraggableImage image) {
 		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
+		ConfigurePopup popup = new ConfigurePopup(myResources);
 		popup.initializePopUp();
 	}
 	
