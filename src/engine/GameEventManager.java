@@ -78,7 +78,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 				
 				// If Collision, add both objects' names to objects that collide
 				if (e instanceof CollisionEvent) {
-					Pair collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
+					Pair<String> collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
 					myCollidingObjectPairs.add(collideThese);
 				}
 			}
