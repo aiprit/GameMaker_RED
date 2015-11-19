@@ -15,11 +15,13 @@ public class KeyReleasedEvent implements IDataEvent {
     }
 
     public boolean equals(Object obj) {
+    	if(obj !=null){
     	if (obj.getClass().equals(this.getClass())) {
     		if (((KeyReleasedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
     			return true;
     		}
     	}
+    }
     	return false;
     }
 

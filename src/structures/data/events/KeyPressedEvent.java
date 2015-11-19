@@ -15,10 +15,12 @@ public class KeyPressedEvent implements IDataEvent {
     }
 
     public boolean equals(Object obj) {
+    	if(obj !=null){
     	if (obj.getClass().equals(this.getClass())) {
     		if (((KeyPressedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
     			return true;
     		}
+    	}
     	}
     	return false;
     }

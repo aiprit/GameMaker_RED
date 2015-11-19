@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
+import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.object_editor.ObjectTester;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
@@ -61,10 +62,10 @@ public class MainController implements IUpdateHandle {
 		DataObject n2 = new DataObject("TestObject 2");
 		DataObject n3 = new DataObject("TestObject 3");
 		dataGame.addObject(n1, n2, n3);
-		
+
 		//showing that you can call update from either here, or from objectListWindow
 		objectListWindow.testNewButtonAdding();
-		// or 
+		// or
 		update();
 	}
 
@@ -87,18 +88,12 @@ public class MainController implements IUpdateHandle {
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					
-					ObjectTester window = new ObjectTester();
-					
-					try {
-						window.start(myStage);
-						
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
+
+					ObjectEditorController window = new ObjectEditorController(dataGame,o);
 					update();
-	
+
+
 				}
 			});
 		}
@@ -107,17 +102,10 @@ public class MainController implements IUpdateHandle {
 		objectListWindow.getPlusButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-				ObjectTester window = new ObjectTester();
-				try {
-					window.start(myStage);
-					
-					
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				ObjectEditorController window = new ObjectEditorController(dataGame);
 				update();
+
 			}
 		});
 
@@ -126,7 +114,7 @@ public class MainController implements IUpdateHandle {
 		//for (DataRoom o : dataGame.getRooms()) {
 		for(int i = 0; i< dataGame.getRooms().size(); i++){
 			DataRoom o = dataGame.getRooms().get(i);
-			
+
 			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
@@ -152,7 +140,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
-					
+
 				}
 			});
 		}
@@ -163,6 +151,7 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				SpriteMaker.load(myStage, dataGame.getSprites());
 				 update();
+
 
 			}
 		});

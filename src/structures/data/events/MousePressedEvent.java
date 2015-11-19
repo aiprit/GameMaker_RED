@@ -22,10 +22,12 @@ public class MousePressedEvent implements IDataEvent {
     }
 
     public boolean equals(Object obj) {
+    	if(obj !=null){
     	if (obj.getClass().equals(this.getClass())) {
     		if (((MousePressedEvent)obj).mouseState.hashCode() == this.mouseState.hashCode()) {
     			return true;
     		}
+    	}
     	}
     	return false;
     }
