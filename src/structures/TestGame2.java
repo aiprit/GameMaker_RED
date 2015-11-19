@@ -46,6 +46,9 @@ public class TestGame2 {
         
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
+        MoveTo origin = new MoveTo();
+        MoveTo up = new MoveTo();
+        MoveTo down = new MoveTo();
         try {
 	        
 	        left.getParameters().get(0).parse("-10");
@@ -57,15 +60,33 @@ public class TestGame2 {
 	        right.getParameters().get(1).parse("0");
 	        right.getParameters().get(2).parse("true");
 	        
+	        up.getParameters().get(0).parse("0");
+	        up.getParameters().get(1).parse("-10");
+	        up.getParameters().get(2).parse("true");
+	        
+	        down.getParameters().get(0).parse("0");
+	        down.getParameters().get(1).parse("10");
+	        down.getParameters().get(2).parse("true");
+	        
+	        origin.getParameters().get(0).parse("20");
+	        origin.getParameters().get(1).parse("20");
+	        origin.getParameters().get(2).parse("false");
+	        
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
         }
         
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
+        List<IAction> upActions = Collections.singletonList(up);
+        List<IAction> downActions = Collections.singletonList(down);
+        List<IAction> originActions = Collections.singletonList(origin);
 
         mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
         mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
+        mario.bindEvent(new CollisionEvent(wall), originActions);
         //player.addEvent(new CollisionEvent(coin));
 
         //startScreenBackground.addEvent(startScreenChange);
@@ -81,7 +102,8 @@ public class TestGame2 {
         level1.addObjectInstance(new DataInstance(wall, 128, 200));
         level1.addObjectInstance(new DataInstance(wall, 192, 200));
         level1.addObjectInstance(new DataInstance(wall, 448, 200));
-        level1.addObjectInstance(new DataInstance(mario, 140, 20));
+        DataInstance marioInstance = new DataInstance(mario, 140, 20);
+        level1.addObjectInstance(marioInstance);
 
 
         testGame.addObject(mario);
