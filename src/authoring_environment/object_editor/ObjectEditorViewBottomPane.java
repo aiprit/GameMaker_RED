@@ -67,4 +67,8 @@ public class ObjectEditorViewBottomPane {
 	public Group getGroup() {
 		return root;
 	}
+	
+	public TextField getNameBox() {
+		return nameBox;
+	}
 }

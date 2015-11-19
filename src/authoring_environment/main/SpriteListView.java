@@ -1,11 +1,16 @@
 package authoring_environment.main;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -13,13 +18,13 @@ import structures.data.DataSprite;
 
 public class SpriteListView {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	private ArrayList<HBox> list;
+	private List<HBox> list;
 
 	public void init() {
 		list = new ArrayList<HBox>();
 
 		HBox header = new HBox();
-		Label headerLabel = new Label("Sprite");
+		Label headerLabel = new Label(r.getString("SpritesListTitle"));
 		header.getChildren().addAll(headerLabel);
 		list.add(header);
 		
@@ -30,7 +35,7 @@ public class SpriteListView {
 	}
 
 	public Button addSprite(DataSprite o) {
-		Button edit = new Button("EDIT");
+		Button edit = new Button(r.getString("EditItem"));
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
@@ -41,8 +46,8 @@ public class SpriteListView {
 	}
 	
 	public Button addPlus() {
-		Button plus = new Button(" + ");
-		Label label = new Label("New");
+		Button plus = new Button(r.getString("plus"));
+		Label label = new Label(r.getString("MakeNewItem"));
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
 		HBox.setHgrow(label, Priority.ALWAYS);
@@ -51,11 +56,11 @@ public class SpriteListView {
 		return plus;
 	}
 	
-	public Node getPane() {
-		Pane gp = new Pane();
-		for (HBox h : list) {
-			gp.getChildren().add(h);
-		}
-		return gp;
+		public ListView<HBox> getPane() {
+		
+		ListView<HBox> listView = new ListView<HBox>();
+		ObservableList<HBox> myObservableList = FXCollections.observableList(list);
+		listView.setItems(myObservableList);
+		return listView;
 	}
 }

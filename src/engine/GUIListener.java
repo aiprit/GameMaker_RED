@@ -1,13 +1,17 @@
 package engine;
 
+import engine.events.IGUIHandler;
+
 /**
  * @author loganrooper
  */
-public class GUIHandler implements IGUIHandler{
+public class GUIListener implements IGUIHandler{
 	Boolean paused;
 	SavedGameHandler savedGames;
+	Engine engine;
 
-	public GUIHandler(Boolean paused, SavedGameHandler savedGames) {
+	public GUIListener(Engine engine, Boolean paused, SavedGameHandler savedGames) {
+		this.engine = engine;
 		this.paused = paused;
 		this.savedGames = savedGames;
 	}
@@ -25,6 +29,7 @@ public class GUIHandler implements IGUIHandler{
 	@Override
 	public void onPause() {
 		paused = true;
+		engine.pause();
 	}
 
 	@Override

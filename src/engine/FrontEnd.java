@@ -3,20 +3,19 @@
  */
 package engine;
 
+import engine.events.EventManager;
+import engine.events.IRoomChangedHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ToolBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import structures.run.RunGame;
 import structures.run.RunRoom;
@@ -29,15 +28,13 @@ public class FrontEnd implements IRoomChangedHandler {
 	private IDraw myCanvasDrawer;
 	private RunGame myGame;
 	private Group myRoot;
-	private IGUIHandler guiHandler;
-	private IGamePlayHandler gpHandler;
 	private RunGame game;
 	private Stage stage;
 	private Scene playScene;
+	private EventManager myEventManager;
 	
-	public FrontEnd(Stage stage, IGUIHandler guiHandler, IGamePlayHandler listener, RunGame game) {
-		this.guiHandler = guiHandler;
-		this.gpHandler = listener;
+	public FrontEnd(RunGame game, EventManager eventManager, Stage stage) {
+		myEventManager = eventManager;
 		this.game = game;
 		this.stage = stage;
 		setupFramework();
@@ -52,13 +49,13 @@ public class FrontEnd implements IRoomChangedHandler {
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
-		    	gpHandler.setOnEvent(mouseEvent);
+		    	myEventManager.setOnEvent(mouseEvent);
 		    }
 		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				gpHandler.setOnEvent(event);
+				myEventManager.setOnEvent(event);
 			}
 		});
 		
@@ -69,21 +66,21 @@ public class FrontEnd implements IRoomChangedHandler {
 		reset.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.onReset();
+				myEventManager.onReset();
 			}
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.onSave();
+				myEventManager.onSave();
 			}
 		});
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.onSave();
+				myEventManager.onSave();
 				stage.close();
 			}
 		});
@@ -91,7 +88,7 @@ public class FrontEnd implements IRoomChangedHandler {
 		pause.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				guiHandler.onPause();
+				myEventManager.onPause();
 			}
 		});
 		Menu savedGames = new Menu("Saved Games");
@@ -112,6 +109,10 @@ public class FrontEnd implements IRoomChangedHandler {
 	
 	public IDraw getDrawListener(){
 		return myCanvasDrawer;
+	}
+	
+	public IRoomChangedHandler getRoomChangedHandler(){
+		return this;
 	}
 
 	@Override

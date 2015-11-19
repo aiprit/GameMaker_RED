@@ -35,12 +35,12 @@ public class RoomEditor {
 	/**
 	 * for TESTING purposes
 	 */
-	public RoomEditor() {
-		myResources = resources;
-		myRoot = new Group();
-		myObjects = objects;
-		createEditor();
-	}
+//	public RoomEditor() {
+//		myResources = resources;
+//		myRoot = new Group();
+//		myObjects = objects;
+//		createEditor();
+//	}
 	
 	/**
 	 * Map passed in as unmodifiable collection

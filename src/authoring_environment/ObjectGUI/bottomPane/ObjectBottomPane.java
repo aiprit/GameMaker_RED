@@ -25,6 +25,38 @@ public class ObjectBottomPane {
 	}
 
 	public Group init() {
+//		Group root = new Group();
+//		Label nameLabel = new Label(r.getString("nameTitle"));
+//		TextField nameBox = createTextBox(name,Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
+//		HBox name = createHBox(nameLabel, nameBox, Integer.parseInt(r.getString("nameTranslate")));
+//
+//		
+//		Label widthLabel = new Label(r.getString("widthTitle"));
+//
+//		TextField widthBox = createTextBox(String.valueOf(size[0]),Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
+//		HBox width = createHBox(widthLabel, widthBox, Integer.parseInt(r.getString("widthTranslate")));
+//		
+//		Label heightLabel = new Label(r.getString("heightTitle"));
+//		TextField heightBox = createTextBox(String.valueOf(size[1]),Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));
+//		HBox height = createHBox(heightLabel, heightBox, Integer.parseInt(r.getString("heightTranslate")));
+//		
+//		Button b = new Button(r.getString("updateButtonTitle"));
+//		b.setOnAction(e ->
+//				update(nameBox.getText(), Double.parseDouble(widthBox.getText()), Double.parseDouble(heightBox.getText())));
+//
+//		Button save = new Button(r.getString("saveButtonTitle"));
+//		save.setTranslateX(Integer.parseInt(r.getString("saveButtonTranslateX")));
+//		save.setOnAction(e -> {
+//			update(nameBox.getText());
+//			myController.close(e);
+//		});
+//		Button cancel = new Button(r.getString("cancelButtonTitle"));
+//		cancel.setTranslateX(Integer.parseInt(r.getString("cancelButtonTranslateX")));
+//		cancel.setOnAction(e ->
+//		myController.close(e));
+//		root.getChildren().addAll(name, save, cancel);
+//
+//		return root;
 		Group root = new Group();
 		Label nameLabel = new Label(r.getString("nameTitle"));
 		TextField nameBox = createTextBox(name,Integer.parseInt(r.getString("prefWidth")),Integer.parseInt(r.getString("prefHeight")));

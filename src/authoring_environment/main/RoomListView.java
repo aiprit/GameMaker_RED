@@ -34,7 +34,7 @@ public class RoomListView {
 	}
 	
 	public Button addPlusButton() {
-		Button plus = new Button(" + ");
+		Button plus = new Button(myResourceBundle.getString("plus"));
 		roomView.add(plus, 1, 1);
 		return plus;
 	}
