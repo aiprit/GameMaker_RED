@@ -105,7 +105,7 @@ public class RoomCanvas extends Canvas {
 		node.setY(adjustedY);
 	}
 
-	private void redrawCanvas() {
+	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		setColorFill(myColor);
 		for (DraggableImage drag : myObjectMap.keySet()) {

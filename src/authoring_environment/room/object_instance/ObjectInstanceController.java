@@ -3,17 +3,19 @@ package authoring_environment.room.object_instance;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.image.Image;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 
 public class ObjectInstanceController {
+	private static final String DEFAULT_SPRITE = "Mario.png";
 	private DraggableImage view;
 	private DataInstance model;
 	private DoubleProperty myX;
 	private DoubleProperty myY;
 
-	public ObjectInstanceController(DataObject object, DoubleProperty x, DoubleProperty y) {
-		view = new DraggableImage(object.getSprite().getImage(), x, y);
+	public ObjectInstanceController(Image sprite, DataObject object, DoubleProperty x, DoubleProperty y) {
+		view = new DraggableImage(sprite, x, y);
 		model = new DataInstance(object, x.get(), y.get());
 		myX = x;
 		myY = y;

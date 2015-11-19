@@ -38,7 +38,7 @@ public class ObjectListController extends VBox {
 	public PotentialObjectInstance startObjectDragAndDrop(MouseEvent event) {
 		int selectedIdx = myObjectList.getObjectListView().getSelectionModel().getSelectedIndex();
 		if (selectedIdx != -1) {
-			PotentialObjectInstance object = new PotentialObjectInstance(myObjects.get(selectedIdx));
+			PotentialObjectInstance object = new PotentialObjectInstance(myResources, myObjects.get(selectedIdx));
 			object.updateSpritePosition(event);
 			myObjectList.getObjectListView().getSelectionModel().select(-1);
 			return object;
