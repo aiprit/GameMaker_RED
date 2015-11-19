@@ -3,7 +3,6 @@ package authoring_environment.Event;
 import java.util.ResourceBundle;
 
 
-
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 

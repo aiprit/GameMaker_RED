@@ -3,12 +3,8 @@ package authoring_environment.ObjectPopUps;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-<<<<<<< HEAD
-import authoring_environment.ObjectGUI.ObjectController;
-import authoring_environment.main.EventPopup;
-=======
+
 import authoring_environment.Event.EventController;
->>>>>>> a729fee0b69507a58aff9d3d702b022182226556
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

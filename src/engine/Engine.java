@@ -1,21 +1,35 @@
 package engine;
 
+import engine.events.EventManager;
+import engine.events.IGUIHandler;
+import engine.events.IGamePlayHandler;
+import engine.events.IObjectModifiedHandler;
+import engine.events.IRoomChangedHandler;
 import exceptions.CompileTimeException;
 import structures.data.DataGame;
 import structures.run.RunGame;
+import structures.run.RunRoom;
 
-public class Engine {
+public class Engine implements IRoomChangedHandler {
 
 	private RunGame myOriginalGame;
 	private RunGame myGame;
-	private IGamePlayHandler myListener;
 	private RoomLoop myLevel;
-	private IDraw myFrontendListener;
+	private EventManager myEventManager;
+	private IGUIHandler myGUIHandler;
+	private IGamePlayHandler myGameplayHandler;
+	private IObjectModifiedHandler myObjectHandler;
+	private IDraw myDrawListener;
+	private GroovyEngine myGroovyEngine;
 
-	public Engine(RunGame runGame) {
+	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
+		//SavedGameHandler thisIsBroken = new SavedGameHandler(myGame.getName());
+		myGUIHandler = new GUIListener(this, false, null);
+		myGameplayHandler = new GamePlayListener();
 		myOriginalGame = runGame;
-		myListener = new GamePlayListener();
+		myEventManager = eventManager;
+		myGroovyEngine = new GroovyEngine(myGame, eventManager);
 	}
 
 	public void load(RunGame runGame) {
@@ -40,18 +54,39 @@ public class Engine {
 	}
 	
 	public void runLevel(){
-		myLevel = new RoomLoop(myGame.getCurrentRoom(), myListener, myFrontendListener);
+		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
+		myObjectHandler = myLevel.getObjectHandler();
 		myLevel.start();
 	}
 	
-	public IGamePlayHandler getListener(){
-		return myListener;
+	public IGUIHandler getGUIHandler(){
+		return myGUIHandler;
+	}
+	
+	public IGamePlayHandler getGamePlayHandler(){
+		return myGameplayHandler;
+	}
+	
+	public IRoomChangedHandler getRoomChangedHandler(){
+		return this;
+	}
+	
+	public IObjectModifiedHandler getObjectHandler(){
+		return myObjectHandler;
+	}
+
+	public void pause() {
+		myLevel.pause();
 	}
 	
 	public void setDrawListener(IDraw drawListener){
-		//starts the first game loop
-		myFrontendListener = drawListener;
+		myDrawListener = drawListener;
 		runLevel();
+	}
+
+	@Override
+	public void onRoomChanged(RunRoom runRoom) {
+		// TODO Auto-generated method stub
 	}
 
 }

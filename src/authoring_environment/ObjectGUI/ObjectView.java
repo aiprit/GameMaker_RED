@@ -19,14 +19,13 @@ public class ObjectView {
 	private Stage myStage;
 	private Group myRoot;
 	private String objectName;
-	private ObjectController myController;
 	//private DataObject myObject;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/ObjectGUIResources");
 
-	public ObjectView(ObjectController controller) {
+	public ObjectView() {
 		myRoot = new Group();
 		try {
-		objectName = myController.getName();
+
 		}
 		catch (NullPointerException e){
 			objectName = "";
@@ -47,7 +46,7 @@ public class ObjectView {
 		myPane.setBottom(bottom.init());
 		myPane.setTop(top.init());
 		myPane.setLeft(left.init());
-		myPane.setCenter(center.init(myController));
+		myPane.setCenter(center.init());
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("screenWidth")), Integer.parseInt(r.getString("screenHeight")));
 		myRoot.getChildren().add(myPane);
 		myStage.setScene(new Scene(myRoot));

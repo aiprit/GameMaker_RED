@@ -2,8 +2,8 @@ package authoring_environment;
 
 import java.util.List;
 
-import authoring_environment.EventGUI.EventController;
-import authoring_environment.EventGUI.EventGUI;
+//import authoring_environment.EventGUI.EventController;
+//import authoring_environment.EventGUI.EventGUI;
 import authoring_environment.OtherGUI.ParamGUI;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
