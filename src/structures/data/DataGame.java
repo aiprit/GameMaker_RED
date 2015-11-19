@@ -81,8 +81,8 @@ public class DataGame extends Observable {
         return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
-    public void addObject(DataObject o) {
-        myObjects.add(o);
+    public void addObject(DataObject... o) {
+        myObjects.addAll(o);
         update();
     }
 
