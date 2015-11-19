@@ -113,7 +113,6 @@ public class EventController {
 	}
 
 	private boolean paramPopUps(IParameter p) {
-
 		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
 		dialog.setTitle("Set Parameters");
 		dialog.setHeaderText("Please Enter Value");
