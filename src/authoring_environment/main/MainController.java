@@ -1,9 +1,14 @@
 package authoring_environment.main;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 
+import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectTester;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
@@ -147,17 +152,9 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				FileChooser fileChooser = new FileChooser();
-				 fileChooser.setTitle("Open Resource File");
-				 fileChooser.getExtensionFilters().addAll(
-				         new ExtensionFilter("Text Files", "*.txt"),
-				         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-				         new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-				         new ExtensionFilter("All Files", "*.*"));
-				 File selectedFile = fileChooser.showOpenDialog(myStage);
-//				 if (selectedFile != null) {
-//				    myStage.display(selectedFile);
-//				 }
+				SpriteMaker.load(myStage);
+				 
+
 			}
 		});
 
