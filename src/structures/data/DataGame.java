@@ -8,7 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class DataGame implements IGetObjects {
+public class DataGame implements IGetObjects, IRoom {
 
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;

@@ -3,7 +3,6 @@ package authoring_environment.room.configure_pop_up;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import authoring_environment.room.HBoxHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

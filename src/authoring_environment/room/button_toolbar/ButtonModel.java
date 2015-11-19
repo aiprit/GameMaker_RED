@@ -1,13 +1,13 @@
 package authoring_environment.room.button_toolbar;
 
 import authoring_environment.room.RoomBackground;
-import structures.data.DataGame;
+import structures.data.DataRoom;
 
 public class ButtonModel {
-	private DataGame myDataGame;
+	private DataRoom myDataRoom;
 	private RoomBackground roomBackground;
-	public ButtonModel(DataGame dataGame, RoomBackground roomBack) {
-		myDataGame = dataGame;
+	public ButtonModel(DataRoom dataRoom) {
+		myDataRoom = dataRoom;
 		roomBackground = roomBack;
 	}
 }
