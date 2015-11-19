@@ -60,9 +60,9 @@ public class GroovyLibrary {
 		myOMH.onObjectCreate(runObject);
 	}
 
-	public void display_message(String message){
-
-	}
+//	public void display_message(String message){
+//
+//	}
 	//	
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 	//			boolean border, double borderWidth){

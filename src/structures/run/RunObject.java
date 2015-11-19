@@ -3,7 +3,6 @@ package structures.run;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import engine.IDraw;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;

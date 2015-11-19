@@ -9,10 +9,10 @@ import utils.Utils;
 
 public class RunRoom {
 	
-	String myName;
-	RunView myView;
-	String background;
-	List<RunObject> myObjects;
+	private String myName;
+	private RunView myView;
+	private String background;
+	private List<RunObject> myObjects;
 	private RunObjectConverter myConverter;
 	private DataRoom myDataRoom;
 	

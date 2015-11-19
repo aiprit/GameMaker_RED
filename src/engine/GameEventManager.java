@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
 import engine.collisions.CollisionManager;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -15,6 +14,7 @@ import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.StepEvent;
+import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
