@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.preview.RoomCanvas;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -39,9 +40,9 @@ public class BackgroundPopup extends Stage {
 	private Color myColor;
 	private String myImageFileName;
 	private Image myImageUpload;
-	private RoomBackground myRoomBackground;
+	private RoomCanvas myRoomBackground;
 	
-	public BackgroundPopup(ResourceBundle resources, RoomBackground background) {
+	public BackgroundPopup(ResourceBundle resources, RoomCanvas background) {
 		super();
 		myResources = resources;
 		myRoomBackground = background;
