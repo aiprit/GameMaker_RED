@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import structures.data.DataInstance;
 
@@ -12,6 +13,7 @@ public class ConfigureController {
 	private ConfigureModel model;
 	
 	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) {
+		//System.out.println(resources.getBaseBundleName());
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
 		configure.getSaveButton().setOnAction(e -> onSave());
@@ -35,10 +37,11 @@ public class ConfigureController {
 		model.setAngle(angle);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
+		configure.close();
 	}
 	
 	private double getInput(int n, List<HBox> fieldList) {
-		String text = fieldList.get(n).getChildren().get(1).toString();
-		return Double.parseDouble(text);
+		TextField field =  ((TextField) fieldList.get(n).getChildren().get(1));
+		return Double.parseDouble(field.getText());
 	}
 }
