@@ -40,13 +40,18 @@ public class CollisionPopUp extends BasicPopUp{
 		myStage.setTitle(r.getString("title"));
 		Text title = new Text(r.getString("objects"));
 		Button b = new Button(r.getString("ok"));
-
+		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
+		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		listview = new ListView<DataObject>();
 		ObservableList<DataObject>list = FXCollections.observableList(new ArrayList<DataObject>());
 		list.addAll(myList);
 		listview.setItems(list);
 		listview.setTranslateY(8);
-		b.setOnAction(e -> { select(e);close(e);});
+		b.setOnAction(e -> {
+			select(e);
+			eventPopup();
+			close(e);
+			});
 		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);

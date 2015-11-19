@@ -26,6 +26,13 @@ public class ObjectEditorModel {
 		object = o;
 
 	}
+	public ObjectEditorModel(DataGame g, String str) {
+		game = g;
+		object = new DataObject(str);
+		game.addObject(object);
+
+	}
+
 	public ObservableList<String> createLeftPaneList(){
 		Enumeration <String> keys = l.getKeys();
 		List<String> keylist = Collections.list(keys);
@@ -39,11 +46,6 @@ public class ObjectEditorModel {
 		return list;
 	}
 
-	public ObjectEditorModel(DataGame g) {
-		game = g;
-		object = new DataObject(String.valueOf(new Dialog().showAndWait().get()));;
-
-	}
 
 	public void changeObjectName(String name) {
 		object.setName(name);
@@ -85,14 +87,10 @@ public class ObjectEditorModel {
 	}
 
 	public EventPopupFactory getPopUpFactory() {
-		// TODO Auto-generated method stub
 		return fact;
 	}
 	public ObservableMap<IDataEvent, ObservableList<IAction>> getMap(){
 		return object.getEvents();
-	}
-	public void saveObject() {
-		game.addObject(object);
 	}
 
 }

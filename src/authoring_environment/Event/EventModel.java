@@ -22,7 +22,12 @@ public class EventModel {
 	public EventModel(DataObject obj,IDataEvent e){
 		myObject = obj;
 		myEvent = e;
-		alist = getActions();
+		ObservableMap<IDataEvent, ObservableList<IAction>> map = myObject.getEvents();
+		if(map.containsKey(myEvent)){
+			alist = map.get(myEvent);
+		}
+		alist = FXCollections.observableList(new ArrayList<IAction>());
+
 	}
 	public EventModel(DataObject obj){
 		myObject = obj;
@@ -31,10 +36,7 @@ public class EventModel {
 		myObject.bindEvent(myEvent,alist);
 	}
 	public ObservableList<IAction> getActions(){
-		ObservableMap<IDataEvent, ObservableList<IAction>> map = myObject.getEvents();
-		if(map.containsKey(myEvent))
-			return map.get(myEvent);
-		return FXCollections.observableList(new ArrayList<IAction>());
+		return alist;
 	}
 	public void addAction(IAction a) {
 		alist.add(a);
