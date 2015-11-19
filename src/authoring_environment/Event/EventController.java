@@ -58,7 +58,9 @@ public class EventController {
 	}
 
 	private void addAction(String str){
+		try{
 		String className = str.replaceAll("\\s+","");
+
 		Class c=null;
 		try {
 			c = Class.forName("structures.data.actions.library." +className);
@@ -102,7 +104,10 @@ public class EventController {
 			e.printStackTrace();
 		}
 
-
+		}
+		catch (NullPointerException e){
+			 alertPopUp();
+		}
 
 
 	}
@@ -118,11 +123,7 @@ public class EventController {
 			try {
 				p.parse(result.get());
 			} catch (ParameterParseException e) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Error");
-				alert.setHeaderText("Invalid Parameter");
-				alert.setContentText("Please Reenter");
-				alert.showAndWait();
+				alertPopUp();
 				paramPopUps(p);
 			}
 			System.out.println(result.get());
@@ -131,6 +132,14 @@ public class EventController {
 		else
 			return false;
 
+	}
+
+	private void alertPopUp() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Invalid Parameter");
+		alert.setContentText("Please Reenter");
+		alert.showAndWait();
 	}
 }
 

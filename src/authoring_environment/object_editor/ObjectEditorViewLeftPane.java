@@ -10,11 +10,7 @@ import javafx.scene.text.Text;
 public class ObjectEditorViewLeftPane {
 	ListView<String> listView;
 	Button b;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/LeftPaneResources");
-	//		private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/ObjectGUI/leftPane/EventListResources");
-	//		private ObservableList<String> list= FXCollections.observableList(new ArrayList<String>());
-	//		private EventPopupFactory popupfact = new EventPopupFactory();
-	private ObjectEditorViewLeftPane myController;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/LeftPaneResources");
 	public ObjectEditorViewLeftPane (){
 	}
 
