@@ -1,19 +1,19 @@
 package structures.data;
 
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.IAction;
+import structures.data.events.IDataEvent;
 
-public class DataGame extends Observable {
+
+public class DataGame extends Observable implements IObjectInterface {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";

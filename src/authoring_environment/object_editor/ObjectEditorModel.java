@@ -9,44 +9,45 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.scene.control.Dialog;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 public class ObjectEditorModel {
-	private DataGame game;
+	private IObjectInterface game;
 	private DataObject object;
 	private EventPopupFactory fact = new EventPopupFactory();
 	ObservableList<IDataEvent> eventList = FXCollections.observableList(new ArrayList<IDataEvent>());;
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/object_editor/EventListResources");
-	public ObjectEditorModel(DataGame g, DataObject o) {
+
+	public ObjectEditorModel(IObjectInterface g, DataObject o) {
 		game = g;
 		object = o;
 
 	}
-	public ObjectEditorModel(DataGame g, String str) {
+
+	public ObjectEditorModel(IObjectInterface g, String str) {
 		game = g;
 		object = new DataObject(str);
 		game.addObject(object);
 
 	}
 
-	public ObservableList<String> createLeftPaneList(){
-		Enumeration <String> keys = l.getKeys();
+	public ObservableList<String> createLeftPaneList() {
+		Enumeration<String> keys = l.getKeys();
 		List<String> keylist = Collections.list(keys);
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 		Collections.sort(keylist);
-		for (String str:keylist) {
+		for (String str : keylist) {
 			String value = l.getString(str);
 			list.add(value);
 
 		}
 		return list;
 	}
-
 
 	public void changeObjectName(String name) {
 		object.setName(name);
@@ -59,7 +60,7 @@ public class ObjectEditorModel {
 	public String getSpriteName() {
 		return object.getSprite().getBaseFileName();
 	}
-	
+
 	public void setSprite(DataSprite sprite) {
 		object.setSprite(sprite);
 	}
@@ -67,7 +68,7 @@ public class ObjectEditorModel {
 	public ObservableList<IDataEvent> getEvents() {
 		eventList.clear();
 		ObservableMap<IDataEvent, ObservableList<IAction>> map = object.getEvents();
-		for (IDataEvent e:map.keySet()) {
+		for (IDataEvent e : map.keySet()) {
 			eventList.add(e);
 		}
 		return eventList;
@@ -84,26 +85,28 @@ public class ObjectEditorModel {
 	public void deleteEvent(IDataEvent iDataEvent) {
 		object.getEvents().remove(iDataEvent);
 	}
-	public DataObject getObject(){
+
+	public DataObject getObject() {
 		return object;
 	}
-	public ObservableList<DataObject> getObjectList(){
+
+	public ObservableList<DataObject> getObjectList() {
 		return game.getObjects();
 	}
 
 	public EventPopupFactory getPopUpFactory() {
 		return fact;
 	}
-	public ObservableMap<IDataEvent, ObservableList<IAction>> getMap(){
+
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getMap() {
 		return object.getEvents();
 	}
 
 	public void saveObject() {
 		game.addObject(object);
 	}
+
 	public ObservableList<DataSprite> getSprites() {
 		return game.getSprites();
 	}
-
-
 }
