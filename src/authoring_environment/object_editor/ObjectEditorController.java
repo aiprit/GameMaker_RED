@@ -46,7 +46,7 @@ public class ObjectEditorController {
 
 	public void initAll() {
 		view.getBottomPane().getCloseButton().setOnAction(e-> {
-			model.getObject().setName(view.getBottomPane().getNameBoxText());
+			model.changeObjectName(view.getBottomPane().getNameBoxText());
 			close(e);
 		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());

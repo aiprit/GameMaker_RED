@@ -29,10 +29,12 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public boolean equals(Object obj) {
+    	if(obj !=null){
     	if (this.getClass().equals(obj.getClass())) {
     		if (otherName().equals(((CollisionEvent)obj).otherName())) {
     			return true;
     		}
+    	}
     	}
     	return false;
     }
