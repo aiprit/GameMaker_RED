@@ -27,6 +27,7 @@ public class RoomListView {
 	private IUpdateHandle updater;
 	
 	public void init() {
+		bp = new BorderPane();
 		roomView = new GridPane();
 		roomView.setVgap(10);
 		roomView.setHgap(20);
