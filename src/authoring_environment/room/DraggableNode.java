@@ -1,6 +1,9 @@
 package authoring_environment.room;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.image.Image;
+
 
 public abstract class DraggableNode {
 	private boolean draggable;

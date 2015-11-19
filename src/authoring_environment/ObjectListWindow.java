@@ -31,10 +31,10 @@ public class ObjectListWindow {
 			public void handle(ActionEvent event){			 
 				Stage myStage = new Stage();
 				DataObject object = new DataObject("dog");
-				ObjectController c = new ObjectController(object,  myStage);
+				//ObjectController c = new ObjectController(object,  myStage);
 
-				ObjectGUI og = new ObjectGUI(c);
-				og.init();
+			//	ObjectGUI og = new ObjectGUI(c);
+				//og.init();
 
 
 			}

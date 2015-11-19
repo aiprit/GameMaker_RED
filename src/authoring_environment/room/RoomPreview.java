@@ -3,7 +3,6 @@ package authoring_environment.room;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 
 import javafx.scene.control.ScrollPane;
 

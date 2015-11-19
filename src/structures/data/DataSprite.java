@@ -77,6 +77,10 @@ public class DataSprite implements IResource {
 	@Override
 	public void load(String directory) throws ResourceFailedException {
 		//String url = directory + myBaseFileName;
+
+		//COMMENTED OUT IS ELIZABETH'S TESTING CODE - CAN REMOVE IN MASTER
+		String url =  myBaseFileName;
+
 		//String url =  myBaseFileName;
 		try {
 			myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));

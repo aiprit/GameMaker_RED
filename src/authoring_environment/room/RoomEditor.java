@@ -124,8 +124,11 @@ public class RoomEditor {
 			myPreview.addImage(objectInstance, canvasPoint);
 			myRoot.getChildren().remove(potentialObjectInstance.getImageView());
 			myRoomController.addObject(objectInstance.getDataInstance());
+		} else {
+			//TODO get rid of the object
+		}
+
 		} 
-	}
 	
 	private void initializeButtonsToolbar(VBox totalPane) {
 		ButtonHandler handler = new ButtonHandler(myResources, myPreview);

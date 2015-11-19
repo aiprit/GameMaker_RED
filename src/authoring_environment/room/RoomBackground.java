@@ -21,7 +21,9 @@ public class RoomBackground extends Canvas {
 	private Color myColor;
 	private Image myImage;
 	private String myImageFileName;
+	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
+	private ResourceBundle myResources;
 	private DraggableView myRoomView;
 	
 	public RoomBackground(ResourceBundle resources, RoomController controller) {
@@ -30,8 +32,32 @@ public class RoomBackground extends Canvas {
 		myController = controller;
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
-		initializeView(resources);
+
+		myResources = resources;
+		//FOR TESTING
+		Image luigiImage = new Image(getClass().getClassLoader().getResourceAsStream("Luigi.png"));
+		DoubleProperty luigiX = new SimpleDoubleProperty();
+		luigiX.set(0);
+		DoubleProperty luigiY = new SimpleDoubleProperty();
+		luigiY.set(0);
+		DraggableImage luigi = new DraggableImage(luigiImage, luigiX, luigiY);
+		DoubleProperty marioX = new SimpleDoubleProperty();
+		marioX.set(300);
+		DoubleProperty marioY = new SimpleDoubleProperty();
+		marioY.set(300);
+		Image marioImage = new Image(getClass().getClassLoader().getResourceAsStream("Mario.png"));
+		DraggableImage mario = new DraggableImage(marioImage, marioX, marioY);
+		
+		
+		this.getGraphicsContext2D().drawImage(luigi.getImage(), luigi.getX(), luigi.getY());
+		this.getGraphicsContext2D().drawImage(mario.getImage(), mario.getX(), mario.getY());
+
 		myObjectMap = new HashMap<DraggableImage, Point2D>();
+		myObjectMap.put(luigi, new Point2D(luigi.getX(), luigi.getY()));
+		myObjectMap.put(mario, new Point2D(mario.getX(), mario.getY()));
+
+		initializeView(resources);
+		//myObjectMap = new HashMap<DraggableImage, Point2D>();
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
@@ -45,6 +71,8 @@ public class RoomBackground extends Canvas {
 		DraggableImage dragNode = new DraggableImage(objectInstance);
 		this.getGraphicsContext2D().drawImage(dragNode.getImage(), point.getX(), point.getY());
 		myObjectMap.put(dragNode, point);
+		ConfigurePopUp configurePopUp = new ConfigurePopUp(myResources);
+		configurePopUp.initializePopUp();
 	}
 	
 	private void initializeView(ResourceBundle resources) {
@@ -62,7 +90,7 @@ public class RoomBackground extends Canvas {
 			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
 			myRoomView.setDraggable(true);
 		} else {
-			for (DraggableImage node : myObjectMap.keySet()) {
+			for (DraggableNode node : myObjectMap.keySet()) {
 				if (contains(event.getX(), event.getY(), node)) {
 						node.setXOffset(node.getX() - event.getX());
 						node.setYOffset(node.getY() - event.getY());
@@ -108,6 +136,7 @@ public class RoomBackground extends Canvas {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		setColorFill(myColor);
 		for (DraggableImage drag : myObjectMap.keySet()) {
+			//System.out.println(myObjectMap.keySet().size());
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
 		drawView();
@@ -121,6 +150,7 @@ public class RoomBackground extends Canvas {
 	private void setColorFill(Color fill) {
 		this.getGraphicsContext2D().setFill(fill);
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
+		//TODO redraw already existing nodes on canvas after changing background
 	}
 	
 	private void setImageFill(Image image) {
