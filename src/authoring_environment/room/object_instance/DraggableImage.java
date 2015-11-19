@@ -1,15 +1,15 @@
-package authoring_environment.room;
+package authoring_environment.room.object_instance;
 
+import authoring_environment.room.preview.DraggableNode;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
 
 public class DraggableImage extends DraggableNode {
-	private ObjectInstance myObjectInstance;
 	private Image myImage;
 
-	public DraggableImage(ObjectInstance object) {
-		super(object.getXProperty(), object.getYProperty());
-		myObjectInstance = object;
-		myImage = object.getImageView().getImage();
+	public DraggableImage(Image image, DoubleProperty x, DoubleProperty y) {
+		super(x, y);
+		myImage = image;
 	}
 	
 	@Override

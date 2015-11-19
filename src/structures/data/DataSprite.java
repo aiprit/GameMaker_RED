@@ -15,6 +15,12 @@ public class DataSprite implements IResource {
 	public DataSprite(String name, String baseFileName) {
 		myName = name;
 		myBaseFileName = baseFileName;
+//		try {
+//			load("TestGame/sprites/");
+//		} catch (ResourceFailedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		myHaveLoaded = false;
 		myCenterX = 0.0;
 		myCenterY = 0.0;
@@ -76,21 +82,14 @@ public class DataSprite implements IResource {
 
 	@Override
 	public void load(String directory) throws ResourceFailedException {
-		//String url = directory + myBaseFileName;
-
-		//COMMENTED OUT IS ELIZABETH'S TESTING CODE - CAN REMOVE IN MASTER
-		String url =  myBaseFileName;
-
-		//String url =  myBaseFileName;
-		try {
-			myImage = new Image(getClass().getClassLoader().getResourceAsStream(directory));
-			//myImage = new Image(url);
-		} catch (Exception ex) {
-			//String message = String.format("Failed to load image '%s' for DataSprite", url);
-			throw new ResourceFailedException("Elizabeth's testing code");
-			//String message = "Failed to load image '%s' for DataSprite '%s'";
-			//throw new ResourceFailedException(message, url, myName);
-		}
-		myHaveLoaded = true;
-	}
+		//myImage = new Image(getClass().getClassLoader().getResourceAsStream(myBaseFileName));
+        String url = directory + myBaseFileName;
+        try {
+            myImage = new Image(getClass().getClassLoader().getResourceAsStream(url));
+        } catch (Exception ex) {
+            String message = "Failed to load image '%s' for DataSprite '%s'";
+            throw new ResourceFailedException(message, url, myName);
+        }
+        myHaveLoaded = true;
+    }
 }

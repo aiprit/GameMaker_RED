@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.preview;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

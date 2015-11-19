@@ -1,6 +1,6 @@
 package authoring_environment.room.button_toolbar;
 
-import authoring_environment.room.RoomBackground;
+import authoring_environment.room.preview.canvas.RoomBackground;
 import structures.data.DataGame;
 
 public class ButtonModel {
