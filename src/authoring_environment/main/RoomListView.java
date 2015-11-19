@@ -46,9 +46,11 @@ public class RoomListView {
 		return b;
 	}
 	
-	public Button addPlusButton() {
+	public Button addPlusButton(int numberofRooms) {
 		Button plus = new Button(myResourceBundle.getString("plus"));
-		roomView.add(plus, 1, 1);
+		int col = numberofRooms % 5;
+		int row = numberofRooms /5;
+		roomView.add(plus, col, row);
 		updateList();
 		return plus;
 		

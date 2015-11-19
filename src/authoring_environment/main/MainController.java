@@ -95,16 +95,18 @@ public class MainController implements IUpdateHandle {
 					// your Room Editor (edit room)
 					RoomController room = new RoomController(o.getName(), dataGame);
 					room.launch();
+					update();
 				}
 			});
 		}
 
-		roomListView.addPlusButton().setOnAction(new EventHandler<ActionEvent>() {
+		roomListView.addPlusButton(dataGame.getRooms().size()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: @ankit - open your Room Editor (new room)
-				RoomController room = new RoomController("new", dataGame);
-				room.launch();
+
+				RoomController newRoom = new RoomController("New Room", dataGame);
+				newRoom.launch();
+				update();
 			}
 		});
 

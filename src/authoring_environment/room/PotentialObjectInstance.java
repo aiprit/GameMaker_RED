@@ -1,16 +1,25 @@
 package authoring_environment.room;
 
+import java.util.ResourceBundle;
+
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import structures.data.DataObject;
 
 public class PotentialObjectInstance {
+	private static final String DEFAULT_SPRITE = "DefaultSprite";
 	private DataObject myObject;
 	private ImageView myImageView;
 	
-	public PotentialObjectInstance(DataObject object) {
+	public PotentialObjectInstance(ResourceBundle resources, DataObject object) {
 		myObject = object;
-		myImageView = new ImageView(object.getSprite().getImage());
+		if (object.getSprite() == null || object.getSprite().getImage() == null) {
+			Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(resources.getString(DEFAULT_SPRITE)));
+			myImageView = new ImageView(sprite);
+		} else {
+			myImageView = new ImageView(object.getSprite().getImage());
+		}
 	}
 	
 	public DataObject getObject() {

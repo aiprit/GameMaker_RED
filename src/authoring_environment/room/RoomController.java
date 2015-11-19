@@ -130,12 +130,14 @@ public class RoomController {
 			DoubleProperty y = new SimpleDoubleProperty();
 			x.set(canvasPoint.getX());
 			y.set(canvasPoint.getY());
-			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getObject(), x, y);
+			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
+					potentialObjectInstance.getObject(), x, y);
 			//ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
 			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 			model.addObjectInstance(objectInstance.getDataInstance());
+			view.getPreview().getCanvas().redrawCanvas();
 		} else {
 			//TODO get rid of the object
 		}

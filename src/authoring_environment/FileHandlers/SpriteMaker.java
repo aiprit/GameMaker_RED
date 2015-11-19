@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
@@ -22,9 +23,10 @@ import javafx.stage.Stage;
 import structures.data.DataSprite;
 
 public class SpriteMaker {
+	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	public static void load(Stage s, ObservableList<DataSprite> sprites){
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
+		fileChooser.setTitle("fileChooserTitle");
 		
 		File selectedFile = fileChooser.showOpenDialog(s);
 		BufferedImage img;
@@ -33,17 +35,11 @@ public class SpriteMaker {
 			
 			img = ImageIO.read(selectedFile);
 			String name = askName();
-			File outputfile = new File("images/" + name + ".png");
+			File outputfile = new File(r.getString("imagesFolder") + name + ".png");
 			
 		    ImageIO.write(img, "png", outputfile);
 		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
-		    try {
-				newSprite.load("images/");
-			} catch (ResourceFailedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		   // System.out.println(outputfile.getAbsolutePath());
+
 		    sprites.add(newSprite);
 		    
 		} catch (IOException e1) {
@@ -55,26 +51,24 @@ public class SpriteMaker {
 	public static void show(DataSprite sprite){
 		BorderPane myPane = new BorderPane();
 		Stage s = new Stage();
-	//	Group root = new Group();
-		Canvas c = new Canvas(100, 100);
-		GraphicsContext centerGC = c.getGraphicsContext2D();
 		Image img = sprite.getImage();
+		Canvas c = new Canvas(img.getWidth(), img.getHeight());
+		GraphicsContext centerGC = c.getGraphicsContext2D();
+	
 
-		double xPos = 50 - img.getWidth()/2;
-		double yPos = 50 - img.getHeight()/2;
-		centerGC.drawImage(img, xPos, yPos); //, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
-//		spriteUpdate = new Button(centerResources.getString("buttonText"));
-		//root.getChildren().addAll(c);
+		double xPos = img.getWidth()/2;
+		double yPos = img.getHeight()/2;
+		centerGC.drawImage(img, xPos, yPos); 
 		myPane.setCenter(c);
-//		root.getChildren().add(myPane);
+
 		s.setScene(new Scene(myPane));
 		s.show();
 	}
 	private static String askName(){
-		TextInputDialog dialog = new TextInputDialog("walter");
-		dialog.setTitle("Text Input Dialog");
-		dialog.setHeaderText("Look, a Text Input Dialog");
-		dialog.setContentText("Please enter your name:");
+		TextInputDialog dialog = new TextInputDialog("Sprite Name");
+		dialog.setTitle("Sprite Selector");
+		dialog.setHeaderText("Sprite");
+		dialog.setContentText("Please enter your sprite name:");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
 		    return result.get();
