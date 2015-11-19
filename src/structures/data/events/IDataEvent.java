@@ -5,5 +5,5 @@ import java.util.Map;
 public interface IDataEvent {
     String getName();
 
-    Map<String, Object> dumpContents();
+    Map<String, String> dumpContents();
 }

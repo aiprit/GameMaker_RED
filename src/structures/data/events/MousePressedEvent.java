@@ -30,8 +30,8 @@ public class MousePressedEvent implements IDataEvent {
     }
 
     @Override
-    public Map<String, Object> dumpContents() {
-        Map<String, Object> ret = new HashMap<>();
+    public Map<String, String> dumpContents() {
+        Map<String, String> ret = new HashMap<>();
         ret.put("class", getClass().getName());
         ret.put("mouseState", mouseState);
         return ret;
