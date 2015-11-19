@@ -34,14 +34,14 @@ public class SoundListView {
 	}
 	
 	public Button addSound(DataSound o) {
-		Button edit = new Button("EDIT");
+		Button play = new Button("Play");
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
         label.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(label, Priority.ALWAYS);
-		hbox.getChildren().addAll(label, edit);
+		hbox.getChildren().addAll(label, play);
         list.add(hbox);
-        return edit;
+        return play;
 	}
 	
 	public Button addPlus() {

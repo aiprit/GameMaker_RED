@@ -113,7 +113,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
-
+					SpriteMaker.show(o);
+					update();
 				}
 			});
 		}
