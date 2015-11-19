@@ -36,7 +36,7 @@ public class EventModel {
 			return map.get(myEvent);
 		return FXCollections.observableList(new ArrayList<IAction>());
 	}
-	public void addAction( IAction a) {
+	public void addAction(IAction a) {
 		alist.add(a);
 	}
 	public void deleteAction(IAction a) {

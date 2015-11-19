@@ -18,15 +18,8 @@ public class ObjectTopPane {
 		root = new Group();
 
 		ObjectSpriteMenu sprite = new ObjectSpriteMenu();
-		Menu spriteMenu = sprite.makeMenu(myController.getSprites());
+		Menu spriteMenu = sprite.makeMenu(myController, myController.getSprites());
 
-//		ObjectVisibleMenu visible = new ObjectVisibleMenu();
-//		Menu visibleMenu = visible.makeMenu(myController);
-
-//		ObjectEventMenu event = new ObjectEventMenu();
-//		Menu eventMenu = event.makeMenu();
-
-//		menu.getMenus().addAll(spriteMenu, visibleMenu, eventMenu);
 		menu.getMenus().addAll(spriteMenu);
 		root.getChildren().add(menu);
 		return root;

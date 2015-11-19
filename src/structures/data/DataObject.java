@@ -1,5 +1,6 @@
 package structures.data;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -17,6 +18,7 @@ public class DataObject {
 //=======
 	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
 //>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
+
 
     private String myName;
     private DataSprite mySprite;

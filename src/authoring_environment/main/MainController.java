@@ -1,4 +1,3 @@
-
 package authoring_environment.main;
 
 import java.util.ResourceBundle;
