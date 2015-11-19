@@ -54,6 +54,9 @@ public class ObjectEditorController {
 			model.changeObjectName(view.getBottomPane().getNameBoxText());
 			close(e);
 		});
+		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
+			view.getCenterPane().update(model.getSpriteName());
+		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
 		view.getRightPane().getDeleteButton().setOnAction(e-> {
@@ -66,9 +69,9 @@ public class ObjectEditorController {
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
 					model.getObject(), model.getObjectList());
-		});
+		});		
 		for (DataSprite s: model.getSprites()) {
-			addSpriteToMenu(s, view.getTopPane().getMenu());
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e->model.setSprite(s)));
 		}
 		model.getMap().addListener(new MapChangeListener() {
 
@@ -82,17 +85,9 @@ public class ObjectEditorController {
 	}
 	private void eventPopup(IDataEvent e) {
 
-	EventController control = new EventController(e, model.getObject());
-}
-//	private void updateList() {
-//		model.getMap().add();
-//		Set a = model.getMap().keySet();
-//		view.getRightPane().g.addAll(a);
-//	}
+		EventController control = new EventController(e, model.getObject());
 
-		//EventController control = new EventController(e, model.getObject());
-
-	//}
+	}
 	//	private void updateList() {
 	//		model.getMap().add();
 	//		Set a = model.getMap().keySet();
@@ -100,20 +95,11 @@ public class ObjectEditorController {
 	//	}
 
 
-
 	private void close(ActionEvent e) {
 		Node  source = (Node)  e.getSource();
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
 		updater.update();
-	}
-
-
-	private void addSpriteToMenu(DataSprite s, Menu menu) {
-		MenuItem m = new MenuItem(s.getName());
-		m.setOnAction(e-> model.setSprite(s));
-		System.out.println(s.getName());
-		menu.getItems().add(m);
 	}
 
 	public void setOnClose(IUpdateHandle updateHandle) {

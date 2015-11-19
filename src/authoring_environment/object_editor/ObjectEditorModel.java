@@ -57,7 +57,7 @@ public class ObjectEditorModel {
 	}
 
 	public String getSpriteName() {
-		return object.getSprite().getName();
+		return object.getSprite().getBaseFileName();
 	}
 	
 	public void setSprite(DataSprite sprite) {

@@ -28,7 +28,7 @@ public class ObjectTester extends Application{
 		arg0.setTitle("test");
 		DataGame game = new DataGame("Fuck", "FUck");
 		DataObject object = new DataObject("Luigi");
-		DataSprite sprite = new DataSprite("Luigi.png", "Luigi.png");
+		DataSprite sprite = new DataSprite("Luigi", "Luigi.png");
 		IDataEvent a = new ObjectCreateEvent();
 		ObservableList<IAction> c =FXCollections.observableList( new ArrayList<IAction>());
 		c.add(new Destroy());
@@ -36,6 +36,13 @@ public class ObjectTester extends Application{
 		object.bindEvent(a,c);
 		game.addObject(object);
 		object.setSprite(sprite);
+		DataSprite s2 = new DataSprite("Mario", "Mario.png");
+		DataSprite s3 = new DataSprite("Black Box", "black.png");
+		DataSprite s4 = new DataSprite("Star", "smallstar.png");
+		game.addSprite(sprite);
+		game.addSprite(s2);
+		game.addSprite(s3);
+		game.addSprite(s4);
 		oc = new ObjectEditorController(game);
 	}
 }
