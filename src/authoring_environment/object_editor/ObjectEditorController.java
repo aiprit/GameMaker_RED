@@ -35,6 +35,7 @@ public class ObjectEditorController {
 	public void initAll() {
 		view.getBottomPane().getSaveButton().setOnAction(e-> {
 			model.getObject().setName(view.getBottomPane().getNameBoxText());
+			model.saveObject();
 			close(e);
 		});
 		view.getBottomPane().getCancelButton().setOnAction(e-> {
