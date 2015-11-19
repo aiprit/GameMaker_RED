@@ -5,7 +5,7 @@ import structures.data.actions.DataAction;
 public class Open extends DataAction {
 
 	public Open(){
-		
+		init();
 	}
 	
 	@Override
@@ -20,7 +20,7 @@ public class Open extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "{";
+		return "{ \n";
 	}
 
 }

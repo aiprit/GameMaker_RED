@@ -2,11 +2,12 @@ package structures.data.actions.library;
 
 import structures.data.actions.DataAction;
 import structures.data.actions.params.DoubleParam;
+import structures.data.actions.params.IntegerParam;
 
 public class GoToRoom extends DataAction{
 	
 	public GoToRoom(){
-		init(new DoubleParam("NewRoomNumber"));
+		init(new IntegerParam("NewRoomNumber"));
 	}
 
 	@Override
@@ -16,12 +17,12 @@ public class GoToRoom extends DataAction{
 
 	@Override
 	public String getDescription() {
-		return String.format("go to room %.2f", get("NewRoomNumber"));
+		return String.format("go to room %d", get("NewRoomNumber"));
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "library.go_to_room(%f);";
+		return "library.go_to_room(%d);";
 	}
 
 }

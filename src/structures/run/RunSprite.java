@@ -1,7 +1,6 @@
 package structures.run;
 
 import engine.IDraw;
-import engine.events.EventManager;
 import exceptions.CompileTimeException;
 import javafx.scene.image.Image;
 import structures.data.DataSprite;
@@ -16,9 +15,6 @@ public class RunSprite implements IDrawable {
 	private Image myImage;
 	private DataSprite myDataSprite;
 	
-	private double width;
-	private double height;
-	
 	public RunSprite(String name) {
 		this.name = name;
 	}
@@ -29,7 +25,6 @@ public class RunSprite implements IDrawable {
 			throw new CompileTimeException("Can't create RunSprite from unloaded DataSprite '%s'", name);
 		}
 		myImage = dataSprite.getImage();
-		
 		centerX = dataSprite.getCenterX();
 		centerY = dataSprite.getCenterY();
 	}

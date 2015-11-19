@@ -48,6 +48,7 @@ public class DataGame extends Observable {
     public void setStartRoom(DataRoom room) {
         if (myRooms.contains(room)) {
             myStartRoom = myRooms.indexOf(room);
+            myCurrentRoom = myStartRoom;
         }
     }
 
@@ -57,6 +58,7 @@ public class DataGame extends Observable {
 
     public void setStartRoom(int index) {
         myStartRoom = index;
+        myCurrentRoom = index;
     }
 
     public DataRoom getCurrentRoom() {

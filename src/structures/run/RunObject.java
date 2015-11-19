@@ -5,13 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
-import engine.events.EventManager;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
-import utils.Point;
 import utils.Rectangle;
 import utils.Vector;
 
@@ -71,6 +67,8 @@ public class RunObject {
 	}
 	
 	public IRectangle getBounds() {
+		myBounds.width(mySprite.getWidth() * scaleX);
+		myBounds.height(mySprite.getHeight() * scaleY);
 		myBounds.move(x, y);
 		myBounds.angle(this.angle);
 		return myBounds.getImmutable();
@@ -104,7 +102,6 @@ public class RunObject {
 	
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
-			System.out.println(name +  "drawing at " + new Point(x, y));
 			mySprite.draw(drawListener, view, this);
 		}
 	}
