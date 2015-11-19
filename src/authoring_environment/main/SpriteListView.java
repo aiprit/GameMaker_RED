@@ -19,10 +19,13 @@ import structures.data.DataSprite;
 public class SpriteListView {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private List<HBox> list;
-
+	private Button plusButton;
+	private BorderPane bp;
+	private IUpdateHandle updater;
+	
 	public void init() {
 		list = new ArrayList<HBox>();
-
+		bp = new BorderPane();
 		HBox header = new HBox();
 		Label headerLabel = new Label(r.getString("SpritesListTitle"));
 		header.getChildren().addAll(headerLabel);
@@ -42,6 +45,7 @@ public class SpriteListView {
 		HBox.setHgrow(label, Priority.ALWAYS);
 		hbox.getChildren().addAll(label, edit);
 		list.add(hbox);
+		updateList();
 		return edit;
 	}
 	
@@ -53,6 +57,7 @@ public class SpriteListView {
 		HBox.setHgrow(label, Priority.ALWAYS);
 		hbox.getChildren().addAll(label, plus);
 		list.add(hbox);
+		updateList();
 		return plus;
 	}
 	
@@ -63,4 +68,14 @@ public class SpriteListView {
 		listView.setItems(myObservableList);
 		return listView;
 	}
+		public void setUpdateHandle(IUpdateHandle t) {
+			updater = t;
+		}
+		private void updateList() {
+			ListView<HBox> listView = new ListView<HBox>();
+			ObservableList<HBox> myObservableList = FXCollections.observableList(list);
+			listView.setItems(myObservableList);
+			bp.setLeft(listView);
+		}
+		
 }
