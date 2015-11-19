@@ -35,7 +35,6 @@ public class EventPopupFactory {
 		if (event.equalsIgnoreCase("On Game Start Event")) {
 			kp = new GameStartPopUp(obj);
 		}
-		
 		if (event.equalsIgnoreCase("On Key Press Event")) {
 			kp = new KeyPressPopUp(obj);
 		}
