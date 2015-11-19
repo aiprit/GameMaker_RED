@@ -2,12 +2,12 @@
 <game currentRoom="0" directory="TestGame/" startRoom="0" title="Test Game">
   <objects>
     <object name="Coin" scaleX="1.0" scaleY="1.0" sprite="Coin" zIndex="0">
-      <event title="Collision with ">
+      <event class="structures.data.events.CollisionEvent" dataObject="Player">
         <action title="MoveToRandom"/>
       </event>
     </object>
     <object name="Player" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">
-      <event title="Collision with ">
+      <event class="structures.data.events.CollisionEvent" dataObject="Coin">
         <action title="GetScore"/>
         <action title="Open"/>
         <action title="GoToRoom"/>
@@ -16,24 +16,24 @@
         <action title="Move"/>
         <action title="Close"/>
       </event>
-      <event title="Key Press Right">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="RIGHT">
         <action title="Move"/>
       </event>
-      <event title="Key Press Space">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
         <action title="Move"/>
       </event>
-      <event title="Key Press Down">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
         <action title="Move"/>
       </event>
-      <event title="Key Press Left">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="LEFT">
         <action title="Move"/>
       </event>
-      <event title="Key Press Up">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
         <action title="Move"/>
       </event>
     </object>
     <object name="StartScreenBackground" scaleX="0.5" scaleY="0.5" sprite="Start Screen" zIndex="0">
-      <event title="Key Press Space">
+      <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
         <action title="GoToRoom"/>
       </event>
     </object>
@@ -50,20 +50,20 @@
     <room backgroundColor="#FFFFFF" height="500.0" name="Start Screen" width="500.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="1447923381305" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="StartScreenBackground" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="1447924007240" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="StartScreenBackground" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
       </objectInstances>
     </room>
     <room backgroundColor="" height="500.0" name="Level 1" width="500.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="1447923381306" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Player" scaleX="1.0" scaleY="1.0" visibility="true" x="40.0" y="40.0" zIndex="0"/>
-        <objectInstance ID="1447923381306" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Coin" scaleX="1.0" scaleY="1.0" visibility="true" x="340.0" y="340.0" zIndex="0"/>
+        <objectInstance ID="1447924007241" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Player" scaleX="1.0" scaleY="1.0" visibility="true" x="40.0" y="40.0" zIndex="0"/>
+        <objectInstance ID="1447924007241" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Coin" scaleX="1.0" scaleY="1.0" visibility="true" x="340.0" y="340.0" zIndex="0"/>
       </objectInstances>
     </room>
     <room backgroundColor="#FFFFFF" height="500.0" name="Win Screen" width="500.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="1447923381306" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="WinScreenBackground" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="1447924007241" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="WinScreenBackground" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
       </objectInstances>
     </room>
   </rooms>

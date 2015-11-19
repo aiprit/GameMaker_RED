@@ -31,10 +31,10 @@ public class KeyReleasedEvent implements IDataEvent {
     }
 
     @Override
-    public Map<String, Object> dumpContents() {
-        Map<String, Object> ret = new HashMap<>();
+    public Map<String, String> dumpContents() {
+        Map<String, String> ret = new HashMap<>();
         ret.put("class", getClass().getName());
-        ret.put("keyCode", keyCode);
+        ret.put("keyCode", keyCode.toString());
         return ret;
     }
 }
