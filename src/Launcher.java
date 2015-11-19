@@ -24,6 +24,10 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class Launcher extends Application {
+    
+    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "default.css";
+    
 	EngineController ec;
 	View view;
 	ObjectGUI og;
@@ -74,7 +78,9 @@ public class Launcher extends Application {
 		btn1.setPadding(pad);
 		root.getChildren().add(a);
 		a.getChildren().addAll(btn, btn1);
-		primaryStage.setScene(new Scene(root));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		primaryStage.show();
 	}
 }

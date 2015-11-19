@@ -65,6 +65,9 @@ import javafx.stage.Stage;
 import structures.data.*;
 
 public class View implements Observer{
+    
+    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "default.css";
 
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private ObservableList<DataRoom> myLevels;
@@ -113,6 +116,7 @@ public class View implements Observer{
 		int width = Integer.parseInt(myResourceBundle.getString("ViewWidth"));
 		int height = Integer.parseInt(myResourceBundle.getString("ViewHeight"));
 		Scene s = new Scene(bp, width, height, Color.WHITE);
+		s.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		myStage.setScene(s);
 		myStage.show();
 	}
