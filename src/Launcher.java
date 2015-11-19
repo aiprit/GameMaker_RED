@@ -1,6 +1,6 @@
 import authoring_environment.main.MainController;
 
-import authoring_environment.ObjectGUI.ObjectView;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;

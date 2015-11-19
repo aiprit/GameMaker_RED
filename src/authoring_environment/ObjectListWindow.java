@@ -3,7 +3,7 @@ package authoring_environment;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import authoring_environment.ObjectGUI.ObjectController;
+
 import authoring_environment.ObjectGUI.ObjectView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

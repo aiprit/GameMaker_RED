@@ -1,14 +1,17 @@
 package authoring_environment.main;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
-import authoring_environment.ObjectGUI.ObjectGUITester;
 
+import authoring_environment.object_editor.ObjectTester;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -78,20 +81,16 @@ public class MainController implements IUpdateHandle {
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					// TODO: @nick. Need to call the ObjectComponent here (edit
-					// game).
-					// use the DataObject o for this.
-
-					ObjectGUITester window = new ObjectGUITester();
+					
+					ObjectTester window = new ObjectTester();
 					try {
-						window.start(myStage);;
+						window.start(myStage);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-					System.out.println("Opening object editor with context: edit object(" + o.getName() + ")");
-
+	
 				}
 			});
 		}
@@ -100,19 +99,14 @@ public class MainController implements IUpdateHandle {
 		objectListWindow.getPlusButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: @nick. Need to call the ObjectComponent here (new
-				// game).
-
 				
-				ObjectGUITester window = new ObjectGUITester();
+				ObjectTester window = new ObjectTester();
 				try {
 					window.start(myStage);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				System.out.println("Opening object editor with context: new object");
 
 			}
 		});
@@ -153,7 +147,17 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: @steve call the sprite editor here (new sprite)
+				FileChooser fileChooser = new FileChooser();
+				 fileChooser.setTitle("Open Resource File");
+				 fileChooser.getExtensionFilters().addAll(
+				         new ExtensionFilter("Text Files", "*.txt"),
+				         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+				         new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+				         new ExtensionFilter("All Files", "*.*"));
+				 File selectedFile = fileChooser.showOpenDialog(myStage);
+//				 if (selectedFile != null) {
+//				    myStage.display(selectedFile);
+//				 }
 			}
 		});
 
@@ -174,7 +178,17 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: @steve call the sound editor here (new sound)
+				FileChooser fileChooser = new FileChooser();
+				 fileChooser.setTitle("Open Resource File");
+				 fileChooser.getExtensionFilters().addAll(
+				         new ExtensionFilter("Text Files", "*.txt"),
+				         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+				         new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
+				         new ExtensionFilter("All Files", "*.*"));
+				 File selectedFile = fileChooser.showOpenDialog(myStage);
+//				 if (selectedFile != null) {
+//				    myStage.display(selectedFile);
+//				 }
 			}
 		});
 
