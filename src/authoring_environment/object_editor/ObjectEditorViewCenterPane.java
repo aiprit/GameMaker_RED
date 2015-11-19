@@ -41,6 +41,15 @@ public class ObjectEditorViewCenterPane {
 			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("marioImage"))) ;
 		}
 	}
+	
+	public void update(String name) {
+		centerGC.clearRect(0, 0, Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
+		sprite = addSprite(name);
+		xPos = Integer.parseInt(centerResources.getString("canvasWidth"))/2 - sprite.getWidth()/2;
+		yPos = Integer.parseInt(centerResources.getString("canvasHeight"))/2 - sprite.getHeight()/2;
+		centerGC.drawImage(sprite, xPos, yPos);
+
+	}
 
 	public GraphicsContext getGC() {
 		return centerGC;

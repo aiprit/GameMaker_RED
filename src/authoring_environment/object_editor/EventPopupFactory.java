@@ -31,6 +31,7 @@ public class EventPopupFactory {
 		if (event.equalsIgnoreCase("Collision Event")) {
 			kp = new CollisionPopUp(obj,list);
 		}
+		
 		if (event.equalsIgnoreCase("On Game Start Event")) {
 			kp = new GameStartPopUp(obj);
 		}

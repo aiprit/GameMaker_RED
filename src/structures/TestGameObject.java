@@ -106,10 +106,10 @@ public class TestGameObject {
         List<IAction> upActions = Collections.singletonList(up);
         List<IAction> downActions = Collections.singletonList(down);
 
-        player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
-        player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
-        player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
-        player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
+//        player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
+//        player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
+//        player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
+//        player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
 
         DataObject startScreenBackground = new DataObject("StartScreenBackground");
 

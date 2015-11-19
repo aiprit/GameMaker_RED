@@ -1,33 +1,21 @@
 package authoring_environment.main;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
-
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
-import authoring_environment.object_editor.ObjectTester;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataSound;
 import structures.data.DataSprite;
+import structures.data.access_restricters.IObjectInterface;
 
 public class MainController implements IUpdateHandle {
-
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private DataGame dataGame;
 	private Stage myStage;
@@ -56,22 +44,12 @@ public class MainController implements IUpdateHandle {
 
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
-
-		// @steve
-		DataObject n1 = new DataObject("TestObject 1");
-		DataObject n2 = new DataObject("TestObject 2");
-		DataObject n3 = new DataObject("TestObject 3");
-		dataGame.addObject(n1, n2, n3);
-
-		//showing that you can call update from either here, or from objectListWindow
-		objectListWindow.testNewButtonAdding();
-		// or
-		update();
 	}
 
 	public void refreshViews() {
 		// Set mainView's views
-		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(), new RightView(spriteListView, soundListView).getPane());
+		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
+				new RightView(spriteListView, soundListView).getPane());
 	}
 
 	public void update() {
@@ -88,11 +66,8 @@ public class MainController implements IUpdateHandle {
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-
-					ObjectEditorController window = new ObjectEditorController(dataGame,o);
-					update();
-
-
+					ObjectEditorController window = new ObjectEditorController((IObjectInterface) dataGame, o);
+					window.setOnClose(getUpdater());
 				}
 			});
 		}
@@ -101,17 +76,16 @@ public class MainController implements IUpdateHandle {
 		objectListWindow.getPlusButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
 				ObjectEditorController window = new ObjectEditorController(dataGame);
 				update();
-
+				window.setOnClose(getUpdater());
 			}
 		});
 
 		// Room List
 		roomListView.init();
-		//for (DataRoom o : dataGame.getRooms()) {
-		for(int i = 0; i< dataGame.getRooms().size(); i++){
+		// for (DataRoom o : dataGame.getRooms()) {
+		for (int i = 0; i < dataGame.getRooms().size(); i++) {
 			DataRoom o = dataGame.getRooms().get(i);
 
 			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
@@ -139,6 +113,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
+
 				}
 			});
 		}
@@ -148,7 +123,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				SpriteMaker.load(myStage, dataGame.getSprites());
-
+				update();
 
 			}
 		});
@@ -171,6 +146,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				SoundMaker.load(myStage, dataGame.getSounds());
+				update();
 			}
 		});
 
@@ -200,5 +176,9 @@ public class MainController implements IUpdateHandle {
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());
 		refreshViews();
+	}
+
+	private IUpdateHandle getUpdater() {
+		return (IUpdateHandle) this;
 	}
 }
