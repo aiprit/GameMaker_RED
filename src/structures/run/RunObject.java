@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import engine.IDraw;
+import exceptions.CompileTimeException;
 import structures.data.DataObject;
+import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
 import utils.Point;
@@ -118,8 +120,13 @@ public class RunObject {
 		return null;
 	}
 	
-	public void change_sprite(){
-		//parameters?
+	public void change_sprite(String name, String baseFileName){
+	        try {
+                mySprite = new RunSprite(new DataSprite(name, baseFileName));
+                }
+                catch (CompileTimeException e) {
+                    e.printStackTrace();
+                }
 	}
 	
 	public void destroy(){

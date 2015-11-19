@@ -35,7 +35,6 @@ public class TestGameObject {
 
         DataGame printGame = testGameObject.getTestGame();
 
-        System.out.println(printGame.toString());
         XMLEditor xml = new XMLEditor();
         xml.writeXML(printGame, "test.xml");
     }
@@ -127,7 +126,7 @@ public class TestGameObject {
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
         level1.addObjectInstance(new DataInstance(player, 40, 40, 0));
-        //level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
+        level1.addObjectInstance(new DataInstance(coin, 90, 140, 0));
 
         DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
         winScreen.setBackgroundColor("#FFFFFF");

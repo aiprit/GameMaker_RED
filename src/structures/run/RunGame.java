@@ -70,13 +70,16 @@ public class RunGame implements IRun {
 	public RunRoom getCurrentRoom() {
 		return myCurrentRoom;
 	}
+	
 	public void setCurrentRoom(int roomNumber) throws GameRuntimeException {
 		if (roomNumber >= myRooms.size()) {
 			throw new GameRuntimeException("Room Id %d not found", roomNumber);
 		}
 		myCurrentRoom = myRooms.get(roomNumber);
 	}
+	
 	public void setCurrentRoom(RunRoom room) {
+	        if (!myRooms.contains(room)) myRooms.add(room);
 		myCurrentRoom = room;
 	}
 
@@ -87,6 +90,7 @@ public class RunGame implements IRun {
 		}
 		return room;
 	}
+	
 	public int getCurrentRoomNumber() {
 		return myRooms.indexOf(myCurrentRoom);
 	}
