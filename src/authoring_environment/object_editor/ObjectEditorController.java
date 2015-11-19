@@ -1,6 +1,7 @@
 package authoring_environment.object_editor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -28,17 +30,23 @@ public class ObjectEditorController {
 	}
 
 	public ObjectEditorController(DataGame g) {
-		model = new ObjectEditorModel(g);
+		TextInputDialog dialog = new TextInputDialog("Object Name");
+		dialog.setTitle("Create Object");
+		dialog.setHeaderText("Please Enter Name");
+		Optional<String> result = dialog.showAndWait();
+		String name = "";
+		if (result.isPresent()){
+			name = result.get();
+
+		model = new ObjectEditorModel(g,name);
 		view = new ObjectEditorView();
+		initAll();
+		}
 	}
 
 	public void initAll() {
-		view.getBottomPane().getSaveButton().setOnAction(e-> {
+		view.getBottomPane().getCloseButton().setOnAction(e-> {
 			model.getObject().setName(view.getBottomPane().getNameBoxText());
-			model.saveObject();
-			close(e);
-		});
-		view.getBottomPane().getCancelButton().setOnAction(e-> {
 			close(e);
 		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
@@ -68,7 +76,6 @@ public class ObjectEditorController {
 	}
 	private void eventPopup(IDataEvent e) {
 	EventController control = new EventController(e, model.getObject());
-
 }
 //	private void updateList() {
 //		model.getMap().add();

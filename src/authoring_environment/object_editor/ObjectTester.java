@@ -36,6 +36,6 @@ public class ObjectTester extends Application{
 		object.bindEvent(a,c);
 		game.addObject(object);
 		object.setSprite(sprite);
-		oc = new ObjectEditorController(game, object);
+		oc = new ObjectEditorController(game);
 	}
 }
