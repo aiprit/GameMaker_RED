@@ -132,7 +132,7 @@ public class RoomController {
 			y.set(canvasPoint.getY());
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
 					potentialObjectInstance.getObject(), x, y);
-			//ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
+			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
 			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());

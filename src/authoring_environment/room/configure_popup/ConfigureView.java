@@ -19,7 +19,8 @@ public class ConfigureView extends Stage {
 	private final String ANGULAR_VELOCITY = "AngularVelocity";
 	private final String SCALE_X = "ScaleX";
 	private final String SCALE_Y = "ScaleY";
-	private final String ANGLE = "Rotation";
+	private final String ANGLE = "Angle";
+	private final String TRANSPARENCY = "Transparency";
 	private final String VISIBILITY = "Visibility";
 	private Button saveButton;
 	private VBox popUp;
@@ -29,12 +30,14 @@ public class ConfigureView extends Stage {
 	
 	public ConfigureView(ResourceBundle resources) {
 		myResources = resources;
+		popUp = new VBox();
+		initializePopUp();
 	}
 	
 	public void initializePopUp() {
 		HBoxHandler handler = new HBoxHandler();
-		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE)};
-		fieldList = handler.createHBoxes(6, labelStrings);
+		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
+		fieldList = handler.createHBoxes(7, labelStrings);
 		for (HBox box : fieldList) {
 			popUp.getChildren().add(box);
 		}

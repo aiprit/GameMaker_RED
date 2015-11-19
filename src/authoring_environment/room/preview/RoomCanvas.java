@@ -53,8 +53,8 @@ public class RoomCanvas extends Canvas {
 		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
-		ConfigurePopup popup = new ConfigurePopup(myResources);
-		popup.initializePopUp();
+		//ConfigurePopup popup = new ConfigurePopup(myResources);
+		//popup.initializePopUp();
 	}
 	
 	private void press(MouseEvent event) {
