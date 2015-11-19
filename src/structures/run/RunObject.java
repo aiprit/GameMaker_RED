@@ -2,6 +2,7 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import engine.IDraw;
 import structures.data.DataObject;
@@ -147,7 +148,9 @@ public class RunObject {
 	}
 	
 	public void move_to_random(){
-		//TODO: is this a parameter or do we calculate it here?
+		Random random = new Random();
+		this.x = (random.nextDouble() * 500);
+		this.y = (random.nextDouble() * 500);
 	}
 	
 	public void run_script(String script){

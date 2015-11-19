@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
+import structures.data.actions.MoveToRandom;
 import structures.data.actions.library.ChangeScore;
 import structures.data.actions.library.Close;
 import structures.data.actions.library.CreateObject;
@@ -61,6 +62,11 @@ public class TestGameObject {
 		coin.setSprite(coinSprite);
 
 		DataObject player = new DataObject("Player");
+		
+		CollisionEvent collideCoin = new CollisionEvent(player);
+		MoveToRandom mtr = new MoveToRandom();
+		List<IAction> responseActions = Collections.singletonList(mtr);
+		coin.bindEvent(collideCoin, responseActions);
 
 		DataSprite playerSprite = new DataSprite("Mario", "mario.png");
 		player.setSprite(playerSprite);

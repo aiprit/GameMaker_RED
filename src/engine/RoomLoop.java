@@ -64,6 +64,10 @@ public class RoomLoop {
 		myGameLoop.pause();
 	}
 	
+	public void cancel(){
+		myGameLoop.stop();
+	}
+	
 	public IObjectModifiedHandler getObjectHandler(){
 		return gameManager;
 	}
