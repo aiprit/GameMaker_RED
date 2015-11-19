@@ -19,11 +19,14 @@ public class GroovyEngine {
 	}
 	
 	public void runScript(RunObject o, RunAction action){
+		if(action == null){
+			return;
+		}
+		System.out.println(action.script);
 		Binding binding = new Binding();
 		binding.setProperty("current", o);
 		binding.setProperty("library", myGroovyLibrary);
 		GroovyShell shell = new GroovyShell(binding);
-		//System.out.println(action.script);
 		shell.evaluate(action.script);
 	}
 
