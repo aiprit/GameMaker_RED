@@ -3,6 +3,7 @@ package authoring_environment.room.preview;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.RoomController;
+import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import javafx.geometry.Point2D;
 
@@ -39,8 +40,8 @@ public class RoomPreview extends ScrollPane {
 		return myCanvas.sceneToLocal(scenePoint);
 	}
 
-	public void addImage(DraggableImage element) {
-		myCanvas.addNodeToMap(element);
+	public void addImage(DraggableImage element, ConfigureView popup) {
+		myCanvas.addNodeToMap(element, popup);
 	}
 
 }

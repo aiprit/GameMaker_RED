@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.configure_popup;
 
 import java.util.ArrayList;
 import java.util.List;

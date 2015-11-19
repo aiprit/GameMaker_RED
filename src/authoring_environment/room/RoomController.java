@@ -4,6 +4,7 @@ package authoring_environment.room;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.view.ViewController;
 import javafx.beans.property.DoubleProperty;
@@ -21,6 +22,8 @@ public class RoomController {
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	
+	private ResourceBundle myResources;
+	
 	private DataRoom model;
 	private RoomEditor view;
 	
@@ -29,21 +32,21 @@ public class RoomController {
 	private ViewController myView;
 	
 	public RoomController(String roomName, DataGame gameObject) {
-		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
-		model = new DataRoom(roomName, Double.parseDouble(resources.getString(PREVIEW_WIDTH)),
-				Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
+		myResources = ResourceBundle.getBundle("resources/RoomResources");
+		model = new DataRoom(roomName, Double.parseDouble(myResources.getString(PREVIEW_WIDTH)),
+				Double.parseDouble(myResources.getString(PREVIEW_HEIGHT)));
 		gameObject.addRoom(model);
-		view = new RoomEditor(resources);
-		initializeObjectListContainer(resources, gameObject);
+		view = new RoomEditor(myResources);
+		initializeObjectListContainer(gameObject);
 		//initializeButtonToolbar(resources);
 		initializeView();
 	}
 	
 	public RoomController(DataRoom room, DataGame gameObject) {
-		ResourceBundle resources = ResourceBundle.getBundle("resources/RoomResources");
+		myResources = ResourceBundle.getBundle("resources/RoomResources");
 		model = room;
-		view = new RoomEditor(resources);
-		initializeObjectListContainer(resources, gameObject);
+		view = new RoomEditor(myResources);
+		initializeObjectListContainer(gameObject);
 		//initializeButtonToolbar(resources);
 		initializeView();
 	}
@@ -52,17 +55,17 @@ public class RoomController {
 		view.show();
 	}
 	
-	private void initializeObjectListContainer(ResourceBundle resources, DataGame gameObject) {
-		myObjectListContainer = new ObjectListContainer(resources, gameObject.getObjects());
+	private void initializeObjectListContainer(DataGame gameObject) {
+		myObjectListContainer = new ObjectListContainer(myResources, gameObject.getObjects());
 		Consumer<MouseEvent> dragStarterFunction = e -> startObjectDrag(e);
 		myObjectListContainer.setOnMouseClicked(dragStarterFunction);
 		view.getObjectsAndPreview().getChildren().add(myObjectListContainer);
 		view.getObjectsAndPreview().getChildren().add(view.getPreview());
 	}
 	
-	private void initializeButtonToolbar(ResourceBundle resources) {
-		ButtonHandler handler = new ButtonHandler(resources, view.getPreview());
-		myButtonToolbar = new ButtonToolbar(resources, handler.getButtons());
+	private void initializeButtonToolbar() {
+		ButtonHandler handler = new ButtonHandler(myResources, view.getPreview());
+		myButtonToolbar = new ButtonToolbar(myResources, handler.getButtons());
 		view.getTotalView().getChildren().add(myButtonToolbar);
 	}
 	
@@ -127,7 +130,8 @@ public class RoomController {
 			x.set(canvasPoint.getX());
 			y.set(canvasPoint.getY());
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getObject(), x, y);
-			view.getPreview().addImage(objectInstance.getObjectInstance());
+			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
+			view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 			model.addObjectInstance(objectInstance.getDataInstance());
 		} else {

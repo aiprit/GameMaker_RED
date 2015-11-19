@@ -41,7 +41,7 @@ public class ObjectInstanceController {
 		model.setPosition(myX.get(), myY.get());
 	}
 	
-	public DraggableImage getObjectInstance() {
+	public DraggableImage getDraggableImage() {
 		return view;
 	}
 	
