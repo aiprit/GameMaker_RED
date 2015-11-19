@@ -2,7 +2,6 @@ package structures.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -10,7 +9,7 @@ import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
 
-public class DataObject{
+public class DataObject implements IObjectProperty {
 
 	private ObservableMap<IDataEvent, List<IAction>> myEvents;
 

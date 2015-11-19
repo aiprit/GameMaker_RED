@@ -68,7 +68,7 @@ public class DataInstance {
         myVisible = visible;
     }
     
-    
+  
     public void setVelocity(Vector velocity) {
     	myVelocity = velocity;
     }
@@ -122,4 +122,5 @@ public class DataInstance {
     public void setAlpha(double alpha) {
         myAlpha = alpha;
     }
+
 }

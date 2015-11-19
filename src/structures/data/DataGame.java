@@ -1,12 +1,14 @@
 package structures.data;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class DataGame {
+public class DataGame implements IGetObjects {
 
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
@@ -115,4 +117,9 @@ public class DataGame {
 
         return r.toString();
     }
+
+	@Override
+	public Collection<DataObject> getUnmodifiableObjects() {
+		return Collections.unmodifiableCollection(myObjects);
+	}
 }
