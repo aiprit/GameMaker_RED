@@ -10,6 +10,13 @@ import structures.data.DataGame;
 import structures.run.RunGame;
 import structures.run.RunRoom;
 
+/**
+ * Runs a game when given a RunGame. Does all the logic, 
+ * including running the event loop and executing user
+ * Groovy code, but is still separate from the user
+ * interface and most GUI components.
+ *
+ */
 public class Engine implements IRoomChangedHandler {
 
 	private RunGame myOriginalGame;

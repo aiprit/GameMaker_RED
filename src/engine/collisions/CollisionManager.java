@@ -8,6 +8,13 @@ import java.util.Map;
 import structures.run.RunObject;
 import utils.Pair;
 
+/**
+ * Keeps Lists of objects that can collide in a room,
+ * and when requested, checks for collisions between
+ * two types of objects using logic provided in 
+ * IProvider.
+ *
+ */
 public class CollisionManager {
 	
 	private Map<String, List<RunObject>> myCollideables;

@@ -18,12 +18,14 @@ public class KeyPressedEvent implements IDataEvent {
     }
 
     public boolean equals(Object obj) {
-        if (obj.getClass().equals(this.getClass())) {
-            if (((KeyPressedEvent) obj).keyCode.hashCode() == this.keyCode.hashCode()) {
-                return true;
-            }
-        }
-        return false;
+    	if(obj !=null){
+    	if (obj.getClass().equals(this.getClass())) {
+    		if (((KeyPressedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
+    			return true;
+    		}
+    	}
+    	}
+    	return false;
     }
 
     public String getName() {
@@ -36,6 +38,10 @@ public class KeyPressedEvent implements IDataEvent {
         ret.put("class", getClass().getName());
         ret.put("keyCode", keyCode.toString());
         return ret;
+    }
+    @Override
+    public String toString(){
+    	return this.getName();
     }
 
 }

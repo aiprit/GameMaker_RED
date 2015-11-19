@@ -17,7 +17,7 @@ public class DataInstance {
             myAlpha;
     private Vector myVelocity;
     
-    public DataInstance(DataObject parentObject, double x, double y, double ID){
+    public DataInstance(DataObject parentObject, double x, double y){
     	this(parentObject, x, y, 1, 1);
     }
     

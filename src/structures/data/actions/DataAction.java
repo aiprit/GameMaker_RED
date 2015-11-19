@@ -18,19 +18,19 @@ import utils.Utils;
  * what goes into the argument List.
  */
 public abstract class DataAction implements IAction {
-	
+
 	protected List<IParameter> myParameters;
-	
+
 	protected abstract String getSyntax();
-	
+
 	public List<IParameter> getParameters() {
 		return Collections.unmodifiableList(myParameters);
 	}
-	
+
 	public String compileSyntax() throws CompileTimeException {
 		return compile(getSyntax());
 	}
-    
+
     public String compile(String syntax) throws CompileTimeException {
     	List<Object> params = Utils.transform(getParameters(), e -> e.getValue());
     	try {
@@ -39,13 +39,18 @@ public abstract class DataAction implements IAction {
     		throw new CompileTimeException("Bad arguments for Action '%s'", this.getTitle());
     	}
     }
-    
+
     public void init(IParameter... parameters) {
     	myParameters = new ArrayList<>(Arrays.asList(parameters));
     }
-    
+
     protected IParameter get(String name) {
     	return Utils.first(myParameters, e -> (e.getTitle() == name), null);
     }
-    
+
+
+    @Override
+    public String toString(){
+    	return this.getTitle();
+    }
 }

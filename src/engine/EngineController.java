@@ -11,10 +11,12 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
-import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
+
+import structures.run.RunObject;
+
 
 public class EngineController {
 	
@@ -74,6 +76,8 @@ public class EngineController {
 		//TestGameObject tgo2 = new TestGameObject();
 		
 		//DataGame game2 = tgo2.getTestGame();
+		TestGameObject tgo = new TestGameObject();
+		myGame = tgo.getTestGame();
 		RunGame game = null;
 		//convert DataGame to a RunGame
 		try {
@@ -85,6 +89,26 @@ public class EngineController {
 		return game;
 		
 	}
+	
+//	public void init() throws ResourceFailedException {
+//		myGame = GameSelector.getGameChoice();
+//		//TestGame2 tgo = new TestGame2();
+//		//myGame = tgo.getTestGame();
+//		
+//		TestGameObject tgo2 = new TestGameObject();
+//		
+//		DataGame game2 = tgo2.getTestGame();
+//		RunGame game = null;
+//		//convert DataGame to a RunGame
+//		try {
+//			game = new RunGame(game2);
+//		} catch (CompileTimeException | RuntimeException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return game;
+//		
+//	}
 	
 	public void setupEventManager(EventManager eventManager){
 		eventManager.addGUIInterface(myEngine.getGUIHandler());

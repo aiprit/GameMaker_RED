@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.preview.RoomPreview;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -25,8 +26,8 @@ public class ButtonHandler {
 	 */
 	//TODO
 	private void addButtons(RoomPreview preview) {
-		myButtons.add(new SetSizeButton(myResources, preview.getRoomBackground()));
-		myButtons.add(new SetBackgroundButton(myResources, preview.getRoomBackground()));
+		//myButtons.add(new SetSizeButton(myResources, preview.getRoomBackground()));
+		//myButtons.add(new SetBackgroundButton(myResources, preview.getRoomBackground()));
 		myButtons.add(new ShowViewButton(myResources));
 	}
 	

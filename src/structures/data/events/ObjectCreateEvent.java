@@ -5,9 +5,13 @@ import java.util.Map;
 
 public class ObjectCreateEvent extends AbstractBasicEvent {
 
-    @Override
-    public String getName() {
-        return "Object Created";
+	@Override
+	public String getName() {
+		return "Object Created";
+	}
+	@Override
+    public String toString(){
+    	return this.getName();
     }
 
     @Override
@@ -16,4 +20,5 @@ public class ObjectCreateEvent extends AbstractBasicEvent {
         ret.put("class", getClass().getName());
         return ret;
     }
+
 }
