@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.object_list;
 
 import java.util.ResourceBundle;
 
@@ -13,15 +13,19 @@ public class ObjectListView extends ListView {
 	private ObservableList<String> myObjects;
 
 	@SuppressWarnings("unchecked")
-	public ObjectListView(ResourceBundle resources, ObservableList<String> objects) {
-		super(objects);
+	public ObjectListView(ResourceBundle resources) {
+		super();
 		super.setPrefWidth(Double.parseDouble(resources.getString(OBJECTS_LIST_HEADER_WIDTH)));
 		super.setPrefHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)) -
 				Double.parseDouble(resources.getString(OBJECTS_LIST_HEADER_HEIGHT)));
-		myObjects = objects;
 	}
 	
 	public ObservableList<String> getObjectsList() {
 		return myObjects;
+	}
+	
+	public void setObjectsList(ObservableList<String> objects) {
+		myObjects = objects;
+		this.setItems(myObjects);
 	}
 }

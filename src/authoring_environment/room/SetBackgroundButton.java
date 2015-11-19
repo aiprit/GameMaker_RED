@@ -2,6 +2,8 @@ package authoring_environment.room;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.room.preview.canvas.RoomBackground;
+
 public class SetBackgroundButton extends RoomEditorButton {
 	private static final String BACKGROUND = "Background";
 

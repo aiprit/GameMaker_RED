@@ -1,9 +1,11 @@
-package authoring_environment.room;
+package authoring_environment.room.preview;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.room.RoomController;
+import authoring_environment.room.configure_popup.ConfigureView;
+import authoring_environment.room.object_instance.DraggableImage;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 
 import javafx.scene.control.ScrollPane;
 
@@ -14,13 +16,13 @@ public class RoomPreview extends ScrollPane {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
 	
-	private RoomBackground myBackground;
+	private RoomCanvas myCanvas;
 	
-	public RoomPreview(ResourceBundle resources, RoomController controller) {
+	public RoomPreview(ResourceBundle resources) {
 		super();
 		initializePreview(resources);
-		myBackground = new RoomBackground(resources, controller);
-		super.setContent(myBackground);
+		myCanvas = new RoomCanvas(resources);
+		super.setContent(myCanvas);
 	}
 	
 	private void initializePreview(ResourceBundle resources) {
@@ -30,24 +32,20 @@ public class RoomPreview extends ScrollPane {
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 	}
 	
-	public RoomBackground getRoomBackground() {
-		return myBackground;
-	}
-
-	public void setRoomBackground(RoomBackground myBackground) {
-		this.myBackground = myBackground;
+	public RoomCanvas getCanvas() {
+		return myCanvas;
 	}
 	
 	public Point2D translateSceneCoordinates(Point2D scenePoint) {
-		return myBackground.sceneToLocal(scenePoint);
+		return myCanvas.sceneToLocal(scenePoint);
 	}
 
-	public void addImage(Image element, Point2D canvasPoint) {
-		myBackground.addNodeToMap(element, canvasPoint);
-	}
-	
-//	public void removeNode(Node element) {
-//		myRoot.getChildren().remove(element);
+//	public void addImage(DraggableImage element, ConfigureView popup) {
+//		myCanvas.addNodeToMap(element, popup);
 //	}
+	
+	public void addImage(DraggableImage element) {
+		myCanvas.addNodeToMap(element);
+	}
 
 }

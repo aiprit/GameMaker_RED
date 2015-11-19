@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
+import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -92,6 +93,8 @@ public class MainController implements IUpdateHandle {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
 					// your Room Editor (edit room)
+					RoomController room = new RoomController(o.getName(), dataGame);
+					room.launch();
 				}
 			});
 		}
@@ -100,6 +103,8 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO: @ankit - open your Room Editor (new room)
+				RoomController room = new RoomController("new", dataGame);
+				room.launch();
 			}
 		});
 
