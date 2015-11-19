@@ -24,7 +24,7 @@ public class CollisionPopUp extends BasicPopUp{
 	private Group myRoot;
 	private Stage myStage;
 	private Scene myScene;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/CollisionResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/CollisionResources");
 	private ObservableList<DataObject> myList;
 	ListView<DataObject> listview;
 	private DataObject selectedObject;

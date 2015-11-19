@@ -3,6 +3,7 @@ package structures.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
@@ -112,9 +113,7 @@ public class DataGame extends Observable {
     public ObservableList<DataSound> getSounds() {
         return mySounds;
     }
-    public ObservableList<IRoom> getRooms(){
-    	return myRooms;
-    }
+
     @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
@@ -129,7 +128,7 @@ public class DataGame extends Observable {
         for (DataObject o : myObjects) {
             r.append("  " + o.getName() + "\n");
 
-            for (Map.Entry<IDataEvent, List<IAction>> e : o.getEvents().entrySet()) {
+            for (ObservableMap.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
                 r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 

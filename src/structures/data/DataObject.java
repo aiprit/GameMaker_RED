@@ -1,12 +1,7 @@
 package structures.data;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-=======
->>>>>>> refs/remotes/origin/authoring_environment
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -19,23 +14,15 @@ import java.util.List;
 
 public class DataObject {
 
-//<<<<<<< HEAD
-//    private ObservableMap<IDataEvent, List<IAction>> myEvents;
-//=======
-	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
-//>>>>>>> abadaa4d66bf628cc800d4773a97910a4f881c00
 
-<<<<<<< HEAD
-	private String myName;
-	private DataSprite mySprite;
-	private ArrayList<DataSprite> mySprites = new ArrayList<DataSprite>();
-	private int myZIndex;
-=======
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
+
+
     private String myName;
     private DataSprite mySprite;
 
     private int myZIndex;
->>>>>>> refs/remotes/origin/authoring_environment
+
 
     public DataObject(String name) {
         myName = name;
@@ -93,17 +80,10 @@ public class DataObject {
         myZIndex = zIndex;
     }
 
-<<<<<<< HEAD
-	public void addSprite(DataSprite s) {
 
-		mySprite = s;
-		mySprites.add(s);
-
-	}
-=======
     public void addSprite(DataSprite s) {
         mySprite = s;
     }
->>>>>>> refs/remotes/origin/authoring_environment
+
 }
 

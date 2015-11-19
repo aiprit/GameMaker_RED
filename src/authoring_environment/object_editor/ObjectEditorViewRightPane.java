@@ -18,9 +18,7 @@ public class ObjectEditorViewRightPane {
 
 	private ResourceBundle rightResources = ResourceBundle.getBundle("authoring_environment/ObjectGUI/rightPane/RightPaneResources");
 	private Button edit, delete;
-	private Map<IDataEvent, List<IAction>> map;
-	private ListView<String> listview = new ListView<String>();
-	ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
+	private ListView<IDataEvent> listview = new ListView<IDataEvent>();
 
 
 	public Button getDeleteButton() {
@@ -30,10 +28,7 @@ public class ObjectEditorViewRightPane {
 		return edit;
 	}
 
-	public ObservableList<String> getList() {
-		return list;
-	}
-	public ListView<String> getListView() {
+	public ListView<IDataEvent> getListView() {
 		return listview;
 	}
 
@@ -42,7 +37,7 @@ public class ObjectEditorViewRightPane {
 		Text title = new Text(rightResources.getString("text"));
 		title.setTranslateX(Integer.parseInt(rightResources.getString("textTranslateX")));
 
-		listview = new ListView<String>();
+		listview = new ListView<IDataEvent>();
 		//listview.setItems(list);
 		listview.setTranslateY(Integer.parseInt(rightResources.getString("listTranslateY")));
 
@@ -63,7 +58,5 @@ public class ObjectEditorViewRightPane {
 		return root;
 	}
 
-	private void eventPopup(String e) {
-		//TODO: fix based off of parit's eventPopup
-	}
+
 }

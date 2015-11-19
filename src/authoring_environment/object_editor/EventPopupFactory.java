@@ -1,4 +1,4 @@
-package authoring_environment.ObjectGUI.leftPane;
+package authoring_environment.object_editor;
 
 
 import java.util.List;
@@ -12,11 +12,8 @@ import authoring_environment.ObjectPopUps.ObjectCreatePopUp;
 import authoring_environment.ObjectPopUps.ObjectDestroyPopUp;
 import authoring_environment.ObjectPopUps.PopUp;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
-import structures.data.events.CollisionEvent;
-import structures.data.events.IDataEvent;
+
 
 
 

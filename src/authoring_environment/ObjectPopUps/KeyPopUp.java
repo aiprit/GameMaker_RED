@@ -30,7 +30,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	private String keyPress;
 	Label myInfo;
 	protected KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/EventGUI/PopUps/KeyPressResources");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
 	public KeyPopUp(DataObject obj){
 		super(obj);
 		myRoot = new Group();
