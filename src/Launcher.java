@@ -21,6 +21,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
+    
+    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "default.css";
+    
 	EngineController ec;
 	MainController controller;
 
@@ -62,8 +66,10 @@ public class Launcher extends Application {
 		openBtn.setPadding(pad);
 		btn1.setPadding(pad);
 		root.getChildren().add(a);
-		a.getChildren().addAll(openBtn, btn1);
-		primaryStage.setScene(new Scene(root));
+                a.getChildren().addAll(openBtn, btn1);
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 }

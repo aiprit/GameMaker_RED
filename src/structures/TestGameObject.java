@@ -41,7 +41,6 @@ public class TestGameObject {
 			TestGameObject testGameObject = new TestGameObject();
 
 			DataGame printGame = testGameObject.getTestGame();
-
 			System.out.println(printGame.toString());
 			XMLEditor xml = new XMLEditor();
 			xml.writeXML(printGame, "test.xml");
