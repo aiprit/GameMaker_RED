@@ -28,9 +28,10 @@ public class EngineController {
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
-		
-		myEngine = new Engine(runGame, eventManager);
-		myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+                myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+		//starts the first room loop
+                myEngine = new Engine(runGame, eventManager);
+		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 		
 		//sets up the event manager

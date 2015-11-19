@@ -30,4 +30,10 @@
     <sprite baseFileName="StartScreen.png" centerX="0.0" centerY="0.0" name="Start Screen" scaleX="0.0" scaleY="0.0"/>
     <sprite baseFileName="WinScreen.png" centerX="0.0" centerY="0.0" name="Win Screen" scaleX="0.0" scaleY="0.0"/>
   </sprites>
+  <sounds/>
+  <rooms>
+    <room name="Start Screen"/>
+    <room name="Level 1"/>
+    <room name="Win Screen"/>
+  </rooms>
 </game>
