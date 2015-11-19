@@ -17,15 +17,15 @@ public class DataInstance {
             myAlpha;
     private Vector myVelocity;
     
-    public DataInstance(DataObject parentObject, long ID, double x, double y){
-    	this(parentObject, ID, x, y, 1, 1);
+    public DataInstance(DataObject parentObject, double x, double y, double ID){
+    	this(parentObject, x, y, 1, 1);
+    }
+    
+    public DataInstance(DataObject parentObject, double x, double y, double scaleX, double scaleY){
+    	this(parentObject, x, y, System.currentTimeMillis(), scaleX, scaleY);
     }
 
-    public DataInstance(DataObject parentObject, double x, double y, double scaleX, double scaleY) {
-        this(parentObject, System.currentTimeMillis(), x, y, scaleX, scaleY);
-    }
-
-    public DataInstance(DataObject parentObject, long ID, double x, double y, double scaleX, double scaleY) {
+    public DataInstance(DataObject parentObject, double x, double y, long ID, double scaleX, double scaleY) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
