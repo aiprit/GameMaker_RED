@@ -29,7 +29,7 @@ public class Pair<T> {
 	
 	@Override
 	public int hashCode() {
-		return one.hashCode() ^ two.hashCode();
+		return (one.hashCode() * 17) ^ two.hashCode();
 	}
 	
 	public boolean contains(T object) {

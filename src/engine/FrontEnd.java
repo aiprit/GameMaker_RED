@@ -44,7 +44,7 @@ public class FrontEnd implements IRoomChangedHandler {
 	private void setupFramework(){
 		myGame = game;
 		myRoot = new Group();
-		playScene = new Scene(myRoot, 400, 400);
+		playScene = new Scene(myRoot, 500, 500);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
