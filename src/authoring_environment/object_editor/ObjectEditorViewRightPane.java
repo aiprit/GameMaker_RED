@@ -16,7 +16,7 @@ import structures.data.events.IDataEvent;
 
 public class ObjectEditorViewRightPane {
 
-	private ResourceBundle rightResources = ResourceBundle.getBundle("authoring_environment/ObjectGUI/rightPane/RightPaneResources");
+	private ResourceBundle rightResources = ResourceBundle.getBundle("authoring_environment/object_editor/RightPaneResources");
 	private Button edit, delete;
 	private ListView<IDataEvent> listview = new ListView<IDataEvent>();
 

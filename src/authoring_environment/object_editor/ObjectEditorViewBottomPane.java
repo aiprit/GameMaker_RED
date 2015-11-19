@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 public class ObjectEditorViewBottomPane {
 	
-	private ResourceBundle bottomResources = ResourceBundle.getBundle("authoring_environment/ObjectGUI/bottomPane/BottomPaneResources");
+	private ResourceBundle bottomResources = ResourceBundle.getBundle("authoring_environment/object_editor/BottomPaneResources");
 	private Button save, cancel;
 	private TextField nameBox;
 	private String objectName;

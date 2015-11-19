@@ -1,6 +1,5 @@
 package authoring_environment.Event;
 
-import authoring_environment.ObjectGUI.topPane.ObjectSpriteMenu;
 import javafx.scene.Group;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
