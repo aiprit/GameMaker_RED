@@ -1,10 +1,12 @@
 package authoring_environment.object_editor;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -39,6 +41,7 @@ public class ObjectEditorController {
 		view.getBottomPane().getCancelButton().setOnAction(e-> {
 			close(e);
 		});
+		view.getBottomPane().getNameBox().setText(object.getName());
 		view.getRightPane().getDeleteButton().setOnAction(e-> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
@@ -48,7 +51,6 @@ public class ObjectEditorController {
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			//TODO: have parit make the event pop up
 		});
-		
 	}
 	
 	
@@ -61,6 +63,11 @@ public class ObjectEditorController {
 	
 	private void addEvent(String str) {
 		
+	}
+	
+	private MenuItem addSpriteToMenu(String s) {
+		//MenuItem m = new MenuItem(s);
+		return null;
 	}
 
 }
