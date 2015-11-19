@@ -26,6 +26,7 @@ public class ObjectEditorModel {
 		object = o;
 
 	}
+
 	public ObservableList<String> createLeftPaneList(){
 		Enumeration <String> keys = l.getKeys();
 		List<String> keylist = Collections.list(keys);
@@ -85,14 +86,10 @@ public class ObjectEditorModel {
 	}
 
 	public EventPopupFactory getPopUpFactory() {
-		// TODO Auto-generated method stub
 		return fact;
 	}
 	public ObservableMap<IDataEvent, ObservableList<IAction>> getMap(){
 		return object.getEvents();
-	}
-	public void saveObject() {
-		game.addObject(object);
 	}
 
 }
