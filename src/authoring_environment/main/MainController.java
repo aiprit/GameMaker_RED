@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
+import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -99,7 +100,8 @@ public class MainController implements IUpdateHandle {
 		roomListView.addPlusButton().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: @ankit - open your Room Editor (new room)
+				RoomController newRoom = new RoomController("New Room", dataGame);
+				newRoom.launch();
 			}
 		});
 
