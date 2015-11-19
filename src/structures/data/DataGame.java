@@ -132,7 +132,9 @@ public class DataGame extends Observable {
         for (DataObject o : myObjects) {
             r.append("  " + o.getName() + "\n");
 
+
             for (ObservableMap.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
+
                 r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 
