@@ -17,15 +17,11 @@ public class DataInstance {
             myAlpha;
     private Vector myVelocity;
     
-    public DataInstance(DataObject parentObject, long ID, double x, double y){
-    	this(parentObject, ID, x, y, 1, 1);
+    public DataInstance(DataObject parentObject, double x, double y){
+    	this(parentObject, x, y, System.currentTimeMillis());
     }
 
-    public DataInstance(DataObject parentObject, double x, double y, double scaleX, double scaleY) {
-        this(parentObject, System.currentTimeMillis(), x, y, scaleX, scaleY);
-    }
-
-    public DataInstance(DataObject parentObject, long ID, double x, double y, double scaleX, double scaleY) {
+    public DataInstance(DataObject parentObject, double x, double y, long ID) {
         myParentObject = parentObject;
         myAngle = 0;
         myAngularVelocity = 0;
@@ -34,8 +30,8 @@ public class DataInstance {
         myID = ID;
         myZIndex = parentObject.getZIndex();
         myVisible = true;
-        myScaleX = scaleX;
-        myScaleY = scaleY;
+        myScaleX = 1.0;
+        myScaleY = 1.0;
         myAlpha = 1.0;
         myVelocity = Vector.ZERO;
     }

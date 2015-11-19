@@ -78,7 +78,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 				
 				// If Collision, add both objects' names to objects that collide
 				if (e instanceof CollisionEvent) {
-					Pair collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
+					Pair<String> collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
 					myCollidingObjectPairs.add(collideThese);
 				}
 			}
@@ -134,8 +134,10 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
-				myGroovyEngine.runScript(collisionPair.one, collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name)));
-				myGroovyEngine.runScript(collisionPair.two, collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name)));
+				RunAction action1 = collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name));
+				RunAction action2 = collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name));
+				myGroovyEngine.runScript(collisionPair.one, action1);
+				myGroovyEngine.runScript(collisionPair.two, action2);
 			}
 		}
 	}

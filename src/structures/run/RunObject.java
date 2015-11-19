@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import engine.IDraw;
+import javafx.scene.paint.Color;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
@@ -103,6 +104,7 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
+			drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
 	

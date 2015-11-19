@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game currentRoom="0" directory="TestGame/" startRoom="0" title="Test Game">
   <objects>
-    <object name="Coin" sprite="Coin" zIndex="0"/>
+    <object name="Coin" sprite="Square" zIndex="0"/>
     <object name="Player" sprite="Square" zIndex="0">
-      <event title="Key Press Right">
-        <action title="Move"/>
-      </event>
       <event title="Key Press Left">
         <action title="Move"/>
       </event>
+      <event title="Key Press Up">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Down">
+        <action title="Move"/>
+      </event>
       <event title="Key Press Space">
+        <action title="Move"/>
+      </event>
+      <event title="Collision with ">
+        <action title="Move"/>
+      </event>
+      <event title="Key Press Right">
         <action title="Move"/>
       </event>
     </object>
