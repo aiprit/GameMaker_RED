@@ -71,13 +71,13 @@ public class EngineController {
 		//TestGame2 tgo = new TestGame2();
 		//myGame = tgo.getTestGame();
 		
-		TestGameObject tgo2 = new TestGameObject();
+		//TestGameObject tgo2 = new TestGameObject();
 		
-		DataGame game2 = tgo2.getTestGame();
+		//DataGame game2 = tgo2.getTestGame();
 		RunGame game = null;
 		//convert DataGame to a RunGame
 		try {
-			game = new RunGame(game2);
+			game = new RunGame(myGame);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}

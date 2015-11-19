@@ -46,7 +46,7 @@
     <room backgroundColor="#FFFFFF" height="500.0" name="Start Screen" width="500.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="StartScreenBackground" scaleX="0.5" scaleY="0.5" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="StartScreenBackground" scaleX="0.4" scaleY="0.4" visibility="true" x="0.0" y="0.0" zIndex="0"/>
       </objectInstances>
     </room>
     <room backgroundColor="" height="500.0" name="Level 1" width="500.0">
@@ -59,7 +59,7 @@
     <room backgroundColor="#FFFFFF" height="500.0" name="Win Screen" width="500.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="WinScreenBackground" scaleX="0.5" scaleY="0.5" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="WinScreenBackground" scaleX="0.4" scaleY="0.4" visibility="true" x="0.0" y="0.0" zIndex="0"/>
       </objectInstances>
     </room>
   </rooms>
