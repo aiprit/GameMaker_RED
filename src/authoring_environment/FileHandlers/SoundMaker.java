@@ -11,25 +11,25 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 
-public class SpriteMaker {
-	public static void load(Stage s, ObservableList<DataSprite> sprites){
+public class SoundMaker {
+	public static void load(Stage s, ObservableList<DataSound> sounds){
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		
 		File selectedFile = fileChooser.showOpenDialog(s);
-		BufferedImage img;
+		
 		
 		try {
 			
-			img = ImageIO.read(selectedFile);
+			BufferedImage soundDummy = ImageIO.read(selectedFile);
 			String name = askName();
 			File outputfile = new File(name);
-			
-		    ImageIO.write(img, "png", outputfile);
-		    DataSprite newSprite = new DataSprite(name, selectedFile.getName());
-		    sprites.add(newSprite);
+			ImageIO.write(soundDummy, name, selectedFile);
+		    DataSound newSprite = new DataSound(name, selectedFile.getName());
+		    sounds.add(newSprite);
 		    
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

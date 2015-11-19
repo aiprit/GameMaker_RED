@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectTester;
 import authoring_environment.room.RoomEditor;
@@ -152,7 +153,7 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SpriteMaker.load(myStage);
+				SpriteMaker.load(myStage, dataGame.getSprites());
 				 
 
 			}
@@ -175,17 +176,7 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				FileChooser fileChooser = new FileChooser();
-				 fileChooser.setTitle("Open Resource File");
-				 fileChooser.getExtensionFilters().addAll(
-				         new ExtensionFilter("Text Files", "*.txt"),
-				         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
-				         new ExtensionFilter("Audio Files", "*.wav", "*.mp3", "*.aac"),
-				         new ExtensionFilter("All Files", "*.*"));
-				 File selectedFile = fileChooser.showOpenDialog(myStage);
-//				 if (selectedFile != null) {
-//				    myStage.display(selectedFile);
-//				 }
+				SoundMaker.load(myStage, dataGame.getSounds());
 			}
 		});
 
