@@ -43,24 +43,24 @@ public class TestGame2 {
 
         DataSprite marioSprite = new DataSprite("Mario", "mario.png");
         mario.setSprite(marioSprite);
-        
+
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
         try {
-	        
+
 	        left.getParameters().get(0).parse("-10");
 	        left.getParameters().get(1).parse("0");
 	        left.getParameters().get(2).parse("true");
-	        
-	        
+
+
 	        right.getParameters().get(0).parse("10");
 	        right.getParameters().get(1).parse("0");
 	        right.getParameters().get(2).parse("true");
-	        
+
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
         }
-        
+
         List<IAction> leftActions = Collections.singletonList(left);
         List<IAction> rightActions = Collections.singletonList(right);
 
@@ -76,12 +76,12 @@ public class TestGame2 {
         winScreenBackground.setSprite(winScreenSprite);
 
         DataRoom level1 = new DataRoom("Level 1", 500, 500);
-        level1.addObjectInstance(new DataInstance(wall, 0, 200));
-        level1.addObjectInstance(new DataInstance(wall, 64, 200));
-        level1.addObjectInstance(new DataInstance(wall, 128, 200));
-        level1.addObjectInstance(new DataInstance(wall, 192, 200));
-        level1.addObjectInstance(new DataInstance(wall, 448, 200));
-        level1.addObjectInstance(new DataInstance(mario, 140, 20));
+        level1.addObjectInstance(new DataInstance(wall, 0, 200, 1, 1));
+        level1.addObjectInstance(new DataInstance(wall, 64, 200, 1, 1));
+        level1.addObjectInstance(new DataInstance(wall, 128, 200, 1, 1));
+        level1.addObjectInstance(new DataInstance(wall, 192, 200, 1, 1));
+        level1.addObjectInstance(new DataInstance(wall, 448, 200, 1, 1));
+        level1.addObjectInstance(new DataInstance(mario, 140, 20, 1, 1));
 
 
         testGame.addObject(mario);
