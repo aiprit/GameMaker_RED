@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
+import structures.data.actions.MoveToRandom;
 import structures.data.actions.library.ChangeScore;
 import structures.data.actions.library.Close;
 import structures.data.actions.library.CreateObject;
@@ -61,6 +62,11 @@ public class TestGameObject {
 		coin.setSprite(coinSprite);
 
 		DataObject player = new DataObject("Player");
+		
+		CollisionEvent collideCoin = new CollisionEvent(player);
+		MoveToRandom mtr = new MoveToRandom();
+		List<IAction> responseActions = Collections.singletonList(mtr);
+		coin.bindEvent(collideCoin, responseActions);
 
 		DataSprite playerSprite = new DataSprite("Mario", "mario.png");
 		player.setSprite(playerSprite);
@@ -202,15 +208,15 @@ public class TestGameObject {
 
 		DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
 		startScreen.setBackgroundColor("#FFFFFF");
-		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .5, .5));
+		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0));
 
 		DataRoom level1 = new DataRoom("Level 1", 500, 500);
-		level1.addObjectInstance(new DataInstance(player, 40, 40, 0, .5, .5));
-		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, .05, .05));
+		level1.addObjectInstance(new DataInstance(player, 40, 40));
+		level1.addObjectInstance(new DataInstance(coin, 340, 300));
 
 		DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
 		winScreen.setBackgroundColor("#FFFFFF");
-		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0, 0, .5, .5));
+		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0));
 
 
 		testGame.addObject(coin);

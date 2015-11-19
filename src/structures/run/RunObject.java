@@ -2,8 +2,10 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import engine.IDraw;
+import javafx.scene.paint.Color;
 import structures.data.DataObject;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
@@ -102,6 +104,7 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
+			drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
 	
@@ -147,7 +150,9 @@ public class RunObject {
 	}
 	
 	public void move_to_random(){
-		//TODO: is this a parameter or do we calculate it here?
+		Random random = new Random();
+		this.x = (random.nextDouble() * 500);
+		this.y = (random.nextDouble() * 500);
 	}
 	
 	public void run_script(String script){
