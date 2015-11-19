@@ -30,9 +30,18 @@ public class ObjectEditorController {
 	}
 
 	public ObjectEditorController(DataGame g) {
-		model = new ObjectEditorModel(g);
+		TextInputDialog dialog = new TextInputDialog("Object Name");
+		dialog.setTitle("Create Object");
+		dialog.setHeaderText("Please Enter Name");
+		Optional<String> result = dialog.showAndWait();
+		String name = "";
+		if (result.isPresent()){
+			name = result.get();
+
+		model = new ObjectEditorModel(g,name);
 		view = new ObjectEditorView();
 		initAll();
+		}
 	}
 
 	public void initAll() {
@@ -40,10 +49,6 @@ public class ObjectEditorController {
 			model.getObject().setName(view.getBottomPane().getNameBoxText());
 			close(e);
 		});
-//		view.getBottomPane().getCancelButton().setOnAction(e-> {
-//			model.cancelObject();
-//			close(e);
-//		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
 		view.getRightPane().getDeleteButton().setOnAction(e-> {

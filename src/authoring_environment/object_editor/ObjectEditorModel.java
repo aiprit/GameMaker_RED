@@ -26,6 +26,12 @@ public class ObjectEditorModel {
 		object = o;
 
 	}
+	public ObjectEditorModel(DataGame g, String str) {
+		game = g;
+		object = new DataObject(str);
+		game.addObject(object);
+
+	}
 
 	public ObservableList<String> createLeftPaneList(){
 		Enumeration <String> keys = l.getKeys();
@@ -40,11 +46,6 @@ public class ObjectEditorModel {
 		return list;
 	}
 
-	public ObjectEditorModel(DataGame g) {
-		game = g;
-		object = new DataObject(String.valueOf(new Dialog().showAndWait().get()));;
-
-	}
 
 	public void changeObjectName(String name) {
 		object.setName(name);
