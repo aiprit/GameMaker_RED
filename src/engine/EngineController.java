@@ -11,7 +11,6 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
-import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
