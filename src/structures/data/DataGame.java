@@ -113,13 +113,7 @@ public class DataGame extends Observable {
     public ObservableList<DataSound> getSounds() {
         return mySounds;
     }
-<<<<<<< HEAD
-//    public ObservableList<IRoom> getRooms(){
-//    	return myRooms;
-//    }
-=======
 
->>>>>>> d3ef4dfb8d09d2e8b5fff770647c324fb826b97e
     @Override
     public String toString() {
         StringBuilder r = new StringBuilder();
@@ -134,11 +128,9 @@ public class DataGame extends Observable {
         for (DataObject o : myObjects) {
             r.append("  " + o.getName() + "\n");
 
-<<<<<<< HEAD
-            for (Map.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
-=======
+
             for (ObservableMap.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
->>>>>>> d3ef4dfb8d09d2e8b5fff770647c324fb826b97e
+
                 r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 
