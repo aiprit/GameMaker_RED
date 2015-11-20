@@ -131,9 +131,11 @@ public class RoomController {
 	
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
 		Point2D screenPoint = new Point2D(e.getScreenX(), e.getScreenY());
-		Point2D previewPoint = view.getPreview().screenToLocal(screenPoint);
-		if (inRoomBounds(previewPoint)) {
-			DoubleProperty[] xy = createDoubleProperties(previewPoint.getX(), previewPoint.getY());
+		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
+		double width = potentialObjectInstance.getImageView().getImage().getWidth();
+		double height = potentialObjectInstance.getImageView().getImage().getHeight();
+		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
+			DoubleProperty[] xy = createDoubleProperties(canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
 					potentialObjectInstance.getObject(), xy[0], xy[1]);
 			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
