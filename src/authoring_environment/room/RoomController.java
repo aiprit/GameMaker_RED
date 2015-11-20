@@ -4,6 +4,8 @@ package authoring_environment.room;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring_environment.room.button_toolbar.ButtonToolbar;
+import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
@@ -30,8 +32,8 @@ public class RoomController {
 	private RoomEditor view;
 	
 	private ObjectListController myObjectListController;
-	private ButtonToolbar myButtonToolbar;
-	private ViewController myView;
+	private ButtonToolbarController myButtonToolbarController;
+	private ViewController myViewController;
 	
 	public RoomController(DataGame gameObject) {
 		myResources = ResourceBundle.getBundle("resources/RoomResources");
@@ -40,8 +42,8 @@ public class RoomController {
 		gameObject.addRoom(model);
 		view = new RoomEditor(myResources);
 		initializeObjectListContainer(gameObject);
-		initializeButtonToolbar();
 		initializeView();
+		initializeButtonToolbar();
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
@@ -79,14 +81,14 @@ public class RoomController {
 	}
 	
 	private void initializeButtonToolbar() {
-		ButtonHandler handler = new ButtonHandler(myResources, view.getPreview(), model);
-		myButtonToolbar = new ButtonToolbar(myResources, handler.getButtons());
-		view.getTotalView().getChildren().add(myButtonToolbar);
+		myButtonToolbarController = new ButtonToolbarController(myResources, 
+				view.getPreview().getCanvas(), model);
+		view.getTotalView().getChildren().add(myButtonToolbarController.getButtonToolbar());
 	}
 	
 	private void initializeView() {
-		myView = new ViewController(model.getDataView());
-		view.getPreview().getCanvas().setView(myView.getDraggableView());
+		myViewController = new ViewController(model.getDataView());
+		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
 	}
 

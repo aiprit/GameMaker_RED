@@ -1,17 +1,11 @@
 package authoring_environment.room.preview;
 
-import java.awt.datatransfer.StringSelection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import authoring_environment.room.ConfigurePopup;
-import authoring_environment.room.RoomController;
-import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -45,7 +39,6 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	public void setBackgroundColor(String color) {
-		System.out.println(color);
 		if (color == null) {
 			myBackgroundColor = DEFAULT_COLOR.toString();
 		} else {
@@ -129,6 +122,7 @@ public class RoomCanvas extends Canvas {
 			Color fill = Color.valueOf(myBackgroundColor);
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
+			System.out.println(myBackgroundColor);
 			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
 		}
 	}
