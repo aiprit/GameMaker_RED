@@ -11,6 +11,7 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
+import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
@@ -70,13 +71,8 @@ public class EngineController {
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
 		//use for testing
-		//TestGame2 tgo = new TestGame2();
-		//myGame = tgo.getTestGame();
-		
-		//TestGameObject tgo2 = new TestGameObject();
-		
-		//DataGame game2 = tgo2.getTestGame();
-		TestGameObject tgo = new TestGameObject();
+		TestGame2 tgo = new TestGame2();
+		//TestGameObject tgo = new TestGameObject();
 		myGame = tgo.getTestGame();
 		RunGame game = null;
 		//convert DataGame to a RunGame
