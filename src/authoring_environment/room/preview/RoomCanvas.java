@@ -38,8 +38,6 @@ public class RoomCanvas extends Canvas {
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
-		//TODO implement double click
-		//this.setOnMouseClicked(e -> doubleClicked(e));
 	}
 	
 	public String getBackgroundColor() {

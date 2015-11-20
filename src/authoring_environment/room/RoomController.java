@@ -101,11 +101,15 @@ public class RoomController {
 				double width = instance.getParentObject().getSprite().getImage().getWidth();
 				double height = instance.getParentObject().getSprite().getImage().getHeight();
 				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-					ConfigureController configure = new ConfigureController(myResources, instance);
+					ConfigureController configure = new ConfigureController(myResources, instance, Consumer<DataInstance> consumer);
 					configure.initialize();
 				}
 			}
 		}
+	}
+	
+	private void delete(DataInstance instance) {
+		model.removeObjectInstance(instance);
 	}
 	public String getName() {
 		return model.getName();
