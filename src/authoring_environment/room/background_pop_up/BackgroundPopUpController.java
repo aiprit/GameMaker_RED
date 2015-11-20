@@ -20,7 +20,6 @@ public class BackgroundPopUpController {
 	private static final String BACKGROUND_IMAGE_FILE_CHOOSER = "BackgroundImageFileChooser";
 	
 	private ResourceBundle myResources;
-	
 	private BackgroundPopup view;
 	private DataRoom model;
 	

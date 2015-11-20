@@ -34,6 +34,10 @@ public class RoomCanvas extends Canvas {
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
+	public DraggableView getRoomView() {
+		return myRoomView;
+	}
+	
 	public String getBackgroundColor() {
 		return myBackgroundColor;
 	}
@@ -53,11 +57,11 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	private void press(MouseEvent event) {
-//		if (contains(event.getX(), event.getY(), myRoomView)) {
-//			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
-//			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
-//			myRoomView.setDraggable(true);
-//		} else {
+		if (myRoomView.isVisible() && contains(event.getX(), event.getY(), myRoomView)) {
+			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
+			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
+			myRoomView.setDraggable(true);
+		} else {
 			DraggableNode topNode = null;
 			for (DraggableNode node : myObjectMap.keySet()) {
 				if (contains(event.getX(), event.getY(), node)) {
@@ -69,7 +73,7 @@ public class RoomCanvas extends Canvas {
 				topNode.setYOffset(topNode.getY() - event.getY());
 				topNode.setDraggable(true);
 			}
-		//}
+		}
 	}
 	
 	private void released(MouseEvent event) {
@@ -116,7 +120,7 @@ public class RoomCanvas extends Canvas {
 		for (DraggableImage drag : myObjectMap.keySet()) {
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
-		//drawView();
+		drawView();
 	}
 	
 	private boolean contains(double x, double y, DraggableNode node) {
@@ -151,6 +155,10 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
 		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
 		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		if (myRoomView.isVisible()) {
+			this.getGraphicsContext2D().setFill(Color.rgb(0, 255, 0, 0.5));
+			this.getGraphicsContext2D().fillRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		}
 	}
 	
 	public void setView(DraggableView view) {

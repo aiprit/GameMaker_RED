@@ -53,8 +53,8 @@ public class RoomController {
 		view = new RoomEditor(myResources);
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
-		initializeButtonToolbar();
 		initializeView();
+		initializeButtonToolbar();
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
@@ -157,10 +157,5 @@ public class RoomController {
 		properties[0] = x;
 		properties[1] = y;
 		return properties;
-	}
-	
-	private boolean inRoomBounds(Point2D scenePoint) {
-		return scenePoint.getX() >= 0 && scenePoint.getX() <= view.getPreview().getPrefWidth()
-				&& scenePoint.getY() >= 0 && scenePoint.getY() <= view.getPreview().getPrefHeight();
 	}
 }

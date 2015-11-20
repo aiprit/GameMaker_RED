@@ -3,6 +3,7 @@ package authoring_environment.room.button_toolbar;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.preview.RoomCanvas;
+import authoring_environment.room.size_popup.SizePopupController;
 import structures.data.DataRoom;
 
 public class SetSizeController {
@@ -17,7 +18,7 @@ public class SetSizeController {
 	}
 	
 	private void onClick(ResourceBundle resources, RoomCanvas background, DataRoom room) {
-		//TODO
+		SizePopupController sizePopup = new SizePopupController(resources,background, room);
 	}
 	
 	public RoomEditorButton getSetSizeButton() {
