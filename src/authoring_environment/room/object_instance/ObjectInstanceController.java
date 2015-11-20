@@ -8,7 +8,6 @@ import structures.data.DataInstance;
 import structures.data.DataObject;
 
 public class ObjectInstanceController {
-	private static final String DEFAULT_SPRITE = "Mario.png";
 	private DraggableImage view;
 	private DataInstance model;
 	private DoubleProperty myX;

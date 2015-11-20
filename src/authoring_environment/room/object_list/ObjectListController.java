@@ -40,6 +40,8 @@ public class ObjectListController extends VBox {
 		if (selectedIdx != -1) {
 			PotentialObjectInstance object = new PotentialObjectInstance(myResources, myObjects.get(selectedIdx));
 			object.updateSpritePosition(event);
+			event.consume();
+			object.getImageView().setOnMouseMoved(e -> object.updateSpritePosition(e));
 			myObjectList.getObjectListView().getSelectionModel().select(-1);
 			return object;
 		}

@@ -20,6 +20,7 @@ import javafx.scene.paint.ImagePattern;
 
 
 public class RoomCanvas extends Canvas {
+	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
 
 	private Color myColor;
@@ -27,7 +28,6 @@ public class RoomCanvas extends Canvas {
 	private String myImageFileName;
 	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
-	private ResourceBundle myResources;
 	private DraggableView myRoomView;
 	
 	public RoomCanvas(ResourceBundle resources) {
@@ -35,26 +35,16 @@ public class RoomCanvas extends Canvas {
 				Double.parseDouble(resources.getString("PreviewHeight")));
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
-		myResources = resources;
 		myObjectMap = new HashMap<DraggableImage, Point2D>();
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
-//	public void addNodeToMap(DraggableImage image, ConfigureView popup) {
-//		Point2D point = new Point2D(image.getX(), image.getY());
-//		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
-//		myObjectMap.put(image, point);
-//		popup.initializePopUp();
-//	}
-	
 	public void addNodeToMap(DraggableImage image) {
 		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
-		//ConfigurePopup popup = new ConfigurePopup(myResources);
-		//popup.initializePopUp();
 	}
 	
 	private void press(MouseEvent event) {
@@ -63,13 +53,16 @@ public class RoomCanvas extends Canvas {
 			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
 			myRoomView.setDraggable(true);
 		} else {
+			DraggableNode topNode = null;
 			for (DraggableNode node : myObjectMap.keySet()) {
 				if (contains(event.getX(), event.getY(), node)) {
-						node.setXOffset(node.getX() - event.getX());
-						node.setYOffset(node.getY() - event.getY());
-						node.setDraggable(true);
-						break;
+						topNode = node;
 				}
+			}
+			if (topNode != null) {
+				topNode.setXOffset(topNode.getX() - event.getX());
+				topNode.setYOffset(topNode.getY() - event.getY());
+				topNode.setDraggable(true);
 			}
 		}
 	}
@@ -149,6 +142,10 @@ public class RoomCanvas extends Canvas {
 		myImageFileName = name;
 	}
 	
+	public void addInstance(DraggableImage image, Point2D point) {
+		myObjectMap.put(image, point);
+	}
+	
 	public void setBackground(Color color, Image image, String fileName) {
 		if (image != null) {
 			setImageFill(image);
@@ -171,6 +168,7 @@ public class RoomCanvas extends Canvas {
 	
 	public void drawView() {
 		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
+		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
 		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
 	}
 	
