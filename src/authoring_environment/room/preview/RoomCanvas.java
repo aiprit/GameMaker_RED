@@ -1,5 +1,6 @@
 package authoring_environment.room.preview;
 
+import java.awt.datatransfer.StringSelection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -23,9 +24,7 @@ public class RoomCanvas extends Canvas {
 	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
 
-	private Color myColor;
-	private Image myImage;
-	private String myImageFileName;
+	private String myBackgroundColor;
 	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
 	private DraggableView myRoomView;
@@ -33,12 +32,25 @@ public class RoomCanvas extends Canvas {
 	public RoomCanvas(ResourceBundle resources) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
-		myColor = DEFAULT_COLOR;
+		myBackgroundColor = DEFAULT_COLOR.toString();
 		setColorFill(DEFAULT_COLOR);
 		myObjectMap = new HashMap<DraggableImage, Point2D>();
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
+	}
+	
+	public String getBackgroundColor() {
+		return myBackgroundColor;
+	}
+	
+	public void setBackgroundColor(String color) {
+		System.out.println(color);
+		if (color == null) {
+			myBackgroundColor = DEFAULT_COLOR.toString();
+		} else {
+			myBackgroundColor = color;
+		}
 	}
 	
 	public void addNodeToMap(DraggableImage image) {
@@ -100,7 +112,7 @@ public class RoomCanvas extends Canvas {
 
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
-		setColorFill(myColor);
+		drawBackground();
 		for (DraggableImage drag : myObjectMap.keySet()) {
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
@@ -112,6 +124,15 @@ public class RoomCanvas extends Canvas {
 				y > node.getY() && y <= node.getY() + node.getHeight());
 	}
 	
+	private void drawBackground() {
+		try {
+			Color fill = Color.valueOf(myBackgroundColor);
+			setColorFill(fill);
+		} catch (IllegalArgumentException e) {
+			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
+		}
+	}
+	
 	private void setColorFill(Color fill) {
 		this.getGraphicsContext2D().setFill(fill);
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -121,49 +142,9 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setFill(new ImagePattern(image));
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
-
-	public Color getColor() {
-		return myColor;
-	}
-
-	public Image getImage() {
-		return myImage;
-	}
-
-	public String getImageFileName() {
-		return myImageFileName;
-	}
-	
-	public void setImage(Image image) {
-		myImage = image;
-	}
-
-	public void setImageFileName(String name) {
-		myImageFileName = name;
-	}
 	
 	public void addInstance(DraggableImage image, Point2D point) {
 		myObjectMap.put(image, point);
-	}
-	
-	public void setBackground(Color color, Image image, String fileName) {
-		if (image != null) {
-			setImageFill(image);
-			myImage = image;
-			myImageFileName = fileName;
-			myColor = null;
-		} else if (color != null){
-			setColorFill(color);
-			myColor = color;
-			myImage = null;
-			myImageFileName = null;
-		} else {
-			setColorFill(DEFAULT_COLOR);
-			myColor = DEFAULT_COLOR;
-			myImage = image;
-			myImageFileName = fileName;
-		}
-		redrawCanvas();
 	}
 	
 	public void drawView() {

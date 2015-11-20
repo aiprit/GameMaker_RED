@@ -40,7 +40,7 @@ public class RoomController {
 		gameObject.addRoom(model);
 		view = new RoomEditor(myResources);
 		initializeObjectListContainer(gameObject);
-		//initializeButtonToolbar(resources);
+		initializeButtonToolbar();
 		initializeView();
 		view.getPreview().getCanvas().redrawCanvas();
 	}
@@ -51,7 +51,7 @@ public class RoomController {
 		view = new RoomEditor(myResources);
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
-		//initializeButtonToolbar(resources);
+		initializeButtonToolbar();
 		initializeView();
 		view.getPreview().getCanvas().redrawCanvas();
 	}
@@ -79,7 +79,7 @@ public class RoomController {
 	}
 	
 	private void initializeButtonToolbar() {
-		ButtonHandler handler = new ButtonHandler(myResources, view.getPreview());
+		ButtonHandler handler = new ButtonHandler(myResources, view.getPreview(), model);
 		myButtonToolbar = new ButtonToolbar(myResources, handler.getButtons());
 		view.getTotalView().getChildren().add(myButtonToolbar);
 	}
