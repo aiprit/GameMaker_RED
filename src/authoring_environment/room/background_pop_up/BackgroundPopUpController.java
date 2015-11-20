@@ -58,6 +58,8 @@ public class BackgroundPopUpController {
 		fileChooser.getExtensionFilters().add(new ExtensionFilter(myResources.getString(FILE_CHOOSER_TAG), "*.png"));
 		File file = fileChooser.showOpenDialog(null);
 		view.setImageFileName(file.getName());
+		model.setBackgroundColor(view.getImageFileName());
+		view.getUploadButton().setText(view.getImageFileName());
 		try {
 			//TODO doesn't quite work yet
 			BufferedImage image = ImageIO.read(file);
@@ -67,8 +69,6 @@ public class BackgroundPopUpController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		model.setBackgroundColor(view.getImageFileName());
-		view.getUploadButton().setText(view.getImageFileName());
 	}
 
 }

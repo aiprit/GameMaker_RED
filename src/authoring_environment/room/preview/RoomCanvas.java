@@ -53,11 +53,11 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	private void press(MouseEvent event) {
-		if (contains(event.getX(), event.getY(), myRoomView)) {
-			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
-			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
-			myRoomView.setDraggable(true);
-		} else {
+//		if (contains(event.getX(), event.getY(), myRoomView)) {
+//			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
+//			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
+//			myRoomView.setDraggable(true);
+//		} else {
 			DraggableNode topNode = null;
 			for (DraggableNode node : myObjectMap.keySet()) {
 				if (contains(event.getX(), event.getY(), node)) {
@@ -69,7 +69,7 @@ public class RoomCanvas extends Canvas {
 				topNode.setYOffset(topNode.getY() - event.getY());
 				topNode.setDraggable(true);
 			}
-		}
+		//}
 	}
 	
 	private void released(MouseEvent event) {
@@ -99,8 +99,15 @@ public class RoomCanvas extends Canvas {
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
 		double adjustedY = y + node.getYOffset();
-		node.setX(adjustedX);
-		node.setY(adjustedY);
+		if (inRoomBounds(node.getWidth(), node.getHeight(), adjustedX, adjustedY)) {
+			node.setX(adjustedX);
+			node.setY(adjustedY);
+		}
+	}
+	
+	public boolean inRoomBounds(double width, double height, double x, double y) {
+		return x >= 0 && x <= this.getWidth() - width &&
+				y >= 0 && y <= this.getHeight() - height;
 	}
 
 	public void redrawCanvas() {
@@ -109,7 +116,7 @@ public class RoomCanvas extends Canvas {
 		for (DraggableImage drag : myObjectMap.keySet()) {
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
-		drawView();
+		//drawView();
 	}
 	
 	private boolean contains(double x, double y, DraggableNode node) {
@@ -122,7 +129,6 @@ public class RoomCanvas extends Canvas {
 			Color fill = Color.valueOf(myBackgroundColor);
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
-			System.out.println(myBackgroundColor);
 			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
 		}
 	}
