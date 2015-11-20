@@ -71,8 +71,8 @@ public class EngineController {
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
 		//use for testing
-		TestGame2 tgo = new TestGame2();
-		//TestGameObject tgo = new TestGameObject();
+		//TestGame2 tgo = new TestGame2();
+		TestGameObject tgo = new TestGameObject();
 		myGame = tgo.getTestGame();
 		RunGame game = null;
 		//convert DataGame to a RunGame
