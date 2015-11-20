@@ -94,6 +94,7 @@ public class TestGame2 {
         mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
         mario.bindEvent(new CollisionEvent(wall), originActionsO);
+
         //player.addEvent(new CollisionEvent(coin));
 
         //startScreenBackground.addEvent(startScreenChange);

@@ -247,7 +247,7 @@ public class TestGameObject {
 
 		DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
 		startScreen.setBackgroundColor("#FFFFFF");
-		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .5, .5));
+		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .4, .4));
 
 		DataRoom level1 = new DataRoom("Level 1", 500, 500);
 		level1.addObjectInstance(new DataInstance(player, 40, 40, 0, .5, .5));
@@ -255,7 +255,7 @@ public class TestGameObject {
 
 		DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
 		winScreen.setBackgroundColor("#FFFFFF");
-		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0, 0, .5, .5));
+		winScreen.addObjectInstance(new DataInstance(winScreenBackground, 0, 0, 0, .4, .4));
 
 
 		testGame.addObject(coin);

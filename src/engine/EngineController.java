@@ -11,12 +11,12 @@ import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
+import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
 
 import structures.run.RunObject;
-import utils.GameSelector;
 
 
 public class EngineController {
@@ -71,7 +71,8 @@ public class EngineController {
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
 		//use for testing
-		TestGameObject tgo = new TestGameObject();
+		TestGame2 tgo = new TestGame2();
+		//TestGameObject tgo = new TestGameObject();
 		myGame = tgo.getTestGame();
 		RunGame game = null;
 		//convert DataGame to a RunGame
