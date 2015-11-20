@@ -1,9 +1,11 @@
-package structures.data.actions;
+package structures.data.actions.library;
+
+import structures.data.actions.DataAction;
 
 public class Destroy extends DataAction {
 
 	public Destroy(){
-		
+		init();
 	}
 	
 	@Override
@@ -18,7 +20,7 @@ public class Destroy extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.destroy();";
+		return "library.destroy(current);";
 	}
 
 }

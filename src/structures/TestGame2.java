@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import exceptions.ParameterParseException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.IAction;
@@ -77,16 +79,21 @@ public class TestGame2 {
         }
 
         List<IAction> leftActions = Collections.singletonList(left);
+        ObservableList<IAction> leftActionsO = FXCollections.observableList(leftActions);
         List<IAction> rightActions = Collections.singletonList(right);
+        ObservableList<IAction> rightActionsO = FXCollections.observableList(rightActions);
         List<IAction> upActions = Collections.singletonList(up);
+        ObservableList<IAction> upActionsO = FXCollections.observableList(upActions);
         List<IAction> downActions = Collections.singletonList(down);
+        ObservableList<IAction> downActionsO = FXCollections.observableList(downActions);
         List<IAction> originActions = Collections.singletonList(origin);
+        ObservableList<IAction> originActionsO = FXCollections.observableList(originActions);
 
-        mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActions);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActions);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActions);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActions);
-        mario.bindEvent(new CollisionEvent(wall), originActions);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
+        mario.bindEvent(new CollisionEvent(wall), originActionsO);
         //player.addEvent(new CollisionEvent(coin));
 
         //startScreenBackground.addEvent(startScreenChange);

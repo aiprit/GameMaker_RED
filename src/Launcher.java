@@ -1,21 +1,12 @@
 import authoring_environment.main.MainController;
-
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import authoring_environment.room.RoomController;
-import authoring_environment.room.RoomEditor;
 import engine.EngineController;
 import exceptions.ResourceFailedException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

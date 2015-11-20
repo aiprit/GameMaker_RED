@@ -1,5 +1,8 @@
 package engine;
 
+import java.util.Random;
+
+import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
 import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
@@ -11,25 +14,22 @@ import structures.run.RunSound;
 public class GroovyLibrary {
 
 	private RunGame myRunGame;
-	IObjectModifiedHandler myOMH;
-	IRoomChangedHandler myRCH;
+	private EventManager myEventManager;
 	
 	int score = 0;
 
-	public GroovyLibrary(RunGame runGame) {
+	public GroovyLibrary(RunGame runGame, EventManager eventManager) {
 		myRunGame = runGame;
-	}
-
-	public void setObjectModifiedHandler(IObjectModifiedHandler objectModifiedHandler) {
-		myOMH = objectModifiedHandler;
-	}
-
-	public void setRoomChangedHandler(IRoomChangedHandler roomChangedHandler) {
-		myRCH = roomChangedHandler;
+		myEventManager = eventManager;
 	}
 
 	private void fatalError(String message, Object... args) {
 		// Do nothing
+	}
+	
+	public double random_number(double max){
+		Random rand = new Random();
+		return (max * rand.nextDouble());
 	}
 
 	public void create_object(String name, double x, double y){
@@ -41,7 +41,7 @@ public class GroovyLibrary {
 		}
 		runObject.x = x;
 		runObject.y = y;
-		myOMH.onObjectCreate(runObject);
+		myEventManager.onObjectCreate(runObject);
 	}
 
 	public void create_object_long(String name, double x, double y, double speed,
@@ -57,7 +57,11 @@ public class GroovyLibrary {
 		//runObject.set_speed(speed);
 		runObject.set_friction(friction);
 		runObject.wrap_around_room(wraparound);
-		myOMH.onObjectCreate(runObject);
+		myEventManager.onObjectCreate(runObject);
+	}
+	
+	public void destroy(RunObject deleteThis){
+		myEventManager.onObjectDestroy(deleteThis);
 	}
 
 //	public void display_message(String message){
@@ -97,7 +101,7 @@ public class GroovyLibrary {
 		} catch (GameRuntimeException ex) {
 			fatalError(ex.getMessage());
 		}	
-		myRCH.onRoomChanged(myRunGame.getCurrentRoom());
+		myEventManager.onRoomChanged(myRunGame.getCurrentRoom());
 	}
 
 	public void go_to_room(String name) {
@@ -106,7 +110,7 @@ public class GroovyLibrary {
 		} catch (Exception ex) {
 			fatalError(ex.getMessage());
 		}	
-		myRCH.onRoomChanged(myRunGame.getCurrentRoom());
+		myEventManager.onRoomChanged(myRunGame.getCurrentRoom());
 	}
 
 	public void play_sound(String soundName) {

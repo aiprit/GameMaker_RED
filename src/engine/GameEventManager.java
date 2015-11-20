@@ -186,6 +186,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 				myEvents.get(e).remove(runObject);
 			}
 		}
+		myRoom.getObjects().remove(runObject);
 	}
 
 }

@@ -2,11 +2,10 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
+
 import engine.IDraw;
 import exceptions.CompileTimeException;
-import javafx.scene.paint.Color;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
@@ -132,10 +131,6 @@ public class RunObject {
                 }
 	}
 	
-	public void destroy(){
-		
-	}
-	
 	public void movement_angle(double angle, double acceleration, boolean relative){
 		
 	}
@@ -153,13 +148,6 @@ public class RunObject {
 		}
 		this.x = xOffset + x;
 		this.y = yOffset + y;
-		System.out.println("moved to: " + this.x + " " + this.y);
-	}
-	
-	public void move_to_random(){
-		Random random = new Random();
-		this.x = (random.nextDouble() * 500);
-		this.y = (random.nextDouble() * 500);
 	}
 	
 	public void run_script(String script){
