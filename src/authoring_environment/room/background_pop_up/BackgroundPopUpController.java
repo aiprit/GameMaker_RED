@@ -1,17 +1,21 @@
 package authoring_environment.room.background_pop_up;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import authoring_environment.room.preview.RoomCanvas;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import structures.data.DataRoom;
 
 public class BackgroundPopUpController {
+	private static final String PNG = "png";
+	private static final String IMAGES_FILEPATH_PREFIX = "ImagesFilePath";
 	private static final String FILE_CHOOSER_TAG = "FileChooserTag";
 	private static final String BACKGROUND_IMAGE_FILE_CHOOSER = "BackgroundImageFileChooser";
 	
@@ -53,8 +57,16 @@ public class BackgroundPopUpController {
 		fileChooser.setTitle(myResources.getString(BACKGROUND_IMAGE_FILE_CHOOSER));
 		fileChooser.getExtensionFilters().add(new ExtensionFilter(myResources.getString(FILE_CHOOSER_TAG), "*.png"));
 		File file = fileChooser.showOpenDialog(null);
-		String filePath = file.toString();
-		view.setImageFileName(file.toString().substring(filePath.lastIndexOf('/') + 1, filePath.length()));
+		view.setImageFileName(file.getName());
+		try {
+			//TODO doesn't quite work yet
+			BufferedImage image = ImageIO.read(file);
+			File output = new File(myResources.getString(IMAGES_FILEPATH_PREFIX)+file.getName());
+			ImageIO.write(image, PNG, output);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		model.setBackgroundColor(view.getImageFileName());
 		view.getUploadButton().setText(view.getImageFileName());
 	}
