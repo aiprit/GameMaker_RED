@@ -31,10 +31,16 @@ public class ButtonToolbarController {
 	private void initializeButtons() {
 		mySetBackgroundController = new SetBackgroundController(myResources, myCanvas, model);
 		mySetSizeController = new SetSizeController(myResources, myCanvas, model);
-		ShowViewButton viewButton = new ShowViewButton(myResources);
+		ShowViewButton viewButton = new ShowViewButton(myResources, myCanvas.getRoomView());
+		viewButton.setOnAction(e -> showHideView(viewButton));
 		view.addButton(mySetBackgroundController.getSetBackgroundButton());
 		view.addButton(mySetSizeController.getSetSizeButton());
 		view.addButton(viewButton);
+	}
+	
+	private void showHideView(ShowViewButton viewButton) {
+		viewButton.onClick(myResources);
+		myCanvas.redrawCanvas();
 	}
 	
 }

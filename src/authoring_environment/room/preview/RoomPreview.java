@@ -28,8 +28,8 @@ public class RoomPreview extends ScrollPane {
 	private void initializePreview(ResourceBundle resources) {
 		super.setPrefHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
 		super.setPrefWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
-		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setHbarPolicy(ScrollBarPolicy.NEVER);
+		this.setVbarPolicy(ScrollBarPolicy.NEVER);
 	}
 	
 	public RoomCanvas getCanvas() {
@@ -39,10 +39,6 @@ public class RoomPreview extends ScrollPane {
 	public Point2D translateSceneCoordinates(Point2D scenePoint) {
 		return myCanvas.sceneToLocal(scenePoint);
 	}
-
-//	public void addImage(DraggableImage element, ConfigureView popup) {
-//		myCanvas.addNodeToMap(element, popup);
-//	}
 	
 	public void addImage(DraggableImage element) {
 		myCanvas.addNodeToMap(element);
