@@ -1,7 +1,6 @@
 package structures.data.actions.library;
 
 import structures.data.actions.DataAction;
-import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.IntegerParam;
 
 public class GoToRoom extends DataAction{

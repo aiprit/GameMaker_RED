@@ -15,6 +15,7 @@ public class DataSprite implements IResource {
     public DataSprite(String name, String baseFileName) {
         myName = name;
         myBaseFileName = baseFileName;
+        System.out.println(myBaseFileName);
         myImage = new Image(getClass().getClassLoader().getResourceAsStream(myBaseFileName));
         myHaveLoaded = false;
         myCenterX = 0.0;

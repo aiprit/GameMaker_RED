@@ -46,6 +46,10 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
 	}
+	
+	public void clearObjectModifiedInterface(){
+		myObjectModified.clear();
+	}
 
 	public void onReset(){
 		for(IGUIHandler g : myGUI){

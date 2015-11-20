@@ -9,9 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
-import structures.data.actions.Destroy;
 import structures.data.actions.IAction;
 import structures.data.actions.Sleep;
+import structures.data.actions.library.Destroy;
 import structures.data.events.IDataEvent;
 import structures.data.events.ObjectCreateEvent;
 
