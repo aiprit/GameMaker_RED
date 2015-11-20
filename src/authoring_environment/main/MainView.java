@@ -17,6 +17,10 @@ import javafx.stage.Stage;
  *
  */
 public class MainView {
+    
+    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "authoring.css";
+    
 	BorderPane bp;
 	Stage myStage;
 
@@ -27,6 +31,7 @@ public class MainView {
 		int width = Integer.parseInt(r.getString("ViewWidth"));
 		int height = Integer.parseInt(r.getString("ViewHeight"));
 		Scene s = new Scene(bp, width, height, Color.WHITE);
+		s.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		myStage.setScene(s);
 		myStage.show();
 	}
