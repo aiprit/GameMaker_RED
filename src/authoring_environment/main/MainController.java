@@ -93,7 +93,7 @@ public class MainController implements IUpdateHandle {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
 					// your Room Editor (edit room)
-					RoomController room = new RoomController(o.getName(), dataGame);
+					RoomController room = new RoomController(o, dataGame);
 					room.launch();
 					update();
 				}
@@ -104,7 +104,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 
-				RoomController newRoom = new RoomController("New Room", dataGame);
+				RoomController newRoom = new RoomController(dataGame);
 				newRoom.launch();
 				update();
 			}

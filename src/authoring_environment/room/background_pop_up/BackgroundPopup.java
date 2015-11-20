@@ -1,7 +1,5 @@
-package authoring_environment.room;
+package authoring_environment.room.background_pop_up;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.preview.RoomCanvas;
@@ -9,22 +7,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class BackgroundPopup extends Stage {
 	private static final String RESET_BUTTON_TITLE = "ResetButtonTitle";
 	private static final int GRID_SPACING = 15;
-	private static final String FILE_CHOOSER_TAG = "FileChooserTag";
-	private static final String BACKGROUND_IMAGE_FILE_CHOOSER = "BackgroundImageFileChooser";
 	private static final String COLOR_DROPDOWN_PROMPT = "ColorDropdownPrompt";
 	private static final int CONTENTS_SPACING = 30;
 	private static final String UPLOAD_BACKGROUND_IMAGE = "UploadBackgroundImage";
@@ -37,23 +30,42 @@ public class BackgroundPopup extends Stage {
 	private Group myRoot;
 	private Button myUploadButton;
 	private ColorDropdown myColorDropdown;
-	private Color myColor;
+	private Button myResetButton;
 	private String myImageFileName;
-	private Image myImageUpload;
 	private RoomCanvas myRoomBackground;
 	
 	public BackgroundPopup(ResourceBundle resources, RoomCanvas background) {
 		super();
 		myResources = resources;
 		myRoomBackground = background;
-		myImageUpload = myRoomBackground.getImage();
-		myImageFileName = myRoomBackground.getImageFileName();
-		myColor = myRoomBackground.getColor();
 		this.setTitle(myResources.getString(SET_BACKGROUND));
 		this.setWidth(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_WIDTH)));
 		this.setHeight(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_HEIGHT)));
 		initializeScene();
-		this.setOnCloseRequest(e -> changeBackground());
+	}
+	
+	public RoomCanvas getCanvas() {
+		return myRoomBackground;
+	}
+	
+	public ColorDropdown getColorDropdown() {
+		return myColorDropdown;
+	}
+	
+	public String getImageFileName() {
+		return myImageFileName;
+	}
+	
+	public Button getResetButton() {
+		return myResetButton;
+	}
+	
+	public Button getUploadButton() {
+		return myUploadButton;
+	}
+	
+	public void setImageFileName(String filename) {
+		myImageFileName = filename;
 	}
 
 	private void initializeScene() {
@@ -100,30 +112,25 @@ public class BackgroundPopup extends Stage {
 	
 	private void createColorDropdown() {
 		myColorDropdown = new ColorDropdown();
-		myColorDropdown.setValue(myColor);
 	}
 	
 	private Button createFileSelector() {
 		myUploadButton = new Button();
-		myUploadButton.setText(myImageFileName == null ? myResources.getString(UPLOAD_BACKGROUND_IMAGE) : myImageFileName);
-		myUploadButton.setOnAction(e -> launchFileChooser());
 		return myUploadButton;
 	}
-	
-	private void launchFileChooser() {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle(myResources.getString(BACKGROUND_IMAGE_FILE_CHOOSER));
-		fileChooser.getExtensionFilters().add(new ExtensionFilter(myResources.getString(FILE_CHOOSER_TAG), "*.png"));
-		File file = fileChooser.showOpenDialog(null);
-		String filePath = file.toString();
-		myImageFileName = file.toString().substring(filePath.lastIndexOf('/') + 1, filePath.length());
-		myUploadButton.setText(myImageFileName);
-		try {
-			myImageUpload = new Image(file.toURL().toString());
-			//TODO FIX THIS!!
-		} catch (MalformedURLException e) {
-			System.out.println("bad file");
-			e.printStackTrace();
+
+	public void setDropdownAndUploadText(String backgroundColor) {
+		if (backgroundColor == null) {
+			myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
+			myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
+		} else {
+			try {
+				myColorDropdown.setValue(Color.valueOf(backgroundColor));
+				myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
+			} catch (IllegalArgumentException e) {
+				myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
+				myUploadButton.setText(backgroundColor);
+			}
 		}
 	}
 	
@@ -134,26 +141,18 @@ public class BackgroundPopup extends Stage {
 		return or;
 	}
 	
-	private void changeBackground() {
-		myColor = myColorDropdown.getValue();
-		myRoomBackground.setBackground(myColor, myImageUpload, myImageFileName);
-	}
-	
 	private HBox createResetButton() {
 		HBox resetContainer = new HBox();
-		Button resetButton = new Button(myResources.getString(RESET_BUTTON_TITLE));
-		resetButton.setOnAction(e -> reset());
-		resetContainer.getChildren().add(resetButton);
+		myResetButton = new Button(myResources.getString(RESET_BUTTON_TITLE));
+		resetContainer.getChildren().add(myResetButton);
 		resetContainer.setAlignment(Pos.CENTER_RIGHT);
 		return resetContainer;
 	}
 	
-	private void reset() {
+	public void resetView() {
 		myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
-		myImageUpload = null;
 		myImageFileName = null;
 		myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
-		changeBackground();
 	}
 	
 }

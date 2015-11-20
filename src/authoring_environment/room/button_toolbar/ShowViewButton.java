@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.button_toolbar;
 
 import java.util.ResourceBundle;
 

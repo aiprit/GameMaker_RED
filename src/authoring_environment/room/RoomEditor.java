@@ -28,7 +28,6 @@ public class RoomEditor {
 	private Stage myEditor;
 	private Group myRoot;
 	private RoomPreview myPreview;
-	private ButtonToolbar myToolbar;
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
 	
@@ -73,14 +72,6 @@ public class RoomEditor {
 
 	public void setPreview(RoomPreview myPreview) {
 		this.myPreview = myPreview;
-	}
-
-	public ButtonToolbar getToolbar() {
-		return myToolbar;
-	}
-
-	public void setToolbar(ButtonToolbar myToolbar) {
-		this.myToolbar = myToolbar;
 	}
 
 	public VBox getTotalView() {

@@ -27,7 +27,7 @@ import structures.data.DataSprite;
 public class View implements Observer{
     
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "default.css";
+    public static final String STYLESHEET = "authoring.css";
 
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private ObservableList<DataRoom> myLevels;

@@ -1,7 +1,5 @@
 package structures;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.DataSprite;

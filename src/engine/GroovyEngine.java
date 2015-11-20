@@ -13,9 +13,7 @@ public class GroovyEngine {
 	GroovyLibrary myGroovyLibrary;
 	
 	public GroovyEngine(RunGame runGame, EventManager eventManager){
-		myGroovyLibrary = new GroovyLibrary(runGame);
-		myGroovyLibrary.setRoomChangedHandler(eventManager);
-		myGroovyLibrary.setObjectModifiedHandler(eventManager);
+		myGroovyLibrary = new GroovyLibrary(runGame, eventManager);
 	}
 	
 	public void runScript(RunObject o, RunAction action){
