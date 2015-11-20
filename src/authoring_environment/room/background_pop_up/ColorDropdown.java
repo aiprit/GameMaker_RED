@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.background_pop_up;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;

@@ -6,20 +6,21 @@ import structures.IResource;
 
 public class DataSprite implements IResource {
 	
-	 private String myBaseFileName;
-	    private String myName;
-	    private Image myImage;
-	    private double myCenterX, myCenterY;
-	    private boolean myHaveLoaded;
+	private String myBaseFileName;
+    private String myName;
+    private Image myImage;
+    private double myCenterX, myCenterY;
+    private boolean myHaveLoaded;
 
-	    public DataSprite(String name, String baseFileName) {
-	        myName = name;
-	        myBaseFileName = baseFileName;
-	        myHaveLoaded = false;
-	        myCenterX = 0.0;
-	        myCenterY = 0.0;
-	        
-	    }
+    public DataSprite(String name, String baseFileName) {
+        myName = name;
+        myBaseFileName = baseFileName;
+        myImage = new Image(getClass().getClassLoader().getResourceAsStream(myBaseFileName));
+        myHaveLoaded = false;
+        myCenterX = 0.0;
+        myCenterY = 0.0;
+        
+    }
 	
 	public Image getImage() {
 		return myImage;
