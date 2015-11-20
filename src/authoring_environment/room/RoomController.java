@@ -1,6 +1,7 @@
 package authoring_environment.room;
 
 
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -90,8 +91,22 @@ public class RoomController {
 		myViewController = new ViewController(model.getDataView());
 		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
+		view.getPreview().getCanvas().setOnMouseClicked(e -> doubleClicked(e, view.getPreview().getCanvas().getObjectMap()));
 	}
-
+	
+	private void doubleClicked(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
+		if (event.getClickCount() == 2) {
+			for (DataInstance instance : model.getObjectInstances()) {
+				//TODO add scale x and scale y factors
+				double width = instance.getParentObject().getSprite().getImage().getWidth();
+				double height = instance.getParentObject().getSprite().getImage().getHeight();
+				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+					ConfigureController configure = new ConfigureController(myResources, instance);
+					configure.initialize();
+				}
+			}
+		}
+	}
 	public String getName() {
 		return model.getName();
 	}

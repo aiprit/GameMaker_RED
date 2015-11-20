@@ -39,11 +39,14 @@ public class RoomCanvas extends Canvas {
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
 		//TODO implement double click
-		this.setOnMouseClicked(e -> doubleClicked(e));
+		//this.setOnMouseClicked(e -> doubleClicked(e));
 	}
 	
 	public String getBackgroundColor() {
 		return myBackgroundColor;
+	}
+	public Map<DraggableImage, Point2D> getObjectMap() {
+		return myObjectMap;
 	}
 	
 	public void setBackgroundColor(String color) {
@@ -61,15 +64,15 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	private void press(MouseEvent event) {
-		if (contains(event.getX(), event.getY(), myRoomView)) {
+		if (contains(event.getX(), event.getY(), myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight())) {
 			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
 			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
 			myRoomView.setDraggable(true);
 		} else {
 			DraggableNode topNode = null;
 			for (DraggableNode node : myObjectMap.keySet()) {
-				if (contains(event.getX(), event.getY(), node)) {
-						topNode = node;
+				if (contains(event.getX(), event.getY(), node.getX(), node.getY(), node.getWidth(), node.getHeight())) {
+					topNode = node;
 				}
 			}
 			if (topNode != null) {
@@ -103,10 +106,13 @@ public class RoomCanvas extends Canvas {
 		}
 		redrawCanvas();
 	}
-	
-	private void doubleClicked(MouseEvent event) {
-		//for (DraggableImage node : myObjectMap.keySet())
-	}
+//	
+//	private void doubleClicked(MouseEvent event) {
+//		for (DraggableImage node : myObjectMap.keySet())
+//			if (contains(event.getX(), event.getY(), node)) {
+//				ConfigureController configurePopUp = new ConfigureController();
+//			}
+//	}
 	
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
@@ -124,9 +130,9 @@ public class RoomCanvas extends Canvas {
 		drawView();
 	}
 	
-	private boolean contains(double x, double y, DraggableNode node) {
-		return (x > node.getX() && x <= node.getX() + node.getWidth() && 
-				y > node.getY() && y <= node.getY() + node.getHeight());
+	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
+		return (x > nodeX && x <= nodeX + width && 
+				y > nodeY && y <= nodeY + height);
 	}
 	
 	private void drawBackground() {
