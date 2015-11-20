@@ -120,13 +120,13 @@ public class RoomController {
 		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
 		ImageView spriteInstance = objectInstance.getImageView();
 		if (spriteInstance != null) {
-			view.getRoot().getChildren().add(spriteInstance);
-			setUpDraggingBehavior(objectInstance);
+			view.getDragPane().setDraggableSprite(spriteInstance);
+			setUpDraggingBehavior(objectInstance, spriteInstance);
 		}
 	}
 	
-	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance) {
-		objectInstance.getImageView().setOnMouseReleased(e -> addSpriteToRoom(e, objectInstance));
+	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance, ImageView spriteInstance) {
+		spriteInstance.setOnMouseReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
@@ -138,11 +138,11 @@ public class RoomController {
 					potentialObjectInstance.getObject(), xy[0], xy[1]);
 			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
-			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
+			view.getDragPane().removeSprite();
 			model.addObjectInstance(objectInstance.getDataInstance());
 			view.getPreview().getCanvas().redrawCanvas();
 		} else {
-			//TODO get rid of the object
+			view.getDragPane().removeSprite();
 		}
 	} 
 	
