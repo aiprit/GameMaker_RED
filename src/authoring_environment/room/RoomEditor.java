@@ -30,6 +30,7 @@ public class RoomEditor {
 	private RoomPreview myPreview;
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
+	private DragPane myDragPane;
 	
 	public RoomEditor(ResourceBundle resources) {
 		myRoot = new Group();
@@ -37,17 +38,22 @@ public class RoomEditor {
 		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(resources.getString(ROOM_EDITOR_HEIGHT)));
 		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE));
+		myDragPane = new DragPane();
 		myTotalView = new VBox();
 		myObjectsAndPreview = new HBox();
 		myPreview = new RoomPreview(resources);
 		myTotalView.getChildren().addAll(myObjectsAndPreview);
-		myRoot.getChildren().add(myTotalView);
+		myRoot.getChildren().addAll(myTotalView, myDragPane);
 	}
 
 	public void show() {
 		Scene scene = new Scene(myRoot);
 		myEditor.setScene(scene);
 		myEditor.show();
+	}
+	
+	public DragPane getDragPane() {
+		return myDragPane;
 	}
 
 	public Stage getEditor() {
