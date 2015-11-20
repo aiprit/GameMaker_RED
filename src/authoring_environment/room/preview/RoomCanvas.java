@@ -4,13 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import authoring_environment.room.ConfigurePopup;
-import authoring_environment.room.RoomController;
-import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -21,7 +16,8 @@ import javafx.scene.paint.ImagePattern;
 
 public class RoomCanvas extends Canvas {
 	public static final Color DEFAULT_COLOR = Color.WHITE;
-
+	private static final String PREVIEW_WIDTH = "PreviewWidth";
+	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private Color myColor;
 	private Image myImage;
 	private String myImageFileName;
@@ -31,8 +27,8 @@ public class RoomCanvas extends Canvas {
 	private DraggableView myRoomView;
 	
 	public RoomCanvas(ResourceBundle resources) {
-		super(Double.parseDouble(resources.getString("PreviewWidth")), 
-				Double.parseDouble(resources.getString("PreviewHeight")));
+		super(Double.parseDouble(resources.getString(PREVIEW_WIDTH)), 
+				Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
 		myColor = DEFAULT_COLOR;
 		setColorFill(DEFAULT_COLOR);
 		myResources = resources;
@@ -40,21 +36,14 @@ public class RoomCanvas extends Canvas {
 		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
+		//TODO implement double click
+		this.setOnMouseClicked(e -> doubleClicked(e));
 	}
-	
-//	public void addNodeToMap(DraggableImage image, ConfigureView popup) {
-//		Point2D point = new Point2D(image.getX(), image.getY());
-//		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
-//		myObjectMap.put(image, point);
-//		popup.initializePopUp();
-//	}
 	
 	public void addNodeToMap(DraggableImage image) {
 		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
-		//ConfigurePopup popup = new ConfigurePopup(myResources);
-		//popup.initializePopUp();
 	}
 	
 	private void press(MouseEvent event) {
@@ -96,6 +85,10 @@ public class RoomCanvas extends Canvas {
 			}
 		}
 		redrawCanvas();
+	}
+	
+	private void doubleClicked(MouseEvent event) {
+		//for (DraggableImage node : myObjectMap.keySet())
 	}
 	
 	private void updateNodePosition(DraggableNode node, double x, double y) {

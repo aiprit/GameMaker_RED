@@ -13,14 +13,17 @@ public class ConfigureController {
 	private ConfigureModel model;
 	
 	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) {
-		//System.out.println(resources.getBaseBundleName());
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
-		configure.getSaveButton().setOnAction(e -> onSave());
 	}
 	
 	public ConfigureView getConfigureView() {
 		return configure;
+	}
+	
+	public void initialize() {
+		configure.initializePopUp();
+		configure.getSaveButton().setOnAction(e -> onSave());
 	}
 	
 	private void onSave() {
@@ -38,6 +41,10 @@ public class ConfigureController {
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
 		configure.close();
+	}
+	
+	private void onDelete() {
+		
 	}
 	
 	private double getInput(int n, List<HBox> fieldList) {

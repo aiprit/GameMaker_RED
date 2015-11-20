@@ -31,7 +31,6 @@ public class ConfigureView extends Stage {
 	public ConfigureView(ResourceBundle resources) {
 		myResources = resources;
 		popUp = new VBox();
-		initializePopUp();
 	}
 	
 	public void initializePopUp() {
