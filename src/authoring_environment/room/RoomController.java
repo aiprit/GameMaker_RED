@@ -151,8 +151,6 @@ public class RoomController {
 			DoubleProperty[] xy = createDoubleProperties(previewPoint.getX(), previewPoint.getY());
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
 					potentialObjectInstance.getObject(), xy[0], xy[1]);
-			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
-			configurePopup.initialize();
 			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
