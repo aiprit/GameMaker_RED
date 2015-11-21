@@ -3,6 +3,7 @@ package authoring_environment.room.configure_popup;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ConfigureView extends Stage {
+public class ConfigureView extends PopupTemplate {
 	private Scene myScene;
 	private final String VELOCITY_FIELD_X = "VelocityFieldX";
 	private final String VELOCITY_FIELD_Y = "VelocityFieldY";
@@ -22,46 +23,34 @@ public class ConfigureView extends Stage {
 	private final String ANGLE = "Angle";
 	private final String TRANSPARENCY = "Transparency";
 	private final String VISIBILITY = "Visibility";
-	private final String SAVE_CHANGES = "SaveChanges";
 	private final String DELETE_INSTANCE = "DeleteInstance";
-	private Button saveButton;
 	private Button deleteButton;
-	private VBox popUp;
-	private ResourceBundle myResources;
 	private RadioButton visibilityButton;
 	private List<HBox> fieldList;
+	private static final String NAME = "ConfigureParameters";
 	
 	public ConfigureView(ResourceBundle resources) {
-		myResources = resources;
-		popUp = new VBox();
+		super(resources, NAME);
 	}
 	
-	public void initializePopUp() {
+	@Override
+	public void setContents() {
 		HBoxHandler handler = new HBoxHandler();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.createHBoxes(7, labelStrings);
+		System.out.println(myContentsBox == null);
 		for (HBox box : fieldList) {
-			popUp.getChildren().add(box);
+			myContentsBox.getChildren().add(box);
 		}
 		HBox visibility = new HBox();
 		visibility.getChildren().add(new Label(myResources.getString(VISIBILITY)));
 		visibilityButton = new RadioButton();
 		visibility.getChildren().add(visibilityButton);
-		popUp.getChildren().add(visibility);
-		saveButton = new Button(myResources.getString(SAVE_CHANGES));
+		myContentsBox.getChildren().add(visibility);
 		deleteButton = new Button(myResources.getString(DELETE_INSTANCE));
-		HBox buttonBox = new HBox();
-		buttonBox.getChildren().addAll(saveButton, deleteButton);
-		popUp.getChildren().add(buttonBox);
-		popUp.setAlignment(Pos.CENTER);
-		myScene = new Scene(popUp);
-		this.setScene(myScene);
-		this.show();
+		addButton(deleteButton);
+		myContentsBox.setAlignment(Pos.CENTER);
 		
-	}
-	
-	public Button getSaveButton() {
-		return saveButton;
 	}
 	
 	public Button getDeleteButton() {
