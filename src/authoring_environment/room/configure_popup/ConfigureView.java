@@ -55,8 +55,8 @@ public class ConfigureView extends Stage {
 		popUp.getChildren().add(buttonBox);
 		popUp.setAlignment(Pos.CENTER);
 		//setDefaultValues(defaultValues);
-		if ((((TextField) fieldList.get(0).getChildren().get(1)).getText()).equals(""))
-			System.out.println("Is null");
+		//if ((((TextField) fieldList.get(0).getChildren().get(1)).getText()).equals(""))
+		//	System.out.println("Is null");
 		myScene = new Scene(popUp);
 		this.setScene(myScene);
 		this.show();

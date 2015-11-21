@@ -169,6 +169,17 @@ public class RoomCanvas extends Canvas {
 		myObjectMap.put(image, point);
 	}
 	
+	public void removeInstance(Image image, Point2D point) {
+		for (DraggableImage dragImage : myObjectMap.keySet()) {
+			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
+			if (dragImage.getImage().equals(image) && dragImagePoint.equals(point)) {
+				myObjectMap.remove(dragImage);
+				break;
+			}
+
+		}
+	}
+	
 	public void drawView() {
 		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
 		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);

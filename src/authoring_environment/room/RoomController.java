@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
+import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.object_list.ObjectListController;
@@ -100,15 +101,21 @@ public class RoomController {
 				double width = instance.getParentObject().getSprite().getImage().getWidth();
 				double height = instance.getParentObject().getSprite().getImage().getHeight();
 				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-					ConfigureController configure = new ConfigureController(myResources, instance, dataInstance -> delete(dataInstance));
+					ConfigureController configure = new ConfigureController(myResources, instance); //, dataInstance -> delete(dataInstance));
 					configure.initialize();
+					configure.getConfigureView().getDeleteButton().setOnAction(e -> delete(instance, configure.getConfigureView()));
 				}
 			}
 		}
 	}
 	
-	private void delete(DataInstance instance) {
+	private void delete(DataInstance instance, ConfigureView configure) {
 		model.removeObjectInstance(instance);
+		System.out.println(view.getPreview().getCanvas().getObjectMap().toString());
+		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
+		System.out.println(view.getPreview().getCanvas().getObjectMap().toString());
+		view.getPreview().getCanvas().redrawCanvas();
+		configure.close();
 	}
 	public String getName() {
 		return model.getName();

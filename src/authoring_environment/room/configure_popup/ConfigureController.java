@@ -15,23 +15,18 @@ public class ConfigureController {
 	private Consumer<DataInstance> myConsumer;
 	private DataInstance myDataInstance;
 	//TODO think about using interface to isolate set and get methods for DataInstance
-	public ConfigureController(ResourceBundle resources, DataInstance dataInstance, Consumer<DataInstance> consumer) {
+	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) { //, Consumer<DataInstance> consumer) {
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
-		myConsumer = consumer;
+	//	myConsumer = consumer;
 		myDataInstance = dataInstance;
-	}
-	
-	public ConfigureView getConfigureView() {
-		return configure;
 	}
 	
 	public void initialize() {
 		configure.initializePopUp();
 		populatePopUp();
-		System.out.println("Angular Velocity" + myDataInstance.getAlpha());
 		configure.getSaveButton().setOnAction(e -> onSave());
-		configure.getDeleteButton().setOnAction(e -> onDelete());
+	//	configure.getDeleteButton().setOnAction(e -> onDelete());
 	}
 	
 	private void populatePopUp() {
@@ -69,7 +64,11 @@ public class ConfigureController {
 	private void onDelete() {
 		myConsumer.accept(myDataInstance);
 		configure.close();
- 		//System.out.println("Deleted" + myDataInstance.getAngle());
+	}
+	
+	//TODO fix this call, used to redraw canvas and pass to room controller upon deleting instance
+	public ConfigureView getConfigureView() {
+		return configure;
 	}
 	
 	private double getInput(int n, List<HBox> fieldList) {
