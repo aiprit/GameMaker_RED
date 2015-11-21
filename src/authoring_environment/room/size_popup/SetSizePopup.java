@@ -2,6 +2,7 @@ package authoring_environment.room.size_popup;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,49 +13,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SetSizePopup extends Stage {
+public class SetSizePopup extends PopupTemplate {
 	private static final String SET_ROOM_SIZE = "SetRoomSize";
-	private static final String BACKGROUND_POPUP_WIDTH = "BackgroundPopupWidth";
-	private static final String BACKGROUND_POPUP_HEIGHT = "BackgroundPopupHeight";
 	private static final String ROOM_WIDTH_LABEL = "RoomWidthLabel";
 	private static final String ROOM_HEIGHT_LABEL = "RoomHeightLabel";
-	private static final String SAVE = "SaveTitle";
-	
-	private ResourceBundle myResources;
-	private Group myRoot;
-	private Button mySaveButton;
+
 	private TextField myWidth;
 	private TextField myHeight;
 	
 	public SetSizePopup(ResourceBundle resources) {
-		super();
-		myResources = resources;
-		this.setTitle(myResources.getString(SET_ROOM_SIZE));
-		this.setWidth(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_WIDTH)));
-		this.setHeight(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_HEIGHT)));
-		initializeScene();
+		super(resources, SET_ROOM_SIZE);
 	}
 	
-	public Button getSaveButton() {
-		return mySaveButton;
-	}
-	
-	private void initializeScene() {
-		myRoot = new Group();
-		StackPane contents = setContents();
-		myRoot.getChildren().addAll(contents);
-		Scene s = new Scene(myRoot);
-		this.setScene(s);
-		this.show();
-	}
-
-	private StackPane setContents() {
-		StackPane pane = new StackPane();
-		pane.getChildren().addAll(createContents(), createSaveButton());
-		pane.setMinSize(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_WIDTH)), 
-				Double.parseDouble(myResources.getString(BACKGROUND_POPUP_HEIGHT)));
-		pane.setAlignment(Pos.CENTER);
-		return pane;
+	@Override
+	protected void setContents() {
+		myContentsBox.getChildren().add(createContents());
 	}
 	
 	private GridPane createContents() {
@@ -67,12 +40,8 @@ public class SetSizePopup extends Stage {
 		pane.add(myWidth, 1, 0);
 		pane.add(height, 0, 1);
 		pane.add(myHeight, 1, 1);
+		pane.setAlignment(Pos.CENTER);
 		return pane;
-	}
-	
-	private Button createSaveButton() {
-		mySaveButton = new Button(myResources.getString(SAVE));
-		return mySaveButton;
 	}
 	
 	public TextField getWidthField() {
