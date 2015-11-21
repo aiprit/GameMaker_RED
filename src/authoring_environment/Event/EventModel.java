@@ -26,7 +26,9 @@ public class EventModel {
 		if(map.containsKey(myEvent)){
 			alist = map.get(myEvent);
 		}
-		alist = FXCollections.observableList(new ArrayList<IAction>());
+		else {
+			alist = FXCollections.observableList(new ArrayList<IAction>());
+		}
 
 	}
 	public EventModel(DataObject obj){

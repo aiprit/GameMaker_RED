@@ -24,10 +24,7 @@ public class ObjectEditorViewCenterPane {
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
 		centerGC = c.getGraphicsContext2D();
-		sprite = addSprite(spriteName);
-		xPos = Integer.parseInt(centerResources.getString("canvasWidth"))/2 - sprite.getWidth()/2;
-		yPos = Integer.parseInt(centerResources.getString("canvasHeight"))/2 - sprite.getHeight()/2;
-		centerGC.drawImage(sprite, xPos, yPos); //, myController.getSize()[0]*spriteWidth, myController.getSize()[1]*spriteHeight);
+		draw(spriteName);
 		spriteUpdate = new Button(centerResources.getString("buttonText"));
 		root.getChildren().addAll(c,spriteUpdate);
 		return root;
@@ -35,19 +32,18 @@ public class ObjectEditorViewCenterPane {
 
 	public Image addSprite(String s) {
 		try {
-			return new Image(getClass().getClassLoader().getResourceAsStream(s)) ;
+			return new Image(getClass().getClassLoader().getResourceAsStream(s), Integer.parseInt(centerResources.getString("defaultSize")),
+					Integer.parseInt(centerResources.getString("defaultSize")), false, false) ;
 		}
 		catch (NullPointerException e) {
-			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("marioImage"))) ;
+			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("marioImage")), 
+					Integer.parseInt(centerResources.getString("defaultSize")), Integer.parseInt(centerResources.getString("defaultSize")),
+					false, false) ;
 		}
 	}
 	
 	public void update(String name) {
-		centerGC.clearRect(0, 0, Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
-		sprite = addSprite(name);
-		xPos = Integer.parseInt(centerResources.getString("canvasWidth"))/2 - sprite.getWidth()/2;
-		yPos = Integer.parseInt(centerResources.getString("canvasHeight"))/2 - sprite.getHeight()/2;
-		centerGC.drawImage(sprite, xPos, yPos);
+		draw(name);
 
 	}
 
@@ -57,5 +53,13 @@ public class ObjectEditorViewCenterPane {
 
 	public Button getSpriteUpdateButton() {
 		return spriteUpdate;
+	}
+	
+	private void draw(String s) {
+		centerGC.clearRect(0, 0, Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
+		sprite = addSprite(s);
+		xPos = Integer.parseInt(centerResources.getString("canvasWidth"))/2 - sprite.getWidth()/2;
+		yPos = Integer.parseInt(centerResources.getString("canvasHeight"))/2 - sprite.getHeight()/2;
+		centerGC.drawImage(sprite, xPos, yPos);
 	}
 }
