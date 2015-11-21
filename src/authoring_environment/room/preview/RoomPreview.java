@@ -8,9 +8,7 @@ import javafx.geometry.Point2D;
 
 import javafx.scene.control.ScrollPane;
 
-
 import javafx.scene.input.MouseEvent;
-
 
 public class RoomPreview extends ScrollPane {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";

@@ -27,7 +27,7 @@ public class BackgroundPopUpController {
 		myResources = resources;
 		model = room;
 		view = new BackgroundPopup(resources, background);
-		view.setOnCloseRequest(e -> changeBackground());
+		view.getSaveButton().setOnAction(e -> changeBackground());
 		view.getResetButton().setOnAction(e -> reset());
 		view.getUploadButton().setOnAction(e -> launchFileChooser());
 		view.setDropdownAndUploadText(model.getBackgroundColor());
@@ -43,6 +43,7 @@ public class BackgroundPopUpController {
 		view.getCanvas().setBackgroundColor(backgroundColor);
 		model.setBackgroundColor(backgroundColor);
 		view.getCanvas().redrawCanvas();
+		view.close();
 	}
 	
 	private void reset() {

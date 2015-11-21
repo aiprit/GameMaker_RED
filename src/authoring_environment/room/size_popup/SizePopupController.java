@@ -6,13 +6,11 @@ import authoring_environment.room.preview.RoomCanvas;
 import structures.data.DataRoom;
 
 public class SizePopupController {
-	private ResourceBundle myResources;
 	private SetSizePopup view;
 	private DataRoom model;
 	private RoomCanvas myCanvas;
 	
 	public SizePopupController(ResourceBundle resources, RoomCanvas canvas, DataRoom room) {
-		myResources = resources;
 		myCanvas = canvas;
 		model = room;
 		view = new SetSizePopup(resources);

@@ -1,8 +1,11 @@
 package authoring_environment.room.preview;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
@@ -15,6 +18,8 @@ import javafx.scene.paint.ImagePattern;
 
 
 public class RoomCanvas extends Canvas {
+	private static final String VIEW_OPACITY = "ViewOpacity";
+	private static final String VIEW_COLOR = "ViewColor";
 	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
 	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
@@ -165,11 +170,15 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	public void drawView() {
-		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
+		List<Integer> viewRGB = Arrays.asList(myResources.getString(VIEW_COLOR).split(",")).stream()
+				.map(val -> Integer.parseInt(val))
+				.collect(Collectors.toList());
+		this.getGraphicsContext2D().setStroke(Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2)));
 		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
 		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
 		if (myRoomView.isVisible()) {
-			this.getGraphicsContext2D().setFill(Color.rgb(0, 255, 0, 0.5));
+			this.getGraphicsContext2D().setFill(
+					Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2), Double.parseDouble(myResources.getString(VIEW_OPACITY))));
 			this.getGraphicsContext2D().fillRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
 		}
 	}
