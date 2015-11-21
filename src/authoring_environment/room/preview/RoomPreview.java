@@ -9,7 +9,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.ScrollPane;
 
 
-import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 
 

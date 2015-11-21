@@ -124,7 +124,7 @@ public class RoomCanvas extends Canvas {
 		}
 		drawView();
 	}
-	
+	//TODO fix contains to match other one
 	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
 		return (x > nodeX && x <= nodeX + width && 
 				y > nodeY && y <= nodeY + height);
