@@ -40,6 +40,10 @@ public class RoomCanvas extends Canvas {
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
+	public DraggableView getRoomView() {
+		return myRoomView;
+	}
+	
 	public String getBackgroundColor() {
 		return myBackgroundColor;
 	}
@@ -115,8 +119,24 @@ public class RoomCanvas extends Canvas {
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
 		double adjustedY = y + node.getYOffset();
-		node.setX(adjustedX);
-		node.setY(adjustedY);
+		if (inRoomWidthBounds(node.getWidth(), adjustedX)) {
+			node.setX(adjustedX);
+		}
+		if (inRoomHeightBounds(node.getHeight(), adjustedY)) {
+			node.setY(adjustedY);
+		}
+	}
+	
+	public boolean inRoomBounds(double width, double height, double x, double y) {
+		return inRoomWidthBounds(width, x) && inRoomHeightBounds(height, y);
+	}
+	
+	private boolean inRoomWidthBounds(double width, double x) {
+		return x >= 0 && x <= this.getWidth() - width;
+	}
+	
+	private boolean inRoomHeightBounds(double height, double y) {
+		return y >= 0 && y <= this.getHeight() - height;
 	}
 
 	public void redrawCanvas() {
@@ -138,7 +158,6 @@ public class RoomCanvas extends Canvas {
 			Color fill = Color.valueOf(myBackgroundColor);
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
-			System.out.println(myBackgroundColor);
 			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
 		}
 	}
@@ -161,6 +180,10 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
 		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
 		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		if (myRoomView.isVisible()) {
+			this.getGraphicsContext2D().setFill(Color.rgb(0, 255, 0, 0.5));
+			this.getGraphicsContext2D().fillRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		}
 	}
 	
 	public void setView(DraggableView view) {

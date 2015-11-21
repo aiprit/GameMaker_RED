@@ -74,7 +74,6 @@ public class BackgroundPopup extends Stage {
 		myRoot.getChildren().addAll(contents);
 		Scene s = new Scene(myRoot);
 		this.setScene(s);
-		s.setFill(Color.ALICEBLUE);
 		this.show();
 	}
 

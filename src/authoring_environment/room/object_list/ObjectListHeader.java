@@ -27,7 +27,7 @@ public class ObjectListHeader extends StackPane {
 	private void initializeContainer(ResourceBundle resources) {
 		myListHeader = new Rectangle(Double.parseDouble(resources.getString(OBJECTS_LIST_HEADER_WIDTH)),
 				Double.parseDouble(resources.getString(OBJECTS_LIST_HEADER_HEIGHT)));
-		myListHeader.setFill(Color.ALICEBLUE);
+		myListHeader.setFill(Color.WHITE);
 	}
 	
 	private void initializeText(ResourceBundle resources) {

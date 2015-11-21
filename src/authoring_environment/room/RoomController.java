@@ -54,8 +54,8 @@ public class RoomController {
 		view = new RoomEditor(myResources);
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
-		initializeButtonToolbar();
 		initializeView();
+		initializeButtonToolbar();
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
@@ -150,9 +150,11 @@ public class RoomController {
 	
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
 		Point2D screenPoint = new Point2D(e.getScreenX(), e.getScreenY());
-		Point2D previewPoint = view.getPreview().screenToLocal(screenPoint);
-		if (inRoomBounds(previewPoint)) {
-			DoubleProperty[] xy = createDoubleProperties(previewPoint.getX(), previewPoint.getY());
+		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
+		double width = potentialObjectInstance.getImageView().getImage().getWidth();
+		double height = potentialObjectInstance.getImageView().getImage().getHeight();
+		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
+			DoubleProperty[] xy = createDoubleProperties(canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
 					potentialObjectInstance.getObject(), xy[0], xy[1]);
 			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
@@ -174,10 +176,5 @@ public class RoomController {
 		properties[0] = x;
 		properties[1] = y;
 		return properties;
-	}
-	
-	private boolean inRoomBounds(Point2D scenePoint) {
-		return scenePoint.getX() >= 0 && scenePoint.getX() <= view.getPreview().getPrefWidth()
-				&& scenePoint.getY() >= 0 && scenePoint.getY() <= view.getPreview().getPrefHeight();
 	}
 }

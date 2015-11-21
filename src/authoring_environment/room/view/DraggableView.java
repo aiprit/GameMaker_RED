@@ -10,14 +10,24 @@ public class DraggableView extends DraggableNode {
 	private DoubleProperty myHeight;
 	private DoubleProperty myX;
 	private DoubleProperty myY;
+	private boolean isVisible;
 	
 	public DraggableView(DoubleProperty x, DoubleProperty y) {
 		super(x, y);
+		isVisible = true;
 	}
 
 	@Override
 	public Object getImage() {
 		return this;
+	}
+	
+	public void setVisible(boolean visible) {
+		isVisible = visible;
+	}
+	
+	public boolean isVisible() {
+		return isVisible;
 	}
 	
 	public DoubleProperty getWidthProperty() {
