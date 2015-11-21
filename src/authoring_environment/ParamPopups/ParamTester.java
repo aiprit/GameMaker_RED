@@ -1,5 +1,6 @@
 package authoring_environment.ParamPopups;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -19,9 +20,11 @@ public class ParamTester extends Application{
 
 	public void start(Stage arg0) throws Exception {
 		IDataEvent event = new ObjectCreateEvent();
-		IAction move = new ChangeSprite();
+		IAction move = new MoveTo();
 		List<IParameter> params= move.getParameters();
-	ParamController paramcontrol = new ParamController(event,params);
+		List<IAction> a = new ArrayList<IAction>();
+	ParamController paramcontrol = new ParamController(move,a);
+
 
 	}
 }

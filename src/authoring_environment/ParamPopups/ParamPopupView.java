@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.data.actions.params.IParameter;
 
-public class ParamPopupView {
+public class ParamPopupView extends Stage{
 	private Button save,cancel;
 	private VBox popUp;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ParamPopups/ParamResources");;
@@ -28,7 +28,6 @@ public class ParamPopupView {
 		initializePopUp(list);
 	}
 	public void initializePopUp(List<IParameter> list) {
-		myStage = new Stage();
 		ParamFactory handler = new ParamFactory();
 		//String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.HBoxFactory(list);
@@ -38,13 +37,13 @@ public class ParamPopupView {
 		HBox visibility = new HBox();
 		popUp.getChildren().add(visibility);
 		save = new Button(r.getString("Save"));
-		save = new Button(r.getString("Save"));
+		//save = new Button(r.getString("Save"));
 		popUp.getChildren().addAll(save);
 		popUp.setAlignment(Pos.CENTER);
 		popUp.minWidth(100);
 		myScene = new Scene(popUp);
-		myStage.setScene(myScene);
-		myStage.show();
+		this.setScene(myScene);
+		this.show();
 
 	}
 	public Button getSaveButton() {

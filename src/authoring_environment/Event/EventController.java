@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import authoring_environment.Action.ActionController;
-import authoring_environment.ParamPopups.ParamController;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -79,11 +78,12 @@ public class EventController {
 			IAction act = (IAction) c.getDeclaredConstructor().newInstance();
 			List<IParameter> params = act.getParameters();
 			if(params !=null){
-				ParamController paramcontrol = new ParamController(myModel.getEvent(),params);
-
+				for(IParameter p :params){
+					if(!paramPopUps(p))
+						break;
 				}
-
-			//myModel.addAction(act);
+			}
+			myModel.addAction(act);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
