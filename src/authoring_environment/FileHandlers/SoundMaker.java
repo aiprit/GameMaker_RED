@@ -7,8 +7,11 @@ import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
+import org.junit.runners.model.TestClass;
+
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.data.DataSound;
@@ -23,11 +26,16 @@ public class SoundMaker {
 		
 		
 		try {
-			
+			//AudioClip plonkSound = new AudioClip(TestClass.class.getResource("test.mp3").toString());
 			BufferedImage soundDummy = ImageIO.read(selectedFile);
 			String name = askName();
-			File outputfile = new File(name);
-			ImageIO.write(soundDummy, name, selectedFile);
+		//	File outputfile = new File(name);
+			//ImageIO.write(soundDummy, name, selectedFile);
+		//    DataSound newSprite = new DataSound(name, selectedFile.getName());
+		 //   sounds.add(newSprite);
+		    File outputfile = new File("images/" + name + ".png");
+			
+		    ImageIO.write(soundDummy, "png", outputfile);
 		    DataSound newSprite = new DataSound(name, selectedFile.getName());
 		    sounds.add(newSprite);
 		    

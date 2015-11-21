@@ -38,15 +38,15 @@ public class SpriteListView {
 	}
 
 	public Button addSprite(DataSprite o) {
-		Button edit = new Button(r.getString("EditItem"));
+		Button show = new Button("Show");
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
 		HBox.setHgrow(label, Priority.ALWAYS);
-		hbox.getChildren().addAll(label, edit);
+		hbox.getChildren().addAll(label, show);
 		list.add(hbox);
 		updateList();
-		return edit;
+		return show;
 	}
 	
 	public Button addPlus() {

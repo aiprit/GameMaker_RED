@@ -9,6 +9,14 @@ import javafx.scene.input.InputEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 
+/**
+ * A centralized event system for an instance of an Engine. 
+ * Any class can register themselves as a listener for a 
+ * type of event defined by one of many Interfaces. In turn,
+ * we are a listener to these events, and when we receive one,
+ * we can push the event to all registered listeners.
+ *
+ */
 public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlayHandler, IObjectModifiedHandler {
 
 	private List<IGUIHandler> myGUI;

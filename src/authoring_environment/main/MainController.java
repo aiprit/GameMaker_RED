@@ -93,15 +93,20 @@ public class MainController implements IUpdateHandle {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
 					// your Room Editor (edit room)
+					RoomController room = new RoomController(o.getName(), dataGame);
+					room.launch();
+					update();
 				}
 			});
 		}
 
-		roomListView.addPlusButton().setOnAction(new EventHandler<ActionEvent>() {
+		roomListView.addPlusButton(dataGame.getRooms().size()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+
 				RoomController newRoom = new RoomController("New Room", dataGame);
 				newRoom.launch();
+				update();
 			}
 		});
 
@@ -115,7 +120,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
-
+					SpriteMaker.show(o);
+					update();
 				}
 			});
 		}

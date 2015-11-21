@@ -10,6 +10,13 @@ import structures.data.DataGame;
 import structures.run.RunGame;
 import structures.run.RunRoom;
 
+/**
+ * Runs a game when given a RunGame. Does all the logic, 
+ * including running the event loop and executing user
+ * Groovy code, but is still separate from the user
+ * interface and most GUI components.
+ *
+ */
 public class Engine implements IRoomChangedHandler {
 
 	private RunGame myOriginalGame;
@@ -54,6 +61,7 @@ public class Engine implements IRoomChangedHandler {
 	}
 	
 	public void runLevel(){
+		System.out.println(myGame.getCurrentRoomNumber());
 		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
 		myObjectHandler = myLevel.getObjectHandler();
 		myLevel.start();
@@ -86,7 +94,10 @@ public class Engine implements IRoomChangedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-		// TODO Auto-generated method stub
+		//how else need to change the level?
+		System.out.println("room change");
+		myLevel.cancel();
+		runLevel();
 	}
 
 }

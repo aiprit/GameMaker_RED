@@ -12,5 +12,6 @@ public abstract class AbstractBasicEvent implements IDataEvent {
 	@Override
 	public int hashCode() {
 		return this.getClass().hashCode();
-	}
+	} 
+
 }

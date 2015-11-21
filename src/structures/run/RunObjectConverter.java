@@ -131,7 +131,7 @@ public class RunObjectConverter {
 	    long ID = runObject.instance_id();
 	    double x = runObject.x;
 	    double y = runObject.y;
-	    DataInstance dataInstance = new DataInstance(parentObject, ID, x, y);
+	    DataInstance dataInstance = new DataInstance(parentObject, x, y, ID, 1.0, 1.0);
             
 	    dataInstance.setVisible(runObject.visible);
 	    dataInstance.setAngle(runObject.angle);

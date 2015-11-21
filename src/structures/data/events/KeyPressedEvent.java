@@ -2,16 +2,19 @@ package structures.data.events;
 
 import javafx.scene.input.KeyCode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class KeyPressedEvent implements IDataEvent {
 
-	public final KeyCode keyCode;
+    public final KeyCode keyCode;
 
-    public KeyPressedEvent(KeyCode code){
+    public KeyPressedEvent(KeyCode code) {
         keyCode = code;
     }
 
     public int hashCode() {
-    	return this.getClass().hashCode() ^ this.keyCode.hashCode();
+        return this.getClass().hashCode() ^ this.keyCode.hashCode();
     }
 
     public boolean equals(Object obj) {
@@ -26,7 +29,15 @@ public class KeyPressedEvent implements IDataEvent {
     }
 
     public String getName() {
-    	return String.format("Key Press %s", keyCode.getName());
+        return String.format("Key Press %s", keyCode.getName());
+    }
+
+    @Override
+    public Map<String, String> dumpContents() {
+        Map<String, String> ret = new HashMap<>();
+        ret.put("class", getClass().getName());
+        ret.put("keyCode", keyCode.toString());
+        return ret;
     }
     @Override
     public String toString(){
