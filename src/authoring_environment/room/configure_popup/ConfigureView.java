@@ -10,11 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class ConfigureView extends PopupTemplate {
-	private Scene myScene;
+	private static final int NUM_HBOXES = 7;
 	private final String VELOCITY_FIELD_X = "VelocityFieldX";
 	private final String VELOCITY_FIELD_Y = "VelocityFieldY";
 	private final String ANGULAR_VELOCITY = "AngularVelocity";
@@ -37,7 +35,7 @@ public class ConfigureView extends PopupTemplate {
 	public void setContents() {
 		HBoxHandler handler = new HBoxHandler();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
-		fieldList = handler.createHBoxes(7, labelStrings);
+		fieldList = handler.createHBoxes(NUM_HBOXES, labelStrings);
 		System.out.println(myContentsBox == null);
 		for (HBox box : fieldList) {
 			myContentsBox.getChildren().add(box);
