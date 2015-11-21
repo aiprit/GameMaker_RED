@@ -31,6 +31,7 @@ public class CollisionPopUp extends BasicPopUp{
 	public CollisionPopUp(DataObject data, ObservableList<DataObject> list) {
 		super(data);
 		myList = list;
+init();
 
 	}
 

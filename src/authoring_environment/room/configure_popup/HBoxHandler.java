@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class HBoxHandler {
-	
+
 	public List<HBox> createHBoxes(int n, String[] labelStrings) {
 		List<HBox> hBoxList = new ArrayList<HBox>();
 		for (int i = 0; i < n; i++) {

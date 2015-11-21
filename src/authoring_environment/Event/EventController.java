@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import authoring_environment.Action.ActionController;
+import authoring_environment.ParamPopups.ParamController;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -78,12 +79,11 @@ public class EventController {
 			IAction act = (IAction) c.getDeclaredConstructor().newInstance();
 			List<IParameter> params = act.getParameters();
 			if(params !=null){
-				for(IParameter p :params){
-					if(!paramPopUps(p))
-						break;
+				ParamController paramcontrol = new ParamController(myModel.getEvent(),params);
+
 				}
-			}
-			myModel.addAction(act);
+
+			//myModel.addAction(act);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,6 +113,7 @@ public class EventController {
 	}
 
 	private boolean paramPopUps(IParameter p) {
+
 		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
 		dialog.setTitle("Set Parameters");
 		dialog.setHeaderText("Please Enter Value");

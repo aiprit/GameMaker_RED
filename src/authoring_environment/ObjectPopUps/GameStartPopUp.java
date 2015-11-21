@@ -14,7 +14,8 @@ public class GameStartPopUp  extends BasicPopUp{
 
 	public GameStartPopUp(DataObject obj) {
 		super(obj);
-		// TODO Auto-generated constructor stub
+		init();
+
 	}
 
 	@Override
