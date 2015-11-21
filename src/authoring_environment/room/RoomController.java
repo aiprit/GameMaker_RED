@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import authoring_environment.room.button_toolbar.ButtonToolbar;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.object_instance.DraggableImage;
@@ -101,7 +100,7 @@ public class RoomController {
 				double width = instance.getParentObject().getSprite().getImage().getWidth();
 				double height = instance.getParentObject().getSprite().getImage().getHeight();
 				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-					ConfigureController configure = new ConfigureController(myResources, instance, Consumer<DataInstance> consumer);
+					ConfigureController configure = new ConfigureController(myResources, instance, dataInstance -> delete(dataInstance));
 					configure.initialize();
 				}
 			}

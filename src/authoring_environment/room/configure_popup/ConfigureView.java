@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -55,7 +54,9 @@ public class ConfigureView extends Stage {
 		buttonBox.getChildren().addAll(saveButton, deleteButton);
 		popUp.getChildren().add(buttonBox);
 		popUp.setAlignment(Pos.CENTER);
-		setDefaultValues(defaultValues);
+		//setDefaultValues(defaultValues);
+		if ((((TextField) fieldList.get(0).getChildren().get(1)).getText()).equals(""))
+			System.out.println("Is null");
 		myScene = new Scene(popUp);
 		this.setScene(myScene);
 		this.show();
@@ -72,6 +73,10 @@ public class ConfigureView extends Stage {
 	}
 	public Button getSaveButton() {
 		return saveButton;
+	}
+	
+	public Button getDeleteButton() {
+		return deleteButton;
 	}
 	
 	public List<HBox> getFieldList() {

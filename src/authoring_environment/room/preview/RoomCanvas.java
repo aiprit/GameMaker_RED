@@ -108,13 +108,6 @@ public class RoomCanvas extends Canvas {
 		}
 		redrawCanvas();
 	}
-//	
-//	private void doubleClicked(MouseEvent event) {
-//		for (DraggableImage node : myObjectMap.keySet())
-//			if (contains(event.getX(), event.getY(), node)) {
-//				ConfigureController configurePopUp = new ConfigureController();
-//			}
-//	}
 	
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
