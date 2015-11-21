@@ -15,6 +15,7 @@ import javafx.scene.paint.ImagePattern;
 
 
 public class RoomCanvas extends Canvas {
+	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
 	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
@@ -23,6 +24,7 @@ public class RoomCanvas extends Canvas {
 	private Image myImage;
 	private String myImageFileName;
 
+	private ResourceBundle myResources;
 	private String myBackgroundColor;
 	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
@@ -32,12 +34,16 @@ public class RoomCanvas extends Canvas {
 
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
+		myResources = resources;
 		myBackgroundColor = DEFAULT_COLOR.toString();
 		setColorFill(DEFAULT_COLOR);
 		myObjectMap = new HashMap<DraggableImage, Point2D>();
-		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
+	}
+	
+	public Map<DraggableImage, Point2D> getObjectMap() {
+		return myObjectMap;
 	}
 	
 	public DraggableView getRoomView() {
@@ -46,9 +52,6 @@ public class RoomCanvas extends Canvas {
 	
 	public String getBackgroundColor() {
 		return myBackgroundColor;
-	}
-	public Map<DraggableImage, Point2D> getObjectMap() {
-		return myObjectMap;
 	}
 	
 	public void setBackgroundColor(String color) {
@@ -65,25 +68,6 @@ public class RoomCanvas extends Canvas {
 		myObjectMap.put(image, point);
 	}
 	
-	private void press(MouseEvent event) {
-		if (contains(event.getX(), event.getY(), myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight())) {
-			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
-			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
-			myRoomView.setDraggable(true);
-		} else {
-			DraggableNode topNode = null;
-			for (DraggableNode node : myObjectMap.keySet()) {
-				if (contains(event.getX(), event.getY(), node.getX(), node.getY(), node.getWidth(), node.getHeight())) {
-					topNode = node;
-				}
-			}
-			if (topNode != null) {
-				topNode.setXOffset(topNode.getX() - event.getX());
-				topNode.setYOffset(topNode.getY() - event.getY());
-				topNode.setDraggable(true);
-			}
-		}
-	}
 	
 	private void released(MouseEvent event) {
 		for (DraggableNode node: myObjectMap.keySet()) {
@@ -93,7 +77,7 @@ public class RoomCanvas extends Canvas {
 		myRoomView.setDraggable(false);
 	}
 	private void drag(MouseEvent event) {
-		double x = event.getSceneX() - 270;
+		double x = event.getSceneX() - Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
 		double y = event.getSceneY();
 		if (myRoomView.getDraggable()) {
 			updateNodePosition(myRoomView, x, y);

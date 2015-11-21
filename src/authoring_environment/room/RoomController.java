@@ -101,7 +101,7 @@ public class RoomController {
 				double width = instance.getParentObject().getSprite().getImage().getWidth();
 				double height = instance.getParentObject().getSprite().getImage().getHeight();
 				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-					ConfigureController configure = new ConfigureController(myResources, instance); //, dataInstance -> delete(dataInstance));
+					ConfigureController configure = new ConfigureController(myResources, instance); 
 					configure.initialize();
 					configure.getConfigureView().getDeleteButton().setOnAction(e -> delete(instance, configure.getConfigureView()));
 				}
@@ -111,9 +111,7 @@ public class RoomController {
 	
 	private void delete(DataInstance instance, ConfigureView configure) {
 		model.removeObjectInstance(instance);
-		System.out.println(view.getPreview().getCanvas().getObjectMap().toString());
 		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
-		System.out.println(view.getPreview().getCanvas().getObjectMap().toString());
 		view.getPreview().getCanvas().redrawCanvas();
 		configure.close();
 	}

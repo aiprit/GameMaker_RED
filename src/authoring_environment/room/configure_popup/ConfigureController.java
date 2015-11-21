@@ -2,7 +2,6 @@ package authoring_environment.room.configure_popup;
 
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -12,13 +11,11 @@ import structures.data.DataInstance;
 public class ConfigureController {
 	private ConfigureView configure;
 	private ConfigureModel model;
-	private Consumer<DataInstance> myConsumer;
 	private DataInstance myDataInstance;
 	//TODO think about using interface to isolate set and get methods for DataInstance
-	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) { //, Consumer<DataInstance> consumer) {
+	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) {
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
-	//	myConsumer = consumer;
 		myDataInstance = dataInstance;
 	}
 	
@@ -60,11 +57,7 @@ public class ConfigureController {
 		model.setVisibility(visibilityButton.isSelected());
 		configure.close();
 	}
-	
-	private void onDelete() {
-		myConsumer.accept(myDataInstance);
-		configure.close();
-	}
+
 	
 	//TODO fix this call, used to redraw canvas and pass to room controller upon deleting instance
 	public ConfigureView getConfigureView() {
