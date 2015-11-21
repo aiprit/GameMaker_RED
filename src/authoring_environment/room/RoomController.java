@@ -1,10 +1,14 @@
 package authoring_environment.room;
 
 
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
+import authoring_environment.room.configure_popup.ConfigureView;
+import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.object_list.ObjectListController;
 import authoring_environment.room.view.ViewController;
@@ -29,31 +33,44 @@ public class RoomController {
 	private RoomEditor view;
 	
 	private ObjectListController myObjectListController;
-	private ButtonToolbar myButtonToolbar;
-	private ViewController myView;
+	private ButtonToolbarController myButtonToolbarController;
+	private ViewController myViewController;
 	
-	public RoomController(String roomName, DataGame gameObject) {
+	public RoomController(DataGame gameObject) {
 		myResources = ResourceBundle.getBundle("resources/RoomResources");
-		model = new DataRoom(roomName, Double.parseDouble(myResources.getString(PREVIEW_WIDTH)),
+		model = new DataRoom("New Room", Double.parseDouble(myResources.getString(PREVIEW_WIDTH)),
 				Double.parseDouble(myResources.getString(PREVIEW_HEIGHT)));
 		gameObject.addRoom(model);
 		view = new RoomEditor(myResources);
 		initializeObjectListContainer(gameObject);
-		//initializeButtonToolbar(resources);
 		initializeView();
+		initializeButtonToolbar();
+		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
 	public RoomController(DataRoom room, DataGame gameObject) {
 		myResources = ResourceBundle.getBundle("resources/RoomResources");
 		model = room;
 		view = new RoomEditor(myResources);
+		populateEditor(room);
 		initializeObjectListContainer(gameObject);
-		//initializeButtonToolbar(resources);
 		initializeView();
+		initializeButtonToolbar();
+		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
 	public void launch() {
 		view.show();
+	}
+	
+	private void populateEditor(DataRoom room) {
+		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
+		view.getPreview().getCanvas().setHeight(model.getSize()[1]);
+		for (DataInstance instance : model.getObjectInstances()) {
+			DoubleProperty[] point = createDoubleProperties(instance.getX(), instance.getY());
+			view.getPreview().getCanvas().addInstance(new DraggableImage(instance.getImage(), point[0], point[1]), 
+					new Point2D(instance.getX(), instance.getY()));
+		}
 	}
 	
 	private void initializeObjectListContainer(DataGame gameObject) {
@@ -65,21 +82,39 @@ public class RoomController {
 	}
 	
 	private void initializeButtonToolbar() {
-		ButtonHandler handler = new ButtonHandler(myResources, view.getPreview());
-		myButtonToolbar = new ButtonToolbar(myResources, handler.getButtons());
-		view.getTotalView().getChildren().add(myButtonToolbar);
+		myButtonToolbarController = new ButtonToolbarController(myResources, 
+				view.getPreview().getCanvas(), model);
+		view.getTotalView().getChildren().add(myButtonToolbarController.getButtonToolbar());
 	}
 	
 	private void initializeView() {
-		myView = new ViewController(model.getDataView());
-		//HARDCODED FOR US
-		myView.getDraggableView().getHeightProperty().set(400);
-		myView.getDraggableView().getWidthProperty().set(400);
-		//
-		view.getPreview().getCanvas().setView(myView.getDraggableView());
+		myViewController = new ViewController(model.getDataView());
+		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
+		view.getPreview().getCanvas().setOnMouseClicked(e -> doubleClicked(e, view.getPreview().getCanvas().getObjectMap()));
 	}
-
+	
+	private void doubleClicked(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
+		if (event.getClickCount() == 2) {
+			for (DataInstance instance : model.getObjectInstances()) {
+				//TODO add scale x and scale y factors
+				double width = instance.getParentObject().getSprite().getImage().getWidth();
+				double height = instance.getParentObject().getSprite().getImage().getHeight();
+				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+					ConfigureController configure = new ConfigureController(myResources, instance); 
+					configure.initialize();
+					configure.getConfigureView().getDeleteButton().setOnAction(e -> delete(instance, configure.getConfigureView()));
+				}
+			}
+		}
+	}
+	
+	private void delete(DataInstance instance, ConfigureView configure) {
+		model.removeObjectInstance(instance);
+		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
+		view.getPreview().getCanvas().redrawCanvas();
+		configure.close();
+	}
 	public String getName() {
 		return model.getName();
 	}
@@ -109,30 +144,23 @@ public class RoomController {
 		ImageView spriteInstance = objectInstance.getImageView();
 		if (spriteInstance != null) {
 			view.getRoot().getChildren().add(spriteInstance);
-			dragSpriteIntoPreview(objectInstance);
+			setUpDraggingBehavior(objectInstance);
 		}
 	}
 	
-	private void dragSpriteIntoPreview(PotentialObjectInstance objectInstance) {
-		objectInstance.getImageView().setOnMousePressed(e -> setUpDraggingBehavior(objectInstance));
-	}
-	
 	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance) {
-		objectInstance.getImageView().setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
+		objectInstance.getImageView().setOnMouseReleased(e -> addSpriteToRoom(e, objectInstance));
 	}
 	
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
-		potentialObjectInstance.updateSpritePosition(e);
-		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
-		if (potentialObjectInstance.inRoomBounds()) {
-			Point2D canvasPoint = view.getPreview().translateSceneCoordinates(scenePoint);
-			DoubleProperty x = new SimpleDoubleProperty();
-			DoubleProperty y = new SimpleDoubleProperty();
-			x.set(canvasPoint.getX());
-			y.set(canvasPoint.getY());
+		Point2D screenPoint = new Point2D(e.getScreenX(), e.getScreenY());
+		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
+		double width = potentialObjectInstance.getImageView().getImage().getWidth();
+		double height = potentialObjectInstance.getImageView().getImage().getHeight();
+		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
+			DoubleProperty[] xy = createDoubleProperties(canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
-					potentialObjectInstance.getObject(), x, y);
-			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
+					potentialObjectInstance.getObject(), xy[0], xy[1]);
 			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
@@ -142,4 +170,15 @@ public class RoomController {
 			//TODO get rid of the object
 		}
 	} 
+	
+	private DoubleProperty[] createDoubleProperties(double X, double Y) {
+		DoubleProperty[] properties = new DoubleProperty[2];
+		DoubleProperty x = new SimpleDoubleProperty();
+		DoubleProperty y = new SimpleDoubleProperty();
+		x.set(X);
+		y.set(Y);
+		properties[0] = x;
+		properties[1] = y;
+		return properties;
+	}
 }

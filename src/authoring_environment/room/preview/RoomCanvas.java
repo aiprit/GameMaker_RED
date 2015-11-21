@@ -1,16 +1,14 @@
 package authoring_environment.room.preview;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-import authoring_environment.room.ConfigurePopup;
-import authoring_environment.room.RoomController;
-import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -20,59 +18,61 @@ import javafx.scene.paint.ImagePattern;
 
 
 public class RoomCanvas extends Canvas {
+	private static final String VIEW_OPACITY = "ViewOpacity";
+	private static final String VIEW_COLOR = "ViewColor";
+	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
+	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
-
+	private static final String PREVIEW_WIDTH = "PreviewWidth";
+	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private Color myColor;
 	private Image myImage;
 	private String myImageFileName;
+
+	private ResourceBundle myResources;
+	private String myBackgroundColor;
 	//TODO change to Map of DraggableNode, add view as Drag
 	private Map<DraggableImage, Point2D> myObjectMap;
-	private ResourceBundle myResources;
 	private DraggableView myRoomView;
 	
 	public RoomCanvas(ResourceBundle resources) {
+
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
-		myColor = DEFAULT_COLOR;
-		setColorFill(DEFAULT_COLOR);
 		myResources = resources;
+		myBackgroundColor = DEFAULT_COLOR.toString();
+		setColorFill(DEFAULT_COLOR);
 		myObjectMap = new HashMap<DraggableImage, Point2D>();
-		this.setOnMousePressed(e -> press(e));
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
 	}
 	
-//	public void addNodeToMap(DraggableImage image, ConfigureView popup) {
-//		Point2D point = new Point2D(image.getX(), image.getY());
-//		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
-//		myObjectMap.put(image, point);
-//		popup.initializePopUp();
-//	}
+	public Map<DraggableImage, Point2D> getObjectMap() {
+		return myObjectMap;
+	}
+	
+	public DraggableView getRoomView() {
+		return myRoomView;
+	}
+	
+	public String getBackgroundColor() {
+		return myBackgroundColor;
+	}
+	
+	public void setBackgroundColor(String color) {
+		if (color == null) {
+			myBackgroundColor = DEFAULT_COLOR.toString();
+		} else {
+			myBackgroundColor = color;
+		}
+	}
 	
 	public void addNodeToMap(DraggableImage image) {
 		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
-		//ConfigurePopup popup = new ConfigurePopup(myResources);
-		//popup.initializePopUp();
 	}
 	
-	private void press(MouseEvent event) {
-		if (contains(event.getX(), event.getY(), myRoomView)) {
-			myRoomView.setXOffset(-1*myRoomView.getWidth()/2);
-			myRoomView.setYOffset(-1*myRoomView.getHeight()/2);
-			myRoomView.setDraggable(true);
-		} else {
-			for (DraggableNode node : myObjectMap.keySet()) {
-				if (contains(event.getX(), event.getY(), node)) {
-						node.setXOffset(node.getX() - event.getX());
-						node.setYOffset(node.getY() - event.getY());
-						node.setDraggable(true);
-						break;
-				}
-			}
-		}
-	}
 	
 	private void released(MouseEvent event) {
 		for (DraggableNode node: myObjectMap.keySet()) {
@@ -82,7 +82,7 @@ public class RoomCanvas extends Canvas {
 		myRoomView.setDraggable(false);
 	}
 	private void drag(MouseEvent event) {
-		double x = event.getSceneX() - 270;
+		double x = event.getSceneX() - Double.parseDouble(myResources.getString(OBJECTS_LIST_HEADER_WIDTH));
 		double y = event.getSceneY();
 		if (myRoomView.getDraggable()) {
 			updateNodePosition(myRoomView, x, y);
@@ -101,22 +101,47 @@ public class RoomCanvas extends Canvas {
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
 		double adjustedY = y + node.getYOffset();
-		node.setX(adjustedX);
-		node.setY(adjustedY);
+		if (inRoomWidthBounds(node.getWidth(), adjustedX)) {
+			node.setX(adjustedX);
+		}
+		if (inRoomHeightBounds(node.getHeight(), adjustedY)) {
+			node.setY(adjustedY);
+		}
+	}
+	
+	public boolean inRoomBounds(double width, double height, double x, double y) {
+		return inRoomWidthBounds(width, x) && inRoomHeightBounds(height, y);
+	}
+	
+	private boolean inRoomWidthBounds(double width, double x) {
+		return x >= 0 && x <= this.getWidth() - width;
+	}
+	
+	private boolean inRoomHeightBounds(double height, double y) {
+		return y >= 0 && y <= this.getHeight() - height;
 	}
 
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
-		setColorFill(myColor);
+		drawBackground();
 		for (DraggableImage drag : myObjectMap.keySet()) {
 			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 		}
 		drawView();
 	}
+	//TODO fix contains to match other one
+	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
+		return (x > nodeX && x <= nodeX + width && 
+				y > nodeY && y <= nodeY + height);
+	}
 	
-	private boolean contains(double x, double y, DraggableNode node) {
-		return (x > node.getX() && x <= node.getX() + node.getWidth() && 
-				y > node.getY() && y <= node.getY() + node.getHeight());
+	private void drawBackground() {
+		try {
+			Color fill = Color.valueOf(myBackgroundColor);
+			setColorFill(fill);
+		} catch (IllegalArgumentException e) {
+			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
+		}
 	}
 	
 	private void setColorFill(Color fill) {
@@ -128,50 +153,34 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setFill(new ImagePattern(image));
 		this.getGraphicsContext2D().fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
-
-	public Color getColor() {
-		return myColor;
-	}
-
-	public Image getImage() {
-		return myImage;
-	}
-
-	public String getImageFileName() {
-		return myImageFileName;
+	
+	public void addInstance(DraggableImage image, Point2D point) {
+		myObjectMap.put(image, point);
 	}
 	
-	public void setImage(Image image) {
-		myImage = image;
-	}
+	public void removeInstance(Image image, Point2D point) {
+		for (DraggableImage dragImage : myObjectMap.keySet()) {
+			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
+			if (dragImage.getImage().equals(image) && dragImagePoint.equals(point)) {
+				myObjectMap.remove(dragImage);
+				break;
+			}
 
-	public void setImageFileName(String name) {
-		myImageFileName = name;
-	}
-	
-	public void setBackground(Color color, Image image, String fileName) {
-		if (image != null) {
-			setImageFill(image);
-			myImage = image;
-			myImageFileName = fileName;
-			myColor = null;
-		} else if (color != null){
-			setColorFill(color);
-			myColor = color;
-			myImage = null;
-			myImageFileName = null;
-		} else {
-			setColorFill(DEFAULT_COLOR);
-			myColor = DEFAULT_COLOR;
-			myImage = image;
-			myImageFileName = fileName;
 		}
-		redrawCanvas();
 	}
 	
 	public void drawView() {
-		this.getGraphicsContext2D().setStroke(Color.LIMEGREEN);
+		List<Integer> viewRGB = Arrays.asList(myResources.getString(VIEW_COLOR).split(",")).stream()
+				.map(val -> Integer.parseInt(val))
+				.collect(Collectors.toList());
+		this.getGraphicsContext2D().setStroke(Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2)));
+		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
 		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		if (myRoomView.isVisible()) {
+			this.getGraphicsContext2D().setFill(
+					Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2), Double.parseDouble(myResources.getString(VIEW_OPACITY))));
+			this.getGraphicsContext2D().fillRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(), myRoomView.getHeight());
+		}
 	}
 	
 	public void setView(DraggableView view) {

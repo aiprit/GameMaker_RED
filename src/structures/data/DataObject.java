@@ -8,22 +8,15 @@ import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
-import java.util.HashMap;
-import java.util.List;
-
-
 public class DataObject {
 
-
 	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
-
 
     private String myName;
     private DataSprite mySprite;
     private double myScaleX, myScaleY;
 
     private int myZIndex;
-
 
     public DataObject(String name) {
         myName = name;
@@ -32,12 +25,12 @@ public class DataObject {
         myScaleX = 1.0;
         myScaleY = 1.0;
     }
+    
     public DataObject(DataObject obj){
     	myName = obj.getName();
     	myEvents = obj.getEvents();
     	myZIndex = obj.getZIndex();
     	mySprite = obj.getSprite();
-
     }
 
     public String getName() {
@@ -48,12 +41,9 @@ public class DataObject {
         myName = name;
     }
 
-
-
 	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
 		myEvents.put(event, actions);
 	}
-
 
     public void removeEvent(IDataEvent e) {
         myEvents.remove(e);
@@ -79,7 +69,6 @@ public class DataObject {
         myZIndex = zIndex;
     }
 
-
     public void addSprite(DataSprite s) {
         mySprite = s;
     }
@@ -89,8 +78,6 @@ public class DataObject {
     	return myName;
     }
 
-
-    
     public double getScaleX() {
         return myScaleX;
     }
