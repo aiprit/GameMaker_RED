@@ -1,12 +1,13 @@
 package authoring_environment.room;
 
 
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import authoring_environment.room.button_toolbar.ButtonToolbar;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
+import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.object_list.ObjectListController;
@@ -90,8 +91,30 @@ public class RoomController {
 		myViewController = new ViewController(model.getDataView());
 		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
+		view.getPreview().getCanvas().setOnMouseClicked(e -> doubleClicked(e, view.getPreview().getCanvas().getObjectMap()));
 	}
-
+	
+	private void doubleClicked(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
+		if (event.getClickCount() == 2) {
+			for (DataInstance instance : model.getObjectInstances()) {
+				//TODO add scale x and scale y factors
+				double width = instance.getParentObject().getSprite().getImage().getWidth();
+				double height = instance.getParentObject().getSprite().getImage().getHeight();
+				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+					ConfigureController configure = new ConfigureController(myResources, instance); 
+					configure.initialize();
+					configure.getConfigureView().getDeleteButton().setOnAction(e -> delete(instance, configure.getConfigureView()));
+				}
+			}
+		}
+	}
+	
+	private void delete(DataInstance instance, ConfigureView configure) {
+		model.removeObjectInstance(instance);
+		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
+		view.getPreview().getCanvas().redrawCanvas();
+		configure.close();
+	}
 	public String getName() {
 		return model.getName();
 	}
@@ -138,7 +161,7 @@ public class RoomController {
 			DoubleProperty[] xy = createDoubleProperties(canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
 					potentialObjectInstance.getObject(), xy[0], xy[1]);
-			ConfigureController configurePopup = new ConfigureController(myResources, objectInstance.getDataInstance());
+			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
 			view.getPreview().addImage(objectInstance.getDraggableImage());
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 			model.addObjectInstance(objectInstance.getDataInstance());

@@ -2,15 +2,13 @@ package authoring_environment.room.preview;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.room.RoomController;
-import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
 import javafx.geometry.Point2D;
 
 import javafx.scene.control.ScrollPane;
 
-import javafx.scene.image.*;
+
 import javafx.scene.input.MouseEvent;
 
 

@@ -18,6 +18,11 @@ public class RoomCanvas extends Canvas {
 	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
 	private static final int VIEW_STROKE_WIDTH = 4;
 	public static final Color DEFAULT_COLOR = Color.WHITE;
+	private static final String PREVIEW_WIDTH = "PreviewWidth";
+	private static final String PREVIEW_HEIGHT = "PreviewHeight";
+	private Color myColor;
+	private Image myImage;
+	private String myImageFileName;
 
 	private ResourceBundle myResources;
 	private String myBackgroundColor;
@@ -26,6 +31,7 @@ public class RoomCanvas extends Canvas {
 	private DraggableView myRoomView;
 	
 	public RoomCanvas(ResourceBundle resources) {
+
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
 		myResources = resources;
@@ -61,6 +67,7 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectMap.put(image, point);
 	}
+	
 	
 	private void released(MouseEvent event) {
 		for (DraggableNode node: myObjectMap.keySet()) {
@@ -117,6 +124,11 @@ public class RoomCanvas extends Canvas {
 		}
 		drawView();
 	}
+	//TODO fix contains to match other one
+	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
+		return (x > nodeX && x <= nodeX + width && 
+				y > nodeY && y <= nodeY + height);
+	}
 	
 	private void drawBackground() {
 		try {
@@ -139,6 +151,17 @@ public class RoomCanvas extends Canvas {
 	
 	public void addInstance(DraggableImage image, Point2D point) {
 		myObjectMap.put(image, point);
+	}
+	
+	public void removeInstance(Image image, Point2D point) {
+		for (DraggableImage dragImage : myObjectMap.keySet()) {
+			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
+			if (dragImage.getImage().equals(image) && dragImagePoint.equals(point)) {
+				myObjectMap.remove(dragImage);
+				break;
+			}
+
+		}
 	}
 	
 	public void drawView() {

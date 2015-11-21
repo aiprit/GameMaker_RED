@@ -4,7 +4,6 @@ package authoring_environment;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import com.sun.j3d.utils.scenegraph.io.retained.Controller;
 import authoring_environment.main.RoomListView;
 import authoring_environment.main.TopMenuBar;
 import authoring_environment.room.RoomEditor;
