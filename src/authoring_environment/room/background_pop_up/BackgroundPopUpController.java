@@ -20,7 +20,6 @@ public class BackgroundPopUpController {
 	private static final String BACKGROUND_IMAGE_FILE_CHOOSER = "BackgroundImageFileChooser";
 	
 	private ResourceBundle myResources;
-	
 	private BackgroundPopup view;
 	private DataRoom model;
 	
@@ -28,7 +27,7 @@ public class BackgroundPopUpController {
 		myResources = resources;
 		model = room;
 		view = new BackgroundPopup(resources, background);
-		view.setOnCloseRequest(e -> changeBackground());
+		view.getSaveButton().setOnAction(e -> changeBackground());
 		view.getResetButton().setOnAction(e -> reset());
 		view.getUploadButton().setOnAction(e -> launchFileChooser());
 		view.setDropdownAndUploadText(model.getBackgroundColor());
@@ -44,6 +43,7 @@ public class BackgroundPopUpController {
 		view.getCanvas().setBackgroundColor(backgroundColor);
 		model.setBackgroundColor(backgroundColor);
 		view.getCanvas().redrawCanvas();
+		view.close();
 	}
 	
 	private void reset() {
@@ -58,6 +58,8 @@ public class BackgroundPopUpController {
 		fileChooser.getExtensionFilters().add(new ExtensionFilter(myResources.getString(FILE_CHOOSER_TAG), "*.png"));
 		File file = fileChooser.showOpenDialog(null);
 		view.setImageFileName(file.getName());
+		model.setBackgroundColor(view.getImageFileName());
+		view.getUploadButton().setText(view.getImageFileName());
 		try {
 			//TODO doesn't quite work yet
 			BufferedImage image = ImageIO.read(file);
@@ -67,8 +69,6 @@ public class BackgroundPopUpController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		model.setBackgroundColor(view.getImageFileName());
-		view.getUploadButton().setText(view.getImageFileName());
 	}
 
 }

@@ -1,6 +1,7 @@
 package authoring_environment.room.object_instance;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.image.Image;
@@ -19,7 +20,24 @@ public class ObjectInstanceController {
 		myX = x;
 		myY = y;
 		addListeners();
-		
+	}
+	
+	public ObjectInstanceController(DataInstance dataInstance) {
+		myX = new SimpleDoubleProperty();
+		myY = new SimpleDoubleProperty();
+		myX.set(dataInstance.getX());
+		myY.set(dataInstance.getY());
+		view = new DraggableImage(dataInstance.getImage(), myX, myY);
+		model = dataInstance;
+		addListeners();
+	}
+	
+	public double getX() {
+		return myX.get();
+	}
+	
+	public double getY() {
+		return myY.get();
 	}
 	
 	private void addListeners() {

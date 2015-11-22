@@ -11,16 +11,30 @@ import structures.data.DataInstance;
 public class ConfigureController {
 	private ConfigureView configure;
 	private ConfigureModel model;
-	
+	private DataInstance myDataInstance;
+	//TODO think about using interface to isolate set and get methods for DataInstance
 	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) {
-		//System.out.println(resources.getBaseBundleName());
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
+		myDataInstance = dataInstance;
+	}
+	
+	public void initialize() {
+		populatePopUp();
 		configure.getSaveButton().setOnAction(e -> onSave());
 	}
 	
-	public ConfigureView getConfigureView() {
-		return configure;
+	private void populatePopUp() {
+		List<HBox> fieldList = configure.getFieldList();
+		setInput(0, fieldList, myDataInstance.getVelocity().x);
+		setInput(1, fieldList, myDataInstance.getVelocity().y);
+		setInput(2, fieldList, myDataInstance.getAngularVelocity());
+		setInput(3, fieldList, myDataInstance.getScaleX());
+		setInput(4, fieldList, myDataInstance.getScaleY());
+		setInput(5, fieldList, myDataInstance.getAngle());
+		setInput(6, fieldList, myDataInstance.getAlpha());
+		RadioButton visiblityButton = configure.getVisiblity();
+		visiblityButton.setSelected(myDataInstance.isVisible());
 	}
 	
 	private void onSave() {
@@ -35,13 +49,26 @@ public class ConfigureController {
 		model.setScale(scaleX, scaleY);
 		double angle = getInput(5, fieldList);
 		model.setAngle(angle);
+		double transparency = getInput(6, fieldList);
+		model.setAlpha(transparency);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
 		configure.close();
+	}
+
+	
+	//TODO fix this call, used to redraw canvas and pass to room controller upon deleting instance
+	public ConfigureView getConfigureView() {
+		return configure;
 	}
 	
 	private double getInput(int n, List<HBox> fieldList) {
 		TextField field =  ((TextField) fieldList.get(n).getChildren().get(1));
 		return Double.parseDouble(field.getText());
+	}
+	
+	private void setInput(int n, List<HBox> fieldList, double doubleToSet) {
+		TextField field = ((TextField) fieldList.get(n).getChildren().get(1));
+		field.setText(Double.toString(doubleToSet));
 	}
 }

@@ -24,4 +24,7 @@ public class ConfigureModel {
 	public void setAngle(double angle) {
 		myDataInstance.setAngle(angle);
 	}
+	public void setAlpha(double alpha) {
+		myDataInstance.setAlpha(alpha);
+	}
 }

@@ -2,32 +2,24 @@ package authoring_environment.room.background_pop_up;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.room.PopupTemplate;
 import authoring_environment.room.preview.RoomCanvas;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-public class BackgroundPopup extends Stage {
+public class BackgroundPopup extends PopupTemplate {
+	private static final int TEXT_SCALE = 2;
 	private static final String RESET_BUTTON_TITLE = "ResetButtonTitle";
 	private static final int GRID_SPACING = 15;
 	private static final String COLOR_DROPDOWN_PROMPT = "ColorDropdownPrompt";
 	private static final int CONTENTS_SPACING = 30;
 	private static final String UPLOAD_BACKGROUND_IMAGE = "UploadBackgroundImage";
 	private static final String SET_BACKGROUND = "Background";
-	private static final String BACKGROUND_POPUP_WIDTH = "BackgroundPopupWidth";
-	private static final String BACKGROUND_POPUP_HEIGHT = "BackgroundPopupHeight";
 	private static final String OR = "Or";
 	
-	private ResourceBundle myResources;
-	private Group myRoot;
 	private Button myUploadButton;
 	private ColorDropdown myColorDropdown;
 	private Button myResetButton;
@@ -35,13 +27,8 @@ public class BackgroundPopup extends Stage {
 	private RoomCanvas myRoomBackground;
 	
 	public BackgroundPopup(ResourceBundle resources, RoomCanvas background) {
-		super();
-		myResources = resources;
+		super(resources, SET_BACKGROUND);
 		myRoomBackground = background;
-		this.setTitle(myResources.getString(SET_BACKGROUND));
-		this.setWidth(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_WIDTH)));
-		this.setHeight(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_HEIGHT)));
-		initializeScene();
 	}
 	
 	public RoomCanvas getCanvas() {
@@ -67,36 +54,16 @@ public class BackgroundPopup extends Stage {
 	public void setImageFileName(String filename) {
 		myImageFileName = filename;
 	}
-
-	private void initializeScene() {
-		myRoot = new Group();
-		StackPane contents = setContents();
-		myRoot.getChildren().addAll(contents);
-		Scene s = new Scene(myRoot);
-		this.setScene(s);
-		s.setFill(Color.ALICEBLUE);
-		this.show();
-	}
-
-	private StackPane setContents() {
-		StackPane pane = new StackPane();
-		pane.getChildren().add(createContents());
-		pane.setMinSize(Double.parseDouble(myResources.getString(BACKGROUND_POPUP_WIDTH)), 
-				Double.parseDouble(myResources.getString(BACKGROUND_POPUP_HEIGHT)));
-		pane.setAlignment(Pos.CENTER);
-		return pane;
-	}
 	
-	private VBox createContents() {
-		VBox contents = new VBox();
+	@Override
+	protected void setContents() {
 		GridPane colorDropdownField = createColorDropdownField();
 		Text or = createOrText();
 		Button selectAFile = createFileSelector();
-		HBox resetButton = createResetButton();
-		contents.getChildren().addAll(colorDropdownField, or, selectAFile, resetButton);
-		contents.setAlignment(Pos.CENTER);
-		contents.setSpacing(CONTENTS_SPACING);
-		return contents;
+		createResetButton();
+		myContentsBox.getChildren().addAll(colorDropdownField, or, selectAFile);
+		myContentsBox.setAlignment(Pos.CENTER);
+		myContentsBox.setSpacing(CONTENTS_SPACING);
 	}
 	
 	private GridPane createColorDropdownField() {
@@ -136,17 +103,14 @@ public class BackgroundPopup extends Stage {
 	
 	private Text createOrText() {
 		Text or = new Text(myResources.getString(OR));
-		or.setScaleX(2);
-		or.setScaleY(2);
+		or.setScaleX(TEXT_SCALE);
+		or.setScaleY(TEXT_SCALE);
 		return or;
 	}
 	
-	private HBox createResetButton() {
-		HBox resetContainer = new HBox();
+	private void createResetButton() {
 		myResetButton = new Button(myResources.getString(RESET_BUTTON_TITLE));
-		resetContainer.getChildren().add(myResetButton);
-		resetContainer.setAlignment(Pos.CENTER_RIGHT);
-		return resetContainer;
+		addButton(myResetButton);
 	}
 	
 	public void resetView() {
@@ -154,5 +118,4 @@ public class BackgroundPopup extends Stage {
 		myImageFileName = null;
 		myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
 	}
-	
 }
