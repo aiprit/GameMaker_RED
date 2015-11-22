@@ -160,11 +160,26 @@ public class MainController implements IUpdateHandle {
 
 		// TopMenuBar
 		topMenuBar.init();
-		topMenuBar.getEditMenu().setOnAction(new EventHandler<ActionEvent>() {
+		topMenuBar.getLoadMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: handle edit event
-				System.out.println("Clicked Edit");
+				// TODO: handle LOAD EVENT ADD ANDREW PLZ
+				System.out.println("Clicked Load");
+			}
+		});
+		topMenuBar.getSaveMenu().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO: handle SAVE EVENT ADD ANDREW PLZ
+				System.out.println("Clicked Save");
+			}
+		});
+		topMenuBar.getRunMenu().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO: handle SAVE EVENT ADD ANDREW PLZ
+				System.out.println("Run");
+				//RUN HERE
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

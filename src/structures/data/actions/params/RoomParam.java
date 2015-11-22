@@ -7,20 +7,20 @@ import structures.data.DataRoom;
 import utils.Utils;
 
 public class RoomParam implements IParameter, ISelectable {
-	
+
 	private List<DataRoom> myPossibleRooms;
 	private DataRoom mySelected;
 	private String myOriginal;
 	private String myTitle;
-	
+
 	public RoomParam(String title) {
 		myTitle = title;
 	}
-	
+
 	public void setRoomList(List<DataRoom> possibleRooms) {
 		myPossibleRooms = possibleRooms;
 	}
-	
+
 	@Override
 	public List<String> getOptions() {
 		return Utils.transform(myPossibleRooms, e -> e.getName());
