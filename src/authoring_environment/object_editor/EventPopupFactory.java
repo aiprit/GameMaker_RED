@@ -51,8 +51,6 @@ public class EventPopupFactory {
 			kp = new ObjectDestroyPopUp(obj);
 		}
 		//	}
-
-		kp.init();
 	}
 }
 //
