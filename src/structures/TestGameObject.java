@@ -18,7 +18,7 @@ import structures.data.DataView;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.RunScript;
+import structures.data.actions.CustomCode;
 import structures.data.actions.library.AdjustScroller;
 import structures.data.actions.library.AdjustScrollerX;
 import structures.data.actions.library.ChangeScore;
