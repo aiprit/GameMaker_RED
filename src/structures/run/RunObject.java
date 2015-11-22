@@ -26,7 +26,9 @@ public class RunObject {
 	public double angularVelocity;
 	public boolean visible;
 	public Vector velocity;
+	public Vector gravity;
 	public double alpha;
+	public double friction;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
@@ -43,6 +45,8 @@ public class RunObject {
 		this.scaleY = 1.0;
 		this.angle = 0.0;
 		this.velocity = Vector.ZERO;
+		this.gravity = Vector.ZERO;
+		this.friction = 0.0;
 		this.angularVelocity = 0.0;
 		this.visible = true;
 		this.alpha = 1.0;
@@ -160,14 +164,6 @@ public class RunObject {
 	}
 	
 	public void scale_sprite(double width, double height){
-		
-	}
-	
-	public void set_acceleration(double acceleration){
-		
-	}
-	
-	public void set_friction(double friction){
 		
 	}
 	
