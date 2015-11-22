@@ -68,21 +68,29 @@ public class EngineController {
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 		
 		//set myGame to the game that the user chooses
+		System.out.println(userGame);
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
-		//use for testing
-		//TestGame2 tgo = new TestGame2();
-		TestGameObject tgo = new TestGameObject();
-		myGame = tgo.getTestGame();
-		RunGame game = null;
+		
+		// Which one was selected?
+		DataGame game = null;
+		if (userGame.equals("TestGame")) {
+			TestGameObject tgo = new TestGameObject();
+			game = tgo.getTestGame();
+		} else if (userGame.equals("TestGame2")) {
+			TestGame2 tgo = new TestGame2();
+			game = tgo.getTestGame();
+		}
+		
 		//convert DataGame to a RunGame
+		RunGame runGame = null;
 		try {
-			game = new RunGame(myGame);
+			runGame = new RunGame(game);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}
 		
-		return game;
+		return runGame;
 		
 	}
 	
