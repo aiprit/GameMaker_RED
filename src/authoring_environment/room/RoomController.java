@@ -108,15 +108,14 @@ public class RoomController {
 			double width = instance.getParentObject().getSprite().getImage().getWidth();
 			double height = instance.getParentObject().getSprite().getImage().getHeight();
 			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+				ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
+				boundBox.draw();
+				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
 				if (event.getClickCount() == 2) {
 					ConfigureController configure = new ConfigureController(myResources, instance); 
 					configure.initialize();
-				} else if (event.isShiftDown()) {
-					ObjectInstanceController currentObject = new ObjectInstanceController(instance);
-					BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
-					boundBox.draw();
-					view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
-				}
+				} 
 			} 
 		}
 	}
@@ -142,6 +141,14 @@ public class RoomController {
 	private void clone(ObjectInstanceController controller) {
 		double x = controller.getDataInstance().getX() + CLONE_OFFSET;
 		double y = controller.getDataInstance().getY() + CLONE_OFFSET;
+		double width = controller.getDraggableImage().getImage().getWidth();
+		double height = controller.getDraggableImage().getImage().getHeight();
+		if (!view.getPreview().getCanvas().inRoomWidthBounds(width, x)) {
+			x = view.getPreview().getCanvas().getWidth() - width;
+		}
+		if (!view.getPreview().getCanvas().inRoomHeightBounds(height, y)) {
+			y = view.getPreview().getCanvas().getHeight() - height;
+		}
 		createAndAddObjectInstance(controller.getDraggableImage().getImage(), 
 				controller.getDataInstance().getParentObject(), x, y);
 	}
