@@ -57,7 +57,7 @@ public class ViewController {
 	}
 	
 	private void updateDataViewObject() {
-		model.setView(new utils.Rectangle(view.getXProperty().get(), view.getYProperty().get(), 
+		model.setView(new utils.rectangle.Rectangle(view.getXProperty().get(), view.getYProperty().get(), 
 				view.getWidthProperty().get(), view.getHeightProperty().get()));
 	}
 }

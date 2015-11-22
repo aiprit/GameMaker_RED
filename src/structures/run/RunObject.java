@@ -9,9 +9,9 @@ import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
-import utils.IRectangle;
-import utils.Rectangle;
 import utils.Vector;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class RunObject {
 	

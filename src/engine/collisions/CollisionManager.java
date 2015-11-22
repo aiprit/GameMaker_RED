@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import structures.data.events.CollisionEvent;
+import structures.data.events.IDataEvent;
 import structures.run.RunObject;
 import utils.Pair;
 
@@ -56,5 +58,10 @@ public class CollisionManager {
 		}
 
 		return collisions;
+	}
+	
+	public boolean collisionAt(RunObject obj, String otherObjectName, double x, double y) {
+		List<RunObject> otherObjects = myCollideables.get(otherObjectName);
+		
 	}
 }

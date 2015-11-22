@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
 import structures.run.RunView;
-import utils.IRectangle;
-import utils.Rectangle;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class Draw extends StackPane implements IDraw {
 	

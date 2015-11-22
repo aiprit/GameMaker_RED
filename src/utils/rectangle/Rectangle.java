@@ -1,4 +1,6 @@
-package utils;
+package utils.rectangle;
+
+import utils.Point;
 
 public class Rectangle implements IRectangle {
 

@@ -9,4 +9,9 @@ public class RectangleCollider implements ICollider {
 		return one.getBounds().intersects(two.getBounds());
 	}
 
+	@Override
+	public boolean collidesAt(RunObject one, double x, double y, RunObject two) {
+		
+	}
+
 }
