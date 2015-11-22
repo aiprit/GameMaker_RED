@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import authoring_environment.room.bounding_box.BoundingBoxController;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
-import authoring_environment.room.configure_popup.ConfigureView;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.object_list.ObjectListController;
@@ -18,7 +17,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
@@ -29,8 +27,6 @@ import structures.data.DataView;
 
 
 public class RoomController {
-	private static final String PREVIEW_WIDTH = "PreviewWidth";
-	private static final String PREVIEW_HEIGHT = "PreviewHeight";
 	private static final double CLONE_OFFSET = 15;
 	
 	private ResourceBundle myResources;
@@ -42,22 +38,10 @@ public class RoomController {
 	private ButtonToolbarController myButtonToolbarController;
 	private ViewController myViewController;
 	
-	public RoomController(DataGame gameObject) {
-		myResources = ResourceBundle.getBundle("resources/RoomResources");
-		model = new DataRoom("New Room", Double.parseDouble(myResources.getString(PREVIEW_WIDTH)),
-				Double.parseDouble(myResources.getString(PREVIEW_HEIGHT)));
-		gameObject.addRoom(model);
-		view = new RoomEditor(myResources);
-		initializeObjectListContainer(gameObject);
-		initializeView();
-		initializeButtonToolbar();
-		view.getPreview().getCanvas().redrawCanvas();
-	}
-	
-	public RoomController(DataRoom room, DataGame gameObject) {
-		myResources = ResourceBundle.getBundle("resources/RoomResources");
+	public RoomController(ResourceBundle resources, DataRoom room, DataGame gameObject) {
+		myResources = resources;
 		model = room;
-		view = new RoomEditor(myResources);
+		view = new RoomEditor(myResources, room.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
 		initializeView();
