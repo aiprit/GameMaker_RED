@@ -1,45 +1,24 @@
 package structures.data.events;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class MousePressedEvent implements IDataEvent {
+public abstract class MousePressedEvent implements IDataEvent {
 
 	public String mouseState;
-
-	public MousePressedEvent(String mouse){
-		mouseState = mouse;
+	
+	public MousePressedEvent(String mouseState){
+		this.mouseState = mouseState;
 	}
-
+	
 	@Override
-	public String getName() {
-		return String.format("Mouse Click %s", mouseState);
+	public boolean hasXY(){
+		return true;
 	}
-	@Override
-    public String toString(){
-    	return this.getName();
-    }
+	
+	public abstract int hashCode();
+	
+	public abstract boolean equals(Object obj);
+	
+	public abstract Map<String, String> dumpContents();
 
-	public int hashCode() {
-    	return this.getClass().hashCode() ^ this.mouseState.hashCode();
-    }
-
-    public boolean equals(Object obj) {
-    	if(obj !=null){
-    	if (obj.getClass().equals(this.getClass())) {
-    		if (((MousePressedEvent)obj).mouseState.hashCode() == this.mouseState.hashCode()) {
-    			return true;
-    		}
-    	}
-    	}
-    	return false;
-    }
-
-    @Override
-    public Map<String, String> dumpContents() {
-        Map<String, String> ret = new HashMap<>();
-        ret.put("class", getClass().getName());
-        ret.put("mouseState", mouseState);
-        return ret;
-    }
 }
