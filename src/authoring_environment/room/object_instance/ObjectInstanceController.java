@@ -29,6 +29,15 @@ public class ObjectInstanceController {
 		myY.set(dataInstance.getY());
 		view = new DraggableImage(dataInstance.getImage(), myX, myY);
 		model = dataInstance;
+		addListeners();
+	}
+	
+	public double getX() {
+		return myX.get();
+	}
+	
+	public double getY() {
+		return myY.get();
 	}
 	
 	private void addListeners() {

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring_environment.room.bounding_box.BoundingBoxController;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
 import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.configure_popup.ConfigureView;
@@ -15,10 +16,14 @@ import authoring_environment.room.view.ViewController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.DataGame;
 import structures.data.DataInstance;
+import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataView;
 
@@ -26,6 +31,7 @@ import structures.data.DataView;
 public class RoomController {
 	private static final String PREVIEW_WIDTH = "PreviewWidth";
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
+	private static final double CLONE_OFFSET = 15;
 	
 	private ResourceBundle myResources;
 	
@@ -67,8 +73,8 @@ public class RoomController {
 		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
 		view.getPreview().getCanvas().setHeight(model.getSize()[1]);
 		for (DataInstance instance : model.getObjectInstances()) {
-			DoubleProperty[] point = createDoubleProperties(instance.getX(), instance.getY());
-			view.getPreview().getCanvas().addInstance(new DraggableImage(instance.getImage(), point[0], point[1]), 
+			ObjectInstanceController controller = new ObjectInstanceController(instance);
+			view.getPreview().getCanvas().addInstance(controller.getDraggableImage(), 
 					new Point2D(instance.getX(), instance.getY()));
 		}
 	}
@@ -91,30 +97,61 @@ public class RoomController {
 		myViewController = new ViewController(model.getDataView());
 		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
-		view.getPreview().getCanvas().setOnMouseClicked(e -> doubleClicked(e, view.getPreview().getCanvas().getObjectMap()));
+		view.getPreview().getCanvas().setOnMouseClicked(e -> onClick(e, view.getPreview().getCanvas().getObjectMap()));
 	}
 	
-	private void doubleClicked(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
-		if (event.getClickCount() == 2) {
-			for (DataInstance instance : model.getObjectInstances()) {
-				//TODO add scale x and scale y factors
-				double width = instance.getParentObject().getSprite().getImage().getWidth();
-				double height = instance.getParentObject().getSprite().getImage().getHeight();
-				if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+	private void onClick(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
+		view.getPreview().setOnKeyPressed(null);
+		view.getPreview().getCanvas().redrawCanvas();
+		for (DataInstance instance : model.getObjectInstances()) {
+			//TODO add scale x and scale y factors
+			double width = instance.getParentObject().getSprite().getImage().getWidth();
+			double height = instance.getParentObject().getSprite().getImage().getHeight();
+			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
+				if (event.getClickCount() == 2) {
 					ConfigureController configure = new ConfigureController(myResources, instance); 
 					configure.initialize();
-					configure.getConfigureView().getDeleteButton().setOnAction(e -> delete(instance, configure.getConfigureView()));
+				} else if (event.isShiftDown()) {
+					ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+					BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
+					boundBox.draw();
+					view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
 				}
-			}
+			} 
 		}
 	}
 	
-	private void delete(DataInstance instance, ConfigureView configure) {
+	private void handleKeyPress(KeyEvent event, ObjectInstanceController controller) {
+		switch (event.getCode()) {
+		case DELETE:
+			delete(controller.getDataInstance());
+			break;
+		case BACK_SPACE:
+			delete(controller.getDataInstance());
+			break;
+		case V:
+			if (event.isControlDown()) {
+				clone(controller);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void clone(ObjectInstanceController controller) {
+		double x = controller.getDataInstance().getX() + CLONE_OFFSET;
+		double y = controller.getDataInstance().getY() + CLONE_OFFSET;
+		createAndAddObjectInstance(controller.getDraggableImage().getImage(), 
+				controller.getDataInstance().getParentObject(), x, y);
+	}
+	
+	private void delete(DataInstance instance) {
 		model.removeObjectInstance(instance);
 		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
 		view.getPreview().getCanvas().redrawCanvas();
-		configure.close();
 	}
+	
 	public String getName() {
 		return model.getName();
 	}
@@ -158,23 +195,26 @@ public class RoomController {
 		double width = potentialObjectInstance.getImageView().getImage().getWidth();
 		double height = potentialObjectInstance.getImageView().getImage().getHeight();
 		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
-			DoubleProperty[] xy = createDoubleProperties(canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
-			ObjectInstanceController objectInstance = new ObjectInstanceController(potentialObjectInstance.getImageView().getImage(),
-					potentialObjectInstance.getObject(), xy[0], xy[1]);
-			//view.getPreview().addImage(objectInstance.getDraggableImage(), configurePopup.getConfigureView());
-			view.getPreview().addImage(objectInstance.getDraggableImage());
+			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
+					canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
-			model.addObjectInstance(objectInstance.getDataInstance());
-			view.getPreview().getCanvas().redrawCanvas();
 		}
 	} 
 	
-	private DoubleProperty[] createDoubleProperties(double X, double Y) {
+	private void createAndAddObjectInstance(Image image, DataObject object, double x, double y) {
+		DoubleProperty[] coordinates = createDoubleProperties(x, y);
+		ObjectInstanceController objectInstance = new ObjectInstanceController(image, object, coordinates[0], coordinates[1]);
+		view.getPreview().addImage(objectInstance.getDraggableImage());
+		model.addObjectInstance(objectInstance.getDataInstance());
+		view.getPreview().getCanvas().redrawCanvas();
+	}
+	
+	private DoubleProperty[] createDoubleProperties(double primitiveX, double primitiveY) {
 		DoubleProperty[] properties = new DoubleProperty[2];
 		DoubleProperty x = new SimpleDoubleProperty();
 		DoubleProperty y = new SimpleDoubleProperty();
-		x.set(X);
-		y.set(Y);
+		x.set(primitiveX);
+		y.set(primitiveY);
 		properties[0] = x;
 		properties[1] = y;
 		return properties;
