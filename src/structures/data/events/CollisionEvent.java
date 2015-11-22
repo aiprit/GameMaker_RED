@@ -32,12 +32,14 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public boolean equals(Object obj) {
-        if (this.getClass().equals(obj.getClass())) {
-            if (otherName().equals(((CollisionEvent) obj).otherName())) {
-                return true;
-            }
-        }
-        return false;
+    	if(obj !=null){
+    	if (this.getClass().equals(obj.getClass())) {
+    		if (otherName().equals(((CollisionEvent)obj).otherName())) {
+    			return true;
+    		}
+    	}
+    	}
+    	return false;
     }
 
     @Override
@@ -58,4 +60,9 @@ public class CollisionEvent implements IDataEvent {
         return ret;
     }
 
+
+	@Override
+    public String toString(){
+    	return "Collision with " + other.toString();
+    }
 }

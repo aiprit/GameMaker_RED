@@ -1,12 +1,13 @@
 package structures.run;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
+import javafx.collections.ObservableList;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
@@ -50,7 +51,7 @@ public class RunObjectConverter {
 		myMasterDataObjects.put(data.getName(), data);
 		
 		// Compile all of the IActions of the DataObject into a single RunAction
-		for (Entry<IDataEvent, List<IAction>> event : data.getEvents().entrySet()) {
+		for (Entry<IDataEvent, ObservableList<IAction>> event : data.getEvents().entrySet()) {
 			StringBuilder groovy = new StringBuilder();
 			for (IAction action : event.getValue()) {
 				groovy.append(action.compileSyntax());

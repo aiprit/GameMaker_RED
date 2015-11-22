@@ -1,5 +1,6 @@
 package structures.data;
 
+import javafx.scene.image.Image;
 import utils.Vector;
 
 public class DataInstance {
@@ -133,5 +134,9 @@ public class DataInstance {
 
     public void setAlpha(double alpha) {
         myAlpha = alpha;
+    }
+    
+    public Image getImage() {
+    	return myParentObject.getSprite().getImage();
     }
 }

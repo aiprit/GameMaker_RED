@@ -24,6 +24,10 @@ import structures.run.RunRoom;
  * @author loganrooper
  */
 public class FrontEnd implements IRoomChangedHandler {
+    
+    public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public static final String STYLESHEET = "default.css";
+    
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private RunGame myGame;
@@ -45,6 +49,7 @@ public class FrontEnd implements IRoomChangedHandler {
 		myGame = game;
 		myRoot = new Group();
 		playScene = new Scene(myRoot, 500, 500);
+		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override

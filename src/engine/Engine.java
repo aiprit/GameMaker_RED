@@ -64,6 +64,9 @@ public class Engine implements IRoomChangedHandler {
 		System.out.println(myGame.getCurrentRoomNumber());
 		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
 		myObjectHandler = myLevel.getObjectHandler();
+		//have to do this to change the object tracker when the room changes
+		myEventManager.clearObjectModifiedInterface();
+		myEventManager.addObjectModifiedInterface(myObjectHandler);
 		myLevel.start();
 	}
 	
@@ -95,7 +98,6 @@ public class Engine implements IRoomChangedHandler {
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
 		//how else need to change the level?
-		System.out.println("room change");
 		myLevel.cancel();
 		runLevel();
 	}

@@ -1,13 +1,12 @@
 package structures.data.actions;
 
+import structures.data.actions.params.CheckboxParam;
+import structures.data.actions.params.DoubleParam;
+
 public class MoveToRandom extends DataAction {
 
 	public MoveToRandom(){
-		init();
-		//generate a random x and y coordinate
-		//need to generate it here?
-		
-		//init(new DoubleParam("X"), new DoubleParam("Y"));
+		init(new DoubleParam("X"), new DoubleParam("Y"), new CheckboxParam("Relative?"));
 	}
 
 	@Override
@@ -17,14 +16,12 @@ public class MoveToRandom extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Move to random coordinate");
-		
-		//return String.format("Move to random coordinate (%.2f, %.2f)", get("X"), get("Y"));
+		return String.format("Move to random coordinate between (0, 0) and (%.2f, %.2f)", get("X"), get("Y"), get("Relative?"));
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "current.move_to_random();";
+		return "current.move_to(library.random_number(%f), library.random_number(%f), %s);";
 	}
 	
 }

@@ -1,14 +1,18 @@
 package authoring_environment.room;
 
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
+import authoring_environment.room.preview.RoomPreview;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -20,112 +24,70 @@ public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
 	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
 	private static final String ROOM_EDITOR_HEIGHT = "RoomEditorHeight";
-	
-	private ResourceBundle myResources;
-	private RoomController myRoomController;
-	private Map<String, DataObject> myObjects;
-	
+
 	private Stage myEditor;
 	private Group myRoot;
-	private ObjectListContainer myObjectsList;
 	private RoomPreview myPreview;
-	private ButtonToolbar myToolbar;
+	private VBox myTotalView;
+	private HBox myObjectsAndPreview;
 	
-	
-	/**
-	 * for TESTING purposes
-	 */
-	public RoomEditor(ResourceBundle resources, Map<String, DataObject> objects) {
-		myResources = resources;
+	public RoomEditor(ResourceBundle resources) {
 		myRoot = new Group();
-		myObjects = objects;
-		createEditor();
-	}
-	
-	/**
-	 * Map passed in as unmodifiable collection
-	 */
-	public RoomEditor(ResourceBundle resources, RoomController controller, Map<String, DataObject> objects) {
-		myResources = resources;
-		myRoomController = controller;
-		myObjects = objects;
-		myRoot = new Group();
-		createEditor();
-	}
-	
-	public void createEditor() {
 		myEditor = new Stage();
-		//TODO populate the entire dialog
-		initializeEditor();
-		fillEditorWithComponents();
+		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
+		myEditor.setHeight(Double.parseDouble(resources.getString(ROOM_EDITOR_HEIGHT)));
+		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE));
+		myTotalView = new VBox();
+		myObjectsAndPreview = new HBox();
+		myPreview = new RoomPreview(resources);
+		myTotalView.getChildren().addAll(myObjectsAndPreview);
+		myRoot.getChildren().add(myTotalView);
+	}
+
+	public void show() {
 		Scene scene = new Scene(myRoot);
 		myEditor.setScene(scene);
 		myEditor.show();
 	}
 
-	private void initializeEditor() {
-		myEditor.setWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
-		myEditor.setHeight(Double.parseDouble(myResources.getString(ROOM_EDITOR_HEIGHT)));
-		myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE));
-		//myEditor.setTitle(myResources.getString(ROOM_EDITOR_TITLE) + " - " + myRoomController.getName());
+	public Stage getEditor() {
+		return myEditor;
 	}
-	
-	private void fillEditorWithComponents() {
-		VBox totalPane = new VBox();
-		initializeObjectListAndPreview(totalPane);
-		initializeButtonsToolbar(totalPane);
-		myRoot.getChildren().add(totalPane);
+
+	public void setEditor(Stage myEditor) {
+		this.myEditor = myEditor;
 	}
-	
-	private void initializeObjectListAndPreview(VBox totalPane) {
-		HBox objectsAndPreview = new HBox();
-		initializeObjectList();
-		myPreview = new RoomPreview(myResources, myRoomController);
-		objectsAndPreview.getChildren().addAll(myObjectsList, myPreview);
-		totalPane.getChildren().addAll(objectsAndPreview);
+
+	public Group getRoot() {
+		return myRoot;
 	}
-	
-	private void initializeObjectList() {
-		myObjectsList = new ObjectListContainer(myResources, myObjects);
-		Consumer<MouseEvent> dragStarterFunction = e -> startObjectDrag(e);
-		myObjectsList.setOnMouseClicked(dragStarterFunction);
+
+	public void setRoot(Group myRoot) {
+		this.myRoot = myRoot;
 	}
-	
-	private void startObjectDrag(MouseEvent event) {
-		ObjectInstance objectInstance = myObjectsList.startObjectDragAndDrop(event);
-		ImageView spriteInstance = objectInstance.getImageView();
-		if (spriteInstance != null) {
-			myRoot.getChildren().add(spriteInstance);
-			dragSpriteIntoPreview(objectInstance);
-		}
+
+	public RoomPreview getPreview() {
+		return myPreview;
 	}
-	
-	private void dragSpriteIntoPreview(ObjectInstance objectInstance) {
-		ImageView sprite = objectInstance.getImageView();
-		sprite.setOnMousePressed(e -> setUpDraggingBehavior(objectInstance));
+
+	public void setPreview(RoomPreview myPreview) {
+		this.myPreview = myPreview;
 	}
-	
-	private void setUpDraggingBehavior(ObjectInstance objectInstance) {
-		ImageView sprite = objectInstance.getImageView();
-		sprite.setOnMouseDragged(e -> addSpriteToRoom(e, objectInstance));
+
+	public VBox getTotalView() {
+		return myTotalView;
 	}
-	
-	private void addSpriteToRoom(MouseEvent e, ObjectInstance objectInstance) {
-		objectInstance.updateSpritePosition(e);
-		Point2D scenePoint = new Point2D(e.getSceneX(), e.getSceneY());
-		if (objectInstance.inRoomBounds()) {
-			Point2D canvasPoint = myPreview.translateSceneCoordinates(scenePoint);
-			objectInstance.setDataInstancePosition(canvasPoint);
-			myPreview.addImage(objectInstance.getImageView().getImage(), canvasPoint);
-			myRoot.getChildren().remove(objectInstance.getImageView());
-			myRoomController.addObject(objectInstance.getDataInstance());
-		} 
+
+	public void setTotalView(VBox myTotalView) {
+		this.myTotalView = myTotalView;
 	}
-	
-	private void initializeButtonsToolbar(VBox totalPane) {
-		ButtonHandler handler = new ButtonHandler(myResources, myPreview);
-		myToolbar = new ButtonToolbar(myResources, handler.getButtons());
-		totalPane.getChildren().add(myToolbar);
+
+	public HBox getObjectsAndPreview() {
+		return myObjectsAndPreview;
+	}
+
+	public void setObjectsAndPreview(HBox myObjectsAndPreview) {
+		this.myObjectsAndPreview = myObjectsAndPreview;
 	}
 	
 }

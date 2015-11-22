@@ -2,11 +2,12 @@ package structures.run;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
+
 import engine.IDraw;
-import javafx.scene.paint.Color;
+import exceptions.CompileTimeException;
 import structures.data.DataObject;
+import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.IRectangle;
 import utils.Rectangle;
@@ -104,7 +105,7 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
-			drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
+			//drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
 	
@@ -121,12 +122,13 @@ public class RunObject {
 		return null;
 	}
 	
-	public void change_sprite(){
-		//parameters?
-	}
-	
-	public void destroy(){
-		
+	public void change_sprite(String name, String baseFileName){
+	        try {
+                mySprite = new RunSprite(new DataSprite(name, baseFileName));
+                }
+                catch (CompileTimeException e) {
+                    e.printStackTrace();
+                }
 	}
 	
 	public void movement_angle(double angle, double acceleration, boolean relative){
@@ -146,13 +148,6 @@ public class RunObject {
 		}
 		this.x = xOffset + x;
 		this.y = yOffset + y;
-		System.out.println("moved to: " + this.x + " " + this.y);
-	}
-	
-	public void move_to_random(){
-		Random random = new Random();
-		this.x = (random.nextDouble() * 500);
-		this.y = (random.nextDouble() * 500);
 	}
 	
 	public void run_script(String script){

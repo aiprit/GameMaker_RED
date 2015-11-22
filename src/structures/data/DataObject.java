@@ -1,17 +1,16 @@
 package structures.data;
 
+import java.util.HashMap;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
-import java.util.HashMap;
-import java.util.List;
-
-
 public class DataObject {
 
-    private ObservableMap<IDataEvent, List<IAction>> myEvents;
+	private ObservableMap<IDataEvent, ObservableList<IAction>> myEvents;
 
     private String myName;
     private DataSprite mySprite;
@@ -26,6 +25,13 @@ public class DataObject {
         myScaleX = 1.0;
         myScaleY = 1.0;
     }
+    
+    public DataObject(DataObject obj){
+    	myName = obj.getName();
+    	myEvents = obj.getEvents();
+    	myZIndex = obj.getZIndex();
+    	mySprite = obj.getSprite();
+    }
 
     public String getName() {
         return myName;
@@ -35,18 +41,18 @@ public class DataObject {
         myName = name;
     }
 
-    public void bindEvent(IDataEvent event, List<IAction> actions) {
-        myEvents.put(event, actions);
-    }
+	public void bindEvent(IDataEvent event, ObservableList<IAction> actions) {
+		myEvents.put(event, actions);
+	}
 
     public void removeEvent(IDataEvent e) {
         myEvents.remove(e);
     }
 
-    public ObservableMap<IDataEvent, List<IAction>> getEvents() {
-        return myEvents;
-    }
+	public ObservableMap<IDataEvent, ObservableList<IAction>> getEvents(){
 
+		return myEvents;
+	}
     public DataSprite getSprite() {
         return mySprite;
     }
@@ -66,7 +72,12 @@ public class DataObject {
     public void addSprite(DataSprite s) {
         mySprite = s;
     }
-    
+
+    @Override
+    public String toString(){
+    	return myName;
+    }
+
     public double getScaleX() {
         return myScaleX;
     }
@@ -82,5 +93,6 @@ public class DataObject {
     public void setScaleY(double scale) {
         myScaleY = scale;
     }
+
 }
 
