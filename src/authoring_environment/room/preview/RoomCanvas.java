@@ -113,11 +113,11 @@ public class RoomCanvas extends Canvas {
 		return inRoomWidthBounds(width, x) && inRoomHeightBounds(height, y);
 	}
 	
-	private boolean inRoomWidthBounds(double width, double x) {
+	public boolean inRoomWidthBounds(double width, double x) {
 		return x >= 0 && x <= this.getWidth() - width;
 	}
 	
-	private boolean inRoomHeightBounds(double height, double y) {
+	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
 

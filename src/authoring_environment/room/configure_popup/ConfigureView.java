@@ -14,20 +14,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ConfigureView extends PopupTemplate {
-	private Scene myScene;
-	private final String VELOCITY_FIELD_X = "VelocityFieldX";
-	private final String VELOCITY_FIELD_Y = "VelocityFieldY";
-	private final String ANGULAR_VELOCITY = "AngularVelocity";
-	private final String SCALE_X = "ScaleX";
-	private final String SCALE_Y = "ScaleY";
-	private final String ANGLE = "Angle";
-	private final String TRANSPARENCY = "Transparency";
-	private final String VISIBILITY = "Visibility";
-	private final String DELETE_INSTANCE = "DeleteInstance";
-	private Button deleteButton;
+	private static final String VELOCITY_FIELD_X = "VelocityFieldX";
+	private static final String VELOCITY_FIELD_Y = "VelocityFieldY";
+	private static final String ANGULAR_VELOCITY = "AngularVelocity";
+	private static final String SCALE_X = "ScaleX";
+	private static final String SCALE_Y = "ScaleY";
+	private static final String ANGLE = "Angle";
+	private static final String TRANSPARENCY = "Transparency";
+	private static final String VISIBILITY = "Visibility";
+	private static final String DELETE_INSTANCE = "DeleteInstance";
+	private static final String NAME = "ConfigureParameters";
+	
 	private RadioButton visibilityButton;
 	private List<HBox> fieldList;
-	private static final String NAME = "ConfigureParameters";
 	
 	public ConfigureView(ResourceBundle resources) {
 		super(resources, NAME);
@@ -47,14 +46,8 @@ public class ConfigureView extends PopupTemplate {
 		visibilityButton = new RadioButton();
 		visibility.getChildren().add(visibilityButton);
 		myContentsBox.getChildren().add(visibility);
-		deleteButton = new Button(myResources.getString(DELETE_INSTANCE));
-		addButton(deleteButton);
 		myContentsBox.setAlignment(Pos.CENTER);
 		
-	}
-	
-	public Button getDeleteButton() {
-		return deleteButton;
 	}
 	
 	public List<HBox> getFieldList() {
