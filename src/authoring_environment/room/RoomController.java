@@ -166,8 +166,6 @@ public class RoomController {
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 			model.addObjectInstance(objectInstance.getDataInstance());
 			view.getPreview().getCanvas().redrawCanvas();
-		} else {
-			//TODO get rid of the object
 		}
 	} 
 	

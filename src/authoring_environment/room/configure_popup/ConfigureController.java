@@ -20,10 +20,8 @@ public class ConfigureController {
 	}
 	
 	public void initialize() {
-		configure.initializePopUp();
 		populatePopUp();
 		configure.getSaveButton().setOnAction(e -> onSave());
-	//	configure.getDeleteButton().setOnAction(e -> onDelete());
 	}
 	
 	private void populatePopUp() {
