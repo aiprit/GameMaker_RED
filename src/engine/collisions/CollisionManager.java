@@ -63,5 +63,12 @@ public class CollisionManager {
 	public boolean collisionAt(RunObject obj, String otherObjectName, double x, double y) {
 		List<RunObject> otherObjects = myCollideables.get(otherObjectName);
 		
+		for (RunObject other : otherObjects) {
+			if (myCollider.collidesAt(obj, x, y, other)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

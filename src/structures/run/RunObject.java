@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
+import engine.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
@@ -32,6 +33,7 @@ public class RunObject {
 	private long myInstanceId;
 	
 	private Rectangle myBounds;
+	private ICollisionChecker myCollisionChecker;
 	
 	public RunObject(String name) {
 		this.name = name;
@@ -66,6 +68,9 @@ public class RunObject {
 	}
 	protected long getInstanceId() {
 		return myInstanceId;
+	}
+	public void setCollisionChecker(ICollisionChecker checker) {
+		myCollisionChecker = checker;
 	}
 	
 	public IRectangle getBounds() {
@@ -176,6 +181,14 @@ public class RunObject {
 	
 	public void wrap_around_room(boolean value){
 		
+	}
+	
+	public boolean collision_at(double x, double y) {
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionAt(x, y, this);
+		}
 	}
 
 }

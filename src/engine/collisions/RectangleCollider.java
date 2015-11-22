@@ -1,6 +1,7 @@
 package engine.collisions;
 
 import structures.run.RunObject;
+import utils.rectangle.Rectangle;
 
 public class RectangleCollider implements ICollider {
 
@@ -11,7 +12,10 @@ public class RectangleCollider implements ICollider {
 
 	@Override
 	public boolean collidesAt(RunObject one, double x, double y, RunObject two) {
-		
+		Rectangle rect = one.getBounds().getMutable();
+		rect.x(x);
+		rect.y(y);
+		return rect.intersects(two.getBounds());
 	}
 
 }

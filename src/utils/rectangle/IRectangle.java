@@ -32,6 +32,10 @@ public interface IRectangle {
 
 	IRectangle clone();
 	
+	Rectangle getMutable();
+	
+	ImmutableRectangle getImmutable();
+	
 	static boolean contains(IRectangle rect, Point p) {
 		double s = Math.sin(-1 * Math.toRadians(rect.angle()));
 		double c = Math.cos(-1 * Math.toRadians(rect.angle()));
