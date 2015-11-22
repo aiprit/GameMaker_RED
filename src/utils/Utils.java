@@ -101,6 +101,21 @@ public class Utils {
 		return Math.min(max, Math.max(min, value));
 	}
 	
+	public static List<Point> interpolate(double x1, double y1, double x2, double y2, double resolution) {
+		Vector point = (new Vector(x2 - x1, y2 - y1)).setLength(resolution);
+		int times = (int)(Math.hypot(x2 - x1, y2 - y1) / resolution);
+		List<Point> list = new ArrayList<>(times + 1);	
+		double cursorX = x1;
+		double cursorY = y1;
+		for (int i = 0; i < times; i++) {
+			list.add(new Point(cursorX, cursorY));
+			cursorX += point.x;
+			cursorY += point.y;
+		}
+		list.add(new Point(x2, y2));
+		return list;
+	}
+	
 	public static <T, E extends Throwable> T first(List<T> input, Condition<T, E> condition, T defaultValue) throws E {
 		T item;
 		for (int i = 0; i < input.size(); i++) {

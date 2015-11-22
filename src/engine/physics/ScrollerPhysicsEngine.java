@@ -1,19 +1,9 @@
 package engine.physics;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import structures.run.RunObject;
-import utils.Point;
 import utils.Vector;
 
 public class ScrollerPhysicsEngine implements IPhysicsEngine {
-	
-	private double myResolution;
-	
-	public ScrollerPhysicsEngine(double resolution) {
-		myResolution = resolution;
-	}
 
 	@Override
 	public void step(RunObject obj) {
@@ -28,23 +18,10 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 			obj.velocity = Vector.ZERO;
 		}
 		
+		// Move
+		obj.x += obj.velocity.x;
+		obj.y += obj.velocity.y;
 		
-		
-	}
-	
-	public List<Point> interpolate(double x1, double y1, double x2, double y2, double resolution) {
-		Vector point = (new Vector(x2 - x1, y2 - y1)).setLength(resolution);
-		int times = (int)(Math.hypot(x2 - x1, y2 - y1) / resolution);
-		List<Point> list = new ArrayList<>(times + 1);	
-		double cursorX = x1;
-		double cursorY = y1;
-		for (int i = 0; i < times; i++) {
-			list.add(new Point(cursorX, cursorY));
-			cursorX += point.x;
-			cursorY += point.y;
-		}
-		list.add(new Point(x2, y2));
-		return list;
 	}
 
 }

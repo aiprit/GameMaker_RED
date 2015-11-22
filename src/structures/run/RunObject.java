@@ -34,6 +34,8 @@ public class RunObject {
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
 	
+	private double myLastX, myLastY;
+	
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
 	
@@ -52,6 +54,8 @@ public class RunObject {
 		this.alpha = 1.0;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
+		myLastX = 0.0;
+		myLastY = 0.0;
 		
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -149,14 +153,15 @@ public class RunObject {
 	}
 
 	public void move_to(double x, double y, boolean relative){
-		double xOffset = 0;
-		double yOffset = 0;
-		if(relative){
-			xOffset = this.x;
-			yOffset = this.y;
+		if (relative) {
+			myLastX = x;
+			myLastY = y;
+			this.x += x;
+			this.y += y;
+		} else {
+			this.x = x;
+			this.y = y;
 		}
-		this.x = xOffset + x;
-		this.y = yOffset + y;
 	}
 	
 	public void run_script(String script){
