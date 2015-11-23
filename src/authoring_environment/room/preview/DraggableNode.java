@@ -1,8 +1,6 @@
 package authoring_environment.room.preview;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.image.Image;
 
 
 public abstract class DraggableNode {
@@ -12,12 +10,14 @@ public abstract class DraggableNode {
 	private double xOffset;
 	private double yOffset;
 	private double myAngle;
+	private boolean myVisibility;
 	
-	public DraggableNode(DoubleProperty x, DoubleProperty y, double angle) {
+	public DraggableNode(DoubleProperty x, DoubleProperty y, double angle, boolean visibility) {
 		draggable = false;
 		xCor = x;
 		yCor = y;
 		myAngle = angle;
+		myVisibility = visibility;
 	}
 	
 	public abstract Object getImage();
@@ -27,7 +27,6 @@ public abstract class DraggableNode {
 	public abstract double getHeight();
 	
 	public double getAngle() {
-		System.out.println("Agnle from image itself is " + myAngle);
 		return myAngle;
 	}
 	
@@ -35,6 +34,13 @@ public abstract class DraggableNode {
 		myAngle = angle;
 	}
 	
+	public boolean getVisibility() {
+		return myVisibility;
+	}
+	
+	public void setVisibility(boolean bool) {
+		myVisibility = bool;
+	}
 	public double getXOffset() {
 		return xOffset;
 	}

@@ -126,6 +126,8 @@ public class RoomCanvas extends Canvas {
 			//this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 			//System.out.println("Canvas call of angle is " + drag.getAngle());
 			System.out.println("X cor is " + drag.getX());
+			if (!drag.getVisibility())
+				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY());
 		}
 		drawView();

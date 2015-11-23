@@ -21,7 +21,7 @@ public class ObjectInstanceController {
 
 	public ObjectInstanceController(Image sprite, DataObject object, DoubleProperty x, DoubleProperty y) {
 		model = new DataInstance(object, x.get(), y.get());
-		view = new DraggableImage(sprite, x, y, model.getAngle());
+		view = new DraggableImage(sprite, x, y, model.getAngle(), model.isVisible());
 		myX = x;
 		myY = y;
 		addListeners();
@@ -33,11 +33,11 @@ public class ObjectInstanceController {
 		myX.set(dataInstance.getX());
 		myY.set(dataInstance.getY());
 		try {
-			view = new DraggableImage(dataInstance.getImage(), myX, myY, dataInstance.getAngle());
+			view = new DraggableImage(dataInstance.getImage(), myX, myY, dataInstance.getAngle(), dataInstance.isVisible());
 		} catch (NullPointerException e) {
 			ResourceBundle resources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 			Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(resources.getString(DEFAULT_SPRITE)));
-			view = new DraggableImage(sprite, myX, myY, dataInstance.getAngle());
+			view = new DraggableImage(sprite, myX, myY, dataInstance.getAngle(), dataInstance.isVisible());
 		}
 		model = dataInstance;
 		addListeners();

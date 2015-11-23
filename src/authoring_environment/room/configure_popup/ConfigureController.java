@@ -43,6 +43,7 @@ public class ConfigureController {
 		RadioButton visiblityButton = configure.getVisiblity();
 		visiblityButton.setSelected(myDataInstance.isVisible());
 		myDragImage.setAngle(myDataInstance.getAngle());
+		myDragImage.setVisibility(myDataInstance.isVisible());
 	}
 	
 	private void onSave() {
@@ -63,6 +64,7 @@ public class ConfigureController {
 		model.setAlpha(transparency);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
+		myDragImage.setVisibility(visibilityButton.isSelected());
 		configure.close();
 		myDrawFunction.accept(null);
 	}

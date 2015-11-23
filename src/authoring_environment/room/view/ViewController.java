@@ -1,7 +1,6 @@
 package authoring_environment.room.view;
 
 import structures.data.DataView;
-import java.util.ResourceBundle;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -18,7 +17,8 @@ public class ViewController {
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
-		view = new DraggableView(x, y, 0);
+		//TODO fix hardcoded values
+		view = new DraggableView(x, y, 0, true);
 		addListeners(x, y);
 	}
 	
