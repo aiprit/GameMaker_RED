@@ -107,7 +107,7 @@ public class GroovyLibrary {
 	//		return null;
 	//	}
 
-	//	public void set_score(double score, boolean relative){
+	//	public void set_score(double score){
 	//	}
 
 	public double get_variable(String key){
@@ -155,11 +155,26 @@ public class GroovyLibrary {
 
 	public void set_variable(String key, double value, boolean relative){
 		if(relative){
-			double oldValue = myGlobalVariables.get(key);
+			double oldValue = 0;
+			if(myGlobalVariables.containsKey(key)){
+				oldValue = myGlobalVariables.get(key);
+			}
 			myGlobalVariables.put(key, (oldValue + value));
 		}
 		else{
 			myGlobalVariables.put(key, value);
+		}
+	}
+	
+	public void wrap(RunObject check){
+		if(check.get_x_position() > myRunGame.getCurrentRoom().getWidth()){
+			check.x = check.get_x_position() - myRunGame.getCurrentRoom().getWidth();
+		} else if(check.get_x_position() < 0){
+			check.x = check.get_x_position() + myRunGame.getCurrentRoom().getWidth();
+		} else if(check.get_y_position() > myRunGame.getCurrentRoom().getHeight()){
+			check.y = check.get_y_position() - myRunGame.getCurrentRoom().getHeight();
+		} else if(check.get_y_position() < 0){
+			check.y = check.get_y_position() + myRunGame.getCurrentRoom().getHeight();
 		}
 	}
 
