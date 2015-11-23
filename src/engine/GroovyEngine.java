@@ -1,8 +1,7 @@
 package engine;
 
 import engine.events.EventManager;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import engine.groovy_events.IGroovyEvent;
 import structures.run.RunAction;
 import structures.run.RunGame;
 import structures.run.RunObject;
@@ -10,18 +9,12 @@ import structures.run.RunObject;
 public class GroovyEngine {
 	
 	private GroovyLibrary myGroovyLibrary;
-	private GroovyShell myShell;
-	private Binding myBinding;
-	
 	
 	public GroovyEngine(RunGame runGame, EventManager eventManager){
 		myGroovyLibrary = new GroovyLibrary(runGame, eventManager);
-		myBinding = new Binding();
-		myBinding.setProperty("library", myGroovyLibrary);
-		myShell = new GroovyShell(myBinding);
 	}
 	
-	public void runScript(RunObject o, RunAction action, GroovyEvent event){
+	public void runScript(RunObject o, RunAction action, IGroovyEvent event){
 		if(action == null){
 			return;
 		}
@@ -39,6 +32,7 @@ public class GroovyEngine {
 		System.out.println(action.script);
 		action.compiled.setProperty("library", myGroovyLibrary);
 		action.compiled.setProperty("current", o);
+		action.compiled.setProperty("event", null);
 		action.compiled.run();
 	}
 
