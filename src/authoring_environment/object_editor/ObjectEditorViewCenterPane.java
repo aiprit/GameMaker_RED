@@ -36,7 +36,7 @@ public class ObjectEditorViewCenterPane {
 					Integer.parseInt(centerResources.getString("defaultSize")), false, false) ;
 		}
 		catch (NullPointerException e) {
-			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("marioImage")), 
+			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("nullImage")), 
 					Integer.parseInt(centerResources.getString("defaultSize")), Integer.parseInt(centerResources.getString("defaultSize")),
 					false, false) ;
 		}
@@ -44,11 +44,6 @@ public class ObjectEditorViewCenterPane {
 	
 	public void update(String name) {
 		draw(name);
-
-	}
-
-	public GraphicsContext getGC() {
-		return centerGC;
 	}
 
 	public Button getSpriteUpdateButton() {
