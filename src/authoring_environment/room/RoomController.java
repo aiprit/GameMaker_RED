@@ -60,6 +60,7 @@ public class RoomController {
 	private void populateEditor(DataRoom room) {
 		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
 		view.getPreview().getCanvas().setHeight(model.getSize()[1]);
+		view.getPreview().getCanvas().setBackgroundColor(model.getBackgroundColor());
 		for (DataInstance instance : model.getObjectInstances()) {
 			ObjectInstanceController controller = new ObjectInstanceController(instance);
 			view.getPreview().getCanvas().addInstance(controller.getDraggableImage(), 
