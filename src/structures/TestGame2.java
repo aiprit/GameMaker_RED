@@ -13,6 +13,7 @@ import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
+import utils.Vector;
 
 /*
     This class generates a sample game object. The game consists
@@ -103,6 +104,7 @@ public class TestGame2 {
         mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
         mario.bindEvent(new CollisionEvent(wall), originActionsO);
+        
 
         //player.addEvent(new CollisionEvent(coin));
 
@@ -120,6 +122,9 @@ public class TestGame2 {
         level1.addObjectInstance(new DataInstance(wall, 192, 200));
         level1.addObjectInstance(new DataInstance(wall, 448, 200));
         DataInstance marioInstance = new DataInstance(mario, 140, 20);
+        marioInstance.setGravity(new Vector(0, 1));
+        
+        
         level1.addObjectInstance(marioInstance);
 
 

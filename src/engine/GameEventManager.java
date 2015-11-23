@@ -11,6 +11,8 @@ import engine.collisions.CollisionManager;
 import engine.collisions.ICollisionChecker;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import engine.physics.IPhysicsEngine;
+import engine.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;
@@ -48,6 +50,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	private GroovyEngine myGroovyEngine;
 	private RunRoom myRoom;
+	private IPhysicsEngine myPhysicsEngine;
 
 	private CollisionManager myCollisionManager;
 	private Set<Pair<String>> myCollidingObjectPairs;
@@ -64,6 +67,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myCollisionManager = new CollisionManager();
 		myCreatedQueue = new ArrayList<>();
 		myDeleteQueue = new ArrayList<>();
+		myPhysicsEngine = new ScrollerPhysicsEngine();
 		init(room);
 	}
 
@@ -106,9 +110,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	}
 
 	void loop() {
+		stepPhysics();
 		step(myEvents.get(new StepEvent()));
-		processGameplayEvents(myEventManager.getEvents());
 		processCollisionEvents();
+		processGameplayEvents(myEventManager.getEvents());
 		deleteObjects();
 		draw();
 		processCreateEvents();
@@ -120,12 +125,18 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 * @param it
 	 */
 	private void step(List<RunObject> it) {
-		if(it == null){
+		if (it == null){
 			return;
 		}
-		for(RunObject o : it){
-			StepEvent step = new StepEvent();
+		StepEvent step = new StepEvent();
+		for (RunObject o : it) {	
 			myGroovyEngine.runScript(o, o.getAction(step), new GroovyEvent(step));
+		}
+	}
+	
+	private void stepPhysics() {
+		for (RunObject obj : myRoom.getObjects()) {
+			myPhysicsEngine.step(obj);
 		}
 	}
 
