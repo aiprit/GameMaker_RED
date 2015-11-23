@@ -6,6 +6,7 @@ import java.util.List;
 
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
+import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -304,6 +305,16 @@ public class TestGameObject {
 		testGame.addSprite(playerSprite);
 		testGame.addSprite(startScreenSprite);
 		testGame.addSprite(winScreenSprite);
+		
+		try {
+			coinSprite.load(testGame.getSpriteDirectory());
+			playerSprite.load(testGame.getSpriteDirectory());
+			startScreenSprite.load(testGame.getSpriteDirectory());
+			winScreenSprite.load(testGame.getSpriteDirectory());
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+		
 
 		testGame.addRoom(startScreen);
 		testGame.addRoom(level1);

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import exceptions.ParameterParseException;
+import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -45,6 +46,14 @@ public class TestGame2 {
 
         DataSprite marioSprite = new DataSprite("Mario", "mario.png");
         mario.setSprite(marioSprite);
+        
+        try {
+			wallSprite.load(testGame.getSpriteDirectory());
+			marioSprite.load(testGame.getSpriteDirectory());
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+        
 
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
