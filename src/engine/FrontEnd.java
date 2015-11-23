@@ -5,6 +5,8 @@ package engine;
 
 import engine.events.EventManager;
 import engine.events.IRoomChangedHandler;
+import engine.loop.Draw;
+import engine.loop.IDraw;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;

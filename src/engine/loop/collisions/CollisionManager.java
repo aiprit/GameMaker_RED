@@ -1,4 +1,4 @@
-package engine.collisions;
+package engine.loop.collisions;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package engine.groovy_events;
+package engine.loop.groovy;
 
 import structures.data.events.IDataEvent;
 import utils.Point;

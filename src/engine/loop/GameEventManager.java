@@ -1,4 +1,4 @@
-package engine;
+package engine.loop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,14 +8,15 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import engine.collisions.CollisionManager;
-import engine.collisions.ICollisionChecker;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
-import engine.groovy_events.GroovyClickEvent;
-import engine.groovy_events.GroovyCollisionEvent;
-import engine.physics.IPhysicsEngine;
-import engine.physics.ScrollerPhysicsEngine;
+import engine.loop.collisions.CollisionManager;
+import engine.loop.collisions.ICollisionChecker;
+import engine.loop.groovy.GroovyClickEvent;
+import engine.loop.groovy.GroovyCollisionEvent;
+import engine.loop.groovy.GroovyEngine;
+import engine.loop.physics.IPhysicsEngine;
+import engine.loop.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;

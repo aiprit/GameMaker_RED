@@ -1,4 +1,4 @@
-package engine;
+package engine.loop;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;

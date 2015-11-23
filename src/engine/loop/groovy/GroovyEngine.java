@@ -1,7 +1,6 @@
-package engine;
+package engine.loop.groovy;
 
 import engine.events.EventManager;
-import engine.groovy_events.IGroovyEvent;
 import structures.run.RunAction;
 import structures.run.RunGame;
 import structures.run.RunObject;

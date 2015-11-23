@@ -1,4 +1,4 @@
-package engine.physics;
+package engine.loop.physics;
 
 import structures.run.RunObject;
 import utils.Vector;
