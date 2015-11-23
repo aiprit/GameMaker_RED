@@ -183,11 +183,40 @@ public class RunObject {
 		
 	}
 	
-	public void block(double slipFactor) {
+	public void block(RunObject other, double slipFactor) {
 		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
 			return;
 		}
 		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
+		
+		// Find the first free block
+		int pivot = 0;
+		int start = 0;
+		int end = points.size();
+		Point test = null;
+		while (end - start > 1) {
+			pivot = (end - start) / 2 + start;
+			test = points.get(pivot);
+			if (collision_at(test.x, test.y)) {
+				end = pivot;
+			} else {
+				start = pivot;
+			}
+		}
+		
+		this.x = test.x;
+		this.y = test.y;
+		
+		switch (other.getBounds().quadrantOfPoint(new Point(this.x, this.y))) {
+			case TOP:
+			case BOTTOM:
+				this.velocity = this.velocity.setY(0.0);
+				break;
+			case LEFT:
+			case RIGHT:
+				this.velocity = this.velocity.setX(0.0);
+				break;
+		}
 	}
 	
 	public boolean collision_at(double x, double y) {

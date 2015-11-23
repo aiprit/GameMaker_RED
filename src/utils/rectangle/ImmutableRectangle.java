@@ -106,4 +106,9 @@ public final class ImmutableRectangle implements IRectangle {
 		return rect;
 	}
 
+	@Override
+	public quadrant quadrantOfPoint(Point p) {
+		return IRectangle.quadrantOfPoint(this, p);
+	}
+
 }
