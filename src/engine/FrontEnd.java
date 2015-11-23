@@ -7,19 +7,19 @@ import engine.events.EventManager;
 import engine.events.IRoomChangedHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import structures.run.RunGame;
 import structures.run.RunRoom;
@@ -30,19 +30,22 @@ import structures.run.RunRoom;
 public class FrontEnd implements IRoomChangedHandler {
     
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "default.css";
+    public static final String STYLESHEET = "engine.css";
+    public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
     
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private RunGame myGame;
-	private Group myRoot;
 	private RunGame game;
 	private Stage stage;
 	private Scene playScene;
 	private EventManager myEventManager;
-	private ButtonBar myButtonBar;
+	private BorderPane borderPane;
+	private VBox topContainer;
 	
 	public FrontEnd(RunGame game, EventManager eventManager, Stage stage) {
+	        borderPane = new BorderPane();
+	        topContainer = new VBox();
 		myEventManager = eventManager;
 		this.game = game;
 		this.stage = stage;
@@ -52,8 +55,7 @@ public class FrontEnd implements IRoomChangedHandler {
 	
 	private void setupFramework(){
 		myGame = game;
-		myRoot = new Group();
-		playScene = new Scene(myRoot, 500, 500);
+		playScene = new Scene(borderPane, 500, 500);
 		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		stage.setScene(playScene);
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -69,8 +71,8 @@ public class FrontEnd implements IRoomChangedHandler {
 			}
 		});
 		
-		MenuBar myMenus = new MenuBar();
-		myMenus.useSystemMenuBarProperty().set(true);
+		MenuBar menuBar = new MenuBar();
+		menuBar.useSystemMenuBarProperty().set(true);
 		Menu fileMenu = new Menu("File");
 		MenuItem reset = new MenuItem("Reset");
 		reset.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,16 +107,32 @@ public class FrontEnd implements IRoomChangedHandler {
 		Menu view = new Menu("View");
 		MenuItem highScore = new MenuItem("Show High Scores");
 		MenuItem showHelp = new MenuItem("Show Help");
-		myMenus.getMenus().addAll(fileMenu, savedGames, view);
+		menuBar.getMenus().addAll(fileMenu, savedGames, view);
 		fileMenu.getItems().addAll(reset, save, close, pause);
 		view.getItems().addAll(highScore, showHelp);
-		myRoot.getChildren().add(myMenus);
+		
+		Button playButton = new Button();
+		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
+		Button pauseButton = new Button();
+		pauseButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "pause.png"));
+		Button resetButton = new Button();
+		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
+		Button saveButton = new Button();
+                saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
+                Button openButton = new Button();
+                openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
+		ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);
+		
+		topContainer.getChildren().addAll(menuBar, tBar);
+		
+		borderPane.setTop(topContainer);
+		
 	}
 	
 	private void setupCanvas(){
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		myRoot.getChildren().add((StackPane) myCanvasDrawer);
+		borderPane.getChildren().add((StackPane) myCanvasDrawer);
 	}
 	
 	public IDraw getDrawListener(){
