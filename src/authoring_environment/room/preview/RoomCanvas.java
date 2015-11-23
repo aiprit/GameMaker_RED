@@ -173,10 +173,11 @@ public class RoomCanvas extends Canvas {
 		myObjectList.add(image);
 	}
 	
-	public void removeInstance(Image image, Point2D point) {
+	public void removeInstance(DraggableImage instance) {
+		Point2D point = new Point2D(instance.getX(), instance.getY());
 		for (DraggableImage dragImage : myObjectList) {
 			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
-			if (dragImage.getImage().equals(image) && dragImagePoint.equals(point)) {
+			if (dragImagePoint.equals(point)) {
 				myObjectList.remove(dragImage);
 				break;
 			}

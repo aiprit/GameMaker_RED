@@ -17,6 +17,7 @@ public class DataGame extends Observable implements IObjectInterface {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
+	private static final int DEFAULT_VIEW_SIZE = 600;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
@@ -33,6 +34,8 @@ public class DataGame extends Observable implements IObjectInterface {
         myObjects = FXCollections.observableArrayList();
         mySprites = FXCollections.observableArrayList();
         mySounds = FXCollections.observableArrayList();
+        myViewWidth = DEFAULT_VIEW_SIZE;
+        myViewHeight = DEFAULT_VIEW_SIZE;
     }
 
     public String getName() {

@@ -25,10 +25,12 @@ import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataView;
+import utils.rectangle.*;
 
 
 public class RoomController {
 	private static final double CLONE_OFFSET = 15;
+	private static final String DEFAULT_SPRITE = "DefaultSprite";
 	
 	private ResourceBundle myResources;
 	
@@ -42,6 +44,8 @@ public class RoomController {
 	public RoomController(ResourceBundle resources, DataRoom room, DataGame gameObject) {
 		myResources = resources;
 		model = room;
+		model.getDataView().setView(new Rectangle(room.getDataView().getX(), room.getDataView().getY(),
+				gameObject.getViewWidth(), gameObject.getViewHeight()));
 		view = new RoomEditor(myResources, room.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
@@ -90,8 +94,16 @@ public class RoomController {
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
 			//TODO add scale x and scale y factors
-			double width = instance.getParentObject().getSprite().getImage().getWidth();
-			double height = instance.getParentObject().getSprite().getImage().getHeight();
+			double width = 0;
+			double height = 0;
+			try {
+				width = instance.getParentObject().getSprite().getImage().getWidth();
+				height = instance.getParentObject().getSprite().getImage().getHeight();
+			} catch (NullPointerException e) {
+				Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(myResources.getString(DEFAULT_SPRITE)));
+				width = sprite.getWidth();
+				height = sprite.getHeight();
+			}
 			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
 				ObjectInstanceController currentObject = new ObjectInstanceController(instance);
 				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
@@ -109,10 +121,10 @@ public class RoomController {
 	private void handleKeyPress(KeyEvent event, ObjectInstanceController controller) {
 		switch (event.getCode()) {
 		case DELETE:
-			delete(controller.getDataInstance());
+			delete(controller);
 			break;
 		case BACK_SPACE:
-			delete(controller.getDataInstance());
+			delete(controller);
 			break;
 		case V:
 			if (event.isControlDown() || event.isShortcutDown()) {
@@ -139,9 +151,9 @@ public class RoomController {
 				controller.getDataInstance().getParentObject(), x, y);
 	}
 	
-	private void delete(DataInstance instance) {
-		model.removeObjectInstance(instance);
-		view.getPreview().getCanvas().removeInstance(instance.getImage(), new Point2D(instance.getX(), instance.getY()));
+	private void delete(ObjectInstanceController instance) {
+		model.removeObjectInstance(instance.getDataInstance());
+		view.getPreview().getCanvas().removeInstance(instance.getDraggableImage());
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
