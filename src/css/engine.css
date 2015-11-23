@@ -1,0 +1,40 @@
+.root {
+    -fx-font-size: 12pt;
+    -fx-font-family: Impact, Charcoal, sans-serif;
+    -fx-base: rgb(153, 230, 255);
+    -fx-background: rgb(77, 166, 255);
+}
+
+.button {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #262626;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 4;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.combo-box-base {
+    -fx-text-base-color: #ffffff;
+    -fx-background-color: #262626;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}
+.combo-box-base:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: Tahoma, Geneva, sans-serif;
+    -fx-text-fill: #006464;
+    -fx-opacity: 0.6;
+}
+
+.text-field {
+    -fx-font-size: 14pt;
+    -fx-font-family: Tahoma, Geneva, sans-serif;
+}
