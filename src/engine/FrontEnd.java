@@ -31,7 +31,7 @@ import structures.run.RunRoom;
 public class FrontEnd implements IRoomChangedHandler {
     
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "default.css";
+    public static final String STYLESHEET = "engine.css";
     public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
     
         private Canvas myCanvas;
@@ -57,7 +57,7 @@ public class FrontEnd implements IRoomChangedHandler {
         
         private void setupFramework(){
                 myRoot = new Group();
-                playScene = new Scene(myRoot, 500, 500);
+                playScene = new Scene(borderPane, 500, 500);
                 playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
                 stage.setScene(playScene);
                 stage.getScene().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -72,8 +72,9 @@ public class FrontEnd implements IRoomChangedHandler {
                                 myEventManager.setOnEvent(event);
                         }
                 });
+                borderPane.setCenter(myRoot);
                 makeMenu();
-                
+                makeToolBar();
         }
         
         private void makeMenu() {
@@ -116,24 +117,58 @@ public class FrontEnd implements IRoomChangedHandler {
             myMenus.getMenus().addAll(fileMenu, savedGames, view);
             fileMenu.getItems().addAll(reset, save, close, pause);
             view.getItems().addAll(highScore, showHelp);
-            myRoot.getChildren().add(myMenus);
-            
-            
+            topContainer.getChildren().add(myMenus);
+        }
+        
+        public void makeToolBar() {
             Button playButton = new Button();
             playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
-            Button pauseButton = new Button();
+            playButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        myEventManager.onResume();
+                }
+            });
+            
+            Button pauseButton = new Button();            
             pauseButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "pause.png"));
+            pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        myEventManager.onPause();
+                }
+            });
+            
             Button resetButton = new Button();
             resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
+            resetButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        myEventManager.onReset();
+                }
+            });
             Button saveButton = new Button();
             saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
+            saveButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        myEventManager.onSave();
+                }
+            });
+            
             Button openButton = new Button();
             openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
+            openButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                        //TODO figure out what action to implement here
+                }
+            });
+            
             ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);
             
-            topContainer.getChildren().addAll(myMenus, tBar);
+            topContainer.getChildren().add(tBar);
             borderPane.setTop(topContainer);
-            //myRoot.getChildren().add(borderPane);
         }
         
         private void setupCanvas(){
