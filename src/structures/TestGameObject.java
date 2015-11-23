@@ -40,7 +40,7 @@ import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 /*
     This class generates a sample game object. The game consists

@@ -56,7 +56,7 @@ public class GroovyLibrary {
 		runObject.x = x;
 		runObject.y = y;		
 		//runObject.set_speed(speed);
-		runObject.set_friction(friction);
+		runObject.friction = friction;
 		runObject.wrap_around_room(wraparound);
 		myEventManager.onObjectCreate(runObject);
 	}

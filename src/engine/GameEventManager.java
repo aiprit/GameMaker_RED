@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import engine.collisions.CollisionManager;
+import engine.collisions.ICollisionChecker;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
 import javafx.scene.image.Image;
@@ -37,7 +38,7 @@ import utils.Point;
  *
  */
 
-public class GameEventManager implements IObjectModifiedHandler {
+public class GameEventManager implements IObjectModifiedHandler, ICollisionChecker {
 
 	private EventManager myEventManager;
 	private IDraw myDrawListener;
@@ -259,6 +260,19 @@ public class GameEventManager implements IObjectModifiedHandler {
 			ObjectDestroyEvent step = new ObjectDestroyEvent();
 			myGroovyEngine.runScript(o, o.getAction(step), new GroovyEvent(step));
 		}
+	}
+
+	@Override
+	public boolean collisionAt(double x, double y, RunObject obj) {
+		for (Pair<String> pair : myCollidingObjectPairs) {
+			if (pair.contains(obj.name)) {
+				String otherName = pair.one.equals(obj.name) ? pair.two : pair.one;
+				if (myCollisionManager.collisionAt(obj, otherName, x, y)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

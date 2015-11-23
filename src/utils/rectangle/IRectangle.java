@@ -1,4 +1,6 @@
-package utils;
+package utils.rectangle;
+
+import utils.Point;
 
 public interface IRectangle {
 
@@ -29,6 +31,10 @@ public interface IRectangle {
 	double angle();
 
 	IRectangle clone();
+	
+	Rectangle getMutable();
+	
+	ImmutableRectangle getImmutable();
 	
 	static boolean contains(IRectangle rect, Point p) {
 		double s = Math.sin(-1 * Math.toRadians(rect.angle()));

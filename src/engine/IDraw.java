@@ -3,7 +3,7 @@ package engine;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 import structures.run.RunView;
-import utils.IRectangle;
+import utils.rectangle.IRectangle;
 
 public interface IDraw {
 	
