@@ -15,10 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ObjectEditorView {
-    
+
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
     public static final String STYLESHEET = "authoring.css";
-    
+
 	private Group myRoot;
 	private Stage myStage;
 	ObjectEditorViewBottomPane bottom;
@@ -27,11 +27,11 @@ public class ObjectEditorView {
 	ObjectEditorViewLeftPane left;
 	ObjectEditorViewTopPane top;
 	BorderPane bp;
-	
+
 	public ObjectEditorView() {
 		init();
 	}
-	
+
 	public void init() {
 		myStage = new Stage();
 		myRoot = new Group();
@@ -53,7 +53,7 @@ public class ObjectEditorView {
 		myStage.setScene(scene);
 		myStage.show();
 	}
-	
+
 	public ObjectEditorViewBottomPane getBottomPane() {
 		return bottom;
 	}
