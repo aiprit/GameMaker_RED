@@ -10,6 +10,7 @@ import exceptions.UnknownResourceException;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
+import utils.Point;
 
 public class GroovyLibrary {
 
@@ -73,9 +74,9 @@ public class GroovyLibrary {
 	//		
 	//	}
 	//	
-	//	public void draw_text(String text){
-	//		
-	//	}
+		public void draw_text(String text){
+			
+		}
 
 	//	public void get_mouse_state(){
 	//		//use in GetMouseState to see if right or left etc.
@@ -151,5 +152,30 @@ public class GroovyLibrary {
 	//	public void with_open(){
 	//		//also need to figure this out
 	//	}
+	
+	public void set_scroller_x(RunObject object, double xpercentage){
+		double currentX = object.get_x_position();
+		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
+		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
+	
+	public void set_scroller_y(RunObject object, double ypercentage){
+		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
+		double currentY = object.get_y_position();
+		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
+	
+	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
+		double currentX = object.get_x_position();
+		double currentY = object.get_y_position();
+		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
+		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
 
 }

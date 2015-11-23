@@ -6,6 +6,7 @@ import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
+import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -93,8 +94,7 @@ public class MainController implements IUpdateHandle {
 				public void handle(ActionEvent event) {
 					// TODO: @ankit - use the RoomData object o here and open
 					// your Room Editor (edit room)
-					RoomController room = new RoomController(o, dataGame);
-					room.launch();
+					RoomNamePopupController room = new RoomNamePopupController(o, dataGame);
 					update();
 				}
 			});
@@ -103,9 +103,7 @@ public class MainController implements IUpdateHandle {
 		roomListView.addPlusButton(dataGame.getRooms().size()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
-				RoomController newRoom = new RoomController(dataGame);
-				newRoom.launch();
+				RoomNamePopupController room = new RoomNamePopupController(dataGame);
 				update();
 			}
 		});

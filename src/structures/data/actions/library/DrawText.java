@@ -21,7 +21,7 @@ public class DrawText extends DataAction{
 
 	@Override
 	protected String getSyntax() {
-		return "library.draw_text(%s);";
+		return "library.draw_text('%s');";
 	}
 
 }

@@ -129,10 +129,6 @@ public class RunObject {
 		return myInstanceId;
 	}
 	
-	public void trigger(IDataEvent event) {
-		// TODO: Groovy run event
-	}
-	
 	public DataObject toData() {
 		// TODO: What the hell is this method for?
 		return null;
@@ -148,11 +144,11 @@ public class RunObject {
 	}
 	
 	public void movement_angle(double angle, double acceleration, boolean relative){
-		
+		//need physics engine
 	}
 	
 	public void movement_towards(double x, double y, double acceleration, boolean relative){
-		
+		//need physics engine
 	}
 
 	public void move_to(double x, double y, boolean relative){
@@ -167,9 +163,9 @@ public class RunObject {
 		}
 	}
 	
-	public void run_script(String script){
-		
-	}
+//	public void run_script(String script){
+//		
+//	}
 	
 	public void scale_sprite(double width, double height){
 		
@@ -200,6 +196,12 @@ public class RunObject {
 		} else {
 			return myCollisionChecker.collisionAt(x, y, this);
 		}
+	public double get_x_position(){
+		return this.x;
+	}
+	
+	public double get_y_position(){
+		return this.y;
 	}
 
 }

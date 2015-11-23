@@ -31,12 +31,12 @@ public class RoomEditor {
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
 	
-	public RoomEditor(ResourceBundle resources) {
+	public RoomEditor(ResourceBundle resources, String roomTitle) {
 		myRoot = new Group();
 		myEditor = new Stage();
 		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(resources.getString(ROOM_EDITOR_HEIGHT)));
-		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE));
+		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE) + " - " + roomTitle);
 		myTotalView = new VBox();
 		myObjectsAndPreview = new HBox();
 		myPreview = new RoomPreview(resources);
