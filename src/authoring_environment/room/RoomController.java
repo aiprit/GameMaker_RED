@@ -150,7 +150,7 @@ public class RoomController {
 			y = view.getPreview().getCanvas().getHeight() - height;
 		}
 		createAndAddObjectInstance(controller.getDraggableImage().getImage(), 
-				controller.getDataInstance().getParentObject(), x, y);
+				controller.getDataInstance().getParentObject(), controller.getDataInstance(), x, y);
 	}
 	
 	private void delete(ObjectInstanceController instance) {
@@ -203,14 +203,16 @@ public class RoomController {
 		double height = potentialObjectInstance.getImageView().getImage().getHeight();
 		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
 			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
-					canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
+					null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 		}
 	} 
 	
-	private void createAndAddObjectInstance(Image image, DataObject object, double x, double y) {
+	private void createAndAddObjectInstance(Image image, DataObject object, DataInstance instance, double x, double y) {
 		DoubleProperty[] coordinates = createDoubleProperties(x, y);
-		ObjectInstanceController objectInstance = new ObjectInstanceController(image, object, coordinates[0], coordinates[1]);
+		ObjectInstanceController objectInstance = instance == null ?
+				new ObjectInstanceController(image, object, coordinates[0], coordinates[1]) :
+				new ObjectInstanceController(image, instance, coordinates[0], coordinates[1]);
 		view.getPreview().addImage(objectInstance.getDraggableImage());
 		model.addObjectInstance(objectInstance.getDataInstance());
 		view.getPreview().getCanvas().redrawCanvas();
