@@ -82,4 +82,12 @@ public class Vector {
 		return new Vector(a.x + b.x, a.y + b.y);
 	}
 	
+	public Vector setX(double x) {
+		return new Vector(x, this.y);
+	}
+	
+	public Vector setY(double y) {
+		return new Vector(this.x, y);
+	}
+	
 }

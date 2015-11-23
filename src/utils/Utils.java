@@ -127,5 +127,51 @@ public class Utils {
 		return defaultValue;
 	}
 	
+	/**
+	 * Is the point (cx, cy) to the left, right, or on
+	 * the line defined by (ax, ay) -> (bx, by)?
+	 * 
+	 * Written by Al Globus on Stack Overflow
+	 * https://stackoverflow.com/questions/1560492/
+	 * how-to-tell-whether-a-point-is-to-the-right-or-left-side-of-a-line
+	 * 
+	 * @return integer code for which side of the line ab c is on.  1 means
+	 * left side, -1 means right side.  Returns
+	 * 0 if all three are on a line
+	 */
+	public static int findSide(Point a, Point b, Point c) {
+	    if (Math.abs(b.x-a.x) < .000000001) { // vertical line
+	        if (c.x < b.x) {
+	            return b.y > a.y ? 1 : -1;
+	        }
+	        if (c.x > b.x) {
+	            return b.y > a.y ? -1 : 1;
+	        } 
+	        return 0;
+	    }
+	    if (Math.abs(b.y-a.y) < .000000001) { // horizontal line
+	        if (c.y < b.y) {
+	            return b.x > a.x ? -1 : 1;
+	        }
+	        if (c.y > b.y) {
+	            return b.x > a.x ? 1 : -1;
+	        } 
+	        return 0;
+	    }
+	    double slope = (b.y - a.y) / (b.x - a.x);
+	    double yIntercept = a.y - a.x * slope;
+	    double cSolution = (slope * c.x) + yIntercept;
+	    if (slope != 0) {
+	        if (c.y > cSolution) {
+	            return b.x > a.x ? 1 : -1;
+	        }
+	        if (c.y < cSolution) {
+	            return b.x > a.x ? -1 : 1;
+	        }
+	        return 0;
+	    }
+	    return 0;
+	}
+	
 	
 }

@@ -9,9 +9,9 @@ import java.util.Optional;
 
 import XML.XMLEditor;
 import engine.events.EventManager;
+import engine.front_end.FrontEnd;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
-import front_end.FrontEnd;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.TestGame2;
