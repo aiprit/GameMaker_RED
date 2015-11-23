@@ -1,5 +1,7 @@
 package authoring_environment.room.object_instance;
 
+import java.util.ResourceBundle;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -9,6 +11,9 @@ import structures.data.DataInstance;
 import structures.data.DataObject;
 
 public class ObjectInstanceController {
+	private static final String ROOM_RESOURCE_FILE = "resources/RoomResources";
+	private static final String DEFAULT_SPRITE = "DefaultSprite";
+	
 	private DraggableImage view;
 	private DataInstance model;
 	private DoubleProperty myX;
@@ -27,7 +32,13 @@ public class ObjectInstanceController {
 		myY = new SimpleDoubleProperty();
 		myX.set(dataInstance.getX());
 		myY.set(dataInstance.getY());
-		view = new DraggableImage(dataInstance.getImage(), myX, myY);
+		try {
+			view = new DraggableImage(dataInstance.getImage(), myX, myY);
+		} catch (NullPointerException e) {
+			ResourceBundle resources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
+			Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(resources.getString(DEFAULT_SPRITE)));
+			view = new DraggableImage(sprite, myX, myY);
+		}
 		model = dataInstance;
 		addListeners();
 	}

@@ -298,6 +298,8 @@ public class TestGameObject {
 		DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
 		winScreenBackground.setSprite(winScreenSprite);
 
+		testGame.setViewWidth(500);
+		testGame.setViewHeight(500);
 		DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
 		startScreen.setBackgroundColor("#FFFFFF");
 		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .4, .4));
