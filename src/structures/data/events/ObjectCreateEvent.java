@@ -1,24 +1,12 @@
 package structures.data.events;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ObjectCreateEvent extends AbstractBasicEvent {
+	
+	public final static ObjectCreateEvent event = new ObjectCreateEvent();
 
 	@Override
 	public String getName() {
 		return "Object Created";
 	}
-	@Override
-    public String toString(){
-    	return this.getName();
-    }
-
-    @Override
-    public Map<String, String> dumpContents() {
-        Map<String, String> ret = new HashMap<>();
-        ret.put("class", getClass().getName());
-        return ret;
-    }
 
 }

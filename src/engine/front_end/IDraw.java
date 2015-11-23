@@ -1,4 +1,4 @@
-package front_end;
+package engine.front_end;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;

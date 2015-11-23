@@ -1,4 +1,4 @@
-package engine;
+package engine.loop.groovy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,8 @@ public class GroovyLibrary {
 	}
 
 	private void fatalError(String message, Object... args) {
-		// Do nothing
+		System.out.println(message);
+		System.exit(1);
 	}
 
 	public double random_number(double max){
@@ -46,6 +47,7 @@ public class GroovyLibrary {
 		runObject.y = y;
 		myEventManager.onObjectCreate(runObject);
 	}
+	
 
 	public void create_object_long(String name, double x, double y, double speed,
 			double friction, boolean wraparound) {

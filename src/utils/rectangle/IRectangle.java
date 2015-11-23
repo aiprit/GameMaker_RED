@@ -1,8 +1,16 @@
 package utils.rectangle;
 
 import utils.Point;
+import utils.Utils;
 
 public interface IRectangle {
+	
+	public enum quadrant {
+		TOP,
+		LEFT,
+		RIGHT,
+		BOTTOM
+	}
 
 	Point topLeft();
 
@@ -15,6 +23,8 @@ public interface IRectangle {
 	boolean contains(Point p);
 
 	boolean intersects(IRectangle rect);
+	
+	quadrant quadrantOfPoint(Point p);
 
 	double x();
 
@@ -91,6 +101,26 @@ public interface IRectangle {
 		boolean bottomRightTwo = rect2.contains(rect1.bottomRight());
 		return (topLeftOne || topRightOne || bottomLeftOne || bottomRightOne 
 				|| topLeftTwo || topRightTwo || bottomLeftTwo || bottomRightTwo);
+	}
+	
+	public static quadrant quadrantOfPoint(IRectangle rect, Point point) {		
+		
+		// Top or Left
+		if (Utils.findSide(bottomLeft(rect), topRight(rect), point) < 0) {
+			if (Utils.findSide(topLeft(rect), bottomRight(rect), point) > 0) {
+				return quadrant.LEFT;
+			} else {
+				return quadrant.TOP;
+			}
+			
+		// Bottom or right
+		} else {
+			if (Utils.findSide(topLeft(rect), bottomRight(rect), point) > 0) {
+				return quadrant.BOTTOM;
+			} else {
+				return quadrant.RIGHT;
+			}
+		}
 	}
 
 }

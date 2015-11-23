@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.*;
 
-import engine.physics.ScrollerPhysicsEngine;
+import engine.loop.physics.ScrollerPhysicsEngine;
 import exceptions.ParameterParseException;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;

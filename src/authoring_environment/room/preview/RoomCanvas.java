@@ -128,22 +128,22 @@ public class RoomCanvas extends Canvas {
 		drawView();
 	}
 	
-	private void rotate(double angle, double pivotX, double pivotY) {
+	public void rotate(double angle, double pivotX, double pivotY) {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
+	
 	//TODO test if scale works
 	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
 		this.getGraphicsContext2D().save();
-		rotate(angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
+		rotate(angle, tlx + image.getWidth()*scaleX / 2, tly + image.getHeight()*scaleY / 2);
 		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth()*scaleX, image.getHeight()*scaleY);
 		this.getGraphicsContext2D().restore();
 	}
 	
-	//TODO fix contains to match other one
-	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
-		return (x > nodeX && x <= nodeX + width && 
-				y > nodeY && y <= nodeY + height);
+	public boolean contains(double x, double y, DraggableNode node) {
+		return (x > node.getX() && x <= node.getX() + node.getWidth()*node.getScaleX() && 
+				y > node.getY() && y <= node.getY() + node.getHeight()*node.getScaleY());
 	}
 	
 	private void drawBackground() {

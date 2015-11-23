@@ -1,4 +1,4 @@
-package front_end;
+package engine.front_end;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

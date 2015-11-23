@@ -1,4 +1,4 @@
-package engine.collisions;
+package engine.loop.collisions;
 
 import structures.run.RunObject;
 import utils.rectangle.Rectangle;

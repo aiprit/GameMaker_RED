@@ -152,4 +152,9 @@ public class Rectangle implements IRectangle {
 	public Rectangle getMutable() {
 		return clone();
 	}
+
+	@Override
+	public quadrant quadrantOfPoint(Point p) {
+		return IRectangle.quadrantOfPoint(this, p);
+	}
 }

@@ -1,10 +1,11 @@
 Welcome to the Room Editor!
 To add an object to your room, click on your 
-desired object in the list on the left and 
-drag it into the room. To configure more object-
-specific properties, double click on the the
-object and specify its parameters in the popup.
+desired object in the list on the left and drag it
+into the room. 
+To configure more object-specific properties, 
+double click on the the object and specify its 
+parameters in the popup.
 To delete an object, click on its instance in the
-room preview and press "delete." To copy an object,
-click on the object and press Ctrl+V or Command+V
-to paste.
+room preview and press "delete." 
+To copy an object, click on the object and press 
+Ctrl+V or Command+V to paste.

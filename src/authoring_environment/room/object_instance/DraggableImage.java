@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 
 public class DraggableImage extends DraggableNode {
 	private Image myImage;
+	
 	public DraggableImage(Image image, DoubleProperty x, DoubleProperty y, double angle, boolean visibility, double scaleX, double scaleY) {
 		super(x, y, angle, visibility, scaleX, scaleY);
 		myImage = image;
