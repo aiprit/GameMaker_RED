@@ -26,10 +26,9 @@ public class EventModel {
 		if(map.containsKey(myEvent)){
 			alist = map.get(myEvent);
 		}
-		else {
-			alist = FXCollections.observableList(new ArrayList<IAction>());
+		else{
+		alist = FXCollections.observableList(new ArrayList<IAction>());
 		}
-
 	}
 	public EventModel(DataObject obj){
 		myObject = obj;
@@ -58,5 +57,8 @@ public class EventModel {
 
 		};
 		return list;
+	}
+	public IDataEvent getEvent(){
+		return myEvent;
 	}
 }

@@ -18,6 +18,8 @@ public class KeyPressPopUp extends KeyPopUp {
 
 	public KeyPressPopUp(DataObject obj) {
 		super(obj);
+		init();
+
 		// TODO Auto-generated constructor stub
 	}
 	public void eventPopup(){

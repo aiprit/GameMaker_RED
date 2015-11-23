@@ -17,6 +17,8 @@ public class GameEndPopUp extends BasicPopUp{
 
 	public GameEndPopUp(DataObject obj) {
 		super(obj);
+		init();
+
 		// TODO Auto-generated constructor stub
 	}
 

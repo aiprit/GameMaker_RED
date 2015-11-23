@@ -19,7 +19,7 @@ public class RunView {
 		return myName;
 	}
 
-	public void updateLocation(int x, int y) {
+	public void updateLocation(double x, double y) {
 		myView.move(x, y);
 	}
 	

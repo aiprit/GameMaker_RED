@@ -8,9 +8,7 @@ import javafx.geometry.Point2D;
 
 import javafx.scene.control.ScrollPane;
 
-
 import javafx.scene.input.MouseEvent;
-
 
 public class RoomPreview extends ScrollPane {
 	private static final String PREVIEW_HEIGHT = "PreviewHeight";
@@ -56,7 +54,7 @@ public class RoomPreview extends ScrollPane {
 			myRoomView.setDraggable(true);
 		} else {
 			DraggableNode topNode = null;
-			for (DraggableNode node : myCanvas.getObjectMap().keySet()) {
+			for (DraggableNode node : myCanvas.getObjectMap()) {
 				if (contains(event.getX(), event.getY(), node)) {
 						topNode = node;
 				}

@@ -15,7 +15,9 @@ import structures.data.events.ObjectCreateEvent;
 public class ObjectCreatePopUp extends BasicPopUp{
 	public ObjectCreatePopUp(DataObject obj) {
 		super(obj);
-		// TODO Auto-generated constructor stub
+
+		init();
+
 	}
 	@Override
 	public void init() {
