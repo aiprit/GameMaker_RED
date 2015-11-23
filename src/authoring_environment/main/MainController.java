@@ -56,6 +56,7 @@ public class MainController implements IUpdateHandle {
 
 	public void update() {
 		System.out.println("Updating...");
+		System.out.println(dataGame.getRooms().size());
 
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
@@ -92,10 +93,8 @@ public class MainController implements IUpdateHandle {
 
 			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
-					// TODO: @ankit - use the RoomData object o here and open
-					// your Room Editor (edit room)
 					RoomNamePopupController room = new RoomNamePopupController(o, dataGame);
-					update();
+					room.setOnClose(e -> update(), dataGame);
 				}
 			});
 		}
@@ -104,7 +103,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				RoomNamePopupController room = new RoomNamePopupController(dataGame);
-				update();
+				room.setOnClose(e -> update(), dataGame);
 			}
 		});
 
