@@ -123,7 +123,7 @@ public class RoomCanvas extends Canvas {
 			if (!drag.getVisibility())
 				continue;
 			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
-			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY());
+			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
 		}
 		drawView();
 	}
@@ -132,11 +132,11 @@ public class RoomCanvas extends Canvas {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
-	
-	private void drawRotatedImage(Image image, double angle, double tlx, double tly) {
+	//TODO test if scale works
+	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
 		this.getGraphicsContext2D().save();
 		rotate(angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
-		this.getGraphicsContext2D().drawImage(image, tlx, tly);
+		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth()*scaleX, image.getHeight()*scaleY);
 		this.getGraphicsContext2D().restore();
 	}
 	
