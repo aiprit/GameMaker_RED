@@ -3,7 +3,6 @@ package structures;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
 import exceptions.ResourceFailedException;
@@ -19,14 +18,12 @@ import structures.data.DataView;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.RunScript;
-import structures.data.actions.library.AdjustScroller;
 import structures.data.actions.library.AdjustScrollerX;
 import structures.data.actions.library.ChangeScore;
 import structures.data.actions.library.Close;
-import structures.data.actions.library.CreateObjectOnClick;
 import structures.data.actions.library.CreateObjectRandom;
 import structures.data.actions.library.Destroy;
+import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
 import structures.data.actions.library.GetScore;
@@ -35,7 +32,6 @@ import structures.data.actions.library.Open;
 import structures.data.actions.library.SetRandomNumberAndChoose;
 import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
-import structures.data.events.GlobalMousePressedEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectMousePressedEvent;
@@ -79,11 +75,14 @@ public class TestGameObject {
 		DataObject player = new DataObject("Player");
 		
 		MoveToRandom mtr = new MoveToRandom();
+		DisplayMessage display = new DisplayMessage();
 		Destroy destroyCoin = new Destroy();
 		try {
 			mtr.getParameters().get(0).parse("200");
 			mtr.getParameters().get(1).parse("200");
 			mtr.getParameters().get(2).parse("false");
+			
+			display.getParameters().get(0).parse("test message");
 		} catch (ParameterParseException e1) {
 			e1.printStackTrace();
 		}
@@ -91,8 +90,11 @@ public class TestGameObject {
 		ObservableList<IAction> responseActions0 = FXCollections.observableList(responseActions);
 		List <IAction> coinDestroyActions = Collections.singletonList(destroyCoin);
 		ObservableList<IAction> destroyActions0 = FXCollections.observableList(coinDestroyActions);
+		List<IAction> displayActions = Collections.singletonList(display);
+		ObservableList<IAction> displayActions0 = FXCollections.observableList(displayActions);
 		coin.bindEvent(new CollisionEvent(player), responseActions0);
 		coin.bindEvent(new ObjectMousePressedEvent("Left"), destroyActions0);
+		coin.bindEvent(new KeyPressedEvent(KeyCode.D), displayActions0);
 
 		DataSprite playerSprite = new DataSprite("Mario", "mario.png");
 		player.setSprite(playerSprite);
