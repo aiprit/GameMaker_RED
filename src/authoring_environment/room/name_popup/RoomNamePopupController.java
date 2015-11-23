@@ -16,10 +16,8 @@ public class RoomNamePopupController {
 	public RoomNamePopupController(DataGame game) {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		view = new RoomNamePopup(myResources);
-		//TODO FIX THIS!!!!!!
-		model = new DataRoom("", 500, 500);
+		model = new DataRoom("", game.getViewWidth(), game.getViewHeight());
 		game.addRoom(model);
-		///
 		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game));
 	}
 	

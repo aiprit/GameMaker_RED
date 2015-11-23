@@ -2,7 +2,9 @@ package authoring_environment.room.configure_popup;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
+import authoring_environment.room.object_instance.DraggableImage;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -12,11 +14,16 @@ public class ConfigureController {
 	private ConfigureView configure;
 	private ConfigureModel model;
 	private DataInstance myDataInstance;
+	private DraggableImage myDragImage;
+	private Consumer<Void> myDrawFunction;
+	
 	//TODO think about using interface to isolate set and get methods for DataInstance
-	public ConfigureController(ResourceBundle resources, DataInstance dataInstance) {
+	public ConfigureController(ResourceBundle resources, DataInstance dataInstance, DraggableImage dragImage, Consumer<Void> redrawFunc) {
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
 		myDataInstance = dataInstance;
+		myDragImage = dragImage;
+		myDrawFunction = redrawFunc;
 	}
 	
 	public void initialize() {
@@ -35,6 +42,9 @@ public class ConfigureController {
 		setInput(6, fieldList, myDataInstance.getAlpha());
 		RadioButton visiblityButton = configure.getVisiblity();
 		visiblityButton.setSelected(myDataInstance.isVisible());
+		myDragImage.setAngle(myDataInstance.getAngle());
+		myDragImage.setVisibility(myDataInstance.isVisible());
+		myDragImage.setScale(myDataInstance.getScaleX(), myDataInstance.getScaleY());
 	}
 	
 	private void onSave() {
@@ -47,13 +57,17 @@ public class ConfigureController {
 		double scaleX = getInput(3, fieldList);
 		double scaleY = getInput(4, fieldList);
 		model.setScale(scaleX, scaleY);
+		myDragImage.setScale(scaleX, scaleY);
 		double angle = getInput(5, fieldList);
 		model.setAngle(angle);
+		myDragImage.setAngle(angle);
 		double transparency = getInput(6, fieldList);
 		model.setAlpha(transparency);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
+		myDragImage.setVisibility(visibilityButton.isSelected());
 		configure.close();
+		myDrawFunction.accept(null);
 	}
 
 	

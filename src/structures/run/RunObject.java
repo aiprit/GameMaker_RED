@@ -18,10 +18,10 @@ import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
 public class RunObject {
-	
+
 	public double x;
 	public double y;
-	
+
 	public final String name;
 	public double scaleX;
 	public double scaleY;
@@ -32,16 +32,18 @@ public class RunObject {
 	public Vector gravity;
 	public double alpha;
 	public double friction;
-	
+
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
-	
+
 	private double myLastX, myLastY;
-	
+
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
-	
+
+	private Map<String, Double> myVariables;
+
 	public RunObject(String name) {
 		this.name = name;
 		this.x = 0.0;
@@ -57,23 +59,24 @@ public class RunObject {
 		this.alpha = 1.0;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
+		myVariables = new HashMap<>();
 		myLastX = 0.0;
 		myLastY = 0.0;
-		
+
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
-	
+
 	protected void bindEvent(IDataEvent event, RunAction action) {
 		myEvents.put(event, action);
 	}
-	
+
 	protected void setSprite(RunSprite sprite) {
 		mySprite = sprite;
 		myBounds.width(mySprite.getWidth() * scaleX);
 		myBounds.height(mySprite.getHeight() * scaleY);
 		myBounds.center(mySprite.centerX, mySprite.centerY);
 	}
-	
+
 	protected void setInstanceId(long id) {
 		myInstanceId = id;
 	}
@@ -83,7 +86,7 @@ public class RunObject {
 	public void setCollisionChecker(ICollisionChecker checker) {
 		myCollisionChecker = checker;
 	}
-	
+
 	public IRectangle getBounds() {
 		myBounds.width(mySprite.getWidth() * scaleX);
 		myBounds.height(mySprite.getHeight() * scaleY);
@@ -91,7 +94,7 @@ public class RunObject {
 		myBounds.angle(this.angle);
 		return myBounds.getImmutable();
 	}
-	
+
 	protected RunObject clone() {
 		RunObject clone = new RunObject(name);
 		clone.x = this.x;
@@ -101,52 +104,52 @@ public class RunObject {
 		clone.angle = this.angle;
 		clone.velocity = this.velocity;
 		clone.mySprite = this.mySprite;
-		
+
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<>(myEvents);
 		return clone;
 	}
-	
+
 	public Set<IDataEvent> getEvents(){
 		return myEvents.keySet();
 	}
-	
+
 	public RunAction getAction(IDataEvent e){
 		if(!myEvents.containsKey(e)){
 			return null;
 		}
 		return myEvents.get(e);
 	}
-	
+
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
 			//drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
-	
+
 	public long instance_id() {
 		return myInstanceId;
 	}
-	
+
 	public DataObject toData() {
 		// TODO: What the hell is this method for?
 		return null;
 	}
-	
+
 	public void change_sprite(String name, String baseFileName){
-	        try {
-                mySprite = new RunSprite(new DataSprite(name, baseFileName));
-                }
-                catch (CompileTimeException e) {
-                    e.printStackTrace();
-                }
+		try {
+			mySprite = new RunSprite(new DataSprite(name, baseFileName));
+		}
+		catch (CompileTimeException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void movement_angle(double angle, double acceleration, boolean relative){
 		//need physics engine
 	}
-	
+
 	public void movement_towards(double x, double y, double acceleration, boolean relative){
 		//need physics engine
 	}
@@ -162,34 +165,50 @@ public class RunObject {
 			this.y = y;
 		}
 	}
-	
-//	public void run_script(String script){
-//		
-//	}
-	
-	public void scale_sprite(double width, double height){
-		
+
+	public double get_variable(String key){
+		if(!myVariables.containsKey(key)){
+			myVariables.put(key, 0.0);
+		}
+		return myVariables.get(key);
 	}
-	
+
+	public void set_variable(String key, double value, boolean relative){
+		if(relative){
+			double oldValue = 0;
+			if(myVariables.containsKey(key)){
+				oldValue = myVariables.get(key);
+			}
+			myVariables.put(key, (oldValue + value));
+		}
+		else{
+			myVariables.put(key, value);
+		}
+	}
+
+	public void scale_sprite(double width, double height){
+
+	}
+
 	public void set_random_number_and_choose(double odds){
 		//TODO: I don't know how to make this work
 	}
-	
+
 	public void sleep(double time){
-		
+
 	}
-	
+
 	public void wrap_around_room(boolean value){
-		
+
 	}
-	
+
 	public void block(double slipFactor) {
 		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
 			return;
 		}
 		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
 	}
-	
+
 	public boolean collision_at(double x, double y) {
 		if (myCollisionChecker == null) {
 			return false;
@@ -200,7 +219,7 @@ public class RunObject {
 	public double get_x_position(){
 		return this.x;
 	}
-	
+
 	public double get_y_position(){
 		return this.y;
 	}

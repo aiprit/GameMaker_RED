@@ -1,6 +1,8 @@
 package engine;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,8 +69,14 @@ public class EngineController {
 	
 	public String getGamesDirectory() {
 		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
+		try {
+                    path = URLDecoder.decode(path, "UTF-8");
+                }
+                catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 		return path;
-    }
+        }
 	
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 
