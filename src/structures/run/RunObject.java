@@ -8,7 +8,6 @@ import java.util.Set;
 import engine.loop.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import front_end.IDraw;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;

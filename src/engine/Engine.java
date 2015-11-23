@@ -10,7 +10,6 @@ import engine.loop.IDraw;
 import engine.loop.RoomLoop;
 import engine.loop.groovy.GroovyEngine;
 import exceptions.CompileTimeException;
-import front_end.IDraw;
 import structures.data.DataGame;
 import structures.run.RunGame;
 import structures.run.RunRoom;

@@ -2,8 +2,8 @@ package engine.loop;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import engine.front_end.IDraw;
 import engine.loop.groovy.GroovyEngine;
-import front_end.IDraw;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

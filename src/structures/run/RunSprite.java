@@ -2,7 +2,6 @@ package structures.run;
 
 import engine.loop.IDraw;
 import exceptions.CompileTimeException;
-import front_end.IDraw;
 import javafx.scene.image.Image;
 import structures.data.DataSprite;
 

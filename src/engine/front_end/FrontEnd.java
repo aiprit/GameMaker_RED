@@ -1,7 +1,7 @@
 /**
  * 
  */
-package front_end;
+package engine.front_end;
 
 import engine.events.EventManager;
 import engine.events.IFrontEndUpdateHandler;

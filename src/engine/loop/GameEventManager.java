@@ -10,6 +10,7 @@ import java.util.Set;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import engine.front_end.IDraw;
 import engine.loop.collisions.CollisionManager;
 import engine.loop.collisions.ICollisionChecker;
 import engine.loop.groovy.GroovyClickEvent;
@@ -17,7 +18,6 @@ import engine.loop.groovy.GroovyCollisionEvent;
 import engine.loop.groovy.GroovyEngine;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
-import front_end.IDraw;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;

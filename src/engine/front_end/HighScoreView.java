@@ -1,4 +1,4 @@
-package front_end;
+package engine.front_end;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
