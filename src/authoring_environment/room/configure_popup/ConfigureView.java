@@ -5,15 +5,12 @@ import java.util.ResourceBundle;
 
 import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class ConfigureView extends PopupTemplate {
+
 	private static final String VELOCITY_FIELD_X = "VelocityFieldX";
 	private static final String VELOCITY_FIELD_Y = "VelocityFieldY";
 	private static final String ANGULAR_VELOCITY = "AngularVelocity";
@@ -22,9 +19,9 @@ public class ConfigureView extends PopupTemplate {
 	private static final String ANGLE = "Angle";
 	private static final String TRANSPARENCY = "Transparency";
 	private static final String VISIBILITY = "Visibility";
-	private static final String DELETE_INSTANCE = "DeleteInstance";
 	private static final String NAME = "ConfigureParameters";
-	
+	private static final int NUM_HBOXES = 7;
+
 	private RadioButton visibilityButton;
 	private List<HBox> fieldList;
 	
@@ -36,7 +33,7 @@ public class ConfigureView extends PopupTemplate {
 	public void setContents() {
 		HBoxHandler handler = new HBoxHandler();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
-		fieldList = handler.createHBoxes(7, labelStrings);
+		fieldList = handler.createHBoxes(NUM_HBOXES, labelStrings);
 		System.out.println(myContentsBox == null);
 		for (HBox box : fieldList) {
 			myContentsBox.getChildren().add(box);
