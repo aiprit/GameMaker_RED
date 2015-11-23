@@ -43,6 +43,8 @@ public class ConfigureController {
 		RadioButton visiblityButton = configure.getVisiblity();
 		visiblityButton.setSelected(myDataInstance.isVisible());
 		myDragImage.setAngle(myDataInstance.getAngle());
+		myDragImage.setVisibility(myDataInstance.isVisible());
+		myDragImage.setScale(myDataInstance.getScaleX(), myDataInstance.getScaleY());
 	}
 	
 	private void onSave() {
@@ -55,14 +57,15 @@ public class ConfigureController {
 		double scaleX = getInput(3, fieldList);
 		double scaleY = getInput(4, fieldList);
 		model.setScale(scaleX, scaleY);
+		myDragImage.setScale(scaleX, scaleY);
 		double angle = getInput(5, fieldList);
 		model.setAngle(angle);
 		myDragImage.setAngle(angle);
-		System.out.println("Drag Image angle is " + myDragImage.getAngle());
 		double transparency = getInput(6, fieldList);
 		model.setAlpha(transparency);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
+		myDragImage.setVisibility(visibilityButton.isSelected());
 		configure.close();
 		myDrawFunction.accept(null);
 	}
