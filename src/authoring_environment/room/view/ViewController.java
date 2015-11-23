@@ -18,7 +18,7 @@ public class ViewController {
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
-		view = new DraggableView(x, y);
+		view = new DraggableView(x, y, 0);
 		addListeners(x, y);
 	}
 	
@@ -57,7 +57,7 @@ public class ViewController {
 	}
 	
 	private void updateDataViewObject() {
-		model.setView(new utils.Rectangle(view.getXProperty().get(), view.getYProperty().get(), 
+		model.setView(new utils.rectangle.Rectangle(view.getXProperty().get(), view.getYProperty().get(), 
 				view.getWidthProperty().get(), view.getHeightProperty().get()));
 	}
 }

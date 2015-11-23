@@ -1,17 +1,21 @@
 package structures.run;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import engine.IDraw;
+import engine.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
-import utils.IRectangle;
-import utils.Rectangle;
+import utils.Bresenham;
+import utils.Point;
 import utils.Vector;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class RunObject {
 	
@@ -25,13 +29,20 @@ public class RunObject {
 	public double angularVelocity;
 	public boolean visible;
 	public Vector velocity;
+	public Vector gravity;
 	public double alpha;
+	public double friction;
 	
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
 	
+	private double myLastX, myLastY;
+	
 	private Rectangle myBounds;
+	private ICollisionChecker myCollisionChecker;
+	
+	private Map<String, Double> myVariables;
 	
 	public RunObject(String name) {
 		this.name = name;
@@ -41,11 +52,16 @@ public class RunObject {
 		this.scaleY = 1.0;
 		this.angle = 0.0;
 		this.velocity = Vector.ZERO;
+		this.gravity = Vector.ZERO;
+		this.friction = 0.0;
 		this.angularVelocity = 0.0;
 		this.visible = true;
 		this.alpha = 1.0;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
+		myVariables = new HashMap<>();
+		myLastX = 0.0;
+		myLastY = 0.0;
 		
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -66,6 +82,9 @@ public class RunObject {
 	}
 	protected long getInstanceId() {
 		return myInstanceId;
+	}
+	public void setCollisionChecker(ICollisionChecker checker) {
+		myCollisionChecker = checker;
 	}
 	
 	public IRectangle getBounds() {
@@ -136,29 +155,35 @@ public class RunObject {
 	}
 
 	public void move_to(double x, double y, boolean relative){
-		double xOffset = 0;
-		double yOffset = 0;
-		if(relative){
-			xOffset = this.x;
-			yOffset = this.y;
+		if (relative) {
+			myLastX = x;
+			myLastY = y;
+			this.x += x;
+			this.y += y;
+		} else {
+			this.x = x;
+			this.y = y;
 		}
-		this.x = xOffset + x;
-		this.y = yOffset + y;
 	}
 	
-//	public void run_script(String script){
-//		
-//	}
+	public double get_variable(String key){
+		if(!myVariables.containsKey(key)){
+			myVariables.put(key, 0.0);
+		}
+		return myVariables.get(key);
+	}
+	
+	public void set_variable(String key, double value, boolean relative){
+		if(relative){
+			double oldValue = myVariables.get(key);
+			myVariables.put(key, (oldValue + value));
+		}
+		else{
+			myVariables.put(key, value);
+		}
+	}
 	
 	public void scale_sprite(double width, double height){
-		
-	}
-	
-	public void set_acceleration(double acceleration){
-		
-	}
-	
-	public void set_friction(double friction){
 		
 	}
 	
@@ -174,6 +199,20 @@ public class RunObject {
 		
 	}
 	
+	public void block(double slipFactor) {
+		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
+			return;
+		}
+		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
+	}
+	
+	public boolean collision_at(double x, double y) {
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionAt(x, y, this);
+		}
+	}
 	public double get_x_position(){
 		return this.x;
 	}

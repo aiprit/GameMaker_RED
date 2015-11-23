@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+
 import engine.collisions.CollisionManager;
+import engine.collisions.ICollisionChecker;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
 import javafx.scene.image.Image;
@@ -16,9 +18,7 @@ import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
-import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
-import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
@@ -37,7 +37,7 @@ import utils.Point;
  *
  */
 
-public class GameEventManager implements IObjectModifiedHandler {
+public class GameEventManager implements IObjectModifiedHandler, ICollisionChecker {
 
 	private EventManager myEventManager;
 	private IDraw myDrawListener;
@@ -53,6 +53,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 
 	private List<RunObject> myCreatedQueue;
 	private List<RunObject> myDeleteQueue;
+	private List<String> myStringsToDraw;
 
 	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
@@ -63,6 +64,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 		myCollisionManager = new CollisionManager();
 		myCreatedQueue = new ArrayList<>();
 		myDeleteQueue = new ArrayList<>();
+		myStringsToDraw = new ArrayList<>();
 		init(room);
 	}
 
@@ -146,7 +148,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 					List<RunObject> os = myEvents.get(runEvent);
 					for(RunObject o : os){
 						if(event.getLocalCheck()){
-							if(o.getBounds().contains(event.getCoordinates())){
+							Point correctedPoint = correctForView(event.getCoordinates());
+							if(o.getBounds().contains(correctedPoint)){
 								myGroovyEngine.runScript(o, o.getAction(runEvent), event);
 							}
 						}
@@ -196,6 +199,11 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());
 		}
+		for(String s : myStringsToDraw){
+			myDrawListener.drawText(s, myRoom.getView());
+		}
+		myStringsToDraw.clear();
+
 	}
 
 	/**
@@ -259,6 +267,29 @@ public class GameEventManager implements IObjectModifiedHandler {
 			ObjectDestroyEvent step = new ObjectDestroyEvent();
 			myGroovyEngine.runScript(o, o.getAction(step), new GroovyEvent(step));
 		}
+	}
+
+	@Override
+	public void addStringToDraw(String draw) {
+		myStringsToDraw.add(draw);
+	}
+
+	public Point correctForView(Point before){
+		double correctX = before.x + myRoom.getView().getView().x();
+		double correctY = before.y + myRoom.getView().getView().y();
+		return new Point(correctX, correctY);
+	}
+	
+	public boolean collisionAt(double x, double y, RunObject obj) {
+		for (Pair<String> pair : myCollidingObjectPairs) {
+			if (pair.contains(obj.name)) {
+				String otherName = pair.one.equals(obj.name) ? pair.two : pair.one;
+				if (myCollisionManager.collisionAt(obj, otherName, x, y)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

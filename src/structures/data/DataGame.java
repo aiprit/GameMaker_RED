@@ -17,12 +17,14 @@ public class DataGame extends Observable implements IObjectInterface {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
+	private static final int DEFAULT_VIEW_SIZE = 600;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
     ObservableList<DataSound> mySounds;
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
+    private int myViewWidth, myViewHeight;
     private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
 
     public DataGame(String name, String gameDirectory) {
@@ -32,10 +34,28 @@ public class DataGame extends Observable implements IObjectInterface {
         myObjects = FXCollections.observableArrayList();
         mySprites = FXCollections.observableArrayList();
         mySounds = FXCollections.observableArrayList();
+        myViewWidth = DEFAULT_VIEW_SIZE;
+        myViewHeight = DEFAULT_VIEW_SIZE;
     }
 
     public String getName() {
         return myName;
+    }
+    
+    public int getViewWidth() {
+    	return myViewWidth;
+    }
+    
+    public int getViewHeight() {
+    	return myViewHeight;
+    }
+    
+    public void setViewWidth(int width) {
+    	myViewWidth = width;
+    }
+    
+    public void setViewHeight(int height) {
+    	myViewHeight = height;
     }
 
     public ObservableList<DataRoom> getRooms() {

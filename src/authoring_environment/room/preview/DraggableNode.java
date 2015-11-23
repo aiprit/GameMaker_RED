@@ -11,11 +11,13 @@ public abstract class DraggableNode {
 	private DoubleProperty yCor;
 	private double xOffset;
 	private double yOffset;
+	private double myAngle;
 	
-	public DraggableNode(DoubleProperty x, DoubleProperty y) {
+	public DraggableNode(DoubleProperty x, DoubleProperty y, double angle) {
 		draggable = false;
 		xCor = x;
 		yCor = y;
+		myAngle = angle;
 	}
 	
 	public abstract Object getImage();
@@ -23,6 +25,15 @@ public abstract class DraggableNode {
 	public abstract double getWidth();
 	
 	public abstract double getHeight();
+	
+	public double getAngle() {
+		System.out.println("Agnle from image itself is " + myAngle);
+		return myAngle;
+	}
+	
+	public void setAngle(double angle) {
+		myAngle = angle;
+	}
 	
 	public double getXOffset() {
 		return xOffset;
