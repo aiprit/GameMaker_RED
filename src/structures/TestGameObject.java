@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
+import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -35,7 +36,7 @@ import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 /*
     This class generates a sample game object. The game consists
@@ -52,7 +53,7 @@ public class TestGameObject {
 		public static void main(String[] args) {
 			TestGameObject testGameObject = new TestGameObject();
 
-			DataGame printGame = testGameObject.getTestGame();
+			DataGame printGame = testGameObject.getTestGame("");
 			System.out.println(printGame.toString());
 			XMLEditor xml = new XMLEditor();
 			xml.writeXML(printGame, "test.xml");
@@ -63,8 +64,8 @@ public class TestGameObject {
      the action library has been built out in the game engine
      */
 
-	public DataGame getTestGame() {
-		DataGame testGame = new DataGame("Test Game", "TestGame/");
+	public DataGame getTestGame(String directory) {
+		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
 
 		DataObject coin = new DataObject("Coin");
 
@@ -306,6 +307,16 @@ public class TestGameObject {
 		testGame.addSprite(playerSprite);
 		testGame.addSprite(startScreenSprite);
 		testGame.addSprite(winScreenSprite);
+		
+		try {
+			coinSprite.load(testGame.getSpriteDirectory());
+			playerSprite.load(testGame.getSpriteDirectory());
+			startScreenSprite.load(testGame.getSpriteDirectory());
+			winScreenSprite.load(testGame.getSpriteDirectory());
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+		
 
 		testGame.addRoom(startScreen);
 		testGame.addRoom(level1);

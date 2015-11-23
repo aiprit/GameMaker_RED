@@ -15,8 +15,9 @@ public class DataInstance {
             myAngularVelocity,
             myScaleX,
             myScaleY,
-            myAlpha;
-    private Vector myVelocity;
+            myAlpha,
+            myFriction;
+    private Vector myVelocity, myGravity;
     
     public DataInstance(DataObject parentObject, double x, double y){
     	this(parentObject, x, y, 1, 1);
@@ -39,6 +40,8 @@ public class DataInstance {
         myScaleY = scaleY;
         myAlpha = 1.0;
         myVelocity = Vector.ZERO;
+        myGravity = Vector.ZERO;
+        myFriction = 0;
     }
 
     public long getID() {
@@ -82,6 +85,22 @@ public class DataInstance {
 
     public void setVelocity(Vector velocity) {
         myVelocity = velocity;
+    }
+    
+    public double getFriction() {
+    	return myFriction;
+    }
+    
+    public void setFriction(double friction) {
+    	myFriction = friction;
+    }
+    
+    public Vector getGravity() {
+    	return myGravity;
+    }
+    
+    public void setGravity(Vector gravity) {
+    	myGravity = gravity;
     }
 
     public double getAngle() {

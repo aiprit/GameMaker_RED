@@ -1,7 +1,7 @@
 package structures.run;
 
 import structures.data.DataView;
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 public class RunView {
 
