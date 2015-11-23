@@ -4,15 +4,15 @@ import structures.data.actions.DataAction;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;
 
-public class GetVariable extends DataAction {
+public class GetGlobalVariable extends DataAction {
 	
-	public GetVariable(){
+	public GetGlobalVariable(){
 		init(new StringParam("VariableKey"), new StringParam("VariableOperation"), new DoubleParam("VariableValueCheck"));
 	}
 
 	@Override
 	public String getTitle() {
-		return "GetVariable";
+		return "GetGlobalVariable";
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class GetVariable extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "if (library.get_variable(%s) %s %f);";
+		return "if (library.get_variable('%s') %s %f)";
 	}
 
 }

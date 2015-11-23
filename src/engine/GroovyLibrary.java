@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import engine.events.EventManager;
 import exceptions.GameRuntimeException;
@@ -16,18 +18,18 @@ public class GroovyLibrary {
 
 	private RunGame myRunGame;
 	private EventManager myEventManager;
-	
-	int score = 0;
+	private Map<String, Double> myGlobalVariables;
 
 	public GroovyLibrary(RunGame runGame, EventManager eventManager) {
 		myRunGame = runGame;
 		myEventManager = eventManager;
+		myGlobalVariables = new HashMap<>();
 	}
 
 	private void fatalError(String message, Object... args) {
 		// Do nothing
 	}
-	
+
 	public double random_number(double max){
 		Random rand = new Random();
 		return (max * rand.nextDouble());
@@ -60,11 +62,19 @@ public class GroovyLibrary {
 		runObject.wrap_around_room(wraparound);
 		myEventManager.onObjectCreate(runObject);
 	}
-	
+
 	public void destroy(RunObject deleteThis){
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
+	//	public void display_message(String message){
+	//
+	//	}
+
+	public void draw_text(String text){
+		myEventManager.addStringToDraw(text);
+	}
+	
 	public void display_message(String message) throws InterruptedException, IllegalMonitorStateException {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.setTitle("Message");
@@ -82,10 +92,6 @@ public class GroovyLibrary {
 	//			boolean border, double borderWidth){
 	//		
 	//	}
-		
-		public void draw_text(String text){
-			
-		}
 
 	//	public void get_mouse_state(){
 	//		//use in GetMouseState to see if right or left etc.
@@ -95,14 +101,21 @@ public class GroovyLibrary {
 		return myRunGame.getCurrentRoom().toString();
 	}
 
-	public int get_score(){
-		return score;
-	}
-
-	//	public void get_variable(String key){
-	//	    
-	//		
+	//keep to make for player score instead of internal
+	//game score
+	//	public int get_score(){
+	//		return null;
 	//	}
+
+	//	public void set_score(double score, boolean relative){
+	//	}
+
+	public double get_variable(String key){
+		if(!myGlobalVariables.containsKey(key)){
+			myGlobalVariables.put(key, 0.0);
+		}
+		return myGlobalVariables.get(key);
+	}
 
 	public void go_to_room(int roomNumber) {
 		try {
@@ -140,18 +153,15 @@ public class GroovyLibrary {
 	    myEventManager.onReset();
 	}
 
-	//	public void set_score(double score){
-	//		
-	//	}
-	
-	public void change_score(int score){
-		this.score += score;
+	public void set_variable(String key, double value, boolean relative){
+		if(relative){
+			double oldValue = myGlobalVariables.get(key);
+			myGlobalVariables.put(key, (oldValue + value));
+		}
+		else{
+			myGlobalVariables.put(key, value);
+		}
 	}
-	
-	//	
-	//	public void set_variable(String key, double value){
-	//		
-	//	}
 
 	//	public void with(){
 	//		//need to figure out
@@ -164,7 +174,7 @@ public class GroovyLibrary {
 	//	public void with_open(){
 	//		//also need to figure this out
 	//	}
-	
+
 	public void set_scroller_x(RunObject object, double xpercentage){
 		double currentX = object.get_x_position();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
@@ -172,7 +182,7 @@ public class GroovyLibrary {
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
-	
+
 	public void set_scroller_y(RunObject object, double ypercentage){
 		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
 		double currentY = object.get_y_position();
@@ -180,7 +190,7 @@ public class GroovyLibrary {
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
-	
+
 	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
 		double currentX = object.get_x_position();
 		double currentY = object.get_y_position();
