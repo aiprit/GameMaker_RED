@@ -26,9 +26,10 @@ public class GroovyEngine {
 			return;
 		}
 		System.out.println(action.script);
-		myShell.setProperty("current", o);
-		myShell.setProperty("event", event);
-		myShell.evaluate(action.script);
+		action.compiled.setProperty("library", myGroovyLibrary);
+		action.compiled.setProperty("current", o);
+		action.compiled.setProperty("event", event);
+		action.compiled.run();
 	}
 	
 	public void runScript(RunObject o, RunAction action){
@@ -36,8 +37,9 @@ public class GroovyEngine {
 			return;
 		}
 		System.out.println(action.script);
-		myShell.setProperty("current", o);
-		myShell.evaluate(action.script);
+		action.compiled.setProperty("library", myGroovyLibrary);
+		action.compiled.setProperty("current", o);
+		action.compiled.run();
 	}
 
 }
