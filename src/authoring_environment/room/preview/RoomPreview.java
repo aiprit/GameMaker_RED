@@ -77,8 +77,8 @@ public class RoomPreview extends ScrollPane {
 	}
 
 	private boolean contains(double x, double y, DraggableNode node) {
-		return (x > node.getX() && x <= node.getX() + node.getWidth() && 
-				y > node.getY() && y <= node.getY() + node.getHeight());
+		return (x > node.getX() && x <= node.getX() + node.getWidth()*node.getScaleX() && 
+				y > node.getY() && y <= node.getY() + node.getHeight()*node.getScaleY());
 	}
 
 }

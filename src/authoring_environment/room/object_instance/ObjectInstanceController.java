@@ -27,6 +27,15 @@ public class ObjectInstanceController {
 		addListeners();
 	}
 	
+	public ObjectInstanceController(Image sprite, DataInstance dataInstance, DoubleProperty x, DoubleProperty y) {
+		model = new DataInstance(dataInstance.getParentObject(), x.get(), y.get());
+		view = new DraggableImage(sprite, x, y, model.getAngle(), model.isVisible(), model.getScaleX(), model.getScaleY());
+		myX = x;
+		myY = y;
+		addListeners();
+		populateInstanceSpecificParameters(dataInstance);
+	}
+	
 	public ObjectInstanceController(DataInstance dataInstance) {
 		myX = new SimpleDoubleProperty();
 		myY = new SimpleDoubleProperty();
@@ -41,6 +50,7 @@ public class ObjectInstanceController {
 		}
 		model = dataInstance;
 		addListeners();
+		populateInstanceSpecificParameters(dataInstance);
 	}
 	
 	public double getX() {
@@ -49,6 +59,14 @@ public class ObjectInstanceController {
 	
 	public double getY() {
 		return myY.get();
+	}
+	
+	public void setX(double x) {
+		myX.set(x);
+	}
+	
+	public void setY(double y) {
+		myY.set(y);
 	}
 	
 	private void addListeners() {
@@ -77,5 +95,21 @@ public class ObjectInstanceController {
 	
 	public DataInstance getDataInstance() {
 		return model;
+	}
+	
+	private void populateInstanceSpecificParameters(DataInstance instance) {
+		model.setAlpha(instance.getAlpha());
+		model.setAngle(instance.getAngle());
+		view.setAngle(model.getAngle());
+		model.setAngularVelocity(instance.getAngularVelocity());
+		model.setFriction(instance.getFriction());
+		model.setGravity(instance.getGravity());
+		model.setScaleX(instance.getScaleX());
+		model.setScaleY(instance.getScaleY());
+		view.setScale(model.getScaleX(), model.getScaleY());
+		model.setVelocity(instance.getVelocity());
+		model.setVisible(instance.isVisible());
+		view.setVisibility(model.isVisible());
+		model.setZIndex(instance.getZIndex());
 	}
 }
