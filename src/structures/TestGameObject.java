@@ -22,6 +22,7 @@ import structures.data.actions.MoveToRandom;
 import structures.data.actions.SetObjectVariable;
 import structures.data.actions.library.AdjustScrollerX;
 import structures.data.actions.library.Close;
+import structures.data.actions.library.CreateObjectOnClick;
 import structures.data.actions.library.CreateObjectRandom;
 import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DisplayMessage;
@@ -33,10 +34,14 @@ import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
 import structures.data.actions.library.SetGlobalVariable;
 import structures.data.actions.library.SetRandomNumberAndChoose;
+import structures.data.actions.library.Wrap;
 import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
+import structures.data.events.GlobalMousePressedEvent;
 import structures.data.events.KeyPressedEvent;
+import structures.data.events.LeaveRoomEvent;
 import structures.data.events.ObjectCreateEvent;
+import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
 import utils.rectangle.Rectangle;
@@ -86,6 +91,8 @@ public class TestGameObject {
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 		coin.setSprite(coinSprite);
 
+
+
 		DataObject player = new DataObject("Player");
 
 		MoveToRandom mtr = new MoveToRandom();
@@ -95,7 +102,7 @@ public class TestGameObject {
 			mtr.getParameters().get(0).parse("200");
 			mtr.getParameters().get(1).parse("200");
 			mtr.getParameters().get(2).parse("false");
-			
+
 			display.getParameters().get(0).parse("test message");
 		} catch (ParameterParseException e1) {
 			e1.printStackTrace();
@@ -133,8 +140,9 @@ public class TestGameObject {
 		MoveTo up = new MoveTo();
 		MoveTo down = new MoveTo();
 		CreateObjectRandom m = new CreateObjectRandom();
-		//CreateObjectOnClick rs = new CreateObjectOnClick();
+		CreateObjectOnClick rs = new CreateObjectOnClick();
 		AdjustScrollerX ms = new AdjustScrollerX();
+		Wrap w = new Wrap();
 		try {
 
 			left.getParameters().get(0).parse("-10");
@@ -162,7 +170,7 @@ public class TestGameObject {
 
 			ms.getParameters().get(0).parse(".5");
 
-			//rs.getParameters().get(0).parse("Coin");
+			rs.getParameters().get(0).parse("Coin");
 
 		} catch (ParameterParseException ex) {
 			System.out.println(ex.getMessage());
@@ -178,25 +186,28 @@ public class TestGameObject {
 		ObservableList<IAction> downActionsO = FXCollections.observableList(downActions);
 		List<IAction> mActions = Collections.singletonList(m);
 		ObservableList<IAction> mActionsO = FXCollections.observableList(mActions);
-		//List<IAction> rsActions = Collections.singletonList(rs);
-		//ObservableList<IAction> rsActionsO = FXCollections.observableList(rsActions);
+		List<IAction> rsActions = Collections.singletonList(rs);
+		ObservableList<IAction> rsActionsO = FXCollections.observableList(rsActions);
 		List<IAction> msActions = Collections.singletonList(ms);
 		ObservableList<IAction> msActionsO = FXCollections.observableList(msActions);
+		List<IAction> wrapActions = Collections.singletonList(w);
+		ObservableList<IAction> wrapActionsO = FXCollections.observableList(wrapActions);
 
 		player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.M), mActionsO);
-		//player.bindEvent(new GlobalMousePressedEvent("Left"), rsActionsO);
+		player.bindEvent(new GlobalMousePressedEvent("Left"), rsActionsO);
 		player.bindEvent(new StepEvent(), msActionsO);
+		player.bindEvent(new LeaveRoomEvent(), wrapActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetObjectVariable getScore = new GetObjectVariable();
+		GetGlobalVariable getScore = new GetGlobalVariable();
 		try{
 			getScore.getParameters().get(0).parse("score");
 			getScore.getParameters().get(1).parse(">=");
-			getScore.getParameters().get(2).parse("3");
+			getScore.getParameters().get(2).parse("5");
 		}
 		catch(Exception e){
 
@@ -210,7 +221,7 @@ public class TestGameObject {
 
 		}
 		Else elseBrace = new Else();
-		SetObjectVariable addOne = new SetObjectVariable();
+		SetGlobalVariable addOne = new SetGlobalVariable();
 		try{
 			addOne.getParameters().get(0).parse("score");
 			addOne.getParameters().get(1).parse("1");
@@ -254,18 +265,19 @@ public class TestGameObject {
 		ObservableList<IAction> zeroActionsO = FXCollections.observableList(zeroActions);
 		player.bindEvent(collide, zeroActionsO);
 
-		//		CollisionEvent collide2 = new CollisionEvent(player);
-		//		MoveTo stay = new MoveTo();
-		//		try{
-		//			stay.getParameters().get(0).parse("0");
-		//			stay.getParameters().get(1).parse("0");
-		//			stay.getParameters().get(2).parse("true");
-		//		}
-		//		catch(Exception e){
-		//
-		//		}
-		//		List<IAction> stayActions = Collections.singletonList(stay);
-		//		coin.bindEvent(collide2, stayActions);
+		/////////
+		SetGlobalVariable sgv = new SetGlobalVariable();
+		try{
+			sgv.getParameters().get(0).parse("score");
+			sgv.getParameters().get(1).parse("10");
+			sgv.getParameters().get(2).parse("true");
+		} catch (Exception e){
+			
+		}
+		
+		List<IAction> testingActions = Collections.singletonList(sgv);
+		ObservableList<IAction> testingActionsO = FXCollections.observableList(testingActions);
+		coin.bindEvent(new ObjectDestroyEvent(), testingActionsO);
 
 		DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
