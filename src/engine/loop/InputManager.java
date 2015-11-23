@@ -66,7 +66,6 @@ public class InputManager implements IInputHandler {
 	}
 	
 	public boolean checkKey(KeyCode code) {
-		System.out.println(myKeyMap);
 		return myKeyMap.getOrDefault(code, false);
 	}
 	
@@ -85,13 +84,16 @@ public class InputManager implements IInputHandler {
 
 	@Override
 	public void onKeyEvent(KeyEvent event) {
-		myInputQueue.add(event);
 		if (event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+			if (!checkKey(event.getCode())) {
+				myInputQueue.add(event);
+			}
 			myKeyMap.put(event.getCode(), true);
 		} else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
-			
+			if (checkKey(event.getCode())) {
+				myInputQueue.add(event);
+			}
 			myKeyMap.put(event.getCode(), false);
 		}
-		System.out.println(event.getEventType() + " " + event.getCode());
 	}
 }
