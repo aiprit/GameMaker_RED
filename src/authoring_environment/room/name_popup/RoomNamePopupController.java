@@ -18,7 +18,6 @@ public class RoomNamePopupController {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		view = new RoomNamePopup(myResources);
 		model = new DataRoom("", game.getViewWidth(), game.getViewHeight());
-		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game));
 	}
 	
 	public RoomNamePopupController(DataRoom room, DataGame game) {
@@ -31,12 +30,15 @@ public class RoomNamePopupController {
 		return view;
 	}
 	
-	private void setNameAndLaunchEditor(DataRoom room, DataGame game) {
+	private void setNameAndLaunchEditor(DataRoom room, DataGame game, boolean addRoom, Consumer<Void> updateFcn) {
 		setName();
-		game.addRoom(model);
+		if (addRoom) {
+			game.addRoom(model);
+		}
 		RoomController roomController = new RoomController(myResources, room, game);
 		view.close();
-		roomController.launch();
+		updateFcn.accept(null);
+		roomController.launch();	
 	}
 	
 	private void setName() {
@@ -47,9 +49,8 @@ public class RoomNamePopupController {
 		}
 	}
 	
-	public void setOnClose(Consumer<Void> updateFcn, DataGame game) {
-		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game));
-		updateFcn.accept(null);
+	public void setOnClose(Consumer<Void> updateFcn, DataGame game, boolean addRoom) {
+		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game, addRoom, updateFcn));
 	}
 
 }
