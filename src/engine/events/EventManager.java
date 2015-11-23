@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Point;
@@ -19,10 +21,10 @@ import utils.Point;
  *
  */
 public class EventManager implements IGUIHandler,
-IGamePlayHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
+IInputHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 
 	private List<IGUIHandler> myGUI;
-	private List<IGamePlayHandler> myUserInput;
+	private List<IInputHandler> myUserInput;
 	private List<IObjectModifiedHandler> myObjectModified;
 	private List<IFrontEndUpdateHandler> myFrontEndUpdater;
 
@@ -37,7 +39,7 @@ IGamePlayHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 		myGUI.add(gui);
 	}
 
-	public void addUserInputInterface(IGamePlayHandler userInput){
+	public void addUserInputInterface(IInputHandler userInput){
 		myUserInput.add(userInput);
 	}
 
@@ -84,21 +86,17 @@ IGamePlayHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 	}
 
 	@Override
-	public void setOnEvent(InputEvent m) {
-		for(IGamePlayHandler i : myUserInput){
-			i.setOnEvent(m);
+	public void onKeyEvent(KeyEvent event) {
+		for(IInputHandler i : myUserInput){
+			i.onKeyEvent(event);
 		}
 	}
-
-	//get and clear events
+	
 	@Override
-	public Queue<InputEvent> getEvents() {
-		Queue<InputEvent> currentEvents = new LinkedList<>();
-		for(IGamePlayHandler i : myUserInput){
-			currentEvents.addAll(i.getEvents());
-			i.getEvents().clear();
+	public void onMouseEvent(MouseEvent event) {
+		for (IInputHandler i : myUserInput) {
+			i.onMouseEvent(event);
 		}
-		return currentEvents;
 	}
 
 	@Override
