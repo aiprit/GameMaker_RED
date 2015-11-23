@@ -1,5 +1,6 @@
 package testing;
 
+import utils.Bresenham;
 import utils.Utils;
 
 public class CustomTests {
@@ -8,6 +9,6 @@ public class CustomTests {
 	}
 	
 	public static void interpolationTest() {
-		System.out.println(Utils.interpolate(0, 0, 2, 1, .1));
+		System.out.println(Bresenham.interpolate(0, 0, 5, -3));
 	}
 }

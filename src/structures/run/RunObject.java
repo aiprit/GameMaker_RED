@@ -184,6 +184,13 @@ public class RunObject {
 		
 	}
 	
+	public void block(double slipFactor) {
+		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
+			return;
+		}
+		
+	}
+	
 	public boolean collision_at(double x, double y) {
 		if (myCollisionChecker == null) {
 			return false;
