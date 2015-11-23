@@ -3,7 +3,6 @@ package authoring_environment.room.view;
 
 import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
-import structures.data.DataView;
 
 public class DraggableView extends DraggableNode {
 	private DoubleProperty myWidth;
@@ -12,8 +11,8 @@ public class DraggableView extends DraggableNode {
 	private DoubleProperty myY;
 	private boolean isVisible;
 	
-	public DraggableView(DoubleProperty x, DoubleProperty y, double angle) {
-		super(x, y, angle);
+	public DraggableView(DoubleProperty x, DoubleProperty y, double angle, boolean visibility, double scaleX, double scaleY) {
+		super(x, y, angle, visibility, scaleX, scaleY);
 		isVisible = true;
 	}
 
