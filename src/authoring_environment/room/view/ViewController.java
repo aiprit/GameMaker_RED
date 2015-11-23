@@ -18,7 +18,7 @@ public class ViewController {
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
-		view = new DraggableView(x, y);
+		view = new DraggableView(x, y, 0);
 		addListeners(x, y);
 	}
 	

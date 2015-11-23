@@ -12,10 +12,12 @@ import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.transform.Rotate;
 
 
 public class RoomCanvas extends Canvas {
@@ -121,10 +123,27 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
 		for (DraggableImage drag : myObjectList) {
-			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
+			//this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
+			//System.out.println("Canvas call of angle is " + drag.getAngle());
+			System.out.println("X cor is " + drag.getX());
+			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY());
 		}
 		drawView();
 	}
+	
+	private void rotate(double angle, double pivotX, double pivotY) {
+		Rotate rot = new Rotate(angle, pivotX, pivotY);
+		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
+	}
+	
+	private void drawRotatedImage(Image image, double angle, double tlx, double tly) {
+		System.out.println("Draw rotated call is " + angle);
+		this.getGraphicsContext2D().save();
+		rotate(angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
+		this.getGraphicsContext2D().drawImage(image, tlx, tly);
+		this.getGraphicsContext2D().restore();
+	}
+	
 	//TODO fix contains to match other one
 	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
 		return (x > nodeX && x <= nodeX + width && 
@@ -155,15 +174,18 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	public void removeInstance(DraggableImage instance) {
+		myObjectList.remove(getClickedImage(instance));
+	}
+	
+	public DraggableImage getClickedImage(DraggableImage instance) {
 		Point2D point = new Point2D(instance.getX(), instance.getY());
 		for (DraggableImage dragImage : myObjectList) {
 			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
 			if (dragImagePoint.equals(point)) {
-				myObjectList.remove(dragImage);
-				break;
+				return dragImage;
 			}
-
 		}
+		return null;
 	}
 	
 	public void drawView() {
