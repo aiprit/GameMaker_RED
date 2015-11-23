@@ -42,6 +42,7 @@ public class GroovyLibrary {
 		try {
 			return myInputManager.checkKey(keyCode.toUpperCase());
 		} catch (LibraryArgumentException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}

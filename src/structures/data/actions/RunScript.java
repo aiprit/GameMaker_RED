@@ -2,9 +2,9 @@ package structures.data.actions;
 
 import structures.data.actions.params.StringParam;
 
-public class CustomCode extends DataAction {
+public class RunScript extends DataAction {
 
-	public CustomCode(){
+	public RunScript(){
 		init(new StringParam("Script"));
 	}
 	

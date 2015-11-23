@@ -17,7 +17,6 @@ public class GroovyEngine {
 		if (action == null) {
 			return;
 		}
-		System.out.println(action.script);
 		action.compiled.setProperty("library", myGroovyLibrary);
 		action.compiled.setProperty("current", o);
 		action.compiled.setProperty("event", event);

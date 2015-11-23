@@ -146,12 +146,20 @@ public class RunObject {
 		}
 	}
 
-	public void movement_angle(double angle, double acceleration, boolean relative){
-		//need physics engine
+	public void set_velocity(double direction, double speed, boolean relative) {
+		if (relative) {
+			this.velocity = new Vector(speed, direction + this.velocity.direction(), true);
+		} else {
+			this.velocity = new Vector(speed, direction, true);
+		}
 	}
 
-	public void movement_towards(double x, double y, double acceleration, boolean relative){
-		//need physics engine
+	public void set_velocity(double x, double y, double speed, boolean relative){
+		if (relative) {
+			this.velocity = (new Vector(x, y)).setLength(speed);
+		} else {
+			this.velocity = (new Vector(x - this.x, y - this.y)).setLength(speed);
+		}
 	}
 
 	public void move_to(double x, double y, boolean relative){

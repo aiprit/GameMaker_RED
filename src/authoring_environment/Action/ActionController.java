@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import structures.data.actions.IAction;
+import structures.data.actions.RunScript;
 import structures.data.actions.params.IParameter;
 
 public class ActionController {
@@ -45,7 +46,7 @@ public class ActionController {
 	}
 
 	private void createCustom(String text) throws ParameterParseException{
-		IAction action = new CustomCode();
+		IAction action = new RunScript();
 		List<IParameter> param = action.getParameters();
 		for(IParameter p :param){
 			p.parse(text);
