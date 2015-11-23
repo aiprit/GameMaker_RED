@@ -5,6 +5,7 @@ import authoring_environment.room.preview.RoomCanvas;
 import javafx.scene.paint.Color;
 
 public class BoundingBoxView {
+	private static final Color BLUE = Color.BLUE;
 	private static final int BOX_LINE_WIDTH = 2;
 	
 	private DraggableImage myImage;
@@ -17,9 +18,14 @@ public class BoundingBoxView {
 	
 	public void draw() {
 		myCanvas.redrawCanvas();
-		myCanvas.getGraphicsContext2D().setStroke(Color.BLUE);
+		myCanvas.getGraphicsContext2D().save();
+		myCanvas.rotate(myImage.getAngle(), myImage.getX() + myImage.getWidth()*myImage.getScaleX()/2, 
+				myImage.getY() + myImage.getHeight()*myImage.getScaleY()/2);
+		myCanvas.getGraphicsContext2D().setStroke(BLUE);
 		myCanvas.getGraphicsContext2D().setLineWidth(BOX_LINE_WIDTH);
-		myCanvas.getGraphicsContext2D().strokeRect(myImage.getX(), myImage.getY(), myImage.getWidth(), myImage.getHeight());
+		myCanvas.getGraphicsContext2D().strokeRect(myImage.getX(), myImage.getY(), 
+				myImage.getWidth()*myImage.getScaleX(), myImage.getHeight()*myImage.getScaleY());
+		myCanvas.getGraphicsContext2D().restore();
 	}
 
 }

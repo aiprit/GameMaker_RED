@@ -60,6 +60,7 @@ public class RoomController {
 	private void populateEditor(DataRoom room) {
 		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
 		view.getPreview().getCanvas().setHeight(model.getSize()[1]);
+		view.getPreview().getCanvas().setBackgroundColor(model.getBackgroundColor());
 		for (DataInstance instance : model.getObjectInstances()) {
 			ObjectInstanceController controller = new ObjectInstanceController(instance);
 			view.getPreview().getCanvas().addInstance(controller.getDraggableImage(), 
@@ -92,19 +93,8 @@ public class RoomController {
 		view.getPreview().setOnKeyPressed(null);
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
-			//TODO add scale x and scale y factors
-			double width = 0;
-			double height = 0;
-			try {
-				width = instance.getParentObject().getSprite().getImage().getWidth();
-				height = instance.getParentObject().getSprite().getImage().getHeight();
-			} catch (NullPointerException e) {
-				Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(myResources.getString(DEFAULT_SPRITE)));
-				width = sprite.getWidth();
-				height = sprite.getHeight();
-			}
-			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-				ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+			ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), currentObject.getDraggableImage())){
 				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
@@ -149,7 +139,7 @@ public class RoomController {
 			y = view.getPreview().getCanvas().getHeight() - height;
 		}
 		createAndAddObjectInstance(controller.getDraggableImage().getImage(), 
-				controller.getDataInstance().getParentObject(), x, y);
+				controller.getDataInstance().getParentObject(), controller.getDataInstance(), x, y);
 	}
 	
 	private void delete(ObjectInstanceController instance) {
@@ -184,11 +174,13 @@ public class RoomController {
 	
 	private void startObjectDrag(MouseEvent event) {
 		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
-		ImageView spriteInstance = objectInstance.getImageView();
-		if (spriteInstance != null) {
-			view.getRoot().getChildren().add(spriteInstance);
-			setUpDraggingBehavior(objectInstance);
-		}
+		try {
+			ImageView spriteInstance = objectInstance.getImageView();
+			if (spriteInstance != null) {
+				view.getRoot().getChildren().add(spriteInstance);
+				setUpDraggingBehavior(objectInstance);
+			}
+		} catch (NullPointerException e) {}
 	}
 	
 	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance) {
@@ -202,14 +194,16 @@ public class RoomController {
 		double height = potentialObjectInstance.getImageView().getImage().getHeight();
 		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
 			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
-					canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
+					null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 		}
 	} 
 	
-	private void createAndAddObjectInstance(Image image, DataObject object, double x, double y) {
+	private void createAndAddObjectInstance(Image image, DataObject object, DataInstance instance, double x, double y) {
 		DoubleProperty[] coordinates = createDoubleProperties(x, y);
-		ObjectInstanceController objectInstance = new ObjectInstanceController(image, object, coordinates[0], coordinates[1]);
+		ObjectInstanceController objectInstance = instance == null ?
+				new ObjectInstanceController(image, object, coordinates[0], coordinates[1]) :
+				new ObjectInstanceController(image, instance, coordinates[0], coordinates[1]);
 		view.getPreview().addImage(objectInstance.getDraggableImage());
 		model.addObjectInstance(objectInstance.getDataInstance());
 		view.getPreview().getCanvas().redrawCanvas();
