@@ -114,6 +114,8 @@ public class RunObjectConverter {
 		run.angle = instance.getAngle();
 		run.angularVelocity = instance.getAngularVelocity();
 		run.visible = instance.isVisible();
+		run.gravity = instance.getGravity();
+		run.friction = instance.getFriction();
 		run.setInstanceId(instance.getID());
 		
 		return run;
@@ -140,6 +142,8 @@ public class RunObjectConverter {
 	    dataInstance.setScaleY(runObject.scaleY);
 	    dataInstance.setAlpha(runObject.alpha);
 	    dataInstance.setVelocity(runObject.velocity);
+	    dataInstance.setFriction(runObject.friction);
+	    dataInstance.setGravity(runObject.gravity);
             
         return dataInstance;
     }

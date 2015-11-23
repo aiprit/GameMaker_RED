@@ -1,6 +1,6 @@
 package structures.data;
 
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 /**
  * The View that determines what the camera paints on the screen

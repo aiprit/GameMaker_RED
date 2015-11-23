@@ -67,8 +67,8 @@ public class EngineController {
 	
 	public String getGamesDirectory() {
 		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
-		return path;		
-	}
+		return path;
+    }
 	
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 
@@ -76,7 +76,7 @@ public class EngineController {
 		System.out.println(userGame);
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
-		
+
 		// Which one was selected?
 		DataGame game = null;
 		if (userGame.equals("TestGame")) {

@@ -62,12 +62,22 @@ public class Vector {
 		return new Vector(c * this.x, c * this.y);
 	}
 	
+	// Vector addition
+	public Vector add(Vector other) {
+		return add(this, other);
+	}
+	
 	// Dot product
+	public double dot(Vector other) {
+		return dot(this, other);
+	}
+	
+	// Static dot product
 	public static double dot(Vector a, Vector b) {
 		return a.x * b.x + a.y * b.y;
 	}
 	
-	// Vector addition
+	// Static Vector addition
 	public static Vector add(Vector a, Vector b) {
 		return new Vector(a.x + b.x, a.y + b.y);
 	}
