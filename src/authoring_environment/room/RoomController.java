@@ -2,10 +2,8 @@ package authoring_environment.room;
 
 
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import authoring_environment.room.bounding_box.BoundingBoxController;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;

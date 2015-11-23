@@ -18,7 +18,7 @@ public class ViewController {
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
 		//TODO fix hardcoded values
-		view = new DraggableView(x, y, 0, true);
+		view = new DraggableView(x, y, 0, true, 1, 1);
 		addListeners(x, y);
 	}
 	

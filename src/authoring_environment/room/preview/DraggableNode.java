@@ -11,13 +11,17 @@ public abstract class DraggableNode {
 	private double yOffset;
 	private double myAngle;
 	private boolean myVisibility;
+	private double myScaleX;
+	private double myScaleY;
 	
-	public DraggableNode(DoubleProperty x, DoubleProperty y, double angle, boolean visibility) {
+	public DraggableNode(DoubleProperty x, DoubleProperty y, double angle, boolean visibility, double scaleX, double scaleY) {
 		draggable = false;
 		xCor = x;
 		yCor = y;
 		myAngle = angle;
 		myVisibility = visibility;
+		myScaleX = scaleX;
+		myScaleY = scaleY;
 	}
 	
 	public abstract Object getImage();
@@ -40,6 +44,19 @@ public abstract class DraggableNode {
 	
 	public void setVisibility(boolean bool) {
 		myVisibility = bool;
+	}
+	
+	public void setScale(double scaleX, double scaleY) {
+		myScaleX = scaleX;
+		myScaleY = scaleY;
+	}
+	
+	public double getScaleX() {
+		return myScaleX;
+	}
+	
+	public double getScaleY() {
+		return myScaleY;
 	}
 	public double getXOffset() {
 		return xOffset;
