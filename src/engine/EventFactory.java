@@ -44,7 +44,7 @@ public class EventFactory {
 	
 	public Point getCoordinates(InputEvent e){
 		MouseEvent me = (MouseEvent) e;
-		return new Point(me.getSceneX(), me.getSceneY());
+		return new Point(me.getX(), me.getY());
 	}
 
 }
