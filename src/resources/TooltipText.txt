@@ -2,7 +2,7 @@ Welcome to the Room Editor!
 To add an object to your room, click on your 
 desired object in the list on the left and drag it
 into the room. 
-To configure more object-specific properties, 
+To configure more instance-specific properties, 
 double click on the the object and specify its 
 parameters in the popup.
 To delete an object, click on its instance in the
