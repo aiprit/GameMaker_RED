@@ -92,10 +92,8 @@ public class MainController implements IUpdateHandle {
 
 			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent event) {
-					// TODO: @ankit - use the RoomData object o here and open
-					// your Room Editor (edit room)
 					RoomNamePopupController room = new RoomNamePopupController(o, dataGame);
-					update();
+					room.setOnClose(e -> update(), dataGame, false);
 				}
 			});
 		}
@@ -104,7 +102,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				RoomNamePopupController room = new RoomNamePopupController(dataGame);
-				update();
+				room.setOnClose(e -> update(), dataGame, true);
 			}
 		});
 

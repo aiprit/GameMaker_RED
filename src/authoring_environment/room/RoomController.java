@@ -174,11 +174,13 @@ public class RoomController {
 	
 	private void startObjectDrag(MouseEvent event) {
 		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
-		ImageView spriteInstance = objectInstance.getImageView();
-		if (spriteInstance != null) {
-			view.getRoot().getChildren().add(spriteInstance);
-			setUpDraggingBehavior(objectInstance);
-		}
+		try {
+			ImageView spriteInstance = objectInstance.getImageView();
+			if (spriteInstance != null) {
+				view.getRoot().getChildren().add(spriteInstance);
+				setUpDraggingBehavior(objectInstance);
+			}
+		} catch (NullPointerException e) {}
 	}
 	
 	private void setUpDraggingBehavior(PotentialObjectInstance objectInstance) {
