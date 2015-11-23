@@ -21,7 +21,7 @@ public class DisplayMessage extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.display_message(%s);";
+		return "library.display_message('%s');";
 	}
 
 }

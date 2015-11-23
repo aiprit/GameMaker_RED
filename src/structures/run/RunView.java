@@ -1,7 +1,7 @@
 package structures.run;
 
 import structures.data.DataView;
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 public class RunView {
 
@@ -19,7 +19,7 @@ public class RunView {
 		return myName;
 	}
 
-	public void updateLocation(int x, int y) {
+	public void updateLocation(double x, double y) {
 		myView.move(x, y);
 	}
 	

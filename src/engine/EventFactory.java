@@ -1,37 +1,50 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import structures.data.events.GlobalMousePressedEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.KeyReleasedEvent;
-import structures.data.events.MousePressedEvent;
+import structures.data.events.ObjectMousePressedEvent;
+import utils.Point;
 
 public class EventFactory {
 	
-	public IDataEvent getEvent(InputEvent e){
+	public List<IDataEvent> getEvent(InputEvent e){
+		List<IDataEvent> myEvents = new ArrayList<>();
 		if(e instanceof KeyEvent){
 			KeyEvent ke = ((KeyEvent) e);
 			if (ke.getEventType().toString().equals("KEY_PRESSED")){
-				return new KeyPressedEvent(ke.getCode());
+				myEvents.add(new KeyPressedEvent(ke.getCode()));
 			}
 			else if(ke.getEventType().toString().equals("KEY_RELEASED")){
-				return new KeyReleasedEvent(ke.getCode());
+				myEvents.add(new KeyReleasedEvent(ke.getCode()));
 			}
 		}
 		else if(e instanceof MouseEvent){
 			MouseEvent me = ((MouseEvent) e);
 			if(me.getEventType().toString().equals("MOUSE_PRESSED")){
 				if(me.getButton().toString().equals("PRIMARY")){
-					return new MousePressedEvent("Left");
+					myEvents.add(new ObjectMousePressedEvent("Left"));
+					myEvents.add(new GlobalMousePressedEvent("Left"));
 				}
-				if(me.getButton().toString().equals("SECONDARY")){
-					return new MousePressedEvent("Right");
+				else if(me.getButton().toString().equals("SECONDARY")){
+					myEvents.add(new ObjectMousePressedEvent("Right"));
+					myEvents.add(new GlobalMousePressedEvent("Right"));
 				}
 			}
 		}
-		return null;
+		return myEvents;
+	}
+	
+	public Point getCoordinates(InputEvent e){
+		MouseEvent me = (MouseEvent) e;
+		return new Point(me.getSceneX(), me.getSceneY());
 	}
 
 }

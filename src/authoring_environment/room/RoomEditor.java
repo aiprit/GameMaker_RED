@@ -24,6 +24,8 @@ public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";
 	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
 	private static final String ROOM_EDITOR_HEIGHT = "RoomEditorHeight";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+	public static final String STYLESHEET = "authoring.css";
 
 	private Stage myEditor;
 	private Group myRoot;
@@ -31,12 +33,12 @@ public class RoomEditor {
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
 	
-	public RoomEditor(ResourceBundle resources) {
+	public RoomEditor(ResourceBundle resources, String roomTitle) {
 		myRoot = new Group();
 		myEditor = new Stage();
 		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
 		myEditor.setHeight(Double.parseDouble(resources.getString(ROOM_EDITOR_HEIGHT)));
-		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE));
+		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE) + " - " + roomTitle);
 		myTotalView = new VBox();
 		myObjectsAndPreview = new HBox();
 		myPreview = new RoomPreview(resources);
@@ -46,6 +48,7 @@ public class RoomEditor {
 
 	public void show() {
 		Scene scene = new Scene(myRoot);
+		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		myEditor.setScene(scene);
 		myEditor.show();
 	}

@@ -1,15 +1,16 @@
 package engine;
 
 import java.util.Random;
-
 import engine.events.EventManager;
-import engine.events.IObjectModifiedHandler;
-import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
+import utils.Point;
 
 public class GroovyLibrary {
 
@@ -55,7 +56,7 @@ public class GroovyLibrary {
 		runObject.x = x;
 		runObject.y = y;		
 		//runObject.set_speed(speed);
-		runObject.set_friction(friction);
+		runObject.friction = friction;
 		runObject.wrap_around_room(wraparound);
 		myEventManager.onObjectCreate(runObject);
 	}
@@ -64,18 +65,27 @@ public class GroovyLibrary {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
-//	public void display_message(String message){
-//
-//	}
-	//	
+	public void display_message(String message) throws InterruptedException, IllegalMonitorStateException {
+	    Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setTitle("Message");
+	    alert.setHeaderText("Message Dialogue");
+	    alert.setContentText(message);
+	    alert.show();
+	    try {
+	        alert.wait();
+	    } catch (IllegalMonitorStateException e) {
+	        // Do nothing
+	    }
+	}
+		
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 	//			boolean border, double borderWidth){
 	//		
 	//	}
-	//	
-	//	public void draw_text(String text){
-	//		
-	//	}
+		
+		public void draw_text(String text){
+			
+		}
 
 	//	public void get_mouse_state(){
 	//		//use in GetMouseState to see if right or left etc.
@@ -95,7 +105,6 @@ public class GroovyLibrary {
 	//	}
 
 	public void go_to_room(int roomNumber) {
-		System.out.println("change room!");
 		try {
 			myRunGame.setCurrentRoom(roomNumber);
 		} catch (GameRuntimeException ex) {
@@ -123,9 +132,13 @@ public class GroovyLibrary {
 		sound.play();
 	}
 
-	//	public void save_game() {
-	//	    
-	//	}
+	public void save_game() {
+	    myEventManager.onSave();
+	}
+	
+	public void reset_game() {
+	    myEventManager.onReset();
+	}
 
 	//	public void set_score(double score){
 	//		
@@ -151,5 +164,30 @@ public class GroovyLibrary {
 	//	public void with_open(){
 	//		//also need to figure this out
 	//	}
+	
+	public void set_scroller_x(RunObject object, double xpercentage){
+		double currentX = object.get_x_position();
+		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
+		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
+	
+	public void set_scroller_y(RunObject object, double ypercentage){
+		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
+		double currentY = object.get_y_position();
+		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
+	
+	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
+		double currentX = object.get_x_position();
+		double currentY = object.get_y_position();
+		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
+		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		Point location = new Point(currentX, currentY);
+		myEventManager.setView(location);
+	}
 
 }
