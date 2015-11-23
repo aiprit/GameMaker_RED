@@ -58,7 +58,12 @@ public class ObjectEditorModel {
 	}
 
 	public String getSpriteName() {
-		return object.getSprite().getBaseFileName();
+		try {
+			return object.getSprite().getBaseFileName();
+		}
+		catch (NullPointerException e) {
+			return null;
+		}
 	}
 
 	public void setSprite(DataSprite sprite) {
