@@ -23,29 +23,29 @@ import structures.run.RunObject;
 
 
 public class EngineController {
-	
+
 	private XMLEditor myEditor;
 	private DataGame myGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
-		
+
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
-                myFrontEnd = new FrontEnd(eventManager, stage);
+		myFrontEnd = new FrontEnd(eventManager, stage);
 		//starts the first room loop
-                myEngine = new Engine(runGame, eventManager);
+		myEngine = new Engine(runGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
-		
+
 		//sets up the event manager
 		setupEventManager(eventManager);
 	}
 
 	public String getUserChoice() throws ResourceFailedException {
 		List<String> choices = addGamesFromDirectory();
-		
+
 		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", choices);
 		dialog.setTitle("Select a Game");
 		dialog.setHeaderText("Select a Game");
@@ -59,7 +59,7 @@ public class EngineController {
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 	}
-	
+
 	private List<String> addGamesFromDirectory() {
 		List<String> choices =  new ArrayList<String>();
 		for (final File fileEntry : new File("Games/").listFiles()) {
@@ -67,18 +67,17 @@ public class EngineController {
 		}
 		return choices;
 	}
-	
+
 	public String getGamesDirectory() {
 		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
 		try {
-                    path = URLDecoder.decode(path, "UTF-8");
-                }
-                catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+			path = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return path;
-        }
-	
+	}
+
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 
 		//set myGame to the game that the user chooses
@@ -95,7 +94,7 @@ public class EngineController {
 			TestGame2 tgo = new TestGame2();
 			game = tgo.getTestGame(getGamesDirectory());
 		}
-		
+
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
@@ -103,36 +102,13 @@ public class EngineController {
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}
-		
+
 		return runGame;
-		
+
 	}
-	
-	
-	
-//	public void init() throws ResourceFailedException {
-//		myGame = GameSelector.getGameChoice();
-//		//TestGame2 tgo = new TestGame2();
-//		//myGame = tgo.getTestGame();
-//		
-//		TestGameObject tgo2 = new TestGameObject();
-//		
-//		DataGame game2 = tgo2.getTestGame();
-//		RunGame game = null;
-//		//convert DataGame to a RunGame
-//		try {
-//			game = new RunGame(game2);
-//		} catch (CompileTimeException | RuntimeException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return game;
-//		
-//	}
-	
+
 	public void setupEventManager(EventManager eventManager){
 		eventManager.addGUIInterface(myEngine.getGUIHandler());
-		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
 		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());

@@ -41,7 +41,6 @@ public class RoomLoop {
 
             @Override
             public void handle(ActionEvent event) {
-
                 step();
 
             }

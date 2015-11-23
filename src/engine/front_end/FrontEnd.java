@@ -182,13 +182,13 @@ public class FrontEnd implements IFrontEndUpdateHandler {
 		((StackPane) myCanvasDrawer).addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {
-				myEventManager.setOnEvent(mouseEvent);
+				myEventManager.onMouseEvent(mouseEvent);
 			}
 		});
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				myEventManager.setOnEvent(event);
+				myEventManager.onKeyEvent(event);
 			}
 		});
 	}

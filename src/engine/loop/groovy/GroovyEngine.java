@@ -14,24 +14,13 @@ public class GroovyEngine {
 	}
 	
 	public void runScript(RunObject o, RunAction action, IGroovyEvent event){
-		if(action == null){
+		if (action == null) {
 			return;
 		}
 		System.out.println(action.script);
 		action.compiled.setProperty("library", myGroovyLibrary);
 		action.compiled.setProperty("current", o);
 		action.compiled.setProperty("event", event);
-		action.compiled.run();
-	}
-	
-	public void runScript(RunObject o, RunAction action){
-		if(action == null){
-			return;
-		}
-		System.out.println(action.script);
-		action.compiled.setProperty("library", myGroovyLibrary);
-		action.compiled.setProperty("current", o);
-		action.compiled.setProperty("event", null);
 		action.compiled.run();
 	}
 

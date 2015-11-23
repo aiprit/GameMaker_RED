@@ -1,14 +1,17 @@
 package engine.loop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 import engine.events.EventManager;
+import engine.events.IInputHandler;
 import engine.events.IObjectModifiedHandler;
 import engine.front_end.IDraw;
 import engine.loop.collisions.CollisionManager;
@@ -16,16 +19,21 @@ import engine.loop.collisions.ICollisionChecker;
 import engine.loop.groovy.GroovyClickEvent;
 import engine.loop.groovy.GroovyCollisionEvent;
 import engine.loop.groovy.GroovyEngine;
+import engine.loop.groovy.IGroovyEvent;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.LeaveRoomEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.StepEvent;
+import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
@@ -35,7 +43,7 @@ import utils.Point;
  * EventManager facilitates the running of the game loop
  * by calling the step event on each object in the room,
  * 
- * then calling gameplay (mouse click, key press) events
+ * then calling input (mouse click, key press) events
  * on the RunObjects that have a corresponding action for them.
  * 
  * It then calls the draw event on each object in the room.
@@ -44,7 +52,7 @@ import utils.Point;
  *
  */
 
-public class GameEventManager implements IObjectModifiedHandler, ICollisionChecker {
+public class GameEventManager implements IInputHandler, IObjectModifiedHandler, ICollisionChecker {
 
 	private EventManager myEventManager;
 	private IDraw myDrawListener;
@@ -61,9 +69,13 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	private List<RunObject> myCreatedQueue;
 	private List<RunObject> myDeleteQueue;
 	private List<String> myStringsToDraw;
+	
+	private Queue<InputEvent> myInputQueue;
+	private Map<KeyCode, Boolean> myKeyMap;
 
 	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
+		myEventManager.addUserInputInterface(this);
 		myDrawListener = drawListener;
 		myGroovyEngine = groovyEngine;
 		myRoom = room;
@@ -72,6 +84,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myDeleteQueue = new ArrayList<>();
 		myPhysicsEngine = new ScrollerPhysicsEngine();
 		myStringsToDraw = new ArrayList<>();
+		myInputQueue = new LinkedList<>();
 		init(room);
 	}
 
@@ -119,27 +132,41 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	void loop() {
 		stepPhysics();
-		step(myEvents.get(new StepEvent()));
+		processStepEvents();
 		processCollisionEvents();
-		processGameplayEvents(myEventManager.getEvents());
+		processInputEvents();
 		processLeaveRoomEvents();
 		deleteObjects();
 		draw();
 		processCreateEvents();
 	}
+	
+	private List<RunObject> getRegistered(IDataEvent event) {
+		List<RunObject> objects = myEvents.get(event);
+		if (objects == null) {
+			return Collections.emptyList();
+		} else {
+			return objects;
+		}
+	}
+	
+	private void fire(RunObject object, IDataEvent event) {
+		fire(object, event, null);
+	}
+	
+	private void fire(RunObject object, IDataEvent event, IGroovyEvent data) {
+		RunAction action = object.getAction(event);
+		if (action != null) {
+			myGroovyEngine.runScript(object, object.getAction(event), data);
+		}
+	}
 
 	/**
 	 * Calls each object in the room's step event.
-	 * 
-	 * @param it
 	 */
-	private void step(List<RunObject> it) {
-		if (it == null){
-			return;
-		}
-		StepEvent step = new StepEvent();
-		for(RunObject o : it){
-			myGroovyEngine.runScript(o, o.getAction(new StepEvent()));
+	private void processStepEvents() {
+		for(RunObject obj : getRegistered(StepEvent.event)){
+			fire(obj, StepEvent.event);
 		}
 	}
 	
@@ -150,46 +177,45 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	}
 
 	/**
-	 * Calls each GameplayEvent on the correct corresponding
+	 * Calls each InputEvent on the correct corresponding
 	 * RunObject, and then clears the events.
 	 * 
-	 * @param events
 	 */
-	private void processGameplayEvents(Queue<InputEvent> events){
-		for(InputEvent e : events){
+	private void processInputEvents() {
+		InputEvent e;
+		while ((e = myInputQueue.poll()) != null) {	
+
 			List<IDataEvent> runEvents = InputEventFactory.getEvents(e);
-			for(IDataEvent runEvent : runEvents){
+			for (IDataEvent runEvent : runEvents){
 				GroovyClickEvent event = new GroovyClickEvent(runEvent);
-				if(event.hasXY()){
+				if (event.hasXY()){
 					event.setCoordinates(correctForView(InputEventFactory.getCoordinates(e)));
 				}
-				if(myEvents.containsKey(runEvent)){
+				if (myEvents.containsKey(runEvent)){
 					List<RunObject> os = myEvents.get(runEvent);
-					for(RunObject o : os){
-						if(event.getLocalCheck()){
-							if(o.getBounds().contains(event.getCoordinates())){
-								myGroovyEngine.runScript(o, o.getAction(runEvent), event);
+					for (RunObject o : os){
+						if (event.getLocalCheck()){
+							if (o.getBounds().contains(event.getCoordinates())){
+								fire(o, runEvent, event);
 							}
-						}
-						else{
-							myGroovyEngine.runScript(o, o.getAction(runEvent), event);
+						} else {
+							fire(o, runEvent, event);
 						}
 					}
 				}
 			}
 		}
-		events.clear();
 	}
 
 	private void processCollisionEvents() {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
-				myGroovyEngine.runScript(collisionPair.one,
-					collisionPair.one.getAction(new CollisionEvent(collisionPair.two.name)),
+				fire(collisionPair.one,
+					new CollisionEvent(collisionPair.two.name),
 					new GroovyCollisionEvent(collisionPair.two));
-				myGroovyEngine.runScript(collisionPair.two,
-					collisionPair.two.getAction(new CollisionEvent(collisionPair.one.name)),
+				fire(collisionPair.two,
+					new CollisionEvent(collisionPair.one.name),
 					new GroovyCollisionEvent(collisionPair.one));
 			}
 		}
@@ -266,24 +292,21 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myDeleteQueue.clear();
 	}
 
-	private void processGroovyEvent(IDataEvent runEvent, GroovyClickEvent event){
-	}
-
 	@Override
 	public void setView(Point coordinates) {
 		myRoom.getView().updateLocation(coordinates.x, coordinates.y);
 	}
 
 	public void processCreateEvents(){
-		for(RunObject o : myCreatedQueue){
-			myGroovyEngine.runScript(o, o.getAction(new ObjectCreateEvent()));
+		for(RunObject obj : myCreatedQueue){
+			fire(obj, ObjectCreateEvent.event);
 		}
 		myCreatedQueue.clear();
 	}
 
 	public void processDestroyedEvents(){
-		for(RunObject o : myDeleteQueue){
-			myGroovyEngine.runScript(o, o.getAction(new ObjectDestroyEvent()));
+		for (RunObject obj : myDeleteQueue) {
+			fire(obj, ObjectDestroyEvent.event);
 		}
 	}
 
@@ -311,13 +334,22 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	}
 
 	public void processLeaveRoomEvents(){
-		for(RunObject o : myRoom.getObjects()){
+		for (RunObject o : getRegistered(LeaveRoomEvent.event)) {
 			if(o.get_x_position() < 0 || o.get_x_position() > myRoom.getWidth() ||
 					o.get_y_position() < 0 || o.get_y_position() > myRoom.getHeight()){
-				LeaveRoomEvent step = new LeaveRoomEvent();
-				myGroovyEngine.runScript(o, o.getAction(step), new GroovyClickEvent(step));
+				fire(o, LeaveRoomEvent.event);
 			}
 		}
+	}
+
+	@Override
+	public void onMouseEvent(MouseEvent event) {
+		myInputQueue.add(event);
+	}
+
+	@Override
+	public void onKeyEvent(KeyEvent event) {
+		myInputQueue.add(event);
 	}
 
 }
