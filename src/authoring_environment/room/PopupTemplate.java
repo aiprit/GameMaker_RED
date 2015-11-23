@@ -17,6 +17,8 @@ public abstract class PopupTemplate extends Stage {
 	private static final String SAVE = "SaveTitle";
 	private static final double BUTTON_SPACING = 15;
 	private static final double CONTENT_SPACING = 20;
+	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+        public static final String STYLESHEET = "authoring.css";
 	
 	protected ResourceBundle myResources;
 	protected VBox myContentsBox;
@@ -36,6 +38,7 @@ public abstract class PopupTemplate extends Stage {
 	
 	private void launchPopup() {
 		Scene scene = new Scene(myTotalBox);
+		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		this.setScene(scene);
 		this.show();
 	}

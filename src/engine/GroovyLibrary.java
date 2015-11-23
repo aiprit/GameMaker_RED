@@ -1,12 +1,11 @@
 package engine;
 
 import java.util.Random;
-
 import engine.events.EventManager;
-import engine.events.IObjectModifiedHandler;
-import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
@@ -65,9 +64,16 @@ public class GroovyLibrary {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
-//	public void display_message(String message){
-//
-//	}
+	public void display_message(String message){
+	    myEventManager.onPause();
+	    Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setTitle("Message");
+	    alert.setHeaderText("Message Dialogue");
+	    alert.setContentText(message);
+
+	    alert.showAndWait();
+	    myEventManager.onStart();
+	}
 	//	
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 	//			boolean border, double borderWidth){
@@ -96,7 +102,6 @@ public class GroovyLibrary {
 	//	}
 
 	public void go_to_room(int roomNumber) {
-		System.out.println("change room!");
 		try {
 			myRunGame.setCurrentRoom(roomNumber);
 		} catch (GameRuntimeException ex) {
@@ -124,9 +129,13 @@ public class GroovyLibrary {
 		sound.play();
 	}
 
-	//	public void save_game() {
-	//	    
-	//	}
+	public void save_game() {
+	    myEventManager.onSave();
+	}
+	
+	public void reset_game() {
+	    myEventManager.onReset();
+	}
 
 	//	public void set_score(double score){
 	//		
