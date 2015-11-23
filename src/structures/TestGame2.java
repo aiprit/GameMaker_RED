@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import exceptions.ParameterParseException;
+import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -33,8 +34,8 @@ public class TestGame2 {
      the action library has been built out in the game engine
      */
 
-    public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game 2", "TestGame2/");
+    public DataGame getTestGame(String directory){
+        DataGame testGame = new DataGame("Test Game 2", directory + "TestGame2/");
 
         DataObject wall = new DataObject("Wall");
 
@@ -45,6 +46,14 @@ public class TestGame2 {
 
         DataSprite marioSprite = new DataSprite("Mario", "mario.png");
         mario.setSprite(marioSprite);
+        
+        try {
+			wallSprite.load(testGame.getSpriteDirectory());
+			marioSprite.load(testGame.getSpriteDirectory());
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+        
 
         MoveTo left = new MoveTo();
         MoveTo right = new MoveTo();
