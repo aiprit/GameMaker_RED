@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+
 import engine.collisions.CollisionManager;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -16,13 +17,12 @@ import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
-import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
-import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Pair;
 import utils.Point;
+import utils.Rectangle;
 
 /**
  * EventManager facilitates the running of the game loop
@@ -53,6 +53,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 
 	private List<RunObject> myCreatedQueue;
 	private List<RunObject> myDeleteQueue;
+	private List<String> myStringsToDraw;
 
 	public GameEventManager(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
 		myEventManager = eventManager;
@@ -63,6 +64,7 @@ public class GameEventManager implements IObjectModifiedHandler {
 		myCollisionManager = new CollisionManager();
 		myCreatedQueue = new ArrayList<>();
 		myDeleteQueue = new ArrayList<>();
+		myStringsToDraw = new ArrayList<>();
 		init(room);
 	}
 
@@ -196,6 +198,11 @@ public class GameEventManager implements IObjectModifiedHandler {
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());
 		}
+		for(String s : myStringsToDraw){
+			myDrawListener.drawText(s, myRoom.getView());
+		}
+		myStringsToDraw.clear();
+		
 	}
 
 	/**
@@ -259,6 +266,11 @@ public class GameEventManager implements IObjectModifiedHandler {
 			ObjectDestroyEvent step = new ObjectDestroyEvent();
 			myGroovyEngine.runScript(o, o.getAction(step), new GroovyEvent(step));
 		}
+	}
+
+	@Override
+	public void addStringToDraw(String draw) {
+		myStringsToDraw.add(draw);
 	}
 
 }

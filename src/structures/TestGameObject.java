@@ -69,7 +69,18 @@ public class TestGameObject {
 
 	public DataGame getTestGame() {
 		DataGame testGame = new DataGame("Test Game", "TestGame/");
-
+		
+		DataObject text = new DataObject("GameTitle");
+		DrawText dt = new DrawText();
+		try{
+			dt.getParameters().get(0).parse("Mario");
+		} catch(ParameterParseException e1) {
+			e1.printStackTrace();
+		}
+		List<IAction> textActions = Collections.singletonList(dt);
+		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
+		text.bindEvent(new StepEvent(), textActionsO);
+		
 		DataObject coin = new DataObject("Coin");
 
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
@@ -279,7 +290,7 @@ public class TestGameObject {
 		winScreenBackground.setSprite(winScreenSprite);
 
 		DataRoom startScreen = new DataRoom("Start Screen", 500, 500);
-		startScreen.setBackgroundColor("#222222");
+		startScreen.setBackgroundColor("#FFFFFF");
 		startScreen.addObjectInstance(new DataInstance(startScreenBackground, 0, 0, 0, .4, .4));
 
 		DataRoom level1 = new DataRoom("Level 1", 1500, 500);
@@ -289,6 +300,7 @@ public class TestGameObject {
 		level1.setBackgroundColor("TestGame/background.png");
 		level1.addObjectInstance(new DataInstance(player, 40, 40, 0, .5, .5));
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
+		level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
 
 		DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
 		winScreen.setBackgroundColor("#FFFFFF");
@@ -299,6 +311,7 @@ public class TestGameObject {
 		testGame.addObject(player);
 		testGame.addObject(startScreenBackground);
 		testGame.addObject(winScreenBackground);
+		testGame.addObject(text);
 
 		testGame.addSprite(coinSprite);
 		testGame.addSprite(playerSprite);

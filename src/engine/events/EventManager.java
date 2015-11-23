@@ -9,6 +9,7 @@ import javafx.scene.input.InputEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Point;
+import utils.Rectangle;
 
 /**
  * A centralized event system for an instance of an Engine. 
@@ -124,6 +125,13 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void setView(Point coordinates) {
 		for(IObjectModifiedHandler m : myObjectModified){
 			m.setView(coordinates);
+		}
+	}
+
+	@Override
+	public void addStringToDraw(String draw) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.addStringToDraw(draw);
 		}
 	}
 
