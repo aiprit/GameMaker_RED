@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import structures.run.RunView;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -59,5 +60,13 @@ public class Draw extends StackPane implements IDraw {
 		Rectangle disp = view.getView();
 		myGraphicsContext.setFill(Color.valueOf(color));
 		myGraphicsContext.fillRect(disp.x(), disp.y(), disp.width(), disp.height());
+	}
+
+	@Override
+	public void drawText(String message, RunView view) {
+		Rectangle disp = view.getView();
+		myGraphicsContext.setFill(Color.BLACK);
+		myGraphicsContext.setFont(new Font("Times New Roman", disp.width()/message.length()));
+		myGraphicsContext.fillText(message, 40, 100);
 	}
 }

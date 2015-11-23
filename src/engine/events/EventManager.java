@@ -58,12 +58,12 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 		}
 	}
 
-	public void onStart(){
+	public void onResume(){
 		for(IGUIHandler g : myGUI){
-			g.onStart();
+			g.onResume();
 		}
 	}
-
+ 
 	public void onPause(){
 		for(IGUIHandler g : myGUI){
 			g.onPause();
@@ -124,6 +124,13 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void setView(Point coordinates) {
 		for(IObjectModifiedHandler m : myObjectModified){
 			m.setView(coordinates);
+		}
+	}
+
+	@Override
+	public void addStringToDraw(String draw) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.addStringToDraw(draw);
 		}
 	}
 

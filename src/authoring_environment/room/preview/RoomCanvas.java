@@ -2,9 +2,7 @@ package authoring_environment.room.preview;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -16,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.transform.Rotate;
 
 
 public class RoomCanvas extends Canvas {
@@ -64,7 +63,6 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	public void addNodeToMap(DraggableImage image) {
-		Point2D point = new Point2D(image.getX(), image.getY());
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectList.add(image);
 	}
@@ -121,10 +119,27 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
 		for (DraggableImage drag : myObjectList) {
-			this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
+			//this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
+			if (!drag.getVisibility())
+				continue;
+			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
+			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
 		}
 		drawView();
 	}
+	
+	private void rotate(double angle, double pivotX, double pivotY) {
+		Rotate rot = new Rotate(angle, pivotX, pivotY);
+		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
+	}
+	//TODO test if scale works
+	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
+		this.getGraphicsContext2D().save();
+		rotate(angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
+		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth()*scaleX, image.getHeight()*scaleY);
+		this.getGraphicsContext2D().restore();
+	}
+	
 	//TODO fix contains to match other one
 	public boolean contains(double x, double y, double nodeX, double nodeY, double width, double height) {
 		return (x > nodeX && x <= nodeX + width && 
@@ -154,15 +169,19 @@ public class RoomCanvas extends Canvas {
 		myObjectList.add(image);
 	}
 	
-	public void removeInstance(Image image, Point2D point) {
+	public void removeInstance(DraggableImage instance) {
+		myObjectList.remove(getClickedImage(instance));
+	}
+	
+	public DraggableImage getClickedImage(DraggableImage instance) {
+		Point2D point = new Point2D(instance.getX(), instance.getY());
 		for (DraggableImage dragImage : myObjectList) {
 			Point2D dragImagePoint = new Point2D(dragImage.getX(), dragImage.getY());
-			if (dragImage.getImage().equals(image) && dragImagePoint.equals(point)) {
-				myObjectList.remove(dragImage);
-				break;
+			if (dragImagePoint.equals(point)) {
+				return dragImage;
 			}
-
 		}
+		return null;
 	}
 	
 	public void drawView() {
