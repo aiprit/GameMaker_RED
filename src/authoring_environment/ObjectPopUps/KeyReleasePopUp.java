@@ -12,6 +12,8 @@ public class KeyReleasePopUp extends KeyPopUp{
 
 	public KeyReleasePopUp(DataObject obj) {
 		super(obj);
+		init();
+
 		// TODO Auto-generated constructor stub
 	}
 

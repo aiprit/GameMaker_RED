@@ -16,7 +16,7 @@ public class GroovyEngine {
 		myGroovyLibrary = new GroovyLibrary(runGame, eventManager);
 	}
 	
-	public void runScript(RunObject o, RunAction action){
+	public void runScript(RunObject o, RunAction action, GroovyEvent event){
 		if(action == null){
 			return;
 		}
@@ -24,6 +24,7 @@ public class GroovyEngine {
 		Binding binding = new Binding();
 		binding.setProperty("current", o);
 		binding.setProperty("library", myGroovyLibrary);
+		binding.setProperty("event", event);
 		GroovyShell shell = new GroovyShell(binding);
 		shell.evaluate(action.script);
 	}

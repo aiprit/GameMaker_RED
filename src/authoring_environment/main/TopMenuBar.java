@@ -9,25 +9,33 @@ import javafx.scene.layout.BorderPane;
 
 public class TopMenuBar {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	private MenuItem edit;
+	private MenuItem load, save;
 	private BorderPane bp;
+	private Menu run;
 	private MenuBar menuBar;
 
 	public void init() {
-		Menu load = new Menu(r.getString("Load"));
-		Menu save = new Menu(r.getString("Save"));
-		Menu e = new Menu(r.getString("EditView"));
-		edit = new MenuItem(r.getString("EditView"));
-		e.getItems().add(edit);
+		Menu file = new Menu(r.getString("File"));
+		run = new Menu(r.getString("Run"));
+//		Menu e = new Menu(r.getString("EditView"));
+		load = new MenuItem(r.getString("Load"));
+		save = new MenuItem(r.getString("Save"));
+		file.getItems().addAll(load,save);
 		menuBar = new MenuBar();
-		menuBar.getMenus().addAll(load, save, e);
+		menuBar.getMenus().addAll(file,run);
 	}
 
 	public MenuBar getMenu() {
 		return menuBar;
 	}
 
-	public MenuItem getEditMenu() {
-		return edit;
+	public MenuItem getLoadMenu() {
+		return load;
+	}
+	public MenuItem getSaveMenu() {
+		return save;
+	}
+	public Menu getRunMenu(){
+		return run;
 	}
 }

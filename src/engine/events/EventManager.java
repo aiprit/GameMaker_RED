@@ -8,6 +8,7 @@ import java.util.Queue;
 import javafx.scene.input.InputEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
+import utils.Point;
 
 /**
  * A centralized event system for an instance of an Engine. 
@@ -42,11 +43,11 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void addUserInputInterface(IGamePlayHandler userInput){
 		myUserInput.add(userInput);
 	}
-	
+
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
 	}
-	
+
 	public void clearObjectModifiedInterface(){
 		myObjectModified.clear();
 	}
@@ -116,6 +117,13 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void onObjectDestroy(RunObject runObject) {
 		for(IObjectModifiedHandler m : myObjectModified){
 			m.onObjectDestroy(runObject);
+		}
+	}
+
+	@Override
+	public void setView(Point coordinates) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.setView(coordinates);
 		}
 	}
 

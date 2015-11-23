@@ -17,6 +17,8 @@ public class ObjectDestroyPopUp extends BasicPopUp {
 
 	public ObjectDestroyPopUp(DataObject obj) {
 		super(obj);
+		init();
+
 		// TODO Auto-generated constructor stub
 	}
 

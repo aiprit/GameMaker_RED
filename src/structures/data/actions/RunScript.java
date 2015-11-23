@@ -15,12 +15,12 @@ public class RunScript extends DataAction{
 
 	@Override
 	public String getDescription() {
-		return "runs the custom script";
+		return String.format("runs the custom script %s", get("CustomScript"));
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "current.run_script(%s);";
+		return "%s";
 	}
 
 }
