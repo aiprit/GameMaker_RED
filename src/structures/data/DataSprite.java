@@ -1,5 +1,7 @@
 package structures.data;
 
+import java.io.FileInputStream;
+
 import exceptions.ResourceFailedException;
 import javafx.scene.image.Image;
 import structures.IResource;
@@ -15,7 +17,6 @@ public class DataSprite implements IResource {
     public DataSprite(String name, String baseFileName) {
         myName = name;
         myBaseFileName = baseFileName;
-        myImage = new Image(getClass().getClassLoader().getResourceAsStream(myBaseFileName));
         myHaveLoaded = false;
         myCenterX = 0.0;
         myCenterY = 0.0;
@@ -64,7 +65,7 @@ public class DataSprite implements IResource {
     public void load(String directory) throws ResourceFailedException {
         String url = directory + myBaseFileName;
         try {
-            myImage = new Image(getClass().getClassLoader().getResourceAsStream(url));
+            myImage = new Image(new FileInputStream(url));
         } catch (Exception ex) {
             String message = "Failed to load image '%s' for DataSprite '%s'";
             throw new ResourceFailedException(message, url, myName);

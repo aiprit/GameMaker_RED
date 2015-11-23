@@ -1,6 +1,7 @@
 package authoring_environment.room;
 
 
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -84,7 +85,7 @@ public class RoomController {
 		view.getPreview().getCanvas().setOnMouseClicked(e -> onClick(e, view.getPreview().getCanvas().getObjectMap()));
 	}
 	
-	private void onClick(MouseEvent event, Map<DraggableImage, Point2D> objectMap) {
+	private void onClick(MouseEvent event, List<DraggableImage> objectMap) {
 		view.getPreview().setOnKeyPressed(null);
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
@@ -113,7 +114,7 @@ public class RoomController {
 			delete(controller.getDataInstance());
 			break;
 		case V:
-			if (event.isControlDown()) {
+			if (event.isControlDown() || event.isShortcutDown()) {
 				clone(controller);
 			}
 			break;
