@@ -59,9 +59,9 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 		}
 	}
 
-	public void onStart(){
+	public void onResume(){
 		for(IGUIHandler g : myGUI){
-			g.onStart();
+			g.onResume();
 		}
 	}
 

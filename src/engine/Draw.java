@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import structures.run.RunView;
-import utils.IRectangle;
-import utils.Rectangle;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class Draw extends StackPane implements IDraw {
 

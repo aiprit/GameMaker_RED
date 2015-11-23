@@ -13,11 +13,16 @@ public class RoomEditorTester extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	public String getGamesDirectory() {
+		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
+		return path;
+    }
 
 	@Override
 	public void start(Stage primaryStage) {
 		TestGameObject test = new TestGameObject();
-		DataRoom room = test.getTestGame().getRooms().get(1);
-		RoomNamePopupController controller = new RoomNamePopupController(room, test.getTestGame());
+		DataRoom room = test.getTestGame(getGamesDirectory()).getRooms().get(1);
+		RoomNamePopupController controller = new RoomNamePopupController(room, test.getTestGame(getGamesDirectory()));
 	}
 }

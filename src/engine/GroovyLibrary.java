@@ -3,12 +3,12 @@ package engine;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import engine.events.EventManager;
-import engine.events.IObjectModifiedHandler;
-import engine.events.IRoomChangedHandler;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
@@ -58,7 +58,7 @@ public class GroovyLibrary {
 		runObject.x = x;
 		runObject.y = y;		
 		//runObject.set_speed(speed);
-		runObject.set_friction(friction);
+		runObject.friction = friction;
 		runObject.wrap_around_room(wraparound);
 		myEventManager.onObjectCreate(runObject);
 	}
@@ -74,6 +74,24 @@ public class GroovyLibrary {
 	public void draw_text(String text){
 		myEventManager.addStringToDraw(text);
 	}
+	
+	public void display_message(String message) throws InterruptedException, IllegalMonitorStateException {
+	    Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setTitle("Message");
+	    alert.setHeaderText("Message Dialogue");
+	    alert.setContentText(message);
+	    alert.show();
+	    try {
+	        alert.wait();
+	    } catch (IllegalMonitorStateException e) {
+	        // Do nothing
+	    }
+	}
+		
+	//	public void draw_rectangle(double x, double y, double width, double height, String color,
+	//			boolean border, double borderWidth){
+	//		
+	//	}
 
 	//	public void get_mouse_state(){
 	//		//use in GetMouseState to see if right or left etc.
@@ -100,7 +118,6 @@ public class GroovyLibrary {
 	}
 
 	public void go_to_room(int roomNumber) {
-		System.out.println("change room!");
 		try {
 			myRunGame.setCurrentRoom(roomNumber);
 		} catch (GameRuntimeException ex) {
@@ -128,9 +145,13 @@ public class GroovyLibrary {
 		sound.play();
 	}
 
-	//	public void save_game() {
-	//	    
-	//	}
+	public void save_game() {
+	    myEventManager.onSave();
+	}
+	
+	public void reset_game() {
+	    myEventManager.onReset();
+	}
 
 	public void set_variable(String key, double value, boolean relative){
 		if(relative){

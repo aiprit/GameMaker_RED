@@ -1,4 +1,6 @@
-package utils;
+package utils.rectangle;
+
+import utils.Point;
 
 public final class ImmutableRectangle implements IRectangle {
 	
@@ -91,6 +93,12 @@ public final class ImmutableRectangle implements IRectangle {
 		return this;
 	}
 	
+	@Override
+	public ImmutableRectangle getImmutable() {
+		return this;
+	}
+	
+	@Override
 	public Rectangle getMutable() {
 		Rectangle rect = new Rectangle(x, y, width, height);
 		rect.center(centerX, centerY);

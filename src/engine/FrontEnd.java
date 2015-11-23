@@ -10,11 +10,15 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import structures.run.RunGame;
@@ -36,6 +40,7 @@ public class FrontEnd implements IRoomChangedHandler {
 	private Stage stage;
 	private Scene playScene;
 	private EventManager myEventManager;
+	private ButtonBar myButtonBar;
 	
 	public FrontEnd(RunGame game, EventManager eventManager, Stage stage) {
 		myEventManager = eventManager;
