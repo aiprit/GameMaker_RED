@@ -109,7 +109,6 @@ public class RoomController {
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
 				if (event.getClickCount() == 2) {
-					System.out.println("Object instance controller angle is " + currentObject.getDraggableImage().getAngle());
 					Consumer<Void> redrawFunc = e -> view.getPreview().getCanvas().redrawCanvas();
 					ConfigureController configure = new ConfigureController(myResources, instance, view.getPreview().getCanvas().getClickedImage(currentObject.getDraggableImage()), redrawFunc); 
 					configure.initialize();

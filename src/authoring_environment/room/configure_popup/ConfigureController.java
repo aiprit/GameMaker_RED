@@ -61,7 +61,6 @@ public class ConfigureController {
 		double angle = getInput(5, fieldList);
 		model.setAngle(angle);
 		myDragImage.setAngle(angle);
-		System.out.println("Drag Image angle is " + myDragImage.getAngle());
 		double transparency = getInput(6, fieldList);
 		model.setAlpha(transparency);
 		RadioButton visibilityButton = configure.getVisiblity();
