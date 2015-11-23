@@ -12,8 +12,8 @@ public class DraggableView extends DraggableNode {
 	private DoubleProperty myY;
 	private boolean isVisible;
 	
-	public DraggableView(DoubleProperty x, DoubleProperty y) {
-		super(x, y);
+	public DraggableView(DoubleProperty x, DoubleProperty y, double angle) {
+		super(x, y, angle);
 		isVisible = true;
 	}
 

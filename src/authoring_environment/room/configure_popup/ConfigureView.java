@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
@@ -20,7 +19,6 @@ public class ConfigureView extends PopupTemplate {
 	private static final String ANGLE = "Angle";
 	private static final String TRANSPARENCY = "Transparency";
 	private static final String VISIBILITY = "Visibility";
-	private static final String DELETE_INSTANCE = "DeleteInstance";
 	private static final String NAME = "ConfigureParameters";
 	private static final int NUM_HBOXES = 7;
 

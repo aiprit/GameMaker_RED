@@ -15,8 +15,8 @@ public class ObjectInstanceController {
 	private DoubleProperty myY;
 
 	public ObjectInstanceController(Image sprite, DataObject object, DoubleProperty x, DoubleProperty y) {
-		view = new DraggableImage(sprite, x, y);
 		model = new DataInstance(object, x.get(), y.get());
+		view = new DraggableImage(sprite, x, y, model.getAngle());
 		myX = x;
 		myY = y;
 		addListeners();
@@ -27,7 +27,7 @@ public class ObjectInstanceController {
 		myY = new SimpleDoubleProperty();
 		myX.set(dataInstance.getX());
 		myY.set(dataInstance.getY());
-		view = new DraggableImage(dataInstance.getImage(), myX, myY);
+		view = new DraggableImage(dataInstance.getImage(), myX, myY, dataInstance.getAngle());
 		model = dataInstance;
 		addListeners();
 	}

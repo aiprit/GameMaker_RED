@@ -98,7 +98,8 @@ public class RoomController {
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
 				if (event.getClickCount() == 2) {
-					ConfigureController configure = new ConfigureController(myResources, instance); 
+					System.out.println("Object instance controller angle is " + currentObject.getDraggableImage().getAngle());
+					ConfigureController configure = new ConfigureController(myResources, instance, currentObject.getDraggableImage()); 
 					configure.initialize();
 				} 
 			} 
