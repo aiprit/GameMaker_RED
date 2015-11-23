@@ -155,9 +155,9 @@ public class RunObject {
 	}
 
 	public void move_to(double x, double y, boolean relative){
+		myLastX = this.x;
+		myLastY = this.y;
 		if (relative) {
-			myLastX = x;
-			myLastY = y;
 			this.x += x;
 			this.y += y;
 		} else {
@@ -203,8 +203,8 @@ public class RunObject {
 	}
 	
 	public void block(RunObject other, double slipFactor) {
-
-		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
+		
+		if (collision_at(myLastX, myLastY)) {
 			return;
 		}
 		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
@@ -223,9 +223,13 @@ public class RunObject {
 				start = pivot;
 			}
 		}
+		pivot = (end - start) / 2 + start;
+		test = points.get(pivot);
 		
 		this.x = test.x;
 		this.y = test.y;
+		myLastX = this.x;
+		myLastY = this.y;
 		
 		switch (other.getBounds().quadrantOfPoint(new Point(this.x, this.y))) {
 			case TOP:

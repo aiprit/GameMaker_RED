@@ -106,7 +106,7 @@ public interface IRectangle {
 	public static quadrant quadrantOfPoint(IRectangle rect, Point point) {		
 		
 		// Top or Left
-		if (Utils.findSide(bottomLeft(rect), topRight(rect), point) > 0) {
+		if (Utils.findSide(bottomLeft(rect), topRight(rect), point) < 0) {
 			if (Utils.findSide(topLeft(rect), bottomRight(rect), point) > 0) {
 				return quadrant.LEFT;
 			} else {

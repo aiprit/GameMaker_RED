@@ -19,9 +19,7 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 		}
 		
 		// Move
-		obj.x += obj.velocity.x;
-		obj.y += obj.velocity.y;
-		
+		obj.move_to(obj.velocity.x, obj.velocity.y, true);
 	}
 
 }

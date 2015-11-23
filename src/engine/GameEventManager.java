@@ -85,6 +85,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 		// Add Events to Map
 		for(RunObject o : room.getObjects()){
+			
+			// Give objects a way to test theoretical collisions
+			o.setCollisionChecker(this);
+			
 			for(IDataEvent e : o.getEvents()){
 
 				// Add Event to Map
