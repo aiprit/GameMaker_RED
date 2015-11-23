@@ -25,6 +25,7 @@ import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataView;
+import utils.rectangle.*;
 
 
 public class RoomController {
@@ -42,6 +43,8 @@ public class RoomController {
 	public RoomController(ResourceBundle resources, DataRoom room, DataGame gameObject) {
 		myResources = resources;
 		model = room;
+		model.getDataView().setView(new Rectangle(room.getDataView().getX(), room.getDataView().getY(),
+				gameObject.getViewWidth(), gameObject.getViewHeight()));
 		view = new RoomEditor(myResources, room.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);

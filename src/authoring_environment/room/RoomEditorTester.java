@@ -1,6 +1,5 @@
 package authoring_environment.room;
 
-import authoring_environment.room.RoomController;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.application.Application;
 import javafx.stage.Stage;
