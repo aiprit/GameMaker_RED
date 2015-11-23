@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.loop.IDraw;
+import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import structures.data.DataObject;
