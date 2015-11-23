@@ -9,11 +9,16 @@ import structures.run.RunObject;
 
 public class GroovyEngine {
 	
-	//starts the first room loop
-	GroovyLibrary myGroovyLibrary;
+	private GroovyLibrary myGroovyLibrary;
+	private GroovyShell myShell;
+	private Binding myBinding;
+	
 	
 	public GroovyEngine(RunGame runGame, EventManager eventManager){
 		myGroovyLibrary = new GroovyLibrary(runGame, eventManager);
+		myBinding = new Binding();
+		myBinding.setProperty("library", myGroovyLibrary);
+		myShell = new GroovyShell(myBinding);
 	}
 	
 	public void runScript(RunObject o, RunAction action, GroovyEvent event){
@@ -21,12 +26,9 @@ public class GroovyEngine {
 			return;
 		}
 		System.out.println(action.script);
-		Binding binding = new Binding();
-		binding.setProperty("current", o);
-		binding.setProperty("library", myGroovyLibrary);
-		binding.setProperty("event", event);
-		GroovyShell shell = new GroovyShell(binding);
-		shell.evaluate(action.script);
+		myShell.setProperty("current", o);
+		myShell.setProperty("event", event);
+		myShell.evaluate(action.script);
 	}
 	
 	public void runScript(RunObject o, RunAction action){
@@ -34,11 +36,8 @@ public class GroovyEngine {
 			return;
 		}
 		System.out.println(action.script);
-		Binding binding = new Binding();
-		binding.setProperty("current", o);
-		binding.setProperty("library", myGroovyLibrary);
-		GroovyShell shell = new GroovyShell(binding);
-		shell.evaluate(action.script);
+		myShell.setProperty("current", o);
+		myShell.evaluate(action.script);
 	}
 
 }
