@@ -357,5 +357,13 @@ public class GameEventManager implements IInputHandler, IObjectModifiedHandler, 
 			myKeyMap.put(event.getCode(), false);
 		}
 	}
+	
+	/**
+	 * Call before the game loop is restarted to make sure nothing
+	 * happens when the game is paused
+	 */
+	public void clearInputEvents(){
+		myInputQueue.clear();
+	}
 
 }

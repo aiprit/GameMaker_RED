@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import XML.XMLEditor;
 import engine.events.EventManager;
+import engine.events.IGUIControllerHandler;
 import engine.front_end.FrontEnd;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
@@ -22,10 +23,11 @@ import structures.run.RunGame;
 import structures.run.RunObject;
 
 
-public class EngineController {
+public class EngineController implements IGUIControllerHandler {
 
 	private XMLEditor myEditor;
 	private DataGame myGame;
+	private RunGame currentRunGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
 
@@ -34,6 +36,7 @@ public class EngineController {
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
+		currentRunGame = runGame;
 		myFrontEnd = new FrontEnd(eventManager, stage);
 		//starts the first room loop
 		myEngine = new Engine(runGame, eventManager);
@@ -108,9 +111,33 @@ public class EngineController {
 	}
 
 	public void setupEventManager(EventManager eventManager){
-		eventManager.addGUIInterface(myEngine.getGUIHandler());
+		eventManager.addGUIBackendInterface(myEngine.getGUIBackendHandler());
+		eventManager.addGUIControllerInterface(this);
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
 		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());
+	}
+
+	@Override
+	public void onReset() {
+		myEngine.pause();
+		System.out.println("reset");
+	}
+
+	@Override
+	public void onLoadSave(String path) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onSave() {
+		//TODO: move save to the controller
+		DataGame currentGameData;
+		try {
+			currentGameData = currentRunGame.toData();
+		}
+		catch (CompileTimeException e) {
+		}
 	}
 }

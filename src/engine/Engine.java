@@ -1,8 +1,8 @@
 package engine;
 
 import engine.events.EventManager;
-import engine.events.IFrontEndUpdateHandler;
-import engine.events.IGUIHandler;
+import engine.events.IGameUpdatedHandler;
+import engine.events.IGUIBackendHandler;
 import engine.events.IInputHandler;
 import engine.events.IObjectModifiedHandler;
 import engine.front_end.IDraw;
@@ -20,44 +20,21 @@ import structures.run.RunRoom;
  * interface and most GUI components.
  *
  */
-public class Engine implements IFrontEndUpdateHandler {
+public class Engine implements IGameUpdatedHandler {
 
-	private RunGame myOriginalGame;
 	private RunGame myGame;
 	private RoomLoop myLevel;
 	private EventManager myEventManager;
-	private IGUIHandler myGUIHandler;
+	private IGUIBackendHandler myGUIHandler;
 	private IObjectModifiedHandler myObjectHandler;
 	private IDraw myDrawListener;
 	private GroovyEngine myGroovyEngine;
 
 	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
-		myGUIHandler = new GUIListener(this, false, null);
-		myOriginalGame = runGame;
+		myGUIHandler = new GUIBackendListener(this, false);
 		myEventManager = eventManager;
 		myGroovyEngine = new GroovyEngine(myGame, eventManager);
-	}
-
-	public void load(RunGame runGame) {
-		myGame = runGame;
-		myOriginalGame = runGame;
-	}
-
-	public DataGame save() throws CompileTimeException {
-		DataGame currentGameData;
-		try {
-			currentGameData = myGame.toData();
-		}
-		catch (CompileTimeException e) {
-			throw new CompileTimeException(e.getMessage());
-		}
-		return currentGameData;
-	}
-
-	//called when the drawing listener is passed to the engine
-	public void reset() {
-		myGame = myOriginalGame;
 	}
 
 	public void runLevel(){
@@ -70,11 +47,11 @@ public class Engine implements IFrontEndUpdateHandler {
 		myLevel.start();
 	}
 
-	public IGUIHandler getGUIHandler(){
+	public IGUIBackendHandler getGUIBackendHandler(){
 		return myGUIHandler;
 	}
 
-	public IFrontEndUpdateHandler getFrontEndUpdateHandler(){
+	public IGameUpdatedHandler getFrontEndUpdateHandler(){
 		return this;
 	}
 
@@ -84,6 +61,10 @@ public class Engine implements IFrontEndUpdateHandler {
 
 	public void pause() {
 		myLevel.pause();
+	}
+	
+	public void resume(){
+		myLevel.resume();
 	}
 
 	public void setDrawListener(IDraw drawListener){
