@@ -1,6 +1,7 @@
 package engine;
 
 import engine.events.EventManager;
+import engine.events.IFrontEndUpdateHandler;
 import engine.events.IGUIHandler;
 import engine.events.IGamePlayHandler;
 import engine.events.IObjectModifiedHandler;
@@ -9,6 +10,7 @@ import engine.loop.IDraw;
 import engine.loop.RoomLoop;
 import engine.loop.groovy.GroovyEngine;
 import exceptions.CompileTimeException;
+import front_end.IDraw;
 import structures.data.DataGame;
 import structures.run.RunGame;
 import structures.run.RunRoom;
@@ -20,7 +22,7 @@ import structures.run.RunRoom;
  * interface and most GUI components.
  *
  */
-public class Engine implements IRoomChangedHandler {
+public class Engine implements IFrontEndUpdateHandler {
 
 	private RunGame myOriginalGame;
 	private RunGame myGame;
@@ -81,7 +83,7 @@ public class Engine implements IRoomChangedHandler {
 		return myGameplayHandler;
 	}
 	
-	public IRoomChangedHandler getRoomChangedHandler(){
+	public IFrontEndUpdateHandler getFrontEndUpdateHandler(){
 		return this;
 	}
 	
@@ -103,6 +105,11 @@ public class Engine implements IRoomChangedHandler {
 		//how else need to change the level?
 		myLevel.cancel();
 		runLevel();
+	}
+
+	@Override
+	public void setHighScore(double highScore) {
+		myGame.setHighScore(highScore);
 	}
 
 }

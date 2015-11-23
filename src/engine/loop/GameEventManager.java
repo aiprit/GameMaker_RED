@@ -17,6 +17,7 @@ import engine.loop.groovy.GroovyCollisionEvent;
 import engine.loop.groovy.GroovyEngine;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
+import front_end.IDraw;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;

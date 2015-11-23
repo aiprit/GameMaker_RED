@@ -11,6 +11,7 @@ import XML.XMLEditor;
 import engine.events.EventManager;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
+import front_end.FrontEnd;
 import javafx.scene.control.ChoiceDialog;
 import javafx.stage.Stage;
 import structures.TestGame2;
@@ -33,7 +34,7 @@ public class EngineController {
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
-                myFrontEnd = new FrontEnd(runGame, eventManager, stage);
+                myFrontEnd = new FrontEnd(eventManager, stage);
 		//starts the first room loop
                 myEngine = new Engine(runGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
@@ -131,9 +132,9 @@ public class EngineController {
 	
 	public void setupEventManager(EventManager eventManager){
 		eventManager.addGUIInterface(myEngine.getGUIHandler());
-		eventManager.addRoomChangedInterface(myFrontEnd.getRoomChangedHandler());
-		eventManager.addRoomChangedInterface(myEngine.getRoomChangedHandler());
 		eventManager.addUserInputInterface(myEngine.getGamePlayHandler());
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
+		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
+		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());
 	}
 }
