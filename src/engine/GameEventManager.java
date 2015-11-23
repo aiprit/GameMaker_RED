@@ -12,6 +12,7 @@ import engine.collisions.CollisionManager;
 import engine.collisions.ICollisionChecker;
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import front_end.IDraw;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import structures.data.events.CollisionEvent;

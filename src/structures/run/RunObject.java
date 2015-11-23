@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.IDraw;
 import engine.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
+import front_end.IDraw;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;

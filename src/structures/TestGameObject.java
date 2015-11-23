@@ -28,11 +28,12 @@ import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
-import structures.data.actions.library.GetGlobalVariable;
-import structures.data.actions.library.GetScore;
+import structures.data.actions.library.GetGlobalVariableConditional;
+import structures.data.actions.library.GetHighScore;
 import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
 import structures.data.actions.library.SetGlobalVariable;
+import structures.data.actions.library.SetHighScore;
 import structures.data.actions.library.SetRandomNumberAndChoose;
 import structures.data.actions.library.Wrap;
 import structures.data.actions.params.IParameter;
@@ -203,7 +204,7 @@ public class TestGameObject {
 		player.bindEvent(new LeaveRoomEvent(), wrapActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetGlobalVariable getScore = new GetGlobalVariable();
+		GetGlobalVariableConditional getScore = new GetGlobalVariableConditional();
 		try{
 			getScore.getParameters().get(0).parse("score");
 			getScore.getParameters().get(1).parse(">=");
@@ -213,6 +214,21 @@ public class TestGameObject {
 
 		}
 		Open open = new Open();
+		GetHighScore ghs = new GetHighScore();
+		try{
+			ghs.getParameters().get(0).parse("<");
+			ghs.getParameters().get(1).parse("score");
+		} catch(Exception e){
+			
+		}
+		Open open3 = new Open();
+		SetHighScore shs = new SetHighScore();
+		try{
+			shs.getParameters().get(0).parse("score");
+		} catch(Exception e){
+			
+		}
+		Close close3 = new Close();
 		GoToRoom gtr = new GoToRoom();
 		try{
 			gtr.getParameters().get(0).parse("2");
@@ -254,6 +270,10 @@ public class TestGameObject {
 		List<IAction> zeroActions = new ArrayList<>();
 		zeroActions.add(getScore);
 		zeroActions.add(open);
+		zeroActions.add(ghs);
+		zeroActions.add(open3);
+		zeroActions.add(shs);
+		zeroActions.add(close3);
 		zeroActions.add(gtr);
 		zeroActions.add(elseBrace);
 		zeroActions.add(addOne);

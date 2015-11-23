@@ -18,26 +18,23 @@ import utils.Point;
  * we can push the event to all registered listeners.
  *
  */
-public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlayHandler, IObjectModifiedHandler {
+public class EventManager implements IGUIHandler,
+IGamePlayHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 
 	private List<IGUIHandler> myGUI;
-	private List<IRoomChangedHandler> myRoomChanged;
 	private List<IGamePlayHandler> myUserInput;
 	private List<IObjectModifiedHandler> myObjectModified;
+	private List<IFrontEndUpdateHandler> myFrontEndUpdater;
 
 	public EventManager(){
 		myGUI = new ArrayList<>();
-		myRoomChanged = new ArrayList<>();
 		myUserInput = new ArrayList<>();
 		myObjectModified = new ArrayList<>();
+		myFrontEndUpdater = new ArrayList<>();
 	}
 
 	public void addGUIInterface(IGUIHandler gui){
 		myGUI.add(gui);
-	}
-
-	public void addRoomChangedInterface(IRoomChangedHandler roomChanged){
-		myRoomChanged.add(roomChanged);
 	}
 
 	public void addUserInputInterface(IGamePlayHandler userInput){
@@ -46,6 +43,10 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
+	}
+	
+	public void addFrontEndUpdateInterface(IFrontEndUpdateHandler frontEnd){
+		myFrontEndUpdater.add(frontEnd);
 	}
 
 	public void clearObjectModifiedInterface(){
@@ -79,12 +80,6 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void onSave(){
 		for(IGUIHandler g : myGUI){
 			g.onSave();
-		}
-	}
-
-	public void onRoomChanged(RunRoom runRoom){
-		for(IRoomChangedHandler r : myRoomChanged){
-			r.onRoomChanged(runRoom);
 		}
 	}
 
@@ -131,6 +126,20 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void addStringToDraw(String draw) {
 		for(IObjectModifiedHandler m : myObjectModified){
 			m.addStringToDraw(draw);
+		}
+	}
+
+	@Override
+	public void onRoomChanged(RunRoom runRoom){
+		for(IFrontEndUpdateHandler f : myFrontEndUpdater){
+			f.onRoomChanged(runRoom);
+		}
+	}
+	
+	@Override
+	public void setHighScore(double highScore) {
+		for(IFrontEndUpdateHandler f : myFrontEndUpdater){
+			f.setHighScore(highScore);
 		}
 	}
 

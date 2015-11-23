@@ -2,6 +2,7 @@ package engine;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import front_end.IDraw;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

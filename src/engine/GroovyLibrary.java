@@ -74,20 +74,20 @@ public class GroovyLibrary {
 	public void draw_text(String text){
 		myEventManager.addStringToDraw(text);
 	}
-	
+
 	public void display_message(String message) throws InterruptedException, IllegalMonitorStateException {
-	    Alert alert = new Alert(AlertType.INFORMATION);
-	    alert.setTitle("Message");
-	    alert.setHeaderText("Message Dialogue");
-	    alert.setContentText(message);
-	    alert.show();
-	    try {
-	        alert.wait();
-	    } catch (IllegalMonitorStateException e) {
-	        // Do nothing
-	    }
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Message");
+		alert.setHeaderText("Message Dialogue");
+		alert.setContentText(message);
+		alert.show();
+		try {
+			alert.wait();
+		} catch (IllegalMonitorStateException e) {
+			// Do nothing
+		}
 	}
-		
+
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 	//			boolean border, double borderWidth){
 	//		
@@ -101,14 +101,14 @@ public class GroovyLibrary {
 		return myRunGame.getCurrentRoom().toString();
 	}
 
-	//keep to make for player score instead of internal
-	//game score
-	//	public int get_score(){
-	//		return null;
-	//	}
+	public double get_high_score(){
+		return myRunGame.getHighScore();
+	}
 
-	//	public void set_score(double score){
-	//	}
+	public void set_high_score(double score){
+		myRunGame.setHighScore(score);
+		myEventManager.setHighScore(score);
+	}
 
 	public double get_variable(String key){
 		if(!myGlobalVariables.containsKey(key)){
@@ -146,11 +146,11 @@ public class GroovyLibrary {
 	}
 
 	public void save_game() {
-	    myEventManager.onSave();
+		myEventManager.onSave();
 	}
-	
+
 	public void reset_game() {
-	    myEventManager.onReset();
+		myEventManager.onReset();
 	}
 
 	public void set_variable(String key, double value, boolean relative){
@@ -165,13 +165,13 @@ public class GroovyLibrary {
 			myGlobalVariables.put(key, value);
 		}
 	}
-	
+
 	public void wrap(RunObject check){
 		double[] newCoordinates = wrapRecursion(check.get_x_position(), check.get_y_position());
 		check.x = newCoordinates[0];
 		check.y = newCoordinates[1];
 	}
-	
+
 	private double[] wrapRecursion(double x, double y){
 		if(x <= myRunGame.getCurrentRoom().getWidth() &&
 				x >= 0 &&
