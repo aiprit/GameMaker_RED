@@ -9,7 +9,6 @@ import javafx.scene.input.InputEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Point;
-import utils.Rectangle;
 
 /**
  * A centralized event system for an instance of an Engine. 
@@ -64,7 +63,7 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 			g.onResume();
 		}
 	}
-
+ 
 	public void onPause(){
 		for(IGUIHandler g : myGUI){
 			g.onPause();

@@ -2,7 +2,6 @@ package engine.events;
 
 import structures.run.RunObject;
 import utils.Point;
-import utils.Rectangle;
 
 public interface IObjectModifiedHandler {
     void onObjectCreate(RunObject runObject);
