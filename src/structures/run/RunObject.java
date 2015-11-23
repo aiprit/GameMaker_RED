@@ -1,6 +1,7 @@
 package structures.run;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
+import utils.Bresenham;
+import utils.Point;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -188,7 +191,7 @@ public class RunObject {
 		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
 			return;
 		}
-		
+		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
 	}
 	
 	public boolean collision_at(double x, double y) {

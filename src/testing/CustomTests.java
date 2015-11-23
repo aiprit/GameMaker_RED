@@ -5,6 +5,7 @@ import utils.Utils;
 
 public class CustomTests {
 	public static void main(String[] args) {
+		
 		interpolationTest();
 	}
 	

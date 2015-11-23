@@ -65,12 +65,24 @@ public class EngineController {
 		return choices;
 	}
 	
+	public String getGamesDirectory() {
+		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
+		return path;
+		
+	}
+	
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 		
 		//set myGame to the game that the user chooses
 		System.out.println(userGame);
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
+		
+		
+		String path = getGamesDirectory() + "TestGame/sprites/coin.png";
+		File f = new File(path);
+		System.out.println(path);
+		System.out.println(f.exists());
 		
 		// Which one was selected?
 		DataGame game = null;
