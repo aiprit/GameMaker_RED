@@ -196,6 +196,7 @@ public class RunObject {
 		} else {
 			return myCollisionChecker.collisionAt(x, y, this);
 		}
+	}
 	public double get_x_position(){
 		return this.x;
 	}

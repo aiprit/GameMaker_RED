@@ -81,10 +81,9 @@ public class EngineController {
 		DataGame game = null;
 		if (userGame.equals("TestGame")) {
 			TestGameObject tgo = new TestGameObject();
-			game = tgo.getTestGame();
+			game = tgo.getTestGame(getGamesDirectory());
 		} else if (userGame.equals("TestGame2")) {
 			TestGame2 tgo = new TestGame2();
-			game = tgo.getTestGame();
 			game = tgo.getTestGame(getGamesDirectory());
 		}
 		
