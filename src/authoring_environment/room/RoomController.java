@@ -93,19 +93,8 @@ public class RoomController {
 		view.getPreview().setOnKeyPressed(null);
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
-			//TODO add scale x and scale y factors
-			double width = 0;
-			double height = 0;
-			try {
-				width = instance.getParentObject().getSprite().getImage().getWidth();
-				height = instance.getParentObject().getSprite().getImage().getHeight();
-			} catch (NullPointerException e) {
-				Image sprite = new Image(getClass().getClassLoader().getResourceAsStream(myResources.getString(DEFAULT_SPRITE)));
-				width = sprite.getWidth();
-				height = sprite.getHeight();
-			}
-			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), instance.getX(), instance.getY(), width, height)){
-				ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+			ObjectInstanceController currentObject = new ObjectInstanceController(instance);
+			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), currentObject.getDraggableImage())){
 				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject, model);
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));

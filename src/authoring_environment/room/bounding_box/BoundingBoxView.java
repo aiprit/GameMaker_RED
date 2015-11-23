@@ -18,7 +18,7 @@ public class BoundingBoxView {
 	public void draw() {
 		myCanvas.redrawCanvas();
 		myCanvas.getGraphicsContext2D().save();
-		myCanvas.rotate(myImage.getAngle(), myImage.getX() + myImage.getWidth()/2, myImage.getY() + myImage.getHeight()/2);
+		myCanvas.rotate(myImage.getAngle(), myImage.getX() + myImage.getWidth()*myImage.getScaleX()/2, myImage.getY() + myImage.getHeight()*myImage.getScaleY()/2);
 		myCanvas.getGraphicsContext2D().setStroke(Color.BLUE);
 		myCanvas.getGraphicsContext2D().setLineWidth(BOX_LINE_WIDTH);
 		myCanvas.getGraphicsContext2D().strokeRect(myImage.getX(), myImage.getY(), myImage.getWidth()*myImage.getScaleX(), myImage.getHeight()*myImage.getScaleY());

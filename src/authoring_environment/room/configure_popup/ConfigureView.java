@@ -34,7 +34,6 @@ public class ConfigureView extends PopupTemplate {
 		HBoxHandler handler = new HBoxHandler();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.createHBoxes(NUM_HBOXES, labelStrings);
-		System.out.println(myContentsBox == null);
 		for (HBox box : fieldList) {
 			myContentsBox.getChildren().add(box);
 		}

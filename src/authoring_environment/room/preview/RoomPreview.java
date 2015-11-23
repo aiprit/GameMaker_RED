@@ -48,14 +48,14 @@ public class RoomPreview extends ScrollPane {
 		Point2D localCoord = translateEventPoint(event);
 		double x = localCoord.getX();
 		double y = localCoord.getY();
-		if (myRoomView.isVisible() && contains(event.getX(), event.getY(), myRoomView)) {
+		if (myRoomView.isVisible() && myCanvas.contains(event.getX(), event.getY(), myRoomView)) {
 			myRoomView.setXOffset(myRoomView.getX() - x);
 			myRoomView.setYOffset(myRoomView.getY() - y);
 			myRoomView.setDraggable(true);
 		} else {
 			DraggableNode topNode = null;
 			for (DraggableNode node : myCanvas.getObjectMap()) {
-				if (contains(event.getX(), event.getY(), node)) {
+				if (myCanvas.contains(event.getX(), event.getY(), node)) {
 						topNode = node;
 				}
 			}
@@ -74,11 +74,6 @@ public class RoomPreview extends ScrollPane {
 		double adjustedCanvasY = unadjustedCanvasPoint.getY() + this.getVvalue();
 		Point2D adjustedCanvasPoint = new Point2D(adjustedCanvasX, adjustedCanvasY);
 		return adjustedCanvasPoint;
-	}
-
-	private boolean contains(double x, double y, DraggableNode node) {
-		return (x > node.getX() && x <= node.getX() + node.getWidth()*node.getScaleX() && 
-				y > node.getY() && y <= node.getY() + node.getHeight()*node.getScaleY());
 	}
 
 }
