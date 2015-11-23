@@ -167,15 +167,31 @@ public class GroovyLibrary {
 	}
 	
 	public void wrap(RunObject check){
-		if(check.get_x_position() > myRunGame.getCurrentRoom().getWidth()){
-			check.x = check.get_x_position() - myRunGame.getCurrentRoom().getWidth();
-		} else if(check.get_x_position() < 0){
-			check.x = check.get_x_position() + myRunGame.getCurrentRoom().getWidth();
-		} else if(check.get_y_position() > myRunGame.getCurrentRoom().getHeight()){
-			check.y = check.get_y_position() - myRunGame.getCurrentRoom().getHeight();
-		} else if(check.get_y_position() < 0){
-			check.y = check.get_y_position() + myRunGame.getCurrentRoom().getHeight();
+		double[] newCoordinates = wrapRecursion(check.get_x_position(), check.get_y_position());
+		check.x = newCoordinates[0];
+		check.y = newCoordinates[1];
+	}
+	
+	private double[] wrapRecursion(double x, double y){
+		if(x <= myRunGame.getCurrentRoom().getWidth() &&
+				x >= 0 &&
+				y <= myRunGame.getCurrentRoom().getHeight() &&
+				y >= 0){
+			double[] ret = new double[2];
+			ret[0] = x;
+			ret[1] = y;
+			return ret;
 		}
+		if(x > myRunGame.getCurrentRoom().getWidth()){
+			x = x - myRunGame.getCurrentRoom().getWidth();
+		} else if(x < 0){
+			x = x + myRunGame.getCurrentRoom().getWidth();
+		} if(y > myRunGame.getCurrentRoom().getHeight()){
+			y = y - myRunGame.getCurrentRoom().getHeight();
+		} else if(y < 0){
+			y = y + myRunGame.getCurrentRoom().getHeight();
+		}
+		return wrapRecursion(x, y);
 	}
 
 	//	public void with(){
