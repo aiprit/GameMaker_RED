@@ -2,6 +2,7 @@ package authoring_environment.room.configure_popup;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring_environment.room.object_instance.DraggableImage;
 import javafx.scene.control.RadioButton;
@@ -14,12 +15,15 @@ public class ConfigureController {
 	private ConfigureModel model;
 	private DataInstance myDataInstance;
 	private DraggableImage myDragImage;
+	private Consumer<Void> myDrawFunction;
+	
 	//TODO think about using interface to isolate set and get methods for DataInstance
-	public ConfigureController(ResourceBundle resources, DataInstance dataInstance, DraggableImage dragImage) {
+	public ConfigureController(ResourceBundle resources, DataInstance dataInstance, DraggableImage dragImage, Consumer<Void> redrawFunc) {
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
 		myDataInstance = dataInstance;
 		myDragImage = dragImage;
+		myDrawFunction = redrawFunc;
 	}
 	
 	public void initialize() {
@@ -60,6 +64,7 @@ public class ConfigureController {
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
 		configure.close();
+		myDrawFunction.accept(null);
 	}
 
 	

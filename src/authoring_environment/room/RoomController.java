@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import authoring_environment.room.bounding_box.BoundingBoxController;
 import authoring_environment.room.button_toolbar.ButtonToolbarController;
@@ -111,12 +112,15 @@ public class RoomController {
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
 				if (event.getClickCount() == 2) {
 					System.out.println("Object instance controller angle is " + currentObject.getDraggableImage().getAngle());
-					ConfigureController configure = new ConfigureController(myResources, instance, currentObject.getDraggableImage()); 
+					Consumer<Void> redrawFunc = e -> view.getPreview().getCanvas().redrawCanvas();
+					ConfigureController configure = new ConfigureController(myResources, instance, view.getPreview().getCanvas().getClickedImage(currentObject.getDraggableImage()), redrawFunc); 
 					configure.initialize();
 				} 
 			} 
 		}
 	}
+	
+	
 	
 	private void handleKeyPress(KeyEvent event, ObjectInstanceController controller) {
 		switch (event.getCode()) {
