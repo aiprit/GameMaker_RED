@@ -85,6 +85,7 @@ public class GameEventManager implements IInputHandler, IObjectModifiedHandler, 
 		myPhysicsEngine = new ScrollerPhysicsEngine();
 		myStringsToDraw = new ArrayList<>();
 		myInputQueue = new LinkedList<>();
+		myKeyMap = new HashMap<>();
 		init(room);
 	}
 
@@ -350,6 +351,11 @@ public class GameEventManager implements IInputHandler, IObjectModifiedHandler, 
 	@Override
 	public void onKeyEvent(KeyEvent event) {
 		myInputQueue.add(event);
+		if (event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+			myKeyMap.put(event.getCode(), true);
+		} else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+			myKeyMap.put(event.getCode(), false);
+		}
 	}
 
 }
