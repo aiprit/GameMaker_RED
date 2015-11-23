@@ -2,6 +2,7 @@ package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ObjectEditorView {
@@ -50,6 +52,17 @@ public class ObjectEditorView {
 		myRoot.getChildren().add(myPane);
 		Scene scene = new Scene(myRoot);
 		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+		
+//		Screen screen = Screen.getPrimary();
+//		Rectangle2D bounds = screen.getVisualBounds();
+//		myStage.setX(bounds.getMinX());
+//		myStage.setY(bounds.getMinY());
+//		myStage.setWidth(bounds.getWidth());
+//		myStage.setHeight(bounds.getHeight());
+		
+		myPane.prefHeightProperty().bind(scene.heightProperty());
+        myPane.prefWidthProperty().bind(scene.widthProperty());
+
 		myStage.setScene(scene);
 		myStage.show();
 	}
