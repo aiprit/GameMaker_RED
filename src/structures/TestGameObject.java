@@ -6,6 +6,7 @@ import java.util.List;
 
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
+import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -15,26 +16,25 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataSprite;
 import structures.data.DataView;
+import structures.data.actions.GetObjectVariable;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.CustomCode;
-import structures.data.actions.library.AdjustScroller;
+import structures.data.actions.SetObjectVariable;
 import structures.data.actions.library.AdjustScrollerX;
-import structures.data.actions.library.ChangeScore;
 import structures.data.actions.library.Close;
-import structures.data.actions.library.CreateObjectOnClick;
 import structures.data.actions.library.CreateObjectRandom;
 import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
+import structures.data.actions.library.GetGlobalVariable;
 import structures.data.actions.library.GetScore;
 import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
+import structures.data.actions.library.SetGlobalVariable;
 import structures.data.actions.library.SetRandomNumberAndChoose;
 import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
-import structures.data.events.GlobalMousePressedEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectMousePressedEvent;
@@ -53,23 +53,23 @@ import utils.Rectangle;
 
 public class TestGameObject {
 
-		public static void main(String[] args) {
-			TestGameObject testGameObject = new TestGameObject();
+	public static void main(String[] args) {
+		TestGameObject testGameObject = new TestGameObject();
 
-			DataGame printGame = testGameObject.getTestGame();
-			System.out.println(printGame.toString());
-			XMLEditor xml = new XMLEditor();
-			xml.writeXML(printGame, "test.xml");
-		}
+		DataGame printGame = testGameObject.getTestGame("");
+		System.out.println(printGame.toString());
+		XMLEditor xml = new XMLEditor();
+		xml.writeXML(printGame, "test.xml");
+	}
 
 	/*
      Events are not associated with actions, they will be when
      the action library has been built out in the game engine
-     */
+	 */
 
-	public DataGame getTestGame() {
-		DataGame testGame = new DataGame("Test Game", "TestGame/");
-		
+	public DataGame getTestGame(String directory) {
+		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
+
 		DataObject text = new DataObject("GameTitle");
 		DrawText dt = new DrawText();
 		try{
@@ -80,14 +80,14 @@ public class TestGameObject {
 		List<IAction> textActions = Collections.singletonList(dt);
 		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
 		text.bindEvent(new StepEvent(), textActionsO);
-		
+
 		DataObject coin = new DataObject("Coin");
 
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 		coin.setSprite(coinSprite);
 
 		DataObject player = new DataObject("Player");
-		
+
 		MoveToRandom mtr = new MoveToRandom();
 		Destroy destroyCoin = new Destroy();
 		try {
@@ -121,7 +121,7 @@ public class TestGameObject {
 		actions.add(spaceBarAction);
 		ObservableList<IAction> actionsO = FXCollections.observableList(actions);
 		player.bindEvent(startScreenChange, actionsO);
-		
+
 		MoveTo left = new MoveTo();
 		MoveTo right = new MoveTo();
 		MoveTo up = new MoveTo();
@@ -149,13 +149,13 @@ public class TestGameObject {
 			down.getParameters().get(0).parse("0");
 			down.getParameters().get(1).parse("10");
 			down.getParameters().get(2).parse("true");
-			
+
 			m.getParameters().get(0).parse("Coin");
 			m.getParameters().get(1).parse("100");
 			m.getParameters().get(2).parse("100");
-			
+
 			ms.getParameters().get(0).parse(".5");
-			
+
 			//rs.getParameters().get(0).parse("Coin");
 
 		} catch (ParameterParseException ex) {
@@ -176,7 +176,7 @@ public class TestGameObject {
 		//ObservableList<IAction> rsActionsO = FXCollections.observableList(rsActions);
 		List<IAction> msActions = Collections.singletonList(ms);
 		ObservableList<IAction> msActionsO = FXCollections.observableList(msActions);
-		
+
 		player.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
 		player.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
@@ -186,10 +186,11 @@ public class TestGameObject {
 		player.bindEvent(new StepEvent(), msActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetScore getScore = new GetScore();
+		GetObjectVariable getScore = new GetObjectVariable();
 		try{
-			getScore.getParameters().get(0).parse(">");
-			getScore.getParameters().get(1).parse("2");
+			getScore.getParameters().get(0).parse("score");
+			getScore.getParameters().get(1).parse(">=");
+			getScore.getParameters().get(2).parse("3");
 		}
 		catch(Exception e){
 
@@ -203,12 +204,14 @@ public class TestGameObject {
 
 		}
 		Else elseBrace = new Else();
-		ChangeScore addOne = new ChangeScore();
+		SetObjectVariable addOne = new SetObjectVariable();
 		try{
-			addOne.getParameters().get(0).parse("1");
+			addOne.getParameters().get(0).parse("score");
+			addOne.getParameters().get(1).parse("1");
+			addOne.getParameters().get(2).parse("true");
 		}
 		catch(Exception e){
-			
+
 		}
 		SetRandomNumberAndChoose srac = new SetRandomNumberAndChoose();
 		try{
@@ -262,7 +265,7 @@ public class TestGameObject {
 
 		DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
 		//startScreenBackground.setSprite(startScreenSprite);
-		
+
 		startScreenBackground.setScaleX(.5);
 		startScreenBackground.setScaleY(.5);
 
@@ -270,7 +273,7 @@ public class TestGameObject {
 		DrawText drawText = new DrawText();
 		try{
 			goToStart.getParameters().get(0).parse("1");
-			
+
 			drawText.getParameters().get(0).parse("Start Game");
 		}
 		catch(Exception e){
@@ -283,7 +286,7 @@ public class TestGameObject {
 		ObservableList<IAction> startupActionsO = FXCollections.observableList(startupActions);
 		startScreenBackground.bindEvent(new KeyPressedEvent(KeyCode.SPACE), startActionsO);
 		startScreenBackground.bindEvent(new ObjectCreateEvent(), startupActionsO);
-		
+
 		DataObject winScreenBackground = new DataObject("WinScreenBackground");
 
 		DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
@@ -298,7 +301,7 @@ public class TestGameObject {
 		DataView level1View = new DataView("Level 1 View", level1Rect);
 		level1.setView(level1View);
 		level1.setBackgroundColor("TestGame/background.png");
-		level1.addObjectInstance(new DataInstance(player, 40, 40, 0, .5, .5));
+		level1.addObjectInstance(new DataInstance(player, 240, 40, 0, .5, .5));
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
 		level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
 
@@ -317,6 +320,16 @@ public class TestGameObject {
 		testGame.addSprite(playerSprite);
 		testGame.addSprite(startScreenSprite);
 		testGame.addSprite(winScreenSprite);
+
+		try {
+			coinSprite.load(testGame.getSpriteDirectory());
+			playerSprite.load(testGame.getSpriteDirectory());
+			startScreenSprite.load(testGame.getSpriteDirectory());
+			winScreenSprite.load(testGame.getSpriteDirectory());
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+
 
 		testGame.addRoom(startScreen);
 		testGame.addRoom(level1);

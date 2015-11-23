@@ -54,7 +54,7 @@ public class RoomPreview extends ScrollPane {
 			myRoomView.setDraggable(true);
 		} else {
 			DraggableNode topNode = null;
-			for (DraggableNode node : myCanvas.getObjectMap().keySet()) {
+			for (DraggableNode node : myCanvas.getObjectMap()) {
 				if (contains(event.getX(), event.getY(), node)) {
 						topNode = node;
 				}

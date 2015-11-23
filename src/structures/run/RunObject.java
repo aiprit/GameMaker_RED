@@ -33,6 +33,8 @@ public class RunObject {
 	
 	private Rectangle myBounds;
 	
+	private Map<String, Double> myVariables;
+	
 	public RunObject(String name) {
 		this.name = name;
 		this.x = 0.0;
@@ -46,6 +48,7 @@ public class RunObject {
 		this.alpha = 1.0;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
+		myVariables = new HashMap<>();
 		
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -146,9 +149,22 @@ public class RunObject {
 		this.y = yOffset + y;
 	}
 	
-//	public void run_script(String script){
-//		
-//	}
+	public double get_variable(String key){
+		if(!myVariables.containsKey(key)){
+			myVariables.put(key, 0.0);
+		}
+		return myVariables.get(key);
+	}
+	
+	public void set_variable(String key, double value, boolean relative){
+		if(relative){
+			double oldValue = myVariables.get(key);
+			myVariables.put(key, (oldValue + value));
+		}
+		else{
+			myVariables.put(key, value);
+		}
+	}
 	
 	public void scale_sprite(double width, double height){
 		

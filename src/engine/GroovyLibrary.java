@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import engine.events.EventManager;
@@ -16,12 +18,12 @@ public class GroovyLibrary {
 
 	private RunGame myRunGame;
 	private EventManager myEventManager;
-
-	int score = 0;
+	private Map<String, Double> myGlobalVariables;
 
 	public GroovyLibrary(RunGame runGame, EventManager eventManager) {
 		myRunGame = runGame;
 		myEventManager = eventManager;
+		myGlobalVariables = new HashMap<>();
 	}
 
 	private void fatalError(String message, Object... args) {
@@ -81,14 +83,21 @@ public class GroovyLibrary {
 		return myRunGame.getCurrentRoom().toString();
 	}
 
-	public int get_score(){
-		return score;
-	}
-
-	//	public void get_variable(String key){
-	//	    
-	//		
+	//keep to make for player score instead of internal
+	//game score
+	//	public int get_score(){
+	//		return null;
 	//	}
+
+	//	public void set_score(double score, boolean relative){
+	//	}
+
+	public double get_variable(String key){
+		if(!myGlobalVariables.containsKey(key)){
+			myGlobalVariables.put(key, 0.0);
+		}
+		return myGlobalVariables.get(key);
+	}
 
 	public void go_to_room(int roomNumber) {
 		System.out.println("change room!");
@@ -123,18 +132,15 @@ public class GroovyLibrary {
 	//	    
 	//	}
 
-	public void set_score(double score){
-		this.score = (int) score;
+	public void set_variable(String key, double value, boolean relative){
+		if(relative){
+			double oldValue = myGlobalVariables.get(key);
+			myGlobalVariables.put(key, (oldValue + value));
+		}
+		else{
+			myGlobalVariables.put(key, value);
+		}
 	}
-
-	public void change_score(int score){
-		this.score += score;
-	}
-
-	//	
-	//	public void set_variable(String key, double value){
-	//		
-	//	}
 
 	//	public void with(){
 	//		//need to figure out

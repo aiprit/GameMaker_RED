@@ -148,7 +148,8 @@ public class GameEventManager implements IObjectModifiedHandler {
 					List<RunObject> os = myEvents.get(runEvent);
 					for(RunObject o : os){
 						if(event.getLocalCheck()){
-							if(o.getBounds().contains(event.getCoordinates())){
+							Point correctedPoint = correctForView(event.getCoordinates());
+							if(o.getBounds().contains(correctedPoint)){
 								myGroovyEngine.runScript(o, o.getAction(runEvent), event);
 							}
 						}
@@ -271,6 +272,12 @@ public class GameEventManager implements IObjectModifiedHandler {
 	@Override
 	public void addStringToDraw(String draw) {
 		myStringsToDraw.add(draw);
+	}
+	
+	public Point correctForView(Point before){
+		double correctX = before.x + myRoom.getView().getView().x();
+		double correctY = before.y + myRoom.getView().getView().y();
+		return new Point(correctX, correctY);
 	}
 
 }
