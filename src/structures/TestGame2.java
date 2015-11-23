@@ -33,8 +33,8 @@ public class TestGame2 {
      the action library has been built out in the game engine
      */
 
-    public DataGame getTestGame(){
-        DataGame testGame = new DataGame("Test Game 2", "TestGame2/");
+    public DataGame getTestGame(String directory){
+        DataGame testGame = new DataGame("Test Game 2", directory + "TestGame2/");
 
         DataObject wall = new DataObject("Wall");
 

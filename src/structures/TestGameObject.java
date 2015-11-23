@@ -56,7 +56,7 @@ public class TestGameObject {
 		public static void main(String[] args) {
 			TestGameObject testGameObject = new TestGameObject();
 
-			DataGame printGame = testGameObject.getTestGame();
+			DataGame printGame = testGameObject.getTestGame("");
 			System.out.println(printGame.toString());
 			XMLEditor xml = new XMLEditor();
 			xml.writeXML(printGame, "test.xml");
@@ -67,8 +67,8 @@ public class TestGameObject {
      the action library has been built out in the game engine
      */
 
-	public DataGame getTestGame() {
-		DataGame testGame = new DataGame("Test Game", "TestGame/");
+	public DataGame getTestGame(String directory) {
+		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
 
 		DataObject coin = new DataObject("Coin");
 

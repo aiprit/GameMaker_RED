@@ -65,6 +65,11 @@ public class EngineController {
 		return choices;
 	}
 	
+	public String getGamesDirectory() {
+		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
+		return path;		
+	}
+	
 	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
 		
 		//set myGame to the game that the user chooses
