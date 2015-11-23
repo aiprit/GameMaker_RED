@@ -6,6 +6,7 @@ import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
@@ -64,22 +65,24 @@ public class GroovyLibrary {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
-	public void display_message(String message){
-	    myEventManager.onPause();
+	public void display_message(String message) throws InterruptedException, IllegalMonitorStateException {
 	    Alert alert = new Alert(AlertType.INFORMATION);
 	    alert.setTitle("Message");
 	    alert.setHeaderText("Message Dialogue");
 	    alert.setContentText(message);
-
-	    alert.showAndWait();
-	    myEventManager.onStart();
+	    alert.show();
+	    try {
+	        alert.wait();
+	    } catch (IllegalMonitorStateException e) {
+	        // Do nothing
+	    }
 	}
-	//	
+		
 	//	public void draw_rectangle(double x, double y, double width, double height, String color,
 	//			boolean border, double borderWidth){
 	//		
 	//	}
-	//	
+		
 		public void draw_text(String text){
 			
 		}

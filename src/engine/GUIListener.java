@@ -22,7 +22,7 @@ public class GUIListener implements IGUIHandler{
 	}
 
 	@Override
-	public void onStart() {
+	public void onResume() {
 		paused = false;
 	}
 

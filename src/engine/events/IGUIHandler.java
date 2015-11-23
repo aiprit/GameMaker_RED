@@ -9,7 +9,7 @@ package engine.events;
  */
 public interface IGUIHandler {
 	void onReset();
-	void onStart();
+	void onResume();
 	void onPause();
 	void onLoadSave(String path);
 	void onSave();
