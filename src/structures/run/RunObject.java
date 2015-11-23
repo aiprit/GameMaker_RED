@@ -190,10 +190,6 @@ public class RunObject {
 
 	}
 
-	public void set_random_number_and_choose(double odds){
-		//TODO: I don't know how to make this work
-	}
-
 	public void sleep(double time){
 
 	}

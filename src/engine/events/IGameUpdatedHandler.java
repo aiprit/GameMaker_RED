@@ -2,7 +2,7 @@ package engine.events;
 
 import structures.run.RunRoom;
 
-public interface IFrontEndUpdateHandler {
+public interface IGameUpdatedHandler {
 
 	void setHighScore(double highScore);
 	public void onRoomChanged(RunRoom runRoom);

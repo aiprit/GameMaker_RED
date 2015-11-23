@@ -4,7 +4,7 @@
 package engine.front_end;
 
 import engine.events.EventManager;
-import engine.events.IFrontEndUpdateHandler;
+import engine.events.IGameUpdatedHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -29,7 +29,7 @@ import structures.run.RunRoom;
 /**
  * @author loganrooper
  */
-public class FrontEnd implements IFrontEndUpdateHandler {
+public class FrontEnd implements IGameUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	public static final String STYLESHEET = "engine.css";
@@ -57,7 +57,7 @@ public class FrontEnd implements IFrontEndUpdateHandler {
 
 	private void setupFramework(){
 		myRoot = new Group();
-		playScene = new Scene(borderPane, 500, 500);
+		playScene = new Scene(borderPane, 700, 600);
 		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		stage.setScene(playScene);
 		borderPane.setCenter(myRoot);
@@ -197,14 +197,14 @@ public class FrontEnd implements IFrontEndUpdateHandler {
 		return myCanvasDrawer;
 	}
 
-	public IFrontEndUpdateHandler getFrontEndUpdateHandler(){
+	public IGameUpdatedHandler getFrontEndUpdateHandler(){
 		return this;
 	}
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-		stage.setWidth(runRoom.getView().getView().width());
-		stage.setHeight(runRoom.getView().getView().height());
+//		stage.setWidth(runRoom.getView().getView().width());
+//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override

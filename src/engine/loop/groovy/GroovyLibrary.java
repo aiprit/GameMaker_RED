@@ -69,10 +69,6 @@ public class GroovyLibrary {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
-	//	public void display_message(String message){
-	//
-	//	}
-
 	public void draw_text(String text){
 		myEventManager.addStringToDraw(text);
 	}
