@@ -128,10 +128,11 @@ public class RoomCanvas extends Canvas {
 		drawView();
 	}
 	
-	private void rotate(double angle, double pivotX, double pivotY) {
+	public void rotate(double angle, double pivotX, double pivotY) {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
+	
 	//TODO test if scale works
 	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
 		this.getGraphicsContext2D().save();
