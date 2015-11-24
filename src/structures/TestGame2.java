@@ -18,6 +18,7 @@ import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.StepEvent;
 import utils.Vector;
+import utils.rectangle.Rectangle;
 
 /*
     This class generates a sample game object. The game consists
@@ -43,6 +44,7 @@ public class TestGame2 {
         DataGame testGame = new DataGame("Test Game 2", directory + "TestGame2/");
 
         DataObject wall = new DataObject("Wall");
+        wall.setSolid(true);
 
         DataSprite wallSprite = new DataSprite("Wall", "beaten_brick_tiled.png");
         wall.setSprite(wallSprite);
@@ -51,6 +53,7 @@ public class TestGame2 {
 
         DataSprite marioSprite = new DataSprite("Mario", "mario.png");
         mario.setSprite(marioSprite);
+        mario.setSolid(true);
         
         
         try {
@@ -71,6 +74,7 @@ public class TestGame2 {
         SetVelocityInDirection jump = new SetVelocityInDirection();
         
         String stepScript = "" +
+        "library.set_scroller_x(current, 0.5);\n" +
         "if (library.key_down('LEFT') && !library.key_down('RIGHT')) {\n" +
         "current.set_velocity(180,1, true); \n"+
         "} \n" +
@@ -136,7 +140,7 @@ public class TestGame2 {
         mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.F), jumpActions0);
-        mario.bindEvent(new CollisionEvent(wall), blockActions0);
+        //mario.bindEvent(new CollisionEvent(wall), blockActions0);
         mario.bindEvent(StepEvent.event, stepActions0);
         
 
@@ -149,7 +153,8 @@ public class TestGame2 {
         DataSprite winScreenSprite = new DataSprite("Win Screen", "WinScreen.png");
         winScreenBackground.setSprite(winScreenSprite);
 
-        DataRoom level1 = new DataRoom("Level 1", 500, 500);
+        DataRoom level1 = new DataRoom("Level 1", 2000, 500);
+        level1.getDataView().setView(new Rectangle(0, 0, 500, 500));
         level1.setBackgroundColor("TestGame/background.png");
         level1.addObjectInstance(new DataInstance(wall, 0, 200));
         level1.addObjectInstance(new DataInstance(wall, 64, 200));
@@ -157,11 +162,18 @@ public class TestGame2 {
         level1.addObjectInstance(new DataInstance(wall, 128, 136));
         level1.addObjectInstance(new DataInstance(wall, 128, 72));
         level1.addObjectInstance(new DataInstance(wall, 192, 200));
-        level1.addObjectInstance(new DataInstance(wall, 448, 200));
+        level1.addObjectInstance(new DataInstance(wall, 460, 200));
+        level1.addObjectInstance(new DataInstance(wall, 524, 264));
         level1.addObjectInstance(new DataInstance(wall, 255, 200));
         level1.addObjectInstance(new DataInstance(wall, 319, 200));
+        
+        for (int i=0; i<30; i++) {
+        	level1.addObjectInstance(new DataInstance(wall, 64 * i, 328));
+        }
+        
         DataInstance marioInstance = new DataInstance(mario, 200, 20);
         marioInstance.setGravity(new Vector(0, 2));
+        marioInstance.setFriction(.3);
         
         
         level1.addObjectInstance(marioInstance);

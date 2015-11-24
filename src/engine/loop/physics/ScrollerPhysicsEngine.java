@@ -21,6 +21,9 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 		}
 		
 		// Solid objects are special
+		if (Math.abs(obj.velocity.x) < .0001 && Math.abs(obj.velocity.y) < .0001) {
+			return;
+		}
 		if (obj.solid) {
 			double desiredX = obj.x + obj.velocity.x;
 			double desiredY = obj.y + obj.velocity.y;
@@ -34,7 +37,7 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 			if (Math.abs(obj.x - desiredX) > precision) {
 				obj.velocity = obj.velocity.setX(0.0);
 			}
-			if (Math.abs(obj.y - desiredY) > .5) {
+			if (Math.abs(obj.y - desiredY) > precision) {
 				obj.velocity = obj.velocity.setY(0.0);
 			}
 		} else {
@@ -43,17 +46,17 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 		
 	}
 	
-	public void stepX(RunObject obj, double currentX, double desiredX) {
+	private void stepX(RunObject obj, double currentX, double desiredX) {
 		if (desiredX > currentX) {
 			for (double i = currentX; i <= desiredX; i += .5) {
-				if (obj.collision_at(i, obj.y)) {
+				if (obj.collision_solid_at(i, obj.y)) {
 					break;
 				}
 				obj.x = i;
 			}
 		} else {
 			for (double i = currentX; i >= desiredX; i -= .5) {
-				if (obj.collision_at(i, obj.y)) {
+				if (obj.collision_solid_at(i, obj.y)) {
 					break;
 				}
 				obj.x = i;
@@ -61,17 +64,17 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 		}
 	}
 
-	public void stepY(RunObject obj, double currentY, double desiredY) {
+	private void stepY(RunObject obj, double currentY, double desiredY) {
 		if (desiredY > currentY) {
 			for (double i = currentY; i <= desiredY; i += .5) {
-				if (obj.collision_at(obj.x, i)) {
+				if (obj.collision_solid_at(obj.x, i)) {
 					break;
 				}
 				obj.y = i;
 			}
 		} else {
 			for (double i = currentY; i >= desiredY; i -= .5) {
-				if (obj.collision_at(obj.x, i)) {
+				if (obj.collision_solid_at(obj.x, i)) {
 					break;
 				}
 				obj.y = i;
