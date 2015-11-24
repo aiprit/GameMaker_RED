@@ -26,7 +26,7 @@ public class GroovyLibrary {
 		myRunGame = runGame;
 		myEventManager = eventManager;
 		myGlobalVariables = new HashMap<>();
-		myInputManager = new InputManager(eventManager);
+		myInputManager = new InputManager(eventManager, false);
 	}
 
 	private void fatalError(String message, Object... args) {

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 import engine.events.EventManager;
@@ -21,7 +19,6 @@ import engine.loop.groovy.IGroovyEvent;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.LeaveRoomEvent;
@@ -72,7 +69,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myGroovyEngine = groovyEngine;
 		myRoom = room;
 		myCollisionManager = new CollisionManager();
-		myInputManager = new InputManager(eventManager);
+		myInputManager = new InputManager(eventManager, true);
 		myCreatedQueue = new ArrayList<>();
 		myDeleteQueue = new ArrayList<>();
 		myPhysicsEngine = new ScrollerPhysicsEngine();
@@ -332,7 +329,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 * happens when the game is paused
 	 */
 	public void clearInputEvents(){
-		myInputQueue.clear();
+		myInputManager.clearQueue();
 	}
 
 }

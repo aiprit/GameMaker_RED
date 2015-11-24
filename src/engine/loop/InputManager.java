@@ -23,11 +23,12 @@ public class InputManager implements IInputHandler {
 	
 	private Queue<InputEvent> myInputQueue;
 	private Map<KeyCode, Boolean> myKeyMap;
+	private boolean myQueueEnabled;
 	
-	public InputManager(EventManager eventManager) {
+	public InputManager(EventManager eventManager, boolean queueEnabled) {
 		myInputQueue = new LinkedList<>();
 		myKeyMap = new HashMap<>();
-		
+		myQueueEnabled = queueEnabled;
 		eventManager.addUserInputInterface(this);
 	}
 	
@@ -65,6 +66,10 @@ public class InputManager implements IInputHandler {
 							p.y + room.getView().getView().y());
 	}
 	
+	public void clearQueue() {
+		myInputQueue.clear();
+	}
+	
 	public boolean checkKey(KeyCode code) {
 		return myKeyMap.getOrDefault(code, false);
 	}
@@ -80,18 +85,20 @@ public class InputManager implements IInputHandler {
 
 	@Override
 	public void onMouseEvent(MouseEvent event) {
-		myInputQueue.add(event);
+		if (myQueueEnabled) {
+			myInputQueue.add(event);
+		}
 	}
 
 	@Override
 	public void onKeyEvent(KeyEvent event) {
 		if (event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-			if (!checkKey(event.getCode())) {
+			if (myQueueEnabled && !checkKey(event.getCode())) {
 				myInputQueue.add(event);
 			}
 			myKeyMap.put(event.getCode(), true);
 		} else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
-			if (checkKey(event.getCode())) {
+			if (myQueueEnabled && checkKey(event.getCode())) {
 				myInputQueue.add(event);
 			}
 			myKeyMap.put(event.getCode(), false);
