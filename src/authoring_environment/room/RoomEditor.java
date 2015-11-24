@@ -52,6 +52,10 @@ public class RoomEditor {
 		myEditor.setScene(scene);
 		myEditor.show();
 	}
+	
+	public void setOnClose(Consumer<Void> updateFcn) {
+		myEditor.setOnCloseRequest(e -> updateFcn.accept(null));
+	}
 
 	public Stage getEditor() {
 		return myEditor;
