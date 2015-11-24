@@ -8,6 +8,7 @@ import structures.data.DataGame;
 import structures.data.DataRoom;
 
 public class RoomNamePopupController {
+	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final String ROOM_RESOURCE_FILE = "resources/RoomResources";
 	
 	private ResourceBundle myResources;
@@ -18,6 +19,7 @@ public class RoomNamePopupController {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		view = new RoomNamePopup(myResources);
 		model = new DataRoom("", game.getViewWidth(), game.getViewHeight());
+		model.setBackgroundColor(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR));
 	}
 	
 	public RoomNamePopupController(DataRoom room, DataGame game) {
@@ -38,6 +40,7 @@ public class RoomNamePopupController {
 		RoomController roomController = new RoomController(myResources, room, game);
 		view.close();
 		updateFcn.accept(null);
+		roomController.getEditor().setOnClose(updateFcn);
 		roomController.launch();	
 	}
 	

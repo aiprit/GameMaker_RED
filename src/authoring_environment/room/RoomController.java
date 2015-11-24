@@ -57,6 +57,10 @@ public class RoomController {
 		view.show();
 	}
 	
+	public RoomEditor getEditor() {
+		return view;
+	}
+	
 	private void populateEditor(DataRoom room) {
 		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
 		view.getPreview().getCanvas().setHeight(model.getSize()[1]);

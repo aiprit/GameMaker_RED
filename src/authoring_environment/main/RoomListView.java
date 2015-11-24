@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
@@ -29,30 +30,29 @@ public class RoomListView {
 	public void init() {
 		bp = new BorderPane();
 		roomView = new GridPane();
+		bp.setAlignment(roomView, Pos.CENTER);
 		roomView.setVgap(10);
 		roomView.setHgap(20);
-		ArrayList<Button> buttons = new ArrayList<Button>();
-		Map<String, DataObject> roomObjects = new HashMap<String, DataObject>();
 	}
 	
 	public Button addRoom(DataRoom o, int i) {
-		String roomName = o.getName();
-		Button b = new Button(roomName);
+		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName());
 		
 		int col = i % 5;
 		int row = i /5;
-		roomView.add(b, col, row);
+		roomView.add(room, col, row);
 		updateList();
-		return b;
+		return room.getButton();
 	}
 	
 	public Button addPlusButton(int numberofRooms) {
-		Button plus = new Button(myResourceBundle.getString("plus"));
+		RoomIcon room = new RoomIcon(myResourceBundle);
+
 		int col = numberofRooms % 5;
 		int row = numberofRooms /5;
-		roomView.add(plus, col, row);
+		roomView.add(room, col, row);
 		updateList();
-		return plus;
+		return room.getButton();
 		
 	}
 	
