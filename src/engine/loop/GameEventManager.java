@@ -326,5 +326,13 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	public boolean collisionWithAt(double x, double y, RunObject obj1, RunObject obj2) {
 		return myCollisionManager.collisionWithAt(x, y, obj1, obj2);
 	}
+	
+	/**
+	 * Call before the game loop is restarted to make sure nothing
+	 * happens when the game is paused
+	 */
+	public void clearInputEvents(){
+		myInputQueue.clear();
+	}
 
 }

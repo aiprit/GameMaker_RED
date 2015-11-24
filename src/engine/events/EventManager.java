@@ -20,23 +20,29 @@ import utils.Point;
  * we can push the event to all registered listeners.
  *
  */
-public class EventManager implements IGUIHandler,
-IInputHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
+public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
+IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 
-	private List<IGUIHandler> myGUI;
+	private List<IGUIBackendHandler> myGUIBackend;
+	private List<IGUIControllerHandler> myGUIController;
 	private List<IInputHandler> myUserInput;
 	private List<IObjectModifiedHandler> myObjectModified;
-	private List<IFrontEndUpdateHandler> myFrontEndUpdater;
+	private List<IGameUpdatedHandler> myFrontEndUpdater;
 
 	public EventManager(){
-		myGUI = new ArrayList<>();
+		myGUIBackend = new ArrayList<>();
+		myGUIController = new ArrayList<>();
 		myUserInput = new ArrayList<>();
 		myObjectModified = new ArrayList<>();
 		myFrontEndUpdater = new ArrayList<>();
 	}
 
-	public void addGUIInterface(IGUIHandler gui){
-		myGUI.add(gui);
+	public void addGUIBackendInterface(IGUIBackendHandler gui){
+		myGUIBackend.add(gui);
+	}
+	
+	public void addGUIControllerInterface(IGUIControllerHandler gui){
+		myGUIController.add(gui);
 	}
 
 	public void addUserInputInterface(IInputHandler userInput){
@@ -47,7 +53,7 @@ IInputHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 		myObjectModified.add(objectModified);
 	}
 	
-	public void addFrontEndUpdateInterface(IFrontEndUpdateHandler frontEnd){
+	public void addFrontEndUpdateInterface(IGameUpdatedHandler frontEnd){
 		myFrontEndUpdater.add(frontEnd);
 	}
 
@@ -55,32 +61,32 @@ IInputHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 		myObjectModified.clear();
 	}
 
-	public void onReset(){
-		for(IGUIHandler g : myGUI){
-			g.onReset();
-		}
-	}
-
 	public void onResume(){
-		for(IGUIHandler g : myGUI){
+		for(IGUIBackendHandler g : myGUIBackend){
 			g.onResume();
 		}
 	}
  
 	public void onPause(){
-		for(IGUIHandler g : myGUI){
+		for(IGUIBackendHandler g : myGUIBackend){
 			g.onPause();
+		}
+	}
+	
+	public void onReset(){
+		for(IGUIControllerHandler g : myGUIController){
+			g.onReset();
 		}
 	}
 
 	public void onLoadSave(String path){
-		for(IGUIHandler g : myGUI){
+		for(IGUIControllerHandler g : myGUIController){
 			g.onLoadSave(path);
 		}
 	}
 
 	public void onSave(){
-		for(IGUIHandler g : myGUI){
+		for(IGUIControllerHandler g : myGUIController){
 			g.onSave();
 		}
 	}
@@ -129,14 +135,14 @@ IInputHandler, IObjectModifiedHandler, IFrontEndUpdateHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom){
-		for(IFrontEndUpdateHandler f : myFrontEndUpdater){
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.onRoomChanged(runRoom);
 		}
 	}
 	
 	@Override
 	public void setHighScore(double highScore) {
-		for(IFrontEndUpdateHandler f : myFrontEndUpdater){
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
 	}

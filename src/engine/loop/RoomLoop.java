@@ -52,7 +52,12 @@ public class RoomLoop {
 	}
 	 
 	public void start(){
+		gameManager.clearInputEvents();
 		myGameLoop.play();
+	}
+	
+	public void resume(){
+		start();
 	}
 	
 	public void pause(){
