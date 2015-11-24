@@ -1,19 +1,15 @@
 package structures.run;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import javafx.scene.paint.Color;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
-import utils.Bresenham;
-import utils.Point;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -39,14 +35,10 @@ public class RunObject {
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
 
-	private double myLastX, myLastY;
-
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
 
 	private Map<String, Double> myVariables;
-
-	private boolean highlight;
 
 	public RunObject(String name) {
 		this.name = name;
@@ -65,9 +57,6 @@ public class RunObject {
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
 		myVariables = new HashMap<>();
-		myLastX = 0.0;
-		myLastY = 0.0;
-		this.highlight = false;
 
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -137,10 +126,6 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
-			if (this.highlight) {
-				drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
-			}
-			this.highlight = false;
 		}
 	}
 
@@ -181,8 +166,6 @@ public class RunObject {
 	}
 
 	public void move_to(double x, double y, boolean relative){
-		myLastX = this.x;
-		myLastY = this.y;
 		if (relative) {
 			this.x += x;
 			this.y += y;
@@ -228,79 +211,6 @@ public class RunObject {
 
 	}
 
-	public void block(RunObject other, double slipFactor) {
-		other.highlight = true;
-		if (this.highlight) {
-			return;
-		}
-		if (!collision_at(this.x, this.y)) {
-			return;
-		}
-
-		double desiredX = this.x;
-		double desiredY = this.y;
-
-		double currentX = myLastX;
-		double currentY = myLastY;
-
-		this.x = currentX;
-		this.y = currentY;
-
-		if (Math.abs(x - myLastX) > Math.abs(y - myLastY)) {
-			stepX(currentX, desiredX);
-			stepY(currentY, desiredY);
-		} else {
-			stepY(currentY, desiredY);	
-			stepX(currentX, desiredX);
-		}
-
-		if (Math.abs(this.x - desiredX) > .5) {
-			velocity = velocity.setX(0.0);
-		}
-		if (Math.abs(this.y - desiredY) > .5) {
-			velocity = velocity.setY(0.0);
-		}
-		this.highlight = true;
-
-
-	}
-
-	public void stepX(double currentX, double desiredX) {
-		if (desiredX > currentX) {
-			for (double i = currentX; i <= desiredX; i += .5) {
-				if (collision_at(i, this.y)) {
-					break;
-				}
-				this.x = i;
-			}
-		} else {
-			for (double i = currentX; i >= desiredX; i -= .5) {
-				if (collision_at(i, this.y)) {
-					break;
-				}
-				this.x = i;
-			}			
-		}
-	}
-
-	public void stepY(double currentY, double desiredY) {
-		if (desiredY > currentY) {
-			for (double i = currentY; i <= desiredY; i += .5) {
-				if (collision_at(this.x, i)) {
-					break;
-				}
-				this.y = i;
-			}
-		} else {
-			for (double i = currentY; i >= desiredY; i -= .5) {
-				if (collision_at(this.x, i)) {
-					break;
-				}
-				this.y = i;
-			}			
-		}
-	}
-
 	public boolean collision_at(double x, double y) {
 		if (myCollisionChecker == null) {
 			return false;
@@ -310,7 +220,11 @@ public class RunObject {
 	}
 
 	public boolean collision_with_at(double x, double y, RunObject with) {
-		return myCollisionChecker.collisionWithAt(x, y, this, with);
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionWithAt(x, y, this, with);
+		}
 	}
 	
 	public boolean collision_solid_at(double x, double y) {
