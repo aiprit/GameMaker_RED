@@ -33,6 +33,7 @@ public class RunObject {
 	public Vector gravity;
 	public double alpha;
 	public double friction;
+	public boolean solid;
 
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
@@ -60,6 +61,7 @@ public class RunObject {
 		this.angularVelocity = 0.0;
 		this.visible = true;
 		this.alpha = 1.0;
+		this.solid = false;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
 		myVariables = new HashMap<>();
@@ -108,6 +110,13 @@ public class RunObject {
 		clone.angle = this.angle;
 		clone.velocity = this.velocity;
 		clone.mySprite = this.mySprite;
+		clone.visible = this.visible;
+		clone.solid = this.solid;
+		clone.alpha = this.alpha;
+		clone.angularVelocity = this.angularVelocity;
+		clone.friction = this.friction;
+		clone.gravity = this.gravity;
+		clone.myVariables = new HashMap<>(this.myVariables);
 
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<>(myEvents);
@@ -292,123 +301,6 @@ public class RunObject {
 		}
 	}
 
-	public void block2(RunObject other, double slipFactor) {
-
-
-		if (!collision_at(this.x, this.y)) {
-			return;
-		}		
-
-		Point testPoint = this.getBounds().centerPoint();
-		System.out.println(other.getBounds().quadrantOfPoint(testPoint));
-		switch (other.getBounds().quadrantOfPoint(testPoint)) {
-		case TOP:
-			if (this.velocity.y > 0) {
-				this.velocity = this.velocity.setY(0.0);
-			}
-			while (collision_with_at(this.x, this.y, other)) {
-				this.y--;
-			}
-			break;
-		case BOTTOM:
-			if (this.velocity.y < 0) {
-				this.velocity = this.velocity.setY(0.0);
-			}
-			while (collision_with_at(this.x, this.y, other)) {
-				this.y++;
-			}
-			break;
-		case LEFT:
-			if (this.velocity.x > 0) {
-				this.velocity = this.velocity.setX(0.0);
-			}
-			while (collision_with_at(this.x, this.y, other)) {
-				this.x--;
-			}
-			break;
-		case RIGHT:
-			if (this.velocity.x < 0) {
-				this.velocity = this.velocity.setX(0.0);
-			}
-			while (collision_with_at(this.x, this.y, other)) {
-				this.x++;
-			}
-			break;
-		}
-	}
-
-	public void block3(RunObject other, double slipFactor) {
-		other.highlight = true;
-
-		if (!collision_at(this.x, this.y)) {
-			return;
-		}
-		if (collision_at(myLastX, myLastY)) {
-			System.out.println(String.format("!current: (%.1f, %.1f), was: (%.1f, %.1f)", this.x, this.y, myLastX, myLastY));
-		} else {
-			System.out.println(String.format("current: (%.1f, %.1f), was: (%.1f, %.1f)", this.x, this.y, myLastX, myLastY));
-		}
-		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
-		Point testPoint = this.getBounds().centerPoint();
-
-		// Find the first free block
-		int pivot = 0;
-		int start = 0;
-		int end = points.size();
-
-		Point test = null;
-		while (end - start > 1) {
-			pivot = (end - start) / 2 + start;
-			test = points.get(pivot);
-			if (collision_at(test.x, test.y)) {
-				end = pivot;
-			} else {
-				start = pivot;
-			}
-		}
-		pivot = (end - start) / 2 + start;
-		test = points.get(pivot);
-
-		double shiftX = test.x - this.x;
-		double shiftY = test.y - this.y;
-		this.x = test.x;
-		this.y = test.y;
-		myLastX = this.x;
-		myLastY = this.y;
-		System.out.println("Collides on " + other.getBounds().quadrantOfPoint(testPoint));
-		switch (other.getBounds().quadrantOfPoint(testPoint)) {
-		case TOP:
-			if (this.velocity.y > 0) {
-				this.velocity = this.velocity.setY(0.0);
-			}
-			this.x -= shiftX;
-			/*while (collision_at(this.x, this.y)) {
-					this.y--;
-					System.out.println("TTT");
-				}*/
-			break;
-		case BOTTOM:
-			if (this.velocity.y < 0) {
-				this.velocity = this.velocity.setY(0.0);
-			}
-			this.x -= shiftX;
-			break;
-		case LEFT:
-			if (this.velocity.x > 0) {
-				this.velocity = this.velocity.setX(0.0);
-			}
-			this.y -= shiftY;
-			break;
-		case RIGHT:
-			if (this.velocity.x < 0) {
-				this.velocity = this.velocity.setX(0.0);
-			}
-			this.y -= shiftY;
-			break;
-		}
-		System.out.println(String.format("moved back to (%.1f, %.1f)", this.x, this.y));
-	}
-
 	public boolean collision_at(double x, double y) {
 		if (myCollisionChecker == null) {
 			return false;
@@ -420,6 +312,15 @@ public class RunObject {
 	public boolean collision_with_at(double x, double y, RunObject with) {
 		return myCollisionChecker.collisionWithAt(x, y, this, with);
 	}
+	
+	public boolean collision_solid_at(double x, double y) {
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionSolidAt(x, y, this);
+		}
+	}
+	
 	public double get_x_position(){
 		return this.x;
 	}

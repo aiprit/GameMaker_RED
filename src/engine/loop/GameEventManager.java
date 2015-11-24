@@ -282,7 +282,8 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	public void addStringToDraw(String draw) {
 		myStringsToDraw.add(draw);
 	}
-
+	
+	@Override
 	public boolean collisionAt(double x, double y, RunObject obj) {
 		for (Pair<String> pair : myCollidingObjectPairs) {
 			if (pair.contains(obj.name)) {
@@ -293,6 +294,19 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean collisionSolidAt(double x, double y, RunObject obj) {
+		for (Pair<String> pair : myCollidingObjectPairs) {
+			if (pair.contains(obj.name)) {
+				String otherName = pair.one.equals(obj.name) ? pair.two : pair.one;
+				if (myCollisionManager.collisionSolidAt(obj, otherName, x, y)) {
+					return true;
+				}
+			}
+		}
+		return false;		
 	}
 
 	public void processLeaveRoomEvents(){

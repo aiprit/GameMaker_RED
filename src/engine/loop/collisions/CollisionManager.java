@@ -72,7 +72,23 @@ public class CollisionManager {
 		return false;
 	}
 	
+	public boolean collisionSolidAt(RunObject obj, String otherObjectName, double x, double y) {
+		List<RunObject> otherObjects = myCollideables.get(otherObjectName);
+		
+		for (RunObject other : otherObjects) {
+			if (!other.solid) {
+				return false;
+			}
+			if (myCollider.collidesAt(obj, x, y, other)) {
+				return true;
+			}
+		}
+		
+		return false;	
+	}
+	
 	public boolean collisionWithAt(double x, double y, RunObject obj1, RunObject obj2) {
 		return myCollider.collidesAt(obj1, x, y, obj2);
 	}
+	
 }

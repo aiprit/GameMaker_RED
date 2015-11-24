@@ -16,4 +16,6 @@ public interface ICollisionChecker {
 	public boolean collisionAt(double x, double y, RunObject obj);
 	
 	public boolean collisionWithAt(double x, double y, RunObject obj1, RunObject obj2);
+	
+	public boolean collisionSolidAt(double x, double y, RunObject obj);
 }
