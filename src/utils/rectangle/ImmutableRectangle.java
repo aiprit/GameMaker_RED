@@ -111,4 +111,9 @@ public final class ImmutableRectangle implements IRectangle {
 		return IRectangle.quadrantOfPoint(this, p);
 	}
 
+	@Override
+	public Point centerPoint() {
+		return IRectangle.centerPoint(this);
+	}
+
 }

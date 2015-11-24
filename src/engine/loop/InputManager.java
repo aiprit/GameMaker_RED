@@ -70,11 +70,12 @@ public class InputManager implements IInputHandler {
 	}
 	
 	public boolean checkKey(String keyCode) throws LibraryArgumentException {
-		KeyCode code = KeyCode.getKeyCode(keyCode);
-		if (code == null) {
-			throw new LibraryArgumentException("Unknown KeyCode: '%s'", keyCode);
+		try {
+			KeyCode code = KeyCode.valueOf(keyCode);
+			return checkKey(code);
+		} catch (IllegalArgumentException ex) {
+			throw new LibraryArgumentException("Invalid KeyCode: '%s'", keyCode);
 		}
-		return checkKey(code);
 	}
 
 	@Override

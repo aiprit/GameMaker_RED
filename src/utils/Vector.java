@@ -95,4 +95,8 @@ public class Vector {
 		return new Vector(this.x, y);
 	}
 	
+	public String toString() {
+		return String.format("[%.2f, %.2f]", x, y);
+	}
+	
 }

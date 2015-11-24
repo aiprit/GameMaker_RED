@@ -8,6 +8,7 @@ import java.util.Set;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
+import javafx.scene.paint.Color;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
@@ -44,6 +45,8 @@ public class RunObject {
 
 	private Map<String, Double> myVariables;
 
+	private boolean highlight;
+
 	public RunObject(String name) {
 		this.name = name;
 		this.x = 0.0;
@@ -62,6 +65,7 @@ public class RunObject {
 		myVariables = new HashMap<>();
 		myLastX = 0.0;
 		myLastY = 0.0;
+		this.highlight = false;
 
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -124,7 +128,10 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
-			//drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
+			if (this.highlight) {
+				drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
+			}
+			this.highlight = false;
 		}
 	}
 
@@ -147,18 +154,20 @@ public class RunObject {
 	}
 
 	public void set_velocity(double direction, double speed, boolean relative) {
+		Vector change = new Vector(speed, direction, true);
 		if (relative) {
-			this.velocity = new Vector(speed, direction + this.velocity.direction(), true);
+			this.velocity = this.velocity.add(change);
 		} else {
-			this.velocity = new Vector(speed, direction, true);
+			this.velocity = change;
 		}
 	}
 
 	public void set_velocity(double x, double y, double speed, boolean relative){
+		Vector change = (new Vector(x - this.x, y - this.y)).setLength(speed);
 		if (relative) {
-			this.velocity = (new Vector(x, y)).setLength(speed);
+			this.velocity = this.velocity.add(change);
 		} else {
-			this.velocity = (new Vector(x - this.x, y - this.y)).setLength(speed);
+			this.velocity = change;
 		}
 	}
 
@@ -209,18 +218,144 @@ public class RunObject {
 	public void wrap_around_room(boolean value){
 
 	}
-	
+
 	public void block(RunObject other, double slipFactor) {
-		
-		if (collision_at(myLastX, myLastY)) {
+		other.highlight = true;
+		if (this.highlight) {
 			return;
 		}
+		if (!collision_at(this.x, this.y)) {
+			return;
+		}
+
+		double desiredX = this.x;
+		double desiredY = this.y;
+
+		double currentX = myLastX;
+		double currentY = myLastY;
+
+		this.x = currentX;
+		this.y = currentY;
+
+		if (Math.abs(x - myLastX) > Math.abs(y - myLastY)) {
+			stepX(currentX, desiredX);
+			stepY(currentY, desiredY);
+		} else {
+			stepY(currentY, desiredY);	
+			stepX(currentX, desiredX);
+		}
+
+		if (Math.abs(this.x - desiredX) > .5) {
+			velocity = velocity.setX(0.0);
+		}
+		if (Math.abs(this.y - desiredY) > .5) {
+			velocity = velocity.setY(0.0);
+		}
+		this.highlight = true;
+
+
+	}
+
+	public void stepX(double currentX, double desiredX) {
+		if (desiredX > currentX) {
+			for (double i = currentX; i <= desiredX; i += .5) {
+				if (collision_at(i, this.y)) {
+					break;
+				}
+				this.x = i;
+			}
+		} else {
+			for (double i = currentX; i >= desiredX; i -= .5) {
+				if (collision_at(i, this.y)) {
+					break;
+				}
+				this.x = i;
+			}			
+		}
+	}
+
+	public void stepY(double currentY, double desiredY) {
+		if (desiredY > currentY) {
+			for (double i = currentY; i <= desiredY; i += .5) {
+				if (collision_at(this.x, i)) {
+					break;
+				}
+				this.y = i;
+			}
+		} else {
+			for (double i = currentY; i >= desiredY; i -= .5) {
+				if (collision_at(this.x, i)) {
+					break;
+				}
+				this.y = i;
+			}			
+		}
+	}
+
+	public void block2(RunObject other, double slipFactor) {
+
+
+		if (!collision_at(this.x, this.y)) {
+			return;
+		}		
+
+		Point testPoint = this.getBounds().centerPoint();
+		System.out.println(other.getBounds().quadrantOfPoint(testPoint));
+		switch (other.getBounds().quadrantOfPoint(testPoint)) {
+		case TOP:
+			if (this.velocity.y > 0) {
+				this.velocity = this.velocity.setY(0.0);
+			}
+			while (collision_with_at(this.x, this.y, other)) {
+				this.y--;
+			}
+			break;
+		case BOTTOM:
+			if (this.velocity.y < 0) {
+				this.velocity = this.velocity.setY(0.0);
+			}
+			while (collision_with_at(this.x, this.y, other)) {
+				this.y++;
+			}
+			break;
+		case LEFT:
+			if (this.velocity.x > 0) {
+				this.velocity = this.velocity.setX(0.0);
+			}
+			while (collision_with_at(this.x, this.y, other)) {
+				this.x--;
+			}
+			break;
+		case RIGHT:
+			if (this.velocity.x < 0) {
+				this.velocity = this.velocity.setX(0.0);
+			}
+			while (collision_with_at(this.x, this.y, other)) {
+				this.x++;
+			}
+			break;
+		}
+	}
+
+	public void block3(RunObject other, double slipFactor) {
+		other.highlight = true;
+
+		if (!collision_at(this.x, this.y)) {
+			return;
+		}
+		if (collision_at(myLastX, myLastY)) {
+			System.out.println(String.format("!current: (%.1f, %.1f), was: (%.1f, %.1f)", this.x, this.y, myLastX, myLastY));
+		} else {
+			System.out.println(String.format("current: (%.1f, %.1f), was: (%.1f, %.1f)", this.x, this.y, myLastX, myLastY));
+		}
 		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
-		
+		Point testPoint = this.getBounds().centerPoint();
+
 		// Find the first free block
 		int pivot = 0;
 		int start = 0;
 		int end = points.size();
+
 		Point test = null;
 		while (end - start > 1) {
 			pivot = (end - start) / 2 + start;
@@ -233,22 +368,45 @@ public class RunObject {
 		}
 		pivot = (end - start) / 2 + start;
 		test = points.get(pivot);
-		
+
+		double shiftX = test.x - this.x;
+		double shiftY = test.y - this.y;
 		this.x = test.x;
 		this.y = test.y;
 		myLastX = this.x;
 		myLastY = this.y;
-		
-		switch (other.getBounds().quadrantOfPoint(new Point(this.x, this.y))) {
-			case TOP:
-			case BOTTOM:
+		System.out.println("Collides on " + other.getBounds().quadrantOfPoint(testPoint));
+		switch (other.getBounds().quadrantOfPoint(testPoint)) {
+		case TOP:
+			if (this.velocity.y > 0) {
 				this.velocity = this.velocity.setY(0.0);
-				break;
-			case LEFT:
-			case RIGHT:
+			}
+			this.x -= shiftX;
+			/*while (collision_at(this.x, this.y)) {
+					this.y--;
+					System.out.println("TTT");
+				}*/
+			break;
+		case BOTTOM:
+			if (this.velocity.y < 0) {
+				this.velocity = this.velocity.setY(0.0);
+			}
+			this.x -= shiftX;
+			break;
+		case LEFT:
+			if (this.velocity.x > 0) {
 				this.velocity = this.velocity.setX(0.0);
-				break;
+			}
+			this.y -= shiftY;
+			break;
+		case RIGHT:
+			if (this.velocity.x < 0) {
+				this.velocity = this.velocity.setX(0.0);
+			}
+			this.y -= shiftY;
+			break;
 		}
+		System.out.println(String.format("moved back to (%.1f, %.1f)", this.x, this.y));
 	}
 
 	public boolean collision_at(double x, double y) {
@@ -257,6 +415,10 @@ public class RunObject {
 		} else {
 			return myCollisionChecker.collisionAt(x, y, this);
 		}
+	}
+
+	public boolean collision_with_at(double x, double y, RunObject with) {
+		return myCollisionChecker.collisionWithAt(x, y, this, with);
 	}
 	public double get_x_position(){
 		return this.x;

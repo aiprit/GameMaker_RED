@@ -21,6 +21,7 @@ import engine.loop.groovy.IGroovyEvent;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import structures.data.events.CollisionEvent;
 import structures.data.events.IDataEvent;
 import structures.data.events.LeaveRoomEvent;
@@ -122,14 +123,15 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	}
 
 	void loop() {
-		stepPhysics();
+		System.out.println("____");
 		processStepEvents();
-		processCollisionEvents();
 		myInputManager.processInputEvents(this);
 		processLeaveRoomEvents();
 		deleteObjects();
-		draw();
 		processCreateEvents();
+		stepPhysics();
+		processCollisionEvents();
+		draw();
 	}
 	
 	@Override
@@ -209,6 +211,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		}
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());
+			//myDrawListener.drawRectangle(o.getBounds(), myRoom.getView(), Color.BISQUE);
 		}
 		for(String s : myStringsToDraw){
 			myDrawListener.drawText(s, myRoom.getView());
@@ -304,6 +307,11 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public RunRoom getCurrentRoom() {
 		return myRoom;
+	}
+
+	@Override
+	public boolean collisionWithAt(double x, double y, RunObject obj1, RunObject obj2) {
+		return myCollisionManager.collisionWithAt(x, y, obj1, obj2);
 	}
 
 }
