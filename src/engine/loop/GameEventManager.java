@@ -120,7 +120,6 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	}
 
 	void loop() {
-		System.out.println("____");
 		processStepEvents();
 		myInputManager.processInputEvents(this);
 		processLeaveRoomEvents();
