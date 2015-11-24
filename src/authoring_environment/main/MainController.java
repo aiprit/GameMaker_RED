@@ -56,6 +56,7 @@ public class MainController implements IUpdateHandle {
 
 	public void update() {
 		System.out.println("Updating...");
+		System.out.println(mainView.bp.getWidth());
 
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();

@@ -19,6 +19,7 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class RoomListView {
+	private static final int ROW_LENGTH = 4;
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private GridPane roomView;
 	
@@ -38,8 +39,8 @@ public class RoomListView {
 	public Button addRoom(DataRoom o, int i) {
 		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName());
 		
-		int col = i % 5;
-		int row = i /5;
+		int col = i % ROW_LENGTH;
+		int row = i /ROW_LENGTH;
 		roomView.add(room, col, row);
 		updateList();
 		return room.getButton();
@@ -48,8 +49,8 @@ public class RoomListView {
 	public Button addPlusButton(int numberofRooms) {
 		RoomIcon room = new RoomIcon(myResourceBundle);
 
-		int col = numberofRooms % 5;
-		int row = numberofRooms /5;
+		int col = numberofRooms % ROW_LENGTH;
+		int row = numberofRooms /ROW_LENGTH;
 		roomView.add(room, col, row);
 		updateList();
 		return room.getButton();
