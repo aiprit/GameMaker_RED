@@ -15,6 +15,7 @@ public class DataObject {
     private String myName;
     private DataSprite mySprite;
     private double myScaleX, myScaleY;
+    private boolean mySolid;
 
     private int myZIndex;
 
@@ -24,6 +25,7 @@ public class DataObject {
         myZIndex = 0;
         myScaleX = 1.0;
         myScaleY = 1.0;
+        mySolid = false;
     }
     
     public DataObject(DataObject obj){
@@ -31,6 +33,7 @@ public class DataObject {
     	myEvents = obj.getEvents();
     	myZIndex = obj.getZIndex();
     	mySprite = obj.getSprite();
+    	mySolid = obj.isSolid();
     }
 
     public String getName() {
@@ -92,6 +95,14 @@ public class DataObject {
 
     public void setScaleY(double scale) {
         myScaleY = scale;
+    }
+    
+    public boolean isSolid() {
+    	return mySolid;
+    }
+    
+    public void setSolid(boolean solid) {
+    	mySolid = solid;
     }
 
 }

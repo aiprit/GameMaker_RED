@@ -71,43 +71,27 @@ public class FrontEnd implements IGameUpdatedHandler {
 		myMenus.useSystemMenuBarProperty().set(true);
 		Menu fileMenu = new Menu("File");
 		MenuItem open = new MenuItem("Open");
-		open.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Choose a Game");
-				fileChooser.showOpenDialog(stage);
-			}
+		open.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Choose a Game");
+			fileChooser.showOpenDialog(stage);
 		});
 		MenuItem reset = new MenuItem("Reset");
-		reset.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onReset();
-			}
+		reset.setOnAction(e -> {
+			myEventManager.onReset();
 		});
 		MenuItem save = new MenuItem("Save");
-		save.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onSave();
-			}
+		save.setOnAction(e -> {
+			myEventManager.onSave();
 		});
 		MenuItem close = new MenuItem("Close");
-		close.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onSave();
-				stage.close();
-			}
+		close.setOnAction(e -> {
+			myEventManager.onSave();
+			stage.close();
 		});
 		MenuItem pause = new MenuItem("Pause");
-		pause.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onPause();
-			}
+		pause.setOnAction(e -> {
+			myEventManager.onPause();
 		});
 		Menu savedGames = new Menu("Saved Games");
 		Menu view = new Menu("View");
@@ -122,46 +106,31 @@ public class FrontEnd implements IGameUpdatedHandler {
 	public void makeToolBar() {
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
-		playButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onResume();
-			}
+		playButton.setOnAction(e -> {
+			myEventManager.onResume();
 		});
 
 		Button pauseButton = new Button();            
 		pauseButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "pause.png"));
-		pauseButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onPause();
-			}
+		pauseButton.setOnAction(e -> {
+			myEventManager.onPause();
 		});
 
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
-		resetButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onReset();
-			}
+		resetButton.setOnAction(e -> {
+			myEventManager.onReset();
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
-		saveButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myEventManager.onSave();
-			}
+		saveButton.setOnAction(e -> {
+			myEventManager.onSave();
 		});
 
 		Button openButton = new Button();
 		openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
-		openButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				//TODO figure out what action to implement here
-			}
+		openButton.setOnAction(e -> {
+
 		});
 
 		ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);
@@ -169,7 +138,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		topContainer.getChildren().add(tBar);
 		borderPane.setTop(topContainer);
 	}
-	
+
 	public void makeHighScoreBar(){
 		myHighScoreView = new HighScoreView();
 		borderPane.setRight(myHighScoreView);
@@ -178,19 +147,11 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private void setupCanvas(){
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		myRoot.getChildren().add((StackPane) myCanvasDrawer);
-		((StackPane) myCanvasDrawer).addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				myEventManager.onMouseEvent(mouseEvent);
-			}
-		});
-		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				myEventManager.onKeyEvent(event);
-			}
-		});
+		StackPane pane = (StackPane)myCanvasDrawer;
+		myRoot.getChildren().add(pane);
+		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
+		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
+		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 	}
 
 	public IDraw getDrawListener(){

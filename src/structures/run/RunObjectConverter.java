@@ -72,6 +72,9 @@ public class RunObjectConverter {
 			}
 		}
 		
+		// Properties that come from DataObject and not DataInstance
+		run.solid = data.isSolid();
+		
 		// Add to our Master Object Map
 		myMasterObjects.put(run.name, run);
 	}
