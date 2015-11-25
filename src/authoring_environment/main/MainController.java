@@ -33,8 +33,8 @@ public class MainController implements IUpdateHandle {
 	private SoundListView soundListView;
 	private TopMenuBar topMenuBar;
 
-	public MainController(Stage myStage) {
-		this.myStage = myStage;
+	public MainController() {
+		this.myStage = new Stage();
 		mainView = new MainView(myStage);
 		objectListWindow = new ObjectListWindow();
 		roomListView = new RoomListView();
