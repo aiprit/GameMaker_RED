@@ -8,8 +8,10 @@ import javafx.scene.input.MouseEvent;
 import structures.data.DataObject;
 
 public class PotentialObjectInstance {
+	private static final String DRAG_SPRITE_HEIGHT = "DragSpriteHeight";
 	private static final String DRAG_AND_DROP_OPACITY = "DragAndDropOpacity";
 	private static final String DEFAULT_SPRITE = "DefaultSprite";
+	
 	private DataObject myObject;
 	private ImageView myImageView;
 	
@@ -22,6 +24,7 @@ public class PotentialObjectInstance {
 		} else {
 			myImageView = new ImageView(object.getSprite().getImage());
 			myImageView.setOpacity(Double.parseDouble(resources.getString(DRAG_AND_DROP_OPACITY)));
+			resizeSprite(resources);
 		}
 	}
 	
@@ -38,6 +41,13 @@ public class PotentialObjectInstance {
 		double y = event.getSceneY() - myImageView.getImage().getHeight()/2;
 		myImageView.setX(x);
 		myImageView.setY(y);
+	}
+	
+	private void resizeSprite(ResourceBundle resources) {
+		double spriteHeight = Double.parseDouble(resources.getString(DRAG_SPRITE_HEIGHT));
+		double scale = spriteHeight / myImageView.getImage().getHeight();
+		myImageView.setScaleX(scale);
+		myImageView.setScaleY(scale);
 	}
 	
 }

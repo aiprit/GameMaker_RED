@@ -38,6 +38,7 @@ public class DataGame extends Observable implements IObjectInterface {
         myViewWidth = DEFAULT_VIEW_SIZE;
         myViewHeight = DEFAULT_VIEW_SIZE;
         myHighScore = 0;
+        myCurrentRoom = 0;
     }
 
     public String getName() {

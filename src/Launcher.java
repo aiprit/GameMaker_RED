@@ -33,7 +33,8 @@ public class Launcher extends Application {
 		openBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				controller = new MainController(primaryStage);
+				controller = new MainController();
+				primaryStage.close();
 			}
 		});
 

@@ -14,6 +14,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 public class RoomIcon extends VBox {
+	private static final int VBOX_HEIGHT = 150;
+	private static final int INSET_VALUE = 20;
 	private static final int BOX_SPACING = 10;
 	private ResourceBundle myResourceBundle;
 	private Node myIcon;
@@ -21,23 +23,24 @@ public class RoomIcon extends VBox {
 	
 	public RoomIcon(ResourceBundle resources) {
 		super();
-		super.setSpacing(BOX_SPACING);
-		super.setAlignment(Pos.CENTER);
-		super.setPadding(new Insets(20, 20, 20, 20));
-		super.setPrefHeight(150);
+		configureVBox();
 		myResourceBundle = resources;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(myResourceBundle.getString("RoomPlaceholderImage")));
 		myIcon = new ImageView(image);
 		myButton = new Button(myResourceBundle.getString("plus"));
 		super.getChildren().addAll(myIcon, myButton);
 	}
+
+	private void configureVBox() {
+		super.setSpacing(BOX_SPACING);
+		super.setAlignment(Pos.CENTER);
+		super.setPadding(new Insets(INSET_VALUE, INSET_VALUE, INSET_VALUE, INSET_VALUE));
+		super.setPrefHeight(VBOX_HEIGHT);
+	}
 	
 	public RoomIcon(ResourceBundle resources, String backgroundColor, String roomName) {
 		super();
-		super.setSpacing(BOX_SPACING);
-		super.setAlignment(Pos.CENTER);
-		super.setPadding(new Insets(20, 20, 20, 20));
-		super.setPrefHeight(150);
+		configureVBox();
 		myResourceBundle = resources;
 		myButton = new Button(roomName);
 		double iconSize = Double.parseDouble(myResourceBundle.getString("IconSize"));
