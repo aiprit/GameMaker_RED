@@ -31,6 +31,9 @@ public class BackgroundPopUpController {
 		view.getResetButton().setOnAction(e -> reset());
 		view.getUploadButton().setOnAction(e -> launchFileChooser());
 		view.setDropdownAndUploadText(model.getBackgroundColor());
+		try {
+			view.setImageFileName(room.getBackgroundColor());
+		} catch (NullPointerException e) {}
 	}
 	
 	private void changeBackground() {
