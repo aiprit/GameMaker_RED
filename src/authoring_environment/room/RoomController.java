@@ -29,7 +29,6 @@ import utils.rectangle.*;
 
 public class RoomController {
 	private static final double CLONE_OFFSET = 15;
-	private static final String DEFAULT_SPRITE = "DefaultSprite";
 	
 	private ResourceBundle myResources;
 	
