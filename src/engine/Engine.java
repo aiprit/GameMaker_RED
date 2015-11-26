@@ -1,10 +1,13 @@
 package engine;
 
 import engine.events.EventManager;
-import engine.events.IGUIHandler;
-import engine.events.IGamePlayHandler;
+import engine.events.IGameUpdatedHandler;
+import engine.events.IGUIBackendHandler;
+import engine.events.IInputHandler;
 import engine.events.IObjectModifiedHandler;
-import engine.events.IRoomChangedHandler;
+import engine.front_end.IDraw;
+import engine.loop.RoomLoop;
+import engine.loop.groovy.GroovyEngine;
 import exceptions.CompileTimeException;
 import structures.data.DataGame;
 import structures.run.RunGame;
@@ -17,49 +20,23 @@ import structures.run.RunRoom;
  * interface and most GUI components.
  *
  */
-public class Engine implements IRoomChangedHandler {
+public class Engine implements IGameUpdatedHandler {
 
-	private RunGame myOriginalGame;
 	private RunGame myGame;
 	private RoomLoop myLevel;
 	private EventManager myEventManager;
-	private IGUIHandler myGUIHandler;
-	private IGamePlayHandler myGameplayHandler;
+	private IGUIBackendHandler myGUIHandler;
 	private IObjectModifiedHandler myObjectHandler;
 	private IDraw myDrawListener;
 	private GroovyEngine myGroovyEngine;
 
 	public Engine(RunGame runGame, EventManager eventManager) {
 		myGame = runGame;
-		//SavedGameHandler thisIsBroken = new SavedGameHandler(myGame.getName());
-		myGUIHandler = new GUIListener(this, false, null);
-		myGameplayHandler = new GamePlayListener();
-		myOriginalGame = runGame;
+		myGUIHandler = new GUIBackendListener(this, false);
 		myEventManager = eventManager;
 		myGroovyEngine = new GroovyEngine(myGame, eventManager);
 	}
 
-	public void load(RunGame runGame) {
-		myGame = runGame;
-		myOriginalGame = runGame;
-	}
-
-	public DataGame save() throws CompileTimeException {
-	    DataGame currentGameData;
-            try {
-                currentGameData = myGame.toData();
-            }
-            catch (CompileTimeException e) {
-                throw new CompileTimeException(e.getMessage());
-            }
-            return currentGameData;
-	}
-
-	//called when the drawing listener is passed to the engine
-	public void reset() {
-		myGame = myOriginalGame;
-	}
-	
 	public void runLevel(){
 		System.out.println(myGame.getCurrentRoomNumber());
 		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
@@ -69,19 +46,15 @@ public class Engine implements IRoomChangedHandler {
 		myEventManager.addObjectModifiedInterface(myObjectHandler);
 		myLevel.start();
 	}
-	
-	public IGUIHandler getGUIHandler(){
+
+	public IGUIBackendHandler getGUIBackendHandler(){
 		return myGUIHandler;
 	}
-	
-	public IGamePlayHandler getGamePlayHandler(){
-		return myGameplayHandler;
-	}
-	
-	public IRoomChangedHandler getRoomChangedHandler(){
+
+	public IGameUpdatedHandler getFrontEndUpdateHandler(){
 		return this;
 	}
-	
+
 	public IObjectModifiedHandler getObjectHandler(){
 		return myObjectHandler;
 	}
@@ -90,6 +63,10 @@ public class Engine implements IRoomChangedHandler {
 		myLevel.pause();
 	}
 	
+	public void resume(){
+		myLevel.resume();
+	}
+
 	public void setDrawListener(IDraw drawListener){
 		myDrawListener = drawListener;
 		runLevel();
@@ -100,6 +77,11 @@ public class Engine implements IRoomChangedHandler {
 		//how else need to change the level?
 		myLevel.cancel();
 		runLevel();
+	}
+
+	@Override
+	public void setHighScore(double highScore) {
+		myGame.setHighScore(highScore);
 	}
 
 }

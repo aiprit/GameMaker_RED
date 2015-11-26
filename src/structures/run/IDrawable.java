@@ -1,6 +1,6 @@
 package structures.run;
 
-import engine.IDraw;
+import engine.front_end.IDraw;
 
 public interface IDrawable {
 

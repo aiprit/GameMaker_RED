@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import engine.IDraw;
-import engine.collisions.ICollisionChecker;
+import engine.front_end.IDraw;
+import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
@@ -155,9 +155,9 @@ public class RunObject {
 	}
 
 	public void move_to(double x, double y, boolean relative){
+		myLastX = this.x;
+		myLastY = this.y;
 		if (relative) {
-			myLastX = x;
-			myLastY = y;
 			this.x += x;
 			this.y += y;
 		} else {
@@ -190,10 +190,6 @@ public class RunObject {
 
 	}
 
-	public void set_random_number_and_choose(double odds){
-		//TODO: I don't know how to make this work
-	}
-
 	public void sleep(double time){
 
 	}
@@ -201,12 +197,46 @@ public class RunObject {
 	public void wrap_around_room(boolean value){
 
 	}
-
-	public void block(double slipFactor) {
-		if (!collision_at(this.x, this.y) || collision_at(myLastX, myLastY)) {
+	
+	public void block(RunObject other, double slipFactor) {
+		
+		if (collision_at(myLastX, myLastY)) {
 			return;
 		}
 		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
+		
+		// Find the first free block
+		int pivot = 0;
+		int start = 0;
+		int end = points.size();
+		Point test = null;
+		while (end - start > 1) {
+			pivot = (end - start) / 2 + start;
+			test = points.get(pivot);
+			if (collision_at(test.x, test.y)) {
+				end = pivot;
+			} else {
+				start = pivot;
+			}
+		}
+		pivot = (end - start) / 2 + start;
+		test = points.get(pivot);
+		
+		this.x = test.x;
+		this.y = test.y;
+		myLastX = this.x;
+		myLastY = this.y;
+		
+		switch (other.getBounds().quadrantOfPoint(new Point(this.x, this.y))) {
+			case TOP:
+			case BOTTOM:
+				this.velocity = this.velocity.setY(0.0);
+				break;
+			case LEFT:
+			case RIGHT:
+				this.velocity = this.velocity.setX(0.0);
+				break;
+		}
 	}
 
 	public boolean collision_at(double x, double y) {

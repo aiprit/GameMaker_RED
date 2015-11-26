@@ -1,4 +1,4 @@
-package engine;
+package engine.front_end;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,8 +19,8 @@ public class Draw extends StackPane implements IDraw {
 	public Draw(Canvas canvas) {
 		myCanvas = canvas;
 		myGraphicsContext = canvas.getGraphicsContext2D();
-		myCanvas.setWidth(1000);
-		myCanvas.setHeight(1000);
+		myCanvas.setWidth(500);
+		myCanvas.setHeight(500);
 		this.getChildren().add(myCanvas);
 	}
 
@@ -49,6 +49,8 @@ public class Draw extends StackPane implements IDraw {
 
 	public void drawBackgroundImage(Image image, RunView view, double roomWidth, double roomHeight){
 		Rectangle disp = view.getView();
+		myCanvas.setWidth(disp.width());
+		myCanvas.setHeight(disp.height());
 		myGraphicsContext.save();
 		myGraphicsContext.clearRect(0, 0, disp.width(), disp.height());
 		myGraphicsContext.drawImage(image, -disp.x(), 0, roomWidth, roomHeight);

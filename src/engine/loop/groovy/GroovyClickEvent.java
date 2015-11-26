@@ -1,15 +1,15 @@
-package engine;
+package engine.loop.groovy;
 
 import structures.data.events.IDataEvent;
 import utils.Point;
 
-public class GroovyEvent {
+public class GroovyClickEvent implements IGroovyEvent {
 	
 	private boolean hasCoordinates;
 	private boolean checkCoordinates;
 	private Point coordinates;
 	
-	public GroovyEvent(IDataEvent event){
+	public GroovyClickEvent(IDataEvent event){
 		hasCoordinates = event.hasXY();
 		checkCoordinates = event.getLocalCheck();
 	}

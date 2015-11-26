@@ -28,11 +28,12 @@ import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
-import structures.data.actions.library.GetGlobalVariable;
-import structures.data.actions.library.GetScore;
+import structures.data.actions.library.GetGlobalVariableConditional;
+import structures.data.actions.library.GetHighScore;
 import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
 import structures.data.actions.library.SetGlobalVariable;
+import structures.data.actions.library.SetHighScore;
 import structures.data.actions.library.SetRandomNumberAndChoose;
 import structures.data.actions.library.Wrap;
 import structures.data.actions.params.IParameter;
@@ -75,16 +76,16 @@ public class TestGameObject {
 	public DataGame getTestGame(String directory) {
 		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
 
-		DataObject text = new DataObject("GameTitle");
-		DrawText dt = new DrawText();
-		try{
-			dt.getParameters().get(0).parse("Mario");
-		} catch(ParameterParseException e1) {
-			e1.printStackTrace();
-		}
-		List<IAction> textActions = Collections.singletonList(dt);
-		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
-		text.bindEvent(new StepEvent(), textActionsO);
+//		DataObject text = new DataObject("GameTitle");
+//		DrawText dt = new DrawText();
+//		try{
+//			dt.getParameters().get(0).parse("Mario");
+//		} catch(ParameterParseException e1) {
+//			e1.printStackTrace();
+//		}
+//		List<IAction> textActions = Collections.singletonList(dt);
+//		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
+//		text.bindEvent(new StepEvent(), textActionsO);
 
 		DataObject coin = new DataObject("Coin");
 
@@ -203,7 +204,7 @@ public class TestGameObject {
 		player.bindEvent(new LeaveRoomEvent(), wrapActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetGlobalVariable getScore = new GetGlobalVariable();
+		GetGlobalVariableConditional getScore = new GetGlobalVariableConditional();
 		try{
 			getScore.getParameters().get(0).parse("score");
 			getScore.getParameters().get(1).parse(">=");
@@ -213,6 +214,21 @@ public class TestGameObject {
 
 		}
 		Open open = new Open();
+		GetHighScore ghs = new GetHighScore();
+		try{
+			ghs.getParameters().get(0).parse("<");
+			ghs.getParameters().get(1).parse("score");
+		} catch(Exception e){
+			
+		}
+		Open open3 = new Open();
+		SetHighScore shs = new SetHighScore();
+		try{
+			shs.getParameters().get(0).parse("score");
+		} catch(Exception e){
+			
+		}
+		Close close3 = new Close();
 		GoToRoom gtr = new GoToRoom();
 		try{
 			gtr.getParameters().get(0).parse("2");
@@ -254,6 +270,10 @@ public class TestGameObject {
 		List<IAction> zeroActions = new ArrayList<>();
 		zeroActions.add(getScore);
 		zeroActions.add(open);
+		zeroActions.add(ghs);
+		zeroActions.add(open3);
+		zeroActions.add(shs);
+		zeroActions.add(close3);
 		zeroActions.add(gtr);
 		zeroActions.add(elseBrace);
 		zeroActions.add(addOne);
@@ -323,7 +343,7 @@ public class TestGameObject {
 		level1.setBackgroundColor("TestGame/background.png");
 		level1.addObjectInstance(new DataInstance(player, 240, 40, 0, .5, .5));
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
-		level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
+		//level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
 
 		DataRoom winScreen = new DataRoom("Win Screen", 500, 500);
 		winScreen.setBackgroundColor("#FFFFFF");
@@ -334,7 +354,7 @@ public class TestGameObject {
 		testGame.addObject(player);
 		testGame.addObject(startScreenBackground);
 		testGame.addObject(winScreenBackground);
-		testGame.addObject(text);
+		//testGame.addObject(text);
 
 		testGame.addSprite(coinSprite);
 		testGame.addSprite(playerSprite);

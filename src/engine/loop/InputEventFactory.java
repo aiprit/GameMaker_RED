@@ -1,4 +1,4 @@
-package engine;
+package engine.loop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import structures.data.events.KeyReleasedEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import utils.Point;
 
-public class EventFactory {
+public class InputEventFactory {
 	
-	public List<IDataEvent> getEvent(InputEvent e){
+	public static List<IDataEvent> getEvents(InputEvent e){
 		List<IDataEvent> myEvents = new ArrayList<>();
-		if(e instanceof KeyEvent){
+		if(e instanceof KeyEvent) {
 			KeyEvent ke = ((KeyEvent) e);
 			if (ke.getEventType().toString().equals("KEY_PRESSED")){
 				myEvents.add(new KeyPressedEvent(ke.getCode()));
@@ -42,9 +42,9 @@ public class EventFactory {
 		return myEvents;
 	}
 	
-	public Point getCoordinates(InputEvent e){
+	public static Point getCoordinates(InputEvent e){
 		MouseEvent me = (MouseEvent) e;
-		return new Point(me.getSceneX(), me.getSceneY());
+		return new Point(me.getX(), me.getY());
 	}
 
 }

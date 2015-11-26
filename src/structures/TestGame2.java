@@ -9,10 +9,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
+import structures.data.actions.Block;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
+import utils.Vector;
 
 /*
     This class generates a sample game object. The game consists
@@ -60,6 +62,7 @@ public class TestGame2 {
         MoveTo origin = new MoveTo();
         MoveTo up = new MoveTo();
         MoveTo down = new MoveTo();
+        Block block = new Block();
         try {
 
 	        left.getParameters().get(0).parse("-10");
@@ -82,6 +85,8 @@ public class TestGame2 {
 	        origin.getParameters().get(0).parse("20");
 	        origin.getParameters().get(1).parse("20");
 	        origin.getParameters().get(2).parse("false");
+	        
+	        block.getParameters().get(0).parse("0.0");
 
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
@@ -97,12 +102,15 @@ public class TestGame2 {
         ObservableList<IAction> downActionsO = FXCollections.observableList(downActions);
         List<IAction> originActions = Collections.singletonList(origin);
         ObservableList<IAction> originActionsO = FXCollections.observableList(originActions);
+        List<IAction> blockActions = Collections.singletonList(block);
+        ObservableList<IAction> blockActions0 = FXCollections.observableList(blockActions);
 
         mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
-        mario.bindEvent(new CollisionEvent(wall), originActionsO);
+        mario.bindEvent(new CollisionEvent(wall), blockActions0);
+        
 
         //player.addEvent(new CollisionEvent(coin));
 
@@ -120,6 +128,9 @@ public class TestGame2 {
         level1.addObjectInstance(new DataInstance(wall, 192, 200));
         level1.addObjectInstance(new DataInstance(wall, 448, 200));
         DataInstance marioInstance = new DataInstance(mario, 140, 20);
+        marioInstance.setGravity(new Vector(0, 1));
+        
+        
         level1.addObjectInstance(marioInstance);
 
 

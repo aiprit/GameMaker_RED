@@ -1,7 +1,9 @@
-package engine;
+package engine.loop;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
+import engine.front_end.IDraw;
+import engine.loop.groovy.GroovyEngine;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -39,7 +41,6 @@ public class RoomLoop {
 
             @Override
             public void handle(ActionEvent event) {
-
                 step();
 
             }
@@ -57,7 +58,12 @@ public class RoomLoop {
 	}
 	 
 	public void start(){
+		gameManager.clearInputEvents();
 		myGameLoop.play();
+	}
+	
+	public void resume(){
+		start();
 	}
 	
 	public void pause(){

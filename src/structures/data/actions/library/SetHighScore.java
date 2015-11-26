@@ -4,24 +4,25 @@ import structures.data.actions.DataAction;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;
 
-public class GetScore extends DataAction {
-	
-	public GetScore(){
-		init(new StringParam("ScoreOperation"), new DoubleParam("Score"));
+public class SetHighScore extends DataAction {
+
+	public SetHighScore(){
+		init(new StringParam("NewScoreVariable"));
 	}
 
 	@Override
 	public String getTitle() {
-		return "GetScore";
+		return "SetHighScore";
 	}
 
 	@Override
 	public String getDescription() {
-		return String.format("checks if the score is %s %.2f", get("ScoreOperation"), get("Score"));
+		return String.format("sets the high score to the value of %s", get("NewScoreVariable"));
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "if (library.get_score() %s %f) ";
+		return "library.set_high_score(library.get_variable('%s'));";
 	}
+
 }
