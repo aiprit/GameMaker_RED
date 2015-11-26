@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import engine.events.EventManager;
+import engine.loop.InputManager;
 import exceptions.GameRuntimeException;
+import exceptions.LibraryArgumentException;
 import exceptions.UnknownResourceException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
@@ -18,18 +19,38 @@ public class GroovyLibrary {
 
 	private RunGame myRunGame;
 	private EventManager myEventManager;
+	private InputManager myInputManager;
 	private Map<String, Double> myGlobalVariables;
 
 	public GroovyLibrary(RunGame runGame, EventManager eventManager) {
 		myRunGame = runGame;
 		myEventManager = eventManager;
 		myGlobalVariables = new HashMap<>();
+		myInputManager = new InputManager(eventManager, false);
 	}
 
 	private void fatalError(String message, Object... args) {
 		System.out.println(message);
 		System.exit(1);
 	}
+	
+	public void print(String string) {
+		System.out.println(string);
+	}
+	
+	public boolean key_down(String keyCode) {
+		try {
+			return myInputManager.checkKey(keyCode.toUpperCase());
+		} catch (LibraryArgumentException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean key_up(String keyCode) {
+		return !key_down(keyCode);
+	}
+	
 
 	public double random_number(double max){
 		Random rand = new Random();

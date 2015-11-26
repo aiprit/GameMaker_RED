@@ -95,10 +95,10 @@ public class RoomCanvas extends Canvas {
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
 		double adjustedY = y + node.getYOffset();
-		if (inRoomWidthBounds(node.getWidth(), adjustedX)) {
+		if (inRoomWidthBounds(node.getWidth()*node.getScaleX(), adjustedX)) {
 			node.setX(adjustedX);
 		}
-		if (inRoomHeightBounds(node.getHeight(), adjustedY)) {
+		if (inRoomHeightBounds(node.getHeight()*node.getScaleY(), adjustedY)) {
 			node.setY(adjustedY);
 		}
 	}

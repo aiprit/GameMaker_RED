@@ -6,18 +6,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import com.sun.prism.paint.Color;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class RoomListView {
+	private static final int ROW_LENGTH = 4;
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private GridPane roomView;
 	
@@ -29,30 +42,31 @@ public class RoomListView {
 	public void init() {
 		bp = new BorderPane();
 		roomView = new GridPane();
+		bp.setAlignment(roomView, Pos.CENTER);
 		roomView.setVgap(10);
 		roomView.setHgap(20);
-		ArrayList<Button> buttons = new ArrayList<Button>();
-		Map<String, DataObject> roomObjects = new HashMap<String, DataObject>();
 	}
 	
-	public Button addRoom(DataRoom o, int i) {
-		String roomName = o.getName();
-		Button b = new Button(roomName);
-		
-		int col = i % 5;
-		int row = i /5;
-		roomView.add(b, col, row);
+	public Button addRoom(DataRoom o, int i, boolean startRoom) {
+		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName());
+		if (startRoom) {
+			room.setStyle("-fx-background-color: " + myResourceBundle.getString("StartRoomBackgroundColor"));
+		}
+		int col = i % ROW_LENGTH;
+		int row = i /ROW_LENGTH;
+		roomView.add(room, col, row);
 		updateList();
-		return b;
+		return room.getButton();
 	}
 	
 	public Button addPlusButton(int numberofRooms) {
-		Button plus = new Button(myResourceBundle.getString("plus"));
-		int col = numberofRooms % 5;
-		int row = numberofRooms /5;
-		roomView.add(plus, col, row);
+		RoomIcon room = new RoomIcon(myResourceBundle);
+
+		int col = numberofRooms % ROW_LENGTH;
+		int row = numberofRooms /ROW_LENGTH;
+		roomView.add(room, col, row);
 		updateList();
-		return plus;
+		return room.getButton();
 		
 	}
 	

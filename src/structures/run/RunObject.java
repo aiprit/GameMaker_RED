@@ -1,7 +1,6 @@
 package structures.run;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,8 +10,6 @@ import exceptions.CompileTimeException;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
-import utils.Bresenham;
-import utils.Point;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -32,12 +29,11 @@ public class RunObject {
 	public Vector gravity;
 	public double alpha;
 	public double friction;
+	public boolean solid;
 
 	private RunSprite mySprite;
 	private Map<IDataEvent, RunAction> myEvents;
 	private long myInstanceId;
-
-	private double myLastX, myLastY;
 
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
@@ -57,11 +53,10 @@ public class RunObject {
 		this.angularVelocity = 0.0;
 		this.visible = true;
 		this.alpha = 1.0;
+		this.solid = false;
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
 		myVariables = new HashMap<>();
-		myLastX = 0.0;
-		myLastY = 0.0;
 
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
@@ -104,6 +99,13 @@ public class RunObject {
 		clone.angle = this.angle;
 		clone.velocity = this.velocity;
 		clone.mySprite = this.mySprite;
+		clone.visible = this.visible;
+		clone.solid = this.solid;
+		clone.alpha = this.alpha;
+		clone.angularVelocity = this.angularVelocity;
+		clone.friction = this.friction;
+		clone.gravity = this.gravity;
+		clone.myVariables = new HashMap<>(this.myVariables);
 
 		// This is OK because both IDataEvents and RunActions are immutable
 		clone.myEvents = new HashMap<>(myEvents);
@@ -124,7 +126,6 @@ public class RunObject {
 	public void draw(IDraw drawListener, RunView view) {
 		if (mySprite != null) {
 			mySprite.draw(drawListener, view, this);
-			//drawListener.drawRectangle(getBounds(), view, Color.INDIANRED);
 		}
 	}
 
@@ -146,17 +147,25 @@ public class RunObject {
 		}
 	}
 
-	public void movement_angle(double angle, double acceleration, boolean relative){
-		//need physics engine
+	public void set_velocity(double direction, double speed, boolean relative) {
+		Vector change = new Vector(speed, direction, true);
+		if (relative) {
+			this.velocity = this.velocity.add(change);
+		} else {
+			this.velocity = change;
+		}
 	}
 
-	public void movement_towards(double x, double y, double acceleration, boolean relative){
-		//need physics engine
+	public void set_velocity(double x, double y, double speed, boolean relative){
+		Vector change = (new Vector(x - this.x, y - this.y)).setLength(speed);
+		if (relative) {
+			this.velocity = this.velocity.add(change);
+		} else {
+			this.velocity = change;
+		}
 	}
 
 	public void move_to(double x, double y, boolean relative){
-		myLastX = this.x;
-		myLastY = this.y;
 		if (relative) {
 			this.x += x;
 			this.y += y;
@@ -197,47 +206,6 @@ public class RunObject {
 	public void wrap_around_room(boolean value){
 
 	}
-	
-	public void block(RunObject other, double slipFactor) {
-		
-		if (collision_at(myLastX, myLastY)) {
-			return;
-		}
-		List<Point> points = Bresenham.interpolate((int)myLastX, (int)myLastY, (int)this.x, (int)this.y);
-		
-		// Find the first free block
-		int pivot = 0;
-		int start = 0;
-		int end = points.size();
-		Point test = null;
-		while (end - start > 1) {
-			pivot = (end - start) / 2 + start;
-			test = points.get(pivot);
-			if (collision_at(test.x, test.y)) {
-				end = pivot;
-			} else {
-				start = pivot;
-			}
-		}
-		pivot = (end - start) / 2 + start;
-		test = points.get(pivot);
-		
-		this.x = test.x;
-		this.y = test.y;
-		myLastX = this.x;
-		myLastY = this.y;
-		
-		switch (other.getBounds().quadrantOfPoint(new Point(this.x, this.y))) {
-			case TOP:
-			case BOTTOM:
-				this.velocity = this.velocity.setY(0.0);
-				break;
-			case LEFT:
-			case RIGHT:
-				this.velocity = this.velocity.setX(0.0);
-				break;
-		}
-	}
 
 	public boolean collision_at(double x, double y) {
 		if (myCollisionChecker == null) {
@@ -246,6 +214,23 @@ public class RunObject {
 			return myCollisionChecker.collisionAt(x, y, this);
 		}
 	}
+
+	public boolean collision_with_at(double x, double y, RunObject with) {
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionWithAt(x, y, this, with);
+		}
+	}
+	
+	public boolean collision_solid_at(double x, double y) {
+		if (myCollisionChecker == null) {
+			return false;
+		} else {
+			return myCollisionChecker.collisionSolidAt(x, y, this);
+		}
+	}
+	
 	public double get_x_position(){
 		return this.x;
 	}

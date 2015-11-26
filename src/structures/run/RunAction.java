@@ -17,7 +17,7 @@ public final class RunAction {
 		try {
 			compiled = shell.parse(script);
 		} catch (CompilationFailedException ex ) {
-			throw new CompileTimeException("Compile error in script: %s", script);
+			throw new CompileTimeException("Compile error in script: " + ex);
 		}
 	}
 

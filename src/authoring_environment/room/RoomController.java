@@ -29,7 +29,6 @@ import utils.rectangle.*;
 
 public class RoomController {
 	private static final double CLONE_OFFSET = 15;
-	private static final String DEFAULT_SPRITE = "DefaultSprite";
 	
 	private ResourceBundle myResources;
 	
@@ -55,6 +54,10 @@ public class RoomController {
 	
 	public void launch() {
 		view.show();
+	}
+	
+	public RoomEditor getEditor() {
+		return view;
 	}
 	
 	private void populateEditor(DataRoom room) {
@@ -130,8 +133,8 @@ public class RoomController {
 	private void clone(ObjectInstanceController controller) {
 		double x = controller.getDataInstance().getX() + CLONE_OFFSET;
 		double y = controller.getDataInstance().getY() + CLONE_OFFSET;
-		double width = controller.getDraggableImage().getImage().getWidth();
-		double height = controller.getDraggableImage().getImage().getHeight();
+		double width = controller.getDraggableImage().getImage().getWidth() * controller.getDraggableImage().getScaleX();
+		double height = controller.getDraggableImage().getImage().getHeight() * controller.getDraggableImage().getScaleY();
 		if (!view.getPreview().getCanvas().inRoomWidthBounds(width, x)) {
 			x = view.getPreview().getCanvas().getWidth() - width;
 		}
@@ -190,8 +193,8 @@ public class RoomController {
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
 		Point2D screenPoint = new Point2D(e.getScreenX(), e.getScreenY());
 		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
-		double width = potentialObjectInstance.getImageView().getImage().getWidth();
-		double height = potentialObjectInstance.getImageView().getImage().getHeight();
+		double width = potentialObjectInstance.getImageView().getImage().getWidth() * potentialObjectInstance.getImageView().getScaleX();
+		double height = potentialObjectInstance.getImageView().getImage().getHeight() * potentialObjectInstance.getImageView().getScaleY();
 		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
 			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
 					null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);

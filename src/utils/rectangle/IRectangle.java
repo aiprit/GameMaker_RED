@@ -19,6 +19,8 @@ public interface IRectangle {
 	Point bottomLeft();
 
 	Point bottomRight();
+	
+	Point centerPoint();
 
 	boolean contains(Point p);
 
@@ -90,6 +92,12 @@ public interface IRectangle {
 		return new Point(rect.x() - h * Math.cos(thetac), rect.y() + h * Math.sin(thetac));
 	}
 	
+	public static Point centerPoint(IRectangle rect) {
+		Point tl = topLeft(rect);
+		Point br = bottomRight(rect);
+		return new Point((tl.x + br.x) / 2, (tl.y + br.y) / 2);
+	}
+	
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
 		boolean topLeftOne = rect1.contains(rect2.topLeft());
 		boolean topRightOne = rect1.contains(rect2.topRight());
@@ -107,7 +115,7 @@ public interface IRectangle {
 		
 		// Top or Left
 		if (Utils.findSide(bottomLeft(rect), topRight(rect), point) < 0) {
-			if (Utils.findSide(topLeft(rect), bottomRight(rect), point) > 0) {
+			if (Utils.findSide(topLeft(rect), bottomRight(rect), point) >= 0) {
 				return quadrant.LEFT;
 			} else {
 				return quadrant.TOP;

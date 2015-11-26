@@ -35,15 +35,9 @@ public class RoomLoop {
 	 */
 	public void createRoomLoop(){
 		
-		final Duration oneFrameAmt = Duration.millis(100);
-        final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
-                                               new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                step();
-
-            }
+		final Duration oneFrameAmt = Duration.millis(30);
+        final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, e -> {
+        	step();
         });
 		
 		Timeline animation = new Timeline();

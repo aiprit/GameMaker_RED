@@ -157,4 +157,9 @@ public class Rectangle implements IRectangle {
 	public quadrant quadrantOfPoint(Point p) {
 		return IRectangle.quadrantOfPoint(this, p);
 	}
+	
+	@Override
+	public Point centerPoint() {
+		return IRectangle.centerPoint(this);
+	}
 }

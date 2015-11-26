@@ -14,6 +14,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import structures.data.DataRoom;
 
 public class BackgroundPopUpController {
+	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final String PNG = "png";
 	private static final String IMAGES_FILEPATH_PREFIX = "ImagesFilePath";
 	private static final String FILE_CHOOSER_TAG = "FileChooserTag";
@@ -31,6 +32,9 @@ public class BackgroundPopUpController {
 		view.getResetButton().setOnAction(e -> reset());
 		view.getUploadButton().setOnAction(e -> launchFileChooser());
 		view.setDropdownAndUploadText(model.getBackgroundColor());
+		if (!room.getBackgroundColor().equals(myResources.getObject(DEFAULT_ROOM_BACKGROUND_COLOR))) {
+			view.setImageFileName(room.getBackgroundColor());
+		}
 	}
 	
 	private void changeBackground() {
