@@ -6,29 +6,30 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 public class ButtonToolbar extends ToolBar {
-	private static final String HELP_TOOLTIP_HBOX_WIDTH = "HelpTooltipHBoxWidth";
-
-
+	private static final double ANCHOR_PANE_OFFSET = 15.0;
+	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
+	private static final int BUTTON_SPACING = 20;
 	private static final String HELP_TOOLTIP_ICON = "HelpTooltipIcon";
-
-
 	private static final String BUTTON_TOOLBAR_HEIGHT = "ButtonToolbarHeight";
 	
-	
 	private ResourceBundle myResources;
+	private AnchorPane myPane;
 	private HBox myButtonPane;
-	private HBox myTooltip;
+	private HelpIcon myTooltip;
 
 	public ButtonToolbar(ResourceBundle resources) {
 		super();
 		myResources = resources;
 		this.setPrefHeight(Double.parseDouble(resources.getString(BUTTON_TOOLBAR_HEIGHT)));
+		myPane = new AnchorPane();
+		this.getItems().add(myPane);
+		myPane.setPrefWidth(Double.parseDouble(myResources.getString(ROOM_EDITOR_WIDTH)));
 		initializeButtonPane();
 		initializeTooltip();
-		this.getItems().addAll(myButtonPane, myTooltip);
 	}
 	
 	public void addButton(RoomEditorButton newButton) {
@@ -38,15 +39,15 @@ public class ButtonToolbar extends ToolBar {
 	private void initializeButtonPane() {
 		myButtonPane = new HBox();
 		myButtonPane.setAlignment(Pos.TOP_LEFT);
-		myButtonPane.setSpacing(20);
+		myButtonPane.setSpacing(BUTTON_SPACING);
+		myPane.getChildren().add(myButtonPane);
+		myPane.setLeftAnchor(myButtonPane, ANCHOR_PANE_OFFSET);
 	}
 	
 	private void initializeTooltip() {
-		myTooltip = new HBox();
-		myTooltip.setPrefWidth(Double.parseDouble(myResources.getString(HELP_TOOLTIP_HBOX_WIDTH)));
-		myTooltip.setAlignment(Pos.TOP_RIGHT);
 		Image helpIcon = new Image(getClass().getClassLoader().getResourceAsStream(myResources.getString(HELP_TOOLTIP_ICON)));
-		HelpIcon helpTooltip = new HelpIcon(myResources, helpIcon);
-		myTooltip.getChildren().add(helpTooltip);
+		myTooltip = new HelpIcon(myResources, helpIcon);
+		myPane.getChildren().add(myTooltip);
+		myPane.setRightAnchor(myTooltip, ANCHOR_PANE_OFFSET);
 	}
 }
