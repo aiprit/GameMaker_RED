@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class BackgroundPopup extends PopupTemplate {
+	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final int TEXT_SCALE = 2;
 	private static final String RESET_BUTTON_TITLE = "ResetButtonTitle";
 	private static final int GRID_SPACING = 15;
@@ -88,14 +89,14 @@ public class BackgroundPopup extends PopupTemplate {
 
 	public void setDropdownAndUploadText(String backgroundColor) {
 		if (backgroundColor == null) {
-			myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
+			myColorDropdown.setValue(Color.valueOf(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR)));
 			myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
 		} else {
 			try {
 				myColorDropdown.setValue(Color.valueOf(backgroundColor));
 				myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
 			} catch (IllegalArgumentException e) {
-				myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
+				myColorDropdown.setValue(Color.valueOf(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR)));
 				myUploadButton.setText(backgroundColor);
 			}
 		}
@@ -114,7 +115,7 @@ public class BackgroundPopup extends PopupTemplate {
 	}
 	
 	public void resetView() {
-		myColorDropdown.setValue(myRoomBackground.DEFAULT_COLOR);
+		myColorDropdown.setValue(Color.valueOf(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR)));
 		myImageFileName = null;
 		myUploadButton.setText(myResources.getString(UPLOAD_BACKGROUND_IMAGE));
 	}
