@@ -28,18 +28,19 @@ public class BackgroundPopUpController {
 		myResources = resources;
 		model = room;
 		view = new BackgroundPopup(resources, background);
+		if (!room.getBackgroundColor().substring(0, 2).equals("0x")) {
+			view.setImageFileName(room.getBackgroundColor());
+		}
 		view.getSaveButton().setOnAction(e -> changeBackground());
 		view.getResetButton().setOnAction(e -> reset());
 		view.getUploadButton().setOnAction(e -> launchFileChooser());
 		view.setDropdownAndUploadText(model.getBackgroundColor());
-		if (!room.getBackgroundColor().equals(myResources.getObject(DEFAULT_ROOM_BACKGROUND_COLOR))) {
-			view.setImageFileName(room.getBackgroundColor());
-		}
 	}
 	
 	private void changeBackground() {
 		String backgroundColor = view.getColorDropdown().getValue().toString();
-		if (view.getImageFileName() != null) {
+		if (view.getImageFileName() != null && !view.getImageFileName().equals("") 
+				&& !view.getImageFileName().equals(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR))) {
 			backgroundColor = view.getImageFileName();
 		} else {
 			backgroundColor = view.getColorDropdown().getValue().toString();
@@ -52,7 +53,7 @@ public class BackgroundPopUpController {
 	
 	private void reset() {
 		view.resetView();
-		model.setBackgroundColor(view.getCanvas().DEFAULT_COLOR.toString());
+		model.setBackgroundColor(myResources.getString(DEFAULT_ROOM_BACKGROUND_COLOR));
 		changeBackground();
 	}
 	
