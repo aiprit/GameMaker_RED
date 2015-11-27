@@ -4,6 +4,8 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -49,14 +51,16 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	//	myInfo.setTranslateY(Integer.parseInt(r.getString("infoY")));
 		myInfo.setAlignment(Pos.BOTTOM_CENTER);
 		Button b = new Button("ok");
+		b.setTranslateX(45);
 	//	myInfo.setTranslateX(Integer.parseInt(r.getString("buttonY")));
+		b.setFocusTraversable(false);
 		b.setOnAction(e ->{
 		eventPopup();
 		close(e);});
 		pane.setTop(myInfo);
-		pane.setCenter(text);
 		pane.setBottom(b);
-		b.setTranslateX(45);
+		pane.setCenter(text);
+
 		myRoot.getChildren().addAll(pane);
 		myScene= new Scene(myRoot);
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
