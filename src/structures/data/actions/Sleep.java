@@ -3,7 +3,7 @@ package structures.data.actions;
 import structures.data.actions.params.DoubleParam;
 
 public class Sleep extends DataAction {
-	
+
 	public Sleep(){
 		init(new DoubleParam("SleepTime"));
 	}
