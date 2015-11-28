@@ -43,7 +43,6 @@ public class EventModel {
 		alist.add(a);
 	}
 	public void deleteAction(IAction a) {
-		// TODO Auto-generated method stub
 		alist.remove(a);
 	}
 	public ObservableList<String> initTempActions(){

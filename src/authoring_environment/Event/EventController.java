@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
 import exceptions.ParameterParseException;
@@ -64,6 +63,44 @@ public class EventController {
 		myView.getLeftPane().getAddButton().setOnAction(e ->
 		addAction(myView.getLeftPane().getListView()
 				.getSelectionModel().getSelectedItem()));
+		myView.getLeftPane().getListView().setOnDragDetected(new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent event){
+				Dragboard dragBoard = myView.getLeftPane().getListView().startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(myView.getLeftPane().getListView().getSelectionModel().getSelectedItem());
+				dragBoard.setContent(content);
+			}
+		});
+
+		myView.getRightPane().getListView().setOnDragOver(new EventHandler<DragEvent>()
+		{
+			@Override
+			public void handle(DragEvent dragEvent){
+				dragEvent.acceptTransferModes(TransferMode.MOVE);
+			}
+		});
+
+		myView.getRightPane().getListView().setOnDragDropped(new EventHandler<DragEvent>()
+		{
+			@Override
+			public void handle(DragEvent dragEvent){
+				int draggedIdx = myView.getRightPane().getListView().getItems().size();
+				for(int i = 0 ; i<myView.getRightPane().getListView().getItems().size();i++){
+					String str2 = myView.getRightPane().getListView().getItems().get(i).toString();
+					if(dragEvent.getDragboard().getString().equals(myView.getRightPane().getListView().getItems().get(i).toString())){
+						draggedIdx = i;
+						break;
+					}
+				}
+				if (draggedIdx == myView.getRightPane().getListView().getItems().size()){
+				String player = dragEvent.getDragboard().getString();
+				addAction(player);
+				dragEvent.setDropCompleted(true);
+				}
+			}
+		});
 	}
 
 	protected void close(ActionEvent e) {
@@ -92,7 +129,12 @@ public class EventController {
 		try {
 			IAction act = (IAction) c.getDeclaredConstructor().newInstance();
 			List<IParameter> params = act.getParameters();
+			if(params.size()>0){
 			ParamController paramcontrol = new ParamController(act,myModel.getActions());
+			}
+			else{
+				myModel.addAction(act);
+			}
 //			if(params !=null){
 //				for(IParameter p :params){
 //					if(!paramPopUps(p))
