@@ -179,15 +179,15 @@ public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAc
 				items.set(draggedIdx, getItem());
 				items.set(thisIdx, act);
 
-
-
 				List<IAction> itemscopy = new ArrayList<IAction>(getListView().getItems());
 				getListView().getItems().setAll(itemscopy);
 
 				success = true;
+				System.out.println(items);
 			}
 			event.setDropCompleted(success);
 			event.consume();
+
 		});
 
 		setOnDragDone(DragEvent::consume);

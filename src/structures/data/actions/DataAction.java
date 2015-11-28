@@ -51,6 +51,6 @@ public abstract class DataAction implements IAction {
 
     @Override
     public String toString(){
-    	return this.getDescription();
+    	return this.getTitle();
     }
 }
