@@ -17,9 +17,9 @@ public class MoveTo extends DataAction {
 	@Override
 	public String getDescription() {
 		if ((boolean) get("Relative").getValue()) {
-			return String.format("Move relative (%.2f, %.2f)", get("X").getValue(), get("Y").getValue());
+			return String.format("Move relative (%.2f, %.2f)", get("X"), get("Y"));
 		} else {
-			return String.format("Move to (%.2f, %.2f)", get("X").getValue(), get("Y").getValue());
+			return String.format("Move to (%.2f, %.2f)", get("X"), get("Y"));
 		}
 	}
 
