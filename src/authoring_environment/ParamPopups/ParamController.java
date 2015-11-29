@@ -41,7 +41,9 @@ public class ParamController {
 
 				}
 			}
+			if(!model.editing()){
 			model.addAction();
+			}
 			view.close();
 		}
 		catch (ParameterParseException e) {

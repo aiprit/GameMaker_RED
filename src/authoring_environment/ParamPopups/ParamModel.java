@@ -3,6 +3,7 @@ package authoring_environment.ParamPopups;
 import java.util.List;
 
 import structures.data.actions.IAction;
+import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
 import structures.data.events.IDataEvent;
 
@@ -12,7 +13,7 @@ public class ParamModel {
 	List<IAction> myActions;
 	IAction myAction;
 	public ParamModel(IAction e,List<IAction> action) {
-	//	myEvent= e;
+		//	myEvent= e;
 		myAction = e;
 		myList= e.getParameters();
 		myActions = action;
@@ -32,5 +33,13 @@ public class ParamModel {
 		// TODO Auto-generated method stub
 		return myActions;
 	}
+	public boolean editing(){
+		return myActions.contains(myAction) ? true: false;
+	}
+//	public void refresh() {
+//		IAction act = new MoveTo();
+//		myActions.add(act);
+//		myActions.remove(act);
+//	}
 
 }

@@ -20,16 +20,18 @@ public class ParamFactory {
 			HBox box = new HBox(10);
 			box.getChildren().add(new Label(label.get(i).getTitle()));
 			if(label.get(i).getType().toString().equals("INTEGER")){
-				box.getChildren().add(new TextField());
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			if(label.get(i).getType().toString().equals("STRING")){
-				box.getChildren().add(new TextField());
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			if(label.get(i).getType().toString().equals("DOUBLE")){
-				box.getChildren().add(new TextField());
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			if(label.get(i).getType().toString().equals("CHECKBOX")){
-				box.getChildren().add(new CheckBox());
+				CheckBox cbox = new CheckBox();
+				cbox.setSelected((boolean) label.get(i).getValue());
+				box.getChildren().add(cbox);
 			}
 			if(label.get(i).getType().toString().equals("OBJECT_SELECT")){
 				ObjectMenu menu = new ObjectMenu(label.get(i));
