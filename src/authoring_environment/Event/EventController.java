@@ -4,11 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -16,18 +17,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.effect.BlendMode;
+
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyEvent;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
+import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
 import structures.data.events.IDataEvent;
 
@@ -46,62 +48,174 @@ public class EventController {
 			close(e);});
 		myView.getBottomPane().getCancelButton().setOnAction(e ->{
 			close(e);});
+
+
 		myView.getTopPane().getMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
 				ActionController actionCon = new ActionController(myModel.getActions());
 			}
 		});
 
+
 		myView.getRightPane().getListView().setItems(myModel.getActions());
-		myView.getRightPane().getListView().setCellFactory(new DraggableAction());
+		myView.getRightPane().getListView().setCellFactory(new Callback<ListView<IAction>, ListCell<IAction>>(){
 
+			@Override
+			public ListCell<IAction> call(ListView<IAction> lv){
+				final ListCell<IAction> cell = new ListCell<IAction>() {
+					@Override
+					public void updateItem(IAction item, boolean empty) {
+						super.updateItem(item,  empty);
+						if (empty) {
+							setText(null);
+						} else {
+							setText(item.getDescription());
+						}
+					}
+				};
+				cell.setOnDragDetected(event -> {
+					if (cell.getItem() == null) {
+						return;
+					}
 
+					Dragboard dragboard = cell.startDragAndDrop(TransferMode.MOVE);
+					ObservableList<IAction> items = cell.getListView().getItems();
+					ClipboardContent content = new ClipboardContent();
+					Integer i = items.indexOf(cell.getItem());
+					content.putString(i.toString());
+					dragboard.setDragView(
+							myModel.getImage()
+							);
+					dragboard.setContent(content);
+					event.consume();
+				});
+				cell.setOnDragOver(event -> {
+					if (event.getGestureSource() != cell &&
+							event.getDragboard().hasString()) {
+						event.acceptTransferModes(TransferMode.MOVE);
+					}
+
+					event.consume();
+				});
+
+				cell.setOnDragEntered(event -> {
+					if (event.getGestureSource() != cell &&
+							event.getDragboard().hasString()) {
+						cell.setOpacity(0.3);
+					}
+				});
+
+				cell.setOnDragExited(event -> {
+					if (event.getGestureSource() != cell &&
+							event.getDragboard().hasString()) {
+						cell.setOpacity(1);
+					}
+				});
+
+				cell.setOnDragDropped(event -> {
+					Dragboard db = event.getDragboard();
+					boolean success = false;
+					if (cell.getItem() == null) {
+						String player = db.getString();
+						addAction(player,-1);
+						event.setDropCompleted(true);
+					}
+
+					else {
+						ObservableList<IAction> items = cell.getListView().getItems();
+						int thisIdx = items.indexOf(cell.getItem());
+						try{
+							int draggedIdx = Integer.parseInt(db.getString());
+							IAction act = items.get(draggedIdx);
+							items.set(draggedIdx, cell.getItem());
+							items.set(thisIdx, act);
+							//							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
+							//							cell.getListView().getItems().setAll(itemscopy);
+							success = true;
+							System.out.println(items);
+						}
+						catch (NumberFormatException e){
+							String player = event.getDragboard().getString();
+							addAction(player,thisIdx);
+							System.out.println(items);
+						}
+
+						event.setDropCompleted(true);
+					}
+					event.setDropCompleted(success);
+					event.consume();
+
+				});
+
+				cell.setOnDragDone(DragEvent::consume);
+				return cell;
+			}
+		});
 		myView.getRightPane().getDelete().setOnAction(e ->
 		myModel.deleteAction(
 				myView.getRightPane().getListView().getSelectionModel().getSelectedItem()));
-		myView.getLeftPane().getListView().setItems(myModel.initTempActions());
-		myView.getLeftPane().getAddButton().setOnAction(e ->
-		addAction(myView.getLeftPane().getListView()
-				.getSelectionModel().getSelectedItem()));
-		myView.getLeftPane().getListView().setOnDragDetected(new EventHandler<MouseEvent>()
-		{
+		myView.getRightPane().getListView().setOnDragDropped(new EventHandler<DragEvent>(){
 			@Override
-			public void handle(MouseEvent event){
-				Dragboard dragBoard = myView.getLeftPane().getListView().startDragAndDrop(TransferMode.MOVE);
-				ClipboardContent content = new ClipboardContent();
-				content.putString(myView.getLeftPane().getListView().getSelectionModel().getSelectedItem());
-				dragBoard.setContent(content);
+			public void handle(DragEvent dragEvent){
+				String player = dragEvent.getDragboard().getString();
+				addAction(player,-1);
+				dragEvent.setDropCompleted(true);
 			}
 		});
-
-		myView.getRightPane().getListView().setOnDragOver(new EventHandler<DragEvent>()
-		{
+		myView.getRightPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					IAction selected = myView.getRightPane().getListView().getSelectionModel().getSelectedItem();
+					List<IParameter> params = selected.getParameters();
+					if(params.size()>0){
+						ParamController paramcontrol = new ParamController(selected,myModel.getActions());
+					}
+				}
+			}
+		});
+		myView.getRightPane().getListView().setOnDragOver(new EventHandler<DragEvent>(){
 			@Override
 			public void handle(DragEvent dragEvent){
 				dragEvent.acceptTransferModes(TransferMode.MOVE);
 			}
 		});
 
-		myView.getRightPane().getListView().setOnDragDropped(new EventHandler<DragEvent>()
-		{
+
+		myView.getLeftPane().getListView().setItems(myModel.initTempActions());
+		myView.getLeftPane().getAddButton().setOnAction(e ->
+		addAction(myView.getLeftPane().getListView()
+				.getSelectionModel().getSelectedItem(),-1));
+		myView.getLeftPane().getListView().setOnDragDetected(new EventHandler<MouseEvent>(){
 			@Override
-			public void handle(DragEvent dragEvent){
-				int draggedIdx = myView.getRightPane().getListView().getItems().size();
-				for(int i = 0 ; i<myView.getRightPane().getListView().getItems().size();i++){
-					String str2 = myView.getRightPane().getListView().getItems().get(i).toString();
-					if(dragEvent.getDragboard().getString().equals(myView.getRightPane().getListView().getItems().get(i).toString())){
-						draggedIdx = i;
-						break;
-					}
-				}
-				if (draggedIdx == myView.getRightPane().getListView().getItems().size()){
-				String player = dragEvent.getDragboard().getString();
-				addAction(player);
-				dragEvent.setDropCompleted(true);
+			public void handle(MouseEvent event){
+				Dragboard dragBoard = myView.getLeftPane().getListView().startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(myView.getLeftPane().getListView().getSelectionModel().getSelectedItem());
+				dragBoard.setContent(content);
+				dragBoard.setDragView(
+						myModel.getImage()
+						);
+			}
+		});
+		myView.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					String selected = myView.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					addAction(selected,-1);
+
 				}
 			}
 		});
 	}
+
+
+
+
+
 
 	protected void close(ActionEvent e) {
 		Node  source = (Node)  e.getSource();
@@ -109,62 +223,62 @@ public class EventController {
 		stage.close();
 	}
 
-	private void addAction(String str){
+	public void addAction(String str, int index){
 		try{
-		String className = str.replaceAll("\\s+","");
+			String className = str.replaceAll("\\s+","");
 
-		Class c=null;
-		try {
-			c = Class.forName("structures.data.actions.library." +className);
-
-		} catch (ClassNotFoundException e) {
+			Class c=null;
 			try {
-				c = Class.forName("structures.data.actions." +className);
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+				c = Class.forName("structures.data.actions.library." +className);
 
-		}
-		try {
-			IAction act = (IAction) c.getDeclaredConstructor().newInstance();
-			List<IParameter> params = act.getParameters();
-			if(params.size()>0){
-			ParamController paramcontrol = new ParamController(act,myModel.getActions());
+			} catch (ClassNotFoundException e) {
+				try {
+					c = Class.forName("structures.data.actions." +className);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 			}
-			else{
-				myModel.addAction(act);
+			try {
+				IAction act = (IAction) c.getDeclaredConstructor().newInstance();
+				List<IParameter> params = act.getParameters();
+				if(params.size()>0){
+					ParamController paramcontrol = new ParamController(act,myModel.getActions());
+				}
+				else{
+					myModel.addAction(act,index);
+				}
+				//			if(params !=null){
+				//				for(IParameter p :params){
+				//					if(!paramPopUps(p))
+				//						break;
+				//				}
+				//			}
+				//			myModel.addAction(act);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-//			if(params !=null){
-//				for(IParameter p :params){
-//					if(!paramPopUps(p))
-//						break;
-//				}
-//			}
-//			myModel.addAction(act);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		}
 		catch (NullPointerException e){
-			 alertPopUp();
+			alertPopUp();
 		}
 
 

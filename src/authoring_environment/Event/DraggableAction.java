@@ -90,18 +90,20 @@ public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAc
 					}
 				}
 				if (draggedIdx != items.size()){
-
 				int thisIdx = items.indexOf(getItem());
 				IAction act = items.get(draggedIdx);
 				items.set(draggedIdx, getItem());
 				items.set(thisIdx, act);
-
 				List<IAction> itemscopy = new ArrayList<IAction>(getListView().getItems());
 				getListView().getItems().setAll(itemscopy);
-
 				success = true;
 				System.out.println(items);
 				}
+//				else{
+//				String player = event.getDragboard().getString();
+//				addAction(player);
+//				}
+				event.setDropCompleted(true);
 			}
 			event.setDropCompleted(success);
 			event.consume();
@@ -125,6 +127,7 @@ public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAc
 			}
 		}
 	}
+	
 
 //	public List<IParameter> getParameters() {
 //		return myAction.getParameters();
