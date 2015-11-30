@@ -78,4 +78,9 @@ private void alertPopUp() {
 	alert.setContentText("Please Reenter");
 	alert.showAndWait();
 }
+public void showAndWait() {
+	// TODO Auto-generated method stub
+	view.showAndWait();
+
+}
 }
