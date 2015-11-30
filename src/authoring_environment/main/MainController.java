@@ -45,8 +45,9 @@ public class MainController implements IUpdateHandle {
 		spriteListView = new SpriteListView();
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		update();
-
+		if(dataGame != null){
+			update();
+		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
 	}
