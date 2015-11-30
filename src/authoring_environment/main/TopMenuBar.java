@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 
 public class TopMenuBar {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	private MenuItem load, save;
+	private MenuItem load, save, exit;
 	private BorderPane bp;
 	private Menu run;
 	private MenuBar menuBar;
@@ -17,10 +17,12 @@ public class TopMenuBar {
 	public void init() {
 		Menu file = new Menu(r.getString("File"));
 		run = new Menu(r.getString("Run"));
+		exit = new MenuItem(r.getString("Exit"));
 //		Menu e = new Menu(r.getString("EditView"));
 		load = new MenuItem(r.getString("Load"));
 		save = new MenuItem(r.getString("Save"));
-		file.getItems().addAll(load,save);
+		
+		file.getItems().addAll(load,save,exit);
 		menuBar = new MenuBar();
 		menuBar.getMenus().addAll(file,run);
 	}
@@ -35,7 +37,11 @@ public class TopMenuBar {
 	public MenuItem getSaveMenu() {
 		return save;
 	}
+	public MenuItem getExitMenu(){
+		return exit;
+	}
 	public Menu getRunMenu(){
 		return run;
 	}
+	
 }

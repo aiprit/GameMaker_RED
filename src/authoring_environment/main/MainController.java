@@ -1,6 +1,8 @@
 package authoring_environment.main;
 
 import java.util.ResourceBundle;
+
+import Player.Launcher;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
@@ -16,6 +18,7 @@ import structures.data.DataRoom;
 import structures.data.DataSound;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+
 
 public class MainController implements IUpdateHandle {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
@@ -53,7 +56,11 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-
+	public void returnToLauncher(){
+		myStage.close();
+		Launcher main = new Launcher();
+		main.start(new Stage());
+	}
 	public void update() {
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
@@ -140,6 +147,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
+					
+					update();
 				}
 			});
 		}
@@ -175,6 +184,12 @@ public class MainController implements IUpdateHandle {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Run");
 				//RUN HERE
+			}
+		});
+		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				returnToLauncher();
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

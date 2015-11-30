@@ -3,6 +3,7 @@
  */
 package authoring_environment.main;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javafx.scene.control.Alert;
@@ -47,8 +48,13 @@ public class WelcomeWizardView {
 		if (result.get() == openGameBtn){
 			dataGame = GameSelector.getGameChoice();
 		} else if (result.get() == newGameBtn) {
+			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
 			dataGame = new DataGame(name, name+"/");
+			} catch(Exception e){
+				showAndWait();
+			}
+			
 		} else {
 			myStage.close();
 			return new DataGame("", "");
