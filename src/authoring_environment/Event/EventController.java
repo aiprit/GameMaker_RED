@@ -248,6 +248,7 @@ public class EventController {
 				List<IParameter> params = act.getParameters();
 				if(params.size()>0){
 					ParamController paramcontrol = new ParamController(act,myModel.getActions());
+					paramcontrol.showAndWait();
 				}
 				else{
 					myModel.addAction(act,index);
