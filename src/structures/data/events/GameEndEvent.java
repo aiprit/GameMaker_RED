@@ -1,19 +1,12 @@
 package structures.data.events;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GameEndEvent extends AbstractBasicEvent {
+	
+	public static final GameEndEvent event = new GameEndEvent();
 
-    @Override
-    public String getName() {
-        return "Game End";
-    }
+	@Override
+	public String getName() {
+		return "Game End";
+	}
 
-    @Override
-    public Map<String, String> dumpContents() {
-        Map<String, String> ret = new HashMap<>();
-        ret.put("class", getClass().getName());
-        return ret;
-    }
 }

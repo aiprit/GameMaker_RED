@@ -1,27 +1,31 @@
 package structures.data;
 
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
-
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.IAction;
+import structures.data.events.IDataEvent;
 
-public class DataGame extends Observable {
+//TODO check if IObjectInterface is being used
+public class DataGame extends Observable implements IObjectInterface, IDataGame {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
+	private static final int DEFAULT_VIEW_SIZE = 600;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
     ObservableList<DataSound> mySounds;
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
+    private int myViewWidth, myViewHeight;
+    private double myHighScore;
     private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
 
     public DataGame(String name, String gameDirectory) {
@@ -31,10 +35,38 @@ public class DataGame extends Observable {
         myObjects = FXCollections.observableArrayList();
         mySprites = FXCollections.observableArrayList();
         mySounds = FXCollections.observableArrayList();
+        myViewWidth = DEFAULT_VIEW_SIZE;
+        myViewHeight = DEFAULT_VIEW_SIZE;
+        myHighScore = 0;
+        myCurrentRoom = 0;
     }
 
     public String getName() {
         return myName;
+    }
+    
+    public int getViewWidth() {
+    	return myViewWidth;
+    }
+    
+    public int getViewHeight() {
+    	return myViewHeight;
+    }
+    
+    public void setViewWidth(int width) {
+    	myViewWidth = width;
+    }
+    
+    public void setViewHeight(int height) {
+    	myViewHeight = height;
+    }
+    
+    public double getHighScore(){
+    	return myHighScore;
+    }
+    
+    public void setHighScore(double highScore){
+    	myHighScore = highScore;
     }
 
     public ObservableList<DataRoom> getRooms() {
@@ -91,8 +123,8 @@ public class DataGame extends Observable {
         return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
     }
 
-    public void addObject(DataObject o) {
-        myObjects.add(o);
+    public void addObject(DataObject... o) {
+        myObjects.addAll(o);
         update();
     }
 
@@ -109,6 +141,10 @@ public class DataGame extends Observable {
     public void addRoom(DataRoom room) {
         myRooms.add(room);
         update();
+    }
+    public void removeObject(DataObject o){
+    	 myObjects.remove(o);
+         update();
     }
 
     public ObservableList<DataSprite> getSprites() {
@@ -137,7 +173,9 @@ public class DataGame extends Observable {
         for (DataObject o : myObjects) {
             r.append("  " + o.getName() + "\n");
 
-            for (Map.Entry<IDataEvent, List<IAction>> e : o.getEvents().entrySet()) {
+
+            for (ObservableMap.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
+
                 r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 

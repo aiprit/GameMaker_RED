@@ -6,91 +6,103 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
+import utils.Point;
 
-public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlayHandler, IObjectModifiedHandler {
+/**
+ * A centralized event system for an instance of an Engine. 
+ * Any class can register themselves as a listener for a 
+ * type of event defined by one of many Interfaces. In turn,
+ * we are a listener to these events, and when we receive one,
+ * we can push the event to all registered listeners.
+ *
+ */
+public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
+IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 
-	private List<IGUIHandler> myGUI;
-	private List<IRoomChangedHandler> myRoomChanged;
-	private List<IGamePlayHandler> myUserInput;
+	private List<IGUIBackendHandler> myGUIBackend;
+	private List<IGUIControllerHandler> myGUIController;
+	private List<IInputHandler> myUserInput;
 	private List<IObjectModifiedHandler> myObjectModified;
+	private List<IGameUpdatedHandler> myFrontEndUpdater;
 
 	public EventManager(){
-		myGUI = new ArrayList<>();
-		myRoomChanged = new ArrayList<>();
+		myGUIBackend = new ArrayList<>();
+		myGUIController = new ArrayList<>();
 		myUserInput = new ArrayList<>();
 		myObjectModified = new ArrayList<>();
+		myFrontEndUpdater = new ArrayList<>();
 	}
 
-	public void addGUIInterface(IGUIHandler gui){
-		myGUI.add(gui);
-	}
-
-	public void addRoomChangedInterface(IRoomChangedHandler roomChanged){
-		myRoomChanged.add(roomChanged);
-	}
-
-	public void addUserInputInterface(IGamePlayHandler userInput){
-		myUserInput.add(userInput);
+	public void addGUIBackendInterface(IGUIBackendHandler gui){
+		myGUIBackend.add(gui);
 	}
 	
+	public void addGUIControllerInterface(IGUIControllerHandler gui){
+		myGUIController.add(gui);
+	}
+
+	public void addUserInputInterface(IInputHandler userInput){
+		myUserInput.add(userInput);
+	}
+
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
 	}
+	
+	public void addFrontEndUpdateInterface(IGameUpdatedHandler frontEnd){
+		myFrontEndUpdater.add(frontEnd);
+	}
 
+	public void clearObjectModifiedInterface(){
+		myObjectModified.clear();
+	}
+
+	public void onResume(){
+		for(IGUIBackendHandler g : myGUIBackend){
+			g.onResume();
+		}
+	}
+ 
+	public void onPause(){
+		for(IGUIBackendHandler g : myGUIBackend){
+			g.onPause();
+		}
+	}
+	
 	public void onReset(){
-		for(IGUIHandler g : myGUI){
+		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
 		}
 	}
 
-	public void onStart(){
-		for(IGUIHandler g : myGUI){
-			g.onStart();
-		}
-	}
-
-	public void onPause(){
-		for(IGUIHandler g : myGUI){
-			g.onPause();
-		}
-	}
-
 	public void onLoadSave(String path){
-		for(IGUIHandler g : myGUI){
+		for(IGUIControllerHandler g : myGUIController){
 			g.onLoadSave(path);
 		}
 	}
 
 	public void onSave(){
-		for(IGUIHandler g : myGUI){
+		for(IGUIControllerHandler g : myGUIController){
 			g.onSave();
 		}
 	}
 
-	public void onRoomChanged(RunRoom runRoom){
-		for(IRoomChangedHandler r : myRoomChanged){
-			r.onRoomChanged(runRoom);
+	@Override
+	public void onKeyEvent(KeyEvent event) {
+		for(IInputHandler i : myUserInput){
+			i.onKeyEvent(event);
 		}
 	}
-
+	
 	@Override
-	public void setOnEvent(InputEvent m) {
-		for(IGamePlayHandler i : myUserInput){
-			i.setOnEvent(m);
+	public void onMouseEvent(MouseEvent event) {
+		for (IInputHandler i : myUserInput) {
+			i.onMouseEvent(event);
 		}
-	}
-
-	//get and clear events
-	@Override
-	public Queue<InputEvent> getEvents() {
-		Queue<InputEvent> currentEvents = new LinkedList<>();
-		for(IGamePlayHandler i : myUserInput){
-			currentEvents.addAll(i.getEvents());
-			i.getEvents().clear();
-		}
-		return currentEvents;
 	}
 
 	@Override
@@ -104,6 +116,34 @@ public class EventManager implements IGUIHandler, IRoomChangedHandler, IGamePlay
 	public void onObjectDestroy(RunObject runObject) {
 		for(IObjectModifiedHandler m : myObjectModified){
 			m.onObjectDestroy(runObject);
+		}
+	}
+
+	@Override
+	public void setView(Point coordinates) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.setView(coordinates);
+		}
+	}
+
+	@Override
+	public void addStringToDraw(String draw) {
+		for(IObjectModifiedHandler m : myObjectModified){
+			m.addStringToDraw(draw);
+		}
+	}
+
+	@Override
+	public void onRoomChanged(RunRoom runRoom){
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
+			f.onRoomChanged(runRoom);
+		}
+	}
+	
+	@Override
+	public void setHighScore(double highScore) {
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
+			f.setHighScore(highScore);
 		}
 	}
 

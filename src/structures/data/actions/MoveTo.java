@@ -4,7 +4,7 @@ import structures.data.actions.params.CheckboxParam;
 import structures.data.actions.params.DoubleParam;
 
 public class MoveTo extends DataAction {
-	
+
 	public MoveTo() {
 		init(new DoubleParam("X"), new DoubleParam("Y"), new CheckboxParam("Relative"));
 	}
@@ -17,9 +17,9 @@ public class MoveTo extends DataAction {
 	@Override
 	public String getDescription() {
 		if ((boolean) get("Relative").getValue()) {
-			return String.format("Move relative (%.2f, %.2f)", get("X"), get("Y"));
+			return String.format("Move relative (%.2f, %.2f)", get("X").getValue(), get("Y").getValue());
 		} else {
-			return String.format("Move to (%.2f, %.2f)", get("X"), get("Y"));
+			return String.format("Move to (%.2f, %.2f)", get("X").getValue(), get("Y").getValue());
 		}
 	}
 

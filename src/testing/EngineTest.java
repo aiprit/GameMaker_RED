@@ -1,15 +1,17 @@
-/*
+
 package testing;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.*; 
+import org.junit.*;
+
+import engine.loop.physics.ScrollerPhysicsEngine;
 import exceptions.ParameterParseException;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
 import structures.data.actions.params.IParameter.type;
 import utils.Point;
-import utils.Rectangle;
+import utils.rectangle.Rectangle;
 
 public class EngineTest {
 	
@@ -67,5 +69,5 @@ public class EngineTest {
 		assertEquals(0, p.y, .01);
 		
 	}
+
 }
-*/

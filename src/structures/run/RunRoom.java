@@ -15,12 +15,17 @@ public class RunRoom {
 	private List<RunObject> myObjects;
 	private RunObjectConverter myConverter;
 	private DataRoom myDataRoom;
+	private double myWidth, myHeight;
 	
 	public RunRoom(DataRoom dataRoom, RunObjectConverter converter) throws CompileTimeException {
 		myName = dataRoom.getName();
+		background = dataRoom.getBackgroundColor();
+		double[] mySize = dataRoom.getSize();
+		myWidth = mySize[0];
+		myHeight = mySize[1];
 		myDataRoom = dataRoom;
 		myConverter = converter;
-		myView = new RunView(dataRoom.getView());
+		myView = new RunView(dataRoom.getDataView());
 		
 		try {
 			myObjects = Utils.transform(dataRoom.getObjectInstances(), e -> converter.instantiate(e));
@@ -53,6 +58,14 @@ public class RunRoom {
 	
 	public RunView getView() {
 		return myView;
+	}
+	
+	public double getWidth(){
+		return myWidth;
+	}
+	
+	public double getHeight(){
+		return myHeight;
 	}
 	
 	public DataRoom toData() throws CompileTimeException {

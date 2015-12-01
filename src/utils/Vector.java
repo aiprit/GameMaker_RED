@@ -41,6 +41,11 @@ public class Vector {
 		return new Vector(length * this.x / ourLength, length * this.y / ourLength);
 	}
 	
+	// New vector with same length but different direction
+	public Vector setDirection(double direction) {
+		return new Vector(this.length(), direction, true);
+	}
+	
 	// New vector with an added length
 	public Vector addLength(double length) {
 		double theta = Math.atan2(this.y, this.x);
@@ -62,14 +67,36 @@ public class Vector {
 		return new Vector(c * this.x, c * this.y);
 	}
 	
+	// Vector addition
+	public Vector add(Vector other) {
+		return add(this, other);
+	}
+	
 	// Dot product
+	public double dot(Vector other) {
+		return dot(this, other);
+	}
+	
+	// Static dot product
 	public static double dot(Vector a, Vector b) {
 		return a.x * b.x + a.y * b.y;
 	}
 	
-	// Vector addition
+	// Static Vector addition
 	public static Vector add(Vector a, Vector b) {
 		return new Vector(a.x + b.x, a.y + b.y);
+	}
+	
+	public Vector setX(double x) {
+		return new Vector(x, this.y);
+	}
+	
+	public Vector setY(double y) {
+		return new Vector(this.x, y);
+	}
+	
+	public String toString() {
+		return String.format("[%.2f, %.2f]", x, y);
 	}
 	
 }

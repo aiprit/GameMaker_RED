@@ -1,9 +1,6 @@
 package structures.run;
 
-import engine.IDraw;
-import engine.events.EventManager;
-import javafx.scene.paint.Paint;
-import utils.IRectangle;
+import engine.front_end.IDraw;
 
 public interface IDrawable {
 

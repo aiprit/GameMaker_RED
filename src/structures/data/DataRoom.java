@@ -3,7 +3,7 @@ package structures.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRoom {
+public class DataRoom implements IDataRoom {
     private List<DataInstance> roomObjects;
     private DataView myView;
     private String myBackgroundColor;
@@ -54,7 +54,7 @@ public class DataRoom {
     }
 
 
-    public DataView getView() {
+    public DataView getDataView() {
         return myView;
     }
 
@@ -64,5 +64,9 @@ public class DataRoom {
 
     public String getName() {
         return myName;
+    }
+    
+    public void setName(String name) {
+    	myName = name;
     }
 }

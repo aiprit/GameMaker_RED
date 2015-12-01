@@ -1,11 +1,8 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Utils {
 	
@@ -104,6 +101,21 @@ public class Utils {
 		return Math.min(max, Math.max(min, value));
 	}
 	
+	public static List<Point> interpolate(double x1, double y1, double x2, double y2, double resolution) {
+		Vector point = (new Vector(x2 - x1, y2 - y1)).setLength(resolution);
+		int times = (int)(Math.hypot(x2 - x1, y2 - y1) / resolution);
+		List<Point> list = new ArrayList<>(times + 1);	
+		double cursorX = x1;
+		double cursorY = y1;
+		for (int i = 0; i < times; i++) {
+			list.add(new Point(cursorX, cursorY));
+			cursorX += point.x;
+			cursorY += point.y;
+		}
+		list.add(new Point(x2, y2));
+		return list;
+	}
+	
 	public static <T, E extends Throwable> T first(List<T> input, Condition<T, E> condition, T defaultValue) throws E {
 		T item;
 		for (int i = 0; i < input.size(); i++) {
@@ -113,6 +125,52 @@ public class Utils {
 			}
 		}
 		return defaultValue;
+	}
+	
+	/**
+	 * Is the point (cx, cy) to the left, right, or on
+	 * the line defined by (ax, ay) -> (bx, by)?
+	 * 
+	 * Written by Al Globus on Stack Overflow
+	 * https://stackoverflow.com/questions/1560492/
+	 * how-to-tell-whether-a-point-is-to-the-right-or-left-side-of-a-line
+	 * 
+	 * @return integer code for which side of the line ab c is on.  1 means
+	 * left side, -1 means right side.  Returns
+	 * 0 if all three are on a line
+	 */
+	public static int findSide(Point a, Point b, Point c) {
+	    if (Math.abs(b.x-a.x) < .000000001) { // vertical line
+	        if (c.x < b.x) {
+	            return b.y > a.y ? 1 : -1;
+	        }
+	        if (c.x > b.x) {
+	            return b.y > a.y ? -1 : 1;
+	        } 
+	        return 0;
+	    }
+	    if (Math.abs(b.y-a.y) < .000000001) { // horizontal line
+	        if (c.y < b.y) {
+	            return b.x > a.x ? -1 : 1;
+	        }
+	        if (c.y > b.y) {
+	            return b.x > a.x ? 1 : -1;
+	        } 
+	        return 0;
+	    }
+	    double slope = (b.y - a.y) / (b.x - a.x);
+	    double yIntercept = a.y - a.x * slope;
+	    double cSolution = (slope * c.x) + yIntercept;
+	    if (slope != 0) {
+	        if (c.y > cSolution) {
+	            return b.x > a.x ? 1 : -1;
+	        }
+	        if (c.y < cSolution) {
+	            return b.x > a.x ? -1 : 1;
+	        }
+	        return 0;
+	    }
+	    return 0;
 	}
 	
 	

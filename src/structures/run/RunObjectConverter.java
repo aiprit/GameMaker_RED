@@ -1,12 +1,13 @@
 package structures.run;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import exceptions.UnknownResourceException;
+import javafx.collections.ObservableList;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
@@ -50,7 +51,7 @@ public class RunObjectConverter {
 		myMasterDataObjects.put(data.getName(), data);
 		
 		// Compile all of the IActions of the DataObject into a single RunAction
-		for (Entry<IDataEvent, List<IAction>> event : data.getEvents().entrySet()) {
+		for (Entry<IDataEvent, ObservableList<IAction>> event : data.getEvents().entrySet()) {
 			StringBuilder groovy = new StringBuilder();
 			for (IAction action : event.getValue()) {
 				groovy.append(action.compileSyntax());
@@ -70,6 +71,9 @@ public class RunObjectConverter {
 				throw new CompileTimeException(message, data.getSprite().getName(), run.name);
 			}
 		}
+		
+		// Properties that come from DataObject and not DataInstance
+		run.solid = data.isSolid();
 		
 		// Add to our Master Object Map
 		myMasterObjects.put(run.name, run);
@@ -113,6 +117,8 @@ public class RunObjectConverter {
 		run.angle = instance.getAngle();
 		run.angularVelocity = instance.getAngularVelocity();
 		run.visible = instance.isVisible();
+		run.gravity = instance.getGravity();
+		run.friction = instance.getFriction();
 		run.setInstanceId(instance.getID());
 		
 		return run;
@@ -130,7 +136,7 @@ public class RunObjectConverter {
 	    long ID = runObject.instance_id();
 	    double x = runObject.x;
 	    double y = runObject.y;
-	    DataInstance dataInstance = new DataInstance(parentObject, x, y, ID);
+	    DataInstance dataInstance = new DataInstance(parentObject, x, y, ID, 1.0, 1.0);
             
 	    dataInstance.setVisible(runObject.visible);
 	    dataInstance.setAngle(runObject.angle);
@@ -139,6 +145,8 @@ public class RunObjectConverter {
 	    dataInstance.setScaleY(runObject.scaleY);
 	    dataInstance.setAlpha(runObject.alpha);
 	    dataInstance.setVelocity(runObject.velocity);
+	    dataInstance.setFriction(runObject.friction);
+	    dataInstance.setGravity(runObject.gravity);
             
         return dataInstance;
     }

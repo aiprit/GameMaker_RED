@@ -2,25 +2,25 @@ package structures.data.actions;
 
 import structures.data.actions.params.StringParam;
 
-public class RunScript extends DataAction{
+public class RunScript extends DataAction {
 
 	public RunScript(){
-		init(new StringParam("CustomScript"));
+		init(new StringParam("Script"));
 	}
 	
 	@Override
 	public String getTitle() {
-		return "RunScript";
+		return "Run Script";
 	}
 
 	@Override
 	public String getDescription() {
-		return "runs the custom script";
+		return "Runs a custom script";
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "current.run_script(%s);";
+		return "%s";
 	}
 
 }
