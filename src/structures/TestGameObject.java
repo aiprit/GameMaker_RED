@@ -1,49 +1,23 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
 import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
-import structures.data.DataGame;
-import structures.data.DataInstance;
-import structures.data.DataObject;
-import structures.data.DataRoom;
-import structures.data.DataSprite;
-import structures.data.DataView;
+import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.library.AdjustScrollerX;
-import structures.data.actions.library.Close;
-import structures.data.actions.library.CreateObjectOnClick;
-import structures.data.actions.library.CreateObjectRandom;
-import structures.data.actions.library.Destroy;
-import structures.data.actions.library.DisplayMessage;
-import structures.data.actions.library.DrawText;
-import structures.data.actions.library.Else;
-import structures.data.actions.library.GetGlobalVariableConditional;
-import structures.data.actions.library.GetHighScore;
-import structures.data.actions.library.GoToRoom;
-import structures.data.actions.library.Open;
-import structures.data.actions.library.SetGlobalVariable;
-import structures.data.actions.library.SetHighScore;
-import structures.data.actions.library.SetRandomNumberAndChoose;
-import structures.data.actions.library.Wrap;
+import structures.data.actions.library.*;
 import structures.data.actions.params.IParameter;
-import structures.data.events.CollisionEvent;
-import structures.data.events.GlobalMousePressedEvent;
-import structures.data.events.KeyPressedEvent;
-import structures.data.events.LeaveRoomEvent;
-import structures.data.events.ObjectCreateEvent;
-import structures.data.events.ObjectDestroyEvent;
-import structures.data.events.ObjectMousePressedEvent;
-import structures.data.events.StepEvent;
+import structures.data.events.*;
 import utils.rectangle.Rectangle;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /*
     This class generates a sample game object. The game consists
@@ -72,7 +46,7 @@ public class TestGameObject {
 	 */
 
 	public DataGame getTestGame(String directory) {
-		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
+		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
 
 //		DataObject text = new DataObject("GameTitle");
 //		DrawText dt = new DrawText();
@@ -300,7 +274,7 @@ public class TestGameObject {
 		DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
 		DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
-		//startScreenBackground.setSprite(startScreenSprite);
+		startScreenBackground.setSprite(startScreenSprite);
 
 		startScreenBackground.setScaleX(.5);
 		startScreenBackground.setScaleY(.5);
