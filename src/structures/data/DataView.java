@@ -10,7 +10,7 @@ import utils.rectangle.Rectangle;
  * Use the access to the mutable Rectangle in .getRectangle()
  * to modify our coordinates.
  */
-public class DataView {
+public class DataView implements IDataView {
 
     private final String myName;
     private Rectangle myView;
@@ -28,13 +28,14 @@ public class DataView {
     public String getName() {
         return myName;
     }
-
+    
+    @Override
     public Rectangle getView() {
         return myView;
     }
-
+    @Override
     public void setView(Rectangle rect) {
-        myView = rect;
+    	myView = rect;
     }
 
     public double getX(){
@@ -52,4 +53,5 @@ public class DataView {
     public double getHeight(){
         return myView.height();
     }
+
 }
