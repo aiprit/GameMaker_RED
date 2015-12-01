@@ -91,9 +91,13 @@ public class XMLWriter {
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
 
+        Element events = doc.createElement("events");
+
         for (Map.Entry<IDataEvent, List<IAction>> e : dataObject.getEvents().entrySet()) {
-            object.appendChild(getElementFromEvent(doc, e));
+            events.appendChild(getElementFromEvent(doc, e));
         }
+
+        object.appendChild(events);
 
         return object;
     }
@@ -107,10 +111,12 @@ public class XMLWriter {
         for (Map.Entry<String, String> element : map.entrySet()) {
             event.setAttribute(element.getKey(), element.getValue());
         }
-        
+
+        Element actions = doc.createElement("actions");
         for (IAction a : e.getValue()) {
-            event.appendChild(getElementFromAction(doc, a));
+            actions.appendChild(getElementFromAction(doc, a));
         }
+        event.appendChild(actions);
 
         return event;
     }

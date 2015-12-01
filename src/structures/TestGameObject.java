@@ -1,8 +1,11 @@
 package structures;
 
 import XML.XMLEditor;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import exceptions.ParameterParseException;
 import javafx.scene.input.KeyCode;
+import org.xml.sax.InputSource;
 import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
@@ -18,6 +21,14 @@ import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +60,26 @@ public class TestGameObject {
      Events are not associated with actions, they will be when
      the action library has been built out in the game engine
 	 */
+
+	public static String formatXml(String xml){
+
+		try{
+			Transformer serializer = SAXTransformerFactory.newInstance().newTransformer();
+
+			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+			serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+			Source xmlSource = new SAXSource(new InputSource(new ByteArrayInputStream(xml.getBytes())));
+			StreamResult res =  new StreamResult(new ByteArrayOutputStream());
+
+			serializer.transform(xmlSource, res);
+
+			return new String(((ByteArrayOutputStream)res.getOutputStream()).toByteArray());
+
+		}catch(Exception e){
+			return xml;
+		}
+	}
 
 	public DataGame getTestGame() {
 		DataGame testGame = new DataGame("Test Game", "TestGame/");

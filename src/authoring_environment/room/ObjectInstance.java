@@ -15,7 +15,7 @@ public class ObjectInstance {
 	public ObjectInstance(DataObject object) {
 		myObject = object;
 		myImage = new ImageView(myObject.getSprite().getImage());
-		myInstance = new DataInstance(object, 0, 0);
+		myInstance = new DataInstance(object, 0, 0, 1, 1);
 	}
 	
 	public DataInstance getDataInstance() {

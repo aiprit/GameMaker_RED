@@ -19,7 +19,7 @@ public interface IParameter {
 	 * @throws ParameterParseException A useful error to tell the user 
 	 * 	what happened.
 	 */
-	public void parse(String string) throws ParameterParseException;
+	void parse(String string) throws ParameterParseException;
 	
 	/**
 	 * If parsing was successful, we still store the original
@@ -27,14 +27,14 @@ public interface IParameter {
 	 * 
 	 * @return
 	 */
-	public String getOriginal();
+	String getOriginal();
 	
 	/**
 	 * The title of the parameter, used for a label or whatever.
 	 * 
 	 * @return
 	 */
-	public String getTitle();
+	String getTitle();
 	
 	/**
 	 * Actual implementations will return more specific values
@@ -42,7 +42,7 @@ public interface IParameter {
 	 * 
 	 * @return The parsed value
 	 */
-	public Object getValue();
+	Object getValue();
 	
 	/**
 	 * Returns one of the types from the
@@ -50,9 +50,9 @@ public interface IParameter {
 	 * 
 	 * @return Type of IParameter
 	 */
-	public type getType();
+	type getType();
 	
-	public enum type {
+	enum type {
 		DOUBLE,
 		INTEGER,
 		STRING,
