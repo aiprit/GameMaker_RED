@@ -1,6 +1,6 @@
 
 package authoring_environment;
-
+/*
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -118,3 +118,5 @@ public class View implements Observer{
 	
 
 }
+*/
+

@@ -14,7 +14,6 @@ import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
-import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.StepEvent;
 import utils.Vector;
@@ -154,7 +153,7 @@ public class TestGame2 {
         winScreenBackground.setSprite(winScreenSprite);
 
         DataRoom level1 = new DataRoom("Level 1", 2000, 500);
-        level1.getDataView().setView(new Rectangle(0, 0, 500, 500));
+        level1.getView().setView(new Rectangle(0, 0, 500, 500));
         level1.setBackgroundColor("TestGame/background.png");
         level1.addObjectInstance(new DataInstance(wall, 0, 200));
         level1.addObjectInstance(new DataInstance(wall, 64, 200));

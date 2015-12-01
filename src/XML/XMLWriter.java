@@ -1,5 +1,6 @@
 package XML;
 
+import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import structures.data.*;
@@ -93,7 +94,7 @@ public class XMLWriter {
 
         Element events = doc.createElement("events");
 
-        for (Map.Entry<IDataEvent, List<IAction>> e : dataObject.getEvents().entrySet()) {
+        for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
             events.appendChild(getElementFromEvent(doc, e));
         }
 
@@ -102,7 +103,7 @@ public class XMLWriter {
         return object;
     }
 
-    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e) {
+    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, ObservableList<IAction>> e) {
         Element event = doc.createElement("event");
 
         IDataEvent dataEvent = e.getKey();
