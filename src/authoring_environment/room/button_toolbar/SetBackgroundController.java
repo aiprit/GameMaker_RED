@@ -4,14 +4,14 @@ import java.util.ResourceBundle;
 
 import authoring_environment.room.background_pop_up.BackgroundPopUpController;
 import authoring_environment.room.preview.RoomCanvas;
-import structures.data.DataRoom;
+import structures.data.IDataRoom;
 
 public class SetBackgroundController {
 
 	private SetBackgroundButton view;
-	private DataRoom model;
+	private IDataRoom model;
 	
-	public SetBackgroundController(ResourceBundle resources, RoomCanvas canvas, DataRoom room) {
+	public SetBackgroundController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
 		view = new SetBackgroundButton(resources);
 		model = room;
 		view.setOnAction(e -> onClick(resources, canvas));

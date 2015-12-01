@@ -19,11 +19,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import structures.data.DataGame;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataView;
+import structures.data.IDataGame;
 import utils.rectangle.*;
 
 
@@ -39,7 +39,7 @@ public class RoomController {
 	private ButtonToolbarController myButtonToolbarController;
 	private ViewController myViewController;
 	
-	public RoomController(ResourceBundle resources, DataRoom room, DataGame gameObject) {
+	public RoomController(ResourceBundle resources, DataRoom room, IDataGame gameObject) {
 		myResources = resources;
 		model = room;
 		model.getDataView().setView(new Rectangle(room.getDataView().getX(), room.getDataView().getY(),
@@ -71,7 +71,7 @@ public class RoomController {
 		}
 	}
 	
-	private void initializeObjectListContainer(DataGame gameObject) {
+	private void initializeObjectListContainer(IDataGame gameObject) {
 		myObjectListController = new ObjectListController(myResources, gameObject.getObjects());
 		Consumer<MouseEvent> dragStarterFunction = e -> startObjectDrag(e);
 		myObjectListController.setOnMouseClicked(dragStarterFunction);

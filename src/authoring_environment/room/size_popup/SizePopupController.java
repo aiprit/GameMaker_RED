@@ -3,14 +3,14 @@ package authoring_environment.room.size_popup;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.preview.RoomCanvas;
-import structures.data.DataRoom;
+import structures.data.IDataRoom;
 
 public class SizePopupController {
 	private SetSizePopup view;
-	private DataRoom model;
+	private IDataRoom model;
 	private RoomCanvas myCanvas;
 	
-	public SizePopupController(ResourceBundle resources, RoomCanvas canvas, DataRoom room) {
+	public SizePopupController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
 		myCanvas = canvas;
 		model = room;
 		view = new SetSizePopup(resources);

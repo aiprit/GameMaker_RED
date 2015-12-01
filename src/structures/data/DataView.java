@@ -28,13 +28,14 @@ public class DataView implements IDataView {
     public String getName() {
         return myName;
     }
-
+    
+    @Override
     public Rectangle getView() {
         return myView;
     }
-
+    @Override
     public void setView(Rectangle rect) {
-        myView = rect;
+    	myView = rect;
     }
 
     public double getX(){

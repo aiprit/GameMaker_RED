@@ -3,7 +3,7 @@ package structures.data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRoom {
+public class DataRoom implements IDataRoom {
     private List<DataInstance> roomObjects;
     private DataView myView;
     private String myBackgroundColor;
