@@ -45,6 +45,7 @@ import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
+import utils.Vector;
 import utils.rectangle.Rectangle;
 
 /*
@@ -88,13 +89,13 @@ public class TestGameObject {
 //		text.bindEvent(new StepEvent(), textActionsO);
 
 		DataObject coin = new DataObject("Coin");
+		coin.setSolid(true);
 
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 		coin.setSprite(coinSprite);
 
-
-
 		DataObject player = new DataObject("Player");
+		player.setSolid(true);
 
 		MoveToRandom mtr = new MoveToRandom();
 		DisplayMessage display = new DisplayMessage();
@@ -341,7 +342,10 @@ public class TestGameObject {
 		DataView level1View = new DataView("Level 1 View", level1Rect);
 		level1.setView(level1View);
 		level1.setBackgroundColor("TestGame/background.png");
-		level1.addObjectInstance(new DataInstance(player, 240, 40, 0, .5, .5));
+		DataInstance playerInstance = new DataInstance(player, 240, 40, 0, .5, .5);
+		playerInstance.setGravity(new Vector(0, 2));
+		playerInstance.setFriction(4);
+		level1.addObjectInstance(playerInstance);
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
 		//level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
 
