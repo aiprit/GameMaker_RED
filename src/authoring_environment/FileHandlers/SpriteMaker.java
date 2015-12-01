@@ -35,10 +35,16 @@ public class SpriteMaker {
 			
 			img = ImageIO.read(selectedFile);
 			String name = askName();
-			File outputfile = new File(r.getString("imagesFolder") + name + ".png");
+			File outputfile = new File(name + ".png");
 			
 		    ImageIO.write(img, "png", outputfile);
 		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
+		    try {
+				newSprite.load(r.getString("imagesFolder"));
+			} catch (ResourceFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //		    try {
 //				newSprite.load("images/");
 //			} catch (ResourceFailedException e) {
@@ -61,9 +67,8 @@ public class SpriteMaker {
 		GraphicsContext centerGC = c.getGraphicsContext2D();
 	
 
-		double xPos = img.getWidth()/2;
-		double yPos = img.getHeight()/2;
-		centerGC.drawImage(img, xPos, yPos); 
+		
+		centerGC.drawImage(img, 0, 0); 
 		myPane.setCenter(c);
 
 		s.setScene(new Scene(myPane));

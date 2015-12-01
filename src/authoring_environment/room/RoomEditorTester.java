@@ -1,6 +1,7 @@
 package authoring_environment.room;
 
-import authoring_environment.room.name_popup.RoomNamePopupController;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import structures.TestGameObject;
@@ -22,6 +23,8 @@ public class RoomEditorTester extends Application {
 	public void start(Stage primaryStage) {
 		TestGameObject test = new TestGameObject();
 		DataRoom room = test.getTestGame(getGamesDirectory()).getRooms().get(1);
-		RoomNamePopupController controller = new RoomNamePopupController(room, test.getTestGame(getGamesDirectory()));
+		ResourceBundle myResources = ResourceBundle.getBundle("resources/RoomResources");
+		RoomController controller = new RoomController(myResources, room, test.getTestGame(getGamesDirectory()));
+		controller.launch();
 	}
 }

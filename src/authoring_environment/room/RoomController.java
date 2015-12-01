@@ -19,17 +19,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import structures.data.DataGame;
 import structures.data.DataInstance;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataView;
+import structures.data.IDataGame;
 import utils.rectangle.*;
 
 
 public class RoomController {
 	private static final double CLONE_OFFSET = 15;
-	private static final String DEFAULT_SPRITE = "DefaultSprite";
 	
 	private ResourceBundle myResources;
 	
@@ -40,7 +39,7 @@ public class RoomController {
 	private ButtonToolbarController myButtonToolbarController;
 	private ViewController myViewController;
 	
-	public RoomController(ResourceBundle resources, DataRoom room, DataGame gameObject) {
+	public RoomController(ResourceBundle resources, DataRoom room, IDataGame gameObject) {
 		myResources = resources;
 		model = room;
 		model.getDataView().setView(new Rectangle(room.getDataView().getX(), room.getDataView().getY(),
@@ -72,7 +71,7 @@ public class RoomController {
 		}
 	}
 	
-	private void initializeObjectListContainer(DataGame gameObject) {
+	private void initializeObjectListContainer(IDataGame gameObject) {
 		myObjectListController = new ObjectListController(myResources, gameObject.getObjects());
 		Consumer<MouseEvent> dragStarterFunction = e -> startObjectDrag(e);
 		myObjectListController.setOnMouseClicked(dragStarterFunction);
@@ -134,8 +133,8 @@ public class RoomController {
 	private void clone(ObjectInstanceController controller) {
 		double x = controller.getDataInstance().getX() + CLONE_OFFSET;
 		double y = controller.getDataInstance().getY() + CLONE_OFFSET;
-		double width = controller.getDraggableImage().getImage().getWidth();
-		double height = controller.getDraggableImage().getImage().getHeight();
+		double width = controller.getDraggableImage().getImage().getWidth() * controller.getDraggableImage().getScaleX();
+		double height = controller.getDraggableImage().getImage().getHeight() * controller.getDraggableImage().getScaleY();
 		if (!view.getPreview().getCanvas().inRoomWidthBounds(width, x)) {
 			x = view.getPreview().getCanvas().getWidth() - width;
 		}
@@ -194,8 +193,8 @@ public class RoomController {
 	private void addSpriteToRoom(MouseEvent e, PotentialObjectInstance potentialObjectInstance) {
 		Point2D screenPoint = new Point2D(e.getScreenX(), e.getScreenY());
 		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
-		double width = potentialObjectInstance.getImageView().getImage().getWidth();
-		double height = potentialObjectInstance.getImageView().getImage().getHeight();
+		double width = potentialObjectInstance.getImageView().getImage().getWidth() * potentialObjectInstance.getImageView().getScaleX();
+		double height = potentialObjectInstance.getImageView().getImage().getHeight() * potentialObjectInstance.getImageView().getScaleY();
 		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
 			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
 					null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);

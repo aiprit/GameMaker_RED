@@ -1,3 +1,4 @@
+package Player;
 import authoring_environment.main.MainController;
 import engine.EngineController;
 import exceptions.ResourceFailedException;

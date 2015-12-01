@@ -7,7 +7,7 @@ public class Destroy extends DataAction {
 	public Destroy(){
 		init();
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "Destroy";
@@ -15,7 +15,7 @@ public class Destroy extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return "destroy this object";
+		return "Destroy this object";
 	}
 
 	@Override

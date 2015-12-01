@@ -43,7 +43,7 @@ public class ParamPopupView extends Stage{
 		popUp.minWidth(100);
 		myScene = new Scene(popUp);
 		this.setScene(myScene);
-		this.show();
+		//this.show();
 
 	}
 	public Button getSaveButton() {

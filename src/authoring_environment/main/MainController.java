@@ -1,6 +1,8 @@
 package authoring_environment.main;
 
 import java.util.ResourceBundle;
+
+import Player.Launcher;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
@@ -16,6 +18,7 @@ import structures.data.DataRoom;
 import structures.data.DataSound;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+
 
 public class MainController implements IUpdateHandle {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
@@ -33,8 +36,8 @@ public class MainController implements IUpdateHandle {
 	private SoundListView soundListView;
 	private TopMenuBar topMenuBar;
 
-	public MainController(Stage myStage) {
-		this.myStage = myStage;
+	public MainController() {
+		this.myStage = new Stage();
 		mainView = new MainView(myStage);
 		objectListWindow = new ObjectListWindow();
 		roomListView = new RoomListView();
@@ -42,8 +45,9 @@ public class MainController implements IUpdateHandle {
 		spriteListView = new SpriteListView();
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		update();
-
+		if(dataGame != null){
+			update();
+		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
 	}
@@ -53,10 +57,13 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-
+	public void returnToLauncher(){
+		myStage.close();
+		Launcher main = new Launcher();
+		main.start(new Stage());
+	}
+	@Override
 	public void update() {
-		System.out.println("Updating...");
-
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
 
@@ -89,10 +96,12 @@ public class MainController implements IUpdateHandle {
 		// for (DataRoom o : dataGame.getRooms()) {
 		for (int i = 0; i < dataGame.getRooms().size(); i++) {
 			DataRoom o = dataGame.getRooms().get(i);
-
-			roomListView.addRoom(o, i).setOnAction(new EventHandler<ActionEvent>() {
+			boolean startRoom = dataGame.getStartRoomIndex() == i;
+			int roomIndex = i;
+			roomListView.addRoom(o, i, startRoom).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
 				public void handle(ActionEvent event) {
-					RoomNamePopupController room = new RoomNamePopupController(o, dataGame);
+					RoomNamePopupController room = new RoomNamePopupController(o, roomIndex, dataGame);
 					room.setOnClose(e -> update(), dataGame, false);
 				}
 			});
@@ -101,7 +110,7 @@ public class MainController implements IUpdateHandle {
 		roomListView.addPlusButton(dataGame.getRooms().size()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				RoomNamePopupController room = new RoomNamePopupController(dataGame);
+				RoomNamePopupController room = new RoomNamePopupController(dataGame.getRooms().size(), dataGame);
 				room.setOnClose(e -> update(), dataGame, true);
 			}
 		});
@@ -141,6 +150,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
+					
+					update();
 				}
 			});
 		}
@@ -176,6 +187,12 @@ public class MainController implements IUpdateHandle {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Run");
 				//RUN HERE
+			}
+		});
+		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				returnToLauncher();
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

@@ -41,7 +41,9 @@ public class ParamController {
 
 				}
 			}
+			if(!model.editing()){
 			model.addAction();
+			}
 			view.close();
 		}
 		catch (ParameterParseException e) {
@@ -75,5 +77,10 @@ private void alertPopUp() {
 	alert.setHeaderText("Invalid Parameter");
 	alert.setContentText("Please Reenter");
 	alert.showAndWait();
+}
+public void showAndWait() {
+	// TODO Auto-generated method stub
+	view.showAndWait();
+
 }
 }

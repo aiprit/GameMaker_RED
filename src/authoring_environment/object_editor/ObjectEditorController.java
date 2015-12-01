@@ -7,10 +7,13 @@ import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
@@ -53,9 +56,27 @@ public class ObjectEditorController {
 		});
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
+		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>(){
+			@Override
+			public ListCell<IDataEvent> call(ListView<IDataEvent> arg0) {
+				final ListCell<IDataEvent> cell = new ListCell<IDataEvent>() {
+                    @Override
+                    public void updateItem(IDataEvent item, boolean empty) {
+                        super.updateItem(item,  empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(item.getName());
+                        }
+                    }
+                };
+				return cell;
+			}
+		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
+
 		view.getRightPane().getEditButton().setOnAction(e -> {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
