@@ -13,7 +13,6 @@ import structures.data.DataRoom;
 public class RoomNamePopupController {
 	private static final String DUPLICATE_ROOM_NAME_ERROR_MESSAGE = "DuplicateRoomNameErrorMessage";
 	private static final String NULL_ROOM_NAME_ERROR_MESSAGE = "NullRoomNameErrorMessage";
-	private static final String ERROR = "Error";
 	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final String ROOM_RESOURCE_FILE = "resources/RoomResources";
 	
@@ -43,15 +42,12 @@ public class RoomNamePopupController {
 	}
 	
 	private void setNameAndLaunchEditor(DataRoom room, DataGame game, boolean addRoom, Consumer<Void> updateFcn) {
-		List<String> roomNames = game.getRooms().stream()
-				.map(r -> r.getName())
-				.collect(Collectors.toList());
-		if (!view.getRoomName().equals("") && !roomNames.contains(view.getRoomName())) {
+		if (!view.getRoomName().equals("") && !isDuplicateName(room, game)) {
 			model.setName(view.getRoomName());
 		} else {
 			String errorMessage = view.getRoomName().equals("") ? myResources.getString(NULL_ROOM_NAME_ERROR_MESSAGE) :
 				myResources.getString(DUPLICATE_ROOM_NAME_ERROR_MESSAGE);
-			ErrorPopup error = new ErrorPopup(myResources, myResources.getString(ERROR), errorMessage);
+			ErrorPopup error = new ErrorPopup(myResources, errorMessage);
 			return;
 		}
 		setStartRoom(game);
@@ -63,6 +59,13 @@ public class RoomNamePopupController {
 		updateFcn.accept(null);
 		roomController.getEditor().setOnClose(updateFcn);
 		roomController.launch();	
+	}
+	
+	private boolean isDuplicateName(DataRoom room, DataGame game) {
+		List<String> roomNames = game.getRooms().stream()
+				.map(r -> r.getName())
+				.collect(Collectors.toList());
+		return roomNames.contains(view.getRoomName()) && roomNames.indexOf(view.getRoomName()) != myIndex;
 	}
 	
 	private void setStartRoom(DataGame game) {
