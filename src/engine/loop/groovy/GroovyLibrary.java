@@ -213,18 +213,6 @@ public class GroovyLibrary {
 		return wrapRecursion(x, y);
 	}
 
-	//	public void with(){
-	//		//need to figure out
-	//	}
-	//	
-	//	public void with_close(){
-	//		//need to figure out
-	//	}
-	//	
-	//	public void with_open(){
-	//		//also need to figure this out
-	//	}
-
 	public void set_scroller_x(RunObject object, double xpercentage){
 		double currentX = object.get_x_position();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
