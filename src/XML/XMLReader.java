@@ -8,7 +8,7 @@ public class XMLReader {
 
     }
 
-    public DataGame read(String filename){
+    public static DataGame read(String filename){
         return null;
     }
 }
