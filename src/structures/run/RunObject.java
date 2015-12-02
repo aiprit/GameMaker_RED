@@ -3,18 +3,16 @@ package structures.run;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
-public class RunObject {
+public class RunObject implements IParameters {
         public static final String NAME = "Name";
         public static final String SCALEX = "X Scale";
         public static final String SCALEY = "Y Scale";
@@ -24,11 +22,18 @@ public class RunObject {
         public static final String ALPHA = "Alpha";
         public static final String FRICTION = "Friction";
         public static final String SOLID = "Solid";
+        
+        public static final double MAX_SCALEX = 20;
+        public static final double MAX_SCALEY = 20;
+        public static final double MAX_ANGLE = 360;
+        public static final double MAX_ANGULAR_VELOCITY = 100;
+        public static final double MAX_ALPHA = 1;
+        public static final double MAX_FRICTION = 100;
 
 	public double x;
 	public double y;
 
-	public final String name;
+	public String name;
 	public double scaleX;
 	public double scaleY;
 	public double angle;
@@ -48,7 +53,9 @@ public class RunObject {
 	private ICollisionChecker myCollisionChecker;
 
 	private Map<String, Double> myVariables;
-	private Map<String, String> myParameters;
+	private Map<String, Boolean> myBooleanMap;
+	private Map<String, String> myStringMap;
+	private Map<String, Double> myDoubleMap;
 
 	public RunObject(String name) {
 		this.name = name;
@@ -69,32 +76,49 @@ public class RunObject {
 		myVariables = new HashMap<>();
 
 		myBounds = new Rectangle(0, 0, 0, 0);
-		createParameterMap();
+		initMaps();
 	}
 	
-	private void createParameterMap() {
-	    myParameters = new HashMap<>();
-	    myParameters.put(NAME, name);
-	    myParameters.put(SCALEX, String.valueOf(scaleX));
-	    myParameters.put(SCALEY, String.valueOf(scaleY));
-	    myParameters.put(ANGLE, String.valueOf(angle));
-	    myParameters.put(ANGULAR_VELOCITY, String.valueOf(angularVelocity));
-	    myParameters.put(VISIBLE, String.valueOf(visible));
-	    myParameters.put(ALPHA, String.valueOf(alpha));
-	    myParameters.put(FRICTION, String.valueOf(friction));
-	    myParameters.put(SOLID, String.valueOf(solid));
+	public Map<String, Double> getDoubleMap() {
+	    return myDoubleMap;
 	}
 	
-	public void setParameterMap(Map<String, String> params) {
-	    myParameters = params;
-	    scaleX = Double.valueOf(myParameters.get(SCALEX));
-	    scaleY = Double.valueOf(myParameters.get(SCALEY));
-	    angle = Double.valueOf(myParameters.get(SCALEX));
-	    angularVelocity = Double.valueOf(myParameters.get(SCALEX));
-	    visible = Boolean.valueOf(myParameters.get(SCALEX));
-	    alpha = Double.valueOf(myParameters.get(SCALEX));
-	    friction = Double.valueOf(myParameters.get(SCALEX));
-	    solid = Boolean.valueOf(myParameters.get(SCALEX));
+	public Map<String, String> getStringMap() {
+	    return myStringMap;
+	}
+	
+	public Map<String, Boolean> getBooleanMap() {
+	    return myBooleanMap;
+	}
+	
+	private void initMaps() {
+	    myBooleanMap = new HashMap<>();
+	    myStringMap = new HashMap<>();
+	    myDoubleMap = new HashMap<>();
+	    myStringMap.put(NAME, name);
+	    myDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
+	    myDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);
+	    myDoubleMap.put(ANGLE, angle/MAX_ANGLE);
+	    myDoubleMap.put(ANGULAR_VELOCITY, angularVelocity/MAX_ANGULAR_VELOCITY);
+	    myBooleanMap.put(VISIBLE, visible);
+	    myDoubleMap.put(ALPHA, alpha/MAX_ALPHA);
+	    myDoubleMap.put(FRICTION, friction/MAX_FRICTION);
+	    myBooleanMap.put(SOLID, solid);
+	}
+	
+	public void setParameterMaps(Map<String, String> strings, Map<String, Double> doubles, Map<String, Boolean> booleans) {
+	    myStringMap = strings;
+	    myDoubleMap = doubles;
+	    myBooleanMap = booleans;
+	    name = strings.get(NAME);
+	    scaleX = myDoubleMap.get(SCALEX)*MAX_SCALEX;
+	    scaleY = myDoubleMap.get(SCALEY)*MAX_SCALEY;
+	    angle = myDoubleMap.get(ANGLE)*MAX_ANGLE;
+	    angularVelocity = myDoubleMap.get(ANGULAR_VELOCITY)*MAX_ANGULAR_VELOCITY;
+	    visible = myBooleanMap.get(VISIBLE);
+	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
+	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
+	    solid = myBooleanMap.get(SOLID);
 	}
 
 	protected void bindEvent(IDataEvent event, RunAction action) {

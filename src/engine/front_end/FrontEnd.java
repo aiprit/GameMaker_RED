@@ -21,6 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import structures.run.IParameters;
 import structures.run.RunRoom;
 
 /**
@@ -65,7 +66,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 		makeMenu();
 		makeToolBar();
 		makeHighScoreBar();
-		makeObjectInformationBar();
 	}
 
 	private void makeMenu() {
@@ -81,6 +81,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		MenuItem reset = new MenuItem("Reset");
 		reset.setOnAction(e -> {
 			myEventManager.onReset();
+			myObjectInformationView.clear();
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(e -> {
@@ -110,6 +111,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
 		playButton.setOnMouseClicked(e -> {
 			myEventManager.onResume();
+			myObjectInformationView.clear();
 		});
 
 		Button pauseButton = new Button();            
@@ -122,6 +124,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
 		resetButton.setOnMouseClicked(e -> {
 			myEventManager.onReset();
+			myObjectInformationView.clear();
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
@@ -141,16 +144,18 @@ public class FrontEnd implements IGameUpdatedHandler {
 		borderPane.setTop(topContainer);
 	}
 
-	public void makeHighScoreBar(){
+	private void makeHighScoreBar(){
 		myHighScoreView = new HighScoreView();
 		myHighScoreView.setPrefWidth(150);
 		borderPane.setRight(myHighScoreView);
 	}
 	
-	public void makeObjectInformationBar() {
-	    myObjectInformationView = new ObjectInformationView();
-	    myObjectInformationView.setPrefWidth(250);
-	    borderPane.setLeft(myObjectInformationView);
+	public void makeObjectInformationBar(IParameters parameterObject) {
+	    if (myEventManager.isPaused()) {
+	        myObjectInformationView = new ObjectInformationView(parameterObject);
+	        myObjectInformationView.setPrefWidth(250);
+	        borderPane.setLeft(myObjectInformationView);
+	    }
 	}
 
 	private void setupCanvas(){
