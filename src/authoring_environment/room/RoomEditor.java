@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 
 import authoring_environment.room.preview.RoomPreview;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -41,6 +42,7 @@ public class RoomEditor {
 	public void show() {
 		Scene scene = new Scene(myRoot);
 		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+		myEditor.setResizable(false);
 		myEditor.setScene(scene);
 		myEditor.show();
 	}
