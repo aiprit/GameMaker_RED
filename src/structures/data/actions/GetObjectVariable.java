@@ -16,7 +16,8 @@ public class GetObjectVariable extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("if %s is %s %.2f", get("VariableKey"), get("VariableOperation"), get("VariableValueCheck"));
+		return String.format("if %s is %s %.2f", get("VariableKey").getValue(), get("VariableOperation").getValue()
+				, get("VariableValueCheck").getValue());
 	}
 
 	@Override

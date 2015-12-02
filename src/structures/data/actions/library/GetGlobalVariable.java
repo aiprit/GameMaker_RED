@@ -16,7 +16,7 @@ public class GetGlobalVariable extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("returns the value of %s", get("VariableKey"));
+		return String.format("returns the value of %s", get("VariableKey").getValue());
 	}
 
 	@Override

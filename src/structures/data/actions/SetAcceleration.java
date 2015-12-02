@@ -15,7 +15,7 @@ public class SetAcceleration extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Set acceleration to (%.2f)", get("Acceleration"));
+		return String.format("Set acceleration to (%.2f)", get("Acceleration").getValue());
 	}
 
 	@Override
