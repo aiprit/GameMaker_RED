@@ -82,6 +82,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		reset.setOnAction(e -> {
 			myEventManager.onReset();
 			myObjectInformationView.clear();
+			myObjectInformationView.setPrefWidth(50);
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(e -> {
@@ -112,6 +113,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		playButton.setOnMouseClicked(e -> {
 			myEventManager.onResume();
 			myObjectInformationView.clear();
+			myObjectInformationView.setPrefWidth(50);
 		});
 
 		Button pauseButton = new Button();            
@@ -125,6 +127,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		resetButton.setOnMouseClicked(e -> {
 			myEventManager.onReset();
 			myObjectInformationView.clear();
+			myObjectInformationView.setPrefWidth(50);
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));

@@ -117,6 +117,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
 		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());
+		eventManager.addUserInputInterface(this);
 	}
 
 	@Override
@@ -147,6 +148,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
         double x = event.getSceneX();
         double y = event.getSceneY();
         RunObject obj = myEngine.getObjectClicked(new Point(x, y));
+        if (obj == null) return;
         System.out.println(obj.name);
         myFrontEnd.makeObjectInformationBar(obj);
     }
