@@ -12,6 +12,7 @@ import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -201,6 +202,12 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event){
 				returnToLauncher();
+			}
+		});
+		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				ViewSizePopupController viewPopupController = new ViewSizePopupController(r, dataGame);
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());
