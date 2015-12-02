@@ -7,11 +7,14 @@ import java.util.List;
 import authoring_environment.ObjectPopUps.CollisionPopUp;
 import authoring_environment.ObjectPopUps.GameEndPopUp;
 import authoring_environment.ObjectPopUps.GameStartPopUp;
+import authoring_environment.ObjectPopUps.GlobalMousePressedPopUp;
 import authoring_environment.ObjectPopUps.KeyPressPopUp;
 import authoring_environment.ObjectPopUps.KeyReleasePopUp;
 import authoring_environment.ObjectPopUps.ObjectCreatePopUp;
 import authoring_environment.ObjectPopUps.ObjectDestroyPopUp;
+import authoring_environment.ObjectPopUps.ObjectMousePressedPopUp;
 import authoring_environment.ObjectPopUps.PopUp;
+import authoring_environment.ObjectPopUps.StepPopUp;
 import javafx.collections.ObservableList;
 import structures.data.DataObject;
 import structures.data.actions.IAction;
@@ -49,6 +52,15 @@ public class EventPopupFactory {
 		}
 		if (event.equalsIgnoreCase("Object Destroy Event")) {
 			kp = new ObjectDestroyPopUp(obj);
+		}
+		if (event.equalsIgnoreCase("Global Mouse Pressed Event")) {
+			kp = new GlobalMousePressedPopUp(obj);
+		}
+		if (event.equalsIgnoreCase("Object Mouse Pressed Event")) {
+			kp = new ObjectMousePressedPopUp(obj);
+		}
+		if (event.equalsIgnoreCase("Step Event")) {
+			kp = new StepPopUp(obj);
 		}
 		//	}
 	}
