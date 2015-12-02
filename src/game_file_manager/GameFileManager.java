@@ -49,7 +49,7 @@ public class GameFileManager {
 		
 		try {
 			BufferedImage img = ImageIO.read(image);
-			File localFile = new File(name + ".png");
+			File localFile = new File(r.getString("imagesFolder") + name + ".png");
 
 			ImageIO.write(img, "png", localFile);
 			newSprite = new DataSprite(name, localFile.getName());

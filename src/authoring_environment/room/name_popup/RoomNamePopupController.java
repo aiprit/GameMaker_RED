@@ -1,13 +1,19 @@
 package authoring_environment.room.name_popup;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import authoring_environment.room.RoomController;
+import authoring_environment.room.error.ErrorPopup;
 import structures.data.DataGame;
 import structures.data.DataRoom;
 
 public class RoomNamePopupController {
+	private static final String DUPLICATE_ROOM_NAME_ERROR_MESSAGE = "DuplicateRoomNameErrorMessage";
+	private static final String NULL_ROOM_NAME_ERROR_MESSAGE = "NullRoomNameErrorMessage";
+	private static final String ERROR = "Error";
 	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final String ROOM_RESOURCE_FILE = "resources/RoomResources";
 	
@@ -28,6 +34,7 @@ public class RoomNamePopupController {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		model = room;
 		view = new RoomNamePopup(myResources, model.getName());
+		view.getStartRoomButton().setSelected(game.getStartRoomIndex() == i);
 		myIndex = i;
 	}
 	
@@ -36,7 +43,17 @@ public class RoomNamePopupController {
 	}
 	
 	private void setNameAndLaunchEditor(DataRoom room, DataGame game, boolean addRoom, Consumer<Void> updateFcn) {
-		setName();
+		List<String> roomNames = game.getRooms().stream()
+				.map(r -> r.getName())
+				.collect(Collectors.toList());
+		if (!view.getRoomName().equals("") && !roomNames.contains(view.getRoomName())) {
+			model.setName(view.getRoomName());
+		} else {
+			String errorMessage = view.getRoomName().equals("") ? myResources.getString(NULL_ROOM_NAME_ERROR_MESSAGE) :
+				myResources.getString(DUPLICATE_ROOM_NAME_ERROR_MESSAGE);
+			ErrorPopup error = new ErrorPopup(myResources, myResources.getString(ERROR), errorMessage);
+			return;
+		}
 		setStartRoom(game);
 		if (addRoom) {
 			game.addRoom(model);
@@ -46,14 +63,6 @@ public class RoomNamePopupController {
 		updateFcn.accept(null);
 		roomController.getEditor().setOnClose(updateFcn);
 		roomController.launch();	
-	}
-	
-	private void setName() {
-		try {
-			model.setName(view.getRoomName());
-		} catch (NullPointerException e) {
-			//TODO launch exception popup
-		}
 	}
 	
 	private void setStartRoom(DataGame game) {

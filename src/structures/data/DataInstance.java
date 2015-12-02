@@ -1,5 +1,7 @@
 package structures.data;
 
+import java.awt.image.BufferedImage;
+
 import javafx.scene.image.Image;
 import utils.Vector;
 
