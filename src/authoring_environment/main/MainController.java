@@ -45,8 +45,10 @@ public class MainController implements IUpdateHandle {
 		spriteListView = new SpriteListView();
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		if(dataGame != null){
+		try{
 			update();
+		}catch(Exception e){
+			
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
@@ -57,7 +59,8 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-	public void returnToLauncher(){
+	private void returnToLauncher(){
+		
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
