@@ -36,6 +36,7 @@ public class ObjectEditorView {
 
 	public void init() {
 		myStage = new Stage();
+		myStage.setResizable(false);
 		myRoot = new Group();
 		myStage.setTitle("Object Editor");
 		BorderPane myPane = new BorderPane();

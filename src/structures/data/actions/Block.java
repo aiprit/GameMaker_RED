@@ -15,7 +15,7 @@ public class Block extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Block movement with slide factor %.2f", get("Slide factor"));
+		return String.format("Block movement with slide factor %.2f", get("Slide factor").getValue());
 	}
 
 	@Override
