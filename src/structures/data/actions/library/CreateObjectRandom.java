@@ -17,7 +17,8 @@ public class CreateObjectRandom extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("create an object %s between (0, 0) and (%.2f, %.2f)", get("NewRandomObjectId"), get("NewRandomObjectX"), get("NewRandomObjectY"));
+		return String.format("create an object %s between (0, 0) and (%.2f, %.2f)", get("NewRandomObjectId").getValue(),
+				get("NewRandomObjectX").getValue(), get("NewRandomObjectY").getValue());
 	}
 
 	@Override

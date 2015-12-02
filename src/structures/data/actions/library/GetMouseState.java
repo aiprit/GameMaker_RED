@@ -18,10 +18,10 @@ public class GetMouseState extends DataAction {
 	@Override
 	public String getDescription() {
 		if(((CheckboxParam) get("MouseBoolean")).getValue()){
-			return String.format("if the mouse click is %s", get("MouseState"));
+			return String.format("if the mouse click is %s", get("MouseState").getValue());
 		}
 		else{
-			return String.format("if the mouse click is not %s", get("MouseState"));
+			return String.format("if the mouse click is not %s", get("MouseState").getValue());
 		}
 	}
 
