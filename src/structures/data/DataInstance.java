@@ -129,7 +129,6 @@ public class DataInstance {
         myAngularVelocity = angularVelocity;
     }
 
-
     public double getScaleX() {
         return myScaleX;
     }
