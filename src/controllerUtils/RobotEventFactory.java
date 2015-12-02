@@ -22,8 +22,15 @@ public class RobotEventFactory {
 
 	public RobotEventFactory() throws IOException{
 
+		InputStream s = this.getClass().getClassLoader()
+				.getResourceAsStream("controllerUtils/controller.properties");
+		xbox = new Properties();
+		xbox.load(s);
+
+		String controllerFile = xbox.getProperty("controller");
+
 		InputStream commands = this.getClass().getClassLoader()
-				.getResourceAsStream("controllerUtils/controllerAttributes.txt");
+				.getResourceAsStream("controllerUtils/" + controllerFile);
 
 		InputStreamReader is = new InputStreamReader(commands);
 		BufferedReader br = new BufferedReader(is);
@@ -32,17 +39,18 @@ public class RobotEventFactory {
 		String read = br.readLine();
 		while(read != null){
 			//ignore the comments in the text file
-			if(read.contains("//")){
-				read = read.substring(0, read.indexOf(" //"));
+			if(read.substring(0, 2).equals("//")){
+				read = br.readLine();
 			}
-			components.add(read);
-			read = br.readLine();
+			else {
+				if(read.contains("//")){
+					read = read.substring(0, read.indexOf(" //"));
+				}
+				components.add(read);
+				read = br.readLine();
+			}
 		}
 
-		InputStream s = this.getClass().getClassLoader()
-				.getResourceAsStream("controllerUtils/xbox.properties");
-		xbox = new Properties();
-		xbox.load(s);
 		eventMap = new HashMap<String, String>();
 
 		for(String component : components){
@@ -54,7 +62,7 @@ public class RobotEventFactory {
 
 		if(eventMap.containsKey(event.getComponent().getName())){
 			if(eventMap.get(event.getComponent().getName()) == null ||
-				eventMap.get(event.getComponent().getName()).equals("")){
+					eventMap.get(event.getComponent().getName()).equals("")){
 				return;
 			}
 			KeyCode kc = KeyCode.valueOf(eventMap.get(event.getComponent().getName()));

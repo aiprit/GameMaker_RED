@@ -1,0 +1,19 @@
+0 //square
+1 //X
+2 //circle
+3 //triangle
+4 //left front top button
+5 //right front top button
+6 //left back top button
+7 //right back top button
+8 //back button
+9 //start button
+10 //left joystick click
+11 //right joystick click
+12 //playstation button
+13 //touchpad click
+pov //directional buttons
+.25 //top directional button value
+.5 //right directional button value
+.75 //bottom directional button value
+1 //left directional button value
