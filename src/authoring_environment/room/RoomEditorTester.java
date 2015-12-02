@@ -2,7 +2,6 @@ package authoring_environment.room;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import structures.TestGameObject;

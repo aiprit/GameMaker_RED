@@ -16,7 +16,7 @@ public class CreateObjectOnClick extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("create an object %s at the mouse click", get("ObjectOnClick"));
+		return String.format("create an object %s at the mouse click", get("ObjectOnClick").getValue());
 	}
 
 	@Override

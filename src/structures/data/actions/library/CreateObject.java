@@ -17,7 +17,8 @@ public class CreateObject extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("create an object %s at (%.2f, %.2f)", get("NewObjectId"), get("NewObjectX"), get("NewObjectY"));
+		return String.format("create an object %s at (%.2f, %.2f)", get("NewObjectId").getValue(), get("NewObjectX").getValue(),
+				get("NewObjectY").getValue());
 	}
 
 	@Override

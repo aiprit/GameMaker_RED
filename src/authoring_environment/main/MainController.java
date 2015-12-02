@@ -65,6 +65,7 @@ public class MainController implements IUpdateHandle {
 		Launcher main = new Launcher();
 		main.start(new Stage());
 	}
+	@Override
 	public void update() {
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
 		mainView.init();
@@ -101,6 +102,7 @@ public class MainController implements IUpdateHandle {
 			boolean startRoom = dataGame.getStartRoomIndex() == i;
 			int roomIndex = i;
 			roomListView.addRoom(o, i, startRoom).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
 				public void handle(ActionEvent event) {
 					RoomNamePopupController room = new RoomNamePopupController(o, roomIndex, dataGame);
 					room.setOnClose(e -> update(), dataGame, false);

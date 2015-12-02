@@ -3,7 +3,7 @@ package authoring_environment.room.button_toolbar;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.preview.RoomCanvas;
-import structures.data.DataRoom;
+import structures.data.IDataRoom;
 
 public class ButtonToolbarController {
 	
@@ -11,12 +11,12 @@ public class ButtonToolbarController {
 	private RoomCanvas myCanvas;
 	
 	private ButtonToolbar view;
-	private DataRoom model;
+	private IDataRoom model;
 	
 	private SetBackgroundController mySetBackgroundController;
 	private SetSizeController mySetSizeController;
 	
-	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, DataRoom room) {
+	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
 		myResources = resources;
 		myCanvas = canvas;
 		view = new ButtonToolbar(resources);
