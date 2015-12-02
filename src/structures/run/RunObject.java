@@ -3,9 +3,11 @@ package structures.run;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
+import javafx.scene.image.Image;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.Vector;
@@ -14,21 +16,29 @@ import utils.rectangle.Rectangle;
 
 public class RunObject implements IParameters {
         public static final String NAME = "Name";
-        public static final String SCALEX = "X Scale";
-        public static final String SCALEY = "Y Scale";
+        public static final String SCALEX = "Scale X";
+        public static final String SCALEY = "Scale Y";
         public static final String ANGLE = "Angle";
         public static final String ANGULAR_VELOCITY = "Angular Velocity";
         public static final String VISIBLE = "Visible";
         public static final String ALPHA = "Alpha";
         public static final String FRICTION = "Friction";
         public static final String SOLID = "Solid";
+        public static final String VELOCITYX = "Velocity X";
+        public static final String VELOCITYY = "Velocity Y";
+        public static final String GRAVITYX = "Gravity X";
+        public static final String GRAVITYY = "Gravity Y";
         
-        public static final double MAX_SCALEX = 20;
-        public static final double MAX_SCALEY = 20;
+        public static final double MAX_SCALEX = 7;
+        public static final double MAX_SCALEY = 7;
         public static final double MAX_ANGLE = 360;
         public static final double MAX_ANGULAR_VELOCITY = 100;
         public static final double MAX_ALPHA = 1;
-        public static final double MAX_FRICTION = 100;
+        public static final double MAX_FRICTION = 2;
+        public static final double MAX_VELOCITYX = 2;
+        public static final double MAX_VELOCITYY = 2;
+        public static final double MAX_GRAVITYX = 100;
+        public static final double MAX_GRAVITYY = 100;
 
 	public double x;
 	public double y;
@@ -74,27 +84,30 @@ public class RunObject implements IParameters {
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
 		myVariables = new HashMap<>();
+		myBooleanMap = new TreeMap<>();
+	        myStringMap = new TreeMap<>();
+	        myDoubleMap = new TreeMap<>();
 
 		myBounds = new Rectangle(0, 0, 0, 0);
 		initMaps();
 	}
 	
 	public Map<String, Double> getDoubleMap() {
+	    initMaps();
 	    return myDoubleMap;
 	}
 	
 	public Map<String, String> getStringMap() {
+	    initMaps();
 	    return myStringMap;
 	}
 	
 	public Map<String, Boolean> getBooleanMap() {
+	    initMaps();
 	    return myBooleanMap;
 	}
 	
 	private void initMaps() {
-	    myBooleanMap = new HashMap<>();
-	    myStringMap = new HashMap<>();
-	    myDoubleMap = new HashMap<>();
 	    myStringMap.put(NAME, name);
 	    myDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
 	    myDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);
@@ -103,6 +116,10 @@ public class RunObject implements IParameters {
 	    myBooleanMap.put(VISIBLE, visible);
 	    myDoubleMap.put(ALPHA, alpha/MAX_ALPHA);
 	    myDoubleMap.put(FRICTION, friction/MAX_FRICTION);
+	    myDoubleMap.put(VELOCITYX, velocity.x);
+	    myDoubleMap.put(VELOCITYY, velocity.y);
+	    myDoubleMap.put(GRAVITYX, gravity.x);
+	    myDoubleMap.put(GRAVITYY, gravity.y);
 	    myBooleanMap.put(SOLID, solid);
 	}
 	
@@ -119,6 +136,11 @@ public class RunObject implements IParameters {
 	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
 	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
 	    solid = myBooleanMap.get(SOLID);
+	    velocity.x = myDoubleMap.get(VELOCITYX)*MAX_VELOCITYX;
+	    velocity.y = myDoubleMap.get(VELOCITYY)*MAX_VELOCITYY;
+	    gravity.x = myDoubleMap.get(GRAVITYX)*MAX_GRAVITYX;
+	    gravity.y = myDoubleMap.get(GRAVITYY)*MAX_GRAVITYY;
+	    initMaps();
 	}
 
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -293,5 +315,10 @@ public class RunObject implements IParameters {
 	public double get_y_position(){
 		return this.y;
 	}
+
+    @Override
+    public Image getImage () {
+        return mySprite.getImage();
+    }
 
 }
