@@ -35,10 +35,10 @@ public class RunObject implements IParameters {
         public static final double MAX_ANGULAR_VELOCITY = 100;
         public static final double MAX_ALPHA = 1;
         public static final double MAX_FRICTION = 2;
-        public static final double MAX_VELOCITYX = 2;
-        public static final double MAX_VELOCITYY = 2;
-        public static final double MAX_GRAVITYX = 100;
-        public static final double MAX_GRAVITYY = 100;
+        public static final double MAX_VELOCITYX = 10;
+        public static final double MAX_VELOCITYY = 10;
+        public static final double MAX_GRAVITYX = 40;
+        public static final double MAX_GRAVITYY = 40;
 
 	public double x;
 	public double y;
@@ -116,10 +116,10 @@ public class RunObject implements IParameters {
 	    myBooleanMap.put(VISIBLE, visible);
 	    myDoubleMap.put(ALPHA, alpha/MAX_ALPHA);
 	    myDoubleMap.put(FRICTION, friction/MAX_FRICTION);
-	    myDoubleMap.put(VELOCITYX, velocity.x);
-	    myDoubleMap.put(VELOCITYY, velocity.y);
-	    myDoubleMap.put(GRAVITYX, gravity.x);
-	    myDoubleMap.put(GRAVITYY, gravity.y);
+	    myDoubleMap.put(VELOCITYX, velocity.x/MAX_VELOCITYX*2+.5);
+	    myDoubleMap.put(VELOCITYY, velocity.y/MAX_VELOCITYY*2+.5);
+	    myDoubleMap.put(GRAVITYX, gravity.x/MAX_GRAVITYX*2+.5);
+	    myDoubleMap.put(GRAVITYY, gravity.y/MAX_GRAVITYY*2+.5);
 	    myBooleanMap.put(SOLID, solid);
 	}
 	
@@ -136,10 +136,10 @@ public class RunObject implements IParameters {
 	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
 	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
 	    solid = myBooleanMap.get(SOLID);
-	    velocity.x = myDoubleMap.get(VELOCITYX)*MAX_VELOCITYX;
-	    velocity.y = myDoubleMap.get(VELOCITYY)*MAX_VELOCITYY;
-	    gravity.x = myDoubleMap.get(GRAVITYX)*MAX_GRAVITYX;
-	    gravity.y = myDoubleMap.get(GRAVITYY)*MAX_GRAVITYY;
+	    velocity.x = (myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2;
+	    velocity.y = (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2;
+	    gravity.x = (myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2;
+	    gravity.y = (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2;
 	    initMaps();
 	}
 

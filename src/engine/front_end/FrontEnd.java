@@ -153,6 +153,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 	        myObjectInformationView.setPrefWidth(300);
 	        borderPane.setLeft(myObjectInformationView);
 	    }
+	    stage.setWidth(1000);
 	}
 
 	private void setupCanvas(){
@@ -175,8 +176,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-//		stage.setWidth(runRoom.getView().getView().width());
-//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override
