@@ -25,10 +25,10 @@ public class RoomPreview extends ScrollPane {
 	}
 	
 	private void initializePreview(ResourceBundle resources) {
-		super.setMinHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
-		super.setMinWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
-		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-		this.setVbarPolicy(ScrollBarPolicy.NEVER);
+		super.setMaxHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
+		super.setMaxWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 	}
 	
 	public RoomCanvas getCanvas() {
