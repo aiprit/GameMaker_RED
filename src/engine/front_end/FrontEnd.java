@@ -5,8 +5,6 @@ package engine.front_end;
 
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,7 +21,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import structures.run.RunGame;
 import structures.run.RunRoom;
 
 /**
@@ -45,12 +42,16 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private VBox topContainer;
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
+	private ObjectInformationView myObjectInformationView;
 
 	public FrontEnd(EventManager eventManager, Stage stage) {
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
 		this.stage = stage;
+		stage.setWidth(1000);
+		stage.centerOnScreen();
+		stage.setY(stage.getY()-100);
 		setupFramework();
 		setupCanvas();
 	}
@@ -64,6 +65,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		makeMenu();
 		makeToolBar();
 		makeHighScoreBar();
+		makeObjectInformationBar();
 	}
 
 	private void makeMenu() {
@@ -106,30 +108,30 @@ public class FrontEnd implements IGameUpdatedHandler {
 	public void makeToolBar() {
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
-		playButton.setOnAction(e -> {
+		playButton.setOnMouseClicked(e -> {
 			myEventManager.onResume();
 		});
 
 		Button pauseButton = new Button();            
 		pauseButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "pause.png"));
-		pauseButton.setOnAction(e -> {
+		pauseButton.setOnMouseClicked(e -> {
 			myEventManager.onPause();
 		});
 
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
-		resetButton.setOnAction(e -> {
+		resetButton.setOnMouseClicked(e -> {
 			myEventManager.onReset();
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
-		saveButton.setOnAction(e -> {
+		saveButton.setOnMouseClicked(e -> {
 			myEventManager.onSave();
 		});
 
 		Button openButton = new Button();
 		openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
-		openButton.setOnAction(e -> {
+		openButton.setOnMouseClicked(e -> {
 
 		});
 
@@ -141,7 +143,14 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	public void makeHighScoreBar(){
 		myHighScoreView = new HighScoreView();
+		myHighScoreView.setPrefWidth(150);
 		borderPane.setRight(myHighScoreView);
+	}
+	
+	public void makeObjectInformationBar() {
+	    myObjectInformationView = new ObjectInformationView();
+	    myObjectInformationView.setPrefWidth(250);
+	    borderPane.setLeft(myObjectInformationView);
 	}
 
 	private void setupCanvas(){

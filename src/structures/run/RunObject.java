@@ -15,6 +15,15 @@ import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
 public class RunObject {
+        public static final String NAME = "Name";
+        public static final String SCALEX = "X Scale";
+        public static final String SCALEY = "Y Scale";
+        public static final String ANGLE = "Angle";
+        public static final String ANGULAR_VELOCITY = "Angular Velocity";
+        public static final String VISIBLE = "Visible";
+        public static final String ALPHA = "Alpha";
+        public static final String FRICTION = "Friction";
+        public static final String SOLID = "Solid";
 
 	public double x;
 	public double y;
@@ -39,6 +48,7 @@ public class RunObject {
 	private ICollisionChecker myCollisionChecker;
 
 	private Map<String, Double> myVariables;
+	private Map<String, String> myParameters;
 
 	public RunObject(String name) {
 		this.name = name;
@@ -59,6 +69,32 @@ public class RunObject {
 		myVariables = new HashMap<>();
 
 		myBounds = new Rectangle(0, 0, 0, 0);
+		createParameterMap();
+	}
+	
+	private void createParameterMap() {
+	    myParameters = new HashMap<>();
+	    myParameters.put(NAME, name);
+	    myParameters.put(SCALEX, String.valueOf(scaleX));
+	    myParameters.put(SCALEY, String.valueOf(scaleY));
+	    myParameters.put(ANGLE, String.valueOf(angle));
+	    myParameters.put(ANGULAR_VELOCITY, String.valueOf(angularVelocity));
+	    myParameters.put(VISIBLE, String.valueOf(visible));
+	    myParameters.put(ALPHA, String.valueOf(alpha));
+	    myParameters.put(FRICTION, String.valueOf(friction));
+	    myParameters.put(SOLID, String.valueOf(solid));
+	}
+	
+	public void setParameterMap(Map<String, String> params) {
+	    myParameters = params;
+	    scaleX = Double.valueOf(myParameters.get(SCALEX));
+	    scaleY = Double.valueOf(myParameters.get(SCALEY));
+	    angle = Double.valueOf(myParameters.get(SCALEX));
+	    angularVelocity = Double.valueOf(myParameters.get(SCALEX));
+	    visible = Boolean.valueOf(myParameters.get(SCALEX));
+	    alpha = Double.valueOf(myParameters.get(SCALEX));
+	    friction = Double.valueOf(myParameters.get(SCALEX));
+	    solid = Boolean.valueOf(myParameters.get(SCALEX));
 	}
 
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -131,11 +167,6 @@ public class RunObject {
 
 	public long instance_id() {
 		return myInstanceId;
-	}
-
-	public DataObject toData() {
-		// TODO: What the hell is this method for?
-		return null;
 	}
 
 	public void change_sprite(String name, String baseFileName){
