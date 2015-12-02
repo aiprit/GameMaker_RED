@@ -120,7 +120,7 @@ public class ViewSizePopup extends Stage {
 	
 	public void launchMinSizeErrorPopup(int minSize) {
 		String errorMessage = String.format(myResources.getString("MinimumViewSizeException"), minSize);
-		ErrorPopup error = new ErrorPopup(myResources, myResources.getString("Error"), errorMessage);
+		ErrorPopup error = new ErrorPopup(myResources, errorMessage);
 	}
 	
 	public Button getSaveButton() {

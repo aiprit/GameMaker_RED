@@ -13,7 +13,6 @@ import structures.data.DataRoom;
 public class RoomNamePopupController {
 	private static final String DUPLICATE_ROOM_NAME_ERROR_MESSAGE = "DuplicateRoomNameErrorMessage";
 	private static final String NULL_ROOM_NAME_ERROR_MESSAGE = "NullRoomNameErrorMessage";
-	private static final String ERROR = "Error";
 	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
 	private static final String ROOM_RESOURCE_FILE = "resources/RoomResources";
 	
@@ -48,7 +47,7 @@ public class RoomNamePopupController {
 		} else {
 			String errorMessage = view.getRoomName().equals("") ? myResources.getString(NULL_ROOM_NAME_ERROR_MESSAGE) :
 				myResources.getString(DUPLICATE_ROOM_NAME_ERROR_MESSAGE);
-			ErrorPopup error = new ErrorPopup(myResources, myResources.getString(ERROR), errorMessage);
+			ErrorPopup error = new ErrorPopup(myResources, errorMessage);
 			return;
 		}
 		setStartRoom(game);

@@ -28,7 +28,7 @@ public class ViewSizePopupController {
 			width = (int)Double.parseDouble(view.getViewWidth().getText());
 			height = (int)Double.parseDouble(view.getViewHeight().getText());
 		} catch (IllegalArgumentException e) {
-			ErrorPopup error = new ErrorPopup(myResources, myResources.getString("Error"), myResources.getString("NumberParameterExceptionMessage"));
+			ErrorPopup error = new ErrorPopup(myResources, myResources.getString("NumberParameterExceptionMessage"));
 			return;
 		}
 		int minSize = (int)Double.parseDouble(myResources.getString("ViewMinimumSize"));
