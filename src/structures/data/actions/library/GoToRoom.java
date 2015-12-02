@@ -16,7 +16,7 @@ public class GoToRoom extends DataAction{
 
 	@Override
 	public String getDescription() {
-		return String.format("go to room %d", get("NewRoomNumber"));
+		return String.format("go to room %d", get("NewRoomNumber").getValue());
 	}
 
 	@Override

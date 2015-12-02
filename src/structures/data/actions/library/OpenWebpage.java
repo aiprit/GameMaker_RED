@@ -16,7 +16,7 @@ public class OpenWebpage extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("opens the webpage at %s", get("Webpage"));
+		return String.format("opens the webpage at %s", get("Webpage").getValue());
 	}
 
 	@Override

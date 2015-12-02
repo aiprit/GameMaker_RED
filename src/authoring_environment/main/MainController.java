@@ -3,6 +3,8 @@ package authoring_environment.main;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import XML.XMLReader;
+import authoring_environment.FileHandlers.FileHelper;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
@@ -45,8 +47,10 @@ public class MainController implements IUpdateHandle {
 		spriteListView = new SpriteListView();
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		if(dataGame != null){
+		try{
 			update();
+		}catch(Exception e){
+			
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
@@ -57,7 +61,8 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-	public void returnToLauncher(){
+	private void returnToLauncher(){
+		
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
@@ -172,6 +177,9 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
+				String name = FileHelper.askName();
+				dataGame = XMLReader.read(name);
+				update();
 			}
 		});
 		topMenuBar.getSaveMenu().setOnAction(new EventHandler<ActionEvent>() {
