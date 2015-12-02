@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -17,6 +18,7 @@ public class ObjectEditorViewBottomPane {
 	private TextField nameBox;
 	private String objectName;
 	private Group root;
+	private CheckBox checkBox;
 
 	public ObjectEditorViewBottomPane() {
 		init();
@@ -41,11 +43,14 @@ public class ObjectEditorViewBottomPane {
 
 		close= new Button(bottomResources.getString("saveButtonTitle"));
 		close.setTranslateX(Integer.parseInt(bottomResources.getString("saveButtonTranslateX")));
+		
+		checkBox = new CheckBox("Solid?");
+		checkBox.setTranslateX(Integer.parseInt(bottomResources.getString("checkBoxTranslateX")));
 //
 //		cancel = new Button(bottomResources.getString("cancelButtonTitle"));
 //		cancel.setTranslateX(Integer.parseInt(bottomResources.getString("cancelButtonTranslateX")));
 //
-		root.getChildren().addAll(nameHBox,close);
+		root.getChildren().addAll(nameHBox,close, checkBox);
 		return root;
 
 	}
@@ -71,6 +76,10 @@ public class ObjectEditorViewBottomPane {
 
 	public TextField getNameBox() {
 		return nameBox;
+	}
+	
+	public CheckBox getCheckBox() {
+		return checkBox;
 	}
 
 }

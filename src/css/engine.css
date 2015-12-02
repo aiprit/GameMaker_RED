@@ -1,6 +1,6 @@
 .root {
     -fx-font-size: 12pt;
-    -fx-font-family: Impact, Charcoal, sans-serif;
+    -fx-font-family: Tahoma, Geneva, sans-serif;
     -fx-base: rgb(153, 230, 255);
     -fx-background: rgb(77, 166, 255);
 }
@@ -28,13 +28,14 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
     -fx-text-fill: #006464;
+    -fx-font-color: white;
     -fx-opacity: 0.6;
 }
 
 .text-field {
-    -fx-font-size: 14pt;
+    -fx-font-size: 8pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
 }

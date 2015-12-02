@@ -6,24 +6,26 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import XML.XMLEditor;
 import engine.events.EventManager;
 import engine.events.IGUIControllerHandler;
+import engine.events.IInputHandler;
 import engine.front_end.FrontEnd;
 import exceptions.CompileTimeException;
 import exceptions.ResourceFailedException;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import structures.TestGame2;
 import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
-
 import structures.run.RunObject;
+import utils.Point;
 
 
-public class EngineController implements IGUIControllerHandler {
+public class EngineController implements IGUIControllerHandler, IInputHandler {
 
 	private XMLEditor myEditor;
 	private DataGame myGame;
@@ -32,7 +34,6 @@ public class EngineController implements IGUIControllerHandler {
 	private FrontEnd myFrontEnd;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
-
 		EventManager eventManager = new EventManager();
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
@@ -116,6 +117,7 @@ public class EngineController implements IGUIControllerHandler {
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
 		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());
+		eventManager.addUserInputInterface(this);
 	}
 
 	@Override
@@ -140,4 +142,19 @@ public class EngineController implements IGUIControllerHandler {
 		catch (CompileTimeException e) {
 		}
 	}
+
+    @Override
+    public void onMouseEvent (MouseEvent event) {
+        double x = event.getSceneX();
+        double y = event.getSceneY();
+        RunObject obj = myEngine.getObjectClicked(new Point(x, y));
+        if (obj == null) return;
+        System.out.println(obj.name);
+        myFrontEnd.makeObjectInformationBar(obj);
+    }
+
+    @Override
+    public void onKeyEvent (KeyEvent event) {
+        // Do nothing (for now)
+    }
 }
