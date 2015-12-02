@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import org.junit.runners.model.TestClass;
 
@@ -32,8 +33,8 @@ public class SoundMaker {
 			
 			String name = FileHelper.askName();
 			System.out.println("test");
-			System.out.println(fileType.getType().toString());
-			File outputfile = new File(r.getString("soundsFolder") + name + ".wav");
+			
+			File outputfile = new File(r.getString("soundFolder") + name + ".wav");
 			
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), 
 			    audioInputStream)) {
@@ -41,6 +42,7 @@ public class SoundMaker {
 				AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
 			}
 			DataSound sound = new DataSound(name, outputfile.getName());
+			sound.load(r.getString("soundFolder"));
 			sounds.add(sound);
 
 		} catch (Exception e) {
@@ -49,6 +51,17 @@ public class SoundMaker {
 		}
 	
 	}
-	
+	public static void play(DataSound sound){
+		 try {
+		        AudioInputStream audioInputStream =sound.getAudio();
+		        Clip clip = AudioSystem.getClip();
+		        clip.open(audioInputStream);
+		        clip.start();
+		        clip.loop(100);
+		    } catch(Exception ex) {
+		        System.out.println("Error with playing sound.");
+		        ex.printStackTrace();
+		    }
+	}
 	
 }

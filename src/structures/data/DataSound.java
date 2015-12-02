@@ -4,14 +4,18 @@ import exceptions.ResourceFailedException;
 import structures.IResource;
 import sun.audio.AudioStream;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 public class DataSound implements IResource {
 
     private String myName;
     private String myBaseFileName;
-    private AudioStream myAudioStream;
+    private AudioInputStream myAudioStream;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -37,8 +41,8 @@ public class DataSound implements IResource {
     public void load(String directory) throws ResourceFailedException {
         String url = directory + myBaseFileName;
         try {
-            InputStream in = new FileInputStream(url);
-            myAudioStream = new AudioStream(in);
+            
+            myAudioStream = AudioSystem.getAudioInputStream(new File(url).getAbsoluteFile());
         } catch (Exception ex) {
             String message = String.format("Failed to load sound '%s' for DataSound %s", url, myName);
             throw new ResourceFailedException(message);
@@ -46,7 +50,7 @@ public class DataSound implements IResource {
         myHaveLoaded = true;
     }
 
-    public AudioStream getAudio() {
+    public AudioInputStream getAudio() {
         return myAudioStream;
     }
 
