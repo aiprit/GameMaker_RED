@@ -47,6 +47,8 @@ public class Engine implements IGameUpdatedHandler {
 	}
 	
 	public RunObject getObjectClicked(Point p) {
+	    RunRoom room = myGame.getCurrentRoom();
+            p = new Point(p.x + room.getView().getView().x(), p.y + room.getView().getView().y());
 	    RunObject runObject = null;
 	    for (RunObject obj : myGame.getCurrentRoom().getObjects()) {
 	        if (obj.getBounds().contains(p)) {
@@ -55,7 +57,6 @@ public class Engine implements IGameUpdatedHandler {
 	    }
 	    return runObject;
 	}
-
 	public IGUIBackendHandler getGUIBackendHandler(){
 		return myGUIHandler;
 	}

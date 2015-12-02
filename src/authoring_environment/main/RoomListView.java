@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import com.sun.prism.paint.Color;
 
@@ -26,6 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
 
@@ -47,11 +49,12 @@ public class RoomListView {
 		roomView.setHgap(20);
 	}
 	
-	public Button addRoom(DataRoom o, int i, boolean startRoom) {
+	public Button addRoom(DataRoom o, DataGame rooms, int i, boolean startRoom, Consumer<Void> updateFcn) {
 		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName());
 		if (startRoom) {
 			room.setStyle("-fx-background-color: " + myResourceBundle.getString("StartRoomBackgroundColor"));
 		}
+		room.getDeleteButton().setOnAction(e -> launchConfirmationDialog(rooms, i, updateFcn));
 		int col = i % ROW_LENGTH;
 		int row = i /ROW_LENGTH;
 		roomView.add(room, col, row);
@@ -59,6 +62,22 @@ public class RoomListView {
 		return room.getButton();
 	}
 	
+	private void launchConfirmationDialog(DataGame game, int i, Consumer<Void> updateFcn) {
+		ConfirmationDialog dialog = new ConfirmationDialog(myResourceBundle);
+		dialog.getOkayButton().setOnAction(e -> {deleteRoom(game, i, updateFcn); dialog.close();});
+		dialog.show();
+	}
+	
+	private void deleteRoom(DataGame game, int i, Consumer<Void> updateFcn) {
+		game.getRooms().remove(i); 
+		if (game.getStartRoomIndex() == i) {
+			game.setStartRoom(0);
+		} else if (i < game.getStartRoomIndex()) {
+			game.setStartRoom(game.getStartRoomIndex()-1);
+		}
+		updateFcn.accept(null);
+	}
+		
 	public Button addPlusButton(int numberofRooms) {
 		RoomIcon room = new RoomIcon(myResourceBundle);
 

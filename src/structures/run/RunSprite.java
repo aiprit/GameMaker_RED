@@ -46,4 +46,8 @@ public class RunSprite implements IDrawable {
 		return myImage.getHeight();
 	}
 	
+	public Image getImage() {
+	    return myImage;
+	}
+	
 }
