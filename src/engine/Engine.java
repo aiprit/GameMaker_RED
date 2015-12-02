@@ -47,12 +47,13 @@ public class Engine implements IGameUpdatedHandler {
 	}
 	
 	public RunObject getObjectClicked(Point p) {
+	    RunObject runObject = null;
 	    for (RunObject obj : myGame.getCurrentRoom().getObjects()) {
 	        if (obj.getBounds().contains(p)) {
-	            return obj;
+	            runObject = obj;
 	        }
 	    }
-	    return null;
+	    return runObject;
 	}
 
 	public IGUIBackendHandler getGUIBackendHandler(){
