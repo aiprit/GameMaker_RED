@@ -4,13 +4,11 @@ import org.codehaus.groovy.control.CompilationFailedException;
 
 import exceptions.ParameterParseException;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 
 public class GroovyParam implements IParameter {
 	
 	private String myScript;
 	private String myTitle;
-	private Script myCompiled;
 	
 	public GroovyParam(String title) {
 		myTitle = title;
@@ -20,7 +18,7 @@ public class GroovyParam implements IParameter {
 	public void parse(String string) throws ParameterParseException {
 		GroovyShell shell = new GroovyShell();
 		try {
-			myCompiled = shell.parse(string);
+			shell.parse(string);
 			myScript = string;
 		} catch (CompilationFailedException ex ) {
 			throw new ParameterParseException("Compile error in script: " + ex);
@@ -38,8 +36,8 @@ public class GroovyParam implements IParameter {
 	}
 
 	@Override
-	public Script getValue() {
-		return myCompiled;
+	public String getValue() {
+		return myScript;
 	}
 
 	@Override

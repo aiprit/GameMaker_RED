@@ -1,11 +1,11 @@
 package structures.data.actions;
 
-import structures.data.actions.params.StringParam;
+import structures.data.actions.params.GroovyParam;
 
 public class RunScript extends DataAction {
 
 	public RunScript(){
-		init(new StringParam("Script"));
+		init(new GroovyParam("Script"));
 	}
 	
 	@Override
