@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -37,7 +38,12 @@ public class EngineController implements IGUIControllerHandler {
 		String gameChoice = getUserChoice();
 		RunGame runGame = readObject(gameChoice, eventManager);
 		currentRunGame = runGame;
-		myFrontEnd = new FrontEnd(eventManager, stage);
+		try {
+			myFrontEnd = new FrontEnd(eventManager, stage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//starts the first room loop
 		myEngine = new Engine(runGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());

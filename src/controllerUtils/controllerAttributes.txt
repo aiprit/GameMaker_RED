@@ -1,0 +1,17 @@
+0 //A (and Y)
+1 //B (and Y)
+2 //X (and Y)
+3 //right front top button
+4 //left front top button
+5 //right joystick click
+6 //left joystick click
+7 //start button
+8 //start button (and back button)
+9 //back button
+10 //big center button
+11 //top of directional buttons
+12 //bottom of directional buttons
+13 //left of directional buttons
+14 //right of directional buttons
+rz //right back top button
+z //right (and left) top back buttons

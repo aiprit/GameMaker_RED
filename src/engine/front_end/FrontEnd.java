@@ -3,6 +3,9 @@
  */
 package engine.front_end;
 
+import java.io.IOException;
+
+import controllerUtils.Test;
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
 import javafx.event.ActionEvent;
@@ -46,7 +49,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
 
-	public FrontEnd(EventManager eventManager, Stage stage) {
+	public FrontEnd(EventManager eventManager, Stage stage) throws IOException {
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
@@ -87,7 +90,8 @@ public class FrontEnd implements IGameUpdatedHandler {
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(e -> {
 			myEventManager.onSave();
-			stage.close();
+			//need this line to close the controller thread!
+			System.exit(0);
 		});
 		MenuItem pause = new MenuItem("Pause");
 		pause.setOnAction(e -> {
@@ -144,14 +148,23 @@ public class FrontEnd implements IGameUpdatedHandler {
 		borderPane.setRight(myHighScoreView);
 	}
 
-	private void setupCanvas(){
+	private void setupCanvas() throws IOException{
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		StackPane pane = (StackPane)myCanvasDrawer;
+		StackPane pane = (StackPane) myCanvasDrawer;
 		myRoot.getChildren().add(pane);
+		setupUserInteraction(pane);
+	}
+
+	private void setupUserInteraction(StackPane pane) throws IOException{
+		Test controllerTest = new Test();
+		;
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
+		if(controllerTest.getControllerConnected()){
+			controllerTest.setupRobot(stage);
+		}
 	}
 
 	public IDraw getDrawListener(){
@@ -164,8 +177,8 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-//		stage.setWidth(runRoom.getView().getView().width());
-//		stage.setHeight(runRoom.getView().getView().height());
+		//		stage.setWidth(runRoom.getView().getView().width());
+		//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override
