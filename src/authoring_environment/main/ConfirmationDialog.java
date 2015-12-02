@@ -13,6 +13,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class ConfirmationDialog extends Stage {
+	private static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+	private static final String STYLESHEET = "authoring.css";
 	private static final int SPACING = 20;
 	
 	private ResourceBundle myResources;
@@ -26,6 +28,7 @@ public class ConfirmationDialog extends Stage {
 		this.setMinWidth(Double.parseDouble(resources.getString("ConfirmationDialogWidth")));
 		initializeContents();
 		Scene s = new Scene(myContents);
+		s.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		this.setScene(s);
 	}
 	
