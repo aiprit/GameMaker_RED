@@ -1,6 +1,5 @@
 package structures.data.events;
 
-
 import structures.data.DataObject;
 
 import java.util.HashMap;

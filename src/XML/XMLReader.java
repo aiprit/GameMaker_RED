@@ -1,14 +1,20 @@
 package XML;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import structures.data.*;
+import structures.data.actions.IAction;
+import structures.data.events.EventFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class XMLReader {
     DataGame game;
@@ -71,9 +77,46 @@ public class XMLReader {
                 obj.setZIndex(Integer.parseInt(elem.getAttribute("zIndex")));
                 obj.setSprite(game.getSpriteFromString(elem.getAttribute("sprite")));
 
+                NodeList events = elem.getElementsByTagName("event");
+                loadEvents(events, obj);
+
                 game.addObject(obj);
             }
         }
+    }
+
+    private void loadEvents(NodeList events, DataObject obj) {
+        EventFactory factory = new EventFactory();
+        for (int i = 0; i < events.getLength(); i++) {
+
+            Node event = events.item(i);
+
+            if (event.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) event;
+
+                obj.bindEvent(factory.getEvent(elem),
+                        loadActions(elem.getElementsByTagName("action")));
+            }
+        }
+    }
+
+    private ObservableList<IAction> loadActions(NodeList actions){
+        ObservableList<IAction> ret = FXCollections.observableList(new ArrayList<>());
+
+        for (int i = 0; i < actions.getLength(); i++) {
+
+            Node action = actions.item(i);
+
+            if (action.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) action;
+
+                ret.add();
+            }
+        }
+
+        return ret;
     }
 
     private void loadSprites(NodeList sprites){
@@ -115,8 +158,11 @@ public class XMLReader {
         for (int i = 0; i < rooms.getLength(); i++) {
 
             Node room = rooms.item(i);
+            System.out.println("ROOOOOOMMMMSSS");
 
             if (room.getNodeType() == Node.ELEMENT_NODE) {
+
+                System.out.println("ROOOOOOMMMMSSS");
 
                 Element elem = (Element) room;
 
@@ -152,8 +198,8 @@ public class XMLReader {
             if (instance.getNodeType() == Node.ELEMENT_NODE) {
 
                 Element elem = (Element) instance;
-                
-                DataInstance di = new DataInstance(game.getObjectFromString(elem.getAttribute("parentObjcet")),
+
+                DataInstance di = new DataInstance(game.getObjectFromString(elem.getAttribute("parentObject")),
                         Double.parseDouble(elem.getAttribute("x")),
                         Double.parseDouble(elem.getAttribute("y")),
                         Long.parseLong(elem.getAttribute("ID")),

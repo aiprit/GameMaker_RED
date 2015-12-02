@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import structures.data.*;
 import structures.data.actions.IAction;
+import structures.data.actions.params.IParameter;
 import structures.data.events.IDataEvent;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -124,6 +125,12 @@ public class XMLWriter {
     private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
         action.setAttribute("title", a.getTitle());
+
+        List<IParameter> params = a.getParameters();
+
+        for(int i = 0; i < params.size(); i++){
+            action.setAttribute("p" + Integer.toString(i), params.get(i).getOriginal());
+        }
 
         return action;
     }

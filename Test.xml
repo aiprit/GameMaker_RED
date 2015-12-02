@@ -3,6 +3,16 @@
   <objects>
     <object name="Coin" scaleX="1.0" scaleY="1.0" sprite="Coin" zIndex="0">
       <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="Player">
+          <actions>
+            <action p0="200" p1="200" p2="false" title="MoveToRandom"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.ObjectDestroyEvent">
+          <actions>
+            <action p0="score" p1="10" p2="true" title="SetGlobalVariable"/>
+          </actions>
+        </event>
         <event class="structures.data.events.ObjectMousePressedEvent" mouseState="Left">
           <actions>
             <action title="Destroy"/>
@@ -10,41 +20,49 @@
         </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="D">
           <actions>
-            <action title="DisplayMessage"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="Player">
-          <actions>
-            <action title="MoveToRandom"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.ObjectDestroyEvent">
-          <actions>
-            <action title="SetGlobalVariable"/>
+            <action p0="test message" title="DisplayMessage"/>
           </actions>
         </event>
       </events>
     </object>
     <object name="Player" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">
       <events>
-        <event class="structures.data.events.StepEvent">
+        <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
           <actions>
-            <action title="AdjustScrollerX"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="LEFT">
-          <actions>
-            <action title="Move"/>
+            <action p0="200" p1="200" p2="false" title="Move"/>
           </actions>
         </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="RIGHT">
           <actions>
-            <action title="Move"/>
+            <action p0="10" p1="0" p2="true" title="Move"/>
           </actions>
         </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="M">
+        <event class="structures.data.events.CollisionEvent" dataObject="Coin">
           <actions>
-            <action title="CreateObjectRandom"/>
+            <action p0="score" p1="&gt;=" p2="5" title="GetGlobalVariableConditional"/>
+            <action title="Open"/>
+            <action p0="&lt;" p1="score" title="GetScore"/>
+            <action title="Open"/>
+            <action p0="score" title="SetHighScore"/>
+            <action title="Close"/>
+            <action p0="2" title="GoToRoom"/>
+            <action title="Else"/>
+            <action p0="score" p1="1" p2="true" title="SetGlobalVariable"/>
+            <action p0="10" p1="==" p2="1" title="SetRandomNumberAndChoose"/>
+            <action title="Open"/>
+            <action p0="0" p1="0" p2="false" title="Move"/>
+            <action title="Close"/>
+            <action title="Close"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
+          <actions>
+            <action p0="0" p1="10" p2="true" title="Move"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
+          <actions>
+            <action p0="0" p1="-10" p2="true" title="Move"/>
           </actions>
         </event>
         <event class="structures.data.events.LeaveRoomEvent">
@@ -52,56 +70,38 @@
             <action title="Wrap"/>
           </actions>
         </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
+        <event class="structures.data.events.KeyPressedEvent" keyCode="M">
           <actions>
-            <action title="Move"/>
+            <action p0="Coin" p1="100" p2="100" title="CreateObjectRandom"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="LEFT">
+          <actions>
+            <action p0="-10" p1="0" p2="true" title="Move"/>
           </actions>
         </event>
         <event class="structures.data.events.GlobalMousePressedEvent" mouseState="Left">
           <actions>
-            <action title="CreateObjectOnClick"/>
+            <action p0="Coin" title="CreateObjectOnClick"/>
           </actions>
         </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
+        <event class="structures.data.events.StepEvent">
           <actions>
-            <action title="Move"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
-          <actions>
-            <action title="Move"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="Coin">
-          <actions>
-            <action title="GetGlobalVariableConditional"/>
-            <action title="Open"/>
-            <action title="GetScore"/>
-            <action title="Open"/>
-            <action title="SetHighScore"/>
-            <action title="Close"/>
-            <action title="GoToRoom"/>
-            <action title="Else"/>
-            <action title="SetGlobalVariable"/>
-            <action title="SetRandomNumberAndChoose"/>
-            <action title="Open"/>
-            <action title="Move"/>
-            <action title="Close"/>
-            <action title="Close"/>
+            <action p0=".5" title="AdjustScrollerX"/>
           </actions>
         </event>
       </events>
     </object>
     <object name="StartScreenBackground" scaleX="0.5" scaleY="0.5" sprite="Start Screen" zIndex="0">
       <events>
-        <event class="structures.data.events.ObjectCreateEvent">
-          <actions>
-            <action title="DrawText"/>
-          </actions>
-        </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
           <actions>
-            <action title="GoToRoom"/>
+            <action p0="1" title="GoToRoom"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="Start Game" p1="" p2="" p3="" title="DrawText"/>
           </actions>
         </event>
       </events>
