@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.event.InputEvent;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -145,11 +146,14 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 
     @Override
     public void onMouseEvent (MouseEvent event) {
-        double x = event.getX();
-        double y = event.getY();
-        RunObject obj = myEngine.getObjectClicked(new Point(x, y));
-        if (obj == null) return;
-        myFrontEnd.makeObjectInformationBar(obj);
+        if (event.isControlDown()) {
+            double x = event.getX();
+            double y = event.getY();
+            RunObject obj = myEngine.getObjectClicked(new Point(x, y));
+            if (obj == null) return;
+            myFrontEnd.makeObjectInformationBar(obj);
+        }
+
     }
 
     @Override
