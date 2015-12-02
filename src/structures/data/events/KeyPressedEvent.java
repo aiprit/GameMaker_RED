@@ -7,20 +7,20 @@ import java.util.Map;
 
 public class KeyPressedEvent implements IDataEvent {
 
-    public final KeyCode keyCode;
+    public KeyCode keyCode;
 
     public KeyPressedEvent(KeyCode code) {
         keyCode = code;
     }
 
     public int hashCode() {
-        return this.getClass().hashCode() ^ this.keyCode.hashCode();
+        return this.getClass().hashCode() ^ 14;
     }
 
     public boolean equals(Object obj) {
     	if(obj !=null){
     	if (obj.getClass().equals(this.getClass())) {
-    		if (((KeyPressedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
+    		if (((KeyPressedEvent)obj).keyCode == this.keyCode) {
     			return true;
     		}
     	}
@@ -29,7 +29,8 @@ public class KeyPressedEvent implements IDataEvent {
     }
 
     public String getName() {
-        return String.format("Key Press %s", keyCode.getName());
+        //return String.format("Key Press %s", keyCode.getName());
+        return null;
     }
 
     @Override

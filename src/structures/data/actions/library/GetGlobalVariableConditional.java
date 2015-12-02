@@ -7,7 +7,8 @@ import structures.data.actions.params.StringParam;
 public class GetGlobalVariableConditional extends DataAction {
 	
 	public GetGlobalVariableConditional(){
-		init(new StringParam("VariableKey"), new StringParam("VariableOperation"), new DoubleParam("VariableValueCheck"));
+		init(new StringParam("VariableKey"), new StringParam("VariableOperation"),
+				new DoubleParam("VariableValueCheck"));
 	}
 
 	@Override
@@ -17,7 +18,8 @@ public class GetGlobalVariableConditional extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("if %s is %s %.2f", get("VariableKey"), get("VariableOperation"), get("VariableValueCheck"));
+		return String.format("if %s is %s %.2f", get("VariableKey"),
+				get("VariableOperation"), get("VariableValueCheck"));
 	}
 
 	@Override

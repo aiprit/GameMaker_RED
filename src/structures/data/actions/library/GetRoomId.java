@@ -7,7 +7,8 @@ import structures.data.actions.params.StringParam;
 public class GetRoomId extends DataAction {
 	
 	public GetRoomId(){
-		init(new StringParam("IdOperation"), new DoubleParam("IdCheck"));
+		init(new StringParam("IdOperation"),
+				new DoubleParam("IdCheck"));
 	}
 
 	@Override

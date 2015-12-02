@@ -2,14 +2,15 @@ package structures.data.events;
 
 import javafx.scene.input.KeyCode;
 import org.w3c.dom.Element;
+import structures.data.DataGame;
 
 public class EventFactory {
 
-    public IDataEvent getEvent(Element e){
+    public IDataEvent getEvent(Element e, DataGame g){
         String className = e.getAttribute("class");
 
         if(className.equals("structures.data.events.CollisionEvent")){
-            return new CollisionEvent(e.getAttribute("dataObject"));
+            return new CollisionEvent(g.getObjectFromString(e.getAttribute("dataObject")));
         } else if(className.equals("structures.data.events.GameEndEvent")){
             return new GameEndEvent();
         } else if(className.equals("structures.data.events.GameStartEvent")){

@@ -6,7 +6,9 @@ import structures.data.actions.params.DoubleParam;
 public class MoveTo extends DataAction {
 
 	public MoveTo() {
-		init(new DoubleParam("X"), new DoubleParam("Y"), new CheckboxParam("Relative"));
+		init(new DoubleParam("X"),
+				new DoubleParam("Y"),
+				new CheckboxParam("Relative"));
 	}
 
 	@Override

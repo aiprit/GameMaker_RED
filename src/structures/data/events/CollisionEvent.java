@@ -26,7 +26,8 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public int hashCode() {
-        return this.getClass().hashCode() ^ otherName().hashCode();
+        return 14;
+        //return this.getClass().hashCode() ^ otherName().hashCode();
     }
 
     @Override
@@ -43,7 +44,8 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public String getName() {
-        return String.format("Collision with ", other.getName());
+        //return String.format("Collision with ", other.getName());
+        return null;
     }
 
     @Override

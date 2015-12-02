@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import structures.data.*;
+import structures.data.actions.ActionFactory;
 import structures.data.actions.IAction;
 import structures.data.events.EventFactory;
 
@@ -14,7 +15,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class XMLReader {
     DataGame game;
@@ -95,26 +95,24 @@ public class XMLReader {
 
                 Element elem = (Element) event;
 
-                obj.bindEvent(factory.getEvent(elem),
+                obj.bindEvent(factory.getEvent(elem, game),
                         loadActions(elem.getElementsByTagName("action")));
             }
         }
     }
 
     private ObservableList<IAction> loadActions(NodeList actions){
-        ObservableList<IAction> ret = FXCollections.observableList(new ArrayList<>());
-
+        ObservableList<IAction> ret = FXCollections.observableArrayList();
+        ActionFactory factory = new ActionFactory();
         for (int i = 0; i < actions.getLength(); i++) {
 
             Node action = actions.item(i);
 
             if (action.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element elem = (Element) action;
-
-                ret.add();
+                ret.add(factory.getAction((Element) action));
             }
         }
+
 
         return ret;
     }
@@ -158,12 +156,8 @@ public class XMLReader {
         for (int i = 0; i < rooms.getLength(); i++) {
 
             Node room = rooms.item(i);
-            System.out.println("ROOOOOOMMMMSSS");
 
             if (room.getNodeType() == Node.ELEMENT_NODE) {
-
-                System.out.println("ROOOOOOMMMMSSS");
-
                 Element elem = (Element) room;
 
                 DataRoom rm = new DataRoom(elem.getAttribute("name"),

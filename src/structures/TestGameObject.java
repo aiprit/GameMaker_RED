@@ -275,6 +275,9 @@ public class TestGameObject {
 			goToStart.getParameters().get(0).parse("1");
 
 			drawText.getParameters().get(0).parse("Start Game");
+			drawText.getParameters().get(1).parse("2.0");
+			drawText.getParameters().get(2).parse("2.0");
+			drawText.getParameters().get(3).parse("2.0");
 		}
 		catch(Exception e){
 

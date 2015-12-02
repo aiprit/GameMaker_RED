@@ -7,7 +7,8 @@ import structures.data.actions.params.StringParam;
 public class GetMouseState extends DataAction {
 
 	public GetMouseState(){
-		init(new CheckboxParam("MouseBoolean"), new StringParam("MouseState"));
+		init(new CheckboxParam("MouseBoolean"),
+				new StringParam("MouseState"));
 	}
 	
 	@Override

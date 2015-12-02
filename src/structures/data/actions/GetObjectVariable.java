@@ -6,7 +6,9 @@ import structures.data.actions.params.StringParam;
 public class GetObjectVariable extends DataAction {
 	
 	public GetObjectVariable(){
-		init(new StringParam("VariableKey"), new StringParam("VariableOperation"), new DoubleParam("VariableValueCheck"));
+		init(new StringParam("VariableKey"),
+				new StringParam("VariableOperation"),
+				new DoubleParam("VariableValueCheck"));
 	}
 
 	@Override
