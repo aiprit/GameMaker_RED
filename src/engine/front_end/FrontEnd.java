@@ -148,11 +148,9 @@ public class FrontEnd implements IGameUpdatedHandler {
 	}
 	
 	public void makeObjectInformationBar(IParameters parameterObject) {
-	    if (myEventManager.isPaused()) {
-	        myObjectInformationView = new ObjectInformationView(parameterObject);
-	        myObjectInformationView.setPrefWidth(300);
-	        borderPane.setLeft(myObjectInformationView);
-	    }
+	    myObjectInformationView = new ObjectInformationView(parameterObject);
+	    myObjectInformationView.setPrefWidth(300);
+	    borderPane.setLeft(myObjectInformationView);
 	    stage.setWidth(1000);
 	}
 
