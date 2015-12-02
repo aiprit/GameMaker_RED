@@ -1,8 +1,8 @@
 package structures.run;
 
-import java.awt.image.BufferedImage;
 import engine.front_end.IDraw;
 import exceptions.CompileTimeException;
+import javafx.scene.image.Image;
 import structures.data.DataSprite;
 
 public class RunSprite implements IDrawable {
@@ -12,7 +12,7 @@ public class RunSprite implements IDrawable {
 	public double centerX;
 	public double centerY;
 	
-	private BufferedImage myImage;
+	private Image myImage;
 	private DataSprite myDataSprite;
 	
 	public RunSprite(String name) {
