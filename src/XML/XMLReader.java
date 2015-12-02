@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +40,9 @@ public class XMLReader {
             game.setCurrentRoom(Integer.parseInt(root.getAttribute("currentRoom")));
             game.setStartRoom(Integer.parseInt(root.getAttribute("startRoom")));
 
+
+            NodeList sounds = doc.getElementsByTagName("sound");
+            loadSounds(sounds);
 
             NodeList sprites = doc.getElementsByTagName("sprite");
             loadSprites(sprites);
@@ -86,6 +90,21 @@ public class XMLReader {
                 sp.setCenterY(Double.parseDouble(elem.getAttribute("centerY")));
 
                 game.addSprite(sp);
+            }
+        }
+    }
+
+    private void loadSounds(NodeList sounds){
+        for (int i = 0; i < sounds.getLength(); i++) {
+
+            Node sound = sounds.item(i);
+
+            if (sound.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) sound;
+
+                DataSound sd = new DataSound(elem.getAttribute("name"), elem.getAttribute("baseFileName"));
+                game.addSound(sd);
             }
         }
     }
