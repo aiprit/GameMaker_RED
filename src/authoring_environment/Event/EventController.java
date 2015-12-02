@@ -147,6 +147,22 @@ public class EventController {
 
 				});
 
+				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent click) {
+						if (click.getClickCount() == 2) {
+							//Use ListView's getSelected Item
+							IAction selected = cell.getItem();
+							List<IParameter> params = selected.getParameters();
+							if(params.size()>0){
+								ParamController paramcontrol = new ParamController(selected,myModel.getActions());
+								paramcontrol.showAndWait();
+							}
+							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
+							cell.getListView().getItems().setAll(itemscopy);
+						}
+					}
+				});
 				cell.setOnDragDone(DragEvent::consume);
 				return cell;
 			}
@@ -160,19 +176,6 @@ public class EventController {
 				String player = dragEvent.getDragboard().getString();
 				addAction(player,-1);
 				dragEvent.setDropCompleted(true);
-			}
-		});
-		myView.getRightPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent click) {
-				if (click.getClickCount() == 2) {
-					//Use ListView's getSelected Item
-					IAction selected = myView.getRightPane().getListView().getSelectionModel().getSelectedItem();
-					List<IParameter> params = selected.getParameters();
-					if(params.size()>0){
-						ParamController paramcontrol = new ParamController(selected,myModel.getActions());
-					}
-				}
 			}
 		});
 		myView.getRightPane().getListView().setOnDragOver(new EventHandler<DragEvent>(){
@@ -245,6 +248,7 @@ public class EventController {
 				List<IParameter> params = act.getParameters();
 				if(params.size()>0){
 					ParamController paramcontrol = new ParamController(act,myModel.getActions());
+					paramcontrol.showAndWait();
 				}
 				else{
 					myModel.addAction(act,index);

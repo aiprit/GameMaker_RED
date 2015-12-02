@@ -1,34 +1,33 @@
 package authoring_environment.room.view;
 
-import structures.data.DataView;
-
+import structures.data.IDataView;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
 public class ViewController {
-	private DataView model;
+	private IDataView model;
 	private DraggableView view;
+	private final boolean VIEW_BOOL = true;
+	private final double ANGLE = 0;
+	private final double SCALE_X = 1;
+	private final double SCALE_Y = 1;
 	
-	public ViewController(DataView dataView) {
+	public ViewController(IDataView dataView) {
 		model = dataView;
 		DoubleProperty x = new SimpleDoubleProperty();
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
-		//TODO fix hardcoded values
-		view = new DraggableView(x, y, 0, true, 1, 1);
+		view = new DraggableView(x, y, ANGLE, VIEW_BOOL , SCALE_X, SCALE_Y);
 		addListeners(x, y);
 	}
 	
 	public DraggableView getDraggableView() {
 		return view;
 	}
-	
-	public DataView getDataView() {
-		return model;
-	}
+
 	
 	private void addListeners(DoubleProperty x, DoubleProperty y) {
 		DoubleProperty width = new SimpleDoubleProperty();
