@@ -20,6 +20,7 @@ import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
 import structures.data.actions.SetObjectVariable;
+import structures.data.actions.SetTimerOnce;
 import structures.data.actions.library.AdjustScrollerX;
 import structures.data.actions.library.Close;
 import structures.data.actions.library.CreateObjectOnClick;
@@ -96,6 +97,23 @@ public class TestGameObject {
 
 		DataObject player = new DataObject("Player");
 		player.setSolid(true);
+		
+		SetTimerOnce sto = new SetTimerOnce();
+		Open open4 = new Open();
+		Destroy destroyPlayer = new Destroy();
+		Close close4 = new Close();
+		try{
+			sto.getParameters().get(0).parse("1000");
+		} catch (ParameterParseException e1) {
+			e1.printStackTrace();
+		}
+		List<IAction> timerActions = new ArrayList<>();
+		timerActions.add(sto);
+		timerActions.add(open4);
+		timerActions.add(destroyPlayer);
+		timerActions.add(close4);
+		ObservableList<IAction> timerActions0 = FXCollections.observableList(timerActions);
+		player.bindEvent(new KeyPressedEvent(KeyCode.E), timerActions0);
 
 		MoveToRandom mtr = new MoveToRandom();
 		DisplayMessage display = new DisplayMessage();
@@ -115,7 +133,7 @@ public class TestGameObject {
 		ObservableList<IAction> destroyActions0 = FXCollections.observableList(coinDestroyActions);
 		List<IAction> displayActions = Collections.singletonList(display);
 		ObservableList<IAction> displayActions0 = FXCollections.observableList(displayActions);
-		coin.bindEvent(new CollisionEvent(player), responseActions0);
+//		coin.bindEvent(new CollisionEvent(player), responseActions0);
 		coin.bindEvent(new ObjectMousePressedEvent("Left"), destroyActions0);
 		coin.bindEvent(new KeyPressedEvent(KeyCode.D), displayActions0);
 
@@ -344,7 +362,7 @@ public class TestGameObject {
 		level1.setBackgroundColor("TestGame/background.png");
 		DataInstance playerInstance = new DataInstance(player, 240, 40, 0, .5, .5);
 		playerInstance.setGravity(new Vector(0, 2));
-		playerInstance.setFriction(4);
+		playerInstance.setFriction(.5);
 		level1.addObjectInstance(playerInstance);
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
 		//level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
