@@ -114,7 +114,7 @@ public class RoomCanvas extends Canvas {
 	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
-
+	//TODO fix transparency
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
@@ -124,6 +124,7 @@ public class RoomCanvas extends Canvas {
 				continue;
 			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
+			this.getGraphicsContext2D().setGlobal
 		}
 		drawView();
 	}
