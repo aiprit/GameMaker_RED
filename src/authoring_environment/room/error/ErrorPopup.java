@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public class ErrorPopup extends PopupTemplate {
-	private static final int INSETS_SPACING = 10;
 	private static final int LINE_SPACING = 5;
 	private static final String OKAY = "Okay";
 	
