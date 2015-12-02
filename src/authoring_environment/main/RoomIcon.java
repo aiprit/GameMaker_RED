@@ -45,6 +45,10 @@ public class RoomIcon extends VBox {
 		myDeleteButton = new Button(myResourceBundle.getString("Delete"));
 		super.getChildren().addAll(myIcon, myButton, myDeleteButton);
 	}
+	
+	public Button getDeleteButton() {
+		return myDeleteButton;
+	}
 
 	private void configureVBox() {
 		super.setSpacing(BOX_SPACING);

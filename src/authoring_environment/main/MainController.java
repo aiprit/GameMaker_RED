@@ -103,7 +103,7 @@ public class MainController implements IUpdateHandle {
 			DataRoom o = dataGame.getRooms().get(i);
 			boolean startRoom = dataGame.getStartRoomIndex() == i;
 			int roomIndex = i;
-			roomListView.addRoom(o, i, startRoom).setOnAction(new EventHandler<ActionEvent>() {
+			roomListView.addRoom(o, dataGame, i, startRoom, e -> update()).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					RoomNamePopupController room = new RoomNamePopupController(o, roomIndex, dataGame);
