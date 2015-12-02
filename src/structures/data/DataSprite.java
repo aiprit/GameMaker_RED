@@ -10,13 +10,15 @@ import javax.imageio.ImageIO;
 import exceptions.ResourceFailedException;
 import groovy.util.ResourceException;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import structures.IResource;
 
 public class DataSprite implements IResource {
 	
 	private String myBaseFileName;
     private String myName;
-    private BufferedImage myImage;
+    private WritableImage myImage;
     private double myCenterX, myCenterY;
     private boolean myHaveLoaded;
 
@@ -29,7 +31,7 @@ public class DataSprite implements IResource {
         
     }
 	
-	public BufferedImage getImage() {
+	public Image getImage() {
 		return myImage;
 	}
 
@@ -72,7 +74,18 @@ public class DataSprite implements IResource {
         String url = directory + myBaseFileName;
         try {
            // myImage = new Image(new FileInputStream(url));
-            myImage = getImageFromFile(url);
+            BufferedImage img = getImageFromFile(url);
+            WritableImage wr = null;
+            if (img != null) {
+                wr = new WritableImage(img.getWidth(), img.getHeight());
+                PixelWriter pw = wr.getPixelWriter();
+                for (int x = 0; x < img.getWidth(); x++) {
+                    for (int y = 0; y < img.getHeight(); y++) {
+                        pw.setArgb(x, y, img.getRGB(x, y));
+                    }
+                }
+            }
+            myImage = wr;
         } catch (Exception ex) {
             String message = "Failed to load image '%s' for DataSprite '%s'";
             throw new ResourceFailedException(message, url, myName);
