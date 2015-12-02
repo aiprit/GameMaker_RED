@@ -1,8 +1,12 @@
 package engine.front_end;
 
+import java.awt.image.BufferedImage;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -25,7 +29,7 @@ public class Draw extends StackPane implements IDraw {
 	}
 
 	@Override
-	public void drawImage(	Image image, RunView view, double x, double y,
+	public void drawImage(	BufferedImage image, RunView view, double x, double y,
 			double centerX, double centerY,
 			double scaleX, double scaleY, double angle) {
 
@@ -35,7 +39,17 @@ public class Draw extends StackPane implements IDraw {
 		myGraphicsContext.translate(x - disp.x(), y - disp.y());
 		myGraphicsContext.rotate(-1 * angle);
 		myGraphicsContext.scale(scaleX, scaleY);
-		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
+		WritableImage wr = null;
+        if (image != null) {
+            wr = new WritableImage(image.getWidth(), image.getHeight());
+            PixelWriter pw = wr.getPixelWriter();
+            for (int i = 0; i < image.getWidth(); i++) {
+                for (int j = 0; j < image.getHeight(); j++) {
+                    pw.setArgb(i, j, image.getRGB(i, j));
+                }
+            }
+        }
+		myGraphicsContext.drawImage(wr, -1 * centerX, -1 * centerY);
 		myGraphicsContext.restore();
 
 	}

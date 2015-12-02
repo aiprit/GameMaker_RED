@@ -3,6 +3,7 @@
  */
 package authoring_environment.main;
 
+import java.io.File;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -51,6 +52,12 @@ public class WelcomeWizardView {
 		} else if (result.get() == newGameBtn) {
 			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
+			File images = new File(name + "/images/");
+			File sounds = new File(name + "/sounds/");
+			File XML = new File(name + "/XML/");
+			images.mkdirs();
+			sounds.mkdirs();
+			XML.mkdirs();
 			dataGame = new DataGame(name, name+"/");
 			} catch(Exception e){
 				showAndWait();

@@ -140,7 +140,7 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SpriteMaker.load(myStage, dataGame.getSprites());
+				SpriteMaker.load(myStage, dataGame);
 				update();
 
 			}

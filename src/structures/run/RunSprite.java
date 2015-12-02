@@ -3,6 +3,8 @@ package structures.run;
 import java.awt.image.BufferedImage;
 import engine.front_end.IDraw;
 import exceptions.CompileTimeException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import structures.data.DataSprite;
 
 public class RunSprite implements IDrawable {
@@ -12,7 +14,7 @@ public class RunSprite implements IDrawable {
 	public double centerX;
 	public double centerY;
 	
-	private BufferedImage myImage;
+	private Image myImage;
 	private DataSprite myDataSprite;
 	
 	public RunSprite(String name) {
@@ -35,7 +37,8 @@ public class RunSprite implements IDrawable {
 
 	@Override
 	public void draw(IDraw drawListener, RunView view, RunObject object) {
-		drawListener.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
+		BufferedImage img = SwingFXUtils.fromFXImage(myImage, null);
+		drawListener.drawImage(img, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
 	}
 	
 	public double getWidth() {

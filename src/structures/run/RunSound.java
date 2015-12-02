@@ -1,5 +1,7 @@
 package structures.run;
 
+import javax.sound.sampled.AudioInputStream;
+
 import exceptions.CompileTimeException;
 import structures.data.DataSound;
 import sun.audio.AudioPlayer;
@@ -9,7 +11,7 @@ public class RunSound {
 	
 	public final String name;
 	
-    private AudioStream myAudioStream;
+    private AudioInputStream myAudioStream;
     private DataSound myDataSound;
     
     public RunSound(String name) {
