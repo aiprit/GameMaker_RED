@@ -17,7 +17,8 @@ public class SetRandomNumberAndChoose extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("if random number between 0 and (%.2f) is (%s) (%.2f)", get("MaximumNumber"),  get("Operation"),  get("Odds"));
+		return String.format("if random number between 0 and (%.2f) is (%s) (%.2f)", get("MaximumNumber").getValue(),
+				get("Operation").getValue(),  get("Odds").getValue());
 	}
 
 	@Override

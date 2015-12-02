@@ -20,7 +20,7 @@ public class DrawRectangle extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("draw a %s rectangle", get("RectColor"));
+		return String.format("draw a %s rectangle", get("RectColor").getValue());
 	}
 
 	@Override

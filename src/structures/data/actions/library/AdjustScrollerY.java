@@ -16,7 +16,7 @@ public class AdjustScrollerY extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("adjust the screen so %.2f percent is above this object", get("YScrollingPercentage"));
+		return String.format("adjust the screen so %.2f percent is above this object", get("YScrollingPercentage").getValue());
 	}
 
 	@Override
