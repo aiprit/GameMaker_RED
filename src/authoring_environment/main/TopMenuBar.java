@@ -22,7 +22,7 @@ public class TopMenuBar {
 //		Menu e = new Menu(r.getString("EditView"));
 		load = new MenuItem(r.getString("Load"));
 		save = new MenuItem(r.getString("Save"));
-		Menu view = new Menu(r.getString("ViewSize"));
+		Menu view = new Menu(r.getString("View"));
 		viewSize = new MenuItem(r.getString("EditView"));
 		view.getItems().add(viewSize);
 		file.getItems().addAll(load,save,exit);

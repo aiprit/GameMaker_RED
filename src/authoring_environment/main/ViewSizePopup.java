@@ -21,6 +21,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewSizePopup extends Stage {
+	private static final double TEXT_SCALE = 1.7;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "css/";
+	private static final String STYLESHEET = "authoring.css";
 	private static final int HEIGHT_PADDING = 150;
 	private static final int WIDTH_PADDING = 50;
 	private static final int SMALL_SPACE = 10;
@@ -52,6 +55,7 @@ public class ViewSizePopup extends Stage {
 		initializeTextFields();
 		initializeButtons();
 		Scene s = new Scene(myContents);
+		s.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		super.setScene(s);
 	}
 	
@@ -65,6 +69,8 @@ public class ViewSizePopup extends Stage {
 		myViewPreview.setFill(Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2), 
 				Double.parseDouble(myResources.getString("ViewOpacity"))));
 		Label actualSize = new Label(myResources.getString("ActualSize"));
+		actualSize.setScaleX(TEXT_SCALE);
+		actualSize.setScaleY(TEXT_SCALE);
 		actualSize.setLabelFor(myViewPreview);
 		actualSize.setAlignment(Pos.CENTER);
 		pane.getChildren().addAll(myViewPreview, actualSize);
