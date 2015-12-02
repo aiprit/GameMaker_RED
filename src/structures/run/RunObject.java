@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import javafx.scene.image.Image;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.Vector;
@@ -316,9 +315,5 @@ public class RunObject implements IParameters {
 		return this.y;
 	}
 
-    @Override
-    public Image getImage () {
-        return mySprite.getImage();
-    }
 
 }
