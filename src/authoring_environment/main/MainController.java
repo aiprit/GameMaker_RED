@@ -48,7 +48,7 @@ public class MainController implements IUpdateHandle {
 		try{
 			update();
 		}catch(Exception e){
-			System.out.println("hey");
+			
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
