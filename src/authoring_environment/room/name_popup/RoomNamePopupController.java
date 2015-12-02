@@ -28,6 +28,7 @@ public class RoomNamePopupController {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		model = room;
 		view = new RoomNamePopup(myResources, model.getName());
+		view.getStartRoomButton().setSelected(game.getStartRoomIndex() == i);
 		myIndex = i;
 	}
 	
