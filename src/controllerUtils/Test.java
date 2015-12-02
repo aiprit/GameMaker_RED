@@ -63,6 +63,9 @@ public class Test {
 			        	while(eq.getNextEvent(event)) {
 			        		eventFactory.executeEvent(robot, event);
 			        	}
+			        	if(!stage.isShowing()){
+			        		this.cancel();
+			        	}
 			        }
 			    }, 0, 100);
 		

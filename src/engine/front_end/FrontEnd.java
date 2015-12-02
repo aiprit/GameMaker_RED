@@ -90,8 +90,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(e -> {
 			myEventManager.onSave();
-			//need this line to close the controller thread!
-			System.exit(0);
+			stage.close();
 		});
 		MenuItem pause = new MenuItem("Pause");
 		pause.setOnAction(e -> {
