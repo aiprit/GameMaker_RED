@@ -81,7 +81,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 		MenuItem reset = new MenuItem("Reset");
 		reset.setOnAction(e -> {
 			myEventManager.onReset();
-			myObjectInformationView.clear();
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(e -> {
@@ -111,7 +110,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
 		playButton.setOnMouseClicked(e -> {
 			myEventManager.onResume();
-			myObjectInformationView.clear();
 		});
 
 		Button pauseButton = new Button();            
@@ -124,7 +122,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
 		resetButton.setOnMouseClicked(e -> {
 			myEventManager.onReset();
-			myObjectInformationView.clear();
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
@@ -151,11 +148,10 @@ public class FrontEnd implements IGameUpdatedHandler {
 	}
 	
 	public void makeObjectInformationBar(IParameters parameterObject) {
-	    if (myEventManager.isPaused()) {
-	        myObjectInformationView = new ObjectInformationView(parameterObject);
-	        myObjectInformationView.setPrefWidth(250);
-	        borderPane.setLeft(myObjectInformationView);
-	    }
+	    myObjectInformationView = new ObjectInformationView(parameterObject);
+	    myObjectInformationView.setPrefWidth(300);
+	    borderPane.setLeft(myObjectInformationView);
+	    stage.setWidth(1000);
 	}
 
 	private void setupCanvas(){
@@ -178,8 +174,6 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-//		stage.setWidth(runRoom.getView().getView().width());
-//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override
