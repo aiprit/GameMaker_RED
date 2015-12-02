@@ -23,6 +23,7 @@ public class EventView {
 
 	private void init() {
 		myStage = new Stage();
+
 		myRoot = new Group();
 		myStage.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
