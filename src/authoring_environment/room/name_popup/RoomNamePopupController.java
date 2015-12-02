@@ -43,10 +43,7 @@ public class RoomNamePopupController {
 	}
 	
 	private void setNameAndLaunchEditor(DataRoom room, DataGame game, boolean addRoom, Consumer<Void> updateFcn) {
-		List<String> roomNames = game.getRooms().stream()
-				.map(r -> r.getName())
-				.collect(Collectors.toList());
-		if (!view.getRoomName().equals("") && !roomNames.contains(view.getRoomName())) {
+		if (!view.getRoomName().equals("") && !isDuplicateName(room, game)) {
 			model.setName(view.getRoomName());
 		} else {
 			String errorMessage = view.getRoomName().equals("") ? myResources.getString(NULL_ROOM_NAME_ERROR_MESSAGE) :
@@ -63,6 +60,13 @@ public class RoomNamePopupController {
 		updateFcn.accept(null);
 		roomController.getEditor().setOnClose(updateFcn);
 		roomController.launch();	
+	}
+	
+	private boolean isDuplicateName(DataRoom room, DataGame game) {
+		List<String> roomNames = game.getRooms().stream()
+				.map(r -> r.getName())
+				.collect(Collectors.toList());
+		return roomNames.contains(view.getRoomName()) && roomNames.indexOf(view.getRoomName()) != myIndex;
 	}
 	
 	private void setStartRoom(DataGame game) {
