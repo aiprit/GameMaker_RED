@@ -124,7 +124,7 @@ public class RoomCanvas extends Canvas {
 				continue;
 			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
-			this.getGraphicsContext2D().setGlobal
+			//this.getGraphicsContext2D().setGlobal
 		}
 		drawView();
 	}
