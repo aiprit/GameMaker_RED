@@ -143,8 +143,8 @@ public class EventController {
 								}
 								items.set(draggedIdx,act);
 							}
-//							items.set(draggedIdx, cell.getItem());
-//							items.set(thisIdx, act);
+							//							items.set(draggedIdx, cell.getItem());
+							//							items.set(thisIdx, act);
 
 
 							success = true;
