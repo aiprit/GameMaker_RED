@@ -49,11 +49,13 @@ public class ObjectEditorController {
 	public void initAll() {
 		view.getBottomPane().getCloseButton().setOnAction(e -> {
 			model.changeObjectName(view.getBottomPane().getNameBoxText());
+			model.setSolid(view.getBottomPane().getCheckBox().isSelected());
 			close(e);
 		});
 		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
 			view.getCenterPane().update(model.getSpriteName());
 		});
+		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
 		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>(){
