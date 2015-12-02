@@ -17,6 +17,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -32,43 +34,59 @@ public class SpriteMaker {
 		BufferedImage img;
 		
 		try {
-			
+			try{
 			img = ImageIO.read(selectedFile);
 			String name = askName();
 			File outputfile = new File(name + ".png");
 			
 		    ImageIO.write(img, "png", outputfile);
 		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
+
 		    try {
 				newSprite.load(r.getString("imagesFolder"));
 			} catch (ResourceFailedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//		    try {
-//				newSprite.load("images/");
-//			} catch (ResourceFailedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
+		  
 		    sprites.add(newSprite);
+			} catch(IllegalArgumentException e2){
+				
+			}
+			
+		   
+		    
 		    
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
 		}
 		
 	}
 	public static void show(DataSprite sprite){
 		BorderPane myPane = new BorderPane();
 		Stage s = new Stage();
-		Image img = sprite.getImage();
+		BufferedImage img = sprite.getImage();
+		WritableImage wr = null;
+        if (img != null) {
+            wr = new WritableImage(img.getWidth(), img.getHeight());
+            PixelWriter pw = wr.getPixelWriter();
+            for (int x = 0; x < img.getWidth(); x++) {
+                for (int y = 0; y < img.getHeight(); y++) {
+                    pw.setArgb(x, y, img.getRGB(x, y));
+                }
+            }
+        }
 		Canvas c = new Canvas(img.getWidth(), img.getHeight());
 		GraphicsContext centerGC = c.getGraphicsContext2D();
 	
 
-		
-		centerGC.drawImage(img, 0, 0); 
+
+		double xPos = img.getWidth()/2;
+		double yPos = img.getHeight()/2;
+		centerGC.drawImage(wr, 0, 0); 
+
 		myPane.setCenter(c);
 
 		s.setScene(new Scene(myPane));
