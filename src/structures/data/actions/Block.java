@@ -3,7 +3,7 @@ package structures.data.actions;
 import structures.data.actions.params.DoubleParam;
 
 public class Block extends DataAction {
-	
+
 	public Block() {
 		init(new DoubleParam("Slide factor"));
 	}
