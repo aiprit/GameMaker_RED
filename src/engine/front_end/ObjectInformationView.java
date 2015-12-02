@@ -10,10 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import structures.run.IParameters;
 
 public class ObjectInformationView extends VBox {
@@ -26,27 +26,26 @@ public class ObjectInformationView extends VBox {
     private Map<String, Double> myDoubleMap;
     private Map<String, Boolean> myBooleanMap;
     private IParameters myParameterObject;
+    private ImageView myImage;
 
     public ObjectInformationView(IParameters parameterObject) {
         myParameterObject = parameterObject;
         this.setWidth(500);
         this.setHeight(50);
-        Text scoreInfo = new Text("Object Name: ");
-        this.getChildren().add(scoreInfo);
         myGrid.setVgap(15);
         this.getChildren().add(myGrid);
+        setImage(parameterObject.getImage());
         populateStringParameters(myParameterObject.getStringMap());
         populateDoubleParameters(myParameterObject.getDoubleMap());
         populateBooleanParameters(myParameterObject.getBooleanMap());
         save();
     }
 
-    public void setImage(String path) {
-        final ImageView objectImage = new ImageView (path);
-        GridPane.setConstraints(objectImage, 0, index);
-        GridPane.setColumnSpan(objectImage, 3);
-        this.getChildren().add(objectImage);
-        index++;
+    private void setImage(Image image) {
+        myImage = new ImageView(image);
+        GridPane.setConstraints(myImage, 0, index++);
+        GridPane.setColumnSpan(myImage, 3);
+        this.getChildren().add(myImage);
     }
 
     private void populateBooleanParameters(Map<String, Boolean> parameters) {
@@ -59,10 +58,9 @@ public class ObjectInformationView extends VBox {
                 button.setText(String.valueOf(!bool));
             });
             GridPane.setConstraints(caption, 0, index);
-            GridPane.setConstraints(button, 1, index);
+            GridPane.setConstraints(button, 1, index++);
             buttons.put(caption, button);
             myGrid.getChildren().addAll(caption, button);
-            index++;
         }
     }
 
@@ -74,7 +72,7 @@ public class ObjectInformationView extends VBox {
             Label currentValue = new Label(String.format("%.0f", slider.getValue()*100) + "%");
             GridPane.setConstraints(caption, 0, index);
             GridPane.setConstraints(slider, 1, index);
-            GridPane.setConstraints(currentValue, 2, index);
+            GridPane.setConstraints(currentValue, 2, index++);
             slider.valueProperty().addListener(new ChangeListener<Number>() {
                 public void changed(ObservableValue<? extends Number> ov,
                                     Number old_val, Number new_val) {
@@ -84,7 +82,6 @@ public class ObjectInformationView extends VBox {
             });
             sliders.put(caption, slider);
             myGrid.getChildren().addAll(caption, slider, currentValue);
-            index++;
         }
     }
 
@@ -96,13 +93,12 @@ public class ObjectInformationView extends VBox {
             inputField.setPromptText(s);
             Label parameterName = new Label(s);
             myGrid.add(parameterName, 0, index);
-            myGrid.add(inputField, 1, index);
+            myGrid.add(inputField, 1, index++);
             textList.add(inputField);
-            index++;
         }
     }
     
-    private void updateMaps() {
+    private void pullNewMapValues() {
         for (TextField textField : textList) {
             myStringMap.put(textField.getPromptText(), textField.getText());
         }
@@ -118,10 +114,11 @@ public class ObjectInformationView extends VBox {
     private void save() {
         Button button = new Button ("Save");
         button.setOnMouseClicked(e -> {
-            updateMaps();
+            pullNewMapValues();
         });
-        GridPane.setConstraints(button, 1, index);
+        GridPane.setConstraints(button, 1, ++index);
         myGrid.getChildren().add(button);
+        index++;
     }
 
     public void clear() {
