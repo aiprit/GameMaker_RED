@@ -17,7 +17,7 @@ public class GetRoomId extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("checks if the room id is %s %.2f", get("IdOperation"), get("IdCheck"));
+		return String.format("checks if the room id is %s %.2f", get("IdOperation").getValue(), get("IdCheck").getValue());
 	}
 
 	@Override

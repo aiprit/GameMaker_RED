@@ -16,7 +16,7 @@ public class PlaySound extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("plays %s", get("Sound"));
+		return String.format("plays %s", get("Sound").getValue());
 	}
 
 	@Override

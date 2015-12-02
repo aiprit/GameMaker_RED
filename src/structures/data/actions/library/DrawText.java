@@ -17,7 +17,8 @@ public class DrawText extends DataAction{
 
 	@Override
 	public String getDescription() {
-		return String.format("draws %s on the screen", get("DrawText"), get("XText"), get("YText"), get("FontSize"));
+		return String.format("draws %s on the screen", get("DrawText").getValue(), get("XText").getValue(),
+				get("YText").getValue(), get("FontSize").getValue());
 	}
 
 	@Override

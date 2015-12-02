@@ -12,8 +12,8 @@ import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.IAction;
 import structures.data.events.IDataEvent;
 
-
-public class DataGame extends Observable implements IObjectInterface {
+//TODO check if IObjectInterface is being used
+public class DataGame extends Observable implements IObjectInterface, IDataGame {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";

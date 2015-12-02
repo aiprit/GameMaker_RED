@@ -3,8 +3,10 @@
  */
 package authoring_environment.main;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import Player.Launcher;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -39,7 +41,7 @@ public class WelcomeWizardView {
 
 		ButtonType openGameBtn = new ButtonType("Open Game");
 		ButtonType newGameBtn = new ButtonType("New Game");
-		ButtonType buttonTypeCancel = new ButtonType("Close", ButtonData.CANCEL_CLOSE);
+		ButtonType buttonTypeCancel = new ButtonType("Close");
 
 		alert.getButtonTypes().setAll(openGameBtn, newGameBtn, buttonTypeCancel);
 
@@ -47,11 +49,17 @@ public class WelcomeWizardView {
 		if (result.get() == openGameBtn){
 			dataGame = GameSelector.getGameChoice();
 		} else if (result.get() == newGameBtn) {
+			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
 			dataGame = new DataGame(name, name+"/");
+			} catch(Exception e){
+				showAndWait();
+			}
+			
 		} else {
 			myStage.close();
-			return new DataGame("", "");
+			Launcher main = new Launcher();
+			main.start(new Stage());
 		}
 		
 		return dataGame;

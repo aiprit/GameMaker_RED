@@ -15,7 +15,7 @@ public class SetFriction extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Set friction to (%.2f)", get("Friction"));
+		return String.format("Set friction to (%.2f)", get("Friction").getValue());
 	}
 
 	@Override

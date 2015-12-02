@@ -1,24 +1,16 @@
 package authoring_environment.room;
 
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
 import authoring_environment.room.preview.RoomPreview;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import structures.data.DataObject;
 
 public class RoomEditor {
 	private static final String ROOM_EDITOR_TITLE = "RoomEditorTitle";

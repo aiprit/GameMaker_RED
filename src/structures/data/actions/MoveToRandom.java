@@ -16,7 +16,8 @@ public class MoveToRandom extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Move to random coordinate between (0, 0) and (%.2f, %.2f)", get("X"), get("Y"), get("Relative?"));
+		return String.format("Move to random coordinate between (0, 0) and (%.2f, %.2f)", get("X").getValue()
+				, get("Y").getValue(), get("Relative?").getValue());
 	}
 
 	@Override

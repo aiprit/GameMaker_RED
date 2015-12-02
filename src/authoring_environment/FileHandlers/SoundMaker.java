@@ -4,8 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.junit.runners.model.TestClass;
 
@@ -18,31 +22,37 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 
 public class SoundMaker {
+	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	public static void load(Stage s, ObservableList<DataSound> sounds){
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		
 		File selectedFile = fileChooser.showOpenDialog(s);
-		
-		
+	
+
 		try {
-			//AudioClip plonkSound = new AudioClip(TestClass.class.getResource("test.mp3").toString());
-			BufferedImage soundDummy = ImageIO.read(selectedFile);
-			String name = askName();
-		//	File outputfile = new File(name);
-			//ImageIO.write(soundDummy, name, selectedFile);
-		//    DataSound newSprite = new DataSound(name, selectedFile.getName());
-		 //   sounds.add(newSprite);
-		    File outputfile = new File("images/" + name + ".png");
+		
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
+		  	AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 			
-		    ImageIO.write(soundDummy, "png", outputfile);
-		    DataSound newSprite = new DataSound(name, selectedFile.getName());
-		    sounds.add(newSprite);
-		    
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			String name = askName();
+			
+			File outputfile = new File(r.getString("soundsFolder") + name + ".wav");
+			
+			if (AudioSystem.isFileTypeSupported(fileType.getType(), 
+			    audioInputStream)) {
+				
+			  AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
+			}
+			DataSound sound = new DataSound(name, outputfile.getName());
+			sounds.add(sound);
+
+		} catch (Exception e) {
+//		  // Handle the error...
+		
 		}
+		
+		
 		
 	}
 	
