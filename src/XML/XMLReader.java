@@ -4,10 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import structures.data.DataGame;
-import structures.data.DataObject;
-import structures.data.DataSound;
-import structures.data.DataSprite;
+import structures.data.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,6 +47,9 @@ public class XMLReader {
             NodeList objects = doc.getElementsByTagName("object");
             loadObjects(objects);
 
+            NodeList rooms = doc.getElementsByTagName("room");
+            loadRooms(rooms);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,8 @@ public class XMLReader {
 
                 Element elem = (Element) sprite;
 
-                DataSprite sp = new DataSprite(elem.getAttribute("name"), elem.getAttribute("baseFileName"));
+                DataSprite sp = new DataSprite(elem.getAttribute("name"),
+                        elem.getAttribute("baseFileName"));
                 sp.setCenterX(Double.parseDouble(elem.getAttribute("centerX")));
                 sp.setCenterY(Double.parseDouble(elem.getAttribute("centerY")));
 
@@ -103,8 +104,63 @@ public class XMLReader {
 
                 Element elem = (Element) sound;
 
-                DataSound sd = new DataSound(elem.getAttribute("name"), elem.getAttribute("baseFileName"));
+                DataSound sd = new DataSound(elem.getAttribute("name"),
+                        elem.getAttribute("baseFileName"));
                 game.addSound(sd);
+            }
+        }
+    }
+
+    private void loadRooms(NodeList rooms) {
+        for (int i = 0; i < rooms.getLength(); i++) {
+
+            Node room = rooms.item(i);
+
+            if (room.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) room;
+
+                DataRoom rm = new DataRoom(elem.getAttribute("name"),
+                        Double.parseDouble(elem.getAttribute("width")),
+                        Double.parseDouble(elem.getAttribute("width")));
+
+                rm.setBackgroundColor(elem.getAttribute("backgroundColor"));
+
+                Element view = (Element) elem.getElementsByTagName("view").item(0);
+
+                DataView vw = new DataView(view.getAttribute("name"),
+                        Double.parseDouble(view.getAttribute("x")),
+                        Double.parseDouble(view.getAttribute("y")),
+                        Double.parseDouble(view.getAttribute("width")),
+                        Double.parseDouble(view.getAttribute("height")));
+                rm.setView(vw);
+
+                NodeList objectInstances = elem.getElementsByTagName("objectInstance");
+
+                loadObjectInstances(rm, objectInstances);
+
+                game.addRoom(rm);
+            }
+        }
+    }
+
+    private void loadObjectInstances(DataRoom rm, NodeList objectInstances) {
+        for (int i = 0; i < objectInstances.getLength(); i++) {
+
+            Node instance = objectInstances.item(i);
+
+            if (instance.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) instance;
+                
+                DataInstance di = new DataInstance(game.getObjectFromString(elem.getAttribute("parentObjcet")),
+                        Double.parseDouble(elem.getAttribute("x")),
+                        Double.parseDouble(elem.getAttribute("y")),
+                        Long.parseLong(elem.getAttribute("ID")),
+                        Double.parseDouble(elem.getAttribute("scaleX")),
+                        Double.parseDouble(elem.getAttribute("scaleY")));
+
+                rm.addObjectInstance(di);
             }
         }
     }

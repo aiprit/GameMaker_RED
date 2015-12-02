@@ -115,6 +115,15 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         return null;
     }
 
+    public DataObject getObjectFromString(String objectName){
+        for(DataObject o : myObjects){
+            if(o.getName().equals(objectName)){
+                return o;
+            }
+        }
+        return null;
+    }
+
     public int getStartRoomIndex() {
         return myStartRoom;
     }
