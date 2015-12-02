@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public abstract class PopupTemplate extends Stage {
 	private static final int VBOX_TOP_PADDING = 30;
 	private static final int VBOX_BOTTOM_PADDING = (int)(VBOX_TOP_PADDING * 0.65);
-	private static final String POPUP_WIDTH = "PopupWidth";
+	protected static final String POPUP_WIDTH = "PopupWidth";
 	private static final String SAVE = "SaveTitle";
 	private static final double BUTTON_SPACING = 15;
 	private static final double CONTENT_SPACING = 20;
@@ -72,5 +72,9 @@ public abstract class PopupTemplate extends Stage {
 		myButtonsBox.setAlignment(Pos.CENTER);
 		myButtonsBox.setSpacing(BUTTON_SPACING);
 		myButtonsBox.getChildren().add(mySaveButton);
+	}
+	
+	public ResourceBundle getResources() {
+		return myResources;
 	}
 }

@@ -1,17 +1,16 @@
 package engine;
 
 import engine.events.EventManager;
-import engine.events.IGameUpdatedHandler;
 import engine.events.IGUIBackendHandler;
-import engine.events.IInputHandler;
+import engine.events.IGameUpdatedHandler;
 import engine.events.IObjectModifiedHandler;
 import engine.front_end.IDraw;
 import engine.loop.RoomLoop;
 import engine.loop.groovy.GroovyEngine;
-import exceptions.CompileTimeException;
-import structures.data.DataGame;
 import structures.run.RunGame;
+import structures.run.RunObject;
 import structures.run.RunRoom;
+import utils.Point;
 
 /**
  * Runs a game when given a RunGame. Does all the logic, 
@@ -45,6 +44,15 @@ public class Engine implements IGameUpdatedHandler {
 		myEventManager.clearObjectModifiedInterface();
 		myEventManager.addObjectModifiedInterface(myObjectHandler);
 		myLevel.start();
+	}
+	
+	public RunObject getObjectClicked(Point p) {
+	    for (RunObject obj : myGame.getCurrentRoom().getObjects()) {
+	        if (obj.getBounds().contains(p)) {
+	            return obj;
+	        }
+	    }
+	    return null;
 	}
 
 	public IGUIBackendHandler getGUIBackendHandler(){

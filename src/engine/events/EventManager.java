@@ -1,11 +1,7 @@
 package engine.events;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.run.RunObject;
@@ -23,6 +19,7 @@ import utils.Point;
 public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
 IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 
+        private boolean isPaused = false;
 	private List<IGUIBackendHandler> myGUIBackend;
 	private List<IGUIControllerHandler> myGUIController;
 	private List<IInputHandler> myUserInput;
@@ -62,24 +59,28 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 	}
 
 	public void onResume(){
+	    isPaused = false;
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onResume();
 		}
 	}
  
 	public void onPause(){
+	    isPaused = true;
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onPause();
 		}
 	}
 	
 	public void onReset(){
+	    isPaused = false;
 		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
 		}
 	}
 
 	public void onLoadSave(String path){
+	    isPaused = false;
 		for(IGUIControllerHandler g : myGUIController){
 			g.onLoadSave(path);
 		}
@@ -145,6 +146,10 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
+	}
+	
+	public boolean isPaused() {
+	    return isPaused;
 	}
 
 }

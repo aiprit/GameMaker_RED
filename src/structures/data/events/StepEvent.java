@@ -8,5 +8,4 @@ public class StepEvent extends AbstractBasicEvent {
     public String getName() {
         return "StepEvent";
     }
-    
 }
