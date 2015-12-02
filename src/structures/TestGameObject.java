@@ -38,6 +38,9 @@ public class TestGameObject {
 		System.out.println(printGame.toString());
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(printGame, "test.xml");
+
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
 	}
 
 	/*
@@ -48,23 +51,10 @@ public class TestGameObject {
 	public DataGame getTestGame(String directory) {
 		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
 
-//		DataObject text = new DataObject("GameTitle");
-//		DrawText dt = new DrawText();
-//		try{
-//			dt.getParameters().get(0).parse("Mario");
-//		} catch(ParameterParseException e1) {
-//			e1.printStackTrace();
-//		}
-//		List<IAction> textActions = Collections.singletonList(dt);
-//		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
-//		text.bindEvent(new StepEvent(), textActionsO);
-
 		DataObject coin = new DataObject("Coin");
 
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 		coin.setSprite(coinSprite);
-
-
 
 		DataObject player = new DataObject("Player");
 

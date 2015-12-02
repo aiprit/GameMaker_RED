@@ -23,7 +23,6 @@ public class XMLWriter {
 
     public void write(DataGame game, String fileName) {
         try {
-
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
