@@ -3,6 +3,7 @@ package structures.data;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -73,6 +74,7 @@ public class DataSprite implements IResource {
     @Override
     public void load(String directory) throws ResourceFailedException {
         String url = directory + myBaseFileName;
+        System.out.println("URL: " + url);
         try {
            // myImage = new Image(new FileInputStream(url));
             BufferedImage img = getImageFromFile(url);
