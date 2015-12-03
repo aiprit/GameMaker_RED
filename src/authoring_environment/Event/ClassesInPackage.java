@@ -37,7 +37,7 @@ public class ClassesInPackage {
 				String name = c.getName().substring(pckgname.length()+1);
 				String nameToAdd = "";
 				for(int i=0;i<name.length();i++){
-					if(Character.isUpperCase(name.charAt(i))){
+					if(Character.isUpperCase(name.charAt(i))&& i!=0){
 						nameToAdd += " ";
 					}
 					nameToAdd += name.charAt(i);

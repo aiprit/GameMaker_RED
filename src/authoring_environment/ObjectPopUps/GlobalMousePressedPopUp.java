@@ -13,7 +13,6 @@ public class GlobalMousePressedPopUp extends MousePopUp{
 		super(obj);
 		init();
 
-		// TODO Auto-generated constructor stub
 	}
 
 
