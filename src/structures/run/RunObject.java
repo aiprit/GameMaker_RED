@@ -135,10 +135,8 @@ public class RunObject implements IParameters {
 	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
 	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
 	    solid = myBooleanMap.get(SOLID);
-	    velocity.x = (myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2;
-	    velocity.y = (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2;
-	    gravity.x = (myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2;
-	    gravity.y = (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2;
+	    velocity = new Vector((myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2, (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2);
+	    gravity = new Vector((myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2, (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2);
 	    initMaps();
 	}
 
