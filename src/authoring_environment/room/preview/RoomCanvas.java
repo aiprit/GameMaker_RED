@@ -134,7 +134,6 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
 	
-	//TODO make sure transparency works
 	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY, double alpha) {
 		this.getGraphicsContext2D().save();
 		rotate(angle, tlx + image.getWidth()*scaleX / 2, tly + image.getHeight()*scaleY / 2);
