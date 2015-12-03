@@ -6,7 +6,7 @@ public class With extends DataAction{
 
 	public With(){
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "With";
@@ -15,7 +15,7 @@ public class With extends DataAction{
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "With";
 	}
 
 	@Override

@@ -5,9 +5,9 @@ import structures.data.DataAction;
 public class WithClose extends DataAction {
 
 	public WithClose(){
-		
+
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "WithClose";
@@ -16,7 +16,7 @@ public class WithClose extends DataAction {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "With Close";
 	}
 
 	@Override

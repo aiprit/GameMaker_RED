@@ -5,9 +5,9 @@ import structures.data.DataAction;
 public class WithOpen extends DataAction {
 
 	public WithOpen(){
-		
+
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "WithOpen";
@@ -16,7 +16,7 @@ public class WithOpen extends DataAction {
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "With Open";
 	}
 
 	@Override
