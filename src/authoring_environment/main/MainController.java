@@ -3,16 +3,15 @@ package authoring_environment.main;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import XML.XMLEditor;
 import XML.XMLReader;
 import authoring_environment.FileHandlers.FileHelper;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
-import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -179,7 +178,8 @@ public class MainController implements IUpdateHandle {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
 				String name = FileHelper.askName();
-				dataGame = XMLReader.read(name);
+				XMLEditor xml = new XMLEditor();
+				dataGame = xml.readXML(name);
 				update();
 			}
 		});

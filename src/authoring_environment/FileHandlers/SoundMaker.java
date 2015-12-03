@@ -1,32 +1,17 @@
 package authoring_environment.FileHandlers;
 
-
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import org.junit.runners.model.TestClass;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextInputDialog;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.data.DataSound;
-
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import java.io.File;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class SoundMaker {
 	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
