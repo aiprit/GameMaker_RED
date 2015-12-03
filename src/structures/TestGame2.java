@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
-import structures.data.actions.Block;
 import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
@@ -68,7 +67,6 @@ public class TestGame2 {
         MoveTo origin = new MoveTo();
         MoveTo up = new MoveTo();
         MoveTo down = new MoveTo();
-        Block block = new Block();
         RunScript step = new RunScript();
         SetVelocityInDirection jump = new SetVelocityInDirection();
 
@@ -109,8 +107,6 @@ public class TestGame2 {
 	        origin.getParameters().get(1).parse("20");
 	        origin.getParameters().get(2).parse("false");
 
-	        block.getParameters().get(0).parse("0.0");
-
 	        step.getParameters().get(0).parse(stepScript);
 
         } catch (ParameterParseException ex) {
@@ -127,8 +123,7 @@ public class TestGame2 {
         ObservableList<IAction> downActionsO = FXCollections.observableList(downActions);
         List<IAction> originActions = Collections.singletonList(origin);
         ObservableList<IAction> originActionsO = FXCollections.observableList(originActions);
-        List<IAction> blockActions = Collections.singletonList(block);
-        ObservableList<IAction> blockActions0 = FXCollections.observableList(blockActions);
+       
         List<IAction> stepActions = Collections.singletonList(step);
         ObservableList<IAction> stepActions0 = FXCollections.observableList(stepActions);
         List<IAction> jumpActions = Collections.singletonList(jump);
