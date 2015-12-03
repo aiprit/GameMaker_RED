@@ -53,5 +53,10 @@ public class DataView implements IDataView {
     public double getHeight(){
         return myView.height();
     }
+    
+    @Override
+    public String toString() {
+    	return getName();
+    }
 
 }

@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import structures.data.DataAction;
 import structures.data.actions.Block;
 import structures.data.actions.ChangeSprite;
+import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
@@ -17,6 +18,7 @@ import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.actions.SetVelocityToPoint;
 import structures.data.actions.Sleep;
+import structures.data.actions.ViewFollow;
 import structures.data.actions.library.*;
 import structures.data.interfaces.IAction;
 
@@ -31,25 +33,16 @@ public class ActionFactory {
         DataAction action;
 
         if (className.equals("AdjustScroller")) {
-            action = new AdjustScroller();
+            action = new ViewFollow();
             numberOfParameters = 2;
-        } else if (className.equals("AdjustScrollerX")) {
-            action = new AdjustScrollerX();
-            numberOfParameters = 1;
-        } else if (className.equals("AdjustScrollerY")) {
-            action = new AdjustScrollerY();
-            numberOfParameters = 1;
         } else if (className.equals("Close")) {
             action = new Close();
             numberOfParameters = 0;
-        } else if (className.equals("CreateObject")) {
-            action = new CreateObject();
+        } else if (className.equals("CreateInstance")) {
+            action = new CreateInstance();
             numberOfParameters = 3;
-        } else if (className.equals("CreateObjectLong")) {
-            action = new CreateObjectLong();
-            numberOfParameters = 6;
-        } else if (className.equals("CreateObjectOnClick")) {
-            action = new CreateObjectOnClick();
+        } else if (className.equals("CreateInstanceAtCursor")) {
+            action = new CreateInstanceAtCursor();
             numberOfParameters = 1;
         } else if (className.equals("CreateObjectRandom")) {
             action = new CreateObjectRandom();
@@ -69,20 +62,11 @@ public class ActionFactory {
         } else if (className.equals("Else")) {
             action = new Else();
             numberOfParameters = 0;
-        } else if (className.equals("GetGlobalVariable")) {
-            action = new GetGlobalVariable();
+        } else if (className.equals("IfGlobalVar")) {
+            action = new IfGlobalVar();
             numberOfParameters = 1;
-        } else if (className.equals("GetGlobalVariableConditional")) {
-            action = new GetGlobalVariableConditional();
-            numberOfParameters = 3;
         } else if (className.equals("GetHighScore")) {
             action = new GetHighScore();
-            numberOfParameters = 2;
-        } else if (className.equals("GetMouseState")) {
-            action = new GetMouseState();
-            numberOfParameters = 2;
-        } else if (className.equals("GetRoomId")) {
-            action = new GetRoomId();
             numberOfParameters = 2;
         } else if (className.equals("GoToRoom")) {
             action = new GoToRoom();
@@ -90,14 +74,11 @@ public class ActionFactory {
         } else if (className.equals("Open")) {
             action = new Open();
             numberOfParameters = 0;
-        } else if (className.equals("OpenWebpage")) {
-            action = new OpenWebpage();
-            numberOfParameters = 1;
         } else if (className.equals("PlaySound")) {
             action = new PlaySound();
             numberOfParameters = 1;
-        } else if (className.equals("RepeatBlock")) {
-            action = new RepeatBlock();
+        } else if (className.equals("Repeat")) {
+            action = new Repeat();
             numberOfParameters = 1;
         } else if (className.equals("SaveGame")) {
             action = new SaveGame();
@@ -108,18 +89,6 @@ public class ActionFactory {
         } else if (className.equals("SetHighScore")) {
             action = new SetHighScore();
             numberOfParameters = 1;
-        } else if (className.equals("SetRandomNumberAndChoose")) {
-            action = new SetRandomNumberAndChoose();
-            numberOfParameters = 3;
-        } else if (className.equals("With")) {
-            action = new With();
-            numberOfParameters = 0;
-        } else if (className.equals("WithClose")) {
-            action = new WithClose();
-            numberOfParameters = 0;
-        } else if (className.equals("WithOpen")) {
-            action = new WithOpen();
-            numberOfParameters = 0;
         } else if (className.equals("Wrap")) {
             action = new Wrap();
             numberOfParameters = 0;

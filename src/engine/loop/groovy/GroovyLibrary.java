@@ -42,7 +42,6 @@ public class GroovyLibrary {
 		try {
 			return myInputManager.checkKey(keyCode.toUpperCase());
 		} catch (LibraryArgumentException e) {
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -51,42 +50,41 @@ public class GroovyLibrary {
 		return !key_down(keyCode);
 	}
 	
+	public double mouse_x() {
+		return myInputManager.mouseX();
+	}
+	
+	public double mouse_y() {
+		return myInputManager.mouseY();
+	}
+	
+	public boolean mouse_primary() {
+		return myInputManager.mousePrimaryDown();
+	}
+	
+	public boolean mouse_secondary() {
+		return myInputManager.mouseSecondaryDown();
+	}
+	
 
 	public double random_number(double max){
 		Random rand = new Random();
 		return (max * rand.nextDouble());
 	}
 
-	public void create_object(String name, double x, double y){
+	public void create_instance(String objectName, double x, double y){
 		RunObject runObject = null;
 		try {
-			runObject = myRunGame.getCurrentRoom().instantiate(name, x, y);
+			runObject = myRunGame.getCurrentRoom().instantiate(objectName, x, y);
 		} catch (GameRuntimeException e) {
 			fatalError(e.getMessage());
 		}
-		runObject.x = x;
-		runObject.y = y;
-		myEventManager.onObjectCreate(runObject);
-	}
-	
-
-	public void create_object_long(String name, double x, double y, double speed,
-			double friction, boolean wraparound) {
-		RunObject runObject = null;
-		try {
-			runObject = myRunGame.getCurrentRoom().instantiate(name, x, y);
-		} catch (GameRuntimeException e) {
-			fatalError(e.getMessage());
-		}
-		runObject.x = x;
-		runObject.y = y;		
-		//runObject.set_speed(speed);
-		runObject.friction = friction;
-		runObject.wrap_around_room(wraparound);
+		runObject.x(x);
+		runObject.y(y);
 		myEventManager.onObjectCreate(runObject);
 	}
 
-	public void destroy(RunObject deleteThis){
+	public void destroy(RunObject deleteThis) {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
@@ -107,17 +105,12 @@ public class GroovyLibrary {
 		}
 	}
 
-	//	public void draw_rectangle(double x, double y, double width, double height, String color,
-	//			boolean border, double borderWidth){
-	//		
-	//	}
-
-	//	public void get_mouse_state(){
-	//		//use in GetMouseState to see if right or left etc.
-	//	}
-
 	public String get_room_id(){
 		return myRunGame.getCurrentRoom().toString();
+	}
+	
+	public String get_room_name() {
+		return myRunGame.getCurrentRoom().getName();
 	}
 
 	public double get_high_score(){
@@ -127,13 +120,6 @@ public class GroovyLibrary {
 	public void set_high_score(double score){
 		myRunGame.setHighScore(score);
 		myEventManager.setHighScore(score);
-	}
-
-	public double get_variable(String key){
-		if(!myGlobalVariables.containsKey(key)){
-			myGlobalVariables.put(key, 0.0);
-		}
-		return myGlobalVariables.get(key);
 	}
 
 	public void go_to_room(int roomNumber) {
@@ -172,6 +158,13 @@ public class GroovyLibrary {
 		myEventManager.onReset();
 	}
 
+	public double get_variable(String key){
+		if(!myGlobalVariables.containsKey(key)){
+			myGlobalVariables.put(key, 0.0);
+		}
+		return myGlobalVariables.get(key);
+	}
+	
 	public void set_variable(String key, double value, boolean relative){
 		if(relative){
 			double oldValue = 0;
@@ -184,11 +177,19 @@ public class GroovyLibrary {
 			myGlobalVariables.put(key, value);
 		}
 	}
+	
+	public double global(String key) {
+		return get_variable(key);
+	}
+	
+	public void global(String key, double value) {
+		set_variable(key, value, false);
+	}
 
 	public void wrap(RunObject check){
-		double[] newCoordinates = wrapRecursion(check.get_x_position(), check.get_y_position());
-		check.x = newCoordinates[0];
-		check.y = newCoordinates[1];
+		double[] newCoordinates = wrapRecursion(check.x(), check.y());
+		check.x(newCoordinates[0]);
+		check.y(newCoordinates[1]);
 	}
 
 	private double[] wrapRecursion(double x, double y){
@@ -213,20 +214,8 @@ public class GroovyLibrary {
 		return wrapRecursion(x, y);
 	}
 
-	//	public void with(){
-	//		//need to figure out
-	//	}
-	//	
-	//	public void with_close(){
-	//		//need to figure out
-	//	}
-	//	
-	//	public void with_open(){
-	//		//also need to figure this out
-	//	}
-
 	public void set_scroller_x(RunObject object, double xpercentage){
-		double currentX = object.get_x_position();
+		double currentX = object.x();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		Point location = new Point(currentX, currentY);
@@ -235,19 +224,33 @@ public class GroovyLibrary {
 
 	public void set_scroller_y(RunObject object, double ypercentage){
 		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
-		double currentY = object.get_y_position();
+		double currentY = object.y();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
 
 	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
-		double currentX = object.get_x_position();
-		double currentY = object.get_y_position();
+		double currentX = object.x();
+		double currentY = object.y();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
+	}
+	
+	public void propertyMissing(String name, Object value) {
+		double num = 0.0;
+		try {
+			num = Double.parseDouble(value.toString());
+		} catch (NumberFormatException ex) {
+			// do nothing
+		}
+		global(name, num);
+	}
+	
+	public Object propertyMissing(String name) {
+		return global(name);
 	}
 
 }

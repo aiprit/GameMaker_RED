@@ -38,7 +38,7 @@ public class ObjectParam implements IParameter, ISelectable {
 
 	@Override
 	public String getOriginal() {
-		return myOriginal;
+		return mySelected.getName();
 	}
 
 	@Override
