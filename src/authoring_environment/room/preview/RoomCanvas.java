@@ -18,6 +18,7 @@ import javafx.scene.transform.Rotate;
 
 
 public class RoomCanvas extends Canvas {
+	private static final int GRID_LINE_WIDTH = 1;
 	private static final String VIEW_OPACITY = "ViewOpacity";
 	private static final String VIEW_COLOR = "ViewColor";
 	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
@@ -85,7 +86,6 @@ public class RoomCanvas extends Canvas {
 				//if node is being dragged
 				if (node.getDraggable()) {
 					updateNodePosition(node, x, y);
-					//myObjectMap.put(node, new Point2D(node.getX(), node.getY()));
 				}
 			}
 		}
@@ -128,19 +128,16 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	private void drawGridLines() {
-		int numCols = 16;
-		int numRows = 16;
-		double colSpacing = this.getWidth() / numCols;
-		double rowSpacing = this.getHeight() / numRows;
+		double cellSize = Double.parseDouble(myResources.getString("GridCellSize"));
+		this.getGraphicsContext2D().setStroke(Color.BLACK);
+		this.getGraphicsContext2D().setLineWidth(GRID_LINE_WIDTH);
 		//draw vertical lines
-		for (int i = 0; i < numCols; i++) {
-			this.getGraphicsContext2D().setStroke(Color.BLACK);
-			this.getGraphicsContext2D().strokeLine(i*colSpacing, 0, i*colSpacing, this.getHeight());
+		for (int i = 0; i < this.getWidth(); i+=cellSize) {
+			this.getGraphicsContext2D().strokeLine(i, 0, i, this.getHeight());
 		}
 		//draw horizontal lines
-		for (int i = 0; i < numRows; i++) {
-			this.getGraphicsContext2D().setStroke(Color.BLACK);
-			this.getGraphicsContext2D().strokeLine(0, i*rowSpacing, this.getWidth(), i*rowSpacing);
+		for (int i = 0; i < this.getHeight(); i+=cellSize) {
+			this.getGraphicsContext2D().strokeLine(0, i, this.getWidth(), i);
 		}
 	}
 	
