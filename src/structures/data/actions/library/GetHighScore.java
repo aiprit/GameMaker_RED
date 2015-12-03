@@ -7,7 +7,8 @@ import structures.data.actions.params.StringParam;
 public class GetHighScore extends DataAction {
 	
 	public GetHighScore(){
-		init(new StringParam("ScoreOperation"), new StringParam("VariableKey"));
+		init(new StringParam("ScoreOperation"),
+				new StringParam("VariableKey"));
 	}
 
 	@Override

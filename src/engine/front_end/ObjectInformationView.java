@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import structures.run.IParameters;
@@ -30,7 +28,6 @@ public class ObjectInformationView extends VBox {
     private Map<String, Double> myDoubleMap;
     private Map<String, Boolean> myBooleanMap;
     private IParameters myParameterObject;
-    private ImageView myImage;
 
     @SuppressWarnings("unchecked")
     public ObjectInformationView(IParameters parameterObject) {
@@ -38,8 +35,8 @@ public class ObjectInformationView extends VBox {
         this.setWidth(500);
         this.setHeight(50);
         myGrid.setVgap(15);
+        myGrid.getStyleClass().add("grid");
         this.getChildren().add(myGrid);
-        setImage(parameterObject.getImage());
         myOriginalStringMap = (Map<String, String>) ((TreeMap<String, String>) myParameterObject.getStringMap()).clone();
         myOriginalDoubleMap = (Map<String, Double>) ((TreeMap<String, Double>) myParameterObject.getDoubleMap()).clone();
         myOriginalBooleanMap = (Map<String, Boolean>) ((TreeMap<String, Boolean>) myParameterObject.getBooleanMap()).clone();
@@ -47,13 +44,7 @@ public class ObjectInformationView extends VBox {
         populateDoubleParameters(myParameterObject.getDoubleMap());
         populateBooleanParameters(myParameterObject.getBooleanMap());
         reset();
-    }
-
-    private void setImage(Image image) {
-        myImage = new ImageView(image);
-        GridPane.setConstraints(myImage, 0, index++);
-        GridPane.setColumnSpan(myImage, 3);
-        this.getChildren().add(myImage);
+        close();
     }
 
     private void populateBooleanParameters(Map<String, Boolean> parameters) {
@@ -150,9 +141,17 @@ public class ObjectInformationView extends VBox {
             }
             notifyObject();
         });
-        GridPane.setConstraints(button, 1, index);
+        GridPane.setConstraints(button, 0, index);
         myGrid.getChildren().add(button);
-        index++;
+    }
+    
+    private void close() {
+        Button button = new Button ("Close");
+        button.setOnMouseClicked(e -> {
+            this.getChildren().clear();
+        });
+        GridPane.setConstraints(button, 1, index++);
+        myGrid.getChildren().add(button);
     }
 
 }

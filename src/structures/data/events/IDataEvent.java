@@ -7,11 +7,11 @@ public interface IDataEvent {
    
     Map<String, String> dumpContents();
     
-    public default boolean getLocalCheck(){
+    default boolean getLocalCheck(){
     	return false;
     }
     
-    public default boolean hasXY(){
+    default boolean hasXY(){
     	return false;
     }
 }
