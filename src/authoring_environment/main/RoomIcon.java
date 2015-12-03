@@ -29,7 +29,7 @@ public class RoomIcon extends VBox {
 		myResourceBundle = resources;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(myResourceBundle.getString("RoomPlaceholderImage")));
 		myIcon = new ImageView(image);
-		myButton = new Button(myResourceBundle.getString("plus"));
+		myButton = new Button(myResourceBundle.getString("plus") + " " + myResourceBundle.getString("AddRoom"));
 		super.getChildren().addAll(myIcon, myButton);
 	}
 	
