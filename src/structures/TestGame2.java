@@ -173,7 +173,7 @@ public class TestGame2 {
         
         DataInstance marioInstance = new DataInstance(mario, 200, 20);
         marioInstance.setGravity(new Vector(0, 2));
-        marioInstance.setFriction(.99);
+        marioInstance.setFriction(.3);
         
         
         level1.addObjectInstance(marioInstance);

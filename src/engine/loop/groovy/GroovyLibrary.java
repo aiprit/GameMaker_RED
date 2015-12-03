@@ -64,8 +64,8 @@ public class GroovyLibrary {
 		} catch (GameRuntimeException e) {
 			fatalError(e.getMessage());
 		}
-		runObject.x = x;
-		runObject.y = y;
+		runObject.x(x);
+		runObject.y(y);
 		myEventManager.onObjectCreate(runObject);
 	}
 	
@@ -78,10 +78,10 @@ public class GroovyLibrary {
 		} catch (GameRuntimeException e) {
 			fatalError(e.getMessage());
 		}
-		runObject.x = x;
-		runObject.y = y;		
+		runObject.x(x);
+		runObject.y(y);		
 		//runObject.set_speed(speed);
-		runObject.friction = friction;
+		runObject.friction(friction);
 		runObject.wrap_around_room(wraparound);
 		myEventManager.onObjectCreate(runObject);
 	}
@@ -186,9 +186,9 @@ public class GroovyLibrary {
 	}
 
 	public void wrap(RunObject check){
-		double[] newCoordinates = wrapRecursion(check.get_x_position(), check.get_y_position());
-		check.x = newCoordinates[0];
-		check.y = newCoordinates[1];
+		double[] newCoordinates = wrapRecursion(check.x(), check.y());
+		check.x(newCoordinates[0]);
+		check.y(newCoordinates[1]);
 	}
 
 	private double[] wrapRecursion(double x, double y){
@@ -214,7 +214,7 @@ public class GroovyLibrary {
 	}
 
 	public void set_scroller_x(RunObject object, double xpercentage){
-		double currentX = object.get_x_position();
+		double currentX = object.x();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		Point location = new Point(currentX, currentY);
@@ -223,15 +223,15 @@ public class GroovyLibrary {
 
 	public void set_scroller_y(RunObject object, double ypercentage){
 		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
-		double currentY = object.get_y_position();
+		double currentY = object.y();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
 
 	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
-		double currentX = object.get_x_position();
-		double currentY = object.get_y_position();
+		double currentX = object.x();
+		double currentY = object.y();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
