@@ -1,6 +1,7 @@
 package structures.data;
 
 import exceptions.ResourceFailedException;
+import javafx.scene.media.AudioClip;
 import structures.IResource;
 import sun.audio.AudioStream;
 
@@ -16,6 +17,7 @@ public class DataSound implements IResource {
     private String myName;
     private String myBaseFileName;
     private String completeFileName;
+    private AudioClip clip;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -39,12 +41,16 @@ public class DataSound implements IResource {
 
     @Override
     public void load(String directory) throws ResourceFailedException {
-    	completeFileName = directory;
+    	
+    	clip = new AudioClip("file:///" + directory);
     }
 
  
     public String getDirectory(){
     	return completeFileName;
+    }
+    public AudioClip getClip(){
+    	return clip;
     }
 
 }

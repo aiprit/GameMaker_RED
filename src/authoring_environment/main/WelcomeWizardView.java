@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import exceptions.ResourceFailedException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -16,6 +17,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import structures.data.DataGame;
+import structures.data.DataSound;
+import structures.data.DataSprite;
 import utils.GameSelector;
 
 /**
@@ -51,17 +54,35 @@ public class WelcomeWizardView {
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == openGameBtn){
 			dataGame = GameSelector.getGameChoice();
+			for (DataSprite o : dataGame.getSprites()){
+				try {
+					o.load(r.getString("Games")+ dataGame.getName() +  r.getString("imagesFolder"));
+				} catch (ResourceFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			for (DataSound o : dataGame.getSounds()){
+				try {
+					o.load(r.getString("Games")+ dataGame.getName() +  r.getString("soundFolder"));
+				} catch (ResourceFailedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		} else if (result.get() == newGameBtn) {
 			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
-			File images = new File(name + r.getString("imagesFolder"));
-			File backgrounds = new File(name + r.getString("backgroundFolder"));
-			File sounds = new File(name + r.getString("soundFolder"));
-			File XML = new File(name + r.getString("XMLFolder"));
+			
+			File images = new File(r.getString("Games") + name + r.getString("imagesFolder"));
+			File backgrounds = new File(r.getString("Games") + name + r.getString("backgroundFolder"));
+			File sounds = new File(r.getString("Games") + name + r.getString("soundFolder"));
+			File XML = new File(r.getString("Games") + name + r.getString("XMLFolder"));
+			backgrounds.mkdirs();
 			images.mkdirs();
 			sounds.mkdirs();
 			XML.mkdirs();
-			dataGame = new DataGame(name, name+"/");
+			dataGame = new DataGame(name, r.getString("Games") +  name+"/");
 			} catch(Exception e){
 				showAndWait();
 			}

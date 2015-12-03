@@ -12,6 +12,8 @@ import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
+import exceptions.ResourceFailedException;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -181,6 +183,22 @@ public class MainController implements IUpdateHandle {
 				File file = FileHelper.choose(myStage);
 				XMLEditor xml = new XMLEditor();
 				dataGame = xml.readXML(file.getAbsolutePath());
+				for (DataSprite o : dataGame.getSprites()){
+					try {
+						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("imagesFolder"));
+					} catch (ResourceFailedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				for (DataSound o : dataGame.getSounds()){
+					try {
+						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("soundFolder"));
+					} catch (ResourceFailedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				update();
 			}
 		});
@@ -189,12 +207,20 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Save");
-				String file = dataGame.getName() + r.getString("XMLFolder") + "GameFile.xml";
+				String file = r.getString("Games") + dataGame.getName() + r.getString("XMLFolder") + "GameFile.xml";
 				XMLEditor xml = new XMLEditor();
 				xml.writeXML(dataGame, file);
 				update();
 			}
 		});
+		topMenuBar.getSaveAsMenu().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				
+				FileHelper.saveAsNewGame(dataGame);
+				update();
+			}
+		});	
 		topMenuBar.getRunMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
