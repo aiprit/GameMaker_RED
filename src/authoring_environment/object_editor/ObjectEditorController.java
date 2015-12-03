@@ -108,7 +108,10 @@ public class ObjectEditorController {
 					model.getObject(), model.getObjectList());
 		});
 		for (DataSprite s : model.getSprites()) {
-			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> model.setSprite(s)));
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(),
+					e -> {model.setSprite(s);	
+						view.getCenterPane().update(model.getSpriteName());
+					}));
 		};
 
 		model.getMap().addListener(new MapChangeListener<Object, Object>() {
