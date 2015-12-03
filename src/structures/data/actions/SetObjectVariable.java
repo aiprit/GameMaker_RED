@@ -20,10 +20,10 @@ public class SetObjectVariable extends DataAction {
 	@Override
 	public String getDescription() {
 		if((boolean) get("RelativeVariable?").getValue()){
-			return String.format("change %s by %.2f", get("EditVariableKey"), get("EditVariableValue"));
+			return String.format("change %s by %.2f", get("EditVariableKey").getValue(), get("EditVariableValue").getValue());
 		}
 		else{
-			return String.format("make %s equal %.2f", get("EditVariableKey"), get("EditVariableValue"));
+			return String.format("make %s equal %.2f", get("EditVariableKey").getValue(), get("EditVariableValue").getValue());
 		}
 	}
 

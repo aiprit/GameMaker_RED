@@ -20,9 +20,9 @@ public class SetVelocityToPoint extends DataAction {
 	@Override
 	public String getDescription() {
 		if ((boolean) get("Relative").getValue()) {
-			return String.format("Start moving relative (%.2f, %.2f) at speed %.2f", get("X"), get("Y"), get("Speed"));
+			return String.format("Start moving relative (%.2f, %.2f) at speed %.2f", get("X").getValue(), get("Y").getValue(), get("Speed").getValue());
 		} else {
-			return String.format("Start moving to coord (%.2f, %.2f) at speed %.2f", get("X"), get("Y"), get("Speed"));
+			return String.format("Start moving to coord (%.2f, %.2f) at speed %.2f", get("X").getValue(), get("Y").getValue(), get("Speed").getValue());
 		}
 	}
 

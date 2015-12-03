@@ -3,23 +3,46 @@ package structures.run;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
-public class RunObject {
+public class RunObject implements IParameters {
+        public static final String NAME = "Name";
+        public static final String SCALEX = "Scale X";
+        public static final String SCALEY = "Scale Y";
+        public static final String ANGLE = "Angle";
+        public static final String ANGULAR_VELOCITY = "Angular Velocity";
+        public static final String VISIBLE = "Visible";
+        public static final String ALPHA = "Alpha";
+        public static final String FRICTION = "Friction";
+        public static final String SOLID = "Solid";
+        public static final String VELOCITYX = "Velocity X";
+        public static final String VELOCITYY = "Velocity Y";
+        public static final String GRAVITYX = "Gravity X";
+        public static final String GRAVITYY = "Gravity Y";
+        
+        public static final double MAX_SCALEX = 7;
+        public static final double MAX_SCALEY = 7;
+        public static final double MAX_ANGLE = 360;
+        public static final double MAX_ANGULAR_VELOCITY = 100;
+        public static final double MAX_ALPHA = 1;
+        public static final double MAX_FRICTION = 2;
+        public static final double MAX_VELOCITYX = 10;
+        public static final double MAX_VELOCITYY = 10;
+        public static final double MAX_GRAVITYX = 40;
+        public static final double MAX_GRAVITYY = 40;
 
 	public double x;
 	public double y;
 
-	public final String name;
+	public String name;
 	public double scaleX;
 	public double scaleY;
 	public double angle;
@@ -39,6 +62,9 @@ public class RunObject {
 	private ICollisionChecker myCollisionChecker;
 
 	private Map<String, Double> myVariables;
+	private Map<String, Boolean> myBooleanMap;
+	private Map<String, String> myStringMap;
+	private Map<String, Double> myDoubleMap;
 
 	public RunObject(String name) {
 		this.name = name;
@@ -57,8 +83,61 @@ public class RunObject {
 		myInstanceId = 0L;
 		myEvents = new HashMap<IDataEvent, RunAction>();
 		myVariables = new HashMap<>();
+		myBooleanMap = new TreeMap<>();
+	        myStringMap = new TreeMap<>();
+	        myDoubleMap = new TreeMap<>();
 
 		myBounds = new Rectangle(0, 0, 0, 0);
+		initMaps();
+	}
+	
+	public Map<String, Double> getDoubleMap() {
+	    initMaps();
+	    return myDoubleMap;
+	}
+	
+	public Map<String, String> getStringMap() {
+	    initMaps();
+	    return myStringMap;
+	}
+	
+	public Map<String, Boolean> getBooleanMap() {
+	    initMaps();
+	    return myBooleanMap;
+	}
+	
+	private void initMaps() {
+	    myStringMap.put(NAME, name);
+	    myDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
+	    myDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);
+	    myDoubleMap.put(ANGLE, angle/MAX_ANGLE);
+	    myDoubleMap.put(ANGULAR_VELOCITY, angularVelocity/MAX_ANGULAR_VELOCITY);
+	    myBooleanMap.put(VISIBLE, visible);
+	    myDoubleMap.put(ALPHA, alpha/MAX_ALPHA);
+	    myDoubleMap.put(FRICTION, friction/MAX_FRICTION);
+	    myDoubleMap.put(VELOCITYX, velocity.x/MAX_VELOCITYX*2+.5);
+	    myDoubleMap.put(VELOCITYY, velocity.y/MAX_VELOCITYY*2+.5);
+	    myDoubleMap.put(GRAVITYX, gravity.x/MAX_GRAVITYX*2+.5);
+	    myDoubleMap.put(GRAVITYY, gravity.y/MAX_GRAVITYY*2+.5);
+	    myBooleanMap.put(SOLID, solid);
+	}
+	
+	public void setParameterMaps(Map<String, String> strings, Map<String, Double> doubles, Map<String, Boolean> booleans) {
+	    myStringMap = strings;
+	    myDoubleMap = doubles;
+	    myBooleanMap = booleans;
+	    name = strings.get(NAME);
+	    scaleX = myDoubleMap.get(SCALEX)*MAX_SCALEX;
+	    scaleY = myDoubleMap.get(SCALEY)*MAX_SCALEY;
+	    angle = myDoubleMap.get(ANGLE)*MAX_ANGLE;
+	    angularVelocity = myDoubleMap.get(ANGULAR_VELOCITY)*MAX_ANGULAR_VELOCITY;
+	    visible = myBooleanMap.get(VISIBLE);
+	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
+	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
+	    solid = myBooleanMap.get(SOLID);
+	    velocity = new Vector((myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2, (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2);
+	    gravity = new Vector((myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2, (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2);
+	    initMaps();
 	}
 
 	protected void bindEvent(IDataEvent event, RunAction action) {
@@ -131,11 +210,6 @@ public class RunObject {
 
 	public long instance_id() {
 		return myInstanceId;
-	}
-
-	public DataObject toData() {
-		// TODO: What the hell is this method for?
-		return null;
 	}
 
 	public void change_sprite(String name, String baseFileName){
@@ -238,5 +312,6 @@ public class RunObject {
 	public double get_y_position(){
 		return this.y;
 	}
+
 
 }

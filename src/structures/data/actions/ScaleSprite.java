@@ -16,7 +16,8 @@ public class ScaleSprite extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("scale the sprite to %.2f by %.2f", get("SpriteWidth"), get("SpriteHeight"));
+		return String.format("scale the sprite to %.2f by %.2f", get("SpriteWidth").getValue()
+				, get("SpriteHeight").getValue());
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 
 package authoring_environment;
-/*
+
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 
 public class View implements Observer{
-    
+
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
     public static final String STYLESHEET = "authoring.css";
 
@@ -52,8 +52,6 @@ public class View implements Observer{
 
 	public View(){
 		//myGame = new DataGame(DEFAULT_NAME);
-		
-		
 		myController = new Controller();
 		myStage = new Stage();
 		myRoot = new Group();
@@ -61,7 +59,6 @@ public class View implements Observer{
 		myRoomListView = new RoomListView();
 		myTopToolBar = new TopMenuBar();
 		myRightWindowView = new RightWindowView();
-		
 	}
 	public void init(){
 		BorderPane bp = new BorderPane();
@@ -97,7 +94,7 @@ public class View implements Observer{
 		myLevels = myController.getRooms();
 		myRoomListView.update(myLevels, bp, myStage, myResourceBundle);
 	}
-	
+
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
@@ -105,18 +102,12 @@ public class View implements Observer{
 		updateObjectList(bp);
 		updateRoomCanvas(bp);
 		updateRightWindow(bp);
-		
+
 	}
 	private void updateRightWindow(BorderPane bp) {
-		
+
 		mySprites = myController.getSprites();
 		mySounds =  myController.getSounds();
-		
+
 	}
-	
-
-	
-
 }
-*/
-

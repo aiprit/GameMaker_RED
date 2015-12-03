@@ -114,7 +114,7 @@ public class RoomCanvas extends Canvas {
 	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
-
+	//TODO fix transparency
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
@@ -123,7 +123,8 @@ public class RoomCanvas extends Canvas {
 			if (!drag.getVisibility())
 				continue;
 			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
-			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
+			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
+			//this.getGraphicsContext2D().setGlobal
 		}
 		drawView();
 	}
@@ -133,10 +134,11 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
 	
-	//TODO test if scale works
-	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
+	//TODO make sure transparency works
+	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY, double alpha) {
 		this.getGraphicsContext2D().save();
 		rotate(angle, tlx + image.getWidth()*scaleX / 2, tly + image.getHeight()*scaleY / 2);
+		this.getGraphicsContext2D().setGlobalAlpha(alpha);
 		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth()*scaleX, image.getHeight()*scaleY);
 		this.getGraphicsContext2D().restore();
 	}

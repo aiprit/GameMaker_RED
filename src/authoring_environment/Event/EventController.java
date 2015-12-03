@@ -126,11 +126,27 @@ public class EventController {
 						int thisIdx = items.indexOf(cell.getItem());
 						try{
 							int draggedIdx = Integer.parseInt(db.getString());
-							IAction act = items.get(draggedIdx);
-							items.set(draggedIdx, cell.getItem());
-							items.set(thisIdx, act);
-							//							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
-							//							cell.getListView().getItems().setAll(itemscopy);
+
+							if(thisIdx>draggedIdx){
+								IAction act = items.get(draggedIdx);
+
+								for(int i = draggedIdx; i<thisIdx;i++){
+									items.set(i,items.get(i+1));
+								}
+								items.set(thisIdx,act);
+							}
+							else{
+								IAction act = items.get(thisIdx);
+
+								for(int i = thisIdx; i<draggedIdx;i++){
+									items.set(i,items.get(i+1));
+								}
+								items.set(draggedIdx,act);
+							}
+//							items.set(draggedIdx, cell.getItem());
+//							items.set(thisIdx, act);
+
+
 							success = true;
 							System.out.println(items);
 						}

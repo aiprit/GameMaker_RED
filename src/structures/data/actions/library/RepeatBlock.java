@@ -16,7 +16,7 @@ public class RepeatBlock extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("repeat the block %.2f times", get("RepeatTimes"));
+		return String.format("repeat the block %.2f times", get("RepeatTimes").getValue());
 	}
 
 	@Override

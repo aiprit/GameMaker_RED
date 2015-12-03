@@ -18,7 +18,7 @@ public class GetHighScore extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("checks if the score is %s %s", get("ScoreOperation"), get("VariableKey"));
+		return String.format("checks if the score is %s %s", get("ScoreOperation").getValue(), get("VariableKey").getValue());
 	}
 
 	@Override

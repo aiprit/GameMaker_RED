@@ -3,6 +3,8 @@ package authoring_environment.main;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import XML.XMLReader;
+import authoring_environment.FileHandlers.FileHelper;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
@@ -10,6 +12,7 @@ import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -45,8 +48,10 @@ public class MainController implements IUpdateHandle {
 		spriteListView = new SpriteListView();
 		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		if(dataGame != null){
+		try{
 			update();
+		}catch(Exception e){
+			
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
@@ -57,7 +62,8 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-	public void returnToLauncher(){
+	private void returnToLauncher(){
+		
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
@@ -98,7 +104,7 @@ public class MainController implements IUpdateHandle {
 			DataRoom o = dataGame.getRooms().get(i);
 			boolean startRoom = dataGame.getStartRoomIndex() == i;
 			int roomIndex = i;
-			roomListView.addRoom(o, i, startRoom).setOnAction(new EventHandler<ActionEvent>() {
+			roomListView.addRoom(o, dataGame, i, startRoom, e -> update()).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					RoomNamePopupController room = new RoomNamePopupController(o, roomIndex, dataGame);
@@ -150,7 +156,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
-					
+					SoundMaker.play(o);
 					update();
 				}
 			});
@@ -172,6 +178,9 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
+				String name = FileHelper.askName();
+				dataGame = XMLReader.read(name);
+				update();
 			}
 		});
 		topMenuBar.getSaveMenu().setOnAction(new EventHandler<ActionEvent>() {
@@ -193,6 +202,12 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event){
 				returnToLauncher();
+			}
+		});
+		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				ViewSizePopupController viewPopupController = new ViewSizePopupController(r, dataGame);
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

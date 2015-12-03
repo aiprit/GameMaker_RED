@@ -17,7 +17,7 @@ public class SetHighScore extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("sets the high score to the value of %s", get("NewScoreVariable"));
+		return String.format("sets the high score to the value of %s", get("NewScoreVariable").getValue());
 	}
 
 	@Override

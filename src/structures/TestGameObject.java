@@ -13,6 +13,34 @@ import structures.data.actions.MoveToRandom;
 import structures.data.actions.library.*;
 import structures.data.actions.params.IParameter;
 import structures.data.events.*;
+import structures.data.actions.SetObjectVariable;
+import structures.data.actions.SetTimerOnce;
+import structures.data.actions.library.AdjustScrollerX;
+import structures.data.actions.library.Close;
+import structures.data.actions.library.CreateObjectOnClick;
+import structures.data.actions.library.CreateObjectRandom;
+import structures.data.actions.library.Destroy;
+import structures.data.actions.library.DisplayMessage;
+import structures.data.actions.library.DrawText;
+import structures.data.actions.library.Else;
+import structures.data.actions.library.GetGlobalVariableConditional;
+import structures.data.actions.library.GetHighScore;
+import structures.data.actions.library.GoToRoom;
+import structures.data.actions.library.Open;
+import structures.data.actions.library.SetGlobalVariable;
+import structures.data.actions.library.SetHighScore;
+import structures.data.actions.library.SetRandomNumberAndChoose;
+import structures.data.actions.library.Wrap;
+import structures.data.actions.params.IParameter;
+import structures.data.events.CollisionEvent;
+import structures.data.events.GlobalMousePressedEvent;
+import structures.data.events.KeyPressedEvent;
+import structures.data.events.LeaveRoomEvent;
+import structures.data.events.ObjectCreateEvent;
+import structures.data.events.ObjectDestroyEvent;
+import structures.data.events.ObjectMousePressedEvent;
+import structures.data.events.StepEvent;
+import utils.Vector;
 import utils.rectangle.Rectangle;
 
 import java.util.ArrayList;
@@ -68,11 +96,30 @@ public class TestGameObject {
 		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
 
 		DataObject coin = new DataObject("Coin");
+		coin.setSolid(true);
 
 		DataSprite coinSprite = new DataSprite("Coin", "coin.png");
 		coin.setSprite(coinSprite);
 
 		DataObject player = new DataObject("Player");
+		player.setSolid(true);
+
+		SetTimerOnce sto = new SetTimerOnce();
+		Open open4 = new Open();
+		Destroy destroyPlayer = new Destroy();
+		Close close4 = new Close();
+		try{
+			sto.getParameters().get(0).parse("1000");
+		} catch (ParameterParseException e1) {
+			e1.printStackTrace();
+		}
+		List<IAction> timerActions = new ArrayList<>();
+		timerActions.add(sto);
+		timerActions.add(open4);
+		timerActions.add(destroyPlayer);
+		timerActions.add(close4);
+		ObservableList<IAction> timerActions0 = FXCollections.observableList(timerActions);
+		player.bindEvent(new KeyPressedEvent(KeyCode.E), timerActions0);
 
 		MoveToRandom mtr = new MoveToRandom();
 		DisplayMessage display = new DisplayMessage();
@@ -92,7 +139,7 @@ public class TestGameObject {
 		ObservableList<IAction> destroyActions0 = FXCollections.observableList(coinDestroyActions);
 		List<IAction> displayActions = Collections.singletonList(display);
 		ObservableList<IAction> displayActions0 = FXCollections.observableList(displayActions);
-		coin.bindEvent(new CollisionEvent(player), responseActions0);
+//		coin.bindEvent(new CollisionEvent(player), responseActions0);
 		coin.bindEvent(new ObjectMousePressedEvent("Left"), destroyActions0);
 		coin.bindEvent(new KeyPressedEvent(KeyCode.D), displayActions0);
 
@@ -322,7 +369,10 @@ public class TestGameObject {
 		DataView level1View = new DataView("Level 1 View", level1Rect);
 		level1.setView(level1View);
 		level1.setBackgroundColor("TestGame/background.png");
-		level1.addObjectInstance(new DataInstance(player, 240, 40, 0, .5, .5));
+		DataInstance playerInstance = new DataInstance(player, 240, 40, 0, .5, .5);
+		playerInstance.setGravity(new Vector(0, 2));
+		playerInstance.setFriction(.5);
+		level1.addObjectInstance(playerInstance);
 		level1.addObjectInstance(new DataInstance(coin, 340, 300, 0, 1, 1));
 		//level1.addObjectInstance(new DataInstance(text, 0, 0, 1, 1));
 
