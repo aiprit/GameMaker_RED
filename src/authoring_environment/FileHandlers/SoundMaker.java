@@ -47,7 +47,7 @@ public class SoundMaker {
 
 			
 			
-			File outputfile = new File(game.getName() + "/"  + r.getString("soundFolder") + name + ".wav");
+			File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
 			
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), 
 

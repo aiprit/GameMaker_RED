@@ -37,11 +37,11 @@ public class SpriteMaker {
 
 
 			String name = FileHelper.askName();
-			File outputfile = new File(game.getName() + "/" + r.getString("imagesFolder") + name + ".png");	
+			File outputfile = new File(game.getName() + r.getString("imagesFolder") + name + ".png");	
 		    ImageIO.write(img, "png", outputfile);
 		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
 		    	try {
-		    		newSprite.load(game.getName() + "/" + r.getString("imagesFolder"));
+		    		newSprite.load(game.getName() +  r.getString("imagesFolder"));
 		    	} catch (ResourceFailedException e) {
 
 		    		e.printStackTrace();
