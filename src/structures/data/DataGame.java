@@ -199,7 +199,10 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
                 List<IAction> actions = e.getValue();
 
                 for (IAction a : actions) {
-                    r.append("          Action: " + a.getDescription() + "\n");
+                    if(a != null) {
+                        r.append("          Action: " + a.getDescription() + "\n");
+                    }
+
                 }
             }
         }

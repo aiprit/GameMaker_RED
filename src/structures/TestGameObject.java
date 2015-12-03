@@ -39,7 +39,7 @@ public class TestGameObject {
 		System.out.println(" ======================================= ");
 		System.out.println(" Writing to XML ");
 		XMLEditor xml = new XMLEditor();
-		//xml.writeXML(go, "test.xml");
+		xml.writeXML(go, "test.xml");
 
 		System.out.println(" Reading from XML ");
 		DataGame testGame = xml.readXML("test.xml");

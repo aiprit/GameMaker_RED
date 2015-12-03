@@ -17,6 +17,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -129,7 +131,12 @@ public class XMLWriter {
         List<IParameter> params = a.getParameters();
 
         for(int i = 0; i < params.size(); i++){
-            action.setAttribute("p" + Integer.toString(i), params.get(i).getOriginal());
+            String p = params.get(i).getOriginal();
+            byte[] authBytes = p.getBytes(StandardCharsets.UTF_8);
+            String encodedParam = Base64.getEncoder().encodeToString(authBytes);
+
+
+            action.setAttribute("p" + Integer.toString(i), encodedParam);
         }
 
         return action;

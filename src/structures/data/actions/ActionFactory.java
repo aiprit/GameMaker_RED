@@ -4,6 +4,9 @@ import exceptions.ParameterParseException;
 import org.w3c.dom.Element;
 import structures.data.actions.library.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 public class ActionFactory {
 
     public IAction getAction(Element e) {
@@ -153,7 +156,9 @@ public class ActionFactory {
             System.out.println("Attribute: " + e.getAttribute("p" + Integer.toString(i)));
             System.out.println("Trying to initialize params for " + action.getClass().toString());
             try {
-                action.getParameters().get(i).parse(e.getAttribute("p" + Integer.toString(i)));
+                String encodedParameter = e.getAttribute("p" + Integer.toString(i));
+                byte[] authBytes = Base64.getDecoder().decode(encodedParameter);
+                action.getParameters().get(i).parse(new String(authBytes));
             } catch (ParameterParseException e1) {
                 e1.printStackTrace();
             }
