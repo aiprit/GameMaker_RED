@@ -18,7 +18,7 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorController {
 	ObjectEditorView view;

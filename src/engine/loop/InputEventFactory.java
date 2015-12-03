@@ -7,10 +7,10 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.data.events.GlobalMousePressedEvent;
-import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.KeyReleasedEvent;
 import structures.data.events.ObjectMousePressedEvent;
+import structures.data.interfaces.IDataEvent;
 import utils.Point;
 
 public class InputEventFactory {

@@ -1,6 +1,7 @@
 package structures.data.events;
 
 import javafx.scene.input.KeyCode;
+import structures.data.interfaces.IDataEvent;
 
 import java.util.HashMap;
 import java.util.Map;

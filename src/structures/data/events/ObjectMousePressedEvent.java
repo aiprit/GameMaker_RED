@@ -3,6 +3,8 @@ package structures.data.events;
 import java.util.HashMap;
 import java.util.Map;
 
+import structures.data.abstract_classes.MousePressedEvent;
+
 public class ObjectMousePressedEvent extends MousePressedEvent {
 
 	public ObjectMousePressedEvent(String mouseState){

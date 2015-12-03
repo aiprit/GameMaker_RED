@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
-import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
 import structures.data.actions.library.*;
@@ -40,6 +39,7 @@ import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IAction;
 import utils.Vector;
 import utils.rectangle.Rectangle;
 

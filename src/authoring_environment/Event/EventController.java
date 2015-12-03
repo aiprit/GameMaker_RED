@@ -28,10 +28,10 @@ import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class EventController {
 	EventView myView;

@@ -1,5 +1,6 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.DoubleParam;
 
 public class SetAcceleration extends DataAction {

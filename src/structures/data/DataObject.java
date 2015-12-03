@@ -5,8 +5,8 @@ import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class DataObject {
 

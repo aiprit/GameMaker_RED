@@ -1,5 +1,6 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.CheckboxParam;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;

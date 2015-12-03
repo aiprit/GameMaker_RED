@@ -1,8 +1,24 @@
-package structures.data.actions;
+package structures.data.factories;
 
 import exceptions.ParameterParseException;
 import org.w3c.dom.Element;
+
+import structures.data.DataAction;
+import structures.data.actions.Block;
+import structures.data.actions.ChangeSprite;
+import structures.data.actions.GetObjectVariable;
+import structures.data.actions.MoveTo;
+import structures.data.actions.MoveToRandom;
+import structures.data.actions.RunScript;
+import structures.data.actions.ScaleSprite;
+import structures.data.actions.SetAcceleration;
+import structures.data.actions.SetFriction;
+import structures.data.actions.SetObjectVariable;
+import structures.data.actions.SetVelocityInDirection;
+import structures.data.actions.SetVelocityToPoint;
+import structures.data.actions.Sleep;
 import structures.data.actions.library.*;
+import structures.data.interfaces.IAction;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

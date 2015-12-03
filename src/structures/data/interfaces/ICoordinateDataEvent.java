@@ -1,4 +1,4 @@
-package structures.data.events;
+package structures.data.interfaces;
 
 public interface ICoordinateDataEvent {
 

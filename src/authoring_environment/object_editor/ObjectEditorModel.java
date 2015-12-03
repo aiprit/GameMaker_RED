@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring_environment.Event.ClassesInPackage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -13,8 +14,8 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorModel {
 	private IObjectInterface game;
@@ -37,15 +38,20 @@ public class ObjectEditorModel {
 	}
 
 	public ObservableList<String> createLeftPaneList() {
-		Enumeration<String> keys = l.getKeys();
-		List<String> keylist = Collections.list(keys);
+//		Enumeration<String> keys = l.getKeys();
+//		List<String> keylist = Collections.list(keys);
+		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-		Collections.sort(keylist);
-		for (String str : keylist) {
-			String value = l.getString(str);
-			list.add(value);
-
-		}
+		for (String s: classes.getAllClasses("structures.data.events"))
+			list.add(s);
+		Collections.sort(list);
+//		
+//		Collections.sort(keylist);
+//		for (String str : keylist) {
+//			String value = l.getString(str);
+//			list.add(value);
+//
+//		}
 		return list;
 	}
 
