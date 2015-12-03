@@ -3,7 +3,6 @@ package authoring_environment.room.error;
 import java.util.ResourceBundle;
 
 import authoring_environment.room.PopupTemplate;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;

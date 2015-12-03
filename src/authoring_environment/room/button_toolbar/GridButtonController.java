@@ -18,7 +18,7 @@ public class GridButtonController {
 	}
 	
 	private void onClick(RoomCanvas canvas) {
-		canvas.getGraphicsContext2D().setFill(Color.BLACK);
+		canvas.getGraphicsContext2D().setStroke(Color.BLACK);
 		canvas.getGraphicsContext2D().strokeLine(50, 0, 50, 500);
 	}
 }
