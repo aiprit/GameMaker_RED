@@ -7,9 +7,10 @@ import structures.data.actions.params.StringParam;
 public class DrawText extends DataAction{
 
 	public DrawText(){
-		init(new StringParam("DrawText"), new DoubleParam("XText"), new DoubleParam("YText"), new DoubleParam("FontSize"));
+		init(new StringParam("DrawText"), new DoubleParam("XText"),
+				new DoubleParam("YText"), new DoubleParam("FontSize"));
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "DrawText";

@@ -5,7 +5,8 @@ import structures.data.actions.params.DoubleParam;
 public class ScaleSprite extends DataAction {
 	
 	public ScaleSprite(){
-		init(new DoubleParam("SpriteWidth"), new DoubleParam("SpriteHeight"));
+		init(new DoubleParam("SpriteWidth"),
+				new DoubleParam("SpriteHeight"));
 	}
 
 	@Override

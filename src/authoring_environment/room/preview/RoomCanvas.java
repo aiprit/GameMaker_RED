@@ -18,6 +18,7 @@ import javafx.scene.transform.Rotate;
 
 
 public class RoomCanvas extends Canvas {
+	private static final int GRID_LINE_WIDTH = 1;
 	private static final String VIEW_OPACITY = "ViewOpacity";
 	private static final String VIEW_COLOR = "ViewColor";
 	private static final String OBJECTS_LIST_HEADER_WIDTH = "ObjectsListHeaderWidth";
@@ -85,7 +86,6 @@ public class RoomCanvas extends Canvas {
 				//if node is being dragged
 				if (node.getDraggable()) {
 					updateNodePosition(node, x, y);
-					//myObjectMap.put(node, new Point2D(node.getX(), node.getY()));
 				}
 			}
 		}
@@ -114,18 +114,31 @@ public class RoomCanvas extends Canvas {
 	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
-
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
 		for (DraggableImage drag : myObjectList) {
-			//this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 			if (!drag.getVisibility())
 				continue;
-			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
-			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY());
+			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
 		}
+		drawGridLines();
 		drawView();
+
+	}
+	
+	private void drawGridLines() {
+		double cellSize = Double.parseDouble(myResources.getString("GridCellSize"));
+		this.getGraphicsContext2D().setStroke(Color.BLACK);
+		this.getGraphicsContext2D().setLineWidth(GRID_LINE_WIDTH);
+		//draw vertical lines
+		for (int i = 0; i < this.getWidth(); i+=cellSize) {
+			this.getGraphicsContext2D().strokeLine(i, 0, i, this.getHeight());
+		}
+		//draw horizontal lines
+		for (int i = 0; i < this.getHeight(); i+=cellSize) {
+			this.getGraphicsContext2D().strokeLine(0, i, this.getWidth(), i);
+		}
 	}
 	
 	public void rotate(double angle, double pivotX, double pivotY) {
@@ -133,10 +146,10 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
 	
-	//TODO test if scale works
-	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY) {
+	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY, double alpha) {
 		this.getGraphicsContext2D().save();
 		rotate(angle, tlx + image.getWidth()*scaleX / 2, tly + image.getHeight()*scaleY / 2);
+		this.getGraphicsContext2D().setGlobalAlpha(alpha);
 		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth()*scaleX, image.getHeight()*scaleY);
 		this.getGraphicsContext2D().restore();
 	}

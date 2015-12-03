@@ -1,65 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<game currentRoom="0" directory="TestGame/" startRoom="0" title="Test Game">
+<game currentRoom="0" directory="Games/TestGame2/" startRoom="0" title="Test Game 2">
   <objects>
-    <object name="Coin" scaleX="1.0" scaleY="1.0" sprite="Coin" zIndex="0"/>
-    <object name="Player" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">
-      <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
-        <action title="Move"/>
-      </event>
-      <event class="structures.data.events.KeyPressedEvent" keyCode="LEFT">
-        <action title="Move"/>
-      </event>
-      <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
-        <action title="Move"/>
-      </event>
-      <event class="structures.data.events.KeyPressedEvent" keyCode="RIGHT">
-        <action title="Move"/>
-      </event>
-      <event class="structures.data.events.CollisionEvent" dataObject="Coin">
-        <action title="GetScore"/>
-        <action title="Open"/>
-        <action title="GoToRoom"/>
-        <action title="Else"/>
-        <action title="ChangeScore"/>
-        <action title="Move"/>
-        <action title="Close"/>
-      </event>
-      <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
-        <action title="Move"/>
-      </event>
+    <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">
+      <events>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="bGlicmFyeS5zZXRfc2Nyb2xsZXJfeChjdXJyZW50LCAwLjUpOwppZiAobGlicmFyeS5rZXlfZG93bignTEVGVCcpICYmICFsaWJyYXJ5LmtleV9kb3duKCdSSUdIVCcpKSB7CmN1cnJlbnQuc2V0X3ZlbG9jaXR5KDE4MCwxLCB0cnVlKTsgCn0gCmlmIChsaWJyYXJ5LmtleV9kb3duKCdSaWdodCcpICYmICFsaWJyYXJ5LmtleV9kb3duKCdsZWZ0JykpIHsKY3VycmVudC5zZXRfdmVsb2NpdHkoMCwgMSwgdHJ1ZSk7Cn0K" title="Run Script"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="F">
+          <actions>
+            <action p0="LTkw" p1="MjA=" p2="dHJ1ZQ==" title="Set Velocity (°)"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
+          <actions>
+            <action p0="MA==" p1="MTA=" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
+          <actions>
+            <action p0="MA==" p1="LTEw" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
+      </events>
     </object>
-    <object name="StartScreenBackground" scaleX="0.5" scaleY="0.5" sprite="Start Screen" zIndex="0">
-      <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
-        <action title="GoToRoom"/>
-      </event>
+    <object name="Wall" scaleX="1.0" scaleY="1.0" sprite="Wall" zIndex="0">
+      <events/>
     </object>
-    <object name="WinScreenBackground" scaleX="1.0" scaleY="1.0" sprite="Win Screen" zIndex="0"/>
   </objects>
   <sprites>
-    <sprite baseFileName="coin.png" centerX="0.0" centerY="0.0" name="Coin"/>
+    <sprite baseFileName="beaten_brick_tiled.png" centerX="0.0" centerY="0.0" name="Wall"/>
     <sprite baseFileName="mario.png" centerX="0.0" centerY="0.0" name="Mario"/>
-    <sprite baseFileName="StartScreen.png" centerX="0.0" centerY="0.0" name="Start Screen"/>
-    <sprite baseFileName="WinScreen.png" centerX="0.0" centerY="0.0" name="Win Screen"/>
   </sprites>
   <sounds/>
   <rooms>
-    <room backgroundColor="#FFFFFF" height="500.0" name="Start Screen" width="500.0">
+    <room backgroundColor="TestGame/background.png" height="500.0" name="Level 1" width="2000.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="StartScreenBackground" scaleX="0.4" scaleY="0.4" visibility="true" x="0.0" y="0.0" zIndex="0"/>
-      </objectInstances>
-    </room>
-    <room backgroundColor="" height="500.0" name="Level 1" width="500.0">
-      <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
-      <objectInstances>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Player" scaleX="0.5" scaleY="0.5" visibility="true" x="40.0" y="40.0" zIndex="0"/>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Coin" scaleX="1.0" scaleY="1.0" visibility="true" x="340.0" y="340.0" zIndex="0"/>
-      </objectInstances>
-    </room>
-    <room backgroundColor="#FFFFFF" height="500.0" name="Win Screen" width="500.0">
-      <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
-      <objectInstances>
-        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="WinScreenBackground" scaleX="0.4" scaleY="0.4" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="64.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="128.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="128.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="128.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="192.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="460.0" y="460.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="524.0" y="524.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="255.0" y="255.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="319.0" y="319.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="0.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="64.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="128.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="192.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="256.0" y="256.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="320.0" y="320.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="384.0" y="384.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="448.0" y="448.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="512.0" y="512.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="576.0" y="576.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="640.0" y="640.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="704.0" y="704.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="768.0" y="768.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="832.0" y="832.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="896.0" y="896.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="960.0" y="960.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1024.0" y="1024.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1088.0" y="1088.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1152.0" y="1152.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1216.0" y="1216.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1280.0" y="1280.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1344.0" y="1344.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1408.0" y="1408.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1472.0" y="1472.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1536.0" y="1536.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1600.0" y="1600.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1664.0" y="1664.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1728.0" y="1728.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1792.0" y="1792.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1856.0" y="1856.0" zIndex="0"/>
+        <objectInstance ID="1449108443180" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Mario" scaleX="1.0" scaleY="1.0" visibility="true" x="200.0" y="200.0" zIndex="0"/>
       </objectInstances>
     </room>
   </rooms>

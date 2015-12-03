@@ -17,9 +17,11 @@ public class RoomIcon extends VBox {
 	private static final int VBOX_HEIGHT = 150;
 	private static final int INSET_VALUE = 20;
 	private static final int BOX_SPACING = 10;
+	
 	private ResourceBundle myResourceBundle;
 	private Node myIcon;
 	private Button myButton;
+	private Button myDeleteButton;
 	
 	public RoomIcon(ResourceBundle resources) {
 		super();
@@ -27,15 +29,8 @@ public class RoomIcon extends VBox {
 		myResourceBundle = resources;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(myResourceBundle.getString("RoomPlaceholderImage")));
 		myIcon = new ImageView(image);
-		myButton = new Button(myResourceBundle.getString("plus"));
+		myButton = new Button(myResourceBundle.getString("plus") + " " + myResourceBundle.getString("AddRoom"));
 		super.getChildren().addAll(myIcon, myButton);
-	}
-
-	private void configureVBox() {
-		super.setSpacing(BOX_SPACING);
-		super.setAlignment(Pos.CENTER);
-		super.setPadding(new Insets(INSET_VALUE, INSET_VALUE, INSET_VALUE, INSET_VALUE));
-		super.setPrefHeight(VBOX_HEIGHT);
 	}
 	
 	public RoomIcon(ResourceBundle resources, String backgroundColor, String roomName) {
@@ -47,7 +42,19 @@ public class RoomIcon extends VBox {
 		Rectangle icon = new Rectangle(iconSize, iconSize);
 		setFill(icon, backgroundColor);
 		myIcon = icon;
-		super.getChildren().addAll(myIcon, myButton);
+		myDeleteButton = new Button(myResourceBundle.getString("Delete"));
+		super.getChildren().addAll(myIcon, myButton, myDeleteButton);
+	}
+	
+	public Button getDeleteButton() {
+		return myDeleteButton;
+	}
+
+	private void configureVBox() {
+		super.setSpacing(BOX_SPACING);
+		super.setAlignment(Pos.CENTER);
+		super.setPadding(new Insets(INSET_VALUE, INSET_VALUE, INSET_VALUE, INSET_VALUE));
+		super.setPrefHeight(VBOX_HEIGHT);
 	}
 	
 	public Button getButton() {

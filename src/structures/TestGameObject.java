@@ -1,24 +1,18 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
 import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
-import structures.data.DataGame;
-import structures.data.DataInstance;
-import structures.data.DataObject;
-import structures.data.DataRoom;
-import structures.data.DataSprite;
-import structures.data.DataView;
-import structures.data.actions.GetObjectVariable;
+import structures.data.*;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
+import structures.data.actions.library.*;
+import structures.data.actions.params.IParameter;
+import structures.data.events.*;
 import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetTimerOnce;
 import structures.data.actions.library.AdjustScrollerX;
@@ -49,6 +43,10 @@ import structures.data.events.StepEvent;
 import utils.Vector;
 import utils.rectangle.Rectangle;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /*
     This class generates a sample game object. The game consists
     of three rooms.
@@ -62,12 +60,31 @@ import utils.rectangle.Rectangle;
 public class TestGameObject {
 
 	public static void main(String[] args) {
+		TestGame2 g2 = new TestGame2();
+		DataGame go = g2.getTestGame("Games/");
+		System.out.println(go.toString());
+
+		System.out.println(" ======================================= ");
+		System.out.println(" Writing to XML ");
+		XMLEditor xml = new XMLEditor();
+		xml.writeXML(go, "test.xml");
+
+		System.out.println(" Reading from XML ");
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
+
+
+		/*
 		TestGameObject testGameObject = new TestGameObject();
 
 		DataGame printGame = testGameObject.getTestGame("");
 		System.out.println(printGame.toString());
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(printGame, "test.xml");
+
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
+		*/
 	}
 
 	/*
@@ -76,18 +93,7 @@ public class TestGameObject {
 	 */
 
 	public DataGame getTestGame(String directory) {
-		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
-
-//		DataObject text = new DataObject("GameTitle");
-//		DrawText dt = new DrawText();
-//		try{
-//			dt.getParameters().get(0).parse("Mario");
-//		} catch(ParameterParseException e1) {
-//			e1.printStackTrace();
-//		}
-//		List<IAction> textActions = Collections.singletonList(dt);
-//		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
-//		text.bindEvent(new StepEvent(), textActionsO);
+		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
 
 		DataObject coin = new DataObject("Coin");
 		coin.setSolid(true);
@@ -97,7 +103,7 @@ public class TestGameObject {
 
 		DataObject player = new DataObject("Player");
 		player.setSolid(true);
-		
+
 		SetTimerOnce sto = new SetTimerOnce();
 		Open open4 = new Open();
 		Destroy destroyPlayer = new Destroy();
@@ -238,14 +244,14 @@ public class TestGameObject {
 			ghs.getParameters().get(0).parse("<");
 			ghs.getParameters().get(1).parse("score");
 		} catch(Exception e){
-			
+
 		}
 		Open open3 = new Open();
 		SetHighScore shs = new SetHighScore();
 		try{
 			shs.getParameters().get(0).parse("score");
 		} catch(Exception e){
-			
+
 		}
 		Close close3 = new Close();
 		GoToRoom gtr = new GoToRoom();
@@ -311,9 +317,9 @@ public class TestGameObject {
 			sgv.getParameters().get(1).parse("10");
 			sgv.getParameters().get(2).parse("true");
 		} catch (Exception e){
-			
+
 		}
-		
+
 		List<IAction> testingActions = Collections.singletonList(sgv);
 		ObservableList<IAction> testingActionsO = FXCollections.observableList(testingActions);
 		coin.bindEvent(new ObjectDestroyEvent(), testingActionsO);
@@ -321,7 +327,7 @@ public class TestGameObject {
 		DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
 		DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
-		//startScreenBackground.setSprite(startScreenSprite);
+		startScreenBackground.setSprite(startScreenSprite);
 
 		startScreenBackground.setScaleX(.5);
 		startScreenBackground.setScaleY(.5);
@@ -332,6 +338,9 @@ public class TestGameObject {
 			goToStart.getParameters().get(0).parse("1");
 
 			drawText.getParameters().get(0).parse("Start Game");
+			drawText.getParameters().get(1).parse("2.0");
+			drawText.getParameters().get(2).parse("2.0");
+			drawText.getParameters().get(3).parse("2.0");
 		}
 		catch(Exception e){
 

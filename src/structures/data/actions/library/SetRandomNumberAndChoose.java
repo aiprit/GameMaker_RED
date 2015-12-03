@@ -7,7 +7,9 @@ import structures.data.actions.params.StringParam;
 public class SetRandomNumberAndChoose extends DataAction {
 	
 	public SetRandomNumberAndChoose(){
-		init(new DoubleParam("MaximumNumber"), new StringParam("Operation"), new DoubleParam("Odds"));
+		init(new DoubleParam("MaximumNumber"),
+				new StringParam("Operation"),
+				new DoubleParam("Odds"));
 	}
 
 	@Override

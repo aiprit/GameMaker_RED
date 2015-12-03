@@ -114,4 +114,12 @@ public class ObjectEditorModel {
 	public ObservableList<DataSprite> getSprites() {
 		return game.getSprites();
 	}
+	
+	public void setSolid(boolean solid) {
+		object.setSolid(solid);
+	}
+	
+	public boolean isSolid() {
+		return object.isSolid();
+	}
 }

@@ -38,6 +38,7 @@ public class DataSprite implements IResource {
 	public String getName() {
 		return myName;
 	}
+
 	public void setName(String name) {
 		myName = name;
 	}

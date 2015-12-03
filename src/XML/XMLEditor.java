@@ -3,19 +3,17 @@ package XML;
 import structures.data.DataGame;
 
 public class XMLEditor {
-    XMLReader reader;
-    XMLWriter writer;
 
     public XMLEditor(){
-        reader = new XMLReader();
-        writer = new XMLWriter();
     }
 
     public void writeXML(DataGame game, String filename){
+        XMLWriter writer = new XMLWriter();
         writer.write(game, filename);
     }
 
     public DataGame readXML(String filename){
+        XMLReader reader = new XMLReader();
         return reader.read(filename);
     }
 }
