@@ -3,13 +3,14 @@ package structures.run;
 import exceptions.CompileTimeException;
 import structures.data.DataSound;
 import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
+import javax.sound.sampled.AudioInputStream;
 
 public class RunSound {
 	
 	public final String name;
 	
-    private AudioStream myAudioStream;
+    private AudioInputStream myAudioStream;
     private DataSound myDataSound;
     
     public RunSound(String name) {
