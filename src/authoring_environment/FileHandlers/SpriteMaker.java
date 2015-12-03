@@ -33,24 +33,23 @@ public class SpriteMaker {
 		BufferedImage img;	
 		try {
 			try{
-			img = ImageIO.read(selectedFile);
+				img = ImageIO.read(selectedFile);
 
+				String name = FileHelper.askName();
+				File outputfile = new File(game.getName() + r.getString("imagesFolder") + name + ".png");	
+				ImageIO.write(img, "png", outputfile);
+				DataSprite newSprite = new DataSprite(name, outputfile.getName());
+					try {
+						newSprite.load(game.getName() +  r.getString("imagesFolder"));
+					} catch (ResourceFailedException e) {
 
-			String name = FileHelper.askName();
-			File outputfile = new File(game.getName() + r.getString("imagesFolder") + name + ".png");	
-		    ImageIO.write(img, "png", outputfile);
-		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
-		    	try {
-		    		newSprite.load(game.getName() +  r.getString("imagesFolder"));
-		    	} catch (ResourceFailedException e) {
-
-		    		e.printStackTrace();
-		    	}
-
-		    game.getSprites().add(newSprite);
-			} catch(IllegalArgumentException e2){
+						e.printStackTrace();
+					}
+					
+					game.getSprites().add(newSprite);
+				} catch(IllegalArgumentException e2){
 				
-			}  
+				}  
 		    
 		} catch (IOException e1) {
 				

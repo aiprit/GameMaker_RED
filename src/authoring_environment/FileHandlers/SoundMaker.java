@@ -39,29 +39,32 @@ public class SoundMaker {
 	        
 		try {	
 			
-
+			
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
 		  	AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
-
-			String name = FileHelper.askName();
+		  	if(fileType.getType().toString().equals("WAVE")){
+		  		String name = FileHelper.askName();
 
 			
 			
-			File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
+		  		File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
 			
-			if (AudioSystem.isFileTypeSupported(fileType.getType(), 
+		  		if (AudioSystem.isFileTypeSupported(fileType.getType(), 
 
-			    audioInputStream)) {
+		  				audioInputStream)) {
 				
-				AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
-			}
-			DataSound sound = new DataSound(name, outputfile.getName());
-			sound.load(outputfile.getAbsolutePath());
+		  			AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
+		  		}
+		  		DataSound sound = new DataSound(name, outputfile.getName());
+		  		sound.load(outputfile.getAbsolutePath());
 			
-			game.getSounds().add(sound);
-
+		  		game.getSounds().add(sound);
+		  	}	
+		  	else{
+		  		
+		  	}
 		} catch (Exception e) {
-
+			
 
 		}
 
