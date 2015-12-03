@@ -18,6 +18,7 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorController {
@@ -68,7 +69,14 @@ public class ObjectEditorController {
                         if (empty) {
                             setText(null);
                         } else {
-                            setText(item.getName());
+                        	String description  =item.getName()+ ":";
+                        	for(IAction action: model.getMap().get(item)){
+                        		description += "\n   " +action.getDescription();
+
+
+
+                        	}
+                            setText(description);
                         }
                     }
                 };

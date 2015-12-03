@@ -52,13 +52,13 @@ public abstract class MousePopUp  extends BasicPopUp{
 		//	myInfo.setTranslateX(Integer.parseInt(r.getString("buttonY")));
 		l.setFocusTraversable(false);
 		l.setOnAction(e ->{
-			key = l.toString();
+			key = l.getText();
 					eventPopup();
 			close(e);});
 		Button rt = new Button(r.getString("right"));
 		rt.setFocusTraversable(false);
 		rt.setOnAction(e ->{
-			key = r.toString();
+			key = rt.getText();
 			eventPopup();
 			close(e);});
 		HBox box= new HBox();
