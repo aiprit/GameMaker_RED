@@ -54,14 +54,16 @@ public class WelcomeWizardView {
 		} else if (result.get() == newGameBtn) {
 			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
-			File images = new File(name + r.getString("imagesFolder"));
-			File backgrounds = new File(name + r.getString("backgroundFolder"));
-			File sounds = new File(name + r.getString("soundFolder"));
-			File XML = new File(name + r.getString("XMLFolder"));
+			
+			File images = new File(r.getString("Games") + name + r.getString("imagesFolder"));
+			File backgrounds = new File(r.getString("Games") + name + r.getString("backgroundFolder"));
+			File sounds = new File(r.getString("Games") + name + r.getString("soundFolder"));
+			File XML = new File(r.getString("Games") + name + r.getString("XMLFolder"));
+			backgrounds.mkdirs();
 			images.mkdirs();
 			sounds.mkdirs();
 			XML.mkdirs();
-			dataGame = new DataGame(name, name+"/");
+			dataGame = new DataGame(name, r.getString("Games") +  name+"/");
 			} catch(Exception e){
 				showAndWait();
 			}

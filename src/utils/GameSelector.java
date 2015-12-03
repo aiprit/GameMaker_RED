@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import XML.XMLEditor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceDialog;
@@ -38,8 +39,10 @@ public class GameSelector {
 			alert.showAndWait();
 			getGameChoice();
 		}
-		
-		return new DataGame(myName, myName+"/");
+		XMLEditor xml = new XMLEditor();
+		DataGame dataGame = xml.readXML("Games/" + myName + "/XML/GameFile.xml");
+		//return new DataGame(myName , myName+"/");
+		return dataGame;
 		//TODO: Load XML here instead @Buie
 	}
 
