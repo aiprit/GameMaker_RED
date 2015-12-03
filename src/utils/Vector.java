@@ -11,8 +11,8 @@ package utils;
  */
 public class Vector {
 	
-	public double x, y;
-	public static Vector ZERO = new Vector(0.0, 0.0);
+	public final double x, y;
+	public final static Vector ZERO = new Vector(0.0, 0.0);
 	
 	public Vector(double x, double y) {
 		this.x = x;

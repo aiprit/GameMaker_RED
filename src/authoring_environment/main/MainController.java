@@ -3,12 +3,12 @@ package authoring_environment.main;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import XML.XMLEditor;
 import XML.XMLReader;
 import authoring_environment.FileHandlers.FileHelper;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
-import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
@@ -178,7 +178,8 @@ public class MainController implements IUpdateHandle {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
 				String name = FileHelper.askName();
-				dataGame = XMLReader.read(name);
+				XMLEditor xml = new XMLEditor();
+				dataGame = xml.readXML(name);
 				update();
 			}
 		});
@@ -201,6 +202,12 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event){
 				returnToLauncher();
+			}
+		});
+		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				ViewSizePopupController viewPopupController = new ViewSizePopupController(r, dataGame);
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

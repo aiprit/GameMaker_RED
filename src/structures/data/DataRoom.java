@@ -54,7 +54,7 @@ public class DataRoom implements IDataRoom {
     }
 
 
-    public DataView getDataView() {
+    public DataView getView() {
         return myView;
     }
 

@@ -42,7 +42,7 @@ public class RoomController {
 	public RoomController(ResourceBundle resources, DataRoom room, IDataGame gameObject) {
 		myResources = resources;
 		model = room;
-		model.getDataView().setView(new Rectangle(room.getDataView().getX(), room.getDataView().getY(),
+		model.getView().setView(new Rectangle(room.getView().getX(), room.getView().getY(),
 				gameObject.getViewWidth(), gameObject.getViewHeight()));
 		view = new RoomEditor(myResources, room.getName());
 		populateEditor(room);
@@ -86,7 +86,7 @@ public class RoomController {
 	}
 	
 	private void initializeView() {
-		myViewController = new ViewController(model.getDataView());
+		myViewController = new ViewController(model.getView());
 		view.getPreview().getCanvas().setView(myViewController.getDraggableView());
 		view.getPreview().getCanvas().drawView();
 		view.getPreview().getCanvas().setOnMouseClicked(e -> onClick(e, view.getPreview().getCanvas().getObjectMap()));
@@ -172,7 +172,7 @@ public class RoomController {
 	}
 	
 	public DataView getView() {
-		return model.getDataView();
+		return model.getView();
 	}
 	
 	private void startObjectDrag(MouseEvent event) {

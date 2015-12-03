@@ -13,14 +13,14 @@ public class ViewController {
 	private final double ANGLE = 0;
 	private final double SCALE_X = 1;
 	private final double SCALE_Y = 1;
-	
+	private final double ALPHA = 1;
 	public ViewController(IDataView dataView) {
 		model = dataView;
 		DoubleProperty x = new SimpleDoubleProperty();
 		DoubleProperty y = new SimpleDoubleProperty();
 		x.set(dataView.getView().x());
 		y.set(dataView.getView().y());
-		view = new DraggableView(x, y, ANGLE, VIEW_BOOL , SCALE_X, SCALE_Y);
+		view = new DraggableView(x, y, ANGLE, VIEW_BOOL , SCALE_X, SCALE_Y, ALPHA);
 		addListeners(x, y);
 	}
 	

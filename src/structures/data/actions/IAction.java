@@ -24,21 +24,21 @@ public interface IAction {
 	 * 
 	 * @return
 	 */
-	public List<IParameter> getParameters();
+	List<IParameter> getParameters();
 	
 	/**
 	 * The title
 	 * 
 	 * @return
 	 */
-	public String getTitle();
+	String getTitle();
 	
 	/**
 	 * The description of the IAction. In most cases, it updates
 	 * itself to reflect the values of the parameters.
 	 * @return
 	 */
-	public String getDescription();
+	String getDescription();
 	
 	/**
 	 * Returns the Groovy code using a template and the values of
@@ -47,6 +47,6 @@ public interface IAction {
 	 * @return
 	 * @throws CompileTimeException
 	 */
-	public String compileSyntax() throws CompileTimeException;
+	String compileSyntax() throws CompileTimeException;
 	
 }

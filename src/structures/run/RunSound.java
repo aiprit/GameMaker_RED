@@ -6,13 +6,13 @@ import authoring_environment.FileHandlers.SoundMaker;
 import exceptions.CompileTimeException;
 import structures.data.DataSound;
 import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
+import javax.sound.sampled.AudioInputStream;
 
 public class RunSound {
 	
 	public final String name;
-	
-    
+
     private DataSound myDataSound;
     
     public RunSound(String name) {
