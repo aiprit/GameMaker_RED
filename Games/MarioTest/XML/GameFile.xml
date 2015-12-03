@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game currentRoom="0" directory="Games/MarioTest/" startRoom="0" title="MarioTest">
-  <objects/>
-  <sprites/>
+  <objects>
+    <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="maio" zIndex="0">
+      <events/>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="maio.png" centerX="0.0" centerY="0.0" name="maio"/>
+    <sprite baseFileName="bricks.png" centerX="0.0" centerY="0.0" name="bricks"/>
+  </sprites>
   <sounds/>
   <rooms/>
 </game>
