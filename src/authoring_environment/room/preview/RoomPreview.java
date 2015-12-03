@@ -25,7 +25,6 @@ public class RoomPreview extends ScrollPane {
 	}
 	
 	private void initializePreview(ResourceBundle resources) {
-		
 		super.setPrefHeight(Double.parseDouble(resources.getString(PREVIEW_HEIGHT)));
 		super.setPrefWidth(Double.parseDouble(resources.getString(PREVIEW_WIDTH)));
 		this.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);

@@ -1,8 +1,12 @@
 package engine.front_end;
 
+import java.awt.image.BufferedImage;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -35,6 +39,7 @@ public class Draw extends StackPane implements IDraw {
 		myGraphicsContext.translate(x - disp.x(), y - disp.y());
 		myGraphicsContext.rotate(-1 * angle);
 		myGraphicsContext.scale(scaleX, scaleY);
+		
 		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
 		myGraphicsContext.restore();
 
