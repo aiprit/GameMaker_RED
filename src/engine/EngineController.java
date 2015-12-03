@@ -96,20 +96,10 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		myEditor = new XMLEditor();
 		myGame = myEditor.readXML(userGame);
 
-		// Which one was selected?
-		DataGame game = null;
-		if (userGame.equals("TestGame")) {
-			TestGameObject tgo = new TestGameObject();
-			game = tgo.getTestGame(getGamesDirectory());
-		} else if (userGame.equals("TestGame2")) {
-			TestGame2 tgo = new TestGame2();
-			game = tgo.getTestGame(getGamesDirectory());
-		}
-
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
-			runGame = new RunGame(game);
+			runGame = new RunGame(myGame);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}

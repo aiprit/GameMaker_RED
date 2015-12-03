@@ -40,7 +40,7 @@ public class GameSelector {
 			getGameChoice();
 		}
 		XMLEditor xml = new XMLEditor();
-		DataGame dataGame = xml.readXML("Games/" + myName + "/XML/GameFile.xml");
+		DataGame dataGame = xml.readXML(myName);
 		//return new DataGame(myName , myName+"/");
 		return dataGame;
 		//TODO: Load XML here instead @Buie
