@@ -5,7 +5,6 @@ package engine.front_end;
 
 import java.io.IOException;
 
-import controllerUtils.Test;
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
 import javafx.event.ActionEvent;
@@ -28,6 +27,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.run.RunGame;
 import structures.run.RunRoom;
+import voogasalad.util.externalcontroller.ControllerListener;
 
 /**
  * @author loganrooper
@@ -156,13 +156,12 @@ public class FrontEnd implements IGameUpdatedHandler {
 	}
 
 	private void setupUserInteraction(StackPane pane) throws IOException{
-		Test controllerTest = new Test();
-		;
+		ControllerListener controllerTest = new ControllerListener();
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 		if(controllerTest.getControllerConnected()){
-			controllerTest.setupRobot(stage);
+			controllerTest.initialize(stage);
 		}
 	}
 
