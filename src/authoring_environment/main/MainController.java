@@ -188,7 +188,7 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Save");
-				String file = dataGame.getName() + "/XML";
+				String file = dataGame.getName() + r.getString("XMLFolder");
 				XMLEditor xml = new XMLEditor();
 				xml.writeXML(dataGame, file);
 				update();
