@@ -12,6 +12,7 @@ import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
+import exceptions.ResourceFailedException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -182,6 +183,22 @@ public class MainController implements IUpdateHandle {
 				File file = FileHelper.choose(myStage);
 				XMLEditor xml = new XMLEditor();
 				dataGame = xml.readXML(file.getAbsolutePath());
+				for (DataSprite o : dataGame.getSprites()){
+					try {
+						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("imagesFolder"));
+					} catch (ResourceFailedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				for (DataSound o : dataGame.getSounds()){
+					try {
+						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("soundFolder"));
+					} catch (ResourceFailedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				update();
 			}
 		});
