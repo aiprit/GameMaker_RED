@@ -14,9 +14,9 @@ import structures.data.events.KeyPressedEvent;
 import structures.data.events.KeyReleasedEvent;
 
 
-public class KeyPressPopUp extends KeyPopUp {
+public class KeyPressedPopUp extends KeyPopUp {
 
-	public KeyPressPopUp(DataObject obj) {
+	public KeyPressedPopUp(DataObject obj) {
 		super(obj);
 		init();
 
