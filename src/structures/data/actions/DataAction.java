@@ -23,10 +23,12 @@ public abstract class DataAction implements IAction {
 
 	protected abstract String getSyntax();
 
+	@Override
 	public List<IParameter> getParameters() {
 		return Collections.unmodifiableList(myParameters);
 	}
 
+	@Override
 	public String compileSyntax() throws CompileTimeException {
 		return compile(getSyntax());
 	}

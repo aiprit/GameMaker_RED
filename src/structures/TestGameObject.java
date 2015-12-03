@@ -16,14 +16,13 @@ import structures.data.actions.params.IParameter;
 import structures.data.events.*;
 import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetTimerOnce;
-import structures.data.actions.library.AdjustScrollerX;
+import structures.data.actions.ViewFollow;
 import structures.data.actions.library.Close;
 import structures.data.actions.library.CreateInstanceAtCursor;
 import structures.data.actions.library.CreateObjectRandom;
 import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
-import structures.data.actions.library.GetGlobalVariableConditional;
 import structures.data.actions.library.GetHighScore;
 import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
@@ -167,7 +166,7 @@ public class TestGameObject {
 		MoveTo down = new MoveTo();
 		CreateObjectRandom m = new CreateObjectRandom();
 		CreateInstanceAtCursor rs = new CreateInstanceAtCursor();
-		AdjustScrollerX ms = new AdjustScrollerX();
+		ViewFollow ms = new ViewFollow();
 		Wrap w = new Wrap();
 		try {
 
@@ -194,7 +193,10 @@ public class TestGameObject {
 			m.getParameters().get(1).parse("100");
 			m.getParameters().get(2).parse("100");
 
+			ms.getParameters().get(0).parse("true");
 			ms.getParameters().get(0).parse(".5");
+			ms.getParameters().get(0).parse("false");
+			ms.getParameters().get(0).parse("0");
 
 			rs.getParameters().get(0).parse("Coin");
 
@@ -229,7 +231,7 @@ public class TestGameObject {
 		player.bindEvent(new LeaveRoomEvent(), wrapActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetGlobalVariableConditional getScore = new GetGlobalVariableConditional();
+		IfGlobalVar getScore = new IfGlobalVar();
 		try{
 			getScore.getParameters().get(0).parse("score");
 			getScore.getParameters().get(1).parse(">=");

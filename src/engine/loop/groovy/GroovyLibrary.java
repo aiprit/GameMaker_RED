@@ -122,13 +122,6 @@ public class GroovyLibrary {
 		myEventManager.setHighScore(score);
 	}
 
-	public double get_variable(String key){
-		if(!myGlobalVariables.containsKey(key)){
-			myGlobalVariables.put(key, 0.0);
-		}
-		return myGlobalVariables.get(key);
-	}
-
 	public void go_to_room(int roomNumber) {
 		try {
 			myRunGame.setCurrentRoom(roomNumber);
@@ -165,6 +158,13 @@ public class GroovyLibrary {
 		myEventManager.onReset();
 	}
 
+	public double get_variable(String key){
+		if(!myGlobalVariables.containsKey(key)){
+			myGlobalVariables.put(key, 0.0);
+		}
+		return myGlobalVariables.get(key);
+	}
+	
 	public void set_variable(String key, double value, boolean relative){
 		if(relative){
 			double oldValue = 0;
@@ -176,6 +176,14 @@ public class GroovyLibrary {
 		else{
 			myGlobalVariables.put(key, value);
 		}
+	}
+	
+	public double global(String key) {
+		return get_variable(key);
+	}
+	
+	public void global(String key, double value) {
+		set_variable(key, value, false);
 	}
 
 	public void wrap(RunObject check){
@@ -229,6 +237,20 @@ public class GroovyLibrary {
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
+	}
+	
+	public void propertyMissing(String name, Object value) {
+		double num = 0.0;
+		try {
+			num = Double.parseDouble(value.toString());
+		} catch (NumberFormatException ex) {
+			// do nothing
+		}
+		global(name, num);
+	}
+	
+	public Object propertyMissing(String name) {
+		return global(name);
 	}
 
 }

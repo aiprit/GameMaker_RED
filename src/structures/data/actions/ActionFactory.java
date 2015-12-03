@@ -15,14 +15,8 @@ public class ActionFactory {
         DataAction action;
 
         if (className.equals("AdjustScroller")) {
-            action = new AdjustScroller();
+            action = new ViewFollow();
             numberOfParameters = 2;
-        } else if (className.equals("AdjustScrollerX")) {
-            action = new AdjustScrollerX();
-            numberOfParameters = 1;
-        } else if (className.equals("AdjustScrollerY")) {
-            action = new AdjustScrollerY();
-            numberOfParameters = 1;
         } else if (className.equals("Close")) {
             action = new Close();
             numberOfParameters = 0;
@@ -53,17 +47,8 @@ public class ActionFactory {
         } else if (className.equals("IfGlobalVar")) {
             action = new IfGlobalVar();
             numberOfParameters = 1;
-        } else if (className.equals("GetGlobalVariableConditional")) {
-            action = new GetGlobalVariableConditional();
-            numberOfParameters = 3;
         } else if (className.equals("GetHighScore")) {
             action = new GetHighScore();
-            numberOfParameters = 2;
-        } else if (className.equals("GetMouseState")) {
-            action = new GetMouseState();
-            numberOfParameters = 2;
-        } else if (className.equals("GetRoomId")) {
-            action = new GetRoomId();
             numberOfParameters = 2;
         } else if (className.equals("GoToRoom")) {
             action = new GoToRoom();
@@ -86,9 +71,6 @@ public class ActionFactory {
         } else if (className.equals("SetHighScore")) {
             action = new SetHighScore();
             numberOfParameters = 1;
-        } else if (className.equals("SetRandomNumberAndChoose")) {
-            action = new SetRandomNumberAndChoose();
-            numberOfParameters = 3;
         } else if (className.equals("Wrap")) {
             action = new Wrap();
             numberOfParameters = 0;
