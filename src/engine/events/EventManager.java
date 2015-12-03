@@ -19,7 +19,6 @@ import utils.Point;
 public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
 IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 
-        private boolean isPaused = false;
 	private List<IGUIBackendHandler> myGUIBackend;
 	private List<IGUIControllerHandler> myGUIController;
 	private List<IInputHandler> myUserInput;
@@ -59,28 +58,24 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 	}
 
 	public void onResume(){
-	    isPaused = false;
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onResume();
 		}
 	}
  
 	public void onPause(){
-	    isPaused = true;
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onPause();
 		}
 	}
 	
 	public void onReset(){
-	    isPaused = false;
 		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
 		}
 	}
 
 	public void onLoadSave(String path){
-	    isPaused = false;
 		for(IGUIControllerHandler g : myGUIController){
 			g.onLoadSave(path);
 		}
@@ -146,10 +141,6 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
-	}
-	
-	public boolean isPaused() {
-	    return isPaused;
 	}
 
 }

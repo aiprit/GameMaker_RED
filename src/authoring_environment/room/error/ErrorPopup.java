@@ -10,12 +10,13 @@ import javafx.scene.text.TextAlignment;
 
 public class ErrorPopup extends PopupTemplate {
 	private static final int LINE_SPACING = 5;
+	private static final String ERROR = "Error";
 	private static final String OKAY = "Okay";
 	
 	private Text myText;
 	
-	public ErrorPopup(ResourceBundle resources, String title, String errorMessage) {
-		super(resources, title);
+	public ErrorPopup(ResourceBundle resources, String errorMessage) {
+		super(resources, resources.getString(ERROR));
 		super.getSaveButton().setText(resources.getString(OKAY));
 		super.getSaveButton().setOnAction(e -> this.close());
 		super.setAlwaysOnTop(true);
