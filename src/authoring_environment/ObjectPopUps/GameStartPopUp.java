@@ -7,7 +7,7 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import structures.data.DataObject;
 import structures.data.events.GameStartEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 
 public class GameStartPopUp  extends BasicPopUp{
 

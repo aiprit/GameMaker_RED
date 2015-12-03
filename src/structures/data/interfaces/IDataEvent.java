@@ -1,4 +1,4 @@
-package structures.data.events;
+package structures.data.interfaces;
 
 import java.util.Map;
 

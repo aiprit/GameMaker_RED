@@ -7,10 +7,10 @@ import authoring_environment.Event.EventController;
 
 import javafx.collections.ObservableMap;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
 import structures.data.events.GameStartEvent;
-import structures.data.events.IDataEvent;
 import structures.data.events.ObjectCreateEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class ObjectCreatePopUp extends BasicPopUp{
 	public ObjectCreatePopUp(DataObject obj) {

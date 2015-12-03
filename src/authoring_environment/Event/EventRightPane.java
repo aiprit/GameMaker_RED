@@ -10,7 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
-import structures.data.actions.IAction;
+import structures.data.interfaces.IAction;
 
 public class EventRightPane {
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");

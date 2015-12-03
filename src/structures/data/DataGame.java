@@ -4,8 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 import java.util.List;
 import java.util.Observable;

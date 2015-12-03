@@ -1,4 +1,4 @@
-package structures.data.actions;
+package structures.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import exceptions.CompileTimeException;
 import structures.data.actions.params.IParameter;
+import structures.data.interfaces.IAction;
 import utils.Utils;
 
 /**
@@ -23,10 +24,12 @@ public abstract class DataAction implements IAction {
 
 	protected abstract String getSyntax();
 
+	@Override
 	public List<IParameter> getParameters() {
 		return Collections.unmodifiableList(myParameters);
 	}
 
+	@Override
 	public String compileSyntax() throws CompileTimeException {
 		return compile(getSyntax());
 	}

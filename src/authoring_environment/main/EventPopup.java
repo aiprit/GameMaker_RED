@@ -11,8 +11,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class EventPopup {
 

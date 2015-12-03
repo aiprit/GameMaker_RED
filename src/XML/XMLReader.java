@@ -7,9 +7,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import structures.data.*;
-import structures.data.actions.ActionFactory;
-import structures.data.actions.IAction;
-import structures.data.events.EventFactory;
+import structures.data.factories.ActionFactory;
+import structures.data.factories.EventFactory;
+import structures.data.interfaces.IAction;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

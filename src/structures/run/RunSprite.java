@@ -1,12 +1,7 @@
 package structures.run;
 
-import java.awt.image.BufferedImage;
-
 import engine.front_end.IDraw;
 import exceptions.CompileTimeException;
-
-import javafx.embed.swing.SwingFXUtils;
-
 import javafx.scene.image.Image;
 import structures.data.DataSprite;
 
@@ -40,8 +35,7 @@ public class RunSprite implements IDrawable {
 
 	@Override
 	public void draw(IDraw drawListener, RunView view, RunObject object) {
-		BufferedImage img = SwingFXUtils.fromFXImage(myImage, null);
-		drawListener.drawImage(myImage, view, object.x, object.y, centerX, centerY, object.scaleX, object.scaleY, object.angle);
+		drawListener.drawImage(myImage, view, object.x(), object.y(), centerX, centerY, object.scaleX(), object.scaleY(), object.angle());
 	}
 	
 	public double getWidth() {

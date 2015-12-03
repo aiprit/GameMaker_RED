@@ -1,5 +1,6 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.IntegerParam;
 
 public class SetTimerOnce extends DataAction {

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import structures.data.events.CollisionEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 import structures.run.RunObject;
 import utils.Pair;
 
@@ -28,16 +28,16 @@ public class CollisionManager {
 	}
 
 	public void addToCollideables(RunObject obj) {
-		if (!myCollideables.containsKey(obj.name)) {
-			myCollideables.put(obj.name, new ArrayList<RunObject>());
+		if (!myCollideables.containsKey(obj.name())) {
+			myCollideables.put(obj.name(), new ArrayList<RunObject>());
 		}
-		if(!myCollideables.get(obj.name).contains(obj)){
-			myCollideables.get(obj.name).add(obj);
+		if(!myCollideables.get(obj.name()).contains(obj)){
+			myCollideables.get(obj.name()).add(obj);
 		}
 	}
 
 	public void removeFromCollideables(RunObject obj) {
-		List<RunObject> list = myCollideables.get(obj.name);
+		List<RunObject> list = myCollideables.get(obj.name());
 		if (list != null) {
 			list.remove(obj);
 		}
@@ -79,7 +79,7 @@ public class CollisionManager {
 	public boolean collisionSolidAt(RunObject obj, String otherObjectName, double x, double y) {
 		List<RunObject> otherObjects = myCollideables.get(otherObjectName);
 		for (RunObject other : otherObjects) {
-			if (!other.solid) {
+			if (!other.solid()) {
 				return false;
 			}
 			if (myCollider.collidesAt(obj, x, y, other)) {

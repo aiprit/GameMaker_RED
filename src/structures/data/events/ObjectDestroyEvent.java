@@ -1,5 +1,6 @@
 package structures.data.events;
 
+import structures.data.abstract_classes.AbstractBasicEvent;
 
 public class ObjectDestroyEvent extends AbstractBasicEvent {
 	

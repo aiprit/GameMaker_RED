@@ -18,7 +18,8 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorController {
 	ObjectEditorView view;
@@ -60,7 +61,7 @@ public class ObjectEditorController {
 		view.getRightPane().getListView().setItems(model.getEvents());
 		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>(){
 			@Override
-			public ListCell<IDataEvent> call(ListView<IDataEvent> arg0) {
+			public ListCell<IDataEvent> call(ListView <IDataEvent> arg0) {
 				final ListCell<IDataEvent> cell = new ListCell<IDataEvent>() {
                     @Override
                     public void updateItem(IDataEvent item, boolean empty) {
@@ -68,7 +69,14 @@ public class ObjectEditorController {
                         if (empty) {
                             setText(null);
                         } else {
-                            setText(item.getName());
+                        	String description  =item.getName()+ ":";
+                        	for(IAction action: model.getMap().get(item)){
+                        		description += "\n   " +action.getDescription();
+
+
+
+                        	}
+                            setText(description);
                         }
                     }
                 };

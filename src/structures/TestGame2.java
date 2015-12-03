@@ -10,12 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.Block;
-import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IAction;
 import utils.Vector;
 import utils.rectangle.Rectangle;
 
@@ -134,10 +134,10 @@ public class TestGame2 {
         List<IAction> jumpActions = Collections.singletonList(jump);
         ObservableList<IAction> jumpActions0 = FXCollections.observableList(jumpActions);
 
-        mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
-        mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
+        //mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
+        //mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
+        //mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
+        //mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.F), jumpActions0);
         //mario.bindEvent(new CollisionEvent(wall), blockActions0);
         mario.bindEvent(StepEvent.event, stepActions0);
@@ -172,8 +172,7 @@ public class TestGame2 {
 
         DataInstance marioInstance = new DataInstance(mario, 200, 20);
         marioInstance.setGravity(new Vector(0, 2));
-        marioInstance.setFriction(.99);
-
+        marioInstance.setFriction(.3);
         level1.addObjectInstance(marioInstance);
 
 
