@@ -8,6 +8,7 @@ import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import structures.data.DataSprite;
+import structures.data.actions.params.IParameter;
 import structures.data.events.IDataEvent;
 import utils.Vector;
 import utils.rectangle.IRectangle;

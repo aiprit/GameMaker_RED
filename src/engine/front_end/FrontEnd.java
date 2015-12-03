@@ -3,6 +3,8 @@
  */
 package engine.front_end;
 
+import java.io.IOException;
+
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
 import javafx.scene.Group;
@@ -23,6 +25,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.run.IParameters;
 import structures.run.RunRoom;
+//uncomment for controller functionality
+//import voogasalad.util.externalcontroller.ControllerListener;
 
 /**
  * @author loganrooper
@@ -45,7 +49,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private HighScoreView myHighScoreView;
 	private ObjectInformationView myObjectInformationView;
 
-	public FrontEnd(EventManager eventManager, Stage stage) {
+	public FrontEnd(EventManager eventManager, Stage stage) throws IOException {
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
@@ -154,14 +158,23 @@ public class FrontEnd implements IGameUpdatedHandler {
 	    stage.setWidth(1100);
 	}
 
-	private void setupCanvas(){
+	private void setupCanvas() throws IOException{
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		StackPane pane = (StackPane)myCanvasDrawer;
+		StackPane pane = (StackPane) myCanvasDrawer;
 		myRoot.getChildren().add(pane);
+		setupUserInteraction(pane);
+	}
+
+	private void setupUserInteraction(StackPane pane) throws IOException{
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
+		//uncomment for controller functionality
+//		ControllerListener controllerTest = new ControllerListener();
+//		if(controllerTest.getControllerConnected()){
+//			controllerTest.initialize(stage);
+//		}
 	}
 
 	public IDraw getDrawListener(){
@@ -174,6 +187,8 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
+		//		stage.setWidth(runRoom.getView().getView().width());
+		//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override
