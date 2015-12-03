@@ -1,5 +1,6 @@
 package authoring_environment.main;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
@@ -177,9 +178,9 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
-				String name = FileHelper.askName();
+				File file = FileHelper.choose(myStage);
 				XMLEditor xml = new XMLEditor();
-				dataGame = xml.readXML(name);
+				dataGame = xml.readXML(file.getAbsolutePath());
 				update();
 			}
 		});
@@ -188,7 +189,7 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Save");
-				String file = dataGame.getName() + r.getString("XMLFolder");
+				String file = dataGame.getName() + r.getString("XMLFolder") + "GameFile.xml";
 				XMLEditor xml = new XMLEditor();
 				xml.writeXML(dataGame, file);
 				update();
