@@ -117,15 +117,15 @@ public class ObjectInstanceController {
 		double scale = 1.0;
 		if (view.widthOutOfBounds(canvasWidth)) {
 			scale = view.getScaleXAdjustment(canvasWidth);
-			view.setScale(scale, scale);
-			model.setScaleX(scale);
-			model.setScaleY(scale);
+			view.setScale(scale*model.getScaleX(), scale*model.getScaleY());
+			model.setScaleX(scale*model.getScaleX());
+			model.setScaleY(scale*model.getScaleY());
 		}
 		if (view.heightOutOfBounds(canvasHeight)) {
 			scale = view.getScaleYAdjustment(canvasHeight);
-			view.setScale(scale, scale);
-			model.setScaleX(scale);
-			model.setScaleY(scale);
+			view.setScale(scale*model.getScaleX(), scale*model.getScaleY());
+			model.setScaleX(scale*model.getScaleX());
+			model.setScaleY(scale*model.getScaleY());
 		}
 	}
 }
