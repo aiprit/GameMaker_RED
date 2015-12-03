@@ -42,7 +42,6 @@ public class GroovyLibrary {
 		try {
 			return myInputManager.checkKey(keyCode.toUpperCase());
 		} catch (LibraryArgumentException e) {
-			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -51,16 +50,32 @@ public class GroovyLibrary {
 		return !key_down(keyCode);
 	}
 	
+	public double mouse_x() {
+		return myInputManager.mouseX();
+	}
+	
+	public double mouse_y() {
+		return myInputManager.mouseY();
+	}
+	
+	public boolean mouse_primary() {
+		return myInputManager.mousePrimaryDown();
+	}
+	
+	public boolean mouse_secondary() {
+		return myInputManager.mouseSecondaryDown();
+	}
+	
 
 	public double random_number(double max){
 		Random rand = new Random();
 		return (max * rand.nextDouble());
 	}
 
-	public void create_object(String name, double x, double y){
+	public void create_instance(String objectName, double x, double y){
 		RunObject runObject = null;
 		try {
-			runObject = myRunGame.getCurrentRoom().instantiate(name, x, y);
+			runObject = myRunGame.getCurrentRoom().instantiate(objectName, x, y);
 		} catch (GameRuntimeException e) {
 			fatalError(e.getMessage());
 		}
@@ -68,25 +83,8 @@ public class GroovyLibrary {
 		runObject.y(y);
 		myEventManager.onObjectCreate(runObject);
 	}
-	
 
-	public void create_object_long(String name, double x, double y, double speed,
-			double friction, boolean wraparound) {
-		RunObject runObject = null;
-		try {
-			runObject = myRunGame.getCurrentRoom().instantiate(name, x, y);
-		} catch (GameRuntimeException e) {
-			fatalError(e.getMessage());
-		}
-		runObject.x(x);
-		runObject.y(y);		
-		//runObject.set_speed(speed);
-		runObject.friction(friction);
-		runObject.wrap_around_room(wraparound);
-		myEventManager.onObjectCreate(runObject);
-	}
-
-	public void destroy(RunObject deleteThis){
+	public void destroy(RunObject deleteThis) {
 		myEventManager.onObjectDestroy(deleteThis);
 	}
 
@@ -107,17 +105,12 @@ public class GroovyLibrary {
 		}
 	}
 
-	//	public void draw_rectangle(double x, double y, double width, double height, String color,
-	//			boolean border, double borderWidth){
-	//		
-	//	}
-
-	//	public void get_mouse_state(){
-	//		//use in GetMouseState to see if right or left etc.
-	//	}
-
 	public String get_room_id(){
 		return myRunGame.getCurrentRoom().toString();
+	}
+	
+	public String get_room_name() {
+		return myRunGame.getCurrentRoom().getName();
 	}
 
 	public double get_high_score(){

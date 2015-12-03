@@ -51,4 +51,9 @@ public class SpriteParam implements IParameter, ISelectable {
 		return type.SPRITE_SELECT;
 	}
 
+	@Override
+	public String getName() {
+		return mySelected.getName();
+	}
+
 }

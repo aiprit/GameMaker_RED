@@ -15,6 +15,7 @@ import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
 public class RunObject implements IParameters {
+	
 	public static final String NAME = "Name";
 	public static final String SCALEX = "Scale X";
 	public static final String SCALEY = "Scale Y";

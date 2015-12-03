@@ -10,7 +10,7 @@ public class SetFriction extends DataAction {
 
 	@Override
 	public String getTitle() {
-		return "SetFriction";
+		return "Set Friction";
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class SetFriction extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.set_friction(%f);";
+		return "current.friction(%f);";
 	}
 
 }

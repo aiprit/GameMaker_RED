@@ -1,6 +1,4 @@
-package structures.data.actions.library;
-
-import structures.data.actions.DataAction;
+package structures.data.actions;
 
 public class Destroy extends DataAction {
 

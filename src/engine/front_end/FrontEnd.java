@@ -160,6 +160,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		StackPane pane = (StackPane)myCanvasDrawer;
 		myRoot.getChildren().add(pane);
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
+		stage.getScene().setOnMouseMoved(myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 	}

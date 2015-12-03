@@ -12,7 +12,7 @@ public class SelectParam implements IParameter, ISelectable {
 	private List<String> myOptions;
 	private String mySelected;
 	
-	public SelectParam(String title, String[] options) {
+	public SelectParam(String title, String... options) {
 		myTitle = title;
 		myOptions = new ArrayList<String>(Arrays.asList(options));
 	}
@@ -49,6 +49,11 @@ public class SelectParam implements IParameter, ISelectable {
 	@Override
 	public type getType() {
 		return type.SELECT;
+	}
+
+	@Override
+	public String getName() {
+		return mySelected;
 	}
 
 }

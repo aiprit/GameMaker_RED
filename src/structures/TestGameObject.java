@@ -15,6 +15,7 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataSprite;
 import structures.data.DataView;
+import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
 import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
@@ -23,9 +24,8 @@ import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetTimerOnce;
 import structures.data.actions.library.AdjustScrollerX;
 import structures.data.actions.library.Close;
-import structures.data.actions.library.CreateObjectOnClick;
+import structures.data.actions.library.CreateInstanceAtCursor;
 import structures.data.actions.library.CreateObjectRandom;
-import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
@@ -35,7 +35,7 @@ import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
 import structures.data.actions.library.SetGlobalVariable;
 import structures.data.actions.library.SetHighScore;
-import structures.data.actions.library.SetRandomNumberAndChoose;
+import structures.data.actions.library.IfOdds;
 import structures.data.actions.library.Wrap;
 import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
@@ -160,7 +160,7 @@ public class TestGameObject {
 		MoveTo up = new MoveTo();
 		MoveTo down = new MoveTo();
 		CreateObjectRandom m = new CreateObjectRandom();
-		CreateObjectOnClick rs = new CreateObjectOnClick();
+		CreateInstanceAtCursor rs = new CreateInstanceAtCursor();
 		AdjustScrollerX ms = new AdjustScrollerX();
 		Wrap w = new Wrap();
 		try {
@@ -265,7 +265,7 @@ public class TestGameObject {
 		catch(Exception e){
 
 		}
-		SetRandomNumberAndChoose srac = new SetRandomNumberAndChoose();
+		IfOdds srac = new IfOdds();
 		try{
 			srac.getParameters().get(0).parse("10");
 			srac.getParameters().get(1).parse("==");
