@@ -114,19 +114,34 @@ public class RoomCanvas extends Canvas {
 	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
-	//TODO fix transparency
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
 		for (DraggableImage drag : myObjectList) {
-			//this.getGraphicsContext2D().drawImage(drag.getImage(), drag.getX(), drag.getY());
 			if (!drag.getVisibility())
 				continue;
-			//this.getGraphicsContext2D().scale(drag.getScaleX(), drag.getScaleY());
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
-			//this.getGraphicsContext2D().setGlobal
 		}
+		drawGridLines();
 		drawView();
+
+	}
+	
+	private void drawGridLines() {
+		int numCols = 16;
+		int numRows = 16;
+		double colSpacing = this.getWidth() / numCols;
+		double rowSpacing = this.getHeight() / numRows;
+		//draw vertical lines
+		for (int i = 0; i < numCols; i++) {
+			this.getGraphicsContext2D().setStroke(Color.BLACK);
+			this.getGraphicsContext2D().strokeLine(i*colSpacing, 0, i*colSpacing, this.getHeight());
+		}
+		//draw horizontal lines
+		for (int i = 0; i < numRows; i++) {
+			this.getGraphicsContext2D().setStroke(Color.BLACK);
+			this.getGraphicsContext2D().strokeLine(0, i*rowSpacing, this.getWidth(), i*rowSpacing);
+		}
 	}
 	
 	public void rotate(double angle, double pivotX, double pivotY) {
@@ -134,7 +149,6 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
 	
-	//TODO make sure transparency works
 	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY, double alpha) {
 		this.getGraphicsContext2D().save();
 		rotate(angle, tlx + image.getWidth()*scaleX / 2, tly + image.getHeight()*scaleY / 2);
