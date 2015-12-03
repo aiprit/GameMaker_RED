@@ -38,7 +38,7 @@ public class RoomParam implements IParameter, ISelectable {
 
 	@Override
 	public String getOriginal() {
-		return myOriginal;
+		return mySelected.getName();
 	}
 
 	@Override
@@ -54,11 +54,6 @@ public class RoomParam implements IParameter, ISelectable {
 	@Override
 	public type getType() {
 		return type.ROOM_SELECT;
-	}
-
-	@Override
-	public String getName() {
-		return mySelected.getName();
 	}
 
 }

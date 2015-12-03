@@ -11,6 +11,11 @@ public class SpriteParam implements IParameter, ISelectable {
 	private List<DataSprite> myPossibleSprites;
 	private DataSprite mySelected;
 	private String myOriginal;
+	private String myTitle;
+	
+	public SpriteParam(String title) {
+		myTitle = title;
+	}
 	
 	public void setSpriteList(List<DataSprite> possibleSprites) {
 		myPossibleSprites = possibleSprites;
@@ -33,12 +38,12 @@ public class SpriteParam implements IParameter, ISelectable {
 
 	@Override
 	public String getOriginal() {
-		return myOriginal;
+		return mySelected.getName();
 	}
 
 	@Override
 	public String getTitle() {
-		return "Object";
+		return myTitle;
 	}
 
 	@Override
@@ -49,11 +54,6 @@ public class SpriteParam implements IParameter, ISelectable {
 	@Override
 	public type getType() {
 		return type.SPRITE_SELECT;
-	}
-
-	@Override
-	public String getName() {
-		return mySelected.getName();
 	}
 
 }

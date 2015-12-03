@@ -51,9 +51,4 @@ public class SelectParam implements IParameter, ISelectable {
 		return type.SELECT;
 	}
 
-	@Override
-	public String getName() {
-		return mySelected;
-	}
-
 }

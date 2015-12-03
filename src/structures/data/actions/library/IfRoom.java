@@ -18,12 +18,12 @@ public class IfRoom extends DataAction {
 	@Override
 	public String getDescription() {
 		String bool = (boolean) get("NOT").getValue() ? "NOT" : "";
-		return String.format("If %s in Room %s", bool, ((RoomParam)get("Current room is")).getName());
+		return String.format("If %s in Room %s", bool, get("Current room is"));
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "“if (library.get_room_id() %s %f)";
+		return "“if (library.get_room_name().equals(%s) != %b)";
 	}
 
 }
