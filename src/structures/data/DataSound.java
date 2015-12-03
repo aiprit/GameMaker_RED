@@ -15,7 +15,7 @@ public class DataSound implements IResource {
 
     private String myName;
     private String myBaseFileName;
-    private AudioInputStream myAudioStream;
+    private String completeFileName;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -39,19 +39,12 @@ public class DataSound implements IResource {
 
     @Override
     public void load(String directory) throws ResourceFailedException {
-        String url = directory + myBaseFileName;
-        try {
-            
-            myAudioStream = AudioSystem.getAudioInputStream(new File(url).getAbsoluteFile());
-        } catch (Exception ex) {
-            String message = String.format("Failed to load sound '%s' for DataSound %s", url, myName);
-            throw new ResourceFailedException(message);
-        }
-        myHaveLoaded = true;
+    	completeFileName = directory;
     }
 
-    public AudioInputStream getAudio() {
-        return myAudioStream;
+ 
+    public String getDirectory(){
+    	return completeFileName;
     }
 
 }

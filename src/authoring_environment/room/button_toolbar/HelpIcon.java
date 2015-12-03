@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import javafx.geometry.Point2D;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,11 +27,6 @@ public class HelpIcon extends ImageView {
 	}
 	
 	private void showToolTip(MouseEvent event, Tooltip tip) {
-		Point2D point = this.screenToLocal(event.getSceneX(), event.getSceneY());
-		double xCor = point.getX();
-		double yCor = point.getY();
-		System.out.println("X Cor is " + event.getSceneX());
-		System.out.println("Y Cor is " + event.getSceneY());
 		tip.show(this, event.getSceneX(), event.getSceneY());
 	}
 	

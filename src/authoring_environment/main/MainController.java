@@ -1,14 +1,15 @@
 package authoring_environment.main;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
+import XML.XMLEditor;
 import XML.XMLReader;
 import authoring_environment.FileHandlers.FileHelper;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
-import authoring_environment.room.RoomController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import javafx.event.ActionEvent;
@@ -140,7 +141,7 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SpriteMaker.load(myStage, dataGame.getSprites());
+				SpriteMaker.load(myStage, dataGame);
 				update();
 
 			}
@@ -165,7 +166,7 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SoundMaker.load(myStage, dataGame.getSounds());
+				SoundMaker.load(myStage, dataGame);
 				update();
 			}
 		});
@@ -177,8 +178,9 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
-				String name = FileHelper.askName();
-				dataGame = XMLReader.read(name);
+				File file = FileHelper.choose(myStage);
+				XMLEditor xml = new XMLEditor();
+				dataGame = xml.readXML(file.getAbsolutePath());
 				update();
 			}
 		});
@@ -187,6 +189,10 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Save");
+				String file = dataGame.getName() + r.getString("XMLFolder") + "GameFile.xml";
+				XMLEditor xml = new XMLEditor();
+				xml.writeXML(dataGame, file);
+				update();
 			}
 		});
 		topMenuBar.getRunMenu().setOnAction(new EventHandler<ActionEvent>() {
@@ -201,6 +207,12 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event){
 				returnToLauncher();
+			}
+		});
+		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				ViewSizePopupController viewPopupController = new ViewSizePopupController(r, dataGame);
 			}
 		});
 		mainView.setMenuBar(topMenuBar.getMenu());

@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
-import javafx.scene.image.Image;
 import structures.data.DataSprite;
 import structures.data.events.IDataEvent;
 import utils.Vector;
@@ -128,28 +127,22 @@ public class RunObject implements IParameters {
 	}
 
 	public void setParameterMaps(Map<String, String> strings, Map<String, Double> doubles, Map<String, Boolean> booleans) {
-		myStringMap = strings;
-		myDoubleMap = doubles;
-		myBooleanMap = booleans;
-		name = strings.get(NAME);
-		scaleX = myDoubleMap.get(SCALEX)*MAX_SCALEX;
-		scaleY = myDoubleMap.get(SCALEY)*MAX_SCALEY;
-		angle = myDoubleMap.get(ANGLE)*MAX_ANGLE;
-		angularVelocity = myDoubleMap.get(ANGULAR_VELOCITY)*MAX_ANGULAR_VELOCITY;
-		visible = myBooleanMap.get(VISIBLE);
-		alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
-		friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
-		solid = myBooleanMap.get(SOLID);
-		velocity.x = (myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2;
-		velocity.y = (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2;
-		gravity.x = (myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2;
-		gravity.y = (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2;
-		initMaps();
-	}
-	
-	@Override
-	public Image getImage () {
-		return mySprite.getImage();
+
+	    myStringMap = strings;
+	    myDoubleMap = doubles;
+	    myBooleanMap = booleans;
+	    name = strings.get(NAME);
+	    scaleX = myDoubleMap.get(SCALEX)*MAX_SCALEX;
+	    scaleY = myDoubleMap.get(SCALEY)*MAX_SCALEY;
+	    angle = myDoubleMap.get(ANGLE)*MAX_ANGLE;
+	    angularVelocity = myDoubleMap.get(ANGULAR_VELOCITY)*MAX_ANGULAR_VELOCITY;
+	    visible = myBooleanMap.get(VISIBLE);
+	    alpha = myDoubleMap.get(ALPHA)*MAX_ALPHA;
+	    friction = myDoubleMap.get(FRICTION)*MAX_FRICTION;
+	    solid = myBooleanMap.get(SOLID);
+	    velocity = new Vector((myDoubleMap.get(VELOCITYX)-.5)*MAX_VELOCITYX/2, (myDoubleMap.get(VELOCITYY)-.5)*MAX_VELOCITYY/2);
+	    gravity = new Vector((myDoubleMap.get(GRAVITYX)-.5)*MAX_GRAVITYX/2, (myDoubleMap.get(GRAVITYY)-.5)*MAX_GRAVITYY/2);
+	    initMaps();
 	}
 
 	/*
@@ -424,7 +417,5 @@ public class RunObject implements IParameters {
 	public void solid(boolean solid) {
 		this.solid = solid;
 	}
-	
-	
 
 }

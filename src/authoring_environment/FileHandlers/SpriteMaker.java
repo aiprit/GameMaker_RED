@@ -22,34 +22,34 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import structures.data.DataGame;
 import structures.data.DataSprite;
 
 public class SpriteMaker {
 	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	public static void load(Stage s, ObservableList<DataSprite> sprites){
+	public static void load(Stage s, DataGame game){
 		
 		File selectedFile = FileHelper.choose(s);
 		BufferedImage img;	
 		try {
 			try{
-			img = ImageIO.read(selectedFile);
+				img = ImageIO.read(selectedFile);
 
+				String name = FileHelper.askName();
+				File outputfile = new File(game.getName() + r.getString("imagesFolder") + name + ".png");	
+				ImageIO.write(img, "png", outputfile);
+				DataSprite newSprite = new DataSprite(name, outputfile.getName());
+					try {
+						newSprite.load(game.getName() +  r.getString("imagesFolder"));
+					} catch (ResourceFailedException e) {
 
-			String name = FileHelper.askName();
-			File outputfile = new File(r.getString("imagesFolder") + name + ".png");	
-		    ImageIO.write(img, "png", outputfile);
-		    DataSprite newSprite = new DataSprite(name, outputfile.getName());
-		    	try {
-		    		newSprite.load(r.getString("imagesFolder"));
-		    	} catch (ResourceFailedException e) {
-
-		    		e.printStackTrace();
-		    	}
-
-		    sprites.add(newSprite);
-			} catch(IllegalArgumentException e2){
+						e.printStackTrace();
+					}
+					
+					game.getSprites().add(newSprite);
+				} catch(IllegalArgumentException e2){
 				
-			}  
+				}  
 		    
 		} catch (IOException e1) {
 				
