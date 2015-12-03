@@ -103,7 +103,7 @@ public class MainController implements IUpdateHandle {
 			DataRoom o = dataGame.getRooms().get(i);
 			boolean startRoom = dataGame.getStartRoomIndex() == i;
 			int roomIndex = i;
-			roomListView.addRoom(o, i, startRoom).setOnAction(new EventHandler<ActionEvent>() {
+			roomListView.addRoom(o, dataGame, i, startRoom, e -> update()).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					RoomNamePopupController room = new RoomNamePopupController(o, roomIndex, dataGame);
@@ -155,7 +155,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
-					SoundMaker.play(o);
+					SoundMaker.play(o, dataGame.getName());
 					update();
 				}
 			});
@@ -165,7 +165,7 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SoundMaker.load(myStage, dataGame.getSounds());
+				SoundMaker.load(myStage, dataGame);
 				update();
 			}
 		});
