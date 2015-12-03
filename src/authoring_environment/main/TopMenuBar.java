@@ -13,6 +13,7 @@ public class TopMenuBar {
 	private BorderPane bp;
 	private Menu run;
 	private MenuBar menuBar;
+	private MenuItem viewSize;
 
 	public void init() {
 		Menu file = new Menu(r.getString("File"));
@@ -21,10 +22,12 @@ public class TopMenuBar {
 //		Menu e = new Menu(r.getString("EditView"));
 		load = new MenuItem(r.getString("Load"));
 		save = new MenuItem(r.getString("Save"));
-		
+		Menu view = new Menu(r.getString("View"));
+		viewSize = new MenuItem(r.getString("EditView"));
+		view.getItems().add(viewSize);
 		file.getItems().addAll(load,save,exit);
 		menuBar = new MenuBar();
-		menuBar.getMenus().addAll(file,run);
+		menuBar.getMenus().addAll(file,run,view);
 	}
 
 	public MenuBar getMenu() {
@@ -39,6 +42,9 @@ public class TopMenuBar {
 	}
 	public MenuItem getExitMenu(){
 		return exit;
+	}
+	public MenuItem getViewMenu() {
+		return viewSize;
 	}
 	public Menu getRunMenu(){
 		return run;
