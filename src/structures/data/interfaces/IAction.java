@@ -1,4 +1,4 @@
-package structures.data.actions;
+package structures.data.interfaces;
 
 import java.util.List;
 

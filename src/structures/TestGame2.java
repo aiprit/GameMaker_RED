@@ -10,12 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.Block;
-import structures.data.actions.IAction;
 import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IAction;
 import utils.Vector;
 import utils.rectangle.Rectangle;
 

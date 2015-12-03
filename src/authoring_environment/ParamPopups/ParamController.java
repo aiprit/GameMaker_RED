@@ -13,9 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
-import structures.data.actions.IAction;
 import structures.data.actions.params.IParameter;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class ParamController {
 

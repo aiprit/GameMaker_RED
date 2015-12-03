@@ -14,7 +14,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Point;
