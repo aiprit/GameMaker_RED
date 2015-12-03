@@ -207,6 +207,7 @@ public class RoomController {
 		ObjectInstanceController objectInstance = instance == null ?
 				new ObjectInstanceController(image, object, coordinates[0], coordinates[1]) :
 				new ObjectInstanceController(image, instance, coordinates[0], coordinates[1]);
+		objectInstance.adjustScaleToFitCanvas(view.getPreview().getCanvas().getWidth(), view.getPreview().getCanvas().getHeight());
 		view.getPreview().addImage(objectInstance.getDraggableImage());
 		model.addObjectInstance(objectInstance.getDataInstance());
 		view.getPreview().getCanvas().redrawCanvas();

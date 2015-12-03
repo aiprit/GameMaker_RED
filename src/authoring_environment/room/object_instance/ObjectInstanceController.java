@@ -112,4 +112,20 @@ public class ObjectInstanceController {
 		view.setVisibility(model.isVisible());
 		model.setZIndex(instance.getZIndex());
 	}
+	
+	public void adjustScaleToFitCanvas(double canvasWidth, double canvasHeight) {
+		double scale = 1.0;
+		if (view.widthOutOfBounds(canvasWidth)) {
+			scale = view.getScaleXAdjustment(canvasWidth);
+			view.setScale(scale, scale);
+			model.setScaleX(scale);
+			model.setScaleY(scale);
+		}
+		if (view.heightOutOfBounds(canvasHeight)) {
+			scale = view.getScaleYAdjustment(canvasHeight);
+			view.setScale(scale, scale);
+			model.setScaleX(scale);
+			model.setScaleY(scale);
+		}
+	}
 }
