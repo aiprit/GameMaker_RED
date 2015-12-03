@@ -7,7 +7,9 @@ import structures.data.actions.params.StringParam;
 public class SetObjectVariable extends DataAction {
 
 	public SetObjectVariable(){
-		init(new StringParam("EditVariableKey"), new DoubleParam("EditVariableValue"), new CheckboxParam("RelativeVariable?"));
+		init(new StringParam("EditVariableKey"),
+				new DoubleParam("EditVariableValue"),
+				new CheckboxParam("RelativeVariable?"));
 	}
 
 	@Override

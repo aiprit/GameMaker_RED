@@ -4,9 +4,7 @@ import structures.data.actions.DataAction;
 
 public class SaveGame extends DataAction {
 	
-	public SaveGame(){
-		
-	}
+	public SaveGame(){}
 
 	@Override
 	public String getTitle() {
