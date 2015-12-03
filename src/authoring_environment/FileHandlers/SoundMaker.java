@@ -71,10 +71,9 @@ public class SoundMaker {
 	}
 	public static void play(DataSound sound){
 		 try {
-		      
-		      AudioClip audioclip = new AudioClip("file:///" + sound.getDirectory());
-		      audioclip.play();
-		        
+
+		       AudioClip audioclip = sound.getClip();
+		       audioclip.play();
 		      
 			 	
 		    } catch(Exception ex) {

@@ -27,7 +27,7 @@ public class HelpIcon extends ImageView {
 	}
 	
 	private void showToolTip(MouseEvent event, Tooltip tip) {
-		tip.show(this, event.getSceneX(), event.getSceneY());
+		tip.show(this, event.getScreenX(), event.getScreenY());
 	}
 	
 	private void initializeTooltip() {

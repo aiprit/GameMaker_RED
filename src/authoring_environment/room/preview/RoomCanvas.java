@@ -122,7 +122,7 @@ public class RoomCanvas extends Canvas {
 				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
 		}
-		drawGridLines();
+		//drawGridLines();
 		drawView();
 
 	}

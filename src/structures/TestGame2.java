@@ -134,8 +134,8 @@ public class TestGame2 {
         List<IAction> jumpActions = Collections.singletonList(jump);
         ObservableList<IAction> jumpActions0 = FXCollections.observableList(jumpActions);
 
-        //mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
-       // mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
+        mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.UP), upActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.DOWN), downActionsO);
         mario.bindEvent(new KeyPressedEvent(KeyCode.F), jumpActions0);
