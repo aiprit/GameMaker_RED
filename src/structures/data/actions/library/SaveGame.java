@@ -3,8 +3,10 @@ package structures.data.actions.library;
 import structures.data.DataAction;
 
 public class SaveGame extends DataAction {
-	
-	public SaveGame(){}
+
+	public SaveGame(){
+		init();
+	}
 
 	@Override
 	public String getTitle() {
