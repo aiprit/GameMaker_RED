@@ -10,8 +10,8 @@ import exceptions.UnknownResourceException;
 import javafx.collections.ObservableList;
 import structures.data.DataInstance;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 /**
  * Stores RunObjects in a Map and contains all logic to convert

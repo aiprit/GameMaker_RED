@@ -1,7 +1,12 @@
 package structures.data.actions.library;
 
+<<<<<<< HEAD
 import structures.data.actions.DataAction;
 import structures.data.actions.params.RoomParam;
+=======
+import structures.data.DataAction;
+import structures.data.actions.params.IntegerParam;
+>>>>>>> master
 
 public class GoToRoom extends DataAction{
 	

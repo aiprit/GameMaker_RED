@@ -17,7 +17,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.util.Callback;
-import structures.data.actions.IAction;
+import structures.data.interfaces.IAction;
 
 
 public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAction>>{

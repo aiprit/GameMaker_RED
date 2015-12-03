@@ -17,8 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.DataObject;
 import structures.data.events.CollisionEvent;
-import structures.data.events.IDataEvent;
 import structures.data.events.KeyPressedEvent;
+import structures.data.interfaces.IDataEvent;
 
 public class CollisionPopUp extends BasicPopUp{
 	private Group myRoot;

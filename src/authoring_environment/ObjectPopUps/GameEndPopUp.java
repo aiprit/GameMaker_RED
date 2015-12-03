@@ -8,9 +8,9 @@ import authoring_environment.Event.EventController;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
 import structures.data.events.GameEndEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class GameEndPopUp extends BasicPopUp{
 

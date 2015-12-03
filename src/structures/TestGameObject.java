@@ -39,6 +39,7 @@ import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IAction;
 import utils.Vector;
 import utils.rectangle.Rectangle;
 

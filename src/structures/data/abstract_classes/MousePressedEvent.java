@@ -1,6 +1,8 @@
-package structures.data.events;
+package structures.data.abstract_classes;
 
 import java.util.Map;
+
+import structures.data.interfaces.IDataEvent;
 
 public abstract class MousePressedEvent implements IDataEvent {
 

@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/structures/data/actions/Destroy.java
 package structures.data.actions;
+=======
+package structures.data.actions.library;
+
+import structures.data.DataAction;
+>>>>>>> master:src/structures/data/actions/library/Destroy.java
 
 public class Destroy extends DataAction {
 

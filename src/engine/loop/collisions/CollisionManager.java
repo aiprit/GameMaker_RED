@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import structures.data.events.CollisionEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 import structures.run.RunObject;
 import utils.Pair;
 

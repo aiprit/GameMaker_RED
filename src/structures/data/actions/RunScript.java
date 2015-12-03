@@ -1,6 +1,7 @@
 package structures.data.actions;
-
 import structures.data.actions.params.GroovyParam;
+import structures.data.DataAction;
+import structures.data.actions.params.StringParam;
 
 public class RunScript extends DataAction {
 
