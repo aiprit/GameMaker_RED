@@ -176,7 +176,7 @@ public class RoomController {
 	}
 	
 	private void startObjectDrag(MouseEvent event) {
-		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
+		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event, view.getRoot());
 		try {
 			ImageView spriteInstance = objectInstance.getImageView();
 			if (spriteInstance != null) {
