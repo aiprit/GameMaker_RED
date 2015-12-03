@@ -3,15 +3,15 @@ package structures.data.actions.library;
 import structures.data.actions.DataAction;
 import structures.data.actions.params.StringParam;
 
-public class GetGlobalVariable extends DataAction {
+public class IfGlobalVar extends DataAction {
 
-	public GetGlobalVariable(){
-		init(new StringParam("VariableKey"));
+	public IfGlobalVar(){
+		init(new StringParam("Variable Name"));
 	}
 	
 	@Override
 	public String getTitle() {
-		return "GetGlobalVariable";
+		return "If Global Var";
 	}
 
 	@Override
