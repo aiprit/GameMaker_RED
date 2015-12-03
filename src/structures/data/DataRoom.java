@@ -54,7 +54,7 @@ public class DataRoom implements IDataRoom {
     }
 
 
-    public DataView getDataView() {
+    public DataView getView() {
         return myView;
     }
 
@@ -68,5 +68,10 @@ public class DataRoom implements IDataRoom {
     
     public void setName(String name) {
     	myName = name;
+    }
+    
+    @Override
+    public String toString() {
+    	return getName();
     }
 }

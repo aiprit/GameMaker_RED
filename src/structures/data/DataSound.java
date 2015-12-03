@@ -1,17 +1,23 @@
 package structures.data;
 
 import exceptions.ResourceFailedException;
+import javafx.scene.media.AudioClip;
 import structures.IResource;
 import sun.audio.AudioStream;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 public class DataSound implements IResource {
 
     private String myName;
     private String myBaseFileName;
-    private AudioStream myAudioStream;
+    private String completeFileName;
+    private AudioClip clip;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -35,19 +41,16 @@ public class DataSound implements IResource {
 
     @Override
     public void load(String directory) throws ResourceFailedException {
-        String url = directory + myBaseFileName;
-        try {
-            InputStream in = new FileInputStream(url);
-            myAudioStream = new AudioStream(in);
-        } catch (Exception ex) {
-            String message = String.format("Failed to load sound '%s' for DataSound %s", url, myName);
-            throw new ResourceFailedException(message);
-        }
-        myHaveLoaded = true;
+    	
+    	clip = new AudioClip("file:///" + directory);
     }
 
-    public AudioStream getAudio() {
-        return myAudioStream;
+ 
+    public String getDirectory(){
+    	return completeFileName;
+    }
+    public AudioClip getClip(){
+    	return clip;
     }
 
 }

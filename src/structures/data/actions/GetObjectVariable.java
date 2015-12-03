@@ -1,12 +1,15 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;
 
 public class GetObjectVariable extends DataAction {
 	
 	public GetObjectVariable(){
-		init(new StringParam("VariableKey"), new StringParam("VariableOperation"), new DoubleParam("VariableValueCheck"));
+		init(new StringParam("VariableKey"),
+				new StringParam("VariableOperation"),
+				new DoubleParam("VariableValueCheck"));
 	}
 
 	@Override

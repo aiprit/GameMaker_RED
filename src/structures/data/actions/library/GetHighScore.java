@@ -1,13 +1,14 @@
 package structures.data.actions.library;
 
-import structures.data.actions.DataAction;
+import structures.data.DataAction;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;
 
 public class GetHighScore extends DataAction {
 	
 	public GetHighScore(){
-		init(new StringParam("ScoreOperation"), new StringParam("VariableKey"));
+		init(new StringParam("ScoreOperation"),
+				new StringParam("VariableKey"));
 	}
 
 	@Override

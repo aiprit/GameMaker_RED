@@ -2,7 +2,6 @@ package authoring_environment.room.button_toolbar;
 
 import java.util.ResourceBundle;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;

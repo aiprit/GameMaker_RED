@@ -10,8 +10,8 @@ import exceptions.UnknownResourceException;
 import javafx.collections.ObservableList;
 import structures.data.DataInstance;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 /**
  * Stores RunObjects in a Map and contains all logic to convert
@@ -68,15 +68,15 @@ public class RunObjectConverter {
 				run.setSprite(sprite);
 			} catch (UnknownResourceException e) {
 				String message = "The referenced DataSprite '%s' in '%s' was not loaded into the resource container!";
-				throw new CompileTimeException(message, data.getSprite().getName(), run.name);
+				throw new CompileTimeException(message, data.getSprite().getName(), run.name());
 			}
 		}
 		
 		// Properties that come from DataObject and not DataInstance
-		run.solid = data.isSolid();
+		run.solid( data.isSolid() );
 		
 		// Add to our Master Object Map
-		myMasterObjects.put(run.name, run);
+		myMasterObjects.put(run.name(), run);
 	}
 	
 	/**
@@ -109,44 +109,44 @@ public class RunObjectConverter {
 		RunObject run = fetchMaster(instance.getParentObject().getName()).clone();
 		
 		// Transfer instance characteristics from DataInstance to the RunObject
-		run.x = instance.getX();
-		run.y = instance.getY();
-		run.scaleX = instance.getScaleX();
-		run.scaleY = instance.getScaleY();
-		run.velocity = instance.getVelocity();
-		run.angle = instance.getAngle();
-		run.angularVelocity = instance.getAngularVelocity();
-		run.visible = instance.isVisible();
-		run.gravity = instance.getGravity();
-		run.friction = instance.getFriction();
+		run.x( instance.getX() );
+		run.y( instance.getY() );
+		run.scaleX( instance.getScaleX() );
+		run.scaleY( instance.getScaleY() );
+		run.velocity( instance.getVelocity() );
+		run.angle( instance.getAngle() );
+		run.angularVelocity( instance.getAngularVelocity() );
+		run.visible( instance.isVisible() );
+		run.gravity( instance.getGravity() );
+		run.friction( instance.getFriction() );
 		run.setInstanceId(instance.getID());
 		
 		return run;
 	}
 	public RunObject instantiate(String name, double x, double y) throws GameRuntimeException {
 		RunObject run = fetchMaster(name).clone();
-		run.x = x;
-		run.y = y;
+		run.x( x );
+		run.y( y );
 		return run;
 	}
 	
 	public DataInstance toData(RunObject runObject) throws GameRuntimeException {
             
-	    DataObject parentObject = myMasterDataObjects.get(runObject.name);
+	    DataObject parentObject = myMasterDataObjects.get(runObject.name());
 	    long ID = runObject.instance_id();
-	    double x = runObject.x;
-	    double y = runObject.y;
+	    double x = runObject.x();
+	    double y = runObject.y();
 	    DataInstance dataInstance = new DataInstance(parentObject, x, y, ID, 1.0, 1.0);
             
-	    dataInstance.setVisible(runObject.visible);
-	    dataInstance.setAngle(runObject.angle);
-	    dataInstance.setAngularVelocity(runObject.angularVelocity);
-	    dataInstance.setScaleX(runObject.scaleX);
-	    dataInstance.setScaleY(runObject.scaleY);
-	    dataInstance.setAlpha(runObject.alpha);
-	    dataInstance.setVelocity(runObject.velocity);
-	    dataInstance.setFriction(runObject.friction);
-	    dataInstance.setGravity(runObject.gravity);
+	    dataInstance.setVisible(runObject.visible());
+	    dataInstance.setAngle(runObject.angle());
+	    dataInstance.setAngularVelocity(runObject.angularVelocity());
+	    dataInstance.setScaleX(runObject.scaleX());
+	    dataInstance.setScaleY(runObject.scaleY());
+	    dataInstance.setAlpha(runObject.alpha());
+	    dataInstance.setVelocity(runObject.velocity());
+	    dataInstance.setFriction(runObject.friction());
+	    dataInstance.setGravity(runObject.gravity());
             
         return dataInstance;
     }

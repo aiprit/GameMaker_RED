@@ -1,17 +1,20 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.CheckboxParam;
 import structures.data.actions.params.DoubleParam;
 
 public class MoveTo extends DataAction {
 
 	public MoveTo() {
-		init(new DoubleParam("X"), new DoubleParam("Y"), new CheckboxParam("Relative"));
+		init(new DoubleParam("X"),
+				new DoubleParam("Y"),
+				new CheckboxParam("Relative"));
 	}
 
 	@Override
 	public String getTitle() {
-		return "Move";
+		return "MoveTo";
 	}
 
 	@Override

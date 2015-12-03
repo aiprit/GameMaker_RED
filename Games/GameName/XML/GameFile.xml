@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/GameName/" startRoom="0" title="GameName">
+  <objects/>
+  <sprites>
+    <sprite baseFileName="yo.png" centerX="0.0" centerY="0.0" name="yo"/>
+  </sprites>
+  <sounds/>
+  <rooms/>
+</game>

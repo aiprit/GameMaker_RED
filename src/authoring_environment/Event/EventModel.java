@@ -12,8 +12,8 @@ import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
 import structures.data.DataGame;
 import structures.data.DataObject;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 public class EventModel {
 	DataObject myObject;
@@ -53,15 +53,23 @@ public class EventModel {
 		alist.remove(a);
 	}
 	public ObservableList<String> initTempActions(){
+		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-		Enumeration <String> keys = l.getKeys();
-		List<String> keylist = Collections.list(keys);
-		Collections.sort(keylist);
-		for (String str:keylist) {
-			String value = l.getString(str);
-			list.add(value);
-
-		};
+		//Enumeration <String> keys = l.getKeys();
+				
+		for (String s:classes.getAllClasses(("structures.data.actions"))) {
+			list.add(s);
+		}
+		for (String s:classes.getAllClasses(("structures.data.actions.library"))) {
+			list.add(s);
+		}
+		//List<String> keylist = Collections.list(keys);
+		Collections.sort(list);
+//		for (String str:keylist) {
+//			String value = l.getString(str);
+//			list.add(value);
+//
+//		};
 		return list;
 	}
 	public IDataEvent getEvent(){

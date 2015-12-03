@@ -1,23 +1,22 @@
 package structures.data;
 
-
-import java.util.List;
-import java.util.Observable;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.ResourceBundle;
 
 //TODO check if IObjectInterface is being used
 public class DataGame extends Observable implements IObjectInterface, IDataGame {
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
-	private static final int DEFAULT_VIEW_SIZE = 600;
+    private static final int DEFAULT_VIEW_SIZE = 600;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
@@ -44,41 +43,46 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     public String getName() {
         return myName;
     }
-    
+
     public int getViewWidth() {
-    	return myViewWidth;
+        return myViewWidth;
     }
-    
-    public int getViewHeight() {
-    	return myViewHeight;
-    }
-    
+
     public void setViewWidth(int width) {
-    	myViewWidth = width;
+        myViewWidth = width;
     }
-    
+
+    public int getViewHeight() {
+        return myViewHeight;
+    }
+
     public void setViewHeight(int height) {
-    	myViewHeight = height;
+        myViewHeight = height;
     }
-    
-    public double getHighScore(){
-    	return myHighScore;
+
+    public double getHighScore() {
+        return myHighScore;
     }
-    
-    public void setHighScore(double highScore){
-    	myHighScore = highScore;
+
+    public void setHighScore(double highScore) {
+        myHighScore = highScore;
     }
 
     public ObservableList<DataRoom> getRooms() {
         return myRooms;
     }
 
-    public String getGameDirectory(){
+    public String getGameDirectory() {
         return myGameDirectory;
     }
 
     public DataRoom getStartRoom() {
         return myRooms.get(myStartRoom);
+    }
+
+    public void setStartRoom(int index) {
+        myStartRoom = index;
+        myCurrentRoom = index;
     }
 
     public void setStartRoom(DataRoom room) {
@@ -88,13 +92,12 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         }
     }
 
-    public void setStartRoom(int index) {
-        myStartRoom = index;
-        myCurrentRoom = index;
-    }
-
     public DataRoom getCurrentRoom() {
         return myRooms.get(myCurrentRoom);
+    }
+
+    public void setCurrentRoom(int index) {
+        myCurrentRoom = index;
     }
 
     public void setCurrentRoom(DataRoom room) {
@@ -103,15 +106,31 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         }
     }
 
-    public void setCurrentRoom(int index) {
-        myCurrentRoom = index;
+    public DataSprite getSpriteFromString(String spriteName){
+        for(DataSprite s : mySprites){
+            if(s.getName().equals(spriteName)){
+                return s;
+            }
+        }
+        System.out.println("-Sprite not found");
+        return null;
     }
 
-    public int getStartRoomIndex(){
+    public DataObject getObjectFromString(String objectName){
+        for(DataObject o : myObjects){
+            if(o.getName().equals(objectName)){
+                return o;
+            }
+        }
+        System.out.println("-Object not found");
+        return null;
+    }
+
+    public int getStartRoomIndex() {
         return myStartRoom;
     }
 
-    public int getCurrentRoomIndex(){
+    public int getCurrentRoomIndex() {
         return myCurrentRoom;
     }
 
@@ -142,9 +161,10 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         myRooms.add(room);
         update();
     }
-    public void removeObject(DataObject o){
-    	 myObjects.remove(o);
-         update();
+
+    public void removeObject(DataObject o) {
+        myObjects.remove(o);
+        update();
     }
 
     public ObservableList<DataSprite> getSprites() {
@@ -173,14 +193,16 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         for (DataObject o : myObjects) {
             r.append("  " + o.getName() + "\n");
 
-
             for (ObservableMap.Entry<IDataEvent, ObservableList<IAction>> e : o.getEvents().entrySet()) {
 
                 r.append("      Event: " + e.getKey().getName() + "\n");
                 List<IAction> actions = e.getValue();
 
                 for (IAction a : actions) {
-                    r.append("          Action: " + a.getTitle() + "\n");
+                    if(a != null) {
+                        r.append("          Action: " + a.getDescription() + "\n");
+                    }
+
                 }
             }
         }

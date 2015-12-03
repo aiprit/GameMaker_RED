@@ -1,12 +1,15 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
 import structures.data.actions.params.CheckboxParam;
 import structures.data.actions.params.DoubleParam;
 
 public class SetVelocityInDirection extends DataAction {
-	
+
 	public SetVelocityInDirection(){
-		init(new DoubleParam("Angle"), new DoubleParam("Speed"), new CheckboxParam("Relative"));
+		init(new DoubleParam("Angle"),
+				new DoubleParam("Speed"),
+				new CheckboxParam("Relative"));
 	}
 
 	@Override

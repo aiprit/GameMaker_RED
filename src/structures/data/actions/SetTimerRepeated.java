@@ -1,5 +1,7 @@
 package structures.data.actions;
 
+import structures.data.DataAction;
+
 public class SetTimerRepeated extends DataAction {
 
 	public SetTimerRepeated(){

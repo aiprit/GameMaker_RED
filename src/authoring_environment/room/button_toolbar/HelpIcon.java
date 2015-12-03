@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.PopupWindow.AnchorLocation;
 
 public class HelpIcon extends ImageView {	
@@ -21,8 +22,12 @@ public class HelpIcon extends ImageView {
 		super(image);
 		myResources = resources;
 		initializeTooltip();
-		this.setOnMouseClicked(e -> myTooltip.show(this, e.getScreenX(), e.getScreenY()));
+		this.setOnMouseClicked(e -> showToolTip(e, myTooltip));
 		this.setOnMouseExited(e -> myTooltip.hide());
+	}
+	
+	private void showToolTip(MouseEvent event, Tooltip tip) {
+		tip.show(this, event.getScreenX(), event.getScreenY());
 	}
 	
 	private void initializeTooltip() {

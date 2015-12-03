@@ -1,7 +1,7 @@
 package structures.data.events;
 
-
 import structures.data.DataObject;
+import structures.data.interfaces.IDataEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +27,11 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public int hashCode() {
+        System.out.println("asdf:");
+        System.out.println(this.other);
+        System.out.println(this.otherName);
+        System.out.println(this.getClass().toString());
+        System.out.println(otherName());
         return this.getClass().hashCode() ^ otherName().hashCode();
     }
 

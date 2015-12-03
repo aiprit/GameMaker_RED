@@ -1,6 +1,6 @@
 package engine.loop.groovy;
 
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 import utils.Point;
 
 public class GroovyClickEvent implements IGroovyEvent {

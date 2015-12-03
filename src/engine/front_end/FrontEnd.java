@@ -3,10 +3,10 @@
  */
 package engine.front_end;
 
+import java.io.IOException;
+
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -23,8 +23,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import structures.run.RunGame;
+import structures.run.IParameters;
 import structures.run.RunRoom;
+//uncomment for controller functionality
+//import voogasalad.util.externalcontroller.ControllerListener;
 
 /**
  * @author loganrooper
@@ -45,12 +47,16 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private VBox topContainer;
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
+	private ObjectInformationView myObjectInformationView;
 
-	public FrontEnd(EventManager eventManager, Stage stage) {
+	public FrontEnd(EventManager eventManager, Stage stage) throws IOException {
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
 		this.stage = stage;
+		stage.setWidth(1000);
+		stage.centerOnScreen();
+		stage.setY(stage.getY()-100);
 		setupFramework();
 		setupCanvas();
 	}
@@ -106,30 +112,30 @@ public class FrontEnd implements IGameUpdatedHandler {
 	public void makeToolBar() {
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
-		playButton.setOnAction(e -> {
+		playButton.setOnMouseClicked(e -> {
 			myEventManager.onResume();
 		});
 
 		Button pauseButton = new Button();            
 		pauseButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "pause.png"));
-		pauseButton.setOnAction(e -> {
+		pauseButton.setOnMouseClicked(e -> {
 			myEventManager.onPause();
 		});
 
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
-		resetButton.setOnAction(e -> {
+		resetButton.setOnMouseClicked(e -> {
 			myEventManager.onReset();
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
-		saveButton.setOnAction(e -> {
+		saveButton.setOnMouseClicked(e -> {
 			myEventManager.onSave();
 		});
 
 		Button openButton = new Button();
 		openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
-		openButton.setOnAction(e -> {
+		openButton.setOnMouseClicked(e -> {
 
 		});
 
@@ -139,19 +145,37 @@ public class FrontEnd implements IGameUpdatedHandler {
 		borderPane.setTop(topContainer);
 	}
 
-	public void makeHighScoreBar(){
+	private void makeHighScoreBar(){
 		myHighScoreView = new HighScoreView();
+		myHighScoreView.setPrefWidth(150);
 		borderPane.setRight(myHighScoreView);
 	}
+	
+	public void makeObjectInformationBar(IParameters parameterObject) {
+	    myObjectInformationView = new ObjectInformationView(parameterObject);
+	    myObjectInformationView.setPrefWidth(275);
+	    borderPane.setLeft(myObjectInformationView);
+	    stage.setWidth(1100);
+	}
 
-	private void setupCanvas(){
+	private void setupCanvas() throws IOException{
 		myCanvas = new Canvas();
 		myCanvasDrawer = new Draw(myCanvas);
-		StackPane pane = (StackPane)myCanvasDrawer;
+		StackPane pane = (StackPane) myCanvasDrawer;
 		myRoot.getChildren().add(pane);
+		setupUserInteraction(pane);
+	}
+
+	private void setupUserInteraction(StackPane pane) throws IOException{
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
+		stage.getScene().setOnMouseMoved(myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
+		//uncomment for controller functionality
+//		ControllerListener controllerTest = new ControllerListener();
+//		if(controllerTest.getControllerConnected()){
+//			controllerTest.initialize(stage);
+//		}
 	}
 
 	public IDraw getDrawListener(){
@@ -164,8 +188,8 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-//		stage.setWidth(runRoom.getView().getView().width());
-//		stage.setHeight(runRoom.getView().getView().height());
+		//		stage.setWidth(runRoom.getView().getView().width());
+		//		stage.setHeight(runRoom.getView().getView().height());
 	}
 
 	@Override

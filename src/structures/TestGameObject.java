@@ -1,41 +1,33 @@
 package structures;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import XML.XMLEditor;
 import exceptions.ParameterParseException;
 import exceptions.ResourceFailedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
-import structures.data.DataGame;
-import structures.data.DataInstance;
-import structures.data.DataObject;
-import structures.data.DataRoom;
-import structures.data.DataSprite;
-import structures.data.DataView;
-import structures.data.actions.GetObjectVariable;
-import structures.data.actions.IAction;
+import structures.data.*;
+import structures.data.actions.Destroy;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
+import structures.data.actions.library.*;
+import structures.data.actions.params.IParameter;
+import structures.data.events.*;
 import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetTimerOnce;
-import structures.data.actions.library.AdjustScrollerX;
+import structures.data.actions.ViewFollow;
 import structures.data.actions.library.Close;
-import structures.data.actions.library.CreateObjectOnClick;
+import structures.data.actions.library.CreateInstanceAtCursor;
 import structures.data.actions.library.CreateObjectRandom;
-import structures.data.actions.library.Destroy;
 import structures.data.actions.library.DisplayMessage;
 import structures.data.actions.library.DrawText;
 import structures.data.actions.library.Else;
-import structures.data.actions.library.GetGlobalVariableConditional;
 import structures.data.actions.library.GetHighScore;
 import structures.data.actions.library.GoToRoom;
 import structures.data.actions.library.Open;
 import structures.data.actions.library.SetGlobalVariable;
 import structures.data.actions.library.SetHighScore;
-import structures.data.actions.library.SetRandomNumberAndChoose;
+import structures.data.actions.library.IfOdds;
 import structures.data.actions.library.Wrap;
 import structures.data.actions.params.IParameter;
 import structures.data.events.CollisionEvent;
@@ -46,8 +38,13 @@ import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.ObjectMousePressedEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IAction;
 import utils.Vector;
 import utils.rectangle.Rectangle;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /*
     This class generates a sample game object. The game consists
@@ -62,12 +59,31 @@ import utils.rectangle.Rectangle;
 public class TestGameObject {
 
 	public static void main(String[] args) {
+		TestGame2 g2 = new TestGame2();
+		DataGame go = g2.getTestGame("Games/");
+		System.out.println(go.toString());
+
+		System.out.println(" ======================================= ");
+		System.out.println(" Writing to XML ");
+		XMLEditor xml = new XMLEditor();
+		xml.writeXML(go, "test.xml");
+
+		System.out.println(" Reading from XML ");
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
+
+
+		/*
 		TestGameObject testGameObject = new TestGameObject();
 
 		DataGame printGame = testGameObject.getTestGame("");
 		System.out.println(printGame.toString());
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(printGame, "test.xml");
+
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
+		*/
 	}
 
 	/*
@@ -76,18 +92,7 @@ public class TestGameObject {
 	 */
 
 	public DataGame getTestGame(String directory) {
-		DataGame testGame = new DataGame("Test Game", directory + "TestGame/");
-
-//		DataObject text = new DataObject("GameTitle");
-//		DrawText dt = new DrawText();
-//		try{
-//			dt.getParameters().get(0).parse("Mario");
-//		} catch(ParameterParseException e1) {
-//			e1.printStackTrace();
-//		}
-//		List<IAction> textActions = Collections.singletonList(dt);
-//		ObservableList<IAction> textActionsO = FXCollections.observableList(textActions);
-//		text.bindEvent(new StepEvent(), textActionsO);
+		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
 
 		DataObject coin = new DataObject("Coin");
 		coin.setSolid(true);
@@ -97,7 +102,7 @@ public class TestGameObject {
 
 		DataObject player = new DataObject("Player");
 		player.setSolid(true);
-		
+
 		SetTimerOnce sto = new SetTimerOnce();
 		Open open4 = new Open();
 		Destroy destroyPlayer = new Destroy();
@@ -160,8 +165,8 @@ public class TestGameObject {
 		MoveTo up = new MoveTo();
 		MoveTo down = new MoveTo();
 		CreateObjectRandom m = new CreateObjectRandom();
-		CreateObjectOnClick rs = new CreateObjectOnClick();
-		AdjustScrollerX ms = new AdjustScrollerX();
+		CreateInstanceAtCursor rs = new CreateInstanceAtCursor();
+		ViewFollow ms = new ViewFollow();
 		Wrap w = new Wrap();
 		try {
 
@@ -188,7 +193,10 @@ public class TestGameObject {
 			m.getParameters().get(1).parse("100");
 			m.getParameters().get(2).parse("100");
 
+			ms.getParameters().get(0).parse("true");
 			ms.getParameters().get(0).parse(".5");
+			ms.getParameters().get(0).parse("false");
+			ms.getParameters().get(0).parse("0");
 
 			rs.getParameters().get(0).parse("Coin");
 
@@ -223,7 +231,7 @@ public class TestGameObject {
 		player.bindEvent(new LeaveRoomEvent(), wrapActionsO);
 
 		CollisionEvent collide = new CollisionEvent(coin);
-		GetGlobalVariableConditional getScore = new GetGlobalVariableConditional();
+		IfGlobalVar getScore = new IfGlobalVar();
 		try{
 			getScore.getParameters().get(0).parse("score");
 			getScore.getParameters().get(1).parse(">=");
@@ -238,14 +246,14 @@ public class TestGameObject {
 			ghs.getParameters().get(0).parse("<");
 			ghs.getParameters().get(1).parse("score");
 		} catch(Exception e){
-			
+
 		}
 		Open open3 = new Open();
 		SetHighScore shs = new SetHighScore();
 		try{
 			shs.getParameters().get(0).parse("score");
 		} catch(Exception e){
-			
+
 		}
 		Close close3 = new Close();
 		GoToRoom gtr = new GoToRoom();
@@ -265,7 +273,7 @@ public class TestGameObject {
 		catch(Exception e){
 
 		}
-		SetRandomNumberAndChoose srac = new SetRandomNumberAndChoose();
+		IfOdds srac = new IfOdds();
 		try{
 			srac.getParameters().get(0).parse("10");
 			srac.getParameters().get(1).parse("==");
@@ -311,9 +319,9 @@ public class TestGameObject {
 			sgv.getParameters().get(1).parse("10");
 			sgv.getParameters().get(2).parse("true");
 		} catch (Exception e){
-			
+
 		}
-		
+
 		List<IAction> testingActions = Collections.singletonList(sgv);
 		ObservableList<IAction> testingActionsO = FXCollections.observableList(testingActions);
 		coin.bindEvent(new ObjectDestroyEvent(), testingActionsO);
@@ -321,7 +329,7 @@ public class TestGameObject {
 		DataObject startScreenBackground = new DataObject("StartScreenBackground");
 
 		DataSprite startScreenSprite = new DataSprite("Start Screen", "StartScreen.png");
-		//startScreenBackground.setSprite(startScreenSprite);
+		startScreenBackground.setSprite(startScreenSprite);
 
 		startScreenBackground.setScaleX(.5);
 		startScreenBackground.setScaleY(.5);
@@ -332,6 +340,9 @@ public class TestGameObject {
 			goToStart.getParameters().get(0).parse("1");
 
 			drawText.getParameters().get(0).parse("Start Game");
+			drawText.getParameters().get(1).parse("2.0");
+			drawText.getParameters().get(2).parse("2.0");
+			drawText.getParameters().get(3).parse("2.0");
 		}
 		catch(Exception e){
 
@@ -384,10 +395,10 @@ public class TestGameObject {
 		testGame.addSprite(winScreenSprite);
 
 		try {
-			coinSprite.load(testGame.getSpriteDirectory());
-			playerSprite.load(testGame.getSpriteDirectory());
-			startScreenSprite.load(testGame.getSpriteDirectory());
-			winScreenSprite.load(testGame.getSpriteDirectory());
+			coinSprite.load("Games/TestGame/sprites/");
+			playerSprite.load("Games/TestGame/sprites/");
+			startScreenSprite.load("Games/TestGame/sprites/");
+			winScreenSprite.load("Games/TestGame/sprites/");
 		} catch (ResourceFailedException e) {
 			e.printStackTrace();
 		}

@@ -3,7 +3,7 @@ package authoring_environment.Action;
 import java.util.List;
 
 import exceptions.ParameterParseException;
-import structures.data.actions.IAction;
+import structures.data.interfaces.IAction;
 
 public class ActionModel {
 	List<IAction> myList;

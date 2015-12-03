@@ -1,10 +1,12 @@
 package XML;
 
+import javafx.collections.ObservableList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import structures.data.*;
-import structures.data.actions.IAction;
-import structures.data.events.IDataEvent;
+import structures.data.actions.params.IParameter;
+import structures.data.interfaces.IAction;
+import structures.data.interfaces.IDataEvent;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +17,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +26,6 @@ public class XMLWriter {
 
     public void write(DataGame game, String fileName) {
         try {
-
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -91,14 +94,18 @@ public class XMLWriter {
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
 
-        for (Map.Entry<IDataEvent, List<IAction>> e : dataObject.getEvents().entrySet()) {
-            object.appendChild(getElementFromEvent(doc, e));
+        Element events = doc.createElement("events");
+
+        for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
+            events.appendChild(getElementFromEvent(doc, e));
         }
+
+        object.appendChild(events);
 
         return object;
     }
 
-    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, List<IAction>> e) {
+    private Element getElementFromEvent(Document doc, Map.Entry<IDataEvent, ObservableList<IAction>> e) {
         Element event = doc.createElement("event");
 
         IDataEvent dataEvent = e.getKey();
@@ -107,10 +114,12 @@ public class XMLWriter {
         for (Map.Entry<String, String> element : map.entrySet()) {
             event.setAttribute(element.getKey(), element.getValue());
         }
-        
+
+        Element actions = doc.createElement("actions");
         for (IAction a : e.getValue()) {
-            event.appendChild(getElementFromAction(doc, a));
+            actions.appendChild(getElementFromAction(doc, a));
         }
+        event.appendChild(actions);
 
         return event;
     }
@@ -118,6 +127,17 @@ public class XMLWriter {
     private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
         action.setAttribute("title", a.getTitle());
+
+        List<IParameter> params = a.getParameters();
+
+        for(int i = 0; i < params.size(); i++){
+            String p = params.get(i).getOriginal();
+            byte[] authBytes = p.getBytes(StandardCharsets.UTF_8);
+            String encodedParam = Base64.getEncoder().encodeToString(authBytes);
+
+
+            action.setAttribute("p" + Integer.toString(i), encodedParam);
+        }
 
         return action;
     }

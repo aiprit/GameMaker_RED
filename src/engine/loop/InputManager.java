@@ -14,7 +14,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import structures.data.events.IDataEvent;
+import structures.data.interfaces.IDataEvent;
 import structures.run.RunObject;
 import structures.run.RunRoom;
 import utils.Point;
@@ -24,12 +24,19 @@ public class InputManager implements IInputHandler {
 	private Queue<InputEvent> myInputQueue;
 	private Map<KeyCode, Boolean> myKeyMap;
 	private boolean myQueueEnabled;
+	private double myMouseX, myMouseY;
+	private boolean myMousePrimary, myMouseSecondary;
 	
 	public InputManager(EventManager eventManager, boolean queueEnabled) {
 		myInputQueue = new LinkedList<>();
 		myKeyMap = new HashMap<>();
 		myQueueEnabled = queueEnabled;
 		eventManager.addUserInputInterface(this);
+		
+		myMouseX = 0.0;
+		myMouseY = 0.0;
+		myMousePrimary = false;
+		myMouseSecondary = false;
 	}
 	
 	/**
@@ -82,12 +89,37 @@ public class InputManager implements IInputHandler {
 			throw new LibraryArgumentException("Invalid KeyCode: '%s'", keyCode);
 		}
 	}
+	
+	public boolean mousePrimaryDown() {
+		return myMousePrimary;
+	}
+	
+	public boolean mouseSecondaryDown() {
+		return myMouseSecondary;
+	}
+	
+	public double mouseX() {
+		return myMouseX;
+	}
+	
+	public double mouseY() {
+		return myMouseY;
+	}
 
 	@Override
 	public void onMouseEvent(MouseEvent event) {
-		if (myQueueEnabled) {
-			myInputQueue.add(event);
+		if (event.getEventType() == MouseEvent.MOUSE_MOVED) {
+			myMouseX = event.getSceneX();
+			myMouseY = event.getSceneY();
+			return;
 		}
+		if (myQueueEnabled) {
+			if (event.getEventType() == MouseEvent.MOUSE_PRESSED || event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+				myInputQueue.add(event);
+			}
+		}
+		myMousePrimary = event.isPrimaryButtonDown();
+		myMouseSecondary = event.isSecondaryButtonDown();
 	}
 
 	@Override

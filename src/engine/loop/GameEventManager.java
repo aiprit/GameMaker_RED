@@ -20,11 +20,11 @@ import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
 import javafx.scene.image.Image;
 import structures.data.events.CollisionEvent;
-import structures.data.events.IDataEvent;
 import structures.data.events.LeaveRoomEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.ObjectDestroyEvent;
 import structures.data.events.StepEvent;
+import structures.data.interfaces.IDataEvent;
 import structures.run.RunAction;
 import structures.run.RunObject;
 import structures.run.RunRoom;
@@ -103,7 +103,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 				// If Collision, add both objects' names to objects that collide
 				if (e instanceof CollisionEvent) {
-					Pair<String> collideThese = new Pair<>(o.name, ((CollisionEvent) e).other.getName());
+					Pair<String> collideThese = new Pair<>(o.name(), ((CollisionEvent) e).other.getName());
 					myCollidingObjectPairs.add(collideThese);
 				}
 			}
@@ -175,10 +175,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 			List<Pair<RunObject>> collisions = myCollisionManager.detectCollisions(pair.one, pair.two);
 			for (Pair<RunObject> collisionPair : collisions) {
 				fire(collisionPair.one,
-					new CollisionEvent(collisionPair.two.name),
+					new CollisionEvent(collisionPair.two.name()),
 					new GroovyCollisionEvent(collisionPair.two));
 				fire(collisionPair.two,
-					new CollisionEvent(collisionPair.one.name),
+					new CollisionEvent(collisionPair.one.name()),
 					new GroovyCollisionEvent(collisionPair.one));
 			}
 		}
@@ -186,7 +186,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	private void potentiallyAddToCollideables(RunObject obj) {
 		for (Pair<String> pair : myCollidingObjectPairs) {
-			if (pair.contains(obj.name)) {
+			if (pair.contains(obj.name())) {
 				myCollisionManager.addToCollideables(obj);
 			}
 		}
@@ -282,8 +282,8 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public boolean collisionAt(double x, double y, RunObject obj) {
 		for (Pair<String> pair : myCollidingObjectPairs) {
-			if (pair.contains(obj.name)) {
-				String otherName = pair.one.equals(obj.name) ? pair.two : pair.one;
+			if (pair.contains(obj.name())) {
+				String otherName = pair.one.equals(obj.name()) ? pair.two : pair.one;
 				if (myCollisionManager.collisionAt(obj, otherName, x, y)) {
 					return true;
 				}
@@ -295,7 +295,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public boolean collisionSolidAt(double x, double y, RunObject obj) {
 		for (RunObject obj2 : myRoom.getObjects()) {
-			if (obj2.solid && obj != obj2) {
+			if (obj2.solid() && obj != obj2) {
 				if (myCollisionManager.collisionWithAt(x, y, obj, obj2)) {
 					return true;
 				}
@@ -306,8 +306,8 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	public void processLeaveRoomEvents(){
 		for (RunObject o : getRegistered(LeaveRoomEvent.event)) {
-			if(o.get_x_position() < 0 || o.get_x_position() > myRoom.getWidth() ||
-					o.get_y_position() < 0 || o.get_y_position() > myRoom.getHeight()){
+			if(o.x() < 0 || o.x() > myRoom.getWidth() ||
+					o.y() < 0 || o.y() > myRoom.getHeight()){
 				fire(o, LeaveRoomEvent.event);
 			}
 		}

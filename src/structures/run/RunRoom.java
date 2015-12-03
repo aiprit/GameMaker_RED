@@ -25,7 +25,7 @@ public class RunRoom {
 		myHeight = mySize[1];
 		myDataRoom = dataRoom;
 		myConverter = converter;
-		myView = new RunView(dataRoom.getDataView());
+		myView = new RunView(dataRoom.getView());
 		
 		try {
 			myObjects = Utils.transform(dataRoom.getObjectInstances(), e -> converter.instantiate(e));

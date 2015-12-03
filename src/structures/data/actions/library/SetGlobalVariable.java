@@ -1,6 +1,6 @@
 package structures.data.actions.library;
 
-import structures.data.actions.DataAction;
+import structures.data.DataAction;
 import structures.data.actions.params.CheckboxParam;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.StringParam;
@@ -8,7 +8,9 @@ import structures.data.actions.params.StringParam;
 public class SetGlobalVariable extends DataAction {
 
 	public SetGlobalVariable(){
-		init(new StringParam("EditVariableKey"), new DoubleParam("EditVariableValue"), new CheckboxParam("RelativeVariable?"));
+		init(new StringParam("EditVariableKey"),
+				new DoubleParam("EditVariableValue"),
+				new CheckboxParam("RelativeVariable?"));
 	}
 
 	@Override

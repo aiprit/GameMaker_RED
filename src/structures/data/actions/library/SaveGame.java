@@ -1,12 +1,10 @@
 package structures.data.actions.library;
 
-import structures.data.actions.DataAction;
+import structures.data.DataAction;
 
 public class SaveGame extends DataAction {
 	
-	public SaveGame(){
-		
-	}
+	public SaveGame(){}
 
 	@Override
 	public String getTitle() {

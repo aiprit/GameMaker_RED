@@ -1,5 +1,7 @@
 package structures.data.events;
 
+import structures.data.abstract_classes.AbstractBasicEvent;
+
 public class StepEvent extends AbstractBasicEvent {
 	
 	public static final StepEvent event = new StepEvent();
@@ -8,5 +10,4 @@ public class StepEvent extends AbstractBasicEvent {
     public String getName() {
         return "StepEvent";
     }
-    
 }
