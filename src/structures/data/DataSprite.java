@@ -112,4 +112,9 @@ public class DataSprite implements IResource {
             throw new ResourceException(e);
         }
     }
+    
+    @Override
+    public String toString() {
+    	return getName();
+    }
 }
