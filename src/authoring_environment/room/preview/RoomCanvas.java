@@ -117,18 +117,17 @@ public class RoomCanvas extends Canvas {
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
-		drawGridLines();
 		for (DraggableImage drag : myObjectList) {
 			if (!drag.getVisibility())
 				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
 		}
+		drawGridLines();
 		drawView();
 
 	}
 	
 	private void drawGridLines() {
-		//draw vertical lines
 		int numCols = 16;
 		int numRows = 16;
 		double colSpacing = this.getWidth() / numCols;
@@ -138,7 +137,7 @@ public class RoomCanvas extends Canvas {
 			this.getGraphicsContext2D().setStroke(Color.BLACK);
 			this.getGraphicsContext2D().strokeLine(i*colSpacing, 0, i*colSpacing, this.getHeight());
 		}
-		//draw horizontal lines0
+		//draw horizontal lines
 		for (int i = 0; i < numRows; i++) {
 			this.getGraphicsContext2D().setStroke(Color.BLACK);
 			this.getGraphicsContext2D().strokeLine(0, i*rowSpacing, this.getWidth(), i*rowSpacing);
