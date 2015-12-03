@@ -155,7 +155,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
-					SoundMaker.play(o, dataGame.getName());
+					SoundMaker.play(o);
 					update();
 				}
 			});

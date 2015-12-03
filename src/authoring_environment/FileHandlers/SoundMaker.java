@@ -63,7 +63,7 @@ public class SoundMaker {
 		}
 	
 	}
-	public static void play(DataSound sound, String directory){
+	public static void play(DataSound sound){
 		 try {
 		      
 		      AudioClip audioclip = new AudioClip("file:///" + sound.getDirectory());
