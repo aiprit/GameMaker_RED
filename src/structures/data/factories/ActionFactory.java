@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import structures.data.DataAction;
 import structures.data.actions.Block;
 import structures.data.actions.ChangeSprite;
+import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
@@ -17,6 +18,7 @@ import structures.data.actions.SetObjectVariable;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.actions.SetVelocityToPoint;
 import structures.data.actions.Sleep;
+import structures.data.actions.ViewFollow;
 import structures.data.actions.library.*;
 import structures.data.interfaces.IAction;
 

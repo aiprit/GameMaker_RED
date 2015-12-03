@@ -1,6 +1,6 @@
 package structures.data.actions.library;
 
-import structures.data.actions.DataAction;
+import structures.data.DataAction;
 import structures.data.actions.params.IntegerParam;
 
 public class Repeat extends DataAction {
