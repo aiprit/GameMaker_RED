@@ -6,6 +6,7 @@ package authoring_environment.main;
 import java.io.File;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import Player.Launcher;
 import javafx.scene.control.Alert;
@@ -22,6 +23,7 @@ import utils.GameSelector;
  *
  */
 public class WelcomeWizardView {
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	DataGame dataGame;
 	Stage myStage;
 
@@ -52,9 +54,10 @@ public class WelcomeWizardView {
 		} else if (result.get() == newGameBtn) {
 			try{
 			String name = new TextInputDialog("GameName").showAndWait().get();
-			File images = new File(name + "/images/");
-			File sounds = new File(name + "/sounds/");
-			File XML = new File(name + "/XML/");
+			File images = new File(name + r.getString("imagesFolder"));
+			File backgrounds = new File(name + r.getString("backgroundFolder"));
+			File sounds = new File(name + r.getString("soundFolder"));
+			File XML = new File(name + r.getString("XMLFolder"));
 			images.mkdirs();
 			sounds.mkdirs();
 			XML.mkdirs();
