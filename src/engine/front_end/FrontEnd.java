@@ -25,7 +25,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.run.IParameters;
 import structures.run.RunRoom;
-import voogasalad.util.externalcontroller.ControllerListener;
+//uncomment for controller functionality
+//import voogasalad.util.externalcontroller.ControllerListener;
 
 /**
  * @author loganrooper
@@ -166,13 +167,14 @@ public class FrontEnd implements IGameUpdatedHandler {
 	}
 
 	private void setupUserInteraction(StackPane pane) throws IOException{
-		ControllerListener controllerTest = new ControllerListener();
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
-		if(controllerTest.getControllerConnected()){
-			controllerTest.initialize(stage);
-		}
+		//uncomment for controller functionality
+//		ControllerListener controllerTest = new ControllerListener();
+//		if(controllerTest.getControllerConnected()){
+//			controllerTest.initialize(stage);
+//		}
 	}
 
 	public IDraw getDrawListener(){
