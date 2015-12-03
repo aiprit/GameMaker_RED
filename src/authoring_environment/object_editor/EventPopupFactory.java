@@ -8,8 +8,8 @@ import authoring_environment.ObjectPopUps.CollisionPopUp;
 import authoring_environment.ObjectPopUps.GameEndPopUp;
 import authoring_environment.ObjectPopUps.GameStartPopUp;
 import authoring_environment.ObjectPopUps.GlobalMousePressedPopUp;
-import authoring_environment.ObjectPopUps.KeyPressPopUp;
-import authoring_environment.ObjectPopUps.KeyReleasePopUp;
+import authoring_environment.ObjectPopUps.KeyPressedPopUp;
+import authoring_environment.ObjectPopUps.KeyReleasedPopUp;
 import authoring_environment.ObjectPopUps.LeaveRoomPopUp;
 import authoring_environment.ObjectPopUps.ObjectCreatePopUp;
 import authoring_environment.ObjectPopUps.ObjectDestroyPopUp;
@@ -27,47 +27,48 @@ public class EventPopupFactory {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
-		if (event.equalsIgnoreCase("GameEndEvent")) {
+		if (event.equalsIgnoreCase("Game End Event")) {
 			kp = new GameEndPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("CollisionEvent")) {
+		if (event.equalsIgnoreCase("Collision Event")) {
 			kp = new CollisionPopUp(obj,list);
 		}
-		if (event.equalsIgnoreCase("GameStartEvent")) {
+		if (event.equalsIgnoreCase("Game Start Event")) {
 			kp = new GameStartPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("KeyPressedEvent")) {
-			kp = new KeyPressPopUp(obj);
+		if (event.equalsIgnoreCase("Key Pressed Event")) {
+			kp = new KeyPressedPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("KeyReleasedEvent")) {
-			kp = new KeyReleasePopUp(obj);
+		if (event.equalsIgnoreCase("Key Released Event")) {
+			kp = new KeyReleasedPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("ObjectCreateEvent")) {
+		if (event.equalsIgnoreCase("Object Create Event")) {
 			kp = new ObjectCreatePopUp(obj);
 		}
-		if (event.equalsIgnoreCase("ObjectDestroyEvent")) {
+		if (event.equalsIgnoreCase("Object Destroy Event")) {
 			kp = new ObjectDestroyPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("GlobalMousePressedEvent")) {
+		if (event.equalsIgnoreCase("Global Mouse Pressed Event")) {
 			kp = new GlobalMousePressedPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("ObjectMousePressedEvent")) {
+		if (event.equalsIgnoreCase("Object Mouse Pressed Event")) {
 			kp = new ObjectMousePressedPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("StepEvent")) {
+		if (event.equalsIgnoreCase("Step Event")) {
 			kp = new StepPopUp(obj);
 		}
-		if (event.equalsIgnoreCase("LeaveRoomEvent")) {
+		if (event.equalsIgnoreCase("Leave Room Event")) {
 			kp = new LeaveRoomPopUp(obj);
 		}
 
 		//	}
 	}
 }
+
 //
 //	public void createPopup(String event,DataObject obj, ObservableList<DataObject> list){
 //
-//		String className = event.substring(0, event.lastIndexOf(" ")).replaceAll("\\s+","")+"PopUp";
+//		String className = (event.substring(0, event.lastIndexOf(" ")).replaceAll("\\s+","")+"PopUp");
 //		Class c=null;
 //		PopUp act  =null;
 //		try {
@@ -87,15 +88,14 @@ public class EventPopupFactory {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (InvocationTargetException e) {
-//			try {
-//				 act = (PopUp) c.getDeclaredConstructor().newInstance(obj);
+//		} catch (NoSuchMethodException e) {
+//			 try {
+//				act = (PopUp) c.getDeclaredConstructor().newInstance(obj,list);
 //			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 //					| InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 //				// TODO Auto-generated catch block
 //				e1.printStackTrace();
 //			}
-//		} catch (NoSuchMethodException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (SecurityException e) {
 //			// TODO Auto-generated catch block
@@ -103,6 +103,6 @@ public class EventPopupFactory {
 //		}
 //		}
 //
-//
-//	}
+////
+//}
 

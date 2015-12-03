@@ -8,9 +8,9 @@ import structures.data.DataObject;
 import structures.data.events.KeyReleasedEvent;
 import structures.data.events.ObjectDestroyEvent;
 
-public class KeyReleasePopUp extends KeyPopUp{
+public class KeyReleasedPopUp extends KeyPopUp{
 
-	public KeyReleasePopUp(DataObject obj) {
+	public KeyReleasedPopUp(DataObject obj) {
 		super(obj);
 		init();
 

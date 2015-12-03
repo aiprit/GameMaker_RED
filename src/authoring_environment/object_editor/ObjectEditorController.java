@@ -6,12 +6,14 @@ import authoring_environment.Event.EventController;
 import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataGame;
@@ -91,6 +93,16 @@ public class ObjectEditorController {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
+		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					model.getPopUpFactory().create(selected,model.getObject(), model.getObjectList());
+				}
+			}
+		});
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
 					model.getObject(), model.getObjectList());
