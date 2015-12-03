@@ -18,9 +18,9 @@ public class EventFactory {
         } else if(className.equals("structures.data.events.GlobalMousePressedEvent")){
             return new GlobalMousePressedEvent(e.getAttribute("mouseState"));
         } else if(className.equals("structures.data.events.KeyPressedEvent")){
-            return new KeyPressedEvent(KeyCode.getKeyCode(e.getAttribute("keyCode")));
+            return new KeyPressedEvent(KeyCode.valueOf(e.getAttribute("keyCode")));
         } else if(className.equals("structures.data.events.KeyReleasedEvent")){
-            return new KeyReleasedEvent(KeyCode.getKeyCode(e.getAttribute("keyCode")));
+            return new KeyReleasedEvent(KeyCode.valueOf(e.getAttribute("keyCode")));
         } else if(className.equals("structures.data.events.LeaveRoomEvent")){
             return new LeaveRoomEvent();
         } else if(className.equals("structures.data.events.ObjectCreateEvent")){

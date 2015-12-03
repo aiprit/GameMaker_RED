@@ -32,6 +32,21 @@ import java.util.List;
 public class TestGameObject {
 
 	public static void main(String[] args) {
+		TestGame2 g2 = new TestGame2();
+		DataGame go = g2.getTestGame("Games/");
+		System.out.println(go.toString());
+
+		System.out.println(" ======================================= ");
+		System.out.println(" Writing to XML ");
+		XMLEditor xml = new XMLEditor();
+		//xml.writeXML(go, "test.xml");
+
+		System.out.println(" Reading from XML ");
+		DataGame testGame = xml.readXML("test.xml");
+		System.out.println(testGame.toString());
+
+
+		/*
 		TestGameObject testGameObject = new TestGameObject();
 
 		DataGame printGame = testGameObject.getTestGame("");
@@ -41,6 +56,7 @@ public class TestGameObject {
 
 		DataGame testGame = xml.readXML("test.xml");
 		System.out.println(testGame.toString());
+		*/
 	}
 
 	/*

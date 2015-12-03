@@ -13,7 +13,7 @@ public class MoveTo extends DataAction {
 
 	@Override
 	public String getTitle() {
-		return "Move";
+		return "MoveTo";
 	}
 
 	@Override

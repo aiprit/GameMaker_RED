@@ -19,9 +19,10 @@ public class SetVelocityInDirection extends DataAction {
 	@Override
 	public String getDescription() {
 		if ((boolean) get("Relative").getValue()) {
-			return String.format("Start moving at relative %.2f\u00b0 with speed %.2f", get("Angle"), get("Speed"));
+			System.out.println("-------Angle = " + get("Angle") + " Speed = " + get("Speed"));
+			return String.format("Start moving at relative %.2f\u00b0 with speed %.2f", get("Angle").getValue(), get("Speed").getValue());
 		} else {
-			return String.format("Start moving at %.2f\u00b0 with speed %.2f", get("Angle"), get("Speed"));
+			return String.format("Start moving at %.2f\u00b0 with speed %.2f", get("Angle").getValue(), get("Speed").getValue());
 		}
 	}
 

@@ -77,12 +77,25 @@ public class XMLReader {
                 obj.setZIndex(Integer.parseInt(elem.getAttribute("zIndex")));
                 obj.setSprite(game.getSpriteFromString(elem.getAttribute("sprite")));
 
-                NodeList events = elem.getElementsByTagName("event");
-                loadEvents(events, obj);
-
                 game.addObject(obj);
             }
         }
+
+        for (int i = 0; i < objects.getLength(); i++) {
+
+            Node object = objects.item(i);
+
+            if (object.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) object;
+                DataObject obj = game.getObjectFromString(elem.getAttribute("name"));
+                NodeList events = elem.getElementsByTagName("event");loadEvents(events, obj);
+            }
+        }
+
+
+
+
     }
 
     private void loadEvents(NodeList events, DataObject obj) {
@@ -112,7 +125,6 @@ public class XMLReader {
                 ret.add(factory.getAction((Element) action));
             }
         }
-
 
         return ret;
     }

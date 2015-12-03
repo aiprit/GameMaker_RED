@@ -11,16 +11,20 @@ public class KeyPressedEvent implements IDataEvent {
 
     public KeyPressedEvent(KeyCode code) {
         keyCode = code;
+
+        if(code == null) {
+            System.out.println("==================");
+        }
     }
 
     public int hashCode() {
-        return this.getClass().hashCode() ^ 14;
+        return this.getClass().hashCode() ^ this.keyCode.hashCode();
     }
 
     public boolean equals(Object obj) {
     	if(obj !=null){
     	if (obj.getClass().equals(this.getClass())) {
-    		if (((KeyPressedEvent)obj).keyCode == this.keyCode) {
+            if (((KeyPressedEvent)obj).keyCode.hashCode() == this.keyCode.hashCode()) {
     			return true;
     		}
     	}
@@ -29,8 +33,7 @@ public class KeyPressedEvent implements IDataEvent {
     }
 
     public String getName() {
-        //return String.format("Key Press %s", keyCode.getName());
-        return null;
+        return String.format("Key Press %s", keyCode.getName());
     }
 
     @Override
