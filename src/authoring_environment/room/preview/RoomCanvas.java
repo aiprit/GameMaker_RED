@@ -27,7 +27,6 @@ public class RoomCanvas extends Canvas {
 
 	private ResourceBundle myResources;
 	private String myBackgroundColor;
-	//TODO change to Map of DraggableNode, add view as Drag
 	private List<DraggableImage> myObjectList;
 	private DraggableView myRoomView;
 	
@@ -114,6 +113,7 @@ public class RoomCanvas extends Canvas {
 	public boolean inRoomHeightBounds(double height, double y) {
 		return y >= 0 && y <= this.getHeight() - height;
 	}
+	
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
