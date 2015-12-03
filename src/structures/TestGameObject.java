@@ -393,10 +393,10 @@ public class TestGameObject {
 		testGame.addSprite(winScreenSprite);
 
 		try {
-			coinSprite.load(testGame.getSpriteDirectory());
-			playerSprite.load(testGame.getSpriteDirectory());
-			startScreenSprite.load(testGame.getSpriteDirectory());
-			winScreenSprite.load(testGame.getSpriteDirectory());
+			coinSprite.load("Games/TestGame/sprites/");
+			playerSprite.load("Games/TestGame/sprites/");
+			startScreenSprite.load("Games/TestGame/sprites/");
+			winScreenSprite.load("Games/TestGame/sprites/");
 		} catch (ResourceFailedException e) {
 			e.printStackTrace();
 		}
