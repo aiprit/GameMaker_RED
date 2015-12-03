@@ -168,6 +168,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 	private void setupUserInteraction(StackPane pane) throws IOException{
 		pane.addEventFilter(MouseEvent.MOUSE_PRESSED, myEventManager::onMouseEvent);
+		stage.getScene().setOnMouseMoved(myEventManager::onMouseEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 		//uncomment for controller functionality

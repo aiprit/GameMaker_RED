@@ -1,4 +1,4 @@
-package structures.data.actions.library;
+package structures.data.actions;
 
 import structures.data.DataAction;
 

@@ -60,6 +60,7 @@ public interface IParameter {
 		DOUBLE,
 		INTEGER,
 		STRING,
+		GROOVY,
 		CHECKBOX,
 		OBJECT_SELECT,
 		SPRITE_SELECT,
