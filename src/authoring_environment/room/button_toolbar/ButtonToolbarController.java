@@ -15,7 +15,7 @@ public class ButtonToolbarController {
 	
 	private SetBackgroundController mySetBackgroundController;
 	private SetSizeController mySetSizeController;
-	private GridButtonController myGridButtonController;
+	private GridButton myGridButton;
 	
 	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
 		myResources = resources;
@@ -32,13 +32,13 @@ public class ButtonToolbarController {
 	private void initializeButtons() {
 		mySetBackgroundController = new SetBackgroundController(myResources, myCanvas, model);
 		mySetSizeController = new SetSizeController(myResources, myCanvas, model);
-		myGridButtonController = new GridButtonController(myResources, myCanvas);
+		myGridButton = new GridButton(myResources, myCanvas);
 		ShowViewButton viewButton = new ShowViewButton(myResources, myCanvas.getRoomView());
 		viewButton.setOnAction(e -> showHideView(viewButton));
 		view.addButton(mySetBackgroundController.getSetBackgroundButton());
 		view.addButton(mySetSizeController.getSetSizeButton());
 		view.addButton(viewButton);
-		view.addButton(myGridButtonController.getView());
+		view.addButton(myGridButton);
 	}
 	
 	private void showHideView(ShowViewButton viewButton) {

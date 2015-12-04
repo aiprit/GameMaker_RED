@@ -29,9 +29,9 @@ public class RoomCanvas extends Canvas {
 	private String myBackgroundColor;
 	private List<DraggableImage> myObjectList;
 	private DraggableView myRoomView;
+	private boolean gridVisible;
 	
 	public RoomCanvas(ResourceBundle resources) {
-
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
 		myResources = resources;
@@ -40,6 +40,15 @@ public class RoomCanvas extends Canvas {
 		myObjectList = new ArrayList<DraggableImage>();
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
+		gridVisible = true;
+	}
+	
+	public void setGridVisible(boolean visible) {
+		gridVisible = visible;
+	}
+	
+	public boolean isGridVisible() {
+		return gridVisible;
 	}
 	
 	public List<DraggableImage> getObjectMap() {
@@ -122,7 +131,9 @@ public class RoomCanvas extends Canvas {
 				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
 		}
-		//drawGridLines();
+		if (gridVisible) {
+			drawGridLines();
+		}
 		drawView();
 
 	}

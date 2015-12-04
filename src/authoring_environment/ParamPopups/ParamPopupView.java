@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring_environment.ParamPopups.ParamBoxFactory.ParamFactory;
-import authoring_environment.room.configure_popup.HBoxHandler;
+import authoring_environment.room.configure_popup.GridPaneHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,7 +27,7 @@ public class ParamPopupView extends Stage{
 		popUp = new VBox();
 		initializePopUp(list);
 	}
-	public void initializePopUp(List<IParameter> list) {
+	private void initializePopUp(List<IParameter> list) {
 		ParamFactory handler = new ParamFactory();
 		//String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.HBoxFactory(list);

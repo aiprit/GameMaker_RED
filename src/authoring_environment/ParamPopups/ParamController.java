@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -53,6 +54,7 @@ public class ParamController {
 		System.out.println(model.getActionList());
 	//configure.close();
 }
+@SuppressWarnings("unchecked")
 private String getInput(HBox field) {
 	Node node= field.getChildren().get(1);
 	String str = null;
@@ -65,7 +67,7 @@ private String getInput(HBox field) {
 			str = bol.toString();
 		}
 		catch(ClassCastException e1){
-
+			str = (String) ((ComboBox<String>) node).getValue();
 		}
 	}
 
