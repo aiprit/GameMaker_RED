@@ -35,7 +35,7 @@ public class SpriteMaker {
 			try{
 				img = ImageIO.read(selectedFile);
 
-				String name = FileHelper.askName("Select a sprite");
+				String name = FileHelper.askName(selectedFile.getName());
 				File outputfile = new File(r.getString("Games")+ game.getName() + r.getString("imagesFolder") + name + ".png");	
 				ImageIO.write(img, "png", outputfile);
 				DataSprite newSprite = new DataSprite(name, outputfile.getName());

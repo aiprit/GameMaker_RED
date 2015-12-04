@@ -43,7 +43,7 @@ public class SoundMaker {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
 		  	AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		  	if(fileType.getType().toString().equals("WAVE")){
-		  		String name = FileHelper.askName("Select a sound");
+		  		String name = FileHelper.askName(selectedFile.getName());
 
 			
 			
