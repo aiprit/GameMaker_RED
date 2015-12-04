@@ -22,8 +22,8 @@ public class FileHelper {
 		File selectedFile = fileChooser.showOpenDialog(s);
 		return selectedFile;
 	}
-	public static String askName(){
-		TextInputDialog dialog = new TextInputDialog("walter");
+	public static String askName(String defaultText){
+		TextInputDialog dialog = new TextInputDialog(defaultText);
 		dialog.setTitle("Text Input Dialog");
 		dialog.setHeaderText("Look, a Text Input Dialog");
 		dialog.setContentText("Please enter your name:");
@@ -38,6 +38,14 @@ public class FileHelper {
 		
 		
 	}
+	
+	public static String askName() {
+		return askName("Select an option...");
+	}
+	
+	
+	
+	
 	public static void saveAsNewGame(DataGame dataGame){
 		String newName = askName();
 		
