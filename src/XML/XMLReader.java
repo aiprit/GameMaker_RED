@@ -14,7 +14,6 @@ import structures.data.interfaces.IAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.ArrayList;
 
 public class XMLReader {
     DataGame game;
@@ -92,10 +91,6 @@ public class XMLReader {
                 NodeList events = elem.getElementsByTagName("event");loadEvents(events, obj);
             }
         }
-
-
-
-
     }
 
     private void loadEvents(NodeList events, DataObject obj) {
@@ -215,6 +210,5 @@ public class XMLReader {
                 rm.addObjectInstance(di);
             }
         }
-
     }
 }
