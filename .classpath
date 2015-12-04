@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="Games"/>
 	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="src" path="sounds"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.8.jar" sourcepath="lib/xstream-src.jar">
