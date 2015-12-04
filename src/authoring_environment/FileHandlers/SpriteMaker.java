@@ -27,48 +27,51 @@ import structures.data.DataSprite;
 
 public class SpriteMaker {
 	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	public static void load(Stage s, DataGame game){
-		
+
+	public static void load(Stage s, DataGame game) {
+
 		File selectedFile = FileHelper.choose(s);
-		BufferedImage img;	
+		BufferedImage img;
 		try {
-			try{
+			try {
 				img = ImageIO.read(selectedFile);
 
 				String name = FileHelper.askName(selectedFile.getName());
-				File outputfile = new File(r.getString("Games")+ game.getName() + r.getString("imagesFolder") + name + ".png");	
+				File outputfile = new File(
+						r.getString("Games") + game.getName() + r.getString("imagesFolder") + name + ".png");
 				ImageIO.write(img, "png", outputfile);
 				DataSprite newSprite = new DataSprite(name, outputfile.getName());
-					try {
-						newSprite.load(r.getString("Games")+ game.getName() +  r.getString("imagesFolder"));
-					} catch (ResourceFailedException e) {
+				try {
+					newSprite.load(r.getString("Games") + game.getName() + r.getString("imagesFolder"));
+				} catch (ResourceFailedException e) {
 
-						e.printStackTrace();
-					}
-					
-					game.getSprites().add(newSprite);
-				} catch(IllegalArgumentException e2){
-				
-				}  
-		    
+					e.printStackTrace();
+				}
+
+				game.getSprites().add(newSprite);
+			} catch (IllegalArgumentException e2) {
+
+			}
+
 		} catch (IOException e1) {
-				
+
 		}
-		
+
 	}
-	public static void show(DataSprite sprite){
+
+	public static void show(DataSprite sprite) {
 		BorderPane myPane = new BorderPane();
 		Stage s = new Stage();
 		Image img = sprite.getImage();
-	
+
 		Canvas c = new Canvas(img.getWidth(), img.getHeight());
 		GraphicsContext centerGC = c.getGraphicsContext2D();
 
-		centerGC.drawImage(img, 0, 0); 
+		centerGC.drawImage(img, 0, 0);
 
 		myPane.setCenter(c);
 		s.setScene(new Scene(myPane));
 		s.show();
 	}
-	
+
 }

@@ -13,8 +13,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-
-
 import javafx.collections.ObservableList;
 
 import javafx.scene.Group;
@@ -32,53 +30,48 @@ import structures.data.DataSound;
 
 public class SoundMaker {
 	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-	public static void load(Stage s,DataGame game){
-		
+
+	public static void load(Stage s, DataGame game) {
+
 		File selectedFile = FileHelper.choose(s);
-		
-	        
-		try {	
-			
-			
+
+		try {
+
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
-		  	AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
-		  	if(fileType.getType().toString().equals("WAVE")){
-		  		String name = FileHelper.askName(selectedFile.getName());
+			AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
+			if (fileType.getType().toString().equals("WAVE")) {
+				String name = FileHelper.askName(selectedFile.getName());
 
-			
-			
-		  		File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
-			
-		  		if (AudioSystem.isFileTypeSupported(fileType.getType(), 
+				File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
 
-		  				audioInputStream)) {
-				
-		  			AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
-		  		}
-		  		DataSound sound = new DataSound(name, outputfile.getName());
-		  		sound.load(outputfile.getAbsolutePath());
-			
-		  		game.getSounds().add(sound);
-		  	}	
-		  	else{
-		  		
-		  	}
+				if (AudioSystem.isFileTypeSupported(fileType.getType(),
+
+						audioInputStream)) {
+
+					AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
+				}
+				DataSound sound = new DataSound(name, outputfile.getName());
+				sound.load(outputfile.getAbsolutePath());
+
+				game.getSounds().add(sound);
+			} else {
+
+			}
 		} catch (Exception e) {
-			
 
 		}
 
 	}
-	public static void play(DataSound sound){
-		 try {
 
-		       AudioClip audioclip = sound.getClip();
-		       audioclip.play();
-		      
-			 	
-		    } catch(Exception ex) {
-		        System.out.println("Error with playing sound.");
-		       
-		    }
+	public static void play(DataSound sound) {
+		try {
+
+			AudioClip audioclip = sound.getClip();
+			audioclip.play();
+
+		} catch (Exception ex) {
+			System.out.println(r.getString("ErrorPlaying"));
+
+		}
 	}
 }
