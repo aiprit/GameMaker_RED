@@ -92,7 +92,7 @@ public class TestGameObject {
 	 */
 
 	public DataGame getTestGame(String directory) {
-		DataGame testGame = new DataGame("Test Game", directory + "Games/TestGame/");
+		DataGame testGame = new DataGame("Test Game", directory + "/Games/TestGame/");
 
 		DataObject coin = new DataObject("Coin");
 		coin.setSolid(true);
@@ -198,7 +198,7 @@ public class TestGameObject {
 			ms.getParameters().get(0).parse("false");
 			ms.getParameters().get(0).parse("0");
 
-			rs.getParameters().get(0).parse("Coin");
+//			rs.getParameters().get(0).parse("Coin");
 
 		} catch (ParameterParseException ex) {
 			System.out.println(ex.getMessage());

@@ -2,6 +2,8 @@ package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.FileHandlers.FileManager;
+import exceptions.ResourceFailedException;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,12 +17,15 @@ public class ObjectEditorViewCenterPane {
 	private Button spriteUpdate;
 	private GraphicsContext centerGC;
 	private String spriteName;
+	private String gameName;
 
-	public ObjectEditorViewCenterPane() {
+	public ObjectEditorViewCenterPane(String gameName) {
+		this.gameName = gameName;
 		init();
 	}
 
 	public Group init() {
+		
 		Group root = new Group();
 		Canvas c = new Canvas(Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
 		centerGC = c.getGraphicsContext2D();
@@ -32,10 +37,13 @@ public class ObjectEditorViewCenterPane {
 
 	public Image addSprite(String s) {
 		try {
-			return new Image(getClass().getClassLoader().getResourceAsStream(s), Integer.parseInt(centerResources.getString("defaultSize")),
-					Integer.parseInt(centerResources.getString("defaultSize")), false, false) ;
+//			return new Image(getClass().getClassLoader().getResourceAsStream(s), Integer.parseInt(centerResources.getString("defaultSize")),
+//					Integer.parseInt(centerResources.getString("defaultSize")), false, false) ;
+			
+			FileManager fm = new FileManager(gameName);
+			return fm.getSprite(s);
 		}
-		catch (NullPointerException e) {
+		catch (NullPointerException | ResourceFailedException e) {
 			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("nullImage")), 
 					Integer.parseInt(centerResources.getString("defaultSize")), Integer.parseInt(centerResources.getString("defaultSize")),
 					false, false) ;
