@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/walter/" startRoom="0" title="walter">
+  <objects>
+    <object name="hell" scaleX="1.0" scaleY="1.0" sprite="Hell" zIndex="0">
+      <events/>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="Hell.png" centerX="0.0" centerY="0.0" name="Hell"/>
+  </sprites>
+  <sounds>
+    <sound baseFileName="dodgy.wav" name="dodgy"/>
+  </sounds>
+  <rooms>
+    <room backgroundColor="0xffffffff" height="600.0" name="hellvalley" width="600.0">
+      <view height="600.0" name="MainView" width="600.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449214291514" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="hell" scaleX="1.0" scaleY="1.0" visibility="true" x="75.375" y="75.375" zIndex="0"/>
+      </objectInstances>
+    </room>
+  </rooms>
+</game>

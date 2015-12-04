@@ -15,4 +15,5 @@ public interface IObjectInterface {
 	public ObservableList<DataObject> getObjects();
 	public void addObject(DataObject... a);
 	public ObservableList<DataSprite> getSprites();
+	public String getName();
 }

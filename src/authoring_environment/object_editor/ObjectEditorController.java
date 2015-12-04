@@ -26,7 +26,7 @@ public class ObjectEditorController {
 	IUpdateHandle updater;
 
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
-		view = new ObjectEditorView();
+		view = new ObjectEditorView(dataGame.getName());
 		model = new ObjectEditorModel(dataGame, o);
 		initAll();
 	}
@@ -41,7 +41,7 @@ public class ObjectEditorController {
 			name = result.get();
 
 			model = new ObjectEditorModel((IObjectInterface) g, name);
-			view = new ObjectEditorView();
+			view = new ObjectEditorView(g.getName());
 			initAll();
 		}
 	}
@@ -53,25 +53,25 @@ public class ObjectEditorController {
 			close(e);
 		});
 		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-			view.getCenterPane().update(model.getSpriteName());
+			refreshSprite();
 		});
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
-		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>(){
+		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>() {
 			@Override
-			public ListCell<IDataEvent> call(ListView <IDataEvent> arg0) {
+			public ListCell<IDataEvent> call(ListView<IDataEvent> arg0) {
 				final ListCell<IDataEvent> cell = new ListCell<IDataEvent>() {
-                    @Override
-                    public void updateItem(IDataEvent item, boolean empty) {
-                        super.updateItem(item,  empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
+					@Override
+					public void updateItem(IDataEvent item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setText(null);
+						} else {
+							setText(item.getName());
+						}
+					}
+				};
 				return cell;
 			}
 		});
@@ -88,7 +88,10 @@ public class ObjectEditorController {
 					model.getObject(), model.getObjectList());
 		});
 		for (DataSprite s : model.getSprites()) {
-			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> model.setSprite(s)));
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> {
+				model.setSprite(s);
+				refreshSprite();
+			}));
 		};
 
 		model.getMap().addListener(new MapChangeListener<Object, Object>() {
@@ -97,12 +100,16 @@ public class ObjectEditorController {
 				model.getEvents();
 			}
 		});
+		refreshSprite();
 	}
-
-
 
 	private void eventPopup(IDataEvent e) {
 		EventController control = new EventController(e, model.getObject());
+	}
+	
+	private void refreshSprite() {
+		String n = model.getSpriteName();
+		view.getCenterPane().update(n);
 	}
 
 	private void close(ActionEvent e) {
