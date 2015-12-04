@@ -13,6 +13,7 @@ import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.events.KeyPressedEvent;
+import structures.data.events.ObjectCreateEvent;
 import structures.data.events.StepEvent;
 import structures.data.interfaces.IAction;
 import utils.Vector;
@@ -78,6 +79,12 @@ public class TestGame2 {
         "if (library.key_down('Right') && !library.key_down('left')) {\n"+
         "current.set_velocity(0, 1, true);\n" +
         "}\n";
+        
+        String createScript = "" +
+        "current.asdf = 3.14159\n" + 
+        "library.print(current.asdf);\n";
+        
+        RunScript create = new RunScript();
 
 
         try {
@@ -108,6 +115,8 @@ public class TestGame2 {
 	        origin.getParameters().get(2).parse("false");
 
 	        step.getParameters().get(0).parse(stepScript);
+	        
+	        create.getParameters().get(0).parse(createScript);
 
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
@@ -126,6 +135,8 @@ public class TestGame2 {
        
         List<IAction> stepActions = Collections.singletonList(step);
         ObservableList<IAction> stepActions0 = FXCollections.observableList(stepActions);
+        List<IAction> createActions = Collections.singletonList(create);
+        ObservableList<IAction> createActions0 = FXCollections.observableList(createActions);
         List<IAction> jumpActions = Collections.singletonList(jump);
         ObservableList<IAction> jumpActions0 = FXCollections.observableList(jumpActions);
 
@@ -136,6 +147,7 @@ public class TestGame2 {
         mario.bindEvent(new KeyPressedEvent(KeyCode.F), jumpActions0);
         //mario.bindEvent(new CollisionEvent(wall), blockActions0);
         mario.bindEvent(StepEvent.event, stepActions0);
+        mario.bindEvent(ObjectCreateEvent.event, createActions0);
 
 
         //player.addEvent(new CollisionEvent(coin));

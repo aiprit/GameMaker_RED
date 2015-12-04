@@ -18,6 +18,7 @@ public class GroovyEngine {
 			return;
 		}
 		action.compiled.setProperty("library", myGroovyLibrary);
+		action.compiled.setProperty("globals", myGroovyLibrary.getGlobals());
 		action.compiled.setProperty("current", o);
 		action.compiled.setProperty("event", event);
 		action.compiled.run();

@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
+import exceptions.GameRuntimeException;
 import structures.data.DataSprite;
 import structures.data.interfaces.IDataEvent;
 
@@ -41,9 +42,11 @@ public class RunObject implements IParameters {
 	public static final double MAX_VELOCITYY = 10;
 	public static final double MAX_GRAVITYX = 40;
 	public static final double MAX_GRAVITYY = 40;
+	
+	double asdf;
 
-	private double x;
-	private double y;
+	double x;
+	double y;
 
 	private String name;
 	private double scaleX;
@@ -64,7 +67,7 @@ public class RunObject implements IParameters {
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
 
-	private Map<String, Double> myVariables;
+	private Map<String, Object> myVariables;
 	private Map<String, Boolean> myBooleanMap;
 	private Map<String, String> myStringMap;
 	private Map<String, Double> myDoubleMap;
@@ -267,24 +270,18 @@ public class RunObject implements IParameters {
 			this.y = y;
 		}
 	}
-
-	public double get_variable(String key){
-		if(!myVariables.containsKey(key)){
-			myVariables.put(key, 0.0);
-		}
-		return myVariables.get(key);
+	
+	public void propertyMissing(String name, Object value) {
+		myVariables.put(name, value);
 	}
-
-	public void set_variable(String key, double value, boolean relative){
-		if(relative){
-			double oldValue = 0;
-			if(myVariables.containsKey(key)){
-				oldValue = myVariables.get(key);
-			}
-			myVariables.put(key, (oldValue + value));
-		}
-		else{
-			myVariables.put(key, value);
+	
+	public Object propertyMissing(String name) throws GameRuntimeException {
+		Object result = myVariables.get(name);
+		if (result != null) {
+			return result;
+		} else {
+			myVariables.put(name, 0.0);
+			return 0.0;
 		}
 	}
 
@@ -336,6 +333,16 @@ public class RunObject implements IParameters {
 	}
 	public void x(double x) {
 		this.x = x;
+	}
+	
+	public double getAsdf() {
+		System.out.println("Getting ASDF");
+		return this.asdf;
+	}
+	
+	public void setAsdf(double asdf) {
+		System.out.println("setting ASFD");
+		this.asdf = asdf;
 	}
 
 	public double y() {

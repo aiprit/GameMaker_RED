@@ -4,6 +4,9 @@
     <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="maio" zIndex="0">
       <events/>
     </object>
+    <object name="Wall" scaleX="1.0" scaleY="1.0" sprite="bricks" zIndex="0">
+      <events/>
+    </object>
   </objects>
   <sprites>
     <sprite baseFileName="maio.png" centerX="0.0" centerY="0.0" name="maio"/>
