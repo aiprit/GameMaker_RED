@@ -24,8 +24,8 @@ public class FileHelper {
 	}
 	public static String askName(String defaultText){
 		TextInputDialog dialog = new TextInputDialog(defaultText);
-		dialog.setTitle("Text Input Dialog");
-		dialog.setHeaderText("Look, a Text Input Dialog");
+		dialog.setTitle(defaultText);
+		dialog.setHeaderText(null);
 		dialog.setContentText("Please enter your name:");
 		Optional<String> result = dialog.showAndWait();
 		
