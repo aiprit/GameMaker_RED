@@ -170,7 +170,7 @@ public class FileManager {
 		AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		if (fileType.getType().toString().equals("WAVE")) {
 			String extension = ".wav";
-			String name = GameInitializer.askName();
+			String name = GameInitializer.askName(selectedFile.getName());
 			File outputfile = new File(g.getString("GamesDirectory") + myGameName
 					+ g.getString("RelativeSoundDirectory") + name + extension);
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), audioInputStream)) {

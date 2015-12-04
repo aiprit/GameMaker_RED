@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import XML.XMLEditor;
 import exceptions.UnknownResourceException;
@@ -16,27 +17,30 @@ import javafx.scene.control.ChoiceDialog;
 import structures.data.DataGame;
 
 /**
- * Search the Games directory for gamefiles, show a dialog that displays the game names, load the game from XML, return a DataGame.
+ * Search the Games directory for gamefiles, show a dialog that displays the
+ * game names, load the game from XML, return a DataGame.
+ * 
  * @author loganrooper
  */
 public class GameSelector {
-	
+	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+
 	public static DataGame getGameChoice() throws UnknownResourceException {
 		String myName = "";
-		ChoiceDialog<String> dialog = new ChoiceDialog<>("Select a Game", getGamesFromDirectory());
-		dialog.setTitle("Select a Game");
-		dialog.setHeaderText("Select a Game to Edit");
-		dialog.setContentText("Choose a game:");
+		ChoiceDialog<String> dialog = new ChoiceDialog<>(r.getString("SelectGame"), getGamesFromDirectory());
+		dialog.setTitle(r.getString("SelectGame"));
+		dialog.setHeaderText(null);
+		dialog.setContentText(r.getString("SelectGameEdit"));
 
 		// Traditional way to get the response value.
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()) {
+		if (result.isPresent() && !result.get().equals(r.getString("SelectGame"))) {
 			myName = result.get();
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Error");
-			alert.setHeaderText("Resource Not Found");
-			alert.setContentText("Resource Not Found");
+			alert.setTitle(r.getString("Error"));
+			alert.setHeaderText(r.getString("GameNotFound"));
+			alert.setContentText(r.getString("SelectAnother"));
 			alert.showAndWait();
 			getGameChoice();
 		}
@@ -60,7 +64,7 @@ public class GameSelector {
 	}
 
 	private static List<String> getGamesFromDirectory() {
-		List<String> choices =  new ArrayList<String>();
+		List<String> choices = new ArrayList<String>();
 		for (final File fileEntry : new File("Games/").listFiles()) {
 			if (fileEntry.isDirectory())
 				choices.add(fileEntry.getName());

@@ -23,7 +23,7 @@ public class SpriteMaker {
 
 		DataSprite ds;
 		try {
-			ds = gfm.makeSprite(selectedFile, GameInitializer.askName());
+			ds = gfm.makeSprite(selectedFile, GameInitializer.askName(selectedFile.getName()));
 			game.getSprites().add(ds);
 		} catch (ResourceFailedException | IOException e) {
 			//Failed! Try again
