@@ -99,16 +99,19 @@ public class ObjectEditorController {
 				if (click.getClickCount() == 2) {
 					//Use ListView's getSelected Item
 					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
-					model.getPopUpFactory().create(selected,model.getObject(), model.getObjectList());
+					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
 				}
 			}
 		});
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
-					model.getObject(), model.getObjectList());
+					model.getObject(), model.getGame());
 		});
 		for (DataSprite s : model.getSprites()) {
-			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> model.setSprite(s)));
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(),
+					e -> {model.setSprite(s);
+						view.getCenterPane().update(model.getSpriteName());
+					}));
 		};
 
 		model.getMap().addListener(new MapChangeListener<Object, Object>() {
@@ -122,7 +125,7 @@ public class ObjectEditorController {
 
 
 	private void eventPopup(IDataEvent e) {
-		EventController control = new EventController(e, model.getObject());
+		EventController control = new EventController(e, model.getObject(),model.getGame());
 	}
 
 	private void close(ActionEvent e) {

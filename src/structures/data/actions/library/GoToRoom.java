@@ -1,12 +1,13 @@
 package structures.data.actions.library;
 
 import structures.data.DataAction;
+import structures.data.DataRoom;
 import structures.data.actions.params.RoomParam;
 import structures.data.DataAction;
 import structures.data.actions.params.IntegerParam;
 
 public class GoToRoom extends DataAction{
-	
+
 	public GoToRoom(){
 		init(new RoomParam("Room"));
 	}
@@ -18,7 +19,7 @@ public class GoToRoom extends DataAction{
 
 	@Override
 	public String getDescription() {
-		return String.format("Go to room %s", get("NewRoomNumber"));
+		return String.format("Go to room %s", ((DataRoom) get("Room").getValue()).getName());
 	}
 
 	@Override

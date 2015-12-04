@@ -27,7 +27,7 @@ public class ParamPopupView extends Stage{
 		popUp = new VBox();
 		initializePopUp(list);
 	}
-	public void initializePopUp(List<IParameter> list) {
+	private void initializePopUp(List<IParameter> list) {
 		ParamFactory handler = new ParamFactory();
 		//String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.HBoxFactory(list);

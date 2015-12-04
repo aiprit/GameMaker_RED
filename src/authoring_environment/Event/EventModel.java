@@ -12,18 +12,21 @@ import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
 import structures.data.DataGame;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class EventModel {
-	DataObject myObject;
-	IDataEvent myEvent;
+	private DataObject myObject;
+	private IDataEvent myEvent;
 	private ObservableList<IAction> alist;
+	private IObjectInterface game;
 	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/Event/ActionListResources");
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
-	public EventModel(DataObject obj,IDataEvent e){
+	public EventModel(DataObject obj,IDataEvent e,IObjectInterface inter){
 		myObject = obj;
 		myEvent = e;
+		game = inter;
 		ObservableMap<IDataEvent, ObservableList<IAction>> map = myObject.getEvents();
 		if(map.containsKey(myEvent)){
 			alist = map.get(myEvent);
@@ -56,7 +59,7 @@ public class EventModel {
 		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 		//Enumeration <String> keys = l.getKeys();
-				
+
 		for (String s:classes.getAllClasses(("structures.data.actions"))) {
 			list.add(s);
 		}
@@ -78,5 +81,8 @@ public class EventModel {
 	public Image getImage() {
 		return new Image(getClass().getClassLoader().getResourceAsStream(r.getString("image")),
 				Integer.parseInt(r.getString("imagesize")),Integer.parseInt(r.getString("imagesize")),false,false);
+	}
+	public IObjectInterface getGame(){
+		return game;
 	}
 }
