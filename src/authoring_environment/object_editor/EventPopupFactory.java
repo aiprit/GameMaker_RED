@@ -18,47 +18,48 @@ import authoring_environment.ObjectPopUps.PopUp;
 import authoring_environment.ObjectPopUps.StepPopUp;
 import javafx.collections.ObservableList;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 
 public class EventPopupFactory {
 	PopUp kp;
-	public void create(String event,DataObject obj, ObservableList<DataObject> list) {
+	public void create(String event,DataObject obj, IObjectInterface game) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
 		if (event.equalsIgnoreCase("Game End Event")) {
-			kp = new GameEndPopUp(obj);
+			kp = new GameEndPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Collision Event")) {
-			kp = new CollisionPopUp(obj,list);
+			kp = new CollisionPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Game Start Event")) {
-			kp = new GameStartPopUp(obj);
+			kp = new GameStartPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Key Pressed Event")) {
-			kp = new KeyPressedPopUp(obj);
+			kp = new KeyPressedPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Key Released Event")) {
-			kp = new KeyReleasedPopUp(obj);
+			kp = new KeyReleasedPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Object Create Event")) {
-			kp = new ObjectCreatePopUp(obj);
+			kp = new ObjectCreatePopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Object Destroy Event")) {
-			kp = new ObjectDestroyPopUp(obj);
+			kp = new ObjectDestroyPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Global Mouse Pressed Event")) {
-			kp = new GlobalMousePressedPopUp(obj);
+			kp = new GlobalMousePressedPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Object Mouse Pressed Event")) {
-			kp = new ObjectMousePressedPopUp(obj);
+			kp = new ObjectMousePressedPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Step Event")) {
-			kp = new StepPopUp(obj);
+			kp = new StepPopUp(obj,game);
 		}
 		if (event.equalsIgnoreCase("Leave Room Event")) {
-			kp = new LeaveRoomPopUp(obj);
+			kp = new LeaveRoomPopUp(obj,game);
 		}
 
 		//	}

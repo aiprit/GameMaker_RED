@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
+import authoring_environment.ParamPopups.ParamBoxFactory.ObjectMenu;
+import authoring_environment.ParamPopups.ParamBoxFactory.RoomMenu;
+import authoring_environment.ParamPopups.ParamBoxFactory.SelectMenu;
+import authoring_environment.ParamPopups.ParamBoxFactory.SpriteMenu;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 
@@ -28,17 +32,21 @@ import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.MoveTo;
 import structures.data.actions.params.IParameter;
+import structures.data.actions.params.ObjectParam;
+import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SpriteParam;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class EventController {
 	EventView myView;
 	EventModel myModel;
-	public EventController(IDataEvent e, DataObject obj){
+	public EventController(IDataEvent e, DataObject obj,IObjectInterface dataGame){
 		myView = new EventView();
-		myModel = new EventModel(obj,e);
+		myModel = new EventModel(obj,e,dataGame);
 		initAll();
 	}
 
@@ -262,6 +270,9 @@ public class EventController {
 			try {
 				IAction act = (IAction) c.getDeclaredConstructor().newInstance();
 				List<IParameter> params = act.getParameters();
+				for(IParameter p: params){
+					paramSetup(p);
+				}
 				if(params.size()>0){
 					ParamController paramcontrol = new ParamController(act,myModel.getActions());
 					paramcontrol.showAndWait();
@@ -302,6 +313,24 @@ public class EventController {
 		}
 
 
+	}
+
+	private void paramSetup(IParameter p) {
+		if(p.getType().toString().equals("OBJECT_SELECT")){
+			ObjectParam param = (ObjectParam) p;
+			param.setObjectList(myModel.getGame().getObjects());
+		}
+		if(p.getType().toString().equals("SPRITE_SELECT")){
+			SpriteParam param = (SpriteParam) p;
+			param.setSpriteList(myModel.getGame().getSprites());
+		}
+		if(p.getType().toString().equals("ROOM_SELECT")){
+			RoomParam param = (RoomParam) p;
+			param.setRoomList(myModel.getGame().getRooms());
+		}
+		if(p.getType().toString().equals("SELECT")){
+
+		}
 	}
 
 	private boolean paramPopUps(IParameter p) {

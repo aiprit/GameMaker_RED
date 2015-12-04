@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.KeyPressedEvent;
 
 public abstract class MousePopUp  extends BasicPopUp{
@@ -33,8 +34,8 @@ public abstract class MousePopUp  extends BasicPopUp{
 
 	protected String key;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/MouseResources");
-	public MousePopUp(DataObject obj){
-		super(obj);
+	public MousePopUp(DataObject obj,IObjectInterface game){
+		super(obj,game);
 		myRoot = new Group();
 
 
