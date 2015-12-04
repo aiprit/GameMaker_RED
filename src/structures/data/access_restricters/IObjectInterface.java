@@ -1,10 +1,11 @@
 /**
- * 
+ *
  */
 package structures.data.access_restricters;
 
 import javafx.collections.ObservableList;
 import structures.data.DataObject;
+import structures.data.DataRoom;
 import structures.data.DataSprite;
 
 /**
@@ -16,4 +17,5 @@ public interface IObjectInterface {
 	public void addObject(DataObject... a);
 	public ObservableList<DataSprite> getSprites();
 	public String getName();
+	public ObservableList<DataRoom> getRooms();
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import authoring_environment.room.PotentialObjectInstance;
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import structures.data.DataObject;
@@ -35,13 +36,13 @@ public class ObjectListController extends VBox {
 		myObjectList.getObjectListView().setOnMousePressed(e -> f.accept(e));
 	}
 	
-	public PotentialObjectInstance startObjectDragAndDrop(MouseEvent event) {
+	public PotentialObjectInstance startObjectDragAndDrop(MouseEvent event, Node dragContext) {
 		int selectedIdx = myObjectList.getObjectListView().getSelectionModel().getSelectedIndex();
 		if (selectedIdx != -1) {
 			PotentialObjectInstance object = new PotentialObjectInstance(myResources, myObjects.get(selectedIdx));
 			object.updateSpritePosition(event);
 			event.consume();
-			object.getImageView().setOnMouseMoved(e -> object.updateSpritePosition(e));
+			dragContext.setOnMouseMoved(e -> object.updateSpritePosition(e));
 			myObjectList.getObjectListView().getSelectionModel().select(-1);
 			return object;
 		}

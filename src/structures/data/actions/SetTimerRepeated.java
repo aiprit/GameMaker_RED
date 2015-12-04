@@ -7,17 +7,17 @@ public class SetTimerRepeated extends DataAction {
 	public SetTimerRepeated(){
 		init();
 	}
-	
+
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
-		return null;
+		return "SetTimerRepeated";
 	}
 
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Set Timer Repeated";
 	}
 
 	@Override

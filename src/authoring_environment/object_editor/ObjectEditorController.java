@@ -6,18 +6,21 @@ import authoring_environment.Event.EventController;
 import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorController {
@@ -68,7 +71,11 @@ public class ObjectEditorController {
 						if (empty) {
 							setText(null);
 						} else {
-							setText(item.getName());
+							String description  =item.getName()+ ":";
+                        	for(IAction action: model.getMap().get(item)){
+                        		description += "\n   " +action.getDescription();
+                        	}
+                            setText(description);
 						}
 					}
 				};
@@ -83,9 +90,19 @@ public class ObjectEditorController {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
+		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+				}
+			}
+		});
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
-					model.getObject(), model.getObjectList());
+					model.getObject(), model.getGame());
 		});
 		for (DataSprite s : model.getSprites()) {
 			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> {
@@ -104,7 +121,7 @@ public class ObjectEditorController {
 	}
 
 	private void eventPopup(IDataEvent e) {
-		EventController control = new EventController(e, model.getObject());
+		EventController control = new EventController(e, model.getObject(),model.getGame());
 	}
 	
 	private void refreshSprite() {

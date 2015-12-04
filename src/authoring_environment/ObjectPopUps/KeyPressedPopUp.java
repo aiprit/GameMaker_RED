@@ -10,14 +10,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.KeyReleasedEvent;
 
 
-public class KeyPressPopUp extends KeyPopUp {
+public class KeyPressedPopUp extends KeyPopUp {
 
-	public KeyPressPopUp(DataObject obj) {
-		super(obj);
+	public KeyPressedPopUp(DataObject obj,IObjectInterface game) {
+		super(obj,game);
 		init();
 
 		// TODO Auto-generated constructor stub
@@ -28,7 +29,7 @@ public class KeyPressPopUp extends KeyPopUp {
 			nullAlert();
 		}
 		else{
-			EventController p = new EventController(new KeyPressedEvent(key),myObject);
+			EventController p = new EventController(new KeyPressedEvent(key),myObject,myGame);
 
 		}
 	}
