@@ -26,7 +26,7 @@ public class FileHelper {
 		TextInputDialog dialog = new TextInputDialog(defaultText);
 		dialog.setTitle(defaultText);
 		dialog.setHeaderText(null);
-		dialog.setContentText("Please enter your name:");
+		dialog.setContentText(r.getString("EnterName"));
 		Optional<String> result = dialog.showAndWait();
 		
 		if (result.isPresent()){
@@ -40,7 +40,7 @@ public class FileHelper {
 	}
 	
 	public static String askName() {
-		return askName("Select an option...");
+		return askName(r.getString("SelectOption"));
 	}
 	
 	
