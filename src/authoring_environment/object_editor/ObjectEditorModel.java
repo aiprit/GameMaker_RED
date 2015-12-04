@@ -65,7 +65,7 @@ public class ObjectEditorModel {
 
 	public String getSpriteName() {
 		try {
-			return object.getSprite().getBaseFileName();
+			return object.getSprite().getName();
 		}
 		catch (NullPointerException e) {
 			return null;

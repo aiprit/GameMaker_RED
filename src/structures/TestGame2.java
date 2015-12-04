@@ -40,7 +40,7 @@ public class TestGame2 {
      */
 
     public DataGame getTestGame(String directory){
-        DataGame testGame = new DataGame("Test Game 2", directory + "TestGame2/");
+        DataGame testGame = new DataGame("TestGame2", directory + "TestGame2/");
 
         DataObject wall = new DataObject("Wall");
         wall.setSolid(true);
@@ -56,8 +56,8 @@ public class TestGame2 {
 
 
         try {
-			wallSprite.load(testGame.getSpriteDirectory());
-			marioSprite.load(testGame.getSpriteDirectory());
+			wallSprite.load(testGame.getName());
+			marioSprite.load(testGame.getName());
 		} catch (ResourceFailedException e) {
 			e.printStackTrace();
 		}
