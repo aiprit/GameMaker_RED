@@ -43,12 +43,13 @@ public class SoundMaker {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
 		  	AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		  	if(fileType.getType().toString().equals("WAVE")){
+		  		System.out.println("test");
 		  		String name = FileHelper.askName();
 
 			
 			
-		  		File outputfile = new File(game.getName() + r.getString("soundFolder") + name + ".wav");
-			
+		  		File outputfile = new File(r.getString("Games") + game.getName() + r.getString("soundFolder") + name + ".wav");
+		  		System.out.println(outputfile.getAbsolutePath());
 		  		if (AudioSystem.isFileTypeSupported(fileType.getType(), 
 
 		  				audioInputStream)) {
@@ -56,6 +57,7 @@ public class SoundMaker {
 		  			AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
 		  		}
 		  		DataSound sound = new DataSound(name, outputfile.getName());
+		  		System.out.println(outputfile.getAbsolutePath());
 		  		sound.load(outputfile.getAbsolutePath());
 			
 		  		game.getSounds().add(sound);

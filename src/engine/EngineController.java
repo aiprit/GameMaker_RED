@@ -88,7 +88,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		//set myGame to the game that the user chooses
 		System.out.println(userGame);
 		myEditor = new XMLEditor();
-		myGame = myEditor.readXML(userGame);
+		myGame = myEditor.readXML("Games/" + userGame + "/XML/GameFile.xml");
 
 		// Which one was selected?
 		DataGame game = null;
@@ -103,7 +103,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
-			runGame = new RunGame(game);
+			runGame = new RunGame(myGame);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}
