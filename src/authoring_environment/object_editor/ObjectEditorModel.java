@@ -45,7 +45,7 @@ public class ObjectEditorModel {
 		for (String s: classes.getAllClasses("structures.data.events"))
 			list.add(s);
 		Collections.sort(list);
-//		
+//
 //		Collections.sort(keylist);
 //		for (String str : keylist) {
 //			String value = l.getString(str);
@@ -65,7 +65,7 @@ public class ObjectEditorModel {
 
 	public String getSpriteName() {
 		try {
-			return object.getSprite().getBaseFileName();
+			return object.getSprite().getName();
 		}
 		catch (NullPointerException e) {
 			return null;
@@ -120,12 +120,17 @@ public class ObjectEditorModel {
 	public ObservableList<DataSprite> getSprites() {
 		return game.getSprites();
 	}
-	
+
 	public void setSolid(boolean solid) {
 		object.setSolid(solid);
 	}
-	
+
 	public boolean isSolid() {
 		return object.isSolid();
+	}
+
+	public IObjectInterface getGame() {
+		// TODO Auto-generated method stub
+		return game;
 	}
 }

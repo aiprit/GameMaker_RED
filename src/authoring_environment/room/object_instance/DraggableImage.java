@@ -27,4 +27,20 @@ public class DraggableImage extends DraggableNode {
 		return myImage.getHeight();
 	}
 	
+	public boolean widthOutOfBounds(double canvasWidth) {
+		return (this.getX() + this.getWidth()*this.getScaleX()) > canvasWidth;
+	}
+	
+	public boolean heightOutOfBounds(double canvasHeight) {
+		return (this.getY() + this.getHeight()*this.getScaleY()) > canvasHeight;
+	}
+	
+	public double getScaleXAdjustment(double canvasWidth) {
+		return (canvasWidth - this.getX()) / (this.getWidth() * this.getScaleX());
+	}
+	
+	public double getScaleYAdjustment(double canvasHeight) {
+		return (canvasHeight - this.getY()) / (this.getHeight() * this.getScaleY());
+	}
+	
 }

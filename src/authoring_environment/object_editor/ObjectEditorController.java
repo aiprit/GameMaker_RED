@@ -6,18 +6,21 @@ import authoring_environment.Event.EventController;
 import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class ObjectEditorController {
@@ -26,7 +29,7 @@ public class ObjectEditorController {
 	IUpdateHandle updater;
 
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
-		view = new ObjectEditorView();
+		view = new ObjectEditorView(dataGame.getName());
 		model = new ObjectEditorModel(dataGame, o);
 		initAll();
 	}
@@ -41,7 +44,7 @@ public class ObjectEditorController {
 			name = result.get();
 
 			model = new ObjectEditorModel((IObjectInterface) g, name);
-			view = new ObjectEditorView();
+			view = new ObjectEditorView(g.getName());
 			initAll();
 		}
 	}
@@ -53,25 +56,29 @@ public class ObjectEditorController {
 			close(e);
 		});
 		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-			view.getCenterPane().update(model.getSpriteName());
+			refreshSprite();
 		});
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
-		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>(){
+		view.getRightPane().getListView().setCellFactory(new Callback<ListView<IDataEvent>, ListCell<IDataEvent>>() {
 			@Override
-			public ListCell<IDataEvent> call(ListView <IDataEvent> arg0) {
+			public ListCell<IDataEvent> call(ListView<IDataEvent> arg0) {
 				final ListCell<IDataEvent> cell = new ListCell<IDataEvent>() {
-                    @Override
-                    public void updateItem(IDataEvent item, boolean empty) {
-                        super.updateItem(item,  empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(item.getName());
-                        }
-                    }
-                };
+					@Override
+					public void updateItem(IDataEvent item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setText(null);
+						} else {
+							String description  =item.getName()+ ":";
+                        	for(IAction action: model.getMap().get(item)){
+                        		description += "\n   " +action.getDescription();
+                        	}
+                            setText(description);
+						}
+					}
+				};
 				return cell;
 			}
 		});
@@ -83,12 +90,25 @@ public class ObjectEditorController {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
+		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+				}
+			}
+		});
 		view.getLeftPane().getAddButton().setOnAction(e -> {
 			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
-					model.getObject(), model.getObjectList());
+					model.getObject(), model.getGame());
 		});
 		for (DataSprite s : model.getSprites()) {
-			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> model.setSprite(s)));
+			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> {
+				model.setSprite(s);
+				refreshSprite();
+			}));
 		};
 
 		model.getMap().addListener(new MapChangeListener<Object, Object>() {
@@ -97,12 +117,16 @@ public class ObjectEditorController {
 				model.getEvents();
 			}
 		});
+		refreshSprite();
 	}
 
-
-
 	private void eventPopup(IDataEvent e) {
-		EventController control = new EventController(e, model.getObject());
+		EventController control = new EventController(e, model.getObject(),model.getGame());
+	}
+	
+	private void refreshSprite() {
+		String n = model.getSpriteName();
+		view.getCenterPane().update(n);
 	}
 
 	private void close(ActionEvent e) {

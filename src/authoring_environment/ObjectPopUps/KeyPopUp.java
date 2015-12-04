@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.KeyPressedEvent;
 
 public abstract class KeyPopUp  extends BasicPopUp{
@@ -33,8 +34,8 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	Label myInfo;
 	protected KeyCode key;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
-	public KeyPopUp(DataObject obj){
-		super(obj);
+	public KeyPopUp(DataObject obj,IObjectInterface game){
+		super(obj,game);
 		myRoot = new Group();
 		keyPress = " ";
 
