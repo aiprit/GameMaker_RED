@@ -55,9 +55,9 @@ public class ObjectEditorController {
 			model.setSolid(view.getBottomPane().getCheckBox().isSelected());
 			close(e);
 		});
-		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-			refreshSprite();
-		});
+//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
+//			refreshSprite();
+//		});
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());

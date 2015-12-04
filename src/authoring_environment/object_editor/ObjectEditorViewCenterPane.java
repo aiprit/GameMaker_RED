@@ -30,8 +30,8 @@ public class ObjectEditorViewCenterPane {
 		Canvas c = new Canvas(Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
 		centerGC = c.getGraphicsContext2D();
 		draw(spriteName);
-		spriteUpdate = new Button(centerResources.getString("buttonText"));
-		root.getChildren().addAll(c,spriteUpdate);
+		//spriteUpdate = new Button(centerResources.getString("buttonText"));
+		root.getChildren().addAll(c);        //,spriteUpdate);
 		return root;
 	}
 
@@ -54,9 +54,9 @@ public class ObjectEditorViewCenterPane {
 		draw(name);
 	}
 
-	public Button getSpriteUpdateButton() {
-		return spriteUpdate;
-	}
+//	public Button getSpriteUpdateButton() {
+//		return spriteUpdate;
+//	}
 	
 	private void draw(String s) {
 		centerGC.clearRect(0, 0, Integer.parseInt(centerResources.getString("canvasWidth")), Integer.parseInt(centerResources.getString("canvasHeight")));
