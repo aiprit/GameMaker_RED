@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.interfaces.IDataEvent;
@@ -28,10 +29,10 @@ public class CollisionPopUp extends BasicPopUp{
 	private ObservableList<DataObject> myList;
 	ListView<DataObject> listview;
 	private DataObject selectedObject;
-	public CollisionPopUp(DataObject data, ObservableList<DataObject> list) {
-		super(data);
-		myList = list;
-init();
+	public CollisionPopUp(DataObject data, IObjectInterface game) {
+		super(data,game);
+		myList = game.getObjects();
+		init();
 
 	}
 
@@ -52,7 +53,7 @@ init();
 			select(e);
 			eventPopup();
 			close(e);
-			});
+		});
 		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
@@ -67,7 +68,7 @@ init();
 
 	@Override
 	public void eventPopup() {
-		EventController p = new EventController(new CollisionEvent(selectedObject),myObject);
+		EventController p = new EventController(new CollisionEvent(selectedObject),myObject,myGame);
 	}
 
 }

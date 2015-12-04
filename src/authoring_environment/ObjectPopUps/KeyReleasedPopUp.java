@@ -5,13 +5,14 @@ import authoring_environment.Event.EventController;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.KeyReleasedEvent;
 import structures.data.events.ObjectDestroyEvent;
 
 public class KeyReleasedPopUp extends KeyPopUp{
 
-	public KeyReleasedPopUp(DataObject obj) {
-		super(obj);
+	public KeyReleasedPopUp(DataObject obj,IObjectInterface game) {
+		super(obj,game);
 		init();
 
 		// TODO Auto-generated constructor stub
@@ -25,7 +26,7 @@ public class KeyReleasedPopUp extends KeyPopUp{
 			nullAlert();
 		}
 		else{
-			EventController p = new EventController(new KeyReleasedEvent(key),myObject);
+			EventController p = new EventController(new KeyReleasedEvent(key),myObject,myGame);
 ;
 
 
