@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
-public class HBoxHandler {
+public class GridPaneHandler {
 	private List<TextField> myTextFields;
 	public List<TextField>  setUpGridPane(int n, String[] labelStrings, GridPane pane) {
 		myTextFields = new ArrayList<TextField>();

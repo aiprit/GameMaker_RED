@@ -29,12 +29,12 @@ public class ConfigureView extends PopupTemplate {
 	
 	public ConfigureView(ResourceBundle resources) {
 		super(resources, NAME);
-		myContentsBox.setPrefWidth(500);
+		//myContentsBox.setMinWidth(600);
 	}
 	
 	@Override
 	public void setContents() {
-		HBoxHandler handler = new HBoxHandler();
+		GridPaneHandler handler = new GridPaneHandler();
 		myGridPane = new GridPane();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
 		fieldList = handler.setUpGridPane(NUM_ROWS, labelStrings, myGridPane);
@@ -43,8 +43,7 @@ public class ConfigureView extends PopupTemplate {
 		myGridPane.add(visibilityButton, 1, NUM_ROWS);
 		myGridPane.setAlignment(Pos.CENTER);
 		myContentsBox.getChildren().add(myGridPane);
-		myGridPane.setPrefWidth(500);
-		
+		//myGridPane.setMinWidth(600);
 	}
 	
 	public List<TextField> getFieldList() {

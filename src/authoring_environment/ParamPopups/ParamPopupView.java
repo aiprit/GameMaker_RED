@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring_environment.ParamPopups.ParamBoxFactory.ParamFactory;
-import authoring_environment.room.configure_popup.HBoxHandler;
+import authoring_environment.room.configure_popup.GridPaneHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -2,7 +2,13 @@
 <game currentRoom="0" directory="Games/MarioTest/" startRoom="0" title="MarioTest">
   <objects>
     <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="maio" zIndex="0">
-      <events/>
+      <events>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="D">
+          <actions>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+      </events>
     </object>
   </objects>
   <sprites>
@@ -10,5 +16,13 @@
     <sprite baseFileName="bricks.png" centerX="0.0" centerY="0.0" name="bricks"/>
   </sprites>
   <sounds/>
-  <rooms/>
+  <rooms>
+    <room backgroundColor="0xffffffff" height="600.0" name="f" width="600.0">
+      <view height="600.0" name="MainView" width="600.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449190482273" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Mario" scaleX="1.0" scaleY="1.0" visibility="true" x="218.31868131868134" y="218.31868131868134" zIndex="0"/>
+        <objectInstance ID="1449190491477" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Mario" scaleX="1.0" scaleY="1.0" visibility="true" x="412.31868131868134" y="412.31868131868134" zIndex="0"/>
+      </objectInstances>
+    </room>
+  </rooms>
 </game>
