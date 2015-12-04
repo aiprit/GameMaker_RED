@@ -39,6 +39,7 @@ public class SizePopupController {
 			}
 			myCanvas.setWidth(width);
 			myCanvas.setHeight(height);
+			myCanvas.getGrid().setSize(width, height);
 			myCanvas.redrawCanvas();
 			model.setSize(width, height);
 			view.close();

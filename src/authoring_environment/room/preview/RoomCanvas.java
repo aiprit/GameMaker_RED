@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import authoring_environment.room.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
 import javafx.geometry.Point2D;
@@ -29,7 +30,7 @@ public class RoomCanvas extends Canvas {
 	private String myBackgroundColor;
 	private List<DraggableImage> myObjectList;
 	private DraggableView myRoomView;
-	private boolean gridVisible;
+	private Grid myGrid;
 	
 	public RoomCanvas(ResourceBundle resources) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
@@ -40,15 +41,7 @@ public class RoomCanvas extends Canvas {
 		myObjectList = new ArrayList<DraggableImage>();
 		this.setOnMouseDragged(e -> drag(e));
 		this.setOnMouseReleased(e -> released(e));
-		gridVisible = true;
-	}
-	
-	public void setGridVisible(boolean visible) {
-		gridVisible = visible;
-	}
-	
-	public boolean isGridVisible() {
-		return gridVisible;
+		myGrid = new Grid(myResources, super.getWidth(), super.getHeight());
 	}
 	
 	public List<DraggableImage> getObjectMap() {
@@ -57,6 +50,10 @@ public class RoomCanvas extends Canvas {
 	
 	public DraggableView getRoomView() {
 		return myRoomView;
+	}
+	
+	public Grid getGrid() {
+		return myGrid;
 	}
 	
 	public String getBackgroundColor() {
@@ -72,6 +69,9 @@ public class RoomCanvas extends Canvas {
 	}
 	
 	public void addNodeToMap(DraggableImage image) {
+		if (myGrid.isVisible()) {
+			myGrid.snapToGrid(image);
+		}
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectList.add(image);
 	}
@@ -79,8 +79,15 @@ public class RoomCanvas extends Canvas {
 	
 	private void released(MouseEvent event) {
 		for (DraggableNode node: myObjectList) {
-			if (node.getDraggable())
+			if (node.getDraggable()) {
 				node.setDraggable(false);
+				if (myGrid.isVisible()) {
+					myGrid.snapToGrid(node);
+				}
+			}
+		}
+		if (myGrid.isVisible() && myRoomView.getDraggable()) {
+			myGrid.snapToGrid(myRoomView);
 		}
 		myRoomView.setDraggable(false);
 	}
@@ -131,7 +138,7 @@ public class RoomCanvas extends Canvas {
 				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(), drag.getScaleY(), drag.getAlpha());
 		}
-		if (gridVisible) {
+		if (myGrid.isVisible()) {
 			drawGridLines();
 		}
 		drawView();
