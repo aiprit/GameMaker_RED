@@ -1,5 +1,6 @@
 package authoring_environment.FileHandlers;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +12,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+
 import XML.XMLEditor;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import groovy.util.ResourceException;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
@@ -62,6 +66,31 @@ public class FileManager {
 				+ "GameFile.xml";
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(dataGame, file);
+		for(DataSprite s : dataGame.getSprites()){
+			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + s.getName() + ".png");
+			Image im = s.getImage();
+			
+			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
+			try {
+				ImageIO.write(bim, "png", image);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		for(DataSound s : dataGame.getSounds()){
+			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory") + s.getName() + ".wav");
+			
+			AudioInputStream stream = s.getInputStream();
+			
+			try {
+				AudioSystem.write(stream, AudioFileFormat.Type.WAVE, sound);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 	/**
@@ -176,10 +205,10 @@ public class FileManager {
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), audioInputStream)) {
 				AudioSystem.write(audioInputStream, fileType.getType(), outputfile);
 			}
-			DataSound sound = new DataSound(name, outputfile.getName());
-			sound.load(myGameName);
+
 			DataSound ds = new DataSound(name, name + extension);
 			ds.load(myGameName);
+			ds.setInputStream(audioInputStream);
 			return ds;
 		} else {
 			// Wavs or GTFO

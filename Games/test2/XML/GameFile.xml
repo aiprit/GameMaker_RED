@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<game currentRoom="0" directory="test2/" startRoom="0" title="test2">
+<game currentRoom="0" directory="Games/test2/" startRoom="0" title="test2">
   <objects/>
-  <sprites>
-    <sprite baseFileName="benny.png" centerX="0.0" centerY="0.0" name="benny"/>
-  </sprites>
+  <sprites/>
   <sounds>
     <sound baseFileName="goat.wav" name="goat"/>
   </sounds>
