@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import authoring_environment.room.object_instance.DraggableImage;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import structures.data.DataInstance;
 
 public class ConfigureController {
@@ -32,7 +31,7 @@ public class ConfigureController {
 	}
 	
 	private void populatePopUp() {
-		List<HBox> fieldList = configure.getFieldList();
+		List<TextField> fieldList = configure.getFieldList();
 		setInput(0, fieldList, myDataInstance.getVelocity().x);
 		setInput(1, fieldList, myDataInstance.getVelocity().y);
 		setInput(2, fieldList, myDataInstance.getAngularVelocity());
@@ -49,7 +48,7 @@ public class ConfigureController {
 	}
 	
 	private void onSave() {
-		List<HBox> fieldList = configure.getFieldList();
+		List<TextField> fieldList = configure.getFieldList();
 		double velocityFieldX = getInput(0, fieldList);
 		double velocityFieldY = getInput(1, fieldList);
 		model.setVelocity(velocityFieldX, velocityFieldY);
@@ -78,13 +77,11 @@ public class ConfigureController {
 		return configure;
 	}
 	
-	private double getInput(int n, List<HBox> fieldList) {
-		TextField field =  ((TextField) fieldList.get(n).getChildren().get(1));
-		return Double.parseDouble(field.getText());
+	private double getInput(int n, List<TextField> fieldList) {
+		return Double.parseDouble(fieldList.get(n).getText());
 	}
 	
-	private void setInput(int n, List<HBox> fieldList, double doubleToSet) {
-		TextField field = ((TextField) fieldList.get(n).getChildren().get(1));
-		field.setText(Double.toString(doubleToSet));
+	private void setInput(int n, List<TextField> fieldList, double doubleToSet) {
+		fieldList.get(n).setText(Double.toString(doubleToSet));
 	}
 }

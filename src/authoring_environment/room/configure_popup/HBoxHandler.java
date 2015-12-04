@@ -1,26 +1,23 @@
 package authoring_environment.room.configure_popup;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 
 public class HBoxHandler {
-
-	public List<HBox> createHBoxes(int n, String[] labelStrings) {
-		List<HBox> hBoxList = new ArrayList<HBox>();
+	private List<TextField> myTextFields;
+	public List<TextField>  setUpGridPane(int n, String[] labelStrings, GridPane pane) {
+		myTextFields = new ArrayList<TextField>();
 		for (int i = 0; i < n; i++) {
-			HBox box = new HBox();
-			box.getChildren().add(new Label(labelStrings[i]));
-			box.getChildren().add(new TextField());
-			box.setAlignment(Pos.CENTER);
-			box.setSpacing(15);
-			hBoxList.add(box);
-			
+			pane.add(new Label(labelStrings[i]), 0, i);
+			TextField field = new TextField();
+			myTextFields.add(field);
+			pane.add(field, 1, i);
 		}
-		return hBoxList;
+		return myTextFields;
 	}
 }
