@@ -49,4 +49,8 @@ public interface IAction {
 	 */
 	String compileSyntax() throws CompileTimeException;
 	
+	default boolean hasBrackets() {
+		return false;
+	}
+	
 }
