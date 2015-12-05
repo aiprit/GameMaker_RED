@@ -144,7 +144,7 @@ public class MainController implements IUpdateHandle {
 				}
 			});
 		}
-		System.out.println(dataGame.getName());
+		
 		roomListView.addPlusButton(dataGame.getRooms().size(), dataGame.getName()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
