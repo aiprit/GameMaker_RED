@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 import structures.run.IParameters;
 import structures.run.RunRoom;
 //uncomment for controller functionality
-import voogasalad.util.externalcontroller.ControllerListener;
+//import voogasalad.util.externalcontroller.ControllerListener;
 
 /**
  * @author loganrooper
@@ -224,10 +224,10 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 		//uncomment for controller functionality
-		ControllerListener controllerTest = new ControllerListener();
-		if(controllerTest.getControllerConnected()){
-			controllerTest.initialize(stage);
-		}
+//		ControllerListener controllerTest = new ControllerListener();
+//		if(controllerTest.getControllerConnected()){
+//			controllerTest.initialize(stage);
+//		}
 	}
 
 	public IDraw getDrawListener(){

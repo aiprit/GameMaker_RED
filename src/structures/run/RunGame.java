@@ -27,11 +27,6 @@ public class RunGame implements IRun {
 		// Get name and save old DataGame
 		myDataGame = dataGame;
 		myName = dataGame.getName();
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> 811f5a1c9ac8c891c515295e7edee7e5fa7b83ad
 		// Convert Sprites, then Objects
 		myResources = loadResources(dataGame);
 		myConverter = new RunObjectConverter(myResources);
