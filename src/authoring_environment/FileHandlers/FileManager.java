@@ -66,31 +66,7 @@ public class FileManager {
 				+ "GameFile.xml";
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(dataGame, file);
-		for(DataSprite s : dataGame.getSprites()){
-			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + s.getName() + ".png");
-			Image im = s.getImage();
-			
-			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
-			try {
-				ImageIO.write(bim, "png", image);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		for(DataSound s : dataGame.getSounds()){
-			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory") + s.getName() + ".wav");
-			
-			AudioInputStream stream = s.getInputStream();
-			
-			try {
-				AudioSystem.write(stream, AudioFileFormat.Type.WAVE, sound);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+		saveFilesFromGame(dataGame);
 	}
 
 	/**
@@ -236,6 +212,33 @@ public class FileManager {
 			} catch (ResourceFailedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	private void saveFilesFromGame(DataGame dataGame){
+		for(DataSprite s : dataGame.getSprites()){
+			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + s.getName() + ".png");
+			Image im = s.getImage();
+			
+			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
+			try {
+				ImageIO.write(bim, "png", image);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		for(DataSound s : dataGame.getSounds()){
+			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory") + s.getName() + ".wav");
+			
+			AudioInputStream stream = s.getInputStream();
+			
+			try {
+				AudioSystem.write(stream, AudioFileFormat.Type.WAVE, sound);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	}
 }
