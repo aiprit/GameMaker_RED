@@ -5,9 +5,7 @@ import javax.sound.sampled.AudioInputStream;
 import authoring_environment.FileHandlers.SoundMaker;
 import exceptions.CompileTimeException;
 import structures.data.DataSound;
-import sun.audio.AudioPlayer;
 
-import javax.sound.sampled.AudioInputStream;
 
 public class RunSound {
 	

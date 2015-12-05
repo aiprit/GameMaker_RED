@@ -72,6 +72,7 @@ public class WelcomeWizardView {
 				dataGame = fm.getDataGame(name);
 				fm.saveGame(dataGame);
 			} catch (Exception e) {
+				e.printStackTrace();
 				showAndWait();
 			}
 

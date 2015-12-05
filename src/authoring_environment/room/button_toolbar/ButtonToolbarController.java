@@ -17,20 +17,20 @@ public class ButtonToolbarController {
 	private SetSizeController mySetSizeController;
 	private GridButton myGridButton;
 	
-	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
+	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room, String gameName) {
 		myResources = resources;
 		myCanvas = canvas;
 		view = new ButtonToolbar(resources);
 		model = room;
-		initializeButtons();
+		initializeButtons(gameName);
 	}
 	
 	public ButtonToolbar getButtonToolbar() {
 		return view;
 	}
 	
-	private void initializeButtons() {
-		mySetBackgroundController = new SetBackgroundController(myResources, myCanvas, model);
+	private void initializeButtons(String gameName) {
+		mySetBackgroundController = new SetBackgroundController(myResources, myCanvas, model, gameName);
 		mySetSizeController = new SetSizeController(myResources, myCanvas, model);
 		myGridButton = new GridButton(myResources, myCanvas);
 		ShowViewButton viewButton = new ShowViewButton(myResources, myCanvas.getRoomView());

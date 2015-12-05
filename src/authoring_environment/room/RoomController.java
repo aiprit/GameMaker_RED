@@ -44,11 +44,11 @@ public class RoomController {
 		model = room;
 		model.getView().setView(new Rectangle(room.getView().getX(), room.getView().getY(),
 				gameObject.getViewWidth(), gameObject.getViewHeight()));
-		view = new RoomEditor(myResources, room.getName());
+		view = new RoomEditor(myResources, room.getName(), gameObject.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
 		initializeView();
-		initializeButtonToolbar();
+		initializeButtonToolbar(gameObject.getName());
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
@@ -80,9 +80,9 @@ public class RoomController {
 		view.getObjectsAndPreview().getChildren().add(view.getPreview());
 	}
 	
-	private void initializeButtonToolbar() {
+	private void initializeButtonToolbar(String gameName) {
 		myButtonToolbarController = new ButtonToolbarController(myResources, 
-				view.getPreview().getCanvas(), model);
+				view.getPreview().getCanvas(), model, gameName);
 		view.getTotalView().getChildren().add(myButtonToolbarController.getButtonToolbar());
 	}
 	

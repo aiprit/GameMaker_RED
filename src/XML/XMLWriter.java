@@ -196,7 +196,7 @@ public class XMLWriter {
     private Element getElementFromObjectInstance(Document doc, DataInstance dataInstance) {
         Element instance = doc.createElement("objectInstance");
         instance.setAttribute("x", Double.toString(dataInstance.getX()));
-        instance.setAttribute("y", Double.toString(dataInstance.getX()));
+        instance.setAttribute("y", Double.toString(dataInstance.getY()));
         instance.setAttribute("ID", Long.toString(dataInstance.getID()));
         instance.setAttribute("parentObject", dataInstance.getParentObject().getName());
         instance.setAttribute("visibility", Boolean.toString(dataInstance.isVisible()));

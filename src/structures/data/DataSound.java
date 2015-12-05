@@ -1,6 +1,9 @@
 package structures.data;
 
 import exceptions.ResourceFailedException;
+
+import javax.sound.sampled.AudioInputStream;
+
 import authoring_environment.FileHandlers.FileManager;
 import javafx.scene.media.AudioClip;
 import structures.IResource;
@@ -11,6 +14,7 @@ public class DataSound implements IResource {
     private String myBaseFileName;
     private String completeFileName;
     private AudioClip clip;
+    private AudioInputStream audioInputStream;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -26,11 +30,21 @@ public class DataSound implements IResource {
     public String getBaseFileName() {
         return myBaseFileName;
     }
+    public AudioInputStream getInputStream(){
+    	
+    	return audioInputStream;
+    }
+    public void setInputStream(AudioInputStream inputStream){
+    	
+    	audioInputStream = inputStream;
+    	
+    }
 
     @Override
     public boolean loaded() {
         return myHaveLoaded;
     }
+    
 
     @Override
     public void load(String gameName) throws ResourceFailedException {

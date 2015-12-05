@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.room.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
+import exceptions.ResourceFailedException;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -31,10 +33,12 @@ public class RoomCanvas extends Canvas {
 	private List<DraggableImage> myObjectList;
 	private DraggableView myRoomView;
 	private Grid myGrid;
+	private String gameName;
 	
-	public RoomCanvas(ResourceBundle resources) {
+	public RoomCanvas(ResourceBundle resources, String gameName) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
+		this.gameName = gameName;
 		myResources = resources;
 		myBackgroundColor = DEFAULT_COLOR.toString();
 		setColorFill(DEFAULT_COLOR);
@@ -142,7 +146,6 @@ public class RoomCanvas extends Canvas {
 			drawGridLines();
 		}
 		drawView();
-
 	}
 	
 	private void drawGridLines() {
@@ -182,7 +185,13 @@ public class RoomCanvas extends Canvas {
 			Color fill = Color.valueOf(myBackgroundColor);
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
-			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
+			FileManager fm = new FileManager(gameName);
+			try {
+				setImageFill(fm.getBackground(myBackgroundColor));
+			} catch (ResourceFailedException e1) {
+				//TODO:
+				e1.printStackTrace();
+			}
 		}
 	}
 	
