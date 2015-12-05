@@ -1,3 +1,8 @@
+# Team RED VoogaSalad Ignore:
+############################
+Games/
+
+
 # IDEA Ignores #
 ################
 *.iml
@@ -90,6 +95,8 @@ tmp/
 *.tmp
 *.bak
 *.swp
+
+
 *~.nib
 local.properties
 .settings/

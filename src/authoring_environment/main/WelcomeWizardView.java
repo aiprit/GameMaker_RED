@@ -1,10 +1,8 @@
-/**
- * 
- */
 package authoring_environment.main;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.FileHandler;
 
 import Player.Launcher;
 import authoring_environment.FileHandlers.FileManager;
@@ -48,7 +46,13 @@ public class WelcomeWizardView {
 		alert.getButtonTypes().setAll(openGameBtn, newGameBtn, buttonTypeCancel);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		
+
+		if (result.get() == buttonTypeCancel) {
+			myStage.close();
+			Launcher main = new Launcher();
+			main.start(new Stage());
+		}
+
 		if (result.get() == openGameBtn) {
 			try {
 				dataGame = GameSelector.getGameChoice();
@@ -64,22 +68,26 @@ public class WelcomeWizardView {
 			}
 			FileManager fm = new FileManager(dataGame.getName());
 			fm.loadResources(dataGame);
-		} else if (result.get() == newGameBtn) {
+		} 
+
+		if (result.get() == newGameBtn) {
 			try {
-				String name = GameInitializer.askName();
-				FileManager fm = new FileManager(name);
-				fm.newGame();
-				dataGame = fm.getDataGame(name);
-				fm.saveGame(dataGame);
+				String name = FileManager.askName(r.getString("EnterName"));
+				if (name != null) {
+					FileManager fm = new FileManager(name);
+					fm.newGame();
+					dataGame = fm.getDataGame(name);
+					fm.saveGame(dataGame);
+				}
+				else {
+					dataGame = new WelcomeWizardView(myStage).showAndWait();
+				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				showAndWait();
 			}
 
-		} else {
-			myStage.close();
-			Launcher main = new Launcher();
-			main.start(new Stage());
-		}
+		} 
 
 		return dataGame;
 	}

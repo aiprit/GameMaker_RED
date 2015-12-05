@@ -9,4 +9,14 @@ public interface IDataGame {
 	public int getViewHeight();
 	
 	public ObservableList<DataObject> getObjects();
+	
+	public String getName();
+	
+	public int getStartRoomIndex();
+	
+	public void addRoom(DataRoom room);
+	
+	public void setStartRoom(int index);
+	
+	public ObservableList<DataRoom> getRooms();
 }

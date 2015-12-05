@@ -1,8 +1,12 @@
 package authoring_environment.object_editor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
+import authoring_environment.ParamPopups.ParamController;
 import authoring_environment.main.IUpdateHandle;
 import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
@@ -20,6 +24,7 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
@@ -34,18 +39,34 @@ public class ObjectEditorController {
 		initAll();
 	}
 
-	public ObjectEditorController(DataGame g) {
+	public ObjectEditorController(IObjectInterface dataGame) {
 		TextInputDialog dialog = new TextInputDialog("Object Name");
 		dialog.setTitle("Create Object");
 		dialog.setHeaderText("Please Enter Name");
 		Optional<String> result = dialog.showAndWait();
 		String name = "";
+		List<DataObject> list =dataGame.getObjects();
+		List<String> strlist = new ArrayList<String>();
+		for(DataObject d :list){
+			strlist.add(d.getName());
+		}
 		if (result.isPresent()) {
+			boolean dup =false;
+			for(String str:strlist){
+				if(str.equals(result.get())){
+					dup = true;
+				}
+			}
+			if(!dup){
 			name = result.get();
-
-			model = new ObjectEditorModel((IObjectInterface) g, name);
-			view = new ObjectEditorView(g.getName());
+			model = new ObjectEditorModel((IObjectInterface) dataGame, name);
+			view = new ObjectEditorView(dataGame.getName());
 			initAll();
+			}
+			else{
+				PopUpError er = new PopUpError("Duplicate Object");
+				ObjectEditorController control = new ObjectEditorController(dataGame);
+			}
 		}
 	}
 
@@ -79,8 +100,19 @@ public class ObjectEditorController {
 						}
 					}
 				};
+				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent click) {
+						if (click.getClickCount() == 2) {
+							//Use ListView's getSelected Item
+							IDataEvent selected = cell.getItem();
+							eventPopup(selected);
+						}
+					}
+				});
 				return cell;
 			}
+
 		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
@@ -122,8 +154,11 @@ public class ObjectEditorController {
 
 	private void eventPopup(IDataEvent e) {
 		EventController control = new EventController(e, model.getObject(),model.getGame());
+		control.showAndWait();
+		List<IDataEvent> itemscopy = new ArrayList<IDataEvent>(view.getRightPane().getListView().getItems());
+		view.getRightPane().getListView().getItems().setAll(itemscopy);
 	}
-	
+
 	private void refreshSprite() {
 		String n = model.getSpriteName();
 		view.getCenterPane().update(n);

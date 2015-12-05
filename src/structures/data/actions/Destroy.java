@@ -20,7 +20,7 @@ public class Destroy extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.destroy(current);";
+		return "library.destroy(current());";
 	}
 
 }

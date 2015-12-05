@@ -25,7 +25,7 @@ public class MoveToRandom extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.move_to(library.random_number(%f), library.random_number(%f), %s);";
+		return "current().move_to(library.random_number(%f), library.random_number(%f), %s);";
 	}
 	
 }

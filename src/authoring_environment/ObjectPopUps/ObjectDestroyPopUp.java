@@ -27,7 +27,7 @@ public class ObjectDestroyPopUp extends BasicPopUp {
 	public void eventPopup() {
 		EventController p = new EventController(new ObjectDestroyEvent(),myObject,myGame);
 
-
+		p.showAndWait();
 	}
 
 }

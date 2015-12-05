@@ -23,9 +23,9 @@ public class IfKey extends DataAction {
 	@Override
 	public String compileSyntax() {
 		if (get("State").equals("Up")) {
-			return String.format("if (library.key_up(%s))", get("Key").getValue());
+			return String.format("with();\nif (library.key_up(%s))", get("Key").getValue());
 		} else {
-			return String.format("if (library.key_down(%s))", get("Key").getValue());
+			return String.format("with();\nif (library.key_down(%s))", get("Key").getValue());
 		}
 	}
 

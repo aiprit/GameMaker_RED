@@ -10,12 +10,12 @@ public class Open extends DataAction {
 	
 	@Override
 	public String getTitle() {
-		return "Open";
+		return "◣ Open";
 	}
 
 	@Override
 	public String getDescription() {
-		return "open a block statement";
+		return "◣";
 	}
 
 	@Override

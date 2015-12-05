@@ -20,10 +20,10 @@ public class SpriteMaker {
 	public static void load(Stage s, DataGame game) {
 		File selectedFile = GameInitializer.choose(s);
 		FileManager gfm = new FileManager(game.getName());
-
+		
 		DataSprite ds;
 		try {
-			ds = gfm.makeSprite(selectedFile, GameInitializer.askName(selectedFile.getName()));
+			ds = gfm.makeSprite(selectedFile, FileManager.askName(selectedFile.getName().replaceFirst("[.][^.]+$", "")));
 			game.getSprites().add(ds);
 		} catch (ResourceFailedException | IOException e) {
 			//Failed! Try again

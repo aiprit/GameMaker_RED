@@ -21,7 +21,7 @@ public class SetAcceleration extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.set_acceleration(%f);";
+		return "current().set_acceleration(%f);";
 	}
 
 }

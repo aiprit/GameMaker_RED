@@ -295,7 +295,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public boolean collisionSolidAt(double x, double y, RunObject obj) {
 		for (RunObject obj2 : myRoom.getObjects()) {
-			if (obj2.solid() && obj != obj2) {
+			if (obj2.isSolid() && obj != obj2) {
 				if (myCollisionManager.collisionWithAt(x, y, obj, obj2)) {
 					return true;
 				}
@@ -306,8 +306,8 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	public void processLeaveRoomEvents(){
 		for (RunObject o : getRegistered(LeaveRoomEvent.event)) {
-			if(o.x() < 0 || o.x() > myRoom.getWidth() ||
-					o.y() < 0 || o.y() > myRoom.getHeight()){
+			if(o.getX() < 0 || o.getX() > myRoom.getWidth() ||
+					o.getY() < 0 || o.getY() > myRoom.getHeight()){
 				fire(o, LeaveRoomEvent.event);
 			}
 		}

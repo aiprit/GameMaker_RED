@@ -29,7 +29,7 @@ public class SetVelocityToPoint extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.set_velocity(%f, %f, %f, %b)";
+		return "current().set_velocity(%f, %f, %f, %b)";
 	}
 
 }

@@ -9,7 +9,7 @@ public class ViewFollow extends DataAction {
 	public ViewFollow(){
 		init(new CheckboxParam("Follow on X axis"), new DoubleParam("X %"), new CheckboxParam("Follow on Y axis"), new DoubleParam("Y %"));
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "Follow With View";
@@ -19,31 +19,31 @@ public class ViewFollow extends DataAction {
 	public String getDescription() {
 		boolean xEnable = (boolean)get("Follow on X axis").getValue();
 		boolean yEnable = (boolean)get("Follow on Y axis").getValue();
-		
+
 		if (xEnable && yEnable) {
-			return String.format("View follow with x: %.2f%% and y: %.2f%%", get("X %"), get("Y %"));
+			return String.format("View follow with x: %.2f%% and y: %.2f%%", get("X %").getValue(), get("Y %").getValue());
 		} else if (xEnable) {
-			return String.format("View follow with x: %.2f%%", get("X %"));
+			return String.format("View follow with x: %.2f%%", get("X %").getValue());
 		} else if (yEnable) {
-			return String.format("View follow with y: %.2f%%", get("Y %"));
+			return String.format("View follow with y: %.2f%%", get("Y %").getValue());
 		} else {
 			return "[View following disabled]";
 		}
-		
+
 	}
 
 	@Override
 	public String compileSyntax() {
-		
+
 		boolean xEnable = (boolean)get("Follow on X axis").getValue();
 		boolean yEnable = (boolean)get("Follow on Y axis").getValue();
-		
+
 		if (xEnable && yEnable) {
-			return String.format("library.set_scroller(current, %f, %f);", get("X %"), get("Y %"));
+			return String.format("library.set_scroller(current(), %f, %f);", get("X %"), get("Y %"));
 		} else if (xEnable) {
-			return String.format("library.set_scroller_x(current, %f);", get("X %"));
+			return String.format("library.set_scroller_x(current(), %f);", get("X %"));
 		} else if (yEnable) {
-			return String.format("library.set_scroller_y(current, %f);", get("Y %"));
+			return String.format("library.set_scroller_y(current(), %f);", get("Y %"));
 		} else {
 			return "";
 		}

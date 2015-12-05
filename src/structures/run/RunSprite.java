@@ -35,7 +35,7 @@ public class RunSprite implements IDrawable {
 
 	@Override
 	public void draw(IDraw drawListener, RunView view, RunObject object) {
-		drawListener.drawImage(myImage, view, object.x(), object.y(), centerX, centerY, object.scaleX(), object.scaleY(), object.angle());
+		drawListener.drawImage(myImage, view, object.getX(), object.getY(), centerX, centerY, object.getScaleX(), object.setScaleY(), object.getAngle());
 	}
 	
 	public double getWidth() {

@@ -21,7 +21,7 @@ public class Sleep extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.sleep(%f);";
+		return "current().sleep(%f);";
 	}
 
 }

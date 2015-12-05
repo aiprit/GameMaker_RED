@@ -23,7 +23,7 @@ public class ScaleSprite extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.scale_sprite(%f, %f);";
+		return "current().scale_sprite(%f, %f);";
 	}
 
 }

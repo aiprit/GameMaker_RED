@@ -3,6 +3,7 @@ package authoring_environment.ObjectPopUps;
 import java.util.List;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import structures.data.DataObject;
@@ -23,7 +24,7 @@ public abstract class BasicPopUp implements PopUp {
 		eventPopup();
 
 	}
-	protected void close(ActionEvent e) {
+	protected void close(Event e) {
 		 Node  source = (Node)  e.getSource();
 		 Stage stage  = (Stage) source.getScene().getWindow();
 		 stage.close();

@@ -4,13 +4,11 @@ import exceptions.ParameterParseException;
 import org.w3c.dom.Element;
 
 import structures.data.DataAction;
-import structures.data.actions.Block;
 import structures.data.actions.ChangeSprite;
 import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.RunScript;
 import structures.data.actions.ScaleSprite;
 import structures.data.actions.SetAcceleration;
 import structures.data.actions.SetFriction;
@@ -20,9 +18,8 @@ import structures.data.actions.SetVelocityToPoint;
 import structures.data.actions.Sleep;
 import structures.data.actions.ViewFollow;
 import structures.data.actions.library.*;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
-
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class ActionFactory {
@@ -92,9 +89,6 @@ public class ActionFactory {
         } else if (className.equals("Wrap")) {
             action = new Wrap();
             numberOfParameters = 0;
-        } else if (className.equals("Block")) {
-            action = new Block();
-            numberOfParameters = 1;
         } else if (className.equals("ChangeSprite")) {
             action = new ChangeSprite();
             numberOfParameters = 1;
@@ -136,10 +130,6 @@ public class ActionFactory {
         }
 
         for (int i = 0; i < numberOfParameters; i++) {
-            System.out.println("Num params = " + numberOfParameters);
-            System.out.println("Attempting to read in " + "p" + Integer.toString(i));
-            System.out.println("Attribute: " + e.getAttribute("p" + Integer.toString(i)));
-            System.out.println("Trying to initialize params for " + action.getClass().toString());
             try {
                 String encodedParameter = e.getAttribute("p" + Integer.toString(i));
                 byte[] authBytes = Base64.getDecoder().decode(encodedParameter);

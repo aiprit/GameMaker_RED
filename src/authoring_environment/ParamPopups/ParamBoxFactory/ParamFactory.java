@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import structures.data.actions.params.IParameter;
@@ -22,32 +23,39 @@ public class ParamFactory {
 			if(label.get(i).getType().toString().equals("INTEGER")){
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
-			if(label.get(i).getType().toString().equals("STRING")){
+			else if(label.get(i).getType().toString().equals("STRING")){
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
-			if(label.get(i).getType().toString().equals("DOUBLE")){
+			else if(label.get(i).getType().toString().equals("DOUBLE")){
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
-			if(label.get(i).getType().toString().equals("CHECKBOX")){
+			else if(label.get(i).getType().toString().equals("CHECKBOX")){
 				CheckBox cbox = new CheckBox();
 				cbox.setSelected((boolean) label.get(i).getValue());
 				box.getChildren().add(cbox);
 			}
-			if(label.get(i).getType().toString().equals("OBJECT_SELECT")){
+			else if(label.get(i).getType().toString().equals("OBJECT_SELECT")){
 				ObjectMenu menu = new ObjectMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
-			if(label.get(i).getType().toString().equals("SPRITE_SELECT")){
+			else if(label.get(i).getType().toString().equals("SPRITE_SELECT")){
 				SpriteMenu menu = new SpriteMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
-			if(label.get(i).getType().toString().equals("ROOM_SELECT")){
+			else if(label.get(i).getType().toString().equals("ROOM_SELECT")){
 				RoomMenu menu = new RoomMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
-			if(label.get(i).getType().toString().equals("SELECT")){
+			else if(label.get(i).getType().toString().equals("SELECT")){
 				SelectMenu menu = new SelectMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
+			}
+			else if(label.get(i).getType().toString().equals("GROOVY")){
+				if(i==0){
+					box.getChildren().add(new TextArea(label.get(i).getOriginal()));
+				}
+				else
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			hBoxList.add(box);
 		}

@@ -3,24 +3,35 @@
  */
 package engine.front_end;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
+import engine.events.IRoomUpdatedHandler;
+import exceptions.ResourceFailedException;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import structures.run.IParameters;
@@ -31,7 +42,7 @@ import structures.run.RunRoom;
 /**
  * @author loganrooper
  */
-public class FrontEnd implements IGameUpdatedHandler {
+public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	public static final String STYLESHEET = "engine.css";
@@ -43,13 +54,15 @@ public class FrontEnd implements IGameUpdatedHandler {
 	private Stage stage;
 	private Scene playScene;
 	private EventManager myEventManager;
+	private String myCurrentGame;
 
 	private VBox topContainer;
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
 	private ObjectInformationView myObjectInformationView;
 
-	public FrontEnd(EventManager eventManager, Stage stage) throws IOException {
+	public FrontEnd(EventManager eventManager, Stage stage, String game) throws IOException, ResourceFailedException {
+		myCurrentGame = game;
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
@@ -61,7 +74,7 @@ public class FrontEnd implements IGameUpdatedHandler {
 		setupCanvas();
 	}
 
-	private void setupFramework(){
+	private void setupFramework() throws IOException, ResourceFailedException{
 		myRoot = new Group();
 		playScene = new Scene(borderPane, 700, 600);
 		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
@@ -84,7 +97,11 @@ public class FrontEnd implements IGameUpdatedHandler {
 		});
 		MenuItem reset = new MenuItem("Reset");
 		reset.setOnAction(e -> {
-			myEventManager.onReset();
+			try {
+				myEventManager.onReset();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
 		MenuItem save = new MenuItem("Save");
 		save.setOnAction(e -> {
@@ -103,13 +120,27 @@ public class FrontEnd implements IGameUpdatedHandler {
 		Menu view = new Menu("View");
 		MenuItem highScore = new MenuItem("Show High Scores");
 		MenuItem showHelp = new MenuItem("Show Help");
-		myMenus.getMenus().addAll(fileMenu, savedGames, view);
+		Menu option = new Menu("Options");
+		Menu debugOption = new Menu("Debug Option");
+		RadioMenuItem yes = new RadioMenuItem("Yes");
+		ToggleGroup debugToggle = new ToggleGroup();
+		yes.setOnAction(e -> myEventManager.setDebug(true));
+		yes.setToggleGroup(debugToggle);
+		RadioMenuItem no = new RadioMenuItem("No");
+		no.setOnAction(e -> myEventManager.setDebug(false));
+		no.setToggleGroup(debugToggle);
+		no.setSelected(true);
+		myMenus.getMenus().addAll(fileMenu, savedGames, view, option);
 		fileMenu.getItems().addAll(open, reset, save, close, pause);
 		view.getItems().addAll(highScore, showHelp);
+		option.getItems().add(debugOption);
+		debugOption.getItems().addAll(yes, no);
 		topContainer.getChildren().add(myMenus);
 	}
 
-	public void makeToolBar() {
+	public void makeToolBar() throws ResourceFailedException {
+		HBox hbox = new HBox(8);
+		hbox.setAlignment(Pos.CENTER);
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "play.png"));
 		playButton.setOnMouseClicked(e -> {
@@ -125,7 +156,11 @@ public class FrontEnd implements IGameUpdatedHandler {
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "reset.png"));
 		resetButton.setOnMouseClicked(e -> {
-			myEventManager.onReset();
+			try {
+				myEventManager.onReset();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
 		Button saveButton = new Button();
 		saveButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "save.png"));
@@ -141,21 +176,41 @@ public class FrontEnd implements IGameUpdatedHandler {
 
 		ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);
 
-		topContainer.getChildren().add(tBar);
+		VBox change = new VBox(2);
+		Text changeTitle = new Text("Change game");
+		ChoiceBox<String> cb = new ChoiceBox<String>();
+		cb.setFocusTraversable(false);
+		cb.getItems().addAll(addGamesFromDirectory());
+			cb.setOnAction(e -> onGameChange(cb.getValue()));
+		change.getChildren().addAll(changeTitle, cb);
+
+		hbox.getChildren().add(tBar);
+		hbox.getChildren().add(change);
+		topContainer.getChildren().add(hbox);
 		borderPane.setTop(topContainer);
 	}
 
-	private void makeHighScoreBar(){
-		myHighScoreView = new HighScoreView();
+	private List<String> addGamesFromDirectory() {
+		List<String> choices =  new ArrayList<String>();
+		for (final File fileEntry : new File("Games/").listFiles()) {
+			choices.add(fileEntry.getName());
+		}
+		return choices;
+	}
+
+	private void makeHighScoreBar() throws IOException{
+		myHighScoreView = new HighScoreView(myCurrentGame);
 		myHighScoreView.setPrefWidth(150);
+		myHighScoreView.setFocusTraversable(false);
 		borderPane.setRight(myHighScoreView);
 	}
-	
+
 	public void makeObjectInformationBar(IParameters parameterObject) {
-	    myObjectInformationView = new ObjectInformationView(parameterObject);
-	    myObjectInformationView.setPrefWidth(275);
-	    borderPane.setLeft(myObjectInformationView);
-	    stage.setWidth(1100);
+		myObjectInformationView = new ObjectInformationView(parameterObject);
+		myObjectInformationView.setPrefWidth(275);
+		myObjectInformationView.setFocusTraversable(false);
+		borderPane.setLeft(myObjectInformationView);
+		stage.setWidth(1100);
 	}
 
 	private void setupCanvas() throws IOException{
@@ -186,6 +241,19 @@ public class FrontEnd implements IGameUpdatedHandler {
 		return this;
 	}
 
+	public IRoomUpdatedHandler getRoomUpdateHandler(){
+		return this;
+	}
+	
+	public void onGameChange(String name) {
+		try {
+			myHighScoreView.setGame(name);
+			myEventManager.onChangeGame(name);
+		} catch (ResourceFailedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
 		//		stage.setWidth(runRoom.getView().getView().width());
@@ -195,5 +263,10 @@ public class FrontEnd implements IGameUpdatedHandler {
 	@Override
 	public void setHighScore(double highScore) {
 		myHighScoreView.updateScore(highScore);
+	}
+
+	@Override
+	public double getHighScore() {
+		return myHighScoreView.getHighScore();
 	}
 }

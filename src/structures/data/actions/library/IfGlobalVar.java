@@ -10,7 +10,7 @@ public class IfGlobalVar extends DataAction {
 	public IfGlobalVar(){
 		init(new StringParam("Variable Name"), new SelectParam("Condition", ">", "<", "==", "!=", ">=", "<="), new GroovyParam("Value"));
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "If Global Var";
@@ -18,14 +18,14 @@ public class IfGlobalVar extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("If global '%s' %s %s", get("Variable Name").getValue(), get("SelectParam").getValue(), get("Value").getValue());
+		return String.format("If global '%s' %s %s", get("Variable Name").getValue(), get("Condition").getValue(), get("Value").getValue());
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "if (library.global('%s') %s (%s))";
+		return "with(); if (globals.%s %s (%s))";
 	}
-	
-	
+
+
 
 }

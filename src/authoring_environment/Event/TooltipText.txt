@@ -1,0 +1,13 @@
+Welcome to the Event Editor!
+To add an action to your event, either
+double click an action, from the left pane,
+drag and drop an action from the left pane,
+or select an action from the left pane and 
+click the add button.
+To rearrange the order of actions, drag and drop
+the actions within the left pane.  
+To delete an action from the current list of 
+actions, select the action from the left pane and
+click the delete button.
+To cancel the process, click the cancel button.
+To save your changes, click the save event button.
