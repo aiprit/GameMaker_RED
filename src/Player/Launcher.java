@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 
 public class Launcher extends Application {
     
+    public static final String LAUNCHER_BUTTON = "launcher-button";
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "default.css";
+    public static final String STYLESHEET = "blue.css";
     public static final Double WIDTH = 800.0;
     public static final Double HEIGHT = 600.0;
     
@@ -56,6 +57,9 @@ public class Launcher extends Application {
 				}
 			}
 		});
+		openBtn.getStyleClass().add(LAUNCHER_BUTTON);
+		btn1.getStyleClass().add(LAUNCHER_BUTTON);
+		
 		Text text = new Text("Team RED");
 		text.setLayoutX(WIDTH*5/12);
 		text.setLayoutY(HEIGHT/4);
