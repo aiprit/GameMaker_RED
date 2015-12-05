@@ -148,6 +148,10 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         mySprites.add(s);
         update();
     }
+    public void removeSprite(DataSprite s){
+    	mySprites.remove(s);
+    	update();
+    }
 
     public void addSound(DataSound s) {
         mySounds.add(s);

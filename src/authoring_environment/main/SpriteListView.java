@@ -1,6 +1,7 @@
 package authoring_environment.main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,8 +38,10 @@ public class SpriteListView {
 //		window.getChildren().add(listView);
 	}
 
-	public Button addSprite(DataSprite o) {
+	public HashMap<String, Button> addSprite(DataSprite o) {
 		Button show = new Button("Show");
+		Button remove = new Button(" - ");
+		
 		Label label = new Label(o.getName());
 		HBox hbox = new HBox();
 		label.setMaxWidth(Double.MAX_VALUE);
@@ -46,8 +49,13 @@ public class SpriteListView {
 		hbox.getChildren().addAll(label, show);
 		list.add(hbox);
 		updateList();
-		return show;
+		HashMap<String, Button> buttons = new HashMap<String, Button>();
+		
+		buttons.put("Show", show);
+		
+		return buttons;
 	}
+	
 	
 	public Button addPlus() {
 		Button plus = new Button(r.getString("plus"));

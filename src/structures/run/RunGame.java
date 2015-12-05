@@ -47,6 +47,10 @@ public class RunGame implements IRun {
 		}
 		myCurrentRoom = Utils.first(myRooms, e -> e.getName().equals(findRoomName), myRooms.get(0));
 	}
+	
+	public DataGame getDataGame(){
+		return myDataGame;
+	}
 
 	public String getName() {
 		return myName;
