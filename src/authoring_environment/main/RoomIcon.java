@@ -2,6 +2,8 @@ package authoring_environment.main;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.FileHandlers.FileManager;
+import exceptions.ResourceFailedException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,9 +24,11 @@ public class RoomIcon extends VBox {
 	private Node myIcon;
 	private Button myButton;
 	private Button myDeleteButton;
+	private String myGameName;
 	
-	public RoomIcon(ResourceBundle resources) {
+	public RoomIcon(ResourceBundle resources, String gameName) {
 		super();
+		myGameName = gameName;
 		configureVBox();
 		myResourceBundle = resources;
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(myResourceBundle.getString("RoomPlaceholderImage")));
@@ -33,8 +37,9 @@ public class RoomIcon extends VBox {
 		super.getChildren().addAll(myIcon, myButton);
 	}
 	
-	public RoomIcon(ResourceBundle resources, String backgroundColor, String roomName) {
+	public RoomIcon(ResourceBundle resources, String backgroundColor, String roomName, String gameName) {
 		super();
+		myGameName = gameName;
 		configureVBox();
 		myResourceBundle = resources;
 		myButton = new Button(roomName);
@@ -66,8 +71,14 @@ public class RoomIcon extends VBox {
 			Color fill = Color.valueOf(backgroundColor);
 			icon.setFill(fill);
 		} catch (IllegalArgumentException e) {
+			FileManager fm = new FileManager(myGameName);
 			try {
-				icon.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream(backgroundColor))));
+				try {
+					icon.setFill(new ImagePattern(fm.getBackground(backgroundColor)));
+				} catch (ResourceFailedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			} catch (NullPointerException e2) {
 				icon.setFill(Color.WHITE);
 			}
