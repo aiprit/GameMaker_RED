@@ -13,7 +13,7 @@ import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.name_popup.RoomNamePopupController;
-import authoring_environment.room.preview.RoomEditor;
+import engine.EngineController;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import javafx.event.ActionEvent;
@@ -22,11 +22,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
-import structures.data.DataRoom;
+import structures.data.DataRoom;	
 import structures.data.DataSound;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
@@ -260,12 +259,16 @@ public class MainController implements IUpdateHandle {
 				update();
 			}
 		});
-		topMenuBar.getRunMenu().setOnAction(new EventHandler<ActionEvent>() {
+		topMenuBar.getRunMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO: handle SAVE EVENT ADD ANDREW PLZ
-				System.out.println("Run");
-				// RUN HERE
+				//Run the game
+				try {
+					System.out.println("Run");
+					EngineController ec = new EngineController(new Stage(), dataGame.getName());
+				} catch (ResourceFailedException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>() {
