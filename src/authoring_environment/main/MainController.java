@@ -1,6 +1,7 @@
 package authoring_environment.main;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -11,8 +12,8 @@ import authoring_environment.FileHandlers.GameInitializer;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
-import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
+import authoring_environment.room.preview.RoomEditor;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import structures.data.DataGame;
@@ -58,7 +60,7 @@ public class MainController implements IUpdateHandle {
 		try{
 			update();
 		}catch(Exception e){
-			e.printStackTrace();
+		
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
@@ -159,7 +161,8 @@ public class MainController implements IUpdateHandle {
 
 		// Add sprites to list
 		for (DataSprite o : dataGame.getSprites()) {
-			spriteListView.addSprite(o).setOnAction(new EventHandler<ActionEvent>() {
+			HashMap<String, Button> buttons = spriteListView.addSprite(o);
+			buttons.get("Show").setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
@@ -167,6 +170,7 @@ public class MainController implements IUpdateHandle {
 					update();
 				}
 			});
+			
 		}
 
 		// Add plus

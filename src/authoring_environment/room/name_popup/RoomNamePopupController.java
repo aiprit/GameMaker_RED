@@ -7,11 +7,19 @@ import java.util.stream.Collectors;
 
 import authoring_environment.room.RoomController;
 import authoring_environment.room.error.ErrorPopup;
+import authoring_environment.room.preview.RoomCanvas;
+import authoring_environment.room.view.DraggableView;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 import structures.data.DataGame;
 import structures.data.DataRoom;
 import structures.data.IDataGame;
 
 public class RoomNamePopupController {
+	private static final String ICON_SIZE = "IconSize";
 	private static final String DUPLICATE_ROOM_NAME_ERROR_MESSAGE = "DuplicateRoomNameErrorMessage";
 	private static final String NULL_ROOM_NAME_ERROR_MESSAGE = "NullRoomNameErrorMessage";
 	private static final String DEFAULT_ROOM_BACKGROUND_COLOR = "DefaultRoomBackgroundColor";
@@ -58,7 +66,7 @@ public class RoomNamePopupController {
 		RoomController roomController = new RoomController(myResources, room, game);
 		view.close();
 		updateFcn.accept(null);
-		roomController.getEditor().setOnClose(updateFcn);
+		roomController.getEditor().setOnClose(e -> updateMainGuiOnEditorClose(roomController, updateFcn));
 		roomController.launch();	
 	}
 	
@@ -77,6 +85,24 @@ public class RoomNamePopupController {
 	
 	public void setOnClose(Consumer<Void> updateFcn, DataGame game, boolean addRoom) {
 		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game, addRoom, updateFcn));
+	}
+	
+	private void updateMainGuiOnEditorClose(RoomController controller, Consumer<Void> updateFcn) {
+		RoomCanvas canvas = controller.getEditor().getPreview().getCanvas();
+		DraggableView view = canvas.getRoomView();
+		canvas.drawSnapshot();
+		int iconSize = (int)Double.parseDouble(myResources.getString(ICON_SIZE));
+		WritableImage roomSnapshot = new WritableImage(iconSize, iconSize);
+		SnapshotParameters params = new SnapshotParameters();
+		Rectangle2D viewShot = new Rectangle2D(view.getX(), view.getY(), view.getWidth(), view.getHeight());
+		params.setFill(Color.TRANSPARENT);
+		params.setViewport(viewShot);
+		double iconScale = iconSize / view.getWidth();
+		Scale scale = new Scale(iconScale, iconScale, view.getX(), view.getY());
+		params.setTransform(scale);
+		canvas.snapshot(params, roomSnapshot);
+		model.setSnapshot(roomSnapshot);
+		updateFcn.accept(null);
 	}
 
 }

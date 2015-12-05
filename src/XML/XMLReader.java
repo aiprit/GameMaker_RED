@@ -3,6 +3,8 @@ package XML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.*;
+
+import exceptions.XMLFormatException;
 import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
@@ -66,7 +68,7 @@ public class XMLReader {
         return game;
     }
 
-    private void loadObjects(NodeList objects) {
+    private void loadObjects(NodeList objects) throws XMLFormatException {
         for (int i = 0; i < objects.getLength(); i++) {
 
             Node object = objects.item(i);
@@ -98,7 +100,7 @@ public class XMLReader {
         }
     }
 
-    private void loadEvents(NodeList events, DataObject obj) {
+    private void loadEvents(NodeList events, DataObject obj) throws XMLFormatException {
         EventFactory factory = new EventFactory();
         for (int i = 0; i < events.getLength(); i++) {
 
@@ -114,7 +116,7 @@ public class XMLReader {
         }
     }
 
-    private ObservableList<IAction> loadActions(NodeList actions) {
+    private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
         ActionFactory factory = new ActionFactory();
         for (int i = 0; i < actions.getLength(); i++) {

@@ -20,7 +20,12 @@ public class SpriteMenu {
 		ComboBox<String> event = new ComboBox<String>();
 		List<String> list =  myParam.getOptions();
 		for(String str: list){
-		event.getItems().add(str);
+			event.getItems().add(str);
+			if(myParam.getValue()!=null){
+				if(myParam.getOriginal().equals(str)){
+					event.setValue(str);
+				}
+			}
 		}
 		return event;
 	}

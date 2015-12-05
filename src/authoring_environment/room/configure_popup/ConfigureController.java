@@ -47,8 +47,8 @@ public class ConfigureController {
 	
 	private void populatePopUp() {
 		List<TextField> fieldList = configure.getFieldList();
-		Double[] doublesToSet = {myDataInstance.getVelocity().x, myDataInstance.getVelocity().y, myDataInstance.getAngularVelocity(), myDataInstance.getScaleX(), myDataInstance.getScaleY(), myDataInstance.getAngle(), myDataInstance.getAlpha()};
-		setInput(7, fieldList, doublesToSet);
+		Double[] doublesToSet = {myDataInstance.getVelocity().x, myDataInstance.getVelocity().y, myDataInstance.getAngularVelocity(), myDataInstance.getScaleX(), myDataInstance.getScaleY(), myDataInstance.getAngle(), myDataInstance.getAlpha(), myDataInstance.getFriction(), myDataInstance.getGravity().x, myDataInstance.getGravity().y};
+		setInput(10, fieldList, doublesToSet);
 		RadioButton visiblityButton = configure.getVisiblity();
 		visiblityButton.setSelected(myDataInstance.isVisible());
 		myDragImage.setAngle(myDataInstance.getAngle());
@@ -83,6 +83,11 @@ public class ConfigureController {
 			model.setAlpha(transparency);
 			myDragImage.setAlpha(transparency);
 		}
+		double friction = getInput(7, fieldList);
+		model.setFriction(friction);
+		double gravityX = getInput(8, fieldList);
+		double gravityY = getInput(9, fieldList);
+		model.setGravity(gravityX, gravityY);
 		RadioButton visibilityButton = configure.getVisiblity();
 		model.setVisibility(visibilityButton.isSelected());
 		myDragImage.setVisibility(visibilityButton.isSelected());

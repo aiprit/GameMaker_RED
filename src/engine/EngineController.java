@@ -7,8 +7,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import Player.Launcher;
 import XML.XMLEditor;
 import XML.XMLWriter;
 import authoring_environment.FileHandlers.FileManager;
