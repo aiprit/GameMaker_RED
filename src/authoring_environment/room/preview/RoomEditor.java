@@ -17,7 +17,7 @@ public class RoomEditor {
 	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
 	private static final String ROOM_EDITOR_HEIGHT = "RoomEditorHeight";
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "authoring.css";
+	public static final String STYLESHEET = "blue.css";
 
 	private Stage myEditor;
 	private Group myRoot;
