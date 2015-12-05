@@ -46,4 +46,7 @@ public class SpriteMaker {
 		s.setScene(new Scene(myPane));
 		s.show();
 	}
+	public static void remove(DataGame game, DataSprite s){
+		game.removeSprite(s);
+	}
 }
