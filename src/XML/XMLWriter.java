@@ -218,6 +218,11 @@ public class XMLWriter {
         instance.setAttribute("scaleX", Double.toString(dataInstance.getScaleX()));
         instance.setAttribute("scaleY", Double.toString(dataInstance.getScaleY()));
         instance.setAttribute("alpha", Double.toString(dataInstance.getAlpha()));
+        instance.setAttribute("velocityX", Double.toString(dataInstance.getVelocityX()));
+        instance.setAttribute("velocityY", Double.toString(dataInstance.getVelocityY()));
+        instance.setAttribute("gravityX", Double.toString(dataInstance.getGravityX()));
+        instance.setAttribute("gravityY", Double.toString(dataInstance.getGravityY()));
+
         instance.appendChild(getElementFromVariableMap(doc, dataInstance.getVariableMap()));
 
         return instance;

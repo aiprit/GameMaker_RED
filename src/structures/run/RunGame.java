@@ -52,6 +52,10 @@ public class RunGame implements IRun {
 		myViewWidth = dataGame.getViewWidth();
 		myViewHeight = dataGame.getViewHeight();
 	}
+	
+	public DataGame getDataGame(){
+		return myDataGame;
+	}
 
 	public String getName() {
 		return myName;

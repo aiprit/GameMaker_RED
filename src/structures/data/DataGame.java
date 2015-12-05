@@ -14,7 +14,7 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
 
     public static final String SPRITE_REL_DIRECTORY = "/resources/";
     public static final String SOUND_REL_DIRECTORY = "/sounds/";
-    private static final int DEFAULT_VIEW_SIZE = 600;
+    private static final int DEFAULT_VIEW_SIZE = 608;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
@@ -147,6 +147,10 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     public void addSprite(DataSprite s) {
         mySprites.add(s);
         update();
+    }
+    public void removeSprite(DataSprite s){
+    	mySprites.remove(s);
+    	update();
     }
 
     public void addSound(DataSound s) {

@@ -1,5 +1,7 @@
 package structures.data.actions.params;
 
+import java.util.List;
+
 import exceptions.ParameterParseException;
 
 /**
@@ -64,6 +66,7 @@ public interface IParameter {
 		CHECKBOX,
 		OBJECT_SELECT,
 		SPRITE_SELECT,
+		SOUND_SELECT,
 		ROOM_SELECT,
 		SELECT
 	}

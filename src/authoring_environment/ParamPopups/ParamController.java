@@ -6,6 +6,7 @@ import java.util.List;
 import authoring_environment.PopUpError;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -15,6 +16,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
@@ -32,6 +35,7 @@ public class ParamController {
 	}
 	private void init() {
 		view.getSaveButton().setOnAction(e -> onSave());
+		view.getSaveButton().setDefaultButton(true);
 	}
 	private void onSave() {
 		List<HBox> fieldList = view.getFieldList();

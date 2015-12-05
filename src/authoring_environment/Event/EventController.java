@@ -3,27 +3,18 @@ package authoring_environment.Event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import authoring_environment.PopUpError;
-import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
-import authoring_environment.ParamPopups.ParamBoxFactory.ObjectMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.RoomMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.SelectMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.SpriteMenu;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -40,7 +31,9 @@ import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SoundParam;
 import structures.data.actions.params.SpriteParam;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
@@ -58,13 +51,16 @@ public class EventController {
 		myView.getBottomPane().getSaveButton().setOnAction(e ->{
 			myModel.saveEvent();
 			close(e);});
+
 		myView.getBottomPane().getCancelButton().setOnAction(e ->{
 			close(e);});
 
 
 		myView.getTopPane().getMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
-				ActionController actionCon = new ActionController(myModel.getActions());
+				RunScript action = new RunScript();
+				ParamController paramcontrol = new ParamController(action,myModel.getActions());
+				paramcontrol.showAndWait();
 			}
 		});
 
@@ -100,6 +96,8 @@ public class EventController {
 						}
 					}
 				};
+
+
 				cell.setOnDragDetected(event -> {
 
 					if (cell.getItem() == null) {
@@ -129,7 +127,6 @@ public class EventController {
 				});
 
 				cell.setOnDragEntered(event -> {
-
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(0.3);
@@ -138,7 +135,6 @@ public class EventController {
 				});
 
 				cell.setOnDragExited(event -> {
-
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(1);
@@ -207,27 +203,37 @@ public class EventController {
 
 				});
 
+//				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//					@Override
+//					public void handle(KeyEvent click) {
+//						if (click.getCode() == KeyCode.ENTER) {
+//							openOnEdit(cell);
+//						}
+//					}
+//				});
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent click) {
 						if (click.getClickCount() == 2) {
-							//Use ListView's getSelected Item
-
-							IAction selected = cell.getItem();
-							List<IParameter> params = selected.getParameters();
-							if(params.size()>0){
-								ParamController paramcontrol = new ParamController(selected,myModel.getActions());
-								paramcontrol.showAndWait();
-							}
-							indents=0;
-							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
-							cell.getListView().getItems().setAll(itemscopy);
+							openOnEdit(cell);
 						}
 					}
 				});
 
 				cell.setOnDragDone(DragEvent::consume);
 				return cell;
+			}
+
+			private void openOnEdit(final ListCell<IAction> cell) {
+				IAction selected = cell.getItem();
+				List<IParameter> params = selected.getParameters();
+				if(params.size()>0){
+					ParamController paramcontrol = new ParamController(selected,myModel.getActions());
+					paramcontrol.showAndWait();
+				}
+				indents=0;
+				List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
+				cell.getListView().getItems().setAll(itemscopy);
 			}
 		});
 		myView.getRightPane().getDelete().setOnAction(e ->{
@@ -294,7 +300,7 @@ public class EventController {
 
 
 
-	protected void close(ActionEvent e) {
+	protected void close(Event e) {
 		Node  source = (Node)  e.getSource();
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
@@ -373,8 +379,9 @@ public class EventController {
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals("SELECT")){
-
+		if(p.getType().toString().equals("SOUND_SELECT")){
+			SoundParam param = (SoundParam) p;
+			param.setSoundList(myModel.getGame().getSounds());
 		}
 	}
 

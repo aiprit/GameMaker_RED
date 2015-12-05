@@ -47,7 +47,7 @@ import structures.run.RunRoom;
 public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "engine.css";
+	public static final String STYLESHEET = "blue.css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 
 	private Canvas myCanvas;
@@ -177,7 +177,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		Button openButton = new Button();
 		openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
 		openButton.setOnMouseClicked(e -> {
-
+			myEventManager.onLoadSave("10");
 		});
 
 		ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);

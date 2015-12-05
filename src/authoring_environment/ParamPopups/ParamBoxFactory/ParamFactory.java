@@ -19,35 +19,21 @@ public class ParamFactory {
 		hBoxList.add(boxtop);
 		for (int i = 0; i < label.size(); i++) {
 			HBox box = new HBox(10);
+			String type= label.get(i).getType().toString();
 			box.getChildren().add(new Label(label.get(i).getTitle()));
-			if(label.get(i).getType().toString().equals("INTEGER")){
+			if(type.equals("INTEGER")||type.equals("DOUBLE")||
+					type.equals("STRING")){
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
-			else if(label.get(i).getType().toString().equals("STRING")){
-				box.getChildren().add(new TextField(label.get(i).getOriginal()));
-			}
-			else if(label.get(i).getType().toString().equals("DOUBLE")){
-				box.getChildren().add(new TextField(label.get(i).getOriginal()));
-			}
-			else if(label.get(i).getType().toString().equals("CHECKBOX")){
+			else if(type.equals("CHECKBOX")){
 				CheckBox cbox = new CheckBox();
 				cbox.setSelected((boolean) label.get(i).getValue());
 				box.getChildren().add(cbox);
 			}
-			else if(label.get(i).getType().toString().equals("OBJECT_SELECT")){
-				ObjectMenu menu = new ObjectMenu(label.get(i));
-				box.getChildren().add(menu.makeMenu());
-			}
-			else if(label.get(i).getType().toString().equals("SPRITE_SELECT")){
-				SpriteMenu menu = new SpriteMenu(label.get(i));
-				box.getChildren().add(menu.makeMenu());
-			}
-			else if(label.get(i).getType().toString().equals("ROOM_SELECT")){
-				RoomMenu menu = new RoomMenu(label.get(i));
-				box.getChildren().add(menu.makeMenu());
-			}
-			else if(label.get(i).getType().toString().equals("SELECT")){
-				SelectMenu menu = new SelectMenu(label.get(i));
+			else if(type.equals("OBJECT_SELECT")||type.equals("SPRITE_SELECT")||
+					type.equals("ROOM_SELECT")||type.equals("SELECT")||
+					type.equals("SOUND_SELECT")){
+				GeneralMenu menu = new GeneralMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
 			else if(label.get(i).getType().toString().equals("GROOVY")){

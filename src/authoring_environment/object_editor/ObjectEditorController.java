@@ -17,6 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,6 +26,8 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.library.Close;
+import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
@@ -58,10 +62,10 @@ public class ObjectEditorController {
 				}
 			}
 			if(!dup){
-			name = result.get();
-			model = new ObjectEditorModel((IObjectInterface) dataGame, name);
-			view = new ObjectEditorView(dataGame.getName());
-			initAll();
+				name = result.get();
+				model = new ObjectEditorModel((IObjectInterface) dataGame, name);
+				view = new ObjectEditorView(dataGame.getName());
+				initAll();
 			}
 			else{
 				PopUpError er = new PopUpError("Duplicate Object");
@@ -76,9 +80,9 @@ public class ObjectEditorController {
 			model.setSolid(view.getBottomPane().getCheckBox().isSelected());
 			close(e);
 		});
-//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-//			refreshSprite();
-//		});
+		//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
+		//			refreshSprite();
+		//		});
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
@@ -93,13 +97,33 @@ public class ObjectEditorController {
 							setText(null);
 						} else {
 							String description  =item.getName()+ ":";
-                        	for(IAction action: model.getMap().get(item)){
-                        		description += "\n   " +action.getDescription();
-                        	}
-                            setText(description);
+							int indents =0 ;
+							for(IAction action: model.getMap().get(item)){
+								description += "\n   ";
+								if(action instanceof Close){
+									indents -=1;
+								}
+								for(int i=0; i<indents;i++){
+									description += "  ";
+								}
+								description +=action.getDescription();
+								if(action instanceof Open){
+									indents +=1;
+								}
+							}
+							setText(description);
 						}
 					}
 				};
+				cell.requestFocus();
+				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
+					@Override
+					public void handle(KeyEvent key) {
+						if (key.getCode().equals(KeyCode.ENTER)) {
+							eventPopup(cell.getItem());
+						}
+					}
+				});
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent click) {
@@ -114,6 +138,18 @@ public class ObjectEditorController {
 			}
 
 		});
+		view.getRightPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
+				}
+				if (event.getCode().equals(KeyCode.DELETE)) {
+					model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
+				}
+			}
+			
+		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
@@ -122,6 +158,17 @@ public class ObjectEditorController {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
+		view.getLeftPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+				}
+			}
+			
+		});
 		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent click) {
@@ -153,10 +200,12 @@ public class ObjectEditorController {
 	}
 
 	private void eventPopup(IDataEvent e) {
-		EventController control = new EventController(e, model.getObject(),model.getGame());
-		control.showAndWait();
-		List<IDataEvent> itemscopy = new ArrayList<IDataEvent>(view.getRightPane().getListView().getItems());
-		view.getRightPane().getListView().getItems().setAll(itemscopy);
+		if(e !=null){
+			EventController control = new EventController(e, model.getObject(),model.getGame());
+			control.showAndWait();
+			List<IDataEvent> itemscopy = new ArrayList<IDataEvent>(view.getRightPane().getListView().getItems());
+			view.getRightPane().getListView().getItems().setAll(itemscopy);
+		}
 	}
 
 	private void refreshSprite() {

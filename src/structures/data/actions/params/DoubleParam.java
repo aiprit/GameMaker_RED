@@ -1,13 +1,15 @@
 package structures.data.actions.params;
 
+import java.util.List;
+
 import exceptions.ParameterParseException;
 
 public class DoubleParam implements IParameter {
-	
+
 	private double myValue;
 	private String myString;
 	private String myTitle;
-	
+
 	public DoubleParam(String title) {
 		myTitle = title;
 	}
@@ -26,7 +28,7 @@ public class DoubleParam implements IParameter {
 	public String getOriginal() {
 		return myString;
 	}
-	
+
 	public Double getValue() {
 		return myValue;
 	}
@@ -35,10 +37,12 @@ public class DoubleParam implements IParameter {
 	public String getTitle() {
 		return myTitle;
 	}
-	
+
 	@Override
 	public IParameter.type getType() {
 		return IParameter.type.DOUBLE;
 	}
-	
+
+
+
 }

@@ -58,12 +58,13 @@ public class WelcomeWizardView {
 				dataGame = GameSelector.getGameChoice();
 			} catch (UnknownResourceException e) {
 				//Show error, close
-				Alert a = new Alert(AlertType.ERROR);
-				a.setTitle("Cannot Load Game");
-				a.setHeaderText(null);
-				a.setContentText(r.getString("Fatal") + e.getMessage());
-				a.showAndWait();
+//				Alert a = new Alert(AlertType.ERROR);
+//				a.setTitle("Cannot Load Game");
+//				a.setHeaderText(null);
+//				a.setContentText(r.getString("Fatal") + e.getMessage());
+//				a.showAndWait();
 				myStage.close();
+				showAndWait();
 				return null;
 			}
 			FileManager fm = new FileManager(dataGame.getName());
