@@ -27,7 +27,6 @@ public class DataSprite implements IResource {
 		myHaveLoaded = false;
 		myCenterX = 0.0;
 		myCenterY = 0.0;
-
 	}
 
 	public Image getImage() {
