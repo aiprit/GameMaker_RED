@@ -2,15 +2,10 @@ package authoring_environment.object_editor;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import authoring_environment.Event.ClassesInPackage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
@@ -22,36 +17,41 @@ public class ObjectEditorModel {
 	private DataObject object;
 	private EventPopupFactory fact = new EventPopupFactory();
 	ObservableList<IDataEvent> eventList = FXCollections.observableList(new ArrayList<IDataEvent>());;
-	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/object_editor/EventListResources");
 
 	public ObjectEditorModel(IObjectInterface g, DataObject o) {
 		game = g;
 		object = o;
-
 	}
 
 	public ObjectEditorModel(IObjectInterface g, String str) {
 		game = g;
 		object = new DataObject(str);
 		game.addObject(object);
+		//setDefaultSprite();
+	}
 
+	private void setDefaultSprite() {
+		//Set default sprite
+		DataSprite ds = new DataSprite("Default", "Default");
+		ds.loadDefault();
+		object.addSprite(ds);
 	}
 
 	public ObservableList<String> createLeftPaneList() {
-//		Enumeration<String> keys = l.getKeys();
-//		List<String> keylist = Collections.list(keys);
+		// Enumeration<String> keys = l.getKeys();
+		// List<String> keylist = Collections.list(keys);
 		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-		for (String s: classes.getAllClasses("structures.data.events"))
+		for (String s : classes.getAllClasses("structures.data.events"))
 			list.add(s);
 		Collections.sort(list);
-//
-//		Collections.sort(keylist);
-//		for (String str : keylist) {
-//			String value = l.getString(str);
-//			list.add(value);
-//
-//		}
+		//
+		// Collections.sort(keylist);
+		// for (String str : keylist) {
+		// String value = l.getString(str);
+		// list.add(value);
+		//
+		// }
 		return list;
 	}
 
@@ -66,8 +66,7 @@ public class ObjectEditorModel {
 	public String getSpriteName() {
 		try {
 			return object.getSprite().getName();
-		}
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return null;
 		}
 	}
