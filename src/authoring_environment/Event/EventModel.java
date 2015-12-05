@@ -21,7 +21,6 @@ public class EventModel {
 	private IDataEvent myEvent;
 	private ObservableList<IAction> alist;
 	private IObjectInterface game;
-	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/Event/ActionListResources");
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
 	public EventModel(DataObject obj,IDataEvent e,IObjectInterface inter){
 		myObject = obj;
@@ -60,10 +59,10 @@ public class EventModel {
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 		//Enumeration <String> keys = l.getKeys();
 
-		for (String s:classes.getAllClasses(("structures.data.actions"))) {
+		for (String s:classes.getAllClasses((r.getString("actionCutString")))) {
 			list.add(s);
 		}
-		for (String s:classes.getAllClasses(("structures.data.actions.library"))) {
+		for (String s:classes.getAllClasses((r.getString("actionCutLibString")))) {
 			list.add(s);
 		}
 		//List<String> keylist = Collections.list(keys);

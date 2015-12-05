@@ -3,6 +3,7 @@ package authoring_environment.object_editor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
@@ -36,6 +37,7 @@ public class ObjectEditorController {
 	ObjectEditorView view;
 	ObjectEditorModel model;
 	IUpdateHandle updater;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/ObjectControllerResources");
 
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
 		view = new ObjectEditorView(dataGame.getName());
@@ -44,9 +46,9 @@ public class ObjectEditorController {
 	}
 
 	public ObjectEditorController(IObjectInterface dataGame) {
-		TextInputDialog dialog = new TextInputDialog("Object Name");
-		dialog.setTitle("Create Object");
-		dialog.setHeaderText("Please Enter Name");
+		TextInputDialog dialog = new TextInputDialog(r.getString("name"));
+		dialog.setTitle(r.getString("create"));
+		dialog.setHeaderText(r.getString("enter"));
 		Optional<String> result = dialog.showAndWait();
 		String name = "";
 		List<DataObject> list =dataGame.getObjects();
@@ -68,7 +70,7 @@ public class ObjectEditorController {
 				initAll();
 			}
 			else{
-				PopUpError er = new PopUpError("Duplicate Object");
+				PopUpError er = new PopUpError(r.getString("duplicate"));
 				ObjectEditorController control = new ObjectEditorController(dataGame);
 			}
 		}
