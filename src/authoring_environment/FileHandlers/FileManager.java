@@ -100,6 +100,7 @@ public class FileManager {
 	 * @throws UnknownResourceException
 	 */
 	public void newGame() throws UnknownResourceException {
+	
 		File images = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory"));
 		File backgrounds = new File(
 				g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory"));

@@ -1,10 +1,12 @@
 package authoring_environment.main;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
 
 import Player.Launcher;
+import authoring_environment.Event.ClassesInPackage;
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.FileHandlers.GameInitializer;
 import exceptions.UnknownResourceException;
@@ -57,12 +59,7 @@ public class WelcomeWizardView {
 			try {
 				dataGame = GameSelector.getGameChoice();
 			} catch (UnknownResourceException e) {
-				//Show error, close
-//				Alert a = new Alert(AlertType.ERROR);
-//				a.setTitle("Cannot Load Game");
-//				a.setHeaderText(null);
-//				a.setContentText(r.getString("Fatal") + e.getMessage());
-//				a.showAndWait();
+
 				myStage.close();
 				showAndWait();
 				return null;
@@ -75,10 +72,25 @@ public class WelcomeWizardView {
 			try {
 				String name = FileManager.askName(r.getString("EnterName"));
 				if (name != null) {
+					
+					ClassesInPackage packageGetter = new ClassesInPackage();
+					ArrayList<String> packages = packageGetter.getAllPackages("Games/");
+					if(packages.contains(name)){
+						Alert samefilewarn = new Alert(AlertType.WARNING);
+						samefilewarn.setTitle(r.getString("Error"));
+						samefilewarn.setHeaderText("Game already exists!");
+						samefilewarn.setContentText(r.getString("SelectAnother"));
+						samefilewarn.showAndWait();
+						showAndWait();
+					}
 					FileManager fm = new FileManager(name);
+					
 					fm.newGame();
+				
 					dataGame = fm.getDataGame(name);
+					
 					fm.saveGame(dataGame);
+					
 				}
 				else {
 					dataGame = new WelcomeWizardView(myStage).showAndWait();

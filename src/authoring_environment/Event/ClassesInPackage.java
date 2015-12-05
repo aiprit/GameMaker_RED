@@ -52,4 +52,38 @@ public class ClassesInPackage {
 		}
 		return classNames;
 	}
+	public ArrayList<String> getAllPackages(String pckgname) {
+		ArrayList<String> classNames = new ArrayList<String>();
+		
+		ArrayList<String> classes=new ArrayList<String>(); 
+		try{
+			
+			
+			File directory=null; 
+			try { 
+				directory=new File(pckgname); 
+			} catch(NullPointerException x) { 
+				System.out.println("Nullpointer");
+				throw new ClassNotFoundException(pckgname+" does not appear to be a valid package");
+			}
+			if(directory.exists()) {
+			
+				String[] files=directory.list();
+				for(int i=0; i<files.length; i++) {
+					
+					classes.add(files[i]);
+
+				}
+			} else {
+				System.out.println("Directory does not exist");
+				throw new ClassNotFoundException(pckgname+" does not appear to be a valid package");
+			}
+			return classes;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		}
 }
