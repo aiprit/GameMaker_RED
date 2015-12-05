@@ -27,4 +27,12 @@ public class ConfigureModel {
 	public void setAlpha(double alpha) {
 		myDataInstance.setAlpha(alpha);
 	}
+	
+	public void setFriction(double friction) {
+		myDataInstance.setFriction(friction);
+	}
+	
+	public void setGravity(double gravityX, double gravityY) {
+		myDataInstance.setGravity(new Vector(gravityX, gravityY));
+	}
 }

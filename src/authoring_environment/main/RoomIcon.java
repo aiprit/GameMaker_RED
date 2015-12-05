@@ -37,7 +37,7 @@ public class RoomIcon extends VBox {
 		super.getChildren().addAll(myIcon, myButton);
 	}
 	
-	public RoomIcon(ResourceBundle resources, String backgroundColor, String roomName, String gameName) {
+	public RoomIcon(ResourceBundle resources, Image roomSnapshot, String backgroundColor, String roomName, String gameName) {
 		super();
 		myGameName = gameName;
 		configureVBox();
@@ -45,7 +45,7 @@ public class RoomIcon extends VBox {
 		myButton = new Button(roomName);
 		double iconSize = Double.parseDouble(myResourceBundle.getString("IconSize"));
 		Rectangle icon = new Rectangle(iconSize, iconSize);
-		setFill(icon, backgroundColor);
+		setFill(icon, roomSnapshot, backgroundColor);
 		myIcon = icon;
 		myDeleteButton = new Button(myResourceBundle.getString("Delete"));
 		super.getChildren().addAll(myIcon, myButton, myDeleteButton);
@@ -66,21 +66,24 @@ public class RoomIcon extends VBox {
 		return myButton;
 	}
 	
-	private void setFill(Rectangle icon, String backgroundColor) {
+	private void setFill(Rectangle icon, Image roomSnapshot, String backgroundColor) {
 		try {
-			Color fill = Color.valueOf(backgroundColor);
-			icon.setFill(fill);
-		} catch (IllegalArgumentException e) {
-			FileManager fm = new FileManager(myGameName);
+			icon.setFill(new ImagePattern(roomSnapshot));
+		} catch (NullPointerException e) {
 			try {
+				Color fill = Color.valueOf(backgroundColor);
+				icon.setFill(fill);
+			} catch (IllegalArgumentException e1) {
+				FileManager fm = new FileManager(myGameName);
 				try {
-					icon.setFill(new ImagePattern(fm.getBackground(backgroundColor)));
-				} catch (ResourceFailedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try {
+						icon.setFill(new ImagePattern(fm.getBackground(backgroundColor)));
+					} catch (ResourceFailedException e2) {
+						icon.setFill(Color.WHITE);
+					}
+				} catch (NullPointerException e3) {
+					icon.setFill(Color.WHITE);
 				}
-			} catch (NullPointerException e2) {
-				icon.setFill(Color.WHITE);
 			}
 		}
 	}

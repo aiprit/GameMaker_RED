@@ -35,9 +35,8 @@ public class RoomCanvas extends Canvas {
 	private Grid myGrid;
 	private String gameName;
 
-	public RoomCanvas(ResourceBundle resources, String gameName) {
-		super(Double.parseDouble(resources.getString("PreviewWidth")),
-				Double.parseDouble(resources.getString("PreviewHeight")));
+	public RoomCanvas(ResourceBundle resources, double width, double height, String gameName) {
+		super(width, height);
 		this.gameName = gameName;
 		myResources = resources;
 		myBackgroundColor = DEFAULT_COLOR.toString();
@@ -137,16 +136,26 @@ public class RoomCanvas extends Canvas {
 	public void redrawCanvas() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
+		drawObjects();
+		if (myGrid.isVisible()) {
+			drawGridLines();
+		}
+		drawView();
+	}
+	
+	public void drawSnapshot() {
+		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
+		drawBackground();
+		drawObjects();
+	}
+	
+	private void drawObjects() {
 		for (DraggableImage drag : myObjectList) {
 			if (!drag.getVisibility())
 				continue;
 			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(),
 					drag.getScaleY(), drag.getAlpha());
 		}
-		if (myGrid.isVisible()) {
-			drawGridLines();
-		}
-		drawView();
 	}
 
 	private void drawGridLines() {
