@@ -73,6 +73,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		topContainer = new VBox();
 		myEventManager = eventManager;
 		this.stage = stage;
+		stage.setHeight(height + 100);
 		stage.setWidth(500 + width);
 		stage.centerOnScreen();
 		stage.setY(stage.getY()-100);

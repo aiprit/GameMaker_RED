@@ -35,11 +35,19 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	private FrontEnd myFrontEnd;
 	private String myCurrentGame;
 	private boolean debugActivated;
-
+	
 	public EngineController(Stage stage) throws ResourceFailedException {
+		this(stage, null);
+	}
+
+	public EngineController(Stage stage, String gameName) throws ResourceFailedException {
 		EventManager eventManager = new EventManager();
 		debugActivated = false;
-		myCurrentGame = getUserChoice();
+		if (gameName == null) {
+			myCurrentGame = getUserChoice();
+		} else {
+			myCurrentGame = gameName;
+		}
 		currentRunGame = readObject();
 		try {
 			myFrontEnd = new FrontEnd(currentRunGame.getViewWidth(), currentRunGame.getViewHeight(), eventManager, stage, myCurrentGame);
