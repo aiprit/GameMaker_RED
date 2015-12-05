@@ -59,7 +59,7 @@ public class Draw extends StackPane implements IDraw {
 		myCanvas.setHeight(disp.height());
 		myGraphicsContext.save();
 		myGraphicsContext.clearRect(0, 0, disp.width(), disp.height());
-		myGraphicsContext.drawImage(image, -disp.x(), 0, roomWidth, roomHeight);
+		myGraphicsContext.drawImage(image, -disp.x(), -disp.y(), roomWidth, roomHeight);
 		myGraphicsContext.restore();
 	}
 
@@ -67,7 +67,7 @@ public class Draw extends StackPane implements IDraw {
 	public void drawBackgroundColor(String color, RunView view) {
 		Rectangle disp = view.getView();
 		myGraphicsContext.setFill(Color.valueOf(color));
-		myGraphicsContext.fillRect(disp.x(), disp.y(), disp.width(), disp.height());
+		myGraphicsContext.fillRect(0, 0, disp.width(), disp.height());
 	}
 
 	@Override
