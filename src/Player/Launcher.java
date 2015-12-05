@@ -79,6 +79,7 @@ public class Launcher extends Application {
 	
 	@Override
 	public void stop(){
-	    controller.doYouWantToSave();
+		if (controller != null)
+			controller.doYouWantToSave();
 	}
 }
