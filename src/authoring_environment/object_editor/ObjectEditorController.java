@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
 import authoring_environment.ParamPopups.ParamController;
 import authoring_environment.main.IUpdateHandle;
@@ -35,21 +36,36 @@ public class ObjectEditorController {
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
 		view = new ObjectEditorView(dataGame.getName());
 		model = new ObjectEditorModel(dataGame, o);
-		initAll();
 	}
 
-	public ObjectEditorController(DataGame g) {
+	public ObjectEditorController(IObjectInterface dataGame) {
 		TextInputDialog dialog = new TextInputDialog("Object Name");
 		dialog.setTitle("Create Object");
 		dialog.setHeaderText("Please Enter Name");
 		Optional<String> result = dialog.showAndWait();
 		String name = "";
+		List<DataObject> list =dataGame.getObjects();
+		List<String> strlist = new ArrayList<String>();
+		for(DataObject d :list){
+			strlist.add(d.getName());
+		}
 		if (result.isPresent()) {
+			boolean dup =false;
+			for(String str:strlist){
+				if(str.equals(result.get())){
+					dup = true;
+				}
+			}
+			if(!dup){
 			name = result.get();
-
-			model = new ObjectEditorModel((IObjectInterface) g, name);
-			view = new ObjectEditorView(g.getName());
+			model = new ObjectEditorModel((IObjectInterface) dataGame, name);
+			view = new ObjectEditorView(dataGame.getName());
 			initAll();
+			}
+			else{
+				PopUpError er = new PopUpError("Duplicate Object");
+				ObjectEditorController control = new ObjectEditorController(dataGame);
+			}
 		}
 	}
 
