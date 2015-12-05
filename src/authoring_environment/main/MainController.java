@@ -1,6 +1,7 @@
 package authoring_environment.main;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
@@ -17,7 +18,9 @@ import exceptions.UnknownResourceException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -66,11 +69,36 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
+	
 	private void returnToLauncher(){
-		
+		doYouWantToSave();
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
+	}
+	
+	/**
+	 * Called by parent
+	 */
+	public void doYouWantToSave() {
+		//Do you want to save?
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Closing");
+		alert.setHeaderText("Would you like to save before closing?");
+		alert.setContentText(null);
+
+		ButtonType buttonTypeOne = new ButtonType("Save");
+		ButtonType buttonTypeTwo = new ButtonType("Don't Save");
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+			FileManager fm = new FileManager(dataGame.getName());
+			fm.saveGame(dataGame);
+		} else if (result.get() == buttonTypeTwo) {
+		  myStage.close();
+		}
 	}
 	@Override
 	public void update() {

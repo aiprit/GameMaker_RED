@@ -65,4 +65,10 @@ public class Launcher extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+	@Override
+	public void stop(){
+	    System.out.println("Closing...");
+	    controller.doYouWantToSave();
+	}
 }
