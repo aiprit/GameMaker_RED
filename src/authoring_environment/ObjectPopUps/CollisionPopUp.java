@@ -8,11 +8,14 @@ import authoring_environment.Event.EventController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.DataObject;
@@ -47,16 +50,20 @@ public class CollisionPopUp extends BasicPopUp{
 		listview = new ListView<DataObject>();
 		ObservableList<DataObject>list = FXCollections.observableList(new ArrayList<DataObject>());
 		list.addAll(myList);
+		listview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					//Use ListView's getSelected Item
+					//String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					actions(click);
+				}
+			}
+		});
 		listview.setItems(list);
 		listview.setTranslateY(8);
 		b.setOnAction(e -> {
-			select(e);
-			if(selectedObject ==null){
-				PopUpError er = new PopUpError(r.getString("Error"));
-			}else{
-			eventPopup();
-			}
-			close(e);
+			actions(e);
 		});
 		myRoot.getChildren().addAll(title, listview, b);
 		myScene = new Scene(myRoot);
@@ -64,17 +71,18 @@ public class CollisionPopUp extends BasicPopUp{
 		myStage.show();
 
 	}
-
-
-	private void select(ActionEvent e) {
-		selectedObject = listview.getSelectionModel().getSelectedItem();
-
-	}
-
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new CollisionEvent(selectedObject),myObject,myGame);
 		p.showAndWait();
 	}
-
+	private void actions(Event e){
+		selectedObject = listview.getSelectionModel().getSelectedItem();
+		if(selectedObject ==null){
+			PopUpError er = new PopUpError(r.getString("Error"));
+		}else{
+		eventPopup();
+		}
+		close(e);
+	}
 }
