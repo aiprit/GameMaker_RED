@@ -1,27 +1,25 @@
 package engine.front_end;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import structures.run.IParameters;
 
 public class ObjectInformationView extends VBox {
-    private List<TextField> textList = new ArrayList<TextField>();
+    public static final String COLON = ":";
+    
+    private Map<Text, Text> textList = new HashMap<>();
     private Map<Label, Slider> sliders = new HashMap<>();
     private Map<Label, Button> buttons = new HashMap<>();
     private GridPane myGrid = new GridPane();
     private int index = 0;
-    private Map<String, String> myOriginalStringMap;
     private Map<String, Double> myOriginalDoubleMap;
     private Map<String, Boolean> myOriginalBooleanMap;
     private Map<String, String> myStringMap;
@@ -29,7 +27,6 @@ public class ObjectInformationView extends VBox {
     private Map<String, Boolean> myBooleanMap;
     private IParameters myParameterObject;
 
-    @SuppressWarnings("unchecked")
     public ObjectInformationView(IParameters parameterObject) {
         myParameterObject = parameterObject;
         this.setWidth(500);
@@ -37,9 +34,8 @@ public class ObjectInformationView extends VBox {
         myGrid.setVgap(15);
         myGrid.getStyleClass().add("grid");
         this.getChildren().add(myGrid);
-        myOriginalStringMap = (Map<String, String>) ((TreeMap<String, String>) myParameterObject.getStringMap()).clone();
-        myOriginalDoubleMap = (Map<String, Double>) ((TreeMap<String, Double>) myParameterObject.getDoubleMap()).clone();
-        myOriginalBooleanMap = (Map<String, Boolean>) ((TreeMap<String, Boolean>) myParameterObject.getBooleanMap()).clone();
+        myOriginalDoubleMap = myParameterObject.getOriginalDoubleMap();
+        myOriginalBooleanMap = myParameterObject.getOriginalBooleanMap();
         populateStringParameters(myParameterObject.getStringMap());
         populateDoubleParameters(myParameterObject.getDoubleMap());
         populateBooleanParameters(myParameterObject.getBooleanMap());
@@ -90,17 +86,15 @@ public class ObjectInformationView extends VBox {
     }
 
     private void populateStringParameters(Map<String, String> parameters) {
+        // We don't want strings to be editable, just shown
         if (parameters == null) return;
         myStringMap = parameters;
         for (String s : parameters.keySet()) {
-            TextField inputField = new TextField();
-            inputField.setText(parameters.get(s));
-            inputField.setPromptText(s);
-            Label parameterName = new Label(s);
-            save(index);
-            myGrid.add(parameterName, 0, index);
-            myGrid.add(inputField, 1, index++);
-            textList.add(inputField);
+            Text text = new Text(s + COLON);
+            myGrid.add(text, 0, index);
+            Text value = new Text(parameters.get(s));
+            myGrid.add(value, 1, index++);
+            textList.put(text, value);
         }
     }
     
@@ -111,20 +105,10 @@ public class ObjectInformationView extends VBox {
         for (Label label : buttons.keySet()) {
             myBooleanMap.put(label.getText(), Boolean.valueOf(buttons.get(label).getText()));
         }
-        for (TextField textField : textList) {
-            myStringMap.put(textField.getPromptText(), textField.getText());
+        for (Text textField : textList.keySet()) {
+            myStringMap.put(textField.getText().split(COLON)[0], textList.get(textField).getText());
         }
         myParameterObject.setParameterMaps(myStringMap, myDoubleMap, myBooleanMap);
-    }
-    
-    private void save(int index) {
-        Button button = new Button ("Save");
-        button.setOnMouseClicked(e -> {
-            notifyObject();
-        });
-        GridPane.setConstraints(button, 2, index);
-        myGrid.getChildren().add(button);
-        index++;
     }
     
     private void reset() {
@@ -135,9 +119,6 @@ public class ObjectInformationView extends VBox {
             }
             for (Label label : buttons.keySet()) {
                 buttons.get(label).setText(String.valueOf(myOriginalBooleanMap.get(label.getText())));
-            }
-            for (TextField textField : textList) {
-                textField.setText(myOriginalStringMap.get(textField.getPromptText()));
             }
             notifyObject();
         });
