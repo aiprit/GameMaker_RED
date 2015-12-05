@@ -79,7 +79,7 @@ public class GroovyLibrary {
 		return (max * rand.nextDouble());
 	}
 
-	public void create_instance(String objectName, double x, double y){
+	public RunObject create_instance(String objectName, double x, double y){
 		RunObject runObject = null;
 		try {
 			runObject = myRunGame.getCurrentRoom().instantiate(objectName, x, y);
@@ -89,6 +89,7 @@ public class GroovyLibrary {
 		runObject.setX(x);
 		runObject.setY(y);
 		myEventManager.onObjectCreate(runObject);
+		return runObject;
 	}
 
 	public void destroy(RunObject deleteThis) {
