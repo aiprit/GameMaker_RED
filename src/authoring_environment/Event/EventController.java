@@ -41,6 +41,7 @@ import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SoundParam;
 import structures.data.actions.params.SpriteParam;
 import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
@@ -387,8 +388,9 @@ public class EventController {
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals("SELECT")){
-
+		if(p.getType().toString().equals("SOUND_SELECT")){
+			SoundParam param = (SoundParam) p;
+			param.setSoundList(myModel.getGame().getSounds());
 		}
 	}
 

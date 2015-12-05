@@ -31,7 +31,8 @@ public class ParamFactory {
 				box.getChildren().add(cbox);
 			}
 			else if(type.equals("OBJECT_SELECT")||type.equals("SPRITE_SELECT")||
-					type.equals("ROOM_SELECT")||type.equals("SELECT")){
+					type.equals("ROOM_SELECT")||type.equals("SELECT")||
+					type.equals("SOUND_SELECT")){
 				GeneralMenu menu = new GeneralMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
