@@ -1,14 +1,16 @@
 Welcome to the Object Editor!
 Select the sprite associated with the object from the
 top menu bar.
-Add events to the object by either double clicking on 
-the event in the left pane or selecting the event and 
-clicking the add button.
+Add events to the object by double clicking on 
+the event in the left pane, selecting the event and 
+clicking the add button, or selecting the event and 
+then clicking the enter button on your keyboard.
 To edit a previously added event, either double click 
-on the event or select the event and click the edit 
-button.
+on the event, select the event and click the edit 
+button, or select the event and press enter on your keyboard.
 To delete a previously added event, select the event
-and click the delete button.
+and either click the delete button or press delete on
+your keyboard.
 Rename the object using the text box located in the 
 bottom right of the window.
 Choose whether your object is solid (can be passed 

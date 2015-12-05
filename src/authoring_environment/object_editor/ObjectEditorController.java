@@ -17,6 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -113,6 +115,15 @@ public class ObjectEditorController {
 						}
 					}
 				};
+				cell.requestFocus();
+				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
+					@Override
+					public void handle(KeyEvent key) {
+						if (key.getCode().equals(KeyCode.ENTER)) {
+							eventPopup(cell.getItem());
+						}
+					}
+				});
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent click) {
@@ -127,6 +138,18 @@ public class ObjectEditorController {
 			}
 
 		});
+		view.getRightPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ENTER)) {
+					eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
+				}
+				if (event.getCode().equals(KeyCode.DELETE)) {
+					model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
+				}
+			}
+			
+		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
@@ -135,6 +158,17 @@ public class ObjectEditorController {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
+		view.getLeftPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+				}
+			}
+			
+		});
 		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent click) {

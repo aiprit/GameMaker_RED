@@ -16,6 +16,7 @@ import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -61,6 +62,7 @@ public class EventController {
 		myView.getBottomPane().getSaveButton().setOnAction(e ->{
 			myModel.saveEvent();
 			close(e);});
+
 		myView.getBottomPane().getCancelButton().setOnAction(e ->{
 			close(e);});
 
@@ -309,7 +311,7 @@ public class EventController {
 
 
 
-	protected void close(ActionEvent e) {
+	protected void close(Event e) {
 		Node  source = (Node)  e.getSource();
 		Stage stage  = (Stage) source.getScene().getWindow();
 		stage.close();
