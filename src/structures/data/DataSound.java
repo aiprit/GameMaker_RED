@@ -49,7 +49,7 @@ public class DataSound implements IResource {
     @Override
     public void load(String gameName) throws ResourceFailedException {
     	FileManager gmf = new FileManager(gameName);
-        clip = gmf.getSound(myName);
+        clip = gmf.getSound(myName, this);
     	myHaveLoaded = true;
     }
     

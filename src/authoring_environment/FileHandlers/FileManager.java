@@ -181,14 +181,23 @@ public class FileManager {
 		return newSprite;
 	}
 
-	public AudioClip getSound(String soundName) {
+	public AudioClip getSound(String soundName, DataSound ds) {
 		File outputfile = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory")
 				+ soundName + ".wav");
 		if (!outputfile.exists()) {
 			System.out.println("no file");
 		}
 		String url = outputfile.toURI().toString();
-
+		AudioInputStream audioInputStream;
+		try {
+			audioInputStream = AudioSystem.getAudioInputStream(outputfile);
+			ds.setInputStream(audioInputStream);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("test");
+		AudioClip sound = new AudioClip(url);
+		sound.play();
 		return new AudioClip(url);
 	}
 
@@ -253,8 +262,13 @@ public class FileManager {
 		for(DataSound s : dataGame.getSounds()){
 			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory") + s.getName() + ".wav");
 			
+			if (!sound.exists()) {
+				System.out.println("no file");
+			}
+			String url = sound.toURI().toString();
 			AudioInputStream stream = s.getInputStream();
-			
+			AudioClip tune = new AudioClip(url);
+			tune.play();
 			try {
 				AudioSystem.write(stream, AudioFileFormat.Type.WAVE, sound);
 			} catch (IOException e) {
