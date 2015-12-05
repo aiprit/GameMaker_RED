@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Player.Launcher;
 import XML.XMLEditor;
 import engine.events.EventManager;
 import engine.events.IGUIControllerHandler;
@@ -66,6 +67,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		if (result.isPresent()) {
 			return result.get();
 		} else {
+			dialog.close();
 			throw new ResourceFailedException("Gamefile missing.");
 		}
 	}
