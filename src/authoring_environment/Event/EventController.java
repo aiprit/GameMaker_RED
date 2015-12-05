@@ -3,15 +3,9 @@ package authoring_environment.Event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import authoring_environment.PopUpError;
-import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
-import authoring_environment.ParamPopups.ParamBoxFactory.ObjectMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.RoomMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.SelectMenu;
-import authoring_environment.ParamPopups.ParamBoxFactory.SpriteMenu;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 
@@ -19,17 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
