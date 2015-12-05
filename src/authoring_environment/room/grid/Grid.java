@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.grid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,7 @@ public class Grid {
 	
 	public void setCellSize(double size) {
 		myCellSize = size;
+		populateMesh();
 	}
 	
 	public boolean isVisible() {
