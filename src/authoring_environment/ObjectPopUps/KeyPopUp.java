@@ -33,7 +33,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	private String keyPress;
 	Label myInfo;
 	protected KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
+	protected ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
 	public KeyPopUp(DataObject obj,IObjectInterface game){
 		super(obj,game);
 		myRoot = new Group();

@@ -44,7 +44,9 @@ public class ParamController {
 		try {
 			for(int j = 0; j<model.getListsize();j++){
 				String input = getInput(fieldList.get(j+1));
-
+				if(input == null){
+					throw new ParameterParseException("No value selected");
+				}
 					model.getList().get(j).parse(input);
 
 
@@ -55,7 +57,7 @@ public class ParamController {
 			view.close();
 		}
 		catch (ParameterParseException e) {
-			PopUpError er = new PopUpError();
+			PopUpError er = new PopUpError(e.getMessage());
 			if(model.editing()){
 			try {
 				refreshToOld(save);

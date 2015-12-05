@@ -310,7 +310,7 @@ public class EventController {
 
 		}
 		catch (NullPointerException e){
-			PopUpError er = new PopUpError();
+			PopUpError er = new PopUpError(e.getMessage());
 		}
 
 

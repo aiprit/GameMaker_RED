@@ -51,8 +51,8 @@ public class CollisionPopUp extends BasicPopUp{
 		listview.setTranslateY(8);
 		b.setOnAction(e -> {
 			select(e);
-			if(e ==null){
-				PopUpError er = new PopUpError();
+			if(selectedObject ==null){
+				PopUpError er = new PopUpError(r.getString("Error"));
 			}else{
 			eventPopup();
 			}
