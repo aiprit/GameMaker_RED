@@ -92,7 +92,9 @@ public class RunObject implements IParameters {
 		myBooleanMap = new TreeMap<>();
 		myStringMap = new TreeMap<>();
 		myDoubleMap = new TreeMap<>();
-
+		myOriginalBooleanMap = new TreeMap<>();
+                myOriginalStringMap = new TreeMap<>();
+                myOriginalDoubleMap = new TreeMap<>();
 		myBounds = new Rectangle(0, 0, 0, 0);
 	}
 
@@ -414,6 +416,7 @@ public class RunObject implements IParameters {
 
     @Override
     public void setOriginalParameterMaps () {
+        System.out.println(name);
         myOriginalStringMap.put(NAME, name);
         myOriginalDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
         myOriginalDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);

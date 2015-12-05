@@ -13,6 +13,8 @@ import javafx.scene.text.Text;
 import structures.run.IParameters;
 
 public class ObjectInformationView extends VBox {
+    public static final String COLON = ":";
+    
     private Map<Text, Text> textList = new HashMap<>();
     private Map<Label, Slider> sliders = new HashMap<>();
     private Map<Label, Button> buttons = new HashMap<>();
@@ -88,7 +90,7 @@ public class ObjectInformationView extends VBox {
         if (parameters == null) return;
         myStringMap = parameters;
         for (String s : parameters.keySet()) {
-            Text text = new Text(s);
+            Text text = new Text(s + COLON);
             myGrid.add(text, 0, index);
             Text value = new Text(parameters.get(s));
             myGrid.add(value, 1, index++);
@@ -104,7 +106,7 @@ public class ObjectInformationView extends VBox {
             myBooleanMap.put(label.getText(), Boolean.valueOf(buttons.get(label).getText()));
         }
         for (Text textField : textList.keySet()) {
-            myStringMap.put(textField.getText(), textList.get(textField).getText());
+            myStringMap.put(textField.getText().split(COLON)[0], textList.get(textField).getText());
         }
         myParameterObject.setParameterMaps(myStringMap, myDoubleMap, myBooleanMap);
     }
