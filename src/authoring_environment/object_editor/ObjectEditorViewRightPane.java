@@ -40,6 +40,7 @@ public class ObjectEditorViewRightPane {
 		listview = new ListView<IDataEvent>();
 		//listview.setItems(list);
 		listview.setTranslateY(Integer.parseInt(rightResources.getString("listTranslateY")));
+		listview.setMinWidth(Integer.parseInt(rightResources.getString("listviewWidth")));
 
 
 		delete = new Button(rightResources.getString("delete"));
