@@ -5,10 +5,6 @@
     -fx-background: rgb(77, 166, 255);
 }
 
-.launcher-button {
-	-fx-font-size: 30pt;
-}
-
 .button {
     -fx-text-fill: #ffffff;
     -fx-background-color: #262626;
@@ -45,4 +41,19 @@
 
 .grid {
 	-fx-padding: 10;
+}
+
+
+.launcher-button {
+	-fx-font-size: 30pt;
+	-fx-text-fill: #ffffff;
+    -fx-background-color: #262626;
+    -fx-border-radius: 20;
+    -fx-background-radius: 5;
+    -fx-padding: 20;
+}
+
+.launcher-title {
+	-fx-font-family: "Gill Sans", Calibri, sans-serif;
+	-fx-font-size: 50pt;
 }
