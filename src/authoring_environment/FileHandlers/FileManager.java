@@ -42,7 +42,7 @@ public class FileManager {
 	 * 
 	 */
 	private static final String BACKGROUND = "background";
-	private static final String PNG = "png";
+	private static final String PNG = ".png";
 	private static ResourceBundle g = ResourceBundle.getBundle("resources/GameFileFormat");
 	String myGameName;
 
@@ -165,7 +165,7 @@ public class FileManager {
 				// wait for size to be known
 			}
 		} catch (Exception e) {
-			String message = "Failed to load image '%s' for DataSprite '%s'";
+			String message = "Failed to load image '%s' for name '%s'";
 			throw new ResourceFailedException(message, url, imgName);
 		}
 
