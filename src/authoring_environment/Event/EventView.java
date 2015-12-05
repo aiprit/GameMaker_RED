@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class EventView {
+public class EventView extends Stage{
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
     public static final String STYLESHEET = "authoring.css";
 	EventBottomPane bottom;
@@ -24,11 +24,11 @@ public class EventView {
 	}
 
 	private void init() {
-		myStage = new Stage();
-		myStage.setResizable(false);
+
+		this.setResizable(false);
 
 		myRoot = new Group();
-		myStage.setTitle(r.getString("title"));
+		this.setTitle(r.getString("title"));
 		BorderPane myPane = new BorderPane();
 		 bottom = new EventBottomPane();
 		 right = new EventRightPane();
@@ -41,8 +41,8 @@ public class EventView {
 		myRoot.getChildren().add(myPane);
 		Scene scene = new Scene(myRoot);
 		scene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
-		myStage.setScene(scene);
-		myStage.show();
+		this.setScene(scene);
+//		this.show();
 	}
 
 	public EventBottomPane getBottomPane() {
@@ -61,7 +61,6 @@ public class EventView {
 		// TODO Auto-generated method stub
 		return right;
 	}
-
 
 
 }

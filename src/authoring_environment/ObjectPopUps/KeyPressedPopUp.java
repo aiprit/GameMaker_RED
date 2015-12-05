@@ -1,6 +1,7 @@
 package authoring_environment.ObjectPopUps;
 
 
+import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
 
 import javafx.collections.ObservableMap;
@@ -26,11 +27,11 @@ public class KeyPressedPopUp extends KeyPopUp {
 	public void eventPopup(){
 
 		if(key ==null){
-			nullAlert();
+			PopUpError er = new PopUpError();
 		}
 		else{
 			EventController p = new EventController(new KeyPressedEvent(key),myObject,myGame);
-
+			p.showAndWait();
 		}
 	}
 

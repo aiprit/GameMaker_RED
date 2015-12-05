@@ -22,7 +22,7 @@ public class GameStartPopUp  extends BasicPopUp{
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new GameStartEvent(),myObject,myGame);
-
+		p.showAndWait();
 
 
 	}

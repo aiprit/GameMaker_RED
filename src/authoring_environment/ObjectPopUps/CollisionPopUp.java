@@ -3,7 +3,7 @@ package authoring_environment.ObjectPopUps;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,7 +51,11 @@ public class CollisionPopUp extends BasicPopUp{
 		listview.setTranslateY(8);
 		b.setOnAction(e -> {
 			select(e);
+			if(e ==null){
+				PopUpError er = new PopUpError();
+			}else{
 			eventPopup();
+			}
 			close(e);
 		});
 		myRoot.getChildren().addAll(title, listview, b);
@@ -64,11 +68,13 @@ public class CollisionPopUp extends BasicPopUp{
 
 	private void select(ActionEvent e) {
 		selectedObject = listview.getSelectionModel().getSelectedItem();
+
 	}
 
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new CollisionEvent(selectedObject),myObject,myGame);
+		p.showAndWait();
 	}
 
 }
