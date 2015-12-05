@@ -26,5 +26,10 @@ public class IfMouseButton extends DataAction {
 		
 		return String.format("engine.with()\n;if (library.mouse_%s() == %b)", which, bool);
 	}
+	
+	@Override
+	public boolean hasBrackets() {
+		return true;
+	}
 
 }

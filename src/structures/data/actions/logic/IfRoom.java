@@ -25,5 +25,10 @@ public class IfRoom extends DataAction {
 	protected String getSyntax() {
 		return "engine.with()\n;if (library.get_room_name().equals(%s) != %b)";
 	}
+	
+	@Override
+	public boolean hasBrackets() {
+		return true;
+	}
 
 }

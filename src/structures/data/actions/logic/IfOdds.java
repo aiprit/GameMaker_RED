@@ -23,5 +23,10 @@ public class IfOdds extends DataAction {
 	protected String getSyntax() {
 		return "engine.with();\nif (%f > library.random_number(%f))";
 	}
+	
+	@Override
+	public boolean hasBrackets() {
+		return true;
+	}
 
 }

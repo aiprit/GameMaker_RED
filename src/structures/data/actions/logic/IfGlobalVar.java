@@ -25,6 +25,11 @@ public class IfGlobalVar extends DataAction {
 	protected String getSyntax() {
 		return "with(); if (globals.%s %s (%s))";
 	}
+	
+	@Override
+	public boolean hasBrackets() {
+		return true;
+	}
 
 
 

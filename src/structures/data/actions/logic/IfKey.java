@@ -33,5 +33,10 @@ public class IfKey extends DataAction {
 	protected String getSyntax() {
 		return "";
 	}
+	
+	@Override
+	public boolean hasBrackets() {
+		return true;
+	}
 
 }
