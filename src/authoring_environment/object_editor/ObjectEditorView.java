@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class ObjectEditorView {
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "blueengine.css";
+    public static final String STYLESHEET = "authoring.css";
 
 	private Group myRoot;
 	private Stage myStage;

@@ -1,8 +1,8 @@
 .root {
     -fx-font-size: 12pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
-    -fx-base: #000;
-    -fx-background: #cc0000;
+    -fx-base: #cc0000;
+    -fx-background: #ff9999;
 }
 
 .button {
@@ -18,8 +18,8 @@
 }
 
 .combo-box-base {
-    -fx-text-base-color: #ffffff;
-    -fx-background-color: #262626;
+    -fx-text-base-color: #262626;
+    -fx-background-color: #ffffff;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
