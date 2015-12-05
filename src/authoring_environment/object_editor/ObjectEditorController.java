@@ -36,6 +36,7 @@ public class ObjectEditorController {
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
 		view = new ObjectEditorView(dataGame.getName());
 		model = new ObjectEditorModel(dataGame, o);
+		initAll();
 	}
 
 	public ObjectEditorController(IObjectInterface dataGame) {
