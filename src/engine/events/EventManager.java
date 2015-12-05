@@ -2,6 +2,8 @@ package engine.events;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import exceptions.ResourceFailedException;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import structures.run.RunObject;
@@ -17,13 +19,14 @@ import utils.Point;
  *
  */
 public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
-IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
+IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	private List<IGUIBackendHandler> myGUIBackend;
 	private List<IGUIControllerHandler> myGUIController;
 	private List<IInputHandler> myUserInput;
 	private List<IObjectModifiedHandler> myObjectModified;
 	private List<IGameUpdatedHandler> myFrontEndUpdater;
+	private List<IRoomUpdatedHandler> myRoomUpdater;
 
 	public EventManager(){
 		myGUIBackend = new ArrayList<>();
@@ -31,6 +34,7 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 		myUserInput = new ArrayList<>();
 		myObjectModified = new ArrayList<>();
 		myFrontEndUpdater = new ArrayList<>();
+		myRoomUpdater = new ArrayList<>();
 	}
 
 	public void addGUIBackendInterface(IGUIBackendHandler gui){
@@ -52,6 +56,10 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 	public void addFrontEndUpdateInterface(IGameUpdatedHandler frontEnd){
 		myFrontEndUpdater.add(frontEnd);
 	}
+	
+	public void addRoomUpdateInterface(IRoomUpdatedHandler roomHandle){
+		myRoomUpdater.add(roomHandle);
+	}
 
 	public void clearObjectModifiedInterface(){
 		myObjectModified.clear();
@@ -69,7 +77,7 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 		}
 	}
 	
-	public void onReset(){
+	public void onReset() throws ResourceFailedException{
 		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
 		}
@@ -86,7 +94,21 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 			g.onSave();
 		}
 	}
+	
+	@Override
+	public void onChangeGame(String game) throws ResourceFailedException {
+		for(IGUIControllerHandler g : myGUIController){
+			g.onChangeGame(game);
+		}
+	}
 
+	@Override
+	public void setDebug(boolean value) {
+		for(IGUIControllerHandler g : myGUIController){
+			g.setDebug(value);
+		}
+	}
+	
 	@Override
 	public void onKeyEvent(KeyEvent event) {
 		for(IInputHandler i : myUserInput){
@@ -131,7 +153,7 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom){
-		for(IGameUpdatedHandler f : myFrontEndUpdater){
+		for(IRoomUpdatedHandler f : myRoomUpdater){
 			f.onRoomChanged(runRoom);
 		}
 	}
@@ -141,6 +163,15 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler {
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
+	}
+	
+	@Override
+	public double getHighScore(){
+		double highScore = 0;
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
+			highScore += f.getHighScore();
+		}
+		return highScore;
 	}
 
 }

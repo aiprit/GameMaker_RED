@@ -16,7 +16,6 @@ public class RunGame implements IRun {
 
 	public final String myName;
 	private List<RunRoom> myRooms;
-	private double myHighScore;
 
 	private RunRoom myCurrentRoom;
 	private RunResources myResources;
@@ -28,7 +27,6 @@ public class RunGame implements IRun {
 		// Get name and save old DataGame
 		myDataGame = dataGame;
 		myName = dataGame.getName();
-		myHighScore = dataGame.getHighScore();
 		
 		// Convert Sprites, then Objects
 		myResources = loadResources(dataGame);
@@ -149,14 +147,6 @@ public class RunGame implements IRun {
 			}
 		}
 		return myDataGame;
-	}
-	
-	public double getHighScore(){
-		return myHighScore;
-	}
-	
-	public void setHighScore(double highScore){
-		myHighScore = highScore;
 	}
 
 }

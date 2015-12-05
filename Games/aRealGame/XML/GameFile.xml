@@ -3,19 +3,9 @@
   <objects>
     <object name="player" scaleX="1.0" scaleY="1.0" sprite="human" zIndex="0">
       <events>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
-          <actions>
-            <action p0="MA==" p1="MTA=" p2="dHJ1ZQ==" title="MoveTo"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="adonut">
+        <event class="structures.data.events.CollisionEvent" dataObject="apizza">
           <actions>
             <action p0="MA==" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="RIGHT">
-          <actions>
-            <action p0="MTA=" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
           </actions>
         </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="LEFT">
@@ -23,12 +13,22 @@
             <action p0="LTEw" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
           </actions>
         </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="DOWN">
+          <actions>
+            <action p0="MA==" p1="MTA=" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="UP">
           <actions>
             <action p0="MA==" p1="LTEw" p2="dHJ1ZQ==" title="MoveTo"/>
           </actions>
         </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="apizza">
+        <event class="structures.data.events.KeyPressedEvent" keyCode="RIGHT">
+          <actions>
+            <action p0="MTA=" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.CollisionEvent" dataObject="adonut">
           <actions>
             <action p0="MA==" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
           </actions>
@@ -66,10 +66,11 @@
       <view height="600.0" name="MainView" width="600.0" x="0.0" y="0.0"/>
       <objectInstances>
         <objectInstance ID="1449175657478" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="player" scaleX="0.2" scaleY="0.2" visibility="true" x="38.913043478260875" y="38.913043478260875" zIndex="0"/>
-        <objectInstance ID="1449175690145" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="200.1185567010309" y="200.1185567010309" zIndex="0"/>
+        <objectInstance ID="1449175690145" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="31.11855670103091" y="31.11855670103091" zIndex="0"/>
         <objectInstance ID="1449176399401" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="446.1185567010309" y="446.1185567010309" zIndex="0"/>
-        <objectInstance ID="1449176418551" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="374.1185567010309" y="374.1185567010309" zIndex="0"/>
-        <objectInstance ID="1449176435729" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="161.11855670103094" y="161.11855670103094" zIndex="0"/>
+        <objectInstance ID="1449176418551" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="446.1185567010309" y="446.1185567010309" zIndex="0"/>
+        <objectInstance ID="1449176435729" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="427.1185567010309" y="427.1185567010309" zIndex="0"/>
+        <objectInstance ID="1449178444824" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="apizza" scaleX="0.1" scaleY="0.1" visibility="true" x="192.11855670103094" y="192.11855670103094" zIndex="0"/>
       </objectInstances>
     </room>
   </rooms>
