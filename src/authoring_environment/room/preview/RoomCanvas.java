@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import authoring_environment.FileHandlers.FileManager;
-import authoring_environment.room.Grid;
+import authoring_environment.room.grid.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
 import exceptions.ResourceFailedException;
@@ -148,7 +148,7 @@ public class RoomCanvas extends Canvas {
 	}
 
 	private void drawGridLines() {
-		double cellSize = Double.parseDouble(myResources.getString("GridCellSize"));
+		double cellSize = myGrid.getCellSize();
 		this.getGraphicsContext2D().setStroke(Color.BLACK);
 		this.getGraphicsContext2D().setLineWidth(GRID_LINE_WIDTH);
 		// draw vertical lines

@@ -3,6 +3,7 @@ package authoring_environment.room.button_toolbar;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -35,9 +36,13 @@ public class ButtonToolbar extends ToolBar {
 		myButtonPane.getChildren().add(newButton);
 	}
 	
+	public void addNode(Node element) {
+		myButtonPane.getChildren().add(element);
+	}
+	
 	private void initializeButtonPane() {
 		myButtonPane = new HBox();
-		myButtonPane.setAlignment(Pos.TOP_LEFT);
+		myButtonPane.setAlignment(Pos.CENTER);
 		myButtonPane.setSpacing(BUTTON_SPACING);
 		myPane.getChildren().add(myButtonPane);
 		myPane.setLeftAnchor(myButtonPane, ANCHOR_PANE_OFFSET);

@@ -2,7 +2,7 @@ package authoring_environment.room.button_toolbar;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.room.Grid;
+import authoring_environment.room.grid.Grid;
 import authoring_environment.room.preview.RoomCanvas;
 
 public class GridButton extends RoomEditorButton {
