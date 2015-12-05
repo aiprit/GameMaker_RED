@@ -49,7 +49,8 @@ public class CollisionEvent implements IDataEvent {
 
     @Override
     public String getName() {
-        return String.format("Collision with ", other.getName());
+    	String a =other.getName();
+        return String.format("Collision with %s", other.getName());
     }
 
     @Override

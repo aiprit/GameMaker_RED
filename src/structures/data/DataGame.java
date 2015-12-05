@@ -23,7 +23,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
     private int myViewWidth, myViewHeight;
-    private double myHighScore;
     private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
 
     public DataGame(String name, String gameDirectory) {
@@ -35,7 +34,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         mySounds = FXCollections.observableArrayList();
         myViewWidth = DEFAULT_VIEW_SIZE;
         myViewHeight = DEFAULT_VIEW_SIZE;
-        myHighScore = 0;
         myCurrentRoom = 0;
     }
 
@@ -59,14 +57,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         myViewHeight = height;
     }
 
-    public double getHighScore() {
-        return myHighScore;
-    }
-
-    public void setHighScore(double highScore) {
-        myHighScore = highScore;
-    }
-
     public ObservableList<DataRoom> getRooms() {
         return myRooms;
     }
@@ -77,6 +67,14 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
 
     public DataRoom getStartRoom() {
         return myRooms.get(myStartRoom);
+    }
+
+    public Map<String, Double> getVariableMap(){
+        return myVariables;
+    }
+
+    public void setVariableMap(Map<String, Double> m){
+        myVariables = m;
     }
 
     public void setStartRoom(int index) {

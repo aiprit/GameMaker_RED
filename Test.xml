@@ -1,5 +1,6 @@
-x<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game currentRoom="0" directory="Games/TestGame2/" startRoom="0" title="TestGame2">
+  <variableMap TestGame2="1.0"/>
   <objects>
     <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">
       <events>
@@ -28,47 +29,129 @@ x<?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <room backgroundColor="TestGame/background.png" height="500.0" name="Level 1" width="2000.0">
       <view height="500.0" name="MainView" width="500.0" x="0.0" y="0.0"/>
       <objectInstances>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="136.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="72.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="460.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="524.0" y="264.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="255.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="319.0" y="200.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="256.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="320.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="384.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="448.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="512.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="576.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="640.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="704.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="768.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="832.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="896.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="960.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1024.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1088.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1152.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1216.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1280.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1344.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1408.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1472.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1536.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1600.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1664.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1728.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1792.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1856.0" y="328.0" zIndex="0"/>
-        <objectInstance ID="1449282124668" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Mario" scaleX="1.0" scaleY="1.0" visibility="true" x="200.0" y="20.0" zIndex="0"/>
+        <objectInstance ID="1449294024562" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="136.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="72.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="460.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="524.0" y="264.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="255.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="319.0" y="200.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="0.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="64.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="128.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="192.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="256.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="320.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="384.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="448.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="512.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="576.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="640.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="704.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="768.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="832.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="896.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="960.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1024.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1088.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1152.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1216.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1280.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1344.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1408.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1472.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1536.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1600.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1664.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1728.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1792.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Wall" scaleX="1.0" scaleY="1.0" visibility="true" x="1856.0" y="328.0" zIndex="0">
+          <variableMap Wall="1.0"/>
+        </objectInstance>
+        <objectInstance ID="1449294024563" alpha="1.0" angle="0.0" angularVelocity="0.0" parentObject="Mario" scaleX="1.0" scaleY="1.0" visibility="true" x="200.0" y="20.0" zIndex="0">
+          <variableMap Mario="1.0"/>
+        </objectInstance>
       </objectInstances>
     </room>
   </rooms>
