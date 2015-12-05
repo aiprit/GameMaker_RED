@@ -20,5 +20,6 @@ public class GlobalMousePressedPopUp extends MousePopUp{
 	@Override
 	public void eventPopup() {
 			EventController p = new EventController(new GlobalMousePressedEvent(key),myObject,myGame);
+			p.showAndWait();
 	}
 }

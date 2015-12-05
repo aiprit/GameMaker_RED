@@ -30,6 +30,6 @@ public class ObjectCreatePopUp extends BasicPopUp{
 	public void eventPopup() {
 		EventController p = new EventController(new ObjectCreateEvent(),myObject,myGame);
 
-
+		p.showAndWait();
 	}
 }

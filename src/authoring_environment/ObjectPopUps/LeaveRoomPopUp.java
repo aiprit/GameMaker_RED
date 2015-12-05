@@ -20,6 +20,7 @@ public class LeaveRoomPopUp extends BasicPopUp{
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new LeaveRoomEvent(), myObject,myGame);
+		p.showAndWait();
 	}
 
 }

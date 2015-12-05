@@ -78,12 +78,5 @@ public abstract class KeyPopUp  extends BasicPopUp{
 
 	}
 
-	protected void nullAlert(){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("No Key Selected");
-		alert.setContentText("Please Select a Key");
-		alert.showAndWait();
-	}
 
 }

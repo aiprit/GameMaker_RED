@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import authoring_environment.PopUpError;
 import authoring_environment.Action.ActionController;
 import authoring_environment.ParamPopups.ParamController;
 import authoring_environment.ParamPopups.ParamBoxFactory.ObjectMenu;
@@ -309,7 +310,7 @@ public class EventController {
 
 		}
 		catch (NullPointerException e){
-			alertPopUp();
+			PopUpError er = new PopUpError();
 		}
 
 
@@ -333,34 +334,33 @@ public class EventController {
 		}
 	}
 
-	private boolean paramPopUps(IParameter p) {
+//	private boolean paramPopUps(IParameter p) {
+//
+//		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
+//		dialog.setTitle("Set Parameters");
+//		dialog.setHeaderText("Please Enter Value");
+//		dialog.setContentText(p.getTitle()+" "+p.getType());
+//		Optional<String> result = dialog.showAndWait();
+//		if (result.isPresent()){
+//			try {
+//				p.parse(result.get());
+//			} catch (ParameterParseException e) {
+//				PopUpError er = new PopUpError();
+//				paramPopUps(p);
+//			}
+//			System.out.println(result.get());
+//			return true;
+//		}
+//		else
+//			return false;
+//
+//	}
 
-		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
-		dialog.setTitle("Set Parameters");
-		dialog.setHeaderText("Please Enter Value");
-		dialog.setContentText(p.getTitle()+" "+p.getType());
-		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-			try {
-				p.parse(result.get());
-			} catch (ParameterParseException e) {
-				alertPopUp();
-				paramPopUps(p);
-			}
-			System.out.println(result.get());
-			return true;
-		}
-		else
-			return false;
 
-	}
 
-	private void alertPopUp() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Invalid Parameter");
-		alert.setContentText("Please Reenter");
-		alert.showAndWait();
+	public void showAndWait() {
+		myView.showAndWait();
+
 	}
 }
 
