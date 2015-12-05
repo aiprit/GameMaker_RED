@@ -37,7 +37,7 @@ public class RunGame implements IRun {
 		// Convert Rooms
 		myRooms = new ArrayList<RunRoom>();
 		for (DataRoom dataRoom : dataGame.getRooms()) {
-		    myRooms.add(new RunRoom((DataRoom) dataRoom, myConverter));
+		    myRooms.add(new RunRoom(myName, (DataRoom) dataRoom, myConverter));
 		}
 		
 		// How we know if this a saved load: is the current Room null?
