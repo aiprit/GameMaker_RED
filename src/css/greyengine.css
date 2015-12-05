@@ -1,16 +1,16 @@
 .root {
-    -fx-font-size: 30pt;
+    -fx-font-size: 12pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
-    -fx-base: rgb(153, 230, 255);
-    -fx-background: rgb(77, 166, 255);
+    -fx-base: #a6a6a6;
+    -fx-background: #666666;
 }
 
 .button {
     -fx-text-fill: #ffffff;
     -fx-background-color: #262626;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-padding: 8;
+    -fx-border-radius: 2;
+    -fx-background-radius: 4;
+    -fx-padding: 2;
 }
 
 .button:hover {
@@ -20,21 +20,25 @@
 .combo-box-base {
     -fx-text-base-color: #ffffff;
     -fx-background-color: #262626;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 .combo-box-base:hover {
     -fx-background-color: #3a3a3a;
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 8pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
-    -fx-text-fill: #006464;
+    -fx-text-fill: #000000;
     -fx-opacity: 0.6;
 }
 
 .text-field {
-    -fx-font-size: 14pt;
+    -fx-font-size: 8pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
+}
+
+.grid {
+	-fx-padding: 10;
 }

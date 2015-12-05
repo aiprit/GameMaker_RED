@@ -7,8 +7,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import Player.Launcher;
 import XML.XMLEditor;
 import engine.events.EventManager;
 import engine.events.IGUIControllerHandler;
@@ -141,9 +139,8 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	@Override
 	public void onSave() {
 		//TODO: move save to the controller
-		DataGame currentGameData;
 		try {
-			currentGameData = currentRunGame.toData();
+			currentRunGame.toData();
 		}
 		catch (CompileTimeException e) {
 		}
