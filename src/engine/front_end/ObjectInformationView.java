@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import structures.run.IParameters;
 
+/**
+ * @author brennamilligan
+ */
 public class ObjectInformationView extends VBox {
     public static final String COLON = ":";
     
