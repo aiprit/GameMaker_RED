@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import structures.data.actions.params.IParameter;
@@ -50,6 +51,10 @@ public class ParamFactory {
 				box.getChildren().add(menu.makeMenu());
 			}
 			else if(label.get(i).getType().toString().equals("GROOVY")){
+				if(i==0){
+					box.getChildren().add(new TextArea(label.get(i).getOriginal()));
+				}
+				else
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			hBoxList.add(box);
