@@ -2,7 +2,7 @@ package authoring_environment.room.button_toolbar;
 
 import java.util.ResourceBundle;
 
-import authoring_environment.room.grid.GridSizeSpinner;
+import authoring_environment.room.grid.GridSpinnerContainer;
 import authoring_environment.room.preview.RoomCanvas;
 import structures.data.IDataRoom;
 
@@ -17,7 +17,7 @@ public class ButtonToolbarController {
 	private SetBackgroundController mySetBackgroundController;
 	private SetSizeController mySetSizeController;
 	private GridButton myGridButton;
-	private GridSizeSpinner myGridSizeSpinner;
+	private GridSpinnerContainer myGridSizeSpinner;
 	
 	public ButtonToolbarController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room, String gameName) {
 		myResources = resources;
@@ -37,7 +37,7 @@ public class ButtonToolbarController {
 		ShowViewButton viewButton = new ShowViewButton(myResources, myCanvas.getRoomView());
 		viewButton.setOnAction(e -> showHideView(viewButton));
 		myGridButton = new GridButton(myResources, myCanvas);
-		myGridSizeSpinner = new GridSizeSpinner(myCanvas);
+		myGridSizeSpinner = new GridSpinnerContainer(myResources, myCanvas);
 		view.addButton(mySetBackgroundController.getSetBackgroundButton());
 		view.addButton(mySetSizeController.getSetSizeButton());
 		view.addButton(viewButton);

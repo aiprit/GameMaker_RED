@@ -42,7 +42,7 @@ public class ButtonToolbar extends ToolBar {
 	
 	private void initializeButtonPane() {
 		myButtonPane = new HBox();
-		myButtonPane.setAlignment(Pos.TOP_LEFT);
+		myButtonPane.setAlignment(Pos.CENTER);
 		myButtonPane.setSpacing(BUTTON_SPACING);
 		myPane.getChildren().add(myButtonPane);
 		myPane.setLeftAnchor(myButtonPane, ANCHOR_PANE_OFFSET);
