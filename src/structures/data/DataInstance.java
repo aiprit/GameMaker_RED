@@ -1,14 +1,14 @@
 package structures.data;
 
-import java.awt.image.BufferedImage;
-
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.image.Image;
 import utils.Vector;
 
 public class DataInstance {
 
     private double myX, myY;
-
+    private Map<String, Double> myVariables = new HashMap<>();
     private long myID;
     private DataObject myParentObject;
     private boolean myVisible;
