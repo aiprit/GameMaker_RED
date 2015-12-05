@@ -73,7 +73,7 @@ public class RunObjectConverter {
 		}
 		
 		// Properties that come from DataObject and not DataInstance
-		run.solid( data.isSolid() );
+		run.setSolid( data.isSolid() );
 		
 		// Add to our Master Object Map
 		myMasterObjects.put(run.name(), run);
@@ -109,24 +109,24 @@ public class RunObjectConverter {
 		RunObject run = fetchMaster(instance.getParentObject().getName()).clone();
 		
 		// Transfer instance characteristics from DataInstance to the RunObject
-		run.x( instance.getX() );
-		run.y( instance.getY() );
-		run.scaleX( instance.getScaleX() );
-		run.scaleY( instance.getScaleY() );
-		run.velocity( instance.getVelocity() );
-		run.angle( instance.getAngle() );
-		run.angularVelocity( instance.getAngularVelocity() );
-		run.visible( instance.isVisible() );
-		run.gravity( instance.getGravity() );
-		run.friction( instance.getFriction() );
+		run.setX( instance.getX() );
+		run.setY( instance.getY() );
+		run.setScaleX( instance.getScaleX() );
+		run.setScaleY( instance.getScaleY() );
+		run.getVelocity( instance.getVelocity() );
+		run.setAngle( instance.getAngle() );
+		run.setAngularVelocity( instance.getAngularVelocity() );
+		run.setVisible( instance.isVisible() );
+		run.setGravity( instance.getGravity() );
+		run.setFriction( instance.getFriction() );
 		run.setInstanceId(instance.getID());
 		
 		return run;
 	}
 	public RunObject instantiate(String name, double x, double y) throws GameRuntimeException {
 		RunObject run = fetchMaster(name).clone();
-		run.x( x );
-		run.y( y );
+		run.setX( x );
+		run.setY( y );
 		return run;
 	}
 	
@@ -134,19 +134,19 @@ public class RunObjectConverter {
             
 	    DataObject parentObject = myMasterDataObjects.get(runObject.name());
 	    long ID = runObject.instance_id();
-	    double x = runObject.x();
-	    double y = runObject.y();
+	    double x = runObject.getX();
+	    double y = runObject.getY();
 	    DataInstance dataInstance = new DataInstance(parentObject, x, y, ID, 1.0, 1.0);
             
-	    dataInstance.setVisible(runObject.visible());
-	    dataInstance.setAngle(runObject.angle());
-	    dataInstance.setAngularVelocity(runObject.angularVelocity());
-	    dataInstance.setScaleX(runObject.scaleX());
-	    dataInstance.setScaleY(runObject.scaleY());
-	    dataInstance.setAlpha(runObject.alpha());
-	    dataInstance.setVelocity(runObject.velocity());
-	    dataInstance.setFriction(runObject.friction());
-	    dataInstance.setGravity(runObject.gravity());
+	    dataInstance.setVisible(runObject.isVisible());
+	    dataInstance.setAngle(runObject.getAngle());
+	    dataInstance.setAngularVelocity(runObject.getAngularVelocity());
+	    dataInstance.setScaleX(runObject.getScaleX());
+	    dataInstance.setScaleY(runObject.setScaleY());
+	    dataInstance.setAlpha(runObject.getAlpha());
+	    dataInstance.setVelocity(runObject.setVelocity());
+	    dataInstance.setFriction(runObject.getFriction());
+	    dataInstance.setGravity(runObject.getGravity());
             
         return dataInstance;
     }

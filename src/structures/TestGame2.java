@@ -12,6 +12,7 @@ import structures.data.*;
 import structures.data.actions.MoveTo;
 import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
+import structures.data.events.CollisionEvent;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.StepEvent;
@@ -47,6 +48,10 @@ public class TestGame2 {
 
         DataSprite wallSprite = new DataSprite("Wall", "beaten_brick_tiled.png");
         wall.setSprite(wallSprite);
+        
+        DataObject coin = new DataObject("Coin");
+        DataSprite coinSprite = new DataSprite("Coin", "coin.png");
+        coin.setSprite(coinSprite);
 
         DataObject mario = new DataObject("Mario");
 
@@ -69,20 +74,25 @@ public class TestGame2 {
         MoveTo up = new MoveTo();
         MoveTo down = new MoveTo();
         RunScript step = new RunScript();
+        RunScript collide = new RunScript();
         SetVelocityInDirection jump = new SetVelocityInDirection();
 
         String stepScript = "" +
-        "library.set_scroller_x(current, 0.5);\n" +
+        "library.set_scroller_x(current(), 0.5);\n" +
         "if (library.key_down('LEFT') && !library.key_down('RIGHT')) {\n" +
-        "current.set_velocity(180,1, true); \n"+
+        "current().set_velocity(180,1, true); \n"+
         "} \n" +
         "if (library.key_down('Right') && !library.key_down('left')) {\n"+
-        "current.set_velocity(0, 1, true);\n" +
+        "current().set_velocity(0, 1, true);\n" +
         "}\n";
         
         String createScript = "" +
-        "current.asdf = 3.14159\n" + 
-        "library.print(current.asdf);\n";
+        "current().asdf = 3.14159\n" + 
+        "library.print(current().asdf);\n";
+        
+        String collideScript = 
+        		"with(event.other);\n" +
+        "current().move_to(20, 0, true);\n end(); \n current().move_to(-20, 0, true);\n";
         
         RunScript create = new RunScript();
 
@@ -117,6 +127,8 @@ public class TestGame2 {
 	        step.getParameters().get(0).parse(stepScript);
 	        
 	        create.getParameters().get(0).parse(createScript);
+	        
+	        collide.getParameters().get(0).parse(collideScript);
 
         } catch (ParameterParseException ex) {
         	System.out.println(ex.getMessage());
@@ -139,6 +151,9 @@ public class TestGame2 {
         ObservableList<IAction> createActions0 = FXCollections.observableList(createActions);
         List<IAction> jumpActions = Collections.singletonList(jump);
         ObservableList<IAction> jumpActions0 = FXCollections.observableList(jumpActions);
+        
+        List<IAction> collideActions = Collections.singletonList(collide);
+        ObservableList<IAction> collisionActions0 = FXCollections.observableList(collideActions);
 
         //mario.bindEvent(new KeyPressedEvent(KeyCode.LEFT), leftActionsO);
         //mario.bindEvent(new KeyPressedEvent(KeyCode.RIGHT), rightActionsO);
@@ -148,6 +163,7 @@ public class TestGame2 {
         //mario.bindEvent(new CollisionEvent(wall), blockActions0);
         mario.bindEvent(StepEvent.event, stepActions0);
         mario.bindEvent(ObjectCreateEvent.event, createActions0);
+        mario.bindEvent(new CollisionEvent(coin), collisionActions0);
 
 
         //player.addEvent(new CollisionEvent(coin));
@@ -172,6 +188,7 @@ public class TestGame2 {
         level1.addObjectInstance(new DataInstance(wall, 524, 264));
         level1.addObjectInstance(new DataInstance(wall, 255, 200));
         level1.addObjectInstance(new DataInstance(wall, 319, 200));
+        level1.addObjectInstance(new DataInstance(coin, 100, 100));
 
         for (int i=0; i<30; i++) {
         	level1.addObjectInstance(new DataInstance(wall, 64 * i, 328));
@@ -185,9 +202,11 @@ public class TestGame2 {
 
         testGame.addObject(mario);
         testGame.addObject(wall);
+        testGame.addObject(coin);
 
         testGame.addSprite(wallSprite);
         testGame.addSprite(marioSprite);
+        testGame.addSprite(coinSprite);
 
         testGame.addRoom(level1);
         testGame.setStartRoom(level1);

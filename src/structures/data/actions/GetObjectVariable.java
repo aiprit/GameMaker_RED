@@ -25,7 +25,7 @@ public class GetObjectVariable extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "if (current.get_variable('%s') %s %f)";
+		return "if (current().get_variable('%s') %s %f)";
 	}
 
 }

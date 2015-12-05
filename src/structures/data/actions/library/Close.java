@@ -10,17 +10,17 @@ public class Close extends DataAction {
 	
 	@Override
 	public String getTitle() {
-		return "Close";
+		return "◤ Close";
 	}
 
 	@Override
 	public String getDescription() {
-		return "close a block statement";
+		return "◤";
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "\n}\n";
+		return "\n} end();\n";
 	}
 
 }

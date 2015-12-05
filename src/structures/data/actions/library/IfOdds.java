@@ -21,7 +21,7 @@ public class IfOdds extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "if (%f > library.random_number(%f))";
+		return "with();\nif (%f > library.random_number(%f))";
 	}
 
 }

@@ -23,7 +23,7 @@ public class IfGlobalVar extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "if (globals.%s %s (%s))";
+		return "with(); if (globals.%s %s (%s))";
 	}
 	
 	

@@ -75,7 +75,7 @@ public class CollisionManager {
 	public boolean collisionSolidAt(RunObject obj, String otherObjectName, double x, double y) {
 		List<RunObject> otherObjects = myCollideables.get(otherObjectName);
 		for (RunObject other : otherObjects) {
-			if (!other.solid()) {
+			if (!other.isSolid()) {
 				return false;
 			}
 			if (myCollider.collidesAt(obj, x, y, other)) {

@@ -10,9 +10,9 @@ public class RectangleCollider implements ICollider {
 		if (one.name().equals("Mario") || two.name().equals("Mario")) {
 			if (one.getBounds().intersects(two.getBounds())) {
 				if (one.name().equals("Mario")) {
-				System.out.println(String.format("Mario collides at (%.1f, %.1f)", one.x(), one.y()));
+				System.out.println(String.format("Mario collides at (%.1f, %.1f)", one.getX(), one.getY()));
 				} else {
-				System.out.println(String.format("Mario collides at (%.1f, %.1f)", two.x(), two.y()));
+				System.out.println(String.format("Mario collides at (%.1f, %.1f)", two.getX(), two.getY()));
 				}
 			}
 		}

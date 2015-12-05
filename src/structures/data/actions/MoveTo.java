@@ -28,7 +28,7 @@ public class MoveTo extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.move_to(%f, %f, %b);";
+		return "current().move_to(%f, %f, %b);";
 	}
 
 }

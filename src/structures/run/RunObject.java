@@ -328,41 +328,31 @@ public class RunObject implements IParameters {
 		return this.name;
 	}
 	
-	public double x() {
+	public double getX() {
 		return this.x;
 	}
-	public void x(double x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	
-	public double getAsdf() {
-		System.out.println("Getting ASDF");
-		return this.asdf;
-	}
-	
-	public void setAsdf(double asdf) {
-		System.out.println("setting ASFD");
-		this.asdf = asdf;
-	}
 
-	public double y() {
+	public double getY() {
 		return this.y;
 	}
-	public void y(double y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
-	public double scaleX() {
+	public double getScaleX() {
 		return this.scaleX;
 	}
-	public void scaleX(double scaleX) {
+	public void setScaleX(double scaleX) {
 		this.scaleX = scaleX;
 	}
 	
-	public double scaleY() {
+	public double setScaleY() {
 		return this.scaleY;
 	}
-	public void scaleY(double scaleY) {
+	public void setScaleY(double scaleY) {
 		this.scaleY = scaleY;
 	}
 	
@@ -371,59 +361,59 @@ public class RunObject implements IParameters {
 		this.scaleY = scaleY;
 	}
 	
-	public double angle() {
+	public double getAngle() {
 		return this.angle;
 	}
-	public void angle(double angle) {
+	public void setAngle(double angle) {
 		this.angle = angle;
 	}
 	
-	public double angularVelocity() {
+	public double getAngularVelocity() {
 		return this.angularVelocity;
 	}
-	public void angularVelocity(double angularVelocity) {
+	public void setAngularVelocity(double angularVelocity) {
 		this.angularVelocity = angularVelocity;
 	}
 	
-	public boolean visible() {
+	public boolean isVisible() {
 		return this.visible;
 	}
-	public void visible(boolean visible) {
+	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
 	
-	public Vector velocity() {
+	public Vector setVelocity() {
 		return this.velocity;
 	}
-	public void velocity(Vector velocity) {
+	public void getVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
 	
-	public Vector gravity() {
+	public Vector getGravity() {
 		return this.gravity;
 	}
-	public void gravity(Vector gravity) {
+	public void setGravity(Vector gravity) {
 		this.gravity = gravity;
 	}
 	
-	public double alpha() {
+	public double getAlpha() {
 		return this.alpha;
 	}
-	public void alpha(double alpha) {
+	public void setAlpha(double alpha) {
 		this.alpha = alpha;
 	}
 	
-	public double friction() {
+	public double getFriction() {
 		return this.friction;
 	}
-	public void friction(double friction) {
+	public void setFriction(double friction) {
 		this.friction = friction;
 	}
 	
-	public boolean solid() {
+	public boolean isSolid() {
 		return this.solid;
 	}
-	public void solid(boolean solid) {
+	public void setSolid(boolean solid) {
 		this.solid = solid;
 	}
 

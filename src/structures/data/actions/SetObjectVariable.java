@@ -30,7 +30,7 @@ public class SetObjectVariable extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.set_variable('%s', %f, %b);";
+		return "current().set_variable('%s', %f, %b);";
 	}
 
 }

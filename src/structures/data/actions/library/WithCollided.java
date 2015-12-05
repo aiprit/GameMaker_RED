@@ -2,25 +2,25 @@ package structures.data.actions.library;
 
 import structures.data.DataAction;
 
-public class Open extends DataAction {
-
-	public Open(){
-		init();
-	}
+public class WithCollided extends DataAction {
 	
+	public WithCollided() {
+		
+	}
+
 	@Override
 	public String getTitle() {
-		return "◣ Open";
+		return "With Collided";
 	}
 
 	@Override
 	public String getDescription() {
-		return "◣";
+		return "With Collided Object:";
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "{ \n";
+		return "with(event.other);\n";
 	}
-
+	
 }
