@@ -171,7 +171,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		Button openButton = new Button();
 		openButton.setGraphic(new ImageView(DEFAULT_IMAGE_PACKAGE + "open.png"));
 		openButton.setOnMouseClicked(e -> {
-
+			myEventManager.onLoadSave("10");
 		});
 
 		ToolBar tBar = new ToolBar(playButton, pauseButton, resetButton, saveButton, openButton);
