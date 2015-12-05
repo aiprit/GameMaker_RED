@@ -1,12 +1,13 @@
 package structures.data.actions.library;
 
 import structures.data.DataAction;
+import structures.data.actions.params.SoundParam;
 import structures.data.actions.params.StringParam;
 
 public class PlaySound extends DataAction {
 	
 	public PlaySound(){
-		init(new StringParam("Sound"));
+		init(new SoundParam("Sound"));
 	}
 
 	@Override

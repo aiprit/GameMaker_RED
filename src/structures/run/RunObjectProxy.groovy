@@ -1,3 +1,5 @@
+import structures.run.RunObject
+
 class GroovyRunObjectProxy {
 
 	private List<RunObject> myChildren;
