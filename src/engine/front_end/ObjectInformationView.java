@@ -2,7 +2,6 @@ package engine.front_end;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
@@ -26,7 +25,6 @@ public class ObjectInformationView extends VBox {
     private Map<String, Boolean> myBooleanMap;
     private IParameters myParameterObject;
 
-    @SuppressWarnings("unchecked")
     public ObjectInformationView(IParameters parameterObject) {
         myParameterObject = parameterObject;
         this.setWidth(500);
@@ -34,8 +32,8 @@ public class ObjectInformationView extends VBox {
         myGrid.setVgap(15);
         myGrid.getStyleClass().add("grid");
         this.getChildren().add(myGrid);
-        myOriginalDoubleMap = (Map<String, Double>) ((TreeMap<String, Double>) myParameterObject.getDoubleMap()).clone();
-        myOriginalBooleanMap = (Map<String, Boolean>) ((TreeMap<String, Boolean>) myParameterObject.getBooleanMap()).clone();
+        myOriginalDoubleMap = myParameterObject.getOriginalDoubleMap();
+        myOriginalBooleanMap = myParameterObject.getOriginalBooleanMap();
         populateStringParameters(myParameterObject.getStringMap());
         populateDoubleParameters(myParameterObject.getDoubleMap());
         populateBooleanParameters(myParameterObject.getBooleanMap());

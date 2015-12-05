@@ -41,11 +41,9 @@ public class RunObject implements IParameters {
 	public static final double MAX_VELOCITYY = 10;
 	public static final double MAX_GRAVITYX = 40;
 	public static final double MAX_GRAVITYY = 40;
-	
-	double asdf;
 
-	double x;
-	double y;
+	private double x;
+	private double y;
 
 	private String name;
 	private double scaleX;
@@ -70,6 +68,9 @@ public class RunObject implements IParameters {
 	private Map<String, Boolean> myBooleanMap;
 	private Map<String, String> myStringMap;
 	private Map<String, Double> myDoubleMap;
+	private Map<String, Boolean> myOriginalBooleanMap;
+        private Map<String, String> myOriginalStringMap;
+        private Map<String, Double> myOriginalDoubleMap;
 
 	public RunObject(String name) {
 		this.name = name;
@@ -93,7 +94,6 @@ public class RunObject implements IParameters {
 		myDoubleMap = new TreeMap<>();
 
 		myBounds = new Rectangle(0, 0, 0, 0);
-		initMaps();
 	}
 
 	/*
@@ -411,5 +411,37 @@ public class RunObject implements IParameters {
 	public void setSolid(boolean solid) {
 		this.solid = solid;
 	}
+
+    @Override
+    public void setOriginalParameterMaps () {
+        myOriginalStringMap.put(NAME, name);
+        myOriginalDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
+        myOriginalDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);
+        myOriginalDoubleMap.put(ANGLE, angle/MAX_ANGLE);
+        myOriginalDoubleMap.put(ANGULAR_VELOCITY, angularVelocity/MAX_ANGULAR_VELOCITY);
+        myOriginalBooleanMap.put(VISIBLE, visible);
+        myOriginalDoubleMap.put(ALPHA, alpha/MAX_ALPHA);
+        myOriginalDoubleMap.put(FRICTION, friction/MAX_FRICTION);
+        myOriginalDoubleMap.put(VELOCITYX, velocity.x/MAX_VELOCITYX*2+.5);
+        myOriginalDoubleMap.put(VELOCITYY, velocity.y/MAX_VELOCITYY*2+.5);
+        myOriginalDoubleMap.put(GRAVITYX, gravity.x/MAX_GRAVITYX*2+.5);
+        myOriginalDoubleMap.put(GRAVITYY, gravity.y/MAX_GRAVITYY*2+.5);
+        myOriginalBooleanMap.put(SOLID, solid);
+    }
+
+    @Override
+    public Map<String, Double> getOriginalDoubleMap () {
+        return myOriginalDoubleMap;
+    }
+
+    @Override
+    public Map<String, String> getOriginalStringMap () {
+        return myOriginalStringMap;
+    }
+
+    @Override
+    public Map<String, Boolean> getOriginalBooleanMap () {
+        return myOriginalBooleanMap;
+    }
 
 }
