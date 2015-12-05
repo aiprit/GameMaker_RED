@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
+import exceptions.GameRuntimeException;
 import structures.data.DataSprite;
 import structures.data.interfaces.IDataEvent;
 import utils.Vector;
@@ -40,9 +41,11 @@ public class RunObject implements IParameters {
 	public static final double MAX_VELOCITYY = 10;
 	public static final double MAX_GRAVITYX = 40;
 	public static final double MAX_GRAVITYY = 40;
+	
+	double asdf;
 
-	private double x;
-	private double y;
+	double x;
+	double y;
 
 	private String name;
 	private double scaleX;
@@ -63,7 +66,7 @@ public class RunObject implements IParameters {
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
 
-	private Map<String, Double> myVariables;
+	private Map<String, Object> myVariables;
 	private Map<String, Boolean> myBooleanMap;
 	private Map<String, String> myStringMap;
 	private Map<String, Double> myDoubleMap;
@@ -266,24 +269,18 @@ public class RunObject implements IParameters {
 			this.y = y;
 		}
 	}
-
-	public double get_variable(String key){
-		if(!myVariables.containsKey(key)){
-			myVariables.put(key, 0.0);
-		}
-		return myVariables.get(key);
+	
+	public void propertyMissing(String name, Object value) {
+		myVariables.put(name, value);
 	}
-
-	public void set_variable(String key, double value, boolean relative){
-		if(relative){
-			double oldValue = 0;
-			if(myVariables.containsKey(key)){
-				oldValue = myVariables.get(key);
-			}
-			myVariables.put(key, (oldValue + value));
-		}
-		else{
-			myVariables.put(key, value);
+	
+	public Object propertyMissing(String name) throws GameRuntimeException {
+		Object result = myVariables.get(name);
+		if (result != null) {
+			return result;
+		} else {
+			myVariables.put(name, 0.0);
+			return 0.0;
 		}
 	}
 
@@ -326,31 +323,31 @@ public class RunObject implements IParameters {
 		return this.name;
 	}
 	
-	public double x() {
+	public double getX() {
 		return this.x;
 	}
-	public void x(double x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public double y() {
+	public double getY() {
 		return this.y;
 	}
-	public void y(double y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
-	public double scaleX() {
+	public double getScaleX() {
 		return this.scaleX;
 	}
-	public void scaleX(double scaleX) {
+	public void setScaleX(double scaleX) {
 		this.scaleX = scaleX;
 	}
 	
-	public double scaleY() {
+	public double setScaleY() {
 		return this.scaleY;
 	}
-	public void scaleY(double scaleY) {
+	public void setScaleY(double scaleY) {
 		this.scaleY = scaleY;
 	}
 	
@@ -359,59 +356,59 @@ public class RunObject implements IParameters {
 		this.scaleY = scaleY;
 	}
 	
-	public double angle() {
+	public double getAngle() {
 		return this.angle;
 	}
-	public void angle(double angle) {
+	public void setAngle(double angle) {
 		this.angle = angle;
 	}
 	
-	public double angularVelocity() {
+	public double getAngularVelocity() {
 		return this.angularVelocity;
 	}
-	public void angularVelocity(double angularVelocity) {
+	public void setAngularVelocity(double angularVelocity) {
 		this.angularVelocity = angularVelocity;
 	}
 	
-	public boolean visible() {
+	public boolean isVisible() {
 		return this.visible;
 	}
-	public void visible(boolean visible) {
+	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
 	
-	public Vector velocity() {
+	public Vector setVelocity() {
 		return this.velocity;
 	}
-	public void velocity(Vector velocity) {
+	public void getVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
 	
-	public Vector gravity() {
+	public Vector getGravity() {
 		return this.gravity;
 	}
-	public void gravity(Vector gravity) {
+	public void setGravity(Vector gravity) {
 		this.gravity = gravity;
 	}
 	
-	public double alpha() {
+	public double getAlpha() {
 		return this.alpha;
 	}
-	public void alpha(double alpha) {
+	public void setAlpha(double alpha) {
 		this.alpha = alpha;
 	}
 	
-	public double friction() {
+	public double getFriction() {
 		return this.friction;
 	}
-	public void friction(double friction) {
+	public void setFriction(double friction) {
 		this.friction = friction;
 	}
 	
-	public boolean solid() {
+	public boolean isSolid() {
 		return this.solid;
 	}
-	public void solid(boolean solid) {
+	public void setSolid(boolean solid) {
 		this.solid = solid;
 	}
 

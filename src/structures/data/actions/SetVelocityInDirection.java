@@ -28,7 +28,7 @@ public class SetVelocityInDirection extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.set_velocity(%f, %f, %b);";
+		return "current().set_velocity(%f, %f, %b);";
 	}
 
 }

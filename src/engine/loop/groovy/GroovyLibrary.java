@@ -1,7 +1,5 @@
 package engine.loop.groovy;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import engine.events.EventManager;
 import engine.loop.InputManager;
@@ -21,18 +19,22 @@ public class GroovyLibrary {
 	private RunGame myRunGame;
 	private EventManager myEventManager;
 	private InputManager myInputManager;
-	private Map<String, Double> myGlobalVariables;
+	private GroovyGlobals myGlobals;
 
 	public GroovyLibrary(RunGame runGame, EventManager eventManager) {
 		myRunGame = runGame;
 		myEventManager = eventManager;
-		myGlobalVariables = new HashMap<>();
 		myInputManager = new InputManager(eventManager, false);
+		myGlobals = new GroovyGlobals(0.0);
 	}
 
 	private void fatalError(String message, Object... args) {
 		System.out.println(message);
 		System.exit(1);
+	}
+	
+	protected GroovyGlobals getGlobals() {
+		return myGlobals;
 	}
 	
 	public void print(String string) {
@@ -49,6 +51,10 @@ public class GroovyLibrary {
 	
 	public boolean key_up(String keyCode) {
 		return !key_down(keyCode);
+	}
+	
+	public boolean global_set(String varName) {
+		return myGlobals.isSet(varName);
 	}
 	
 	public double mouse_x() {
@@ -80,8 +86,8 @@ public class GroovyLibrary {
 		} catch (GameRuntimeException e) {
 			fatalError(e.getMessage());
 		}
-		runObject.x(x);
-		runObject.y(y);
+		runObject.setX(x);
+		runObject.setY(y);
 		myEventManager.onObjectCreate(runObject);
 	}
 
@@ -158,38 +164,10 @@ public class GroovyLibrary {
 		myEventManager.onReset();
 	}
 
-	public double get_variable(String key){
-		if(!myGlobalVariables.containsKey(key)){
-			myGlobalVariables.put(key, 0.0);
-		}
-		return myGlobalVariables.get(key);
-	}
-	
-	public void set_variable(String key, double value, boolean relative){
-		if(relative){
-			double oldValue = 0;
-			if(myGlobalVariables.containsKey(key)){
-				oldValue = myGlobalVariables.get(key);
-			}
-			myGlobalVariables.put(key, (oldValue + value));
-		}
-		else{
-			myGlobalVariables.put(key, value);
-		}
-	}
-	
-	public double global(String key) {
-		return get_variable(key);
-	}
-	
-	public void global(String key, double value) {
-		set_variable(key, value, false);
-	}
-
 	public void wrap(RunObject check){
-		double[] newCoordinates = wrapRecursion(check.x(), check.y());
-		check.x(newCoordinates[0]);
-		check.y(newCoordinates[1]);
+		double[] newCoordinates = wrapRecursion(check.getX(), check.getY());
+		check.setX(newCoordinates[0]);
+		check.setY(newCoordinates[1]);
 	}
 
 	private double[] wrapRecursion(double x, double y){
@@ -215,7 +193,7 @@ public class GroovyLibrary {
 	}
 
 	public void set_scroller_x(RunObject object, double xpercentage){
-		double currentX = object.x();
+		double currentX = object.getX();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		Point location = new Point(currentX, currentY);
@@ -224,33 +202,19 @@ public class GroovyLibrary {
 
 	public void set_scroller_y(RunObject object, double ypercentage){
 		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
-		double currentY = object.y();
+		double currentY = object.getY();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
 
 	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
-		double currentX = object.x();
-		double currentY = object.y();
+		double currentX = object.getX();
+		double currentY = object.getY();
 		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
 		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
-	}
-	
-	public void propertyMissing(String name, Object value) {
-		double num = 0.0;
-		try {
-			num = Double.parseDouble(value.toString());
-		} catch (NumberFormatException ex) {
-			// do nothing
-		}
-		global(name, num);
-	}
-	
-	public Object propertyMissing(String name) {
-		return global(name);
 	}
 
 }

@@ -4,7 +4,6 @@ import exceptions.ParameterParseException;
 import org.w3c.dom.Element;
 
 import structures.data.DataAction;
-import structures.data.actions.Block;
 import structures.data.actions.ChangeSprite;
 import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
@@ -90,9 +89,6 @@ public class ActionFactory {
         } else if (className.equals("Wrap")) {
             action = new Wrap();
             numberOfParameters = 0;
-        } else if (className.equals("Block")) {
-            action = new Block();
-            numberOfParameters = 1;
         } else if (className.equals("ChangeSprite")) {
             action = new ChangeSprite();
             numberOfParameters = 1;

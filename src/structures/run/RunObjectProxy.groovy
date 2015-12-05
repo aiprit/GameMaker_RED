@@ -1,0 +1,9 @@
+class GroovyRunObjectProxy {
+
+	private List<RunObject> myChildren;
+
+	public GroovyRunObjectProxy() {
+		myChildren = new ArrayList<RunObject>();
+		System.out.println("hello again");
+	}
+}
