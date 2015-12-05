@@ -1,18 +1,15 @@
 package authoring_environment.FileHandlers;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import XML.XMLEditor;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
@@ -35,9 +32,6 @@ import structures.data.DataSprite;
  */
 public class FileManager {
 	private static final String SPRITE = "sprite";
-	/**
-	 * 
-	 */
 	private static final String BACKGROUND = "background";
 	private static final String PNG = ".png";
 	private static ResourceBundle g = ResourceBundle.getBundle("resources/GameFileFormat");
