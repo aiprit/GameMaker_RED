@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -24,6 +25,10 @@ public class ViewSizePopup extends Stage {
 	private static final double TEXT_SCALE = 1.7;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	private static final String STYLESHEET = "authoring.css";
+	private static final String MIN_WIDTH = "ViewMinWidth";
+	private static final String MIN_HEIGHT = "ViewMinHeight";
+	private static final String MAX_WIDTH = "ViewMaxWidth";
+	private static final String MAX_HEIGHT = "ViewMaxHeight";
 	private static final int HEIGHT_PADDING = 150;
 	private static final int WIDTH_PADDING = 50;
 	private static final int SMALL_SPACE = 10;
@@ -38,15 +43,21 @@ public class ViewSizePopup extends Stage {
 	private TextField myViewWidth;
 	private TextField myViewHeight;
 	private Rectangle myViewPreview;
-	
+	private ScrollPane myScrollPane;
 	public ViewSizePopup(ResourceBundle resources) {
 		super();
 		myResources = resources;
 		super.setTitle(myResources.getString("ViewSize"));
+		super.setMinWidth(Double.parseDouble(myResources.getString(MIN_WIDTH)));
+		super.setMinHeight(Double.parseDouble(myResources.getString(MIN_HEIGHT)));
+		
+		super.setMaxHeight(Double.parseDouble(myResources.getString(MAX_HEIGHT)));
+		super.setMaxWidth(Double.parseDouble(myResources.getString(MAX_WIDTH)));
 		initializeContents();
 	}
 	
 	private void initializeContents() {
+		myScrollPane = new ScrollPane();
 		myContents = new VBox();
 		myContents.setSpacing(SPACING);
 		myContents.setAlignment(Pos.CENTER);
@@ -54,7 +65,8 @@ public class ViewSizePopup extends Stage {
 		initializePreview();
 		initializeTextFields();
 		initializeButtons();
-		Scene s = new Scene(myContents);
+		myScrollPane.setContent(myContents);
+		Scene s = new Scene(myScrollPane);
 		s.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		super.setScene(s);
 	}
@@ -114,8 +126,6 @@ public class ViewSizePopup extends Stage {
 		}
 		myViewPreview.setWidth(width);
 		myViewPreview.setHeight(height);
-		super.setWidth(width + WIDTH_PADDING);
-		super.setHeight(height + HEIGHT_PADDING);
 	}
 	
 	public void launchMinSizeErrorPopup(int minSize) {

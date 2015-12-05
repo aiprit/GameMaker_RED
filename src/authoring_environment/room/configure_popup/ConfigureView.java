@@ -22,14 +22,14 @@ public class ConfigureView extends PopupTemplate {
 	private static final String VISIBILITY = "Visibility";
 	private static final String NAME = "ConfigureParameters";
 	private static final int NUM_ROWS = 7;
-
+	private static final String CONFIGURE_WIDTH = "ConfigureWidth";
 	private RadioButton visibilityButton;
 	private List<TextField> fieldList;
 	private GridPane myGridPane;
 	
 	public ConfigureView(ResourceBundle resources) {
 		super(resources, NAME);
-		//myContentsBox.setMinWidth(600);
+		this.setMinWidth(Double.parseDouble(resources.getString(CONFIGURE_WIDTH)));
 	}
 	
 	@Override
@@ -43,7 +43,6 @@ public class ConfigureView extends PopupTemplate {
 		myGridPane.add(visibilityButton, 1, NUM_ROWS);
 		myGridPane.setAlignment(Pos.CENTER);
 		myContentsBox.getChildren().add(myGridPane);
-		//myGridPane.setMinWidth(600);
 	}
 	
 	public List<TextField> getFieldList() {
