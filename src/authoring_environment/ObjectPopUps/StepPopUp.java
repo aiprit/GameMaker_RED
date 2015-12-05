@@ -1,6 +1,5 @@
 package authoring_environment.ObjectPopUps;
 
-import java.util.List;
 
 import authoring_environment.Event.EventController;
 

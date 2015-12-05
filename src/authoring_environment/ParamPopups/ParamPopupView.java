@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import authoring_environment.ParamPopups.ParamBoxFactory.ParamFactory;
-import authoring_environment.room.configure_popup.GridPaneHandler;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,10 +18,10 @@ public class ParamPopupView extends Stage{
 	private Button save,cancel;
 	private VBox popUp;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ParamPopups/ParamResources");;
-	private RadioButton visibilityButton;
+
 	private List<HBox> fieldList;
 	private Scene myScene;
-	private Stage myStage;
+
 	public ParamPopupView(List<IParameter> list){
 		popUp = new VBox();
 		initializePopUp(list);
