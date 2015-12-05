@@ -56,6 +56,7 @@ public class RunObjectConverter {
 			for (IAction action : event.getValue()) {
 				groovy.append(action.compileSyntax());
 			}
+			System.out.println(groovy.toString());
 			RunAction runGroovy = new RunAction(groovy.toString());
 			run.bindEvent(event.getKey(), runGroovy);
 		}

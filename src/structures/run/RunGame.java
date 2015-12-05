@@ -21,6 +21,8 @@ public class RunGame implements IRun {
 	private RunResources myResources;
 	private RunObjectConverter myConverter;
 	private DataGame myDataGame;
+	
+	private int myViewHeight, myViewWidth;
 
 	public RunGame(DataGame dataGame) throws ResourceFailedException, CompileTimeException, RuntimeException {
 		
@@ -46,10 +48,21 @@ public class RunGame implements IRun {
 			findRoomName = dataGame.getCurrentRoom().getName();
 		}
 		myCurrentRoom = Utils.first(myRooms, e -> e.getName().equals(findRoomName), myRooms.get(0));
+		
+		myViewWidth = dataGame.getViewWidth();
+		myViewHeight = dataGame.getViewHeight();
 	}
 
 	public String getName() {
 		return myName;
+	}
+	
+	public int getViewWidth() {
+		return myViewWidth;
+	}
+	
+	public int getViewHeight() {
+		return myViewHeight;
 	}
 	
 	/*

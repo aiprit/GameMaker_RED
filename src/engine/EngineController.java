@@ -41,7 +41,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		myCurrentGame = getUserChoice();
 		currentRunGame = readObject();
 		try {
-			myFrontEnd = new FrontEnd(eventManager, stage, myCurrentGame);
+			myFrontEnd = new FrontEnd(currentRunGame.getViewWidth(), currentRunGame.getViewHeight(), eventManager, stage, myCurrentGame);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
