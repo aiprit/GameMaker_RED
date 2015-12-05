@@ -34,9 +34,6 @@ import structures.data.DataSprite;
  *         file (Naming conflict, file system issue), set methods return false.
  */
 public class FileManager {
-	/**
-	 * 
-	 */
 	private static final String SPRITE = "sprite";
 	/**
 	 * 
