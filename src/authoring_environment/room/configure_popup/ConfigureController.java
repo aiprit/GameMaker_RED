@@ -47,13 +47,8 @@ public class ConfigureController {
 	
 	private void populatePopUp() {
 		List<TextField> fieldList = configure.getFieldList();
-		setInput(0, fieldList, myDataInstance.getVelocity().x);
-		setInput(1, fieldList, myDataInstance.getVelocity().y);
-		setInput(2, fieldList, myDataInstance.getAngularVelocity());
-		setInput(3, fieldList, myDataInstance.getScaleX());
-		setInput(4, fieldList, myDataInstance.getScaleY());
-		setInput(5, fieldList, myDataInstance.getAngle());
-		setInput(6, fieldList, myDataInstance.getAlpha());
+		Double[] doublesToSet = {myDataInstance.getVelocity().x, myDataInstance.getVelocity().y, myDataInstance.getAngularVelocity(), myDataInstance.getScaleX(), myDataInstance.getScaleY(), myDataInstance.getAngle(), myDataInstance.getAlpha()};
+		setInput(7, fieldList, doublesToSet);
 		RadioButton visiblityButton = configure.getVisiblity();
 		visiblityButton.setSelected(myDataInstance.isVisible());
 		myDragImage.setAngle(myDataInstance.getAngle());
@@ -105,7 +100,9 @@ public class ConfigureController {
 		return Double.parseDouble(fieldList.get(n).getText());
 	}
 	
-	private void setInput(int n, List<TextField> fieldList, double doubleToSet) {
-		fieldList.get(n).setText(Double.toString(doubleToSet));
+	private void setInput(int n, List<TextField> fieldList, Double[] doublesToSet) {
+		for (int i = 0; i< n; i++) {
+			fieldList.get(i).setText(Double.toString(doublesToSet[i]));
+		}
 	}
 }

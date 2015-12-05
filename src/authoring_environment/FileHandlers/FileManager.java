@@ -162,6 +162,10 @@ public class FileManager {
 		}
 
 		// Convert to WritableImage
+		return imgToWriteableImage(img);
+	}
+
+	public static WritableImage imgToWriteableImage(BufferedImage img) {
 		WritableImage wr = null;
 		if (img != null) {
 			wr = new WritableImage(img.getWidth(), img.getHeight());
