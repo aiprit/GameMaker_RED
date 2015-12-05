@@ -48,7 +48,7 @@ public class ObjectEditorViewBottomPane {
 
 		close= new Button(bottomResources.getString("saveButtonTitle"));
 		close.setTranslateX(Integer.parseInt(bottomResources.getString("cancelButtonTranslateX")));
-		
+
 		checkBox = new CheckBox("Solid?");
 		checkBox.setTranslateX(Integer.parseInt(bottomResources.getString("checkBoxTranslateX")));
 //
@@ -77,12 +77,12 @@ public class ObjectEditorViewBottomPane {
 		hb.setTranslateX(translate);
 		return hb;
 	}
-	
+
 	private void initToolTip() {
 		Image helpIcon = new Image(getClass().getClassLoader().getResourceAsStream(bottomResources.getString("HelpTooltipIcon")));
 		myTooltip = new HelpIcon(bottomResources, helpIcon);
 		myTooltip.setTranslateX(Integer.parseInt(bottomResources.getString("tooltipTranslateX")));
-		box.getChildren().add(myTooltip);		
+		box.getChildren().add(myTooltip);
 	}
 
 	public Group getGroup() {
@@ -92,7 +92,7 @@ public class ObjectEditorViewBottomPane {
 	public TextField getNameBox() {
 		return nameBox;
 	}
-	
+
 	public CheckBox getCheckBox() {
 		return checkBox;
 	}
