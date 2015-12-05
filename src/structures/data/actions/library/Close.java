@@ -20,7 +20,7 @@ public class Close extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "\n} end();\n";
+		return "\n}\n end();\n";
 	}
 
 }
