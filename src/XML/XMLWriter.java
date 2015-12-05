@@ -100,6 +100,7 @@ public class XMLWriter {
         }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
+        object.setAttribute("solid", Boolean.toString(dataObject.isSolid()));
 
         Element events = doc.createElement("events");
         for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {

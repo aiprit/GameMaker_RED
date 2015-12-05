@@ -87,6 +87,7 @@ public class XMLReader {
                 obj.setScaleY(Double.parseDouble(elem.getAttribute("scaleY")));
                 obj.setZIndex(Integer.parseInt(elem.getAttribute("zIndex")));
                 obj.setSprite(game.getSpriteFromString(elem.getAttribute("sprite")));
+                obj.setSolid(Boolean.parseBoolean(elem.getAttribute("solid")));
 
                 game.addObject(obj);
             }
@@ -182,7 +183,7 @@ public class XMLReader {
 
                 DataRoom rm = new DataRoom(elem.getAttribute("name"),
                         Double.parseDouble(elem.getAttribute("width")),
-                        Double.parseDouble(elem.getAttribute("width")));
+                        Double.parseDouble(elem.getAttribute("height")));
 
                 rm.setBackgroundColor(elem.getAttribute("backgroundColor"));
 
