@@ -10,7 +10,6 @@ import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
 import structures.data.actions.MoveTo;
 import structures.data.actions.MoveToRandom;
-import structures.data.actions.RunScript;
 import structures.data.actions.ScaleSprite;
 import structures.data.actions.SetAcceleration;
 import structures.data.actions.SetFriction;
@@ -20,6 +19,7 @@ import structures.data.actions.SetVelocityToPoint;
 import structures.data.actions.Sleep;
 import structures.data.actions.ViewFollow;
 import structures.data.actions.library.*;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 
 import java.nio.charset.StandardCharsets;

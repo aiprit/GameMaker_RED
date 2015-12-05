@@ -49,6 +49,9 @@ public class ParamFactory {
 				SelectMenu menu = new SelectMenu(label.get(i));
 				box.getChildren().add(menu.makeMenu());
 			}
+			else if(label.get(i).getType().toString().equals("GROOVY")){
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
+			}
 			hBoxList.add(box);
 		}
 		return hBoxList;

@@ -281,13 +281,7 @@ public class EventController {
 				else{
 					myModel.addAction(act,index);
 				}
-				//			if(params !=null){
-				//				for(IParameter p :params){
-				//					if(!paramPopUps(p))
-				//						break;
-				//				}
-				//			}
-				//			myModel.addAction(act);
+
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
