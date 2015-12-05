@@ -11,6 +11,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import XML.XMLEditor;
+import authoring_environment.main.WelcomeWizardView;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import groovy.util.ResourceException;
@@ -22,6 +23,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataSound;
 import structures.data.DataSprite;
@@ -291,6 +293,7 @@ public class FileManager {
 	 * @return
 	 */
 	public static String askName(String defaultText) {
+		WelcomeWizardView wizard;
 		TextInputDialog dialog = new TextInputDialog(defaultText);
 		dialog.setTitle(defaultText);
 		dialog.setHeaderText(null);
@@ -299,9 +302,10 @@ public class FileManager {
 
 		if (result.isPresent()) {
 			return result.get();
-		} else
-			// TODO: Better handling, cancel handling
-			return "null";
+		} 
+		else {
+			return null;
+		}
 	}
 
 	/**
