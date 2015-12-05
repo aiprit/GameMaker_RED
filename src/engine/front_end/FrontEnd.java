@@ -12,6 +12,8 @@ import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
 import engine.events.IRoomUpdatedHandler;
 import exceptions.ResourceFailedException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -181,7 +183,13 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		ChoiceBox<String> cb = new ChoiceBox<String>();
 		cb.setFocusTraversable(false);
 		cb.getItems().addAll(addGamesFromDirectory());
-			cb.setOnAction(e -> onGameChange(cb.getValue()));
+			//cb.setOnAction(e -> onGameChange(cb.getValue()));
+			//cb.addEventHandler(ChoiceBox, e -> onGameChange(cb.getValue()));
+		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+				public void changed(ObservableValue<? extends String> source, String oldValue, String newValue)
+				{
+					onGameChange(cb.getValue());
+				}});
 		change.getChildren().addAll(changeTitle, cb);
 
 		hbox.getChildren().add(tBar);
