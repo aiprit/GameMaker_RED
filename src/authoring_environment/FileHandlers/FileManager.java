@@ -27,13 +27,13 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 
 /**
- * @author loganrooper Handles read and writing resources If it cannot write a
- *         file (Naming conflict, file system issue), set methods return false.
+ * @author loganrooper Handles read and writing resources
  */
 public class FileManager {
 	private static final String SPRITE = "sprite";
 	private static final String BACKGROUND = "background";
 	private static final String PNG = ".png";
+	private static final String PNG_EXT = "PNG";
 	private static ResourceBundle g = ResourceBundle.getBundle("resources/GameFileFormat");
 	String myGameName;
 
@@ -76,9 +76,8 @@ public class FileManager {
 
 			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
 			try {
-				ImageIO.write(bim, "png", image);
+				ImageIO.write(bim, PNG_EXT, image);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -144,11 +143,12 @@ public class FileManager {
 		try {
 			switch (type) {
 			case BACKGROUND:
-				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory") + imgName
-						+ PNG;
+				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory") + imgName;
+				break;
 			case SPRITE:
 				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + imgName
 						+ PNG;
+				break;
 			}
 
 			img = ImageIO.read(new File(url));
@@ -156,6 +156,7 @@ public class FileManager {
 				// wait for size to be known
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			String message = "Failed to load image '%s' for name '%s'";
 			throw new ResourceFailedException(message, url, imgName);
 		}
@@ -191,7 +192,7 @@ public class FileManager {
 
 		File localFile = new File(url);
 		System.out.println(localFile.getAbsolutePath());
-		ImageIO.write(img, "png", localFile);
+		ImageIO.write(img, PNG_EXT, localFile);
 		newSprite = new DataSprite(name, localFile.getName());
 		newSprite.load(myGameName);
 		return newSprite;
@@ -214,7 +215,7 @@ public class FileManager {
 		AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		if (fileType.getType().toString().equals("WAVE")) {
 			String extension = ".wav";
-			String name = askName(selectedFile.getName());
+			String name = askName(selectedFile.getName().replaceFirst("[.][^.]+$", ""));
 			File outputfile = new File(g.getString("GamesDirectory") + myGameName
 					+ g.getString("RelativeSoundDirectory") + name + extension);
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), audioInputStream)) {
@@ -265,8 +266,7 @@ public class FileManager {
 					+ PNG;
 			File file = new File(url);
 			BufferedImage image = ImageIO.read(originFile);
-			File output = new File(file.getName());
-			ImageIO.write(image, PNG, output);
+			ImageIO.write(image, PNG_EXT, file);
 			return file;
 
 		} catch (IOException e) {

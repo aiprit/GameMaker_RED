@@ -23,7 +23,7 @@ public class KeyReleasedPopUp extends KeyPopUp{
 	@Override
 	public void eventPopup() {
 		if(key ==null){
-			PopUpError er = new PopUpError();
+			PopUpError er = new PopUpError(r.getString("Error"));
 		}
 		else{
 			EventController p = new EventController(new KeyReleasedEvent(key),myObject,myGame);

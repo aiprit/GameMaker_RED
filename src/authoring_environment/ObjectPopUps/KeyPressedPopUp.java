@@ -27,7 +27,7 @@ public class KeyPressedPopUp extends KeyPopUp {
 	public void eventPopup(){
 
 		if(key ==null){
-			PopUpError er = new PopUpError();
+			PopUpError er = new PopUpError(r.getString("Error"));
 		}
 		else{
 			EventController p = new EventController(new KeyPressedEvent(key),myObject,myGame);
