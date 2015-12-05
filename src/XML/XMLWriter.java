@@ -185,9 +185,6 @@ public class XMLWriter {
         room.setAttribute("height", Double.toString(dataRoom.getSize()[1]));
         room.setAttribute("backgroundColor", dataRoom.getBackgroundColor());
 
-
-
-
         String imageString = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -203,9 +200,7 @@ public class XMLWriter {
             e.printStackTrace();
         }
 
-
-
-
+        room.setAttribute("snapshot", imageString);
 
         room.appendChild(getElementFromView(doc, dataRoom.getView()));
         room.appendChild(getElementFromObjectInstances(doc, dataRoom.getObjectInstances()));

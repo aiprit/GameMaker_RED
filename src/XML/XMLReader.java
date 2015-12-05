@@ -1,5 +1,6 @@
 package XML;
 
+import authoring_environment.FileHandlers.FileManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.*;
@@ -9,10 +10,14 @@ import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
 import structures.data.interfaces.IAction;
+import sun.misc.BASE64Decoder;
 import utils.Vector;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -180,6 +185,23 @@ public class XMLReader {
                         Double.parseDouble(elem.getAttribute("width")));
 
                 rm.setBackgroundColor(elem.getAttribute("backgroundColor"));
+
+
+                String encodedSnapshot = elem.getAttribute("snapshot");
+
+                BufferedImage image = null;
+                byte[] imageByte;
+                try {
+                    BASE64Decoder decoder = new BASE64Decoder();
+                    imageByte = decoder.decodeBuffer(encodedSnapshot);
+                    ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+                    image = ImageIO.read(bis);
+                    bis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                rm.setSnapshot(FileManager.imgToWriteableImage(image));
 
                 Element view = (Element) elem.getElementsByTagName("view").item(0);
 
