@@ -14,10 +14,8 @@ import javafx.stage.Stage;
 
 public class Launcher extends Application {
     
-    public static final String LAUNCHER_BUTTON = "launcher-button";
-    public static final String LAUNCHER_TITLE = "launcher-title";
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "blue.css";
+    public static final String STYLESHEET = "default.css";
     public static final Double WIDTH = 800.0;
     public static final Double HEIGHT = 600.0;
     
@@ -67,10 +65,6 @@ public class Launcher extends Application {
                 openBtn.setLayoutY(HEIGHT*2/4);
                 btn1.setLayoutX(WIDTH*3/5);
                 btn1.setLayoutY(HEIGHT*2/4);
-                
-                openBtn.getStyleClass().add(LAUNCHER_BUTTON);
-                btn1.getStyleClass().add(LAUNCHER_BUTTON);
-                text.getStyleClass().add(LAUNCHER_TITLE);
 		
 		Pane root = new Pane();
 		Insets pad = new Insets(10, 10, 10, 10);
