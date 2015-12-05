@@ -23,6 +23,7 @@ public class XMLReader {
     public DataGame read(String filename) {
 
         try {
+        	System.out.println("filename: " + filename);
             File inputFile = new File(filename);
             DocumentBuilderFactory dbFactory
                     = DocumentBuilderFactory.newInstance();

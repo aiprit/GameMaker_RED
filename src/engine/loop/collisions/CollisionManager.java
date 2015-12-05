@@ -45,9 +45,13 @@ public class CollisionManager {
 
 	public List<Pair<RunObject>> detectCollisions(String name1, String name2) {
 		List<Pair<RunObject>> collisions = new ArrayList<>();
-
+		
 		List<RunObject> objects1 = myCollideables.get(name1);
 		List<RunObject> objects2 = myCollideables.get(name2);
+		
+		if(objects1 == null || objects2 == null){
+			return collisions;
+		}
 
 		for (RunObject obj1 : objects1) {
 			for (RunObject obj2 : objects2) {
