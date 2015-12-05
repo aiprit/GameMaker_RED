@@ -7,7 +7,9 @@ import structures.data.*;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
+import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +19,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
@@ -95,6 +100,7 @@ public class XMLWriter {
         }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
+        object.setAttribute("solid", Boolean.toString(dataObject.isSolid()));
 
         Element events = doc.createElement("events");
         for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
@@ -179,6 +185,24 @@ public class XMLWriter {
         room.setAttribute("width", Double.toString(dataRoom.getSize()[0]));
         room.setAttribute("height", Double.toString(dataRoom.getSize()[1]));
         room.setAttribute("backgroundColor", dataRoom.getBackgroundColor());
+
+        String imageString = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ImageIO.write(dataRoom.getBufferedSnapshot(), "png", bos);
+            byte[] imageBytes = bos.toByteArray();
+
+            BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(imageBytes);
+
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        room.setAttribute("snapshot", imageString);
+
         room.appendChild(getElementFromView(doc, dataRoom.getView()));
         room.appendChild(getElementFromObjectInstances(doc, dataRoom.getObjectInstances()));
 
@@ -222,6 +246,7 @@ public class XMLWriter {
         instance.setAttribute("velocityY", Double.toString(dataInstance.getVelocityY()));
         instance.setAttribute("gravityX", Double.toString(dataInstance.getGravityX()));
         instance.setAttribute("gravityY", Double.toString(dataInstance.getGravityY()));
+        instance.setAttribute("friction", Double.toString(dataInstance.getFriction()));
 
         instance.appendChild(getElementFromVariableMap(doc, dataInstance.getVariableMap()));
 

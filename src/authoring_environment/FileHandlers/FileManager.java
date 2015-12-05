@@ -23,7 +23,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataSound;
 import structures.data.DataSprite;
@@ -174,6 +173,10 @@ public class FileManager {
 			}
 		}
 		return wr;
+	}
+
+	public static BufferedImage getBufferedImageFromWriteableImage(WritableImage img){
+		return SwingFXUtils.fromFXImage(img, null);
 	}
 
 	/**

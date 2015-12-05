@@ -1,9 +1,13 @@
 package structures.data;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
 
+import authoring_environment.FileHandlers.FileManager;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
 public class DataRoom implements IDataRoom {
     private List<DataInstance> roomObjects;
@@ -80,6 +84,10 @@ public class DataRoom implements IDataRoom {
     
     public Image getSnapshot() {
     	return mySnapshot;
+    }
+
+    public BufferedImage getBufferedSnapshot(){
+        return FileManager.getBufferedImageFromWriteableImage((WritableImage) mySnapshot);
     }
     
     public void setSnapshot(Image image) {

@@ -1,8 +1,10 @@
 .root {		
     -fx-font-size: 12pt;		
     -fx-font-family: Tahoma,Geneva,sans-serif;		
-    -fx-base: #99e6ff;		
-    -fx-background: #4da6ff;		
+    -fx-base: #990000;
+    -fx-background: #d9d9d9;
+    -fx-accent: #737373;
+    -fx-focus-color: #737373;
 }		
 		
 .button {		
@@ -14,7 +16,7 @@
 }		
 		
 .button:hover {		
-    -fx-background-color: #3a3a3a;		
+    -fx-background-color: #000000;		
 }		
 		
 .combo-box-base {		
@@ -25,13 +27,13 @@
 }		
 		
 .combo-box-base:hover {		
-    -fx-background-color: #3a3a3a;		
+    -fx-background-color: #000000;		
 }		
 		
 .label {		
     -fx-font-size: 11pt;		
     -fx-font-family: Tahoma,Geneva,sans-serif;		
-    -fx-text-fill: #006464;		
+    -fx-text-fill: #000000;		
     -fx-opacity: .6;		
 }		
 		

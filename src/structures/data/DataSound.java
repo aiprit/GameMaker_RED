@@ -31,20 +31,20 @@ public class DataSound implements IResource {
         return myBaseFileName;
     }
     public AudioInputStream getInputStream(){
-    	
+
     	return audioInputStream;
     }
     public void setInputStream(AudioInputStream inputStream){
-    	
+
     	audioInputStream = inputStream;
-    	
+
     }
 
     @Override
     public boolean loaded() {
         return myHaveLoaded;
     }
-    
+
 
     @Override
     public void load(String gameName) throws ResourceFailedException {
@@ -52,12 +52,16 @@ public class DataSound implements IResource {
         clip = gmf.getSound(myName, this);
     	myHaveLoaded = true;
     }
-    
+
     public String getDirectory(){
     	return completeFileName;
-    } 
-    
+    }
+
     public AudioClip getClip(){
     	return clip;
+    }
+    @Override
+    public String toString(){
+    	return myName;
     }
 }
