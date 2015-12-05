@@ -33,6 +33,7 @@ public class HighScoreView extends VBox {
 			this.getChildren().add(scoreInfo);
 			Button loginButton = new Button("Log in");
 			loginButton.setOnAction(e -> doLogin());
+			loginButton.setFocusTraversable(false);
 			this.getChildren().add(loginButton);
 		}
 		else{

@@ -179,6 +179,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		VBox change = new VBox(2);
 		Text changeTitle = new Text("Change game");
 		ChoiceBox<String> cb = new ChoiceBox<String>();
+		cb.setFocusTraversable(false);
 		cb.getItems().addAll(addGamesFromDirectory());
 			cb.setOnAction(e -> onGameChange(cb.getValue()));
 		change.getChildren().addAll(changeTitle, cb);
@@ -200,12 +201,14 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private void makeHighScoreBar() throws IOException{
 		myHighScoreView = new HighScoreView(myCurrentGame);
 		myHighScoreView.setPrefWidth(150);
+		myHighScoreView.setFocusTraversable(false);
 		borderPane.setRight(myHighScoreView);
 	}
 
 	public void makeObjectInformationBar(IParameters parameterObject) {
 		myObjectInformationView = new ObjectInformationView(parameterObject);
 		myObjectInformationView.setPrefWidth(275);
+		myObjectInformationView.setFocusTraversable(false);
 		borderPane.setLeft(myObjectInformationView);
 		stage.setWidth(1100);
 	}
