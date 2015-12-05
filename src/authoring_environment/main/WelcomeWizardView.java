@@ -1,11 +1,7 @@
-/**
- * 
- */
 package authoring_environment.main;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import Player.Launcher;
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.FileHandlers.GameInitializer;
