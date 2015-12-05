@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<game currentRoom="0" directory="Games/null/" startRoom="0" title="null">
-  <objects/>
-  <sprites/>
-  <sounds/>
-  <rooms/>
+<game currentRoom="0" directory="null/" startRoom="0" title="null">
+  <variableMap/>
+  <objects>
+    <object name="hjka" scaleX="1.0" scaleY="1.0" sprite="DSCN0225" zIndex="0">
+      <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="hjka">
+          <actions/>
+        </event>
+      </events>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="DSCN0225.png" centerX="0.0" centerY="0.0" name="DSCN0225"/>
+  </sprites>
+  <sounds>
+    <sound baseFileName="AggresiveMoo.wav" name="AggresiveMoo"/>
+  </sounds>
+  <rooms>
+    <room backgroundColor="0xffffffff" height="600.0" name="Level 1" width="600.0">
+      <view height="600.0" name="MainView" width="600.0" x="0.0" y="0.0"/>
+      <objectInstances/>
+    </room>
+  </rooms>
 </game>

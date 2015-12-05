@@ -2,12 +2,14 @@ package authoring_environment.object_editor;
 
 import java.util.ResourceBundle;
 
+import authoring_environment.room.button_toolbar.HelpIcon;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -19,6 +21,7 @@ public class ObjectEditorViewBottomPane {
 	private String objectName;
 	private Group root;
 	private CheckBox checkBox;
+	private HelpIcon myTooltip;
 
 	public ObjectEditorViewBottomPane() {
 		init();
@@ -51,6 +54,7 @@ public class ObjectEditorViewBottomPane {
 //		cancel.setTranslateX(Integer.parseInt(bottomResources.getString("cancelButtonTranslateX")));
 //
 		root.getChildren().addAll(nameHBox,close, checkBox);
+		initToolTip();
 		return root;
 
 	}
@@ -68,6 +72,14 @@ public class ObjectEditorViewBottomPane {
 		hb.setSpacing(Integer.parseInt(bottomResources.getString("boxSpacing")));
 		hb.setTranslateX(translate);
 		return hb;
+	}
+	
+	private void initToolTip() {
+		Image helpIcon = new Image(getClass().getClassLoader().getResourceAsStream(bottomResources.getString("HelpTooltipIcon")));
+		myTooltip = new HelpIcon(bottomResources, helpIcon);
+		root.getChildren().add(myTooltip);
+		myTooltip.setTranslateX(Integer.parseInt(bottomResources.getString("tooltipTranslateX")));
+		
 	}
 
 	public Group getGroup() {
