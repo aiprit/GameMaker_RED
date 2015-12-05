@@ -24,6 +24,8 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.library.Close;
+import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
@@ -93,8 +95,19 @@ public class ObjectEditorController {
 							setText(null);
 						} else {
 							String description  =item.getName()+ ":";
+							int indents =0 ;
                         	for(IAction action: model.getMap().get(item)){
-                        		description += "\n   " +action.getDescription();
+                        		description += "\n   ";
+                        		if(action instanceof Close){
+    								indents -=1;
+    							}
+    							for(int i=0; i<indents;i++){
+    								description += "  ";
+    							}
+    							description +=action.getDescription();
+    							if(action instanceof Open){
+    								indents +=1;
+    							}
                         	}
                             setText(description);
 						}

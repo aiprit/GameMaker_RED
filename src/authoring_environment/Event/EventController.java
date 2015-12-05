@@ -41,6 +41,7 @@ import structures.data.actions.params.IParameter;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
 import structures.data.actions.params.SpriteParam;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
@@ -64,7 +65,9 @@ public class EventController {
 
 		myView.getTopPane().getMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
-				ActionController actionCon = new ActionController(myModel.getActions());
+				RunScript action = new RunScript();
+				ParamController paramcontrol = new ParamController(action,myModel.getActions());
+				paramcontrol.showAndWait();
 			}
 		});
 
