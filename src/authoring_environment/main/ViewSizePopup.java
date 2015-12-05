@@ -25,6 +25,10 @@ public class ViewSizePopup extends Stage {
 	private static final double TEXT_SCALE = 1.7;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	private static final String STYLESHEET = "authoring.css";
+	//private static final String MIN_WIDTH = "ViewMinWidth";
+	//private static final String MIN_HEIGHT = "ViewMinHeight";
+//	private static final String MAX_WIDTH = "ViewMaxWidth";
+//	private static final String MAX_HEIGHT = "ViewMaxHeight";
 	private static final String MIN_WIDTH = "ViewMinWidth";
 	private static final String MIN_HEIGHT = "ViewMinHeight";
 	private static final String MAX_WIDTH = "ViewMaxWidth";
