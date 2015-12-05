@@ -37,16 +37,18 @@ public class ObjectEditorViewCenterPane {
 
 	public Image addSprite(String s) {
 		try {
-//			return new Image(getClass().getClassLoader().getResourceAsStream(s), Integer.parseInt(centerResources.getString("defaultSize")),
-//					Integer.parseInt(centerResources.getString("defaultSize")), false, false) ;
-			
-			FileManager fm = new FileManager(gameName);
-			return fm.getSprite(s);
+			if (s == null) {
+				return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("nullImage")), 
+						Integer.parseInt(centerResources.getString("defaultSize")), Integer.parseInt(centerResources.getString("defaultSize")),
+						false, false);
+			} else {
+				FileManager fm = new FileManager(gameName);
+				return fm.getSprite(s);
+			}
 		}
 		catch (NullPointerException | ResourceFailedException e) {
-			return new Image(getClass().getClassLoader().getResourceAsStream(centerResources.getString("nullImage")), 
-					Integer.parseInt(centerResources.getString("defaultSize")), Integer.parseInt(centerResources.getString("defaultSize")),
-					false, false) ;
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
