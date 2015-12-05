@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+x<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game currentRoom="0" directory="Games/TestGame2/" startRoom="0" title="TestGame2">
   <objects>
     <object name="Mario" scaleX="1.0" scaleY="1.0" sprite="Mario" zIndex="0">

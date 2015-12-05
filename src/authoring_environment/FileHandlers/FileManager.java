@@ -16,6 +16,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import XML.XMLEditor;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
+import groovy.util.ResourceException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;

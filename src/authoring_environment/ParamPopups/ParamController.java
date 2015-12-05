@@ -1,7 +1,9 @@
 package authoring_environment.ParamPopups;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import authoring_environment.PopUpError;
 import exceptions.ParameterParseException;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -33,56 +35,69 @@ public class ParamController {
 	}
 	private void onSave() {
 		List<HBox> fieldList = view.getFieldList();
-		try {
+		List<String> save = new ArrayList<String>();
+		if(model.editing()){
 			for(int i = 0; i<model.getListsize();i++){
-				String input = getInput(fieldList.get(i+1));
-				if(input!=null){
+				save.add(model.getList().get(i).getOriginal());
+			}
+		}
+		try {
+			for(int j = 0; j<model.getListsize();j++){
+				String input = getInput(fieldList.get(j+1));
 
-					model.getList().get(i).parse(input);
+					model.getList().get(j).parse(input);
 
-				}
+
 			}
 			if(!model.editing()){
-			model.addAction();
+				model.addAction();
 			}
 			view.close();
 		}
 		catch (ParameterParseException e) {
-				alertPopUp();
-
-	}
+			PopUpError er = new PopUpError();
+			if(model.editing()){
+			try {
+				refreshToOld(save);
+			} catch (ParameterParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+		}
 		System.out.println(model.getActionList());
-	//configure.close();
-}
-@SuppressWarnings("unchecked")
-private String getInput(HBox field) {
-	Node node= field.getChildren().get(1);
-	String str = null;
-	try{
-		str =((TextInputControl) node).getText();
+		//configure.close();
 	}
-	catch(ClassCastException e){
+	private void refreshToOld(List<String> save) throws ParameterParseException {
+		if(model.editing()){
+			for(int k = 0; k<model.getListsize();k++){
+				model.getList().get(k).parse(save.get(k));
+			}
+		}
+	}
+	@SuppressWarnings("unchecked")
+	private String getInput(HBox field) {
+		Node node= field.getChildren().get(1);
+		String str = null;
 		try{
-			Boolean bol = ((CheckBox)node).isSelected();
-			str = bol.toString();
+			str =((TextInputControl) node).getText();
 		}
-		catch(ClassCastException e1){
-			str = (String) ((ComboBox<String>) node).getValue();
+		catch(ClassCastException e){
+			try{
+				Boolean bol = ((CheckBox)node).isSelected();
+				str = bol.toString();
+			}
+			catch(ClassCastException e1){
+				str = (String) ((ComboBox<String>) node).getValue();
+			}
 		}
+
+		return str;
 	}
 
-	return str;
-}
-private void alertPopUp() {
-	Alert alert = new Alert(AlertType.ERROR);
-	alert.setTitle("Error");
-	alert.setHeaderText("Invalid Parameter");
-	alert.setContentText("Please Reenter");
-	alert.showAndWait();
-}
-public void showAndWait() {
-	// TODO Auto-generated method stub
-	view.showAndWait();
+	public void showAndWait() {
+		// TODO Auto-generated method stub
+		view.showAndWait();
 
-}
+	}
 }

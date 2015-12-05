@@ -7,9 +7,7 @@ import structures.data.access_restricters.IObjectInterface;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.util.*;
 
 //TODO check if IObjectInterface is being used
 public class DataGame extends Observable implements IObjectInterface, IDataGame {
@@ -21,6 +19,7 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
     ObservableList<DataSound> mySounds;
+    private Map<String, Double> myVariables = new HashMap<>();
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
     private int myViewWidth, myViewHeight;

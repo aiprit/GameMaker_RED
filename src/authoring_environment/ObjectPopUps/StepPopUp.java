@@ -20,7 +20,7 @@ public class StepPopUp  extends BasicPopUp{
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new StepEvent(),myObject,myGame);
-
+		p.showAndWait();
 
 
 	}

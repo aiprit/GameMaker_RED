@@ -27,8 +27,14 @@ public class ViewSizePopup extends Stage {
 	private static final String STYLESHEET = "authoring.css";
 	//private static final String MIN_WIDTH = "ViewMinWidth";
 	//private static final String MIN_HEIGHT = "ViewMinHeight";
+//	private static final String MAX_WIDTH = "ViewMaxWidth";
+//	private static final String MAX_HEIGHT = "ViewMaxHeight";
+	private static final String MIN_WIDTH = "ViewMinWidth";
+	private static final String MIN_HEIGHT = "ViewMinHeight";
 	private static final String MAX_WIDTH = "ViewMaxWidth";
 	private static final String MAX_HEIGHT = "ViewMaxHeight";
+	private static final int HEIGHT_PADDING = 150;
+	private static final int WIDTH_PADDING = 50;
 	private static final int SMALL_SPACE = 10;
 	private static final int SPACING = 20;
 	
@@ -46,9 +52,11 @@ public class ViewSizePopup extends Stage {
 		super();
 		myResources = resources;
 		super.setTitle(myResources.getString("ViewSize"));
-		System.out.println(resources.containsKey("ViewSize"));
-		super.setMaxHeight(Double.parseDouble(myResources.getString("ViewMaxHeight")));
-		super.setMaxWidth(Double.parseDouble(myResources.getString("ViewMaxWidth")));
+		super.setMinWidth(Double.parseDouble(myResources.getString(MIN_WIDTH)));
+		super.setMinHeight(Double.parseDouble(myResources.getString(MIN_HEIGHT)));
+		
+		super.setMaxHeight(Double.parseDouble(myResources.getString(MAX_HEIGHT)));
+		super.setMaxWidth(Double.parseDouble(myResources.getString(MAX_WIDTH)));
 		initializeContents();
 	}
 	
