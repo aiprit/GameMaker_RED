@@ -93,7 +93,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		//set myGame to the game that the user chooses
 		//System.out.println(userGame);
 		myEditor = new XMLEditor();
-		myGame = myEditor.readXML(myCurrentGame);
+		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/GameFile.xml/");
 
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
