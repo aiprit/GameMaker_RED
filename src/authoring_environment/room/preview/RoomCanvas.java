@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.room.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
@@ -142,7 +143,6 @@ public class RoomCanvas extends Canvas {
 			drawGridLines();
 		}
 		drawView();
-
 	}
 	
 	private void drawGridLines() {
@@ -182,7 +182,8 @@ public class RoomCanvas extends Canvas {
 			Color fill = Color.valueOf(myBackgroundColor);
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
-			setImageFill(new Image(getClass().getClassLoader().getResourceAsStream(myBackgroundColor)));
+			FileManager fm = new FileManager(gameName);
+			setImageFill(fm.getBackground(myBackgroundColor));
 		}
 	}
 	
