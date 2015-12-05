@@ -63,8 +63,9 @@ public class MainController implements IUpdateHandle {
 			active = true;
 			// Get updates
 			objectListWindow.setUpdateHandle((IUpdateHandle) this);
+		} else {
+			active = false;
 		}
-		active = false;
 	}
 
 	public void refreshViews() {
@@ -102,6 +103,7 @@ public class MainController implements IUpdateHandle {
 		} else if (result.get() == buttonTypeTwo) {
 			myStage.close();
 		}
+		active = false;
 	}
 
 	@Override

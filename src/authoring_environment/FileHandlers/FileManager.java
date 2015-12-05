@@ -213,9 +213,6 @@ public class FileManager {
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("test");
-		AudioClip sound = new AudioClip(url);
-		sound.play();
 		return new AudioClip(url);
 	}
 
