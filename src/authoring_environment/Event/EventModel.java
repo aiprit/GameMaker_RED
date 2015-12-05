@@ -2,15 +2,13 @@ package authoring_environment.Event;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
-import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.interfaces.IAction;
@@ -21,7 +19,6 @@ public class EventModel {
 	private IDataEvent myEvent;
 	private ObservableList<IAction> alist;
 	private IObjectInterface game;
-	private ResourceBundle l = ResourceBundle.getBundle("authoring_environment/Event/ActionListResources");
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
 	public EventModel(DataObject obj,IDataEvent e,IObjectInterface inter){
 		myObject = obj;
