@@ -15,7 +15,6 @@ import structures.data.actions.game.SetGlobalVariable;
 import structures.data.actions.game.SetHighScore;
 import structures.data.actions.game.SetTimerOnce;
 import structures.data.actions.game.SetTimerRepeated;
-import structures.data.actions.library.*;
 import structures.data.actions.logic.Close;
 import structures.data.actions.logic.Else;
 import structures.data.actions.logic.IfGlobalVar;
