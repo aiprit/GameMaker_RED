@@ -27,6 +27,7 @@ public class HighScoreView extends VBox {
 	public void createPane(){
 		this.getChildren().clear();
 		Text scoreInfo;
+		Text gameInfo;
 		if(myPlayers.getPlayerName().equals("")){
 			scoreInfo = new Text("\nLog in or create a new player\nto save "
 					+ "your high score.\n");
@@ -35,6 +36,8 @@ public class HighScoreView extends VBox {
 			loginButton.setOnAction(e -> doLogin());
 			loginButton.setFocusTraversable(false);
 			this.getChildren().add(loginButton);
+			gameInfo = new Text("\n" + myGame + " high scores:");
+			this.getChildren().add(gameInfo);
 		}
 		else{
 			scoreInfo = new Text("\nYour high score is " + getHighScore() + "\n");
@@ -42,6 +45,8 @@ public class HighScoreView extends VBox {
 			Button logoutButton = new Button("Log out");
 			logoutButton.setOnAction(e -> doLogout());
 			this.getChildren().add(logoutButton);
+			gameInfo = new Text("\n" + myGame + " high scores:");
+			this.getChildren().add(gameInfo);
 		}
 		showAllScores();
 	}

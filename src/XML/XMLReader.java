@@ -226,6 +226,16 @@ public class XMLReader {
                         Double.parseDouble(elem.getAttribute("scaleX")),
                         Double.parseDouble(elem.getAttribute("scaleY")));
 
+                di.setAlpha(Double.parseDouble(elem.getAttribute("alpha")));
+                di.setAngle(Double.parseDouble(elem.getAttribute("angle")));
+                //di.setVelocity(Double.parseDouble(elem.getAttribute("alpha")));
+                di.setAngularVelocity(Double.parseDouble(elem.getAttribute("angularVelocity")));
+                di.setVisible(Boolean.parseBoolean(elem.getAttribute("visibility")));
+                di.setFriction(Double.parseDouble(elem.getAttribute("friction")));
+                //di.setGravity(Double.parseDouble(elem.getAttribute("friction")));
+
+
+
                 di.setVariableMap(loadVariableMap((Element) elem.getElementsByTagName("variableMap").item(0)));
 
                 rm.addObjectInstance(di);

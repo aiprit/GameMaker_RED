@@ -66,6 +66,7 @@ public interface IParameter {
 		CHECKBOX,
 		OBJECT_SELECT,
 		SPRITE_SELECT,
+		SOUND_SELECT,
 		ROOM_SELECT,
 		SELECT
 	}
