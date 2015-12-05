@@ -8,4 +8,8 @@ public interface IParameters {
     public Map<String, Double> getDoubleMap();
     public Map<String, String> getStringMap();
     public Map<String, Boolean> getBooleanMap();
+    public void setOriginalParameterMaps();
+    public Map<String, Double> getOriginalDoubleMap();
+    public Map<String, String> getOriginalStringMap();
+    public Map<String, Boolean> getOriginalBooleanMap();
 }

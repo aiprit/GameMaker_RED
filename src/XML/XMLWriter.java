@@ -138,7 +138,7 @@ public class XMLWriter {
 
     private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
-        action.setAttribute("title", a.getTitle());
+        action.setAttribute("title", a.getClass().getSimpleName());
 
         List<IParameter> params = a.getParameters();
 

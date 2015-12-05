@@ -24,6 +24,8 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
+import structures.data.actions.library.Close;
+import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
@@ -58,10 +60,10 @@ public class ObjectEditorController {
 				}
 			}
 			if(!dup){
-			name = result.get();
-			model = new ObjectEditorModel((IObjectInterface) dataGame, name);
-			view = new ObjectEditorView(dataGame.getName());
-			initAll();
+				name = result.get();
+				model = new ObjectEditorModel((IObjectInterface) dataGame, name);
+				view = new ObjectEditorView(dataGame.getName());
+				initAll();
 			}
 			else{
 				PopUpError er = new PopUpError("Duplicate Object");
@@ -76,9 +78,9 @@ public class ObjectEditorController {
 			model.setSolid(view.getBottomPane().getCheckBox().isSelected());
 			close(e);
 		});
-//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-//			refreshSprite();
-//		});
+		//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
+		//			refreshSprite();
+		//		});
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
@@ -93,10 +95,21 @@ public class ObjectEditorController {
 							setText(null);
 						} else {
 							String description  =item.getName()+ ":";
-                        	for(IAction action: model.getMap().get(item)){
-                        		description += "\n   " +action.getDescription();
-                        	}
-                            setText(description);
+							int indents =0 ;
+							for(IAction action: model.getMap().get(item)){
+								description += "\n   ";
+								if(action instanceof Close){
+									indents -=1;
+								}
+								for(int i=0; i<indents;i++){
+									description += "  ";
+								}
+								description +=action.getDescription();
+								if(action instanceof Open){
+									indents +=1;
+								}
+							}
+							setText(description);
 						}
 					}
 				};
@@ -153,10 +166,12 @@ public class ObjectEditorController {
 	}
 
 	private void eventPopup(IDataEvent e) {
-		EventController control = new EventController(e, model.getObject(),model.getGame());
-		control.showAndWait();
-		List<IDataEvent> itemscopy = new ArrayList<IDataEvent>(view.getRightPane().getListView().getItems());
-		view.getRightPane().getListView().getItems().setAll(itemscopy);
+		if(e !=null){
+			EventController control = new EventController(e, model.getObject(),model.getGame());
+			control.showAndWait();
+			List<IDataEvent> itemscopy = new ArrayList<IDataEvent>(view.getRightPane().getListView().getItems());
+			view.getRightPane().getListView().getItems().setAll(itemscopy);
+		}
 	}
 
 	private void refreshSprite() {

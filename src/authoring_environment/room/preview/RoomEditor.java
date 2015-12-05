@@ -1,4 +1,4 @@
-package authoring_environment.room;
+package authoring_environment.room.preview;
 
 import java.util.ResourceBundle;
 
@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 
 import java.util.function.Consumer;
 
-import authoring_environment.room.preview.RoomPreview;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -18,7 +17,7 @@ public class RoomEditor {
 	private static final String ROOM_EDITOR_WIDTH = "RoomEditorWidth";
 	private static final String ROOM_EDITOR_HEIGHT = "RoomEditorHeight";
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "authoring.css";
+	public static final String STYLESHEET = "blue.css";
 
 	private Stage myEditor;
 	private Group myRoot;
@@ -26,7 +25,7 @@ public class RoomEditor {
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
 	
-	public RoomEditor(ResourceBundle resources, String roomTitle, String gameName) {
+	public RoomEditor(ResourceBundle resources, double width, double height, String roomTitle, String gameName) {
 		myRoot = new Group();
 		myEditor = new Stage();
 		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
@@ -34,7 +33,7 @@ public class RoomEditor {
 		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE) + " - " + roomTitle);
 		myTotalView = new VBox();
 		myObjectsAndPreview = new HBox();
-		myPreview = new RoomPreview(resources, gameName);
+		myPreview = new RoomPreview(resources, width, height, gameName);
 		myTotalView.getChildren().addAll(myObjectsAndPreview);
 		myRoot.getChildren().add(myTotalView);
 	}
