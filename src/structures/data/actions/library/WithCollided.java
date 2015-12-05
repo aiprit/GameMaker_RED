@@ -20,7 +20,7 @@ public class WithCollided extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "with(event.other);\n";
+		return "with(event.other); {\n";
 	}
 	
 }
