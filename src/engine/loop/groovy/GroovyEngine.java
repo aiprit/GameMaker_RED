@@ -60,6 +60,7 @@ public class GroovyEngine {
 		if (times % 60 == 0) {
 			System.out.println(String.format("Engine avg period: %.2f ms", avg));
 		}
+		times++;
 	}
 	
 	public Object current() {
