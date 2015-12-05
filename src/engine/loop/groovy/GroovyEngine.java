@@ -19,6 +19,9 @@ public class GroovyEngine {
 	private Closure<?> myWithClosure;
 	private Closure<?> myEndClosure;
 	
+	private static double avg = 0.0;
+	private static long times = 1;
+	
 	public GroovyEngine(RunGame runGame, EventManager eventManager){
 		myGroovyLibrary = new GroovyLibrary(runGame, eventManager);
 		myCurrentStack = new ArrayDeque<>();
@@ -32,6 +35,7 @@ public class GroovyEngine {
 	}
 	
 	public void runScript(RunObject o, RunAction action, IGroovyEvent event) {
+		long now = System.currentTimeMillis();
 		if (action == null) {
 			return;
 		}
@@ -44,6 +48,15 @@ public class GroovyEngine {
 		action.compiled.setProperty("end", myEndClosure);		
 		action.compiled.setProperty("event", event);
 		action.compiled.run();
+		double diff = System.currentTimeMillis() - now;
+		if (avg == 0.0) {
+			avg = diff;
+		} else {
+			avg = (diff + times * avg) / (double)(times + 1);
+		}
+		if (times % 60 == 0) {
+			System.out.println(String.format("Engine avg period: %.2f ms", avg));
+		}
 	}
 	
 	public Object current() {
