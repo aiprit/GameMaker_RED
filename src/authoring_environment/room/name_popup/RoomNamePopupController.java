@@ -9,6 +9,7 @@ import authoring_environment.room.RoomController;
 import authoring_environment.room.error.ErrorPopup;
 import structures.data.DataGame;
 import structures.data.DataRoom;
+import structures.data.IDataGame;
 
 public class RoomNamePopupController {
 	private static final String DUPLICATE_ROOM_NAME_ERROR_MESSAGE = "DuplicateRoomNameErrorMessage";
@@ -21,7 +22,7 @@ public class RoomNamePopupController {
 	private DataRoom model;
 	private int myIndex;
 	
-	public RoomNamePopupController(int i, DataGame game) {
+	public RoomNamePopupController(int i, IDataGame game) {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		view = new RoomNamePopup(myResources);
 		model = new DataRoom("", game.getViewWidth(), game.getViewHeight());
@@ -29,7 +30,7 @@ public class RoomNamePopupController {
 		myIndex = i;
 	}
 	
-	public RoomNamePopupController(DataRoom room, int i, DataGame game) {
+	public RoomNamePopupController(DataRoom room, int i, IDataGame game) {
 		myResources = ResourceBundle.getBundle(ROOM_RESOURCE_FILE);
 		model = room;
 		view = new RoomNamePopup(myResources, model.getName());
@@ -41,7 +42,7 @@ public class RoomNamePopupController {
 		return view;
 	}
 	
-	private void setNameAndLaunchEditor(DataRoom room, DataGame game, boolean addRoom, Consumer<Void> updateFcn) {
+	private void setNameAndLaunchEditor(DataRoom room, IDataGame game, boolean addRoom, Consumer<Void> updateFcn) {
 		if (!view.getRoomName().equals("") && !isDuplicateName(room, game)) {
 			model.setName(view.getRoomName());
 		} else {
@@ -61,14 +62,14 @@ public class RoomNamePopupController {
 		roomController.launch();	
 	}
 	
-	private boolean isDuplicateName(DataRoom room, DataGame game) {
+	private boolean isDuplicateName(DataRoom room, IDataGame game) {
 		List<String> roomNames = game.getRooms().stream()
 				.map(r -> r.getName())
 				.collect(Collectors.toList());
 		return roomNames.contains(view.getRoomName()) && roomNames.indexOf(view.getRoomName()) != myIndex;
 	}
 	
-	private void setStartRoom(DataGame game) {
+	private void setStartRoom(IDataGame game) {
 		if (view.getStartRoomButton().isSelected()) {
 			game.setStartRoom(myIndex);
 		}
