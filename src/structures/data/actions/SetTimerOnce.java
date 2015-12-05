@@ -4,7 +4,7 @@ import structures.data.DataAction;
 import structures.data.actions.params.IntegerParam;
 
 public class SetTimerOnce extends DataAction {
-	
+
 	public SetTimerOnce(){
 		init(new IntegerParam("TimerTime"));
 	}
@@ -16,7 +16,7 @@ public class SetTimerOnce extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("executes the code after %d milliseconds", get("TimerTime"));
+		return String.format("executes the code after %d milliseconds", get("TimerTime").getValue());
 	}
 
 	@Override
