@@ -35,6 +35,8 @@ import javafx.util.Callback;
 import structures.data.DataObject;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.MoveTo;
+import structures.data.actions.library.Close;
+import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
@@ -45,6 +47,7 @@ import structures.data.interfaces.IDataEvent;
 public class EventController {
 	EventView myView;
 	EventModel myModel;
+	private int indents=0;
 	public EventController(IDataEvent e, DataObject obj,IObjectInterface dataGame){
 		myView = new EventView();
 		myModel = new EventModel(obj,e,dataGame);
@@ -71,18 +74,34 @@ public class EventController {
 
 			@Override
 			public ListCell<IAction> call(ListView<IAction> lv){
+
 				final ListCell<IAction> cell = new ListCell<IAction>() {
+
 					@Override
 					public void updateItem(IAction item, boolean empty) {
 						super.updateItem(item,  empty);
 						if (empty) {
 							setText(null);
 						} else {
-							setText(item.getDescription());
+
+
+							if(item instanceof Close){
+								indents -=1;
+							}
+							String des = "";
+							for(int i=0; i<indents;i++){
+								des += "  ";
+							}
+							des +=item.getDescription();
+							if(item instanceof Open){
+								indents +=1;
+							}
+							setText(des);
 						}
 					}
 				};
 				cell.setOnDragDetected(event -> {
+
 					if (cell.getItem() == null) {
 						return;
 					}
@@ -96,37 +115,50 @@ public class EventController {
 							myModel.getImage()
 							);
 					dragboard.setContent(content);
+					indents=0;
 					event.consume();
 				});
 				cell.setOnDragOver(event -> {
+
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						event.acceptTransferModes(TransferMode.MOVE);
 					}
-
+					indents=0;
 					event.consume();
 				});
 
 				cell.setOnDragEntered(event -> {
+
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(0.3);
 					}
+					indents=0;
 				});
 
 				cell.setOnDragExited(event -> {
+
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(1);
 					}
+					indents=0;
 				});
 
 				cell.setOnDragDropped(event -> {
 					Dragboard db = event.getDragboard();
+
 					boolean success = false;
 					if (cell.getItem() == null) {
 						String player = db.getString();
-						addAction(player,-1);
+						try{
+							Integer.parseInt(player);
+						}
+						catch(NumberFormatException e){
+							addAction(player,-1);
+
+						}
 						event.setDropCompleted(true);
 					}
 
@@ -167,6 +199,9 @@ public class EventController {
 
 						event.setDropCompleted(true);
 					}
+					indents=0;
+					List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
+					cell.getListView().getItems().setAll(itemscopy);
 					event.setDropCompleted(success);
 					event.consume();
 
@@ -177,29 +212,42 @@ public class EventController {
 					public void handle(MouseEvent click) {
 						if (click.getClickCount() == 2) {
 							//Use ListView's getSelected Item
+
 							IAction selected = cell.getItem();
 							List<IParameter> params = selected.getParameters();
 							if(params.size()>0){
 								ParamController paramcontrol = new ParamController(selected,myModel.getActions());
 								paramcontrol.showAndWait();
 							}
+							indents=0;
 							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
 							cell.getListView().getItems().setAll(itemscopy);
 						}
 					}
 				});
+
 				cell.setOnDragDone(DragEvent::consume);
 				return cell;
 			}
 		});
-		myView.getRightPane().getDelete().setOnAction(e ->
+		myView.getRightPane().getDelete().setOnAction(e ->{
+		indents=0;
 		myModel.deleteAction(
-				myView.getRightPane().getListView().getSelectionModel().getSelectedItem()));
+				myView.getRightPane().getListView().getSelectionModel().getSelectedItem());
+		});
 		myView.getRightPane().getListView().setOnDragDropped(new EventHandler<DragEvent>(){
 			@Override
 			public void handle(DragEvent dragEvent){
+
 				String player = dragEvent.getDragboard().getString();
-				addAction(player,-1);
+				try{
+					Integer.parseInt(player);
+				}
+				catch(NumberFormatException e){
+					addAction(player,-1);
+
+				}
+				indents=0;
 				dragEvent.setDropCompleted(true);
 			}
 		});
@@ -231,10 +279,11 @@ public class EventController {
 			@Override
 			public void handle(MouseEvent click) {
 				if (click.getClickCount() == 2) {
+
 					//Use ListView's getSelected Item
 					String selected = myView.getLeftPane().getListView().getSelectionModel().getSelectedItem();
 					addAction(selected,-1);
-
+					indents=0;
 				}
 			}
 		});
@@ -253,6 +302,7 @@ public class EventController {
 
 	public void addAction(String str, int index){
 		try{
+			indents=0;
 			String className = str.replaceAll("\\s+","");
 
 			Class c=null;
