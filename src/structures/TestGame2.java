@@ -10,9 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import structures.data.*;
 import structures.data.actions.MoveTo;
-import structures.data.actions.RunScript;
 import structures.data.actions.SetVelocityInDirection;
 import structures.data.events.CollisionEvent;
+import structures.data.actions.script.RunScript;
 import structures.data.events.KeyPressedEvent;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.events.StepEvent;
@@ -41,7 +41,7 @@ public class TestGame2 {
      */
 
     public DataGame getTestGame(String directory){
-        DataGame testGame = new DataGame("Test Game 2", directory + "TestGame2/");
+        DataGame testGame = new DataGame("TestGame2", directory + "TestGame2/");
 
         DataObject wall = new DataObject("Wall");
         wall.setSolid(true);
@@ -61,8 +61,8 @@ public class TestGame2 {
 
 
         try {
-			wallSprite.load(testGame.getSpriteDirectory());
-			marioSprite.load(testGame.getSpriteDirectory());
+			wallSprite.load(testGame.getName());
+			marioSprite.load(testGame.getName());
 		} catch (ResourceFailedException e) {
 			e.printStackTrace();
 		}

@@ -4,14 +4,9 @@ import java.util.ResourceBundle;
 
 import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class SetSizePopup extends PopupTemplate {
 	private static final String SET_ROOM_SIZE = "SetRoomSize";

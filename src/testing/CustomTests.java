@@ -1,8 +1,10 @@
 package testing;
 
+import XML.XMLEditor;
 import exceptions.ParameterParseException;
-import structures.data.actions.RunScript;
 import structures.run.RunObjectProxy;
+import structures.TestGame2;
+import structures.data.actions.script.RunScript;
 import utils.Bresenham;
 import utils.Utils;
 
@@ -10,6 +12,8 @@ public class CustomTests {
 	public static void main(String[] args) throws Exception {
 		
 		groovyClassTests();
+		XMLEditor e = new XMLEditor();
+		//e.writeXML((new TestGame2()).getTestGame(directory), filename);
 		//interpolationTest();
 		//groovyTests();
 	}

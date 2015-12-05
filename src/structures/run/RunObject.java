@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
 import engine.front_end.IDraw;
 import engine.loop.collisions.ICollisionChecker;
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import structures.data.DataSprite;
 import structures.data.interfaces.IDataEvent;
-
-import structures.data.actions.params.IParameter;
 import utils.Vector;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -290,10 +289,6 @@ public class RunObject implements IParameters {
 	}
 
 	public void sleep(double time){
-
-	}
-
-	public void wrap_around_room(boolean value){
 
 	}
 

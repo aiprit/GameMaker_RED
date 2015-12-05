@@ -1,6 +1,5 @@
 package engine;
 
-import java.awt.event.InputEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -8,6 +7,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import XML.XMLEditor;
 import engine.events.EventManager;
 import engine.events.IGUIControllerHandler;
@@ -19,13 +19,10 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import structures.TestGame2;
-import structures.TestGameObject;
 import structures.data.DataGame;
 import structures.run.RunGame;
 import structures.run.RunObject;
 import utils.Point;
-
 
 public class EngineController implements IGUIControllerHandler, IInputHandler {
 
@@ -34,20 +31,22 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	private RunGame currentRunGame;
 	private Engine myEngine;
 	private FrontEnd myFrontEnd;
+	private String myCurrentGame;
+	private boolean debugActivated;
 
 	public EngineController(Stage stage) throws ResourceFailedException {
 		EventManager eventManager = new EventManager();
-		String gameChoice = getUserChoice();
-		RunGame runGame = readObject(gameChoice, eventManager);
-		currentRunGame = runGame;
+		debugActivated = false;
+		myCurrentGame = getUserChoice();
+		currentRunGame = readObject();
 		try {
-			myFrontEnd = new FrontEnd(eventManager, stage);
+			myFrontEnd = new FrontEnd(eventManager, stage, myCurrentGame);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//starts the first room loop
-		myEngine = new Engine(runGame, eventManager);
+		myEngine = new Engine(currentRunGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 
 		//sets up the event manager
@@ -89,27 +88,17 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		return path;
 	}
 
-	public RunGame readObject(String userGame, EventManager eventManager) throws ResourceFailedException{
+	public RunGame readObject() throws ResourceFailedException{
 
 		//set myGame to the game that the user chooses
-		System.out.println(userGame);
+		//System.out.println(userGame);
 		myEditor = new XMLEditor();
-		myGame = myEditor.readXML(userGame);
-
-		// Which one was selected?
-		DataGame game = null;
-		if (userGame.equals("TestGame")) {
-			TestGameObject tgo = new TestGameObject();
-			game = tgo.getTestGame(getGamesDirectory());
-		} else if (userGame.equals("TestGame2")) {
-			TestGame2 tgo = new TestGame2();
-			game = tgo.getTestGame(getGamesDirectory());
-		}
+		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/GameFile.xml/");
 
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
-			runGame = new RunGame(game);
+			runGame = new RunGame(myGame);
 		} catch (CompileTimeException | RuntimeException e) {
 			e.printStackTrace();
 		}
@@ -123,14 +112,22 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		eventManager.addGUIControllerInterface(this);
 		eventManager.addObjectModifiedInterface(myEngine.getObjectHandler());
 		eventManager.addFrontEndUpdateInterface(myFrontEnd.getFrontEndUpdateHandler());
-		eventManager.addFrontEndUpdateInterface(myEngine.getFrontEndUpdateHandler());
+		eventManager.addRoomUpdateInterface(myFrontEnd.getRoomUpdateHandler());
+		eventManager.addRoomUpdateInterface(myEngine.getRoomUpdateHandler());
 		eventManager.addUserInputInterface(this);
 	}
 
 	@Override
-	public void onReset() {
+	public void onReset() throws ResourceFailedException {
 		myEngine.pause();
-		System.out.println("reset");
+		currentRunGame = readObject();
+		myEngine.changeGame(currentRunGame);
+	}
+
+	@Override
+	public void onChangeGame(String game) throws ResourceFailedException {
+		myCurrentGame = game;
+		onReset();
 	}
 
 	@Override
@@ -150,20 +147,27 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		}
 	}
 
-    @Override
-    public void onMouseEvent (MouseEvent event) {
-        if (event.isControlDown()) {
-            double x = event.getX();
-            double y = event.getY();
-            RunObject obj = myEngine.getObjectClicked(new Point(x, y));
-            if (obj == null) return;
-            myFrontEnd.makeObjectInformationBar(obj);
-        }
+	@Override
+	public void onMouseEvent (MouseEvent event) {
+		if(debugActivated){
+			if (event.isControlDown()) {
+				double x = event.getX();
+				double y = event.getY();
+				RunObject obj = myEngine.getObjectClicked(new Point(x, y));
+				if (obj == null) return;
+				myFrontEnd.makeObjectInformationBar(obj);
+			}
+		}
+	}
 
-    }
-
-    @Override
-    public void onKeyEvent (KeyEvent event) {
-        // Do nothing (for now)
-    }
+	@Override
+	public void onKeyEvent (KeyEvent event) {
+		// Do nothing (for now)
+	}
+	
+	@Override
+	public void setDebug(boolean value){
+		debugActivated = value;
+	}
+	
 }

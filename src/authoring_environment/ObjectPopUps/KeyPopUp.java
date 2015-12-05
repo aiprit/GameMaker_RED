@@ -33,7 +33,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	private String keyPress;
 	Label myInfo;
 	protected KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
+	protected ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
 	public KeyPopUp(DataObject obj,IObjectInterface game){
 		super(obj,game);
 		myRoot = new Group();
@@ -78,12 +78,5 @@ public abstract class KeyPopUp  extends BasicPopUp{
 
 	}
 
-	protected void nullAlert(){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("No Key Selected");
-		alert.setContentText("Please Select a Key");
-		alert.showAndWait();
-	}
 
 }

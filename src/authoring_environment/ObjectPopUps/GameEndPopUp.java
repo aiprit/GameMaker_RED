@@ -26,6 +26,7 @@ public class GameEndPopUp extends BasicPopUp{
 	@Override
 	public void eventPopup() {
 		EventController p = new EventController(new GameEndEvent(),myObject,myGame);
+		p.showAndWait();
 
 	}
 

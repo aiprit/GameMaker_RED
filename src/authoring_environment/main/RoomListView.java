@@ -50,7 +50,7 @@ public class RoomListView {
 	}
 	
 	public Button addRoom(DataRoom o, DataGame rooms, int i, boolean startRoom, Consumer<Void> updateFcn) {
-		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName());
+		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName(), rooms.getName());
 		if (startRoom) {
 			room.setStyle("-fx-background-color: " + myResourceBundle.getString("StartRoomBackgroundColor"));
 		}
@@ -78,8 +78,8 @@ public class RoomListView {
 		updateFcn.accept(null);
 	}
 		
-	public Button addPlusButton(int numberofRooms) {
-		RoomIcon room = new RoomIcon(myResourceBundle);
+	public Button addPlusButton(int numberofRooms, String gameName) {
+		RoomIcon room = new RoomIcon(myResourceBundle, gameName);
 
 		int col = numberofRooms % ROW_LENGTH;
 		int row = numberofRooms /ROW_LENGTH;

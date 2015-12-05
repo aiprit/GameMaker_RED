@@ -25,9 +25,10 @@ public class EventRightPane {
 //		listview.setItems(actionList);
 		delete = new Button(r.getString("Delete"));
 		delete.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
-		delete.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
+		delete.setTranslateX(Integer.parseInt(r.getString("deleteButtonTranslateX")));
 		root.getChildren().addAll(title,listView,delete);
 		listView.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));
+		listView.setMinWidth(Integer.parseInt(r.getString("listviewWidth")));
 		delete.setAlignment(Pos.BOTTOM_RIGHT);
 //		b.setOnAction(e ->
 //		delete(listview.getSelectionModel().getSelectedItem()));

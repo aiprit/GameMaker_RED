@@ -23,6 +23,7 @@ public class ObjectEditorView {
 
 	private Group myRoot;
 	private Stage myStage;
+	private String gameName;
 	ObjectEditorViewBottomPane bottom;
 	ObjectEditorViewRightPane right;
 	ObjectEditorViewCenterPane center;
@@ -30,7 +31,8 @@ public class ObjectEditorView {
 	ObjectEditorViewTopPane top;
 	BorderPane bp;
 
-	public ObjectEditorView() {
+	public ObjectEditorView(String gameName) {
+		this.gameName = gameName;
 		init();
 	}
 
@@ -42,7 +44,7 @@ public class ObjectEditorView {
 		BorderPane myPane = new BorderPane();
 		bottom = new ObjectEditorViewBottomPane();
 		right = new ObjectEditorViewRightPane();
-		center = new ObjectEditorViewCenterPane();
+		center = new ObjectEditorViewCenterPane(gameName);
 		left = new ObjectEditorViewLeftPane();
 		top = new ObjectEditorViewTopPane();
 		myPane.setBottom(bottom.init());

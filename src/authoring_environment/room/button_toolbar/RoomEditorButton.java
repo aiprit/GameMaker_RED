@@ -6,11 +6,10 @@ import javafx.scene.control.Button;
 
 
 public class RoomEditorButton extends Button {
-	private static final String ROOM_EDITOR_BUTTON_WIDTH = "RoomEditorButtonWidth";
+	private static final String BUTTON_PADDING = "   ";
 
 	public RoomEditorButton(ResourceBundle resources, String title) {
-		super(resources.getString(title));
-		this.setPrefWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_BUTTON_WIDTH)));
+		super(BUTTON_PADDING + resources.getString(title) + BUTTON_PADDING);
 	}
 
 }
