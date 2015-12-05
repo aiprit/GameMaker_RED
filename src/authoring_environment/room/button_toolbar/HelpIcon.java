@@ -58,7 +58,6 @@ public class HelpIcon extends Label {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		this.setTooltip(myTooltip);
 	}
 
 //	private void showToolTip(MouseEvent event, Tooltip tip) {
