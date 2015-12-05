@@ -38,10 +38,5 @@ public class StringParam implements IParameter {
 		return IParameter.type.STRING;
 	}
 
-	@Override
-	public List<String> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

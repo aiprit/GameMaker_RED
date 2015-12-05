@@ -43,10 +43,6 @@ public class DoubleParam implements IParameter {
 		return IParameter.type.DOUBLE;
 	}
 
-	@Override
-	public List<String> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

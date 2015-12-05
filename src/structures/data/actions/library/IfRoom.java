@@ -23,7 +23,7 @@ public class IfRoom extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "“with()\n;if (library.get_room_name().equals(%s) != %b)";
+		return "engine.with()\n;if (library.get_room_name().equals(%s) != %b)";
 	}
 
 }

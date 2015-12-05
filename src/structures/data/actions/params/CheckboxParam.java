@@ -39,10 +39,6 @@ public class CheckboxParam implements IParameter {
 		return IParameter.type.CHECKBOX;
 	}
 
-	@Override
-	public List<String> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

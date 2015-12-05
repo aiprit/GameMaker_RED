@@ -47,7 +47,7 @@ import structures.run.RunRoom;
 public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "blue.css";
+	public static final String STYLESHEET = "purple.css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 
 	private Canvas myCanvas;
@@ -62,23 +62,27 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
 	private ObjectInformationView myObjectInformationView;
+	
+	private int gameHeight, gameWidth;
 
-	public FrontEnd(EventManager eventManager, Stage stage, String game) throws IOException, ResourceFailedException {
-	        myCurrentGame = game;
+	public FrontEnd(int width, int height, EventManager eventManager, Stage stage, String game) throws IOException, ResourceFailedException {
+		gameHeight = height;
+		gameWidth = width;
+		myCurrentGame = game;
 		borderPane = new BorderPane();
 		topContainer = new VBox();
 		myEventManager = eventManager;
 		this.stage = stage;
-		stage.setWidth(1000);
+		stage.setWidth(500 + width);
 		stage.centerOnScreen();
 		stage.setY(stage.getY()-100);
-		setupFramework();
-		setupCanvas();
+		setupFramework(gameWidth, gameHeight);
+		setupCanvas(width, height);
 	}
 
-	private void setupFramework() throws IOException, ResourceFailedException{
+	private void setupFramework(int gameWidth, int gameHeight) throws IOException, ResourceFailedException{
 		myRoot = new Group();
-		playScene = new Scene(borderPane, 700, 600);
+		playScene = new Scene(borderPane, 200 + gameWidth, 100 + gameHeight);
 		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
 		stage.setScene(playScene);
 		borderPane.setCenter(myRoot);
@@ -221,8 +225,8 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		stage.setWidth(1100);
 	}
 
-	private void setupCanvas() throws IOException{
-		myCanvas = new Canvas();
+	private void setupCanvas(int width, int height) throws IOException{
+		myCanvas = new Canvas(width, height);
 		myCanvasDrawer = new Draw(myCanvas);
 		StackPane pane = (StackPane) myCanvasDrawer;
 		myRoot.getChildren().add(pane);

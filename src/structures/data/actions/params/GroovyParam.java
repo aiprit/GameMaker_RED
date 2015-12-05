@@ -47,10 +47,6 @@ public class GroovyParam implements IParameter {
 		return IParameter.type.GROOVY;
 	}
 
-	@Override
-	public List<String> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }
