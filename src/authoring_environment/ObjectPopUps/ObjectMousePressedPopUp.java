@@ -5,7 +5,6 @@ import authoring_environment.Event.EventController;
 
 import structures.data.DataObject;
 import structures.data.access_restricters.IObjectInterface;
-import structures.data.events.GlobalMousePressedEvent;
 import structures.data.events.ObjectMousePressedEvent;
 
 

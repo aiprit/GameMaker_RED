@@ -1,8 +1,6 @@
 package authoring_environment.ObjectPopUps;
 
-import java.util.List;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.stage.Stage;
