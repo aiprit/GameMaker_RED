@@ -120,9 +120,8 @@ public class FileManager {
 		File sounds = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory"));
 		File XML = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeXMLDirectory"));
 		File saves = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSavesDirectory"));
-		if (!backgrounds.mkdirs() | !images.mkdirs() | !sounds.mkdirs() | !XML.mkdirs() | !saves.mkdirs()) {
-			throw new UnknownResourceException(
-					"Could not create directory strucutre for this game. Check permissions.");
+		if (!backgrounds.mkdirs() || !images.mkdirs() || !sounds.mkdirs() || !XML.mkdirs() || !saves.mkdirs()) {
+			System.out.println("Could not create directory structures for this game. Check permissions.");
 		}
 	}
 

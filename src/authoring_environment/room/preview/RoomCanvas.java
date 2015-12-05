@@ -10,6 +10,7 @@ import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.room.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
+import exceptions.ResourceFailedException;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
@@ -32,10 +33,12 @@ public class RoomCanvas extends Canvas {
 	private List<DraggableImage> myObjectList;
 	private DraggableView myRoomView;
 	private Grid myGrid;
+	private String gameName;
 	
-	public RoomCanvas(ResourceBundle resources) {
+	public RoomCanvas(ResourceBundle resources, String gameName) {
 		super(Double.parseDouble(resources.getString("PreviewWidth")), 
 				Double.parseDouble(resources.getString("PreviewHeight")));
+		this.gameName = gameName;
 		myResources = resources;
 		myBackgroundColor = DEFAULT_COLOR.toString();
 		setColorFill(DEFAULT_COLOR);
@@ -183,7 +186,12 @@ public class RoomCanvas extends Canvas {
 			setColorFill(fill);
 		} catch (IllegalArgumentException e) {
 			FileManager fm = new FileManager(gameName);
-			setImageFill(fm.getBackground(myBackgroundColor));
+			try {
+				setImageFill(fm.getBackground(myBackgroundColor));
+			} catch (ResourceFailedException e1) {
+				//TODO:
+				e1.printStackTrace();
+			}
 		}
 	}
 	

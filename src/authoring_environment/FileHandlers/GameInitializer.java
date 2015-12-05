@@ -26,7 +26,7 @@ public class GameInitializer {
 	}
 
 	public static String askName() {
-		return askName(r.getString("SelectOption"));
+		return FileManager.askName(r.getString("SelectOption"));
 	}
 
 	public static DataGame saveAsNewGame(DataGame dataGame, String newName) throws UnknownResourceException {

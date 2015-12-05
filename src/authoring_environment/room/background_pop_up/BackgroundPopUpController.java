@@ -55,7 +55,7 @@ public class BackgroundPopUpController {
 	}
 	
 	private void launchFileChooser() {
-		FileManager fm = new FileManager(gameName);
+		FileManager fm = new FileManager(myGameName);
 		File file = fm.makeBackground(FileManager.getPNGFile());
 		view.setImageFileName(file.getName());
 		model.setBackgroundColor(view.getImageFileName());
