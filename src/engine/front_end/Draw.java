@@ -23,8 +23,6 @@ public class Draw extends StackPane implements IDraw {
 	public Draw(Canvas canvas) {
 		myCanvas = canvas;
 		myGraphicsContext = canvas.getGraphicsContext2D();
-		myCanvas.setWidth(500);
-		myCanvas.setHeight(500);
 		this.getChildren().add(myCanvas);
 	}
 
