@@ -24,8 +24,10 @@ public class RunResources {
 	
 	private Map<String, RunSprite> mySprites;
 	private Map<String, RunSound> mySounds;
+	private String gameName;
 		
-	public RunResources(String imageFolder, String soundFolder) {
+	public RunResources(String imageFolder, String soundFolder, String gameName) {
+		this.gameName = gameName;
 		myImageFolder = imageFolder;
 		mySoundFolder = soundFolder;
 		
@@ -36,7 +38,7 @@ public class RunResources {
 	
 	public void loadSprite(DataSprite sprite) throws ResourceFailedException {
 		if (!sprite.loaded()) {
-			sprite.load(myImageFolder);
+			sprite.load(gameName);
 		}
 		
 		RunSprite runSprite = null;
