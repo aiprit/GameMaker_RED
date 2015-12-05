@@ -90,12 +90,13 @@ public class XMLWriter {
         Element object = doc.createElement("object");
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
-        object.setAttribute("sprite", dataObject.getSprite().getName());
+        if(dataObject.getSprite()!= null ){
+            object.setAttribute("sprite", dataObject.getSprite().getName());
+        }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
 
         Element events = doc.createElement("events");
-
         for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
             events.appendChild(getElementFromEvent(doc, e));
         }
