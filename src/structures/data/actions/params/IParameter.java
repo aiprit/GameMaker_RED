@@ -1,5 +1,7 @@
 package structures.data.actions.params;
 
+import java.util.List;
+
 import exceptions.ParameterParseException;
 
 /**
@@ -68,4 +70,6 @@ public interface IParameter {
 		ROOM_SELECT,
 		SELECT
 	}
+
+	List<String> getOptions();
 }
