@@ -72,6 +72,13 @@ public class DataInstance {
         return myY;
     }
 
+    public Map<String, Double> getVariableMap(){
+        return myVariables;
+    }
+
+    public void setVariableMap(Map<String, Double> m){
+        myVariables = m;
+    }
 
     public boolean isVisible() {
         return myVisible;

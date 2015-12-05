@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/test/" startRoom="0" title="test">
+  <variableMap/>
+  <objects>
+    <object name="chloe" scaleX="1.0" scaleY="1.0" sprite="chloe" zIndex="0">
+      <events>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="D">
+          <actions>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="chloe.png" centerX="0.0" centerY="0.0" name="chloe"/>
+  </sprites>
+  <sounds>
+    <sound baseFileName="goat.wav" name="goat"/>
+  </sounds>
+  <rooms/>
+</game>

@@ -57,6 +57,7 @@ public class XMLWriter {
     }
 
     private void processGame(Document doc, DataGame game, Element root) {
+        root.appendChild(getElementFromVariableMap(doc, game.getVariableMap()));
         root.appendChild(getElementFromList(doc, game, "objects"));
         root.appendChild(getElementFromList(doc, game, "sprites"));
         root.appendChild(getElementFromList(doc, game, "sounds"));
@@ -82,7 +83,6 @@ public class XMLWriter {
                 e.appendChild(getElementFromRoom(doc, dataRoom));
             }
         }
-
         return e;
     }
 
@@ -90,12 +90,13 @@ public class XMLWriter {
         Element object = doc.createElement("object");
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
-        object.setAttribute("sprite", dataObject.getSprite().getName());
+        if(dataObject.getSprite()!= null ){
+            object.setAttribute("sprite", dataObject.getSprite().getName());
+        }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
 
         Element events = doc.createElement("events");
-
         for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
             events.appendChild(getElementFromEvent(doc, e));
         }
@@ -124,13 +125,24 @@ public class XMLWriter {
         return event;
     }
 
+    private Element getElementFromVariableMap(Document doc, Map<String, Double> m) {
+
+        Element map = doc.createElement("variableMap");
+
+        for (Map.Entry<String, Double> var : m.entrySet()) {
+            map.setAttribute(var.getKey(), Double.toString(var.getValue()));
+        }
+
+        return map;
+    }
+
     private Element getElementFromAction(Document doc, IAction a) {
         Element action = doc.createElement("action");
         action.setAttribute("title", a.getTitle());
 
         List<IParameter> params = a.getParameters();
 
-        for(int i = 0; i < params.size(); i++){
+        for (int i = 0; i < params.size(); i++) {
             String p = params.get(i).getOriginal();
             byte[] authBytes = p.getBytes(StandardCharsets.UTF_8);
             String encodedParam = Base64.getEncoder().encodeToString(authBytes);
@@ -176,7 +188,7 @@ public class XMLWriter {
     private Element getElementFromView(Document doc, DataView dataView) {
         Element view = doc.createElement("view");
         view.setAttribute("name", dataView.getName());
-        view.setAttribute("x",  Double.toString(dataView.getX()));
+        view.setAttribute("x", Double.toString(dataView.getX()));
         view.setAttribute("y", Double.toString(dataView.getY()));
         view.setAttribute("width", Double.toString(dataView.getWidth()));
         view.setAttribute("height", Double.toString(dataView.getHeight()));
@@ -206,6 +218,7 @@ public class XMLWriter {
         instance.setAttribute("scaleX", Double.toString(dataInstance.getScaleX()));
         instance.setAttribute("scaleY", Double.toString(dataInstance.getScaleY()));
         instance.setAttribute("alpha", Double.toString(dataInstance.getAlpha()));
+        instance.appendChild(getElementFromVariableMap(doc, dataInstance.getVariableMap()));
 
         return instance;
     }

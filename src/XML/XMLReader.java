@@ -2,10 +2,7 @@ package XML;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
@@ -14,13 +11,16 @@ import structures.data.interfaces.IAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class XMLReader {
     DataGame game;
 
-    public XMLReader(){}
+    public XMLReader() {
+    }
 
-    public DataGame read(String filename){
+    public DataGame read(String filename) {
 
         try {
             File inputFile = new File(filename);
@@ -28,7 +28,7 @@ public class XMLReader {
                     = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
-            if(doc == null){
+            if (doc == null) {
                 throw new IllegalArgumentException("File not found.");
             }
             doc.getDocumentElement().normalize();
@@ -42,6 +42,9 @@ public class XMLReader {
             game.setCurrentRoom(Integer.parseInt(root.getAttribute("currentRoom")));
             game.setStartRoom(Integer.parseInt(root.getAttribute("startRoom")));
 
+
+            Element gameVariableMap = (Element) doc.getElementsByTagName("variableMap").item(0);
+            game.setVariableMap(loadVariableMap(gameVariableMap));
 
             NodeList sounds = doc.getElementsByTagName("sound");
             loadSounds(sounds);
@@ -62,7 +65,7 @@ public class XMLReader {
         return game;
     }
 
-    private void loadObjects(NodeList objects){
+    private void loadObjects(NodeList objects) {
         for (int i = 0; i < objects.getLength(); i++) {
 
             Node object = objects.item(i);
@@ -88,7 +91,8 @@ public class XMLReader {
 
                 Element elem = (Element) object;
                 DataObject obj = game.getObjectFromString(elem.getAttribute("name"));
-                NodeList events = elem.getElementsByTagName("event");loadEvents(events, obj);
+                NodeList events = elem.getElementsByTagName("event");
+                loadEvents(events, obj);
             }
         }
     }
@@ -109,7 +113,7 @@ public class XMLReader {
         }
     }
 
-    private ObservableList<IAction> loadActions(NodeList actions){
+    private ObservableList<IAction> loadActions(NodeList actions) {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
         ActionFactory factory = new ActionFactory();
         for (int i = 0; i < actions.getLength(); i++) {
@@ -124,7 +128,7 @@ public class XMLReader {
         return ret;
     }
 
-    private void loadSprites(NodeList sprites){
+    private void loadSprites(NodeList sprites) {
         for (int i = 0; i < sprites.getLength(); i++) {
 
             Node sprite = sprites.item(i);
@@ -143,7 +147,7 @@ public class XMLReader {
         }
     }
 
-    private void loadSounds(NodeList sounds){
+    private void loadSounds(NodeList sounds) {
         for (int i = 0; i < sounds.getLength(); i++) {
 
             Node sound = sounds.item(i);
@@ -191,6 +195,18 @@ public class XMLReader {
         }
     }
 
+    private Map<String, Double> loadVariableMap(Element e) {
+        Map<String, Double> m = new HashMap<>();
+
+        NamedNodeMap attrs = e.getAttributes();
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr attribute = (Attr) attrs.item(i);
+            m.put(attribute.getName(), Double.parseDouble(attribute.getValue()));
+        }
+
+        return m;
+    }
+
     private void loadObjectInstances(DataRoom rm, NodeList objectInstances) {
         for (int i = 0; i < objectInstances.getLength(); i++) {
 
@@ -206,6 +222,8 @@ public class XMLReader {
                         Long.parseLong(elem.getAttribute("ID")),
                         Double.parseDouble(elem.getAttribute("scaleX")),
                         Double.parseDouble(elem.getAttribute("scaleY")));
+
+                di.setVariableMap(loadVariableMap((Element) elem.getElementsByTagName("variableMap").item(0)));
 
                 rm.addObjectInstance(di);
             }
