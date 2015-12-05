@@ -71,19 +71,6 @@ public class TestGameObject {
 		System.out.println(" Reading from XML ");
 		DataGame testGame = xml.readXML("test.xml");
 		System.out.println(testGame.toString());
-
-
-		/*
-		TestGameObject testGameObject = new TestGameObject();
-
-		DataGame printGame = testGameObject.getTestGame("");
-		System.out.println(printGame.toString());
-		XMLEditor xml = new XMLEditor();
-		xml.writeXML(printGame, "test.xml");
-
-		DataGame testGame = xml.readXML("test.xml");
-		System.out.println(testGame.toString());
-		*/
 	}
 
 	/*
