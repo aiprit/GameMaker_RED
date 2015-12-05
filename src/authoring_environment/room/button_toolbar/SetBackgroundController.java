@@ -11,14 +11,14 @@ public class SetBackgroundController {
 	private SetBackgroundButton view;
 	private IDataRoom model;
 	
-	public SetBackgroundController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room) {
+	public SetBackgroundController(ResourceBundle resources, RoomCanvas canvas, IDataRoom room, String gameName) {
 		view = new SetBackgroundButton(resources);
 		model = room;
-		view.setOnAction(e -> onClick(resources, canvas));
+		view.setOnAction(e -> onClick(resources, canvas, gameName));
 	}
 	
-	private void onClick(ResourceBundle resources, RoomCanvas background) {
-		BackgroundPopUpController popup = new BackgroundPopUpController(resources, background, model);
+	private void onClick(ResourceBundle resources, RoomCanvas background, String gameName) {
+		BackgroundPopUpController popup = new BackgroundPopUpController(resources, background, model, gameName);
 	}
 	
 	public RoomEditorButton getSetBackgroundButton() {

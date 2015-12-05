@@ -22,10 +22,12 @@ public class BackgroundPopUpController {
 	private ResourceBundle myResources;
 	private BackgroundPopup view;
 	private IDataRoom model;
+	private String myGameName;
 	
-	public BackgroundPopUpController(ResourceBundle resources, RoomCanvas background, IDataRoom room) {
+	public BackgroundPopUpController(ResourceBundle resources, RoomCanvas background, IDataRoom room, String gameName) {
 		myResources = resources;
 		model = room;
+		myGameName = gameName;
 		view = new BackgroundPopup(resources, background);
 		if (!room.getBackgroundColor().substring(0, 2).equals("0x")) {
 			view.setImageFileName(room.getBackgroundColor());

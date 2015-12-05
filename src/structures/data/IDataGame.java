@@ -9,4 +9,6 @@ public interface IDataGame {
 	public int getViewHeight();
 	
 	public ObservableList<DataObject> getObjects();
+	
+	public String getName();
 }
