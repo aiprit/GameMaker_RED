@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <game currentRoom="0" directory="Games/Name/" startRoom="0" title="Name">
+<<<<<<< HEAD
+=======
   <variableMap/>
+>>>>>>> 811f5a1c9ac8c891c515295e7edee7e5fa7b83ad
   <objects/>
   <sprites/>
   <sounds/>

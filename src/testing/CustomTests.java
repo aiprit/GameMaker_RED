@@ -1,7 +1,7 @@
 package testing;
 
 import exceptions.ParameterParseException;
-import structures.data.actions.RunScript;
+import structures.data.actions.script.RunScript;
 import utils.Bresenham;
 import utils.Utils;
 

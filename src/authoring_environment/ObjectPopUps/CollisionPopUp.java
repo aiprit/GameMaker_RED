@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import structures.data.DataObject;
@@ -43,7 +44,9 @@ public class CollisionPopUp extends BasicPopUp{
 		myRoot = new Group();
 		myStage = new Stage();
 		myStage.setTitle(r.getString("title"));
+		VBox box = new VBox();
 		Text title = new Text(r.getString("objects"));
+		box.getChildren().add(title);
 		Button b = new Button(r.getString("ok"));
 		b.setTranslateX(Integer.parseInt(r.getString("buttonTranslateX")));
 		b.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
@@ -65,7 +68,8 @@ public class CollisionPopUp extends BasicPopUp{
 		b.setOnAction(e -> {
 			actions(e);
 		});
-		myRoot.getChildren().addAll(title, listview, b);
+		box.getChildren().add(listview);
+		myRoot.getChildren().addAll(box, b);
 		myScene = new Scene(myRoot);
 		myStage.setScene(myScene);
 		myStage.show();
