@@ -9,6 +9,7 @@ import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
 import structures.data.interfaces.IAction;
+import utils.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -228,13 +229,14 @@ public class XMLReader {
 
                 di.setAlpha(Double.parseDouble(elem.getAttribute("alpha")));
                 di.setAngle(Double.parseDouble(elem.getAttribute("angle")));
-                //di.setVelocity(Double.parseDouble(elem.getAttribute("alpha")));
+
+                di.setVelocity(new Vector(Double.parseDouble(elem.getAttribute("velocityX")),
+                        Double.parseDouble(elem.getAttribute("velocityY"))));
                 di.setAngularVelocity(Double.parseDouble(elem.getAttribute("angularVelocity")));
                 di.setVisible(Boolean.parseBoolean(elem.getAttribute("visibility")));
                 di.setFriction(Double.parseDouble(elem.getAttribute("friction")));
-                //di.setGravity(Double.parseDouble(elem.getAttribute("friction")));
-
-
+                di.setGravity(new Vector(Double.parseDouble(elem.getAttribute("gravityX")),
+                        Double.parseDouble(elem.getAttribute("gravityY"))));
 
                 di.setVariableMap(loadVariableMap((Element) elem.getElementsByTagName("variableMap").item(0)));
 
