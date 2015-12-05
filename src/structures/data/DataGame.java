@@ -7,9 +7,7 @@ import structures.data.access_restricters.IObjectInterface;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.util.*;
 
 //TODO check if IObjectInterface is being used
 public class DataGame extends Observable implements IObjectInterface, IDataGame {
@@ -21,10 +19,10 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     ObservableList<DataObject> myObjects;
     ObservableList<DataSprite> mySprites;
     ObservableList<DataSound> mySounds;
+    private Map<String, Double> myVariables = new HashMap<>();
     private String myName, myGameDirectory;
     private int myStartRoom, myCurrentRoom;
     private int myViewWidth, myViewHeight;
-    private double myHighScore;
     private ResourceBundle fileFormat = ResourceBundle.getBundle("resources/GameFileFormat");
 
     public DataGame(String name, String gameDirectory) {
@@ -36,7 +34,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         mySounds = FXCollections.observableArrayList();
         myViewWidth = DEFAULT_VIEW_SIZE;
         myViewHeight = DEFAULT_VIEW_SIZE;
-        myHighScore = 0;
         myCurrentRoom = 0;
     }
 
@@ -60,14 +57,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
         myViewHeight = height;
     }
 
-    public double getHighScore() {
-        return myHighScore;
-    }
-
-    public void setHighScore(double highScore) {
-        myHighScore = highScore;
-    }
-
     public ObservableList<DataRoom> getRooms() {
         return myRooms;
     }
@@ -78,6 +67,14 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
 
     public DataRoom getStartRoom() {
         return myRooms.get(myStartRoom);
+    }
+
+    public Map<String, Double> getVariableMap(){
+        return myVariables;
+    }
+
+    public void setVariableMap(Map<String, Double> m){
+        myVariables = m;
     }
 
     public void setStartRoom(int index) {

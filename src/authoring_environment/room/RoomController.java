@@ -44,11 +44,11 @@ public class RoomController {
 		model = room;
 		model.getView().setView(new Rectangle(room.getView().getX(), room.getView().getY(),
 				gameObject.getViewWidth(), gameObject.getViewHeight()));
-		view = new RoomEditor(myResources, room.getName());
+		view = new RoomEditor(myResources, room.getName(), gameObject.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
 		initializeView();
-		initializeButtonToolbar();
+		initializeButtonToolbar(gameObject.getName());
 		view.getPreview().getCanvas().redrawCanvas();
 	}
 	
@@ -63,6 +63,7 @@ public class RoomController {
 	private void populateEditor(DataRoom room) {
 		view.getPreview().getCanvas().setWidth(model.getSize()[0]);
 		view.getPreview().getCanvas().setHeight(model.getSize()[1]);
+		view.getPreview().getCanvas().getGrid().setSize(model.getSize()[0], model.getSize()[1]);
 		view.getPreview().getCanvas().setBackgroundColor(model.getBackgroundColor());
 		for (DataInstance instance : model.getObjectInstances()) {
 			ObjectInstanceController controller = new ObjectInstanceController(instance);
@@ -79,9 +80,9 @@ public class RoomController {
 		view.getObjectsAndPreview().getChildren().add(view.getPreview());
 	}
 	
-	private void initializeButtonToolbar() {
+	private void initializeButtonToolbar(String gameName) {
 		myButtonToolbarController = new ButtonToolbarController(myResources, 
-				view.getPreview().getCanvas(), model);
+				view.getPreview().getCanvas(), model, gameName);
 		view.getTotalView().getChildren().add(myButtonToolbarController.getButtonToolbar());
 	}
 	
@@ -176,7 +177,7 @@ public class RoomController {
 	}
 	
 	private void startObjectDrag(MouseEvent event) {
-		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event);
+		PotentialObjectInstance objectInstance = myObjectListController.startObjectDragAndDrop(event, view.getRoot());
 		try {
 			ImageView spriteInstance = objectInstance.getImageView();
 			if (spriteInstance != null) {
@@ -207,6 +208,7 @@ public class RoomController {
 		ObjectInstanceController objectInstance = instance == null ?
 				new ObjectInstanceController(image, object, coordinates[0], coordinates[1]) :
 				new ObjectInstanceController(image, instance, coordinates[0], coordinates[1]);
+		objectInstance.adjustScaleToFitCanvas(view.getPreview().getCanvas().getWidth(), view.getPreview().getCanvas().getHeight());
 		view.getPreview().addImage(objectInstance.getDraggableImage());
 		model.addObjectInstance(objectInstance.getDataInstance());
 		view.getPreview().getCanvas().redrawCanvas();

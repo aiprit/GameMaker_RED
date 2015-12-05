@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/fdas/" startRoom="0" title="fdas">
+  <variableMap/>
+  <objects>
+    <object name="a" scaleX="1.0" scaleY="1.0" sprite="Default" zIndex="0">
+      <events/>
+    </object>
+  </objects>
+  <sprites/>
+  <sounds/>
+  <rooms/>
+</game>

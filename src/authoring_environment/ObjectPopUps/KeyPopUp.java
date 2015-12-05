@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.DataObject;
+import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.KeyPressedEvent;
 
 public abstract class KeyPopUp  extends BasicPopUp{
@@ -32,9 +33,9 @@ public abstract class KeyPopUp  extends BasicPopUp{
 	private String keyPress;
 	Label myInfo;
 	protected KeyCode key;
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
-	public KeyPopUp(DataObject obj){
-		super(obj);
+	protected ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ObjectPopUps/KeyPressResources");
+	public KeyPopUp(DataObject obj,IObjectInterface game){
+		super(obj,game);
 		myRoot = new Group();
 		keyPress = " ";
 
@@ -77,12 +78,5 @@ public abstract class KeyPopUp  extends BasicPopUp{
 
 	}
 
-	protected void nullAlert(){
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("No Key Selected");
-		alert.setContentText("Please Select a Key");
-		alert.showAndWait();
-	}
 
 }

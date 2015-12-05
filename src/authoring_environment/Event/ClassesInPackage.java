@@ -1,6 +1,8 @@
 package authoring_environment.Event;
 
 import java.io.File;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -8,12 +10,12 @@ public class ClassesInPackage {
 	public ArrayList<String> getAllClasses(String pckgname) {
 		ArrayList<String> classNames = new ArrayList<String>();
 		try{
-			ArrayList classes=new ArrayList();
-			// Get a File object for the package
-			File directory=null;
-			try {
-				directory=new File(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile());
-			} catch(NullPointerException x) {
+			ArrayList classes=new ArrayList(); 
+			// Get a File object for the package 
+			File directory=null; 
+			try { 
+				directory=new File(URLDecoder.decode(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile(), "UTF-8")); 
+			} catch(NullPointerException x) { 
 				System.out.println("Nullpointer");
 				throw new ClassNotFoundException(pckgname+" does not appear to be a valid package");
 			}
@@ -37,7 +39,7 @@ public class ClassesInPackage {
 				String name = c.getName().substring(pckgname.length()+1);
 				String nameToAdd = "";
 				for(int i=0;i<name.length();i++){
-					if(Character.isUpperCase(name.charAt(i))){
+					if(Character.isUpperCase(name.charAt(i))&& i!=0){
 						nameToAdd += " ";
 					}
 					nameToAdd += name.charAt(i);

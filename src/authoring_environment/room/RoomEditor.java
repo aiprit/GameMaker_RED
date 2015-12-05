@@ -26,7 +26,7 @@ public class RoomEditor {
 	private VBox myTotalView;
 	private HBox myObjectsAndPreview;
 	
-	public RoomEditor(ResourceBundle resources, String roomTitle) {
+	public RoomEditor(ResourceBundle resources, String roomTitle, String gameName) {
 		myRoot = new Group();
 		myEditor = new Stage();
 		myEditor.setWidth(Double.parseDouble(resources.getString(ROOM_EDITOR_WIDTH)));
@@ -34,7 +34,7 @@ public class RoomEditor {
 		myEditor.setTitle(resources.getString(ROOM_EDITOR_TITLE) + " - " + roomTitle);
 		myTotalView = new VBox();
 		myObjectsAndPreview = new HBox();
-		myPreview = new RoomPreview(resources);
+		myPreview = new RoomPreview(resources, gameName);
 		myTotalView.getChildren().addAll(myObjectsAndPreview);
 		myRoot.getChildren().add(myTotalView);
 	}

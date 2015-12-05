@@ -7,7 +7,8 @@ import authoring_environment.room.PopupTemplate;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 public class ConfigureView extends PopupTemplate {
 
@@ -20,33 +21,31 @@ public class ConfigureView extends PopupTemplate {
 	private static final String TRANSPARENCY = "Transparency";
 	private static final String VISIBILITY = "Visibility";
 	private static final String NAME = "ConfigureParameters";
-	private static final int NUM_HBOXES = 7;
-
+	private static final int NUM_ROWS = 7;
+	private static final String CONFIGURE_WIDTH = "ConfigureWidth";
 	private RadioButton visibilityButton;
-	private List<HBox> fieldList;
+	private List<TextField> fieldList;
+	private GridPane myGridPane;
 	
 	public ConfigureView(ResourceBundle resources) {
 		super(resources, NAME);
+		this.setMinWidth(Double.parseDouble(resources.getString(CONFIGURE_WIDTH)));
 	}
 	
 	@Override
 	public void setContents() {
-		HBoxHandler handler = new HBoxHandler();
+		GridPaneHandler handler = new GridPaneHandler();
+		myGridPane = new GridPane();
 		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
-		fieldList = handler.createHBoxes(NUM_HBOXES, labelStrings);
-		for (HBox box : fieldList) {
-			myContentsBox.getChildren().add(box);
-		}
-		HBox visibility = new HBox();
-		visibility.getChildren().add(new Label(myResources.getString(VISIBILITY)));
+		fieldList = handler.setUpGridPane(NUM_ROWS, labelStrings, myGridPane);
+		myGridPane.add(new Label(myResources.getString(VISIBILITY)), 0, NUM_ROWS);
 		visibilityButton = new RadioButton();
-		visibility.getChildren().add(visibilityButton);
-		myContentsBox.getChildren().add(visibility);
-		myContentsBox.setAlignment(Pos.CENTER);
-		
+		myGridPane.add(visibilityButton, 1, NUM_ROWS);
+		myGridPane.setAlignment(Pos.CENTER);
+		myContentsBox.getChildren().add(myGridPane);
 	}
 	
-	public List<HBox> getFieldList() {
+	public List<TextField> getFieldList() {
 		return fieldList;
 	}
 	

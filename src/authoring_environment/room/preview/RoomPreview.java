@@ -16,10 +16,10 @@ public class RoomPreview extends ScrollPane {
 	
 	private RoomCanvas myCanvas;
 	
-	public RoomPreview(ResourceBundle resources) {
+	public RoomPreview(ResourceBundle resources, String gameName) {
 		super();
 		initializePreview(resources);
-		myCanvas = new RoomCanvas(resources);
+		myCanvas = new RoomCanvas(resources, gameName);
 		myCanvas.setOnMousePressed(e -> press(e));
 		super.setContent(myCanvas);
 	}

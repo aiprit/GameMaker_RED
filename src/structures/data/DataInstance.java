@@ -1,14 +1,14 @@
 package structures.data;
 
-import java.awt.image.BufferedImage;
-
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.image.Image;
 import utils.Vector;
 
 public class DataInstance {
 
     private double myX, myY;
-
+    private Map<String, Double> myVariables = new HashMap<>();
     private long myID;
     private DataObject myParentObject;
     private boolean myVisible;
@@ -72,6 +72,13 @@ public class DataInstance {
         return myY;
     }
 
+    public Map<String, Double> getVariableMap(){
+        return myVariables;
+    }
+
+    public void setVariableMap(Map<String, Double> m){
+        myVariables = m;
+    }
 
     public boolean isVisible() {
         return myVisible;
@@ -130,7 +137,6 @@ public class DataInstance {
     public void setAngularVelocity(double angularVelocity) {
         myAngularVelocity = angularVelocity;
     }
-
 
     public double getScaleX() {
         return myScaleX;

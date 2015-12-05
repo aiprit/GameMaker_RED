@@ -1,21 +1,26 @@
 package authoring_environment.main;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Player.Launcher;
 import XML.XMLEditor;
-import XML.XMLReader;
-import authoring_environment.FileHandlers.FileHelper;
+import authoring_environment.FileHandlers.FileManager;
+import authoring_environment.FileHandlers.GameInitializer;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.RoomEditor;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import exceptions.ResourceFailedException;
-import javafx.collections.ObservableList;
+import exceptions.UnknownResourceException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
@@ -53,7 +58,7 @@ public class MainController implements IUpdateHandle {
 		try{
 			update();
 		}catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		// Get updates
 		objectListWindow.setUpdateHandle((IUpdateHandle) this);
@@ -64,11 +69,36 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
+	
 	private void returnToLauncher(){
-		
+		doYouWantToSave();
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
+	}
+	
+	/**
+	 * Called by parent
+	 */
+	public void doYouWantToSave() {
+		//Do you want to save?
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Closing");
+		alert.setHeaderText("Would you like to save before closing?");
+		alert.setContentText(null);
+
+		ButtonType buttonTypeOne = new ButtonType("Save");
+		ButtonType buttonTypeTwo = new ButtonType("Don't Save");
+
+		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == buttonTypeOne){
+			FileManager fm = new FileManager(dataGame.getName());
+			fm.saveGame(dataGame);
+		} else if (result.get() == buttonTypeTwo) {
+		  myStage.close();
+		}
 	}
 	@Override
 	public void update() {
@@ -145,7 +175,6 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				SpriteMaker.load(myStage, dataGame);
 				update();
-
 			}
 		});
 
@@ -180,23 +209,21 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Load");
-				File file = FileHelper.choose(myStage);
+				File file = GameInitializer.choose(myStage);
 				XMLEditor xml = new XMLEditor();
 				dataGame = xml.readXML(file.getAbsolutePath());
 				for (DataSprite o : dataGame.getSprites()){
 					try {
-						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("imagesFolder"));
+						o.load(dataGame.getName());
 					} catch (ResourceFailedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						showError(e);
 					}
 				}
 				for (DataSound o : dataGame.getSounds()){
 					try {
-						o.load(r.getString("Games")+ dataGame.getName() +  r.getString("soundFolder"));
+						o.load(dataGame.getName());
 					} catch (ResourceFailedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						showError(e);
 					}
 				}
 				update();
@@ -207,17 +234,19 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Clicked Save");
-				String file = r.getString("Games") + dataGame.getName() + r.getString("XMLFolder") + "GameFile.xml";
-				XMLEditor xml = new XMLEditor();
-				xml.writeXML(dataGame, file);
+				FileManager fm = new FileManager(dataGame.getName());
+				fm.saveGame(dataGame);
 				update();
 			}
 		});
 		topMenuBar.getSaveAsMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-				FileHelper.saveAsNewGame(dataGame);
+				try {
+					GameInitializer.saveAsNewGame(dataGame, FileManager.askName(r.getString("EnterName")));
+				} catch (UnknownResourceException e) {
+					showError(e);
+				}
 				update();
 			}
 		});	
@@ -247,5 +276,14 @@ public class MainController implements IUpdateHandle {
 
 	private IUpdateHandle getUpdater() {
 		return (IUpdateHandle) this;
+	}
+	
+	private void showError(Exception e) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(r.getString("FatalError"));
+		alert.setHeaderText(null);
+		alert.setContentText(e.getMessage());
+
+		alert.showAndWait();
 	}
 }

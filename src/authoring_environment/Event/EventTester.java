@@ -35,7 +35,7 @@ public class EventTester  extends Application{
 		game.addObject(object);
 		game.addObject(object2);
 		Stage cc = new Stage();
-		EventController gui = new EventController(a,object);
+//		EventController gui = new EventController(a,object);
 
 	}
 

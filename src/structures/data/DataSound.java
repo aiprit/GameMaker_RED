@@ -1,16 +1,12 @@
 package structures.data;
 
 import exceptions.ResourceFailedException;
-import javafx.scene.media.AudioClip;
-import structures.IResource;
-import sun.audio.AudioStream;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+
+import authoring_environment.FileHandlers.FileManager;
+import javafx.scene.media.AudioClip;
+import structures.IResource;
 
 public class DataSound implements IResource {
 
@@ -18,6 +14,7 @@ public class DataSound implements IResource {
     private String myBaseFileName;
     private String completeFileName;
     private AudioClip clip;
+    private AudioInputStream audioInputStream;
     private boolean myHaveLoaded;
 
     public DataSound(String name, String baseFileName) {
@@ -33,24 +30,34 @@ public class DataSound implements IResource {
     public String getBaseFileName() {
         return myBaseFileName;
     }
+    public AudioInputStream getInputStream(){
+    	
+    	return audioInputStream;
+    }
+    public void setInputStream(AudioInputStream inputStream){
+    	
+    	audioInputStream = inputStream;
+    	
+    }
 
     @Override
     public boolean loaded() {
         return myHaveLoaded;
     }
+    
 
     @Override
-    public void load(String directory) throws ResourceFailedException {
-    	
-    	clip = new AudioClip("file:///" + directory);
+    public void load(String gameName) throws ResourceFailedException {
+    	FileManager gmf = new FileManager(gameName);
+        clip = gmf.getSound(myName);
+    	myHaveLoaded = true;
     }
-
- 
+    
     public String getDirectory(){
     	return completeFileName;
-    }
+    } 
+    
     public AudioClip getClip(){
     	return clip;
     }
-
 }

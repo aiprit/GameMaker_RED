@@ -1,5 +1,7 @@
 package authoring_environment.room;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
@@ -15,8 +17,13 @@ public class RoomEditorTester extends Application {
 	}
 	
 	public String getGamesDirectory() {
-		String path = getClass().getResource("/dummy.file").getPath().replace("dummy.file", "");
-		return path;
+		try {
+			String s = new File(".").getCanonicalPath();
+			return s;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
     }
 
 	@Override
