@@ -2,15 +2,13 @@ package authoring_environment.Event;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
-import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.interfaces.IAction;

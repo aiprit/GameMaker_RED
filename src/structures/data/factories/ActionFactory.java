@@ -5,23 +5,45 @@ import exceptions.XMLFormatException;
 
 import org.w3c.dom.Element;
 
-import structures.data.actions.ChangeSprite;
-import structures.data.actions.Destroy;
-import structures.data.actions.GetObjectVariable;
-import structures.data.actions.MoveTo;
-import structures.data.actions.MoveToRandom;
-import structures.data.actions.ScaleSprite;
-import structures.data.actions.SetAcceleration;
-import structures.data.actions.SetFriction;
-import structures.data.actions.SetGravity;
-import structures.data.actions.SetObjectVariable;
-import structures.data.actions.SetTimerOnce;
-import structures.data.actions.SetTimerRepeated;
-import structures.data.actions.SetVelocityInDirection;
-import structures.data.actions.SetVelocityToPoint;
-import structures.data.actions.Sleep;
-import structures.data.actions.ViewFollow;
-import structures.data.actions.library.*;
+import structures.data.actions.game.DisplayMessage;
+import structures.data.actions.game.DrawRectangle;
+import structures.data.actions.game.DrawText;
+import structures.data.actions.game.GetHighScore;
+import structures.data.actions.game.PlaySound;
+import structures.data.actions.game.SaveGame;
+import structures.data.actions.game.SetGlobalVariable;
+import structures.data.actions.game.SetHighScore;
+import structures.data.actions.game.SetTimerOnce;
+import structures.data.actions.game.SetTimerRepeated;
+import structures.data.actions.logic.Close;
+import structures.data.actions.logic.Else;
+import structures.data.actions.logic.IfGlobalVar;
+import structures.data.actions.logic.IfKey;
+import structures.data.actions.logic.IfMouseButton;
+import structures.data.actions.logic.IfOdds;
+import structures.data.actions.logic.IfRoom;
+import structures.data.actions.logic.Open;
+import structures.data.actions.logic.Repeat;
+import structures.data.actions.logic.WithCollided;
+import structures.data.actions.logic.WithCreateInstance;
+import structures.data.actions.move.MoveTo;
+import structures.data.actions.move.MoveToRandom;
+import structures.data.actions.move.SetAcceleration;
+import structures.data.actions.move.SetFriction;
+import structures.data.actions.move.SetGravity;
+import structures.data.actions.move.SetVelocityInDirection;
+import structures.data.actions.move.SetVelocityToPoint;
+import structures.data.actions.object.ChangeSprite;
+import structures.data.actions.object.CreateInstance;
+import structures.data.actions.object.CreateInstanceAtCursor;
+import structures.data.actions.object.CreateObjectRandom;
+import structures.data.actions.object.Destroy;
+import structures.data.actions.object.GetObjectVariable;
+import structures.data.actions.object.ScaleSprite;
+import structures.data.actions.object.SetObjectVariable;
+import structures.data.actions.room.GoToRoom;
+import structures.data.actions.room.ViewFollow;
+import structures.data.actions.room.Wrap;
 import structures.data.interfaces.IAction;
 import utils.Reflection;
 
@@ -77,7 +99,6 @@ public class ActionFactory {
 				SetTimerRepeated.class,
 				SetVelocityInDirection.class,
 				SetVelocityToPoint.class,
-				Sleep.class,
 				ViewFollow.class,	
 			});
 			

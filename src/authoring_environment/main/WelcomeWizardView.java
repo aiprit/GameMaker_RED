@@ -50,19 +50,19 @@ public class WelcomeWizardView {
 		if (result.get() == buttonTypeCancel) {
 			myStage.close();
 			Launcher main = new Launcher();
-			main.start(new Stage());
+			main.start(myStage);
+			return null;
 		}
 
 		if (result.get() == openGameBtn) {
 			try {
 				dataGame = GameSelector.getGameChoice();
 			} catch (UnknownResourceException e) {
-				//Show error, close
-//				Alert a = new Alert(AlertType.ERROR);
-//				a.setTitle("Cannot Load Game");
-//				a.setHeaderText(null);
-//				a.setContentText(r.getString("Fatal") + e.getMessage());
-//				a.showAndWait();
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Cannot Load Game!");
+				a.setHeaderText(null);
+				a.setContentText(r.getString("Fatal") + e.getMessage());
+				a.showAndWait();
 				myStage.close();
 				showAndWait();
 				return null;

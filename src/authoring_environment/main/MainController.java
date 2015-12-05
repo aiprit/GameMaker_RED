@@ -31,14 +31,11 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
 
-
 public class MainController implements IUpdateHandle {
 	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private DataGame dataGame;
 	private Stage myStage;
-
-	// My subcomponents
-	private RoomEditor RoomEditor;
+	private Boolean active;
 
 	// My views
 	private MainView mainView;
@@ -50,20 +47,25 @@ public class MainController implements IUpdateHandle {
 
 	public MainController() {
 		this.myStage = new Stage();
-		mainView = new MainView(myStage);
-		objectListWindow = new ObjectListWindow();
-		roomListView = new RoomListView();
-		topMenuBar = new TopMenuBar();
-		spriteListView = new SpriteListView();
-		soundListView = new SoundListView();
 		dataGame = new WelcomeWizardView(myStage).showAndWait();
-		try{
-			update();
-		}catch(Exception e){
-		
+		if (dataGame != null) {
+			mainView = new MainView(myStage);
+			objectListWindow = new ObjectListWindow();
+			roomListView = new RoomListView();
+			topMenuBar = new TopMenuBar();
+			spriteListView = new SpriteListView();
+			soundListView = new SoundListView();
+			try {
+				update();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			active = true;
+			// Get updates
+			objectListWindow.setUpdateHandle((IUpdateHandle) this);
+		} else {
+			active = false;
 		}
-		// Get updates
-		objectListWindow.setUpdateHandle((IUpdateHandle) this);
 	}
 
 	public void refreshViews() {
@@ -71,19 +73,19 @@ public class MainController implements IUpdateHandle {
 		mainView.setPanes(objectListWindow.getPane(), roomListView.getPane(),
 				new RightView(spriteListView, soundListView).getPane());
 	}
-	
-	private void returnToLauncher(){
+
+	private void returnToLauncher() {
 		doYouWantToSave();
 		myStage.close();
 		Launcher main = new Launcher();
 		main.start(new Stage());
 	}
-	
+
 	/**
 	 * Called by parent
 	 */
 	public void doYouWantToSave() {
-		//Do you want to save?
+		// Do you want to save?
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Closing");
 		alert.setHeaderText("Would you like to save before closing?");
@@ -95,13 +97,15 @@ public class MainController implements IUpdateHandle {
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == buttonTypeOne){
+		if (result.get() == buttonTypeOne) {
 			FileManager fm = new FileManager(dataGame.getName());
 			fm.saveGame(dataGame);
 		} else if (result.get() == buttonTypeTwo) {
-		  myStage.close();
+			myStage.close();
 		}
+		active = false;
 	}
+
 	@Override
 	public void update() {
 		myStage.setTitle("Authoring Environment - Editing: " + dataGame.getName());
@@ -146,14 +150,16 @@ public class MainController implements IUpdateHandle {
 				}
 			});
 		}
-		
-		roomListView.addPlusButton(dataGame.getRooms().size(), dataGame.getName()).setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				RoomNamePopupController room = new RoomNamePopupController(dataGame.getRooms().size(), dataGame);
-				room.setOnClose(e -> update(), dataGame, true);
-			}
-		});
+
+		roomListView.addPlusButton(dataGame.getRooms().size(), dataGame.getName())
+				.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						RoomNamePopupController room = new RoomNamePopupController(dataGame.getRooms().size(),
+								dataGame);
+						room.setOnClose(e -> update(), dataGame, true);
+					}
+				});
 
 		// Right Pane: Sprites and Sounds
 		// Sprites Pane
@@ -170,7 +176,7 @@ public class MainController implements IUpdateHandle {
 					update();
 				}
 			});
-			
+
 		}
 
 		// Add plus
@@ -216,14 +222,14 @@ public class MainController implements IUpdateHandle {
 				File file = GameInitializer.choose(myStage);
 				XMLEditor xml = new XMLEditor();
 				dataGame = xml.readXML(file.getAbsolutePath());
-				for (DataSprite o : dataGame.getSprites()){
+				for (DataSprite o : dataGame.getSprites()) {
 					try {
 						o.load(dataGame.getName());
 					} catch (ResourceFailedException e) {
 						showError(e);
 					}
 				}
-				for (DataSound o : dataGame.getSounds()){
+				for (DataSound o : dataGame.getSounds()) {
 					try {
 						o.load(dataGame.getName());
 					} catch (ResourceFailedException e) {
@@ -253,24 +259,24 @@ public class MainController implements IUpdateHandle {
 				}
 				update();
 			}
-		});	
+		});
 		topMenuBar.getRunMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
 				System.out.println("Run");
-				//RUN HERE
+				// RUN HERE
 			}
 		});
-		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>(){
+		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event){
+			public void handle(ActionEvent event) {
 				returnToLauncher();
 			}
 		});
-		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>(){
+		topMenuBar.getViewMenu().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event){
+			public void handle(ActionEvent event) {
 				ViewSizePopupController viewPopupController = new ViewSizePopupController(r, dataGame);
 			}
 		});
@@ -281,7 +287,7 @@ public class MainController implements IUpdateHandle {
 	private IUpdateHandle getUpdater() {
 		return (IUpdateHandle) this;
 	}
-	
+
 	private void showError(Exception e) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(r.getString("FatalError"));
@@ -289,5 +295,12 @@ public class MainController implements IUpdateHandle {
 		alert.setContentText(e.getMessage());
 
 		alert.showAndWait();
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean isActive() {
+		return active;
 	}
 }
