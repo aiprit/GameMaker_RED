@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.List;
 
 import engine.events.EventManager;
+import groovy.GroovyObjectInstantiator;
 import groovy.lang.Closure;
 import groovy.lang.GroovyShell;
 import structures.run.RunAction;
@@ -16,8 +17,7 @@ public class GroovyEngine {
 	private GroovyLibrary myGroovyLibrary;
 	private Deque<Object> myCurrentStack;
 	private Closure<?> myCurrentClosure;
-	private Closure<?> myWithClosure;
-	private Closure<?> myEndClosure;
+	private Object myGroovyEngineAccess;
 	
 	private static double avg = 0.0;
 	private static long times = 1;
@@ -30,8 +30,7 @@ public class GroovyEngine {
 		GroovyShell shell = new GroovyShell();
 		shell.setProperty("engine", this);
 		myCurrentClosure = (Closure<?>) shell.evaluate("{ -> engine.current() }");
-		myWithClosure = (Closure<?>) shell.evaluate("{ obj -> engine.with(obj) }");
-		myEndClosure = (Closure<?>) shell.evaluate("{ -> engine.end() }");
+		myGroovyEngineAccess = GroovyObjectInstantiator.instantiate("GroovyEngineAccess", this);
 	}
 	
 	public void runScript(RunObject o, RunAction action, IGroovyEvent event) {
@@ -44,10 +43,14 @@ public class GroovyEngine {
 		action.compiled.setProperty("library", myGroovyLibrary);
 		action.compiled.setProperty("globals", myGroovyLibrary.getGlobals());
 		action.compiled.setProperty("current", myCurrentClosure);
-		action.compiled.setProperty("with", myWithClosure);
-		action.compiled.setProperty("end", myEndClosure);		
+		action.compiled.setProperty("engine", myGroovyEngineAccess);	
 		action.compiled.setProperty("event", event);
-		action.compiled.run();
+		try {
+			action.compiled.run();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(action.script);
+		}
 		double diff = System.currentTimeMillis() - now;
 		if (avg == 0.0) {
 			avg = diff;
@@ -64,13 +67,23 @@ public class GroovyEngine {
 	}
 	
 	public Object with() {
-		Object with = myCurrentStack.peek();
-		myCurrentStack.push(with);
+		Object with = null;
+		try {
+			with = myCurrentStack.peek();
+			myCurrentStack.push(with);
+		} catch (Exception ex) {
+			System.out.println("ASDF:");
+			ex.printStackTrace();
+		}
 		return with;
 	}
 	
 	public Object with(Object with) {
+		try {
 		myCurrentStack.push(with);
+		} catch (Exception ex) {
+			System.out.println("ASDF2:");
+		}
 		return with;
 	}
 	

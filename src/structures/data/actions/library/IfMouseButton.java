@@ -24,7 +24,7 @@ public class IfMouseButton extends DataAction {
 		String which = get("Button").getValue().equals("Left") ? "primary" : "secondary";
 		boolean bool = get("State").getValue().equals("Down");
 		
-		return String.format("with()\n;if (library.mouse_%s() == %b)", which, bool);
+		return String.format("engine.with()\n;if (library.mouse_%s() == %b)", which, bool);
 	}
 
 }
