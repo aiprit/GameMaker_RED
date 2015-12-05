@@ -70,6 +70,4 @@ public interface IParameter {
 		ROOM_SELECT,
 		SELECT
 	}
-
-	List<String> getOptions();
 }

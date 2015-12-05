@@ -43,10 +43,5 @@ public class IntegerParam implements IParameter {
 		return IParameter.type.INTEGER;
 	}
 
-	@Override
-	public List<String> getOptions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
