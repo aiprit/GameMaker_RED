@@ -47,7 +47,7 @@ import structures.run.RunRoom;
 public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "blue.css";
+	public static final String STYLESHEET = "purple.css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 
 	private Canvas myCanvas;
