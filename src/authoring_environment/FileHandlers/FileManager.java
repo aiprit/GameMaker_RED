@@ -27,8 +27,7 @@ import structures.data.DataSound;
 import structures.data.DataSprite;
 
 /**
- * @author loganrooper Handles read and writing resources If it cannot write a
- *         file (Naming conflict, file system issue), set methods return false.
+ * @author loganrooper Handles read and writing resources
  */
 public class FileManager {
 	private static final String SPRITE = "sprite";
@@ -147,7 +146,8 @@ public class FileManager {
 				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory") + imgName;
 				break;
 			case SPRITE:
-				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + imgName + PNG;
+				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + imgName
+						+ PNG;
 				break;
 			}
 
@@ -215,7 +215,7 @@ public class FileManager {
 		AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		if (fileType.getType().toString().equals("WAVE")) {
 			String extension = ".wav";
-			String name = askName(selectedFile.getName());
+			String name = askName(selectedFile.getName().replaceFirst("[.][^.]+$", ""));
 			File outputfile = new File(g.getString("GamesDirectory") + myGameName
 					+ g.getString("RelativeSoundDirectory") + name + extension);
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), audioInputStream)) {

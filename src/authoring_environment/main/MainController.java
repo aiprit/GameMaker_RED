@@ -215,7 +215,7 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				try {
-					GameInitializer.saveAsNewGame(dataGame, GameInitializer.askName());
+					GameInitializer.saveAsNewGame(dataGame, FileManager.askName(r.getString("EnterName")));
 				} catch (UnknownResourceException e) {
 					showError(e);
 				}

@@ -24,11 +24,7 @@ public class GameInitializer {
 		File selectedFile = fileChooser.showOpenDialog(s);
 		return selectedFile;
 	}
-
-	public static String askName() {
-		return FileManager.askName(r.getString("SelectOption"));
-	}
-
+	
 	public static DataGame saveAsNewGame(DataGame dataGame, String newName) throws UnknownResourceException {
 		DataGame branchGame = new DataGame(newName, newName + "/");
 		for (DataObject o : dataGame.getObjects()) {

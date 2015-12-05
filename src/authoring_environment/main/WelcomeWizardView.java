@@ -2,6 +2,8 @@ package authoring_environment.main;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.FileHandler;
+
 import Player.Launcher;
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.FileHandlers.GameInitializer;
@@ -62,7 +64,7 @@ public class WelcomeWizardView {
 			fm.loadResources(dataGame);
 		} else if (result.get() == newGameBtn) {
 			try {
-				String name = GameInitializer.askName();
+				String name = FileManager.askName(r.getString("EnterName"));
 				FileManager fm = new FileManager(name);
 				fm.newGame();
 				dataGame = fm.getDataGame(name);
