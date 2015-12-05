@@ -3,10 +3,13 @@ package XML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.*;
+
+import exceptions.XMLFormatException;
 import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
 import structures.data.interfaces.IAction;
+import utils.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -66,7 +69,7 @@ public class XMLReader {
         return game;
     }
 
-    private void loadObjects(NodeList objects) {
+    private void loadObjects(NodeList objects) throws XMLFormatException {
         for (int i = 0; i < objects.getLength(); i++) {
 
             Node object = objects.item(i);
@@ -98,7 +101,7 @@ public class XMLReader {
         }
     }
 
-    private void loadEvents(NodeList events, DataObject obj) {
+    private void loadEvents(NodeList events, DataObject obj) throws XMLFormatException {
         EventFactory factory = new EventFactory();
         for (int i = 0; i < events.getLength(); i++) {
 
@@ -114,7 +117,7 @@ public class XMLReader {
         }
     }
 
-    private ObservableList<IAction> loadActions(NodeList actions) {
+    private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
         ActionFactory factory = new ActionFactory();
         for (int i = 0; i < actions.getLength(); i++) {
@@ -223,6 +226,17 @@ public class XMLReader {
                         Long.parseLong(elem.getAttribute("ID")),
                         Double.parseDouble(elem.getAttribute("scaleX")),
                         Double.parseDouble(elem.getAttribute("scaleY")));
+
+                di.setAlpha(Double.parseDouble(elem.getAttribute("alpha")));
+                di.setAngle(Double.parseDouble(elem.getAttribute("angle")));
+
+                di.setVelocity(new Vector(Double.parseDouble(elem.getAttribute("velocityX")),
+                        Double.parseDouble(elem.getAttribute("velocityY"))));
+                di.setAngularVelocity(Double.parseDouble(elem.getAttribute("angularVelocity")));
+                di.setVisible(Boolean.parseBoolean(elem.getAttribute("visibility")));
+                di.setFriction(Double.parseDouble(elem.getAttribute("friction")));
+                di.setGravity(new Vector(Double.parseDouble(elem.getAttribute("gravityX")),
+                        Double.parseDouble(elem.getAttribute("gravityY"))));
 
                 di.setVariableMap(loadVariableMap((Element) elem.getElementsByTagName("variableMap").item(0)));
 

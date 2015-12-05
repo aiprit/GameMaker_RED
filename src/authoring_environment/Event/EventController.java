@@ -42,7 +42,9 @@ import structures.data.actions.library.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SoundParam;
 import structures.data.actions.params.SpriteParam;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
@@ -67,7 +69,9 @@ public class EventController {
 
 		myView.getTopPane().getMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
-				ActionController actionCon = new ActionController(myModel.getActions());
+				RunScript action = new RunScript();
+				ParamController paramcontrol = new ParamController(action,myModel.getActions());
+				paramcontrol.showAndWait();
 			}
 		});
 
@@ -103,6 +107,8 @@ public class EventController {
 						}
 					}
 				};
+
+
 				cell.setOnDragDetected(event -> {
 
 					if (cell.getItem() == null) {
@@ -132,7 +138,6 @@ public class EventController {
 				});
 
 				cell.setOnDragEntered(event -> {
-
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(0.3);
@@ -141,7 +146,6 @@ public class EventController {
 				});
 
 				cell.setOnDragExited(event -> {
-
 					if (event.getGestureSource() != cell &&
 							event.getDragboard().hasString()) {
 						cell.setOpacity(1);
@@ -210,27 +214,37 @@ public class EventController {
 
 				});
 
+//				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//					@Override
+//					public void handle(KeyEvent click) {
+//						if (click.getCode() == KeyCode.ENTER) {
+//							openOnEdit(cell);
+//						}
+//					}
+//				});
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent click) {
 						if (click.getClickCount() == 2) {
-							//Use ListView's getSelected Item
-
-							IAction selected = cell.getItem();
-							List<IParameter> params = selected.getParameters();
-							if(params.size()>0){
-								ParamController paramcontrol = new ParamController(selected,myModel.getActions());
-								paramcontrol.showAndWait();
-							}
-							indents=0;
-							List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
-							cell.getListView().getItems().setAll(itemscopy);
+							openOnEdit(cell);
 						}
 					}
 				});
 
 				cell.setOnDragDone(DragEvent::consume);
 				return cell;
+			}
+
+			private void openOnEdit(final ListCell<IAction> cell) {
+				IAction selected = cell.getItem();
+				List<IParameter> params = selected.getParameters();
+				if(params.size()>0){
+					ParamController paramcontrol = new ParamController(selected,myModel.getActions());
+					paramcontrol.showAndWait();
+				}
+				indents=0;
+				List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
+				cell.getListView().getItems().setAll(itemscopy);
 			}
 		});
 		myView.getRightPane().getDelete().setOnAction(e ->{
@@ -376,8 +390,9 @@ public class EventController {
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals("SELECT")){
-
+		if(p.getType().toString().equals("SOUND_SELECT")){
+			SoundParam param = (SoundParam) p;
+			param.setSoundList(myModel.getGame().getSounds());
 		}
 	}
 

@@ -37,12 +37,12 @@ public class GameSelector {
 		if (result.isPresent() && !result.get().equals(r.getString("SelectGame"))) {
 			myName = result.get();
 		} else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle(r.getString("Error"));
-			alert.setHeaderText(r.getString("GameNotFound"));
-			alert.setContentText(r.getString("SelectAnother"));
-			alert.showAndWait();
-			getGameChoice();
+//			Alert alert = new Alert(AlertType.WARNING);
+//			alert.setTitle(r.getString("Error"));
+//			alert.setHeaderText(r.getString("GameNotFound"));
+//			alert.setContentText(r.getString("SelectAnother"));
+//			alert.showAndWait();
+//			getGameChoice();
 		}
 		XMLEditor xml = new XMLEditor();
 		String url = "Games/" + myName + "/XML/GameFile.xml";

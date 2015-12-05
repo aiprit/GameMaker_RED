@@ -154,6 +154,21 @@ public class DataInstance {
         myScaleY = scale;
     }
 
+    public double getVelocityX(){
+        return myVelocity.x;
+    }
+
+    public double getVelocityY(){
+        return myVelocity.y;
+    }
+
+    public double getGravityX(){
+        return myGravity.x;
+    }
+
+    public double getGravityY(){
+        return myGravity.y;
+    }
 
     public double getAlpha() {
         return myAlpha;

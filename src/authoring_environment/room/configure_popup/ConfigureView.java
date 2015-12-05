@@ -19,9 +19,12 @@ public class ConfigureView extends PopupTemplate {
 	private static final String SCALE_Y = "ScaleY";
 	private static final String ANGLE = "Angle";
 	private static final String TRANSPARENCY = "Transparency";
+	private static final String FRICTION = "Friction";
+	private static final String GRAVITY_X = "GravityX";
+	private static final String GRAVITY_Y = "GravityY";
 	private static final String VISIBILITY = "Visibility";
 	private static final String NAME = "ConfigureParameters";
-	private static final int NUM_ROWS = 7;
+	private static final int NUM_ROWS = 10;
 	private static final String CONFIGURE_WIDTH = "ConfigureWidth";
 	private RadioButton visibilityButton;
 	private List<TextField> fieldList;
@@ -36,7 +39,7 @@ public class ConfigureView extends PopupTemplate {
 	public void setContents() {
 		GridPaneHandler handler = new GridPaneHandler();
 		myGridPane = new GridPane();
-		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY)};
+		String[] labelStrings = {myResources.getString(VELOCITY_FIELD_X), myResources.getString(VELOCITY_FIELD_Y), myResources.getString(ANGULAR_VELOCITY), myResources.getString(SCALE_X), myResources.getString(SCALE_Y), myResources.getString(ANGLE), myResources.getString(TRANSPARENCY), myResources.getString(FRICTION), myResources.getString(GRAVITY_X), myResources.getString(GRAVITY_Y)};
 		fieldList = handler.setUpGridPane(NUM_ROWS, labelStrings, myGridPane);
 		myGridPane.add(new Label(myResources.getString(VISIBILITY)), 0, NUM_ROWS);
 		visibilityButton = new RadioButton();

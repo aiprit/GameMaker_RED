@@ -32,7 +32,7 @@ import structures.data.DataObject;
 import structures.data.DataRoom;
 
 public class RoomListView {
-	private static final int ROW_LENGTH = 4;
+	private static final int ROW_LENGTH = 2;
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private GridPane roomView;
 	
@@ -50,7 +50,7 @@ public class RoomListView {
 	}
 	
 	public Button addRoom(DataRoom o, DataGame rooms, int i, boolean startRoom, Consumer<Void> updateFcn) {
-		RoomIcon room = new RoomIcon(myResourceBundle, o.getBackgroundColor(), o.getName(), rooms.getName());
+		RoomIcon room = new RoomIcon(myResourceBundle, o.getSnapshot(), o.getBackgroundColor(), o.getName(), rooms.getName());
 		if (startRoom) {
 			room.setStyle("-fx-background-color: " + myResourceBundle.getString("StartRoomBackgroundColor"));
 		}

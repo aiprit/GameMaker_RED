@@ -3,9 +3,12 @@
  */
 package structures.data.access_restricters;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 
 /**
@@ -18,4 +21,5 @@ public interface IObjectInterface {
 	public ObservableList<DataSprite> getSprites();
 	public String getName();
 	public ObservableList<DataRoom> getRooms();
+	public List<DataSound> getSounds();
 }

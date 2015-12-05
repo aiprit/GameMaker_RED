@@ -120,7 +120,7 @@ public class RunObjectConverter {
 		run.setGravity( instance.getGravity() );
 		run.setFriction( instance.getFriction() );
 		run.setInstanceId(instance.getID());
-		
+		run.setOriginalParameterMaps();
 		return run;
 	}
 	public RunObject instantiate(String name, double x, double y) throws GameRuntimeException {
