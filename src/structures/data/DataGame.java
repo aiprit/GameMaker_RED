@@ -132,11 +132,11 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     }
 
     public String getSpriteDirectory() {
-        return myGameDirectory + fileFormat.getString("RelativeSpriteDirectory");
+        return myGameDirectory + fileFormat.getString("RelativeSpriteDirectoryWithoutSlash");
     }
 
     public String getSoundDirectory() {
-        return myGameDirectory + fileFormat.getString("RelativeSoundDirectory");
+        return myGameDirectory + fileFormat.getString("RelativeSoundDirectoryWithoutSlash");
     }
 
     public void addObject(DataObject... o) {
