@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataSprite;
-import structures.data.actions.Sleep;
 import structures.data.actions.object.Destroy;
 import structures.data.events.ObjectCreateEvent;
 import structures.data.interfaces.IAction;
@@ -32,7 +31,6 @@ public class ObjectTester extends Application{
 		IDataEvent a = new ObjectCreateEvent();
 		ObservableList<IAction> c =FXCollections.observableList( new ArrayList<IAction>());
 		c.add(new Destroy());
-		c.add(new Sleep());
 		object.bindEvent(a,c);
 		game.addObject(object);
 		object.setSprite(sprite);
