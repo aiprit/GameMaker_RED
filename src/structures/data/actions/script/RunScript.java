@@ -1,4 +1,4 @@
-package structures.data.actions;
+package structures.data.actions.script;
 import structures.data.actions.params.GroovyParam;
 import structures.data.DataAction;
 import structures.data.actions.params.StringParam;
