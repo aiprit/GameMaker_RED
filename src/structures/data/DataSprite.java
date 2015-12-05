@@ -1,7 +1,12 @@
 package structures.data;
 
 import exceptions.ResourceFailedException;
+
+import java.awt.image.BufferedImage;
+import java.util.ResourceBundle;
+
 import authoring_environment.FileHandlers.FileManager;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import structures.IResource;
@@ -13,6 +18,8 @@ public class DataSprite implements IResource {
 	private WritableImage myImage;
 	private double myCenterX, myCenterY;
 	private boolean myHaveLoaded;
+	private ResourceBundle r = ResourceBundle.getBundle("resources/RoomResources");
+	private static final String DEFAULT_SPRITE = "DefaultSprite";
 
 	public DataSprite(String name, String baseFileName) {
 		myName = name;
@@ -68,6 +75,11 @@ public class DataSprite implements IResource {
 		FileManager gmf = new FileManager(gameName);
 		myImage = gmf.getSprite(myName);
 		myHaveLoaded = true;
+	}
+	
+	public void loadDefault() {
+		BufferedImage a = SwingFXUtils.fromFXImage(new Image(getClass().getClassLoader().getResourceAsStream(r.getString(DEFAULT_SPRITE))), null);
+		myImage = FileManager.imgToWriteableImage(a);
 	}
 
 	@Override

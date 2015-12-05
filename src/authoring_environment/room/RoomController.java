@@ -121,7 +121,7 @@ public class RoomController {
 		case BACK_SPACE:
 			delete(controller);
 			break;
-		case V:
+		case D:
 			if (event.isControlDown() || event.isShortcutDown()) {
 				clone(controller);
 			}

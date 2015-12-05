@@ -3,14 +3,15 @@ package authoring_environment.Action;
 
 import java.util.List;
 
+import authoring_environment.PopUpError;
 import exceptions.ParameterParseException;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import structures.data.actions.RunScript;
 import structures.data.actions.params.IParameter;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 
 public class ActionController {
@@ -31,8 +32,7 @@ public class ActionController {
 					try {
 						createCustom(myView.getTextArea().getText());
 					} catch (ParameterParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						PopUpError er = new PopUpError(e.getMessage());
 					}
 					close(ke);
 				}
@@ -45,7 +45,7 @@ public class ActionController {
 		stage.close();
 	}
 
-	private void createCustom(String text) throws ParameterParseException{
+	private void createCustom(String text) throws ParameterParseException {
 		IAction action = new RunScript();
 		List<IParameter> param = action.getParameters();
 		for(IParameter p :param){
