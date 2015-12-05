@@ -51,23 +51,29 @@ public class RoomNamePopupController {
 	}
 	
 	private void setNameAndLaunchEditor(DataRoom room, IDataGame game, boolean addRoom, Consumer<Void> updateFcn) {
+		if (saveRoomName(room, game, addRoom, updateFcn)) {
+			RoomController roomController = new RoomController(myResources, room, game);
+			roomController.getEditor().setOnClose(e -> updateMainGuiOnEditorClose(roomController, updateFcn));
+			roomController.launch();
+		}	
+	}
+
+	private boolean saveRoomName(DataRoom room, IDataGame game, boolean addRoom, Consumer<Void> updateFcn) {
 		if (!view.getRoomName().equals("") && !isDuplicateName(room, game)) {
 			model.setName(view.getRoomName());
 		} else {
 			String errorMessage = view.getRoomName().equals("") ? myResources.getString(NULL_ROOM_NAME_ERROR_MESSAGE) :
 				myResources.getString(DUPLICATE_ROOM_NAME_ERROR_MESSAGE);
 			ErrorPopup error = new ErrorPopup(myResources, errorMessage);
-			return;
+			return false;
 		}
 		setStartRoom(game);
 		if (addRoom) {
 			game.addRoom(model);
 		}
-		RoomController roomController = new RoomController(myResources, room, game);
 		view.close();
 		updateFcn.accept(null);
-		roomController.getEditor().setOnClose(e -> updateMainGuiOnEditorClose(roomController, updateFcn));
-		roomController.launch();	
+		return true;
 	}
 	
 	private boolean isDuplicateName(DataRoom room, IDataGame game) {
@@ -84,7 +90,8 @@ public class RoomNamePopupController {
 	}
 	
 	public void setOnClose(Consumer<Void> updateFcn, DataGame game, boolean addRoom) {
-		view.getSaveButton().setOnAction(e -> setNameAndLaunchEditor(model, game, addRoom, updateFcn));
+		view.getOpenEditorButton().setOnAction(e -> setNameAndLaunchEditor(model, game, addRoom, updateFcn));
+		view.getSaveButton().setOnAction(e -> saveRoomName(model, game, addRoom, updateFcn));
 	}
 	
 	private void updateMainGuiOnEditorClose(RoomController controller, Consumer<Void> updateFcn) {
