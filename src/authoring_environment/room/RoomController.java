@@ -11,6 +11,7 @@ import authoring_environment.room.configure_popup.ConfigureController;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.object_instance.ObjectInstanceController;
 import authoring_environment.room.object_list.ObjectListController;
+import authoring_environment.room.preview.RoomEditor;
 import authoring_environment.room.view.ViewController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -44,7 +45,7 @@ public class RoomController {
 		model = room;
 		model.getView().setView(new Rectangle(room.getView().getX(), room.getView().getY(),
 				gameObject.getViewWidth(), gameObject.getViewHeight()));
-		view = new RoomEditor(myResources, room.getName(), gameObject.getName());
+		view = new RoomEditor(myResources, room.getView().getWidth(), room.getView().getHeight(), room.getName(), gameObject.getName());
 		populateEditor(room);
 		initializeObjectListContainer(gameObject);
 		initializeView();

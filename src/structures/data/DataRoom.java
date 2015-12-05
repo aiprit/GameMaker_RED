@@ -3,12 +3,15 @@ package structures.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
+
 public class DataRoom implements IDataRoom {
     private List<DataInstance> roomObjects;
     private DataView myView;
     private String myBackgroundColor;
     private double myWidth, myHeight;
     private String myName;
+    private Image mySnapshot;
 
     public DataRoom(String name, double width, double height) {
         myName = name;
@@ -73,5 +76,13 @@ public class DataRoom implements IDataRoom {
     @Override
     public String toString() {
     	return getName();
+    }
+    
+    public Image getSnapshot() {
+    	return mySnapshot;
+    }
+    
+    public void setSnapshot(Image image) {
+    	mySnapshot = image;
     }
 }
