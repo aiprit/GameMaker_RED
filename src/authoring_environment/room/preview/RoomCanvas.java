@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import authoring_environment.FileHandlers.FileManager;
+import authoring_environment.room.error.ErrorPopup;
 import authoring_environment.room.grid.Grid;
 import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.view.DraggableView;
@@ -20,6 +21,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.transform.Rotate;
 
 public class RoomCanvas extends Canvas {
+	private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "FileNotFoundExceptionMessage";
 	private static final int GRID_LINE_WIDTH = 1;
 	private static final String VIEW_OPACITY = "ViewOpacity";
 	private static final String VIEW_COLOR = "ViewColor";
@@ -190,8 +192,8 @@ public class RoomCanvas extends Canvas {
 			try {
 				setImageFill(fm.getBackground(myBackgroundColor));
 			} catch (ResourceFailedException e1) {
-				// TODO:
-				e1.printStackTrace();
+				String errorMessage = String.format(myResources.getString(FILE_NOT_FOUND_EXCEPTION_MESSAGE), myBackgroundColor);
+				ErrorPopup error = new ErrorPopup(myResources, errorMessage);
 			}
 		}
 	}
