@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -12,16 +13,18 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-
 import XML.XMLEditor;
 import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import groovy.util.ResourceException;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.media.AudioClip;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import structures.data.DataGame;
 import structures.data.DataSound;
 import structures.data.DataSprite;
@@ -31,6 +34,15 @@ import structures.data.DataSprite;
  *         file (Naming conflict, file system issue), set methods return false.
  */
 public class FileManager {
+	/**
+	 * 
+	 */
+	private static final String SPRITE = "sprite";
+	/**
+	 * 
+	 */
+	private static final String BACKGROUND = "background";
+	private static final String PNG = ".png";
 	private static ResourceBundle g = ResourceBundle.getBundle("resources/GameFileFormat");
 	String myGameName;
 
@@ -66,10 +78,11 @@ public class FileManager {
 				+ "GameFile.xml";
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(dataGame, file);
-		for(DataSprite s : dataGame.getSprites()){
-			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + s.getName() + ".png");
+		for (DataSprite s : dataGame.getSprites()) {
+			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory")
+					+ s.getName() + PNG);
 			Image im = s.getImage();
-			
+
 			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
 			try {
 				ImageIO.write(bim, "png", image);
@@ -78,18 +91,19 @@ public class FileManager {
 				e.printStackTrace();
 			}
 		}
-		for(DataSound s : dataGame.getSounds()){
-			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory") + s.getName() + ".wav");
-			
+		for (DataSound s : dataGame.getSounds()) {
+			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory")
+					+ s.getName() + ".wav");
+
 			AudioInputStream stream = s.getInputStream();
-			
+
 			try {
 				AudioSystem.write(stream, AudioFileFormat.Type.WAVE, sound);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 
@@ -106,9 +120,8 @@ public class FileManager {
 		File sounds = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory"));
 		File XML = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeXMLDirectory"));
 		File saves = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSavesDirectory"));
-		if (!backgrounds.mkdirs() | !images.mkdirs() | !sounds.mkdirs() | !XML.mkdirs() | !saves.mkdirs()) {
-			throw new UnknownResourceException(
-					"Could not create directory strucutre for this game. Check permissions.");
+		if (!backgrounds.mkdirs() || !images.mkdirs() || !sounds.mkdirs() || !XML.mkdirs() || !saves.mkdirs()) {
+			System.out.println("Could not create directory structures for this game. Check permissions.");
 		}
 	}
 
@@ -131,18 +144,29 @@ public class FileManager {
 	 * @throws ResourceException
 	 */
 	public WritableImage getSprite(String spriteName) throws ResourceFailedException {
+		return getImageResource(spriteName, SPRITE);
+	}
+
+	private WritableImage getImageResource(String imgName, String type) throws ResourceFailedException {
 		String url = "";
 		BufferedImage img;
 		try {
-			url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + spriteName
-					+ ".png";
+			switch (type) {
+			case BACKGROUND:
+				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory") + imgName
+						+ PNG;
+			case SPRITE:
+				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + imgName
+						+ PNG;
+			}
+
 			img = ImageIO.read(new File(url));
 			while (img.getWidth(null) < 0) {
 				// wait for size to be known
 			}
 		} catch (Exception e) {
-			String message = "Failed to load image '%s' for DataSprite '%s'";
-			throw new ResourceFailedException(message, url, spriteName);
+			String message = "Failed to load image '%s' for name '%s'";
+			throw new ResourceFailedException(message, url, imgName);
 		}
 
 		// Convert to WritableImage
@@ -199,7 +223,7 @@ public class FileManager {
 		AudioFileFormat fileType = AudioSystem.getAudioFileFormat(selectedFile);
 		if (fileType.getType().toString().equals("WAVE")) {
 			String extension = ".wav";
-			String name = GameInitializer.askName(selectedFile.getName());
+			String name = askName(selectedFile.getName());
 			File outputfile = new File(g.getString("GamesDirectory") + myGameName
 					+ g.getString("RelativeSoundDirectory") + name + extension);
 			if (AudioSystem.isFileTypeSupported(fileType.getType(), audioInputStream)) {
@@ -214,7 +238,6 @@ public class FileManager {
 			// Wavs or GTFO
 			throw new UnsupportedAudioFileException();
 		}
-
 	}
 
 	/**
@@ -237,5 +260,85 @@ public class FileManager {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Create a background image on the file tree.
+	 * 
+	 * @param file
+	 */
+	public File makeBackground(File originFile) {
+		try {
+			String name = askName(g.getString("BackgroundName"));
+			String url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeBackgroundDirectory") + name
+					+ PNG;
+			File file = new File(url);
+			BufferedImage image = ImageIO.read(originFile);
+			File output = new File(file.getName());
+			ImageIO.write(image, PNG, output);
+			return file;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Image getBackground(String name) throws ResourceFailedException {
+		return getImageResource(name, BACKGROUND);
+	}
+
+	// Utilities
+	/**
+	 * Get a string name.
+	 * 
+	 * @param defaultText
+	 * @return
+	 */
+	public static String askName(String defaultText) {
+		TextInputDialog dialog = new TextInputDialog(defaultText);
+		dialog.setTitle(defaultText);
+		dialog.setHeaderText(null);
+		dialog.setContentText(g.getString("EnterName"));
+		Optional<String> result = dialog.showAndWait();
+
+		if (result.isPresent()) {
+			return result.get();
+		} else
+			// TODO: Better handling, cancel handling
+			return "null";
+	}
+
+	/**
+	 * Get a file.
+	 * 
+	 * @param message1
+	 * @param message2
+	 * @param extension
+	 * @return
+	 */
+	public static File getFile(String a, String b, String extension) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(a);
+		fileChooser.getExtensionFilters().add(new ExtensionFilter(b, extension));
+		return fileChooser.showOpenDialog(null);
+	}
+
+	/**
+	 * All files.
+	 * 
+	 * @return
+	 */
+	public static File getAnyFile() {
+		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*");
+	}
+
+	/**
+	 * PNGs.
+	 * 
+	 * @return
+	 */
+	public static File getPNGFile() {
+		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*." + PNG);
 	}
 }
