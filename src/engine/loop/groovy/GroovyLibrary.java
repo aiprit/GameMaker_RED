@@ -7,6 +7,7 @@ import engine.events.EventManager;
 import engine.loop.InputManager;
 import exceptions.GameRuntimeException;
 import exceptions.LibraryArgumentException;
+import exceptions.ResourceFailedException;
 import exceptions.UnknownResourceException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -114,11 +115,10 @@ public class GroovyLibrary {
 	}
 
 	public double get_high_score(){
-		return myRunGame.getHighScore();
+		return myEventManager.getHighScore();
 	}
 
 	public void set_high_score(double score){
-		myRunGame.setHighScore(score);
 		myEventManager.setHighScore(score);
 	}
 
@@ -154,7 +154,7 @@ public class GroovyLibrary {
 		myEventManager.onSave();
 	}
 
-	public void reset_game() {
+	public void reset_game() throws ResourceFailedException {
 		myEventManager.onReset();
 	}
 

@@ -2,8 +2,8 @@ package engine;
 
 import engine.events.EventManager;
 import engine.events.IGUIBackendHandler;
-import engine.events.IGameUpdatedHandler;
 import engine.events.IObjectModifiedHandler;
+import engine.events.IRoomUpdatedHandler;
 import engine.front_end.IDraw;
 import engine.loop.RoomLoop;
 import engine.loop.groovy.GroovyEngine;
@@ -19,7 +19,7 @@ import utils.Point;
  * interface and most GUI components.
  *
  */
-public class Engine implements IGameUpdatedHandler {
+public class Engine implements IRoomUpdatedHandler {
 
 	private RunGame myGame;
 	private RoomLoop myLevel;
@@ -46,6 +46,13 @@ public class Engine implements IGameUpdatedHandler {
 		myLevel.start();
 	}
 	
+	public void changeGame(RunGame newGame){
+		myLevel.cancel();
+		myGame = newGame;
+		myGroovyEngine = new GroovyEngine(myGame, myEventManager);
+		runLevel();
+	}
+	
 	public RunObject getObjectClicked(Point p) {
 	    RunRoom room = myGame.getCurrentRoom();
             p = new Point(p.x + room.getView().getView().x(), p.y + room.getView().getView().y());
@@ -61,7 +68,7 @@ public class Engine implements IGameUpdatedHandler {
 		return myGUIHandler;
 	}
 
-	public IGameUpdatedHandler getFrontEndUpdateHandler(){
+	public IRoomUpdatedHandler getRoomUpdateHandler(){
 		return this;
 	}
 
@@ -87,11 +94,6 @@ public class Engine implements IGameUpdatedHandler {
 		//how else need to change the level?
 		myLevel.cancel();
 		runLevel();
-	}
-
-	@Override
-	public void setHighScore(double highScore) {
-		myGame.setHighScore(highScore);
 	}
 
 }

@@ -1,21 +1,89 @@
 package engine.front_end;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+
+import engine.social_player.PlayerManager;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class HighScoreView extends VBox {
+	
+	private PlayerManager myPlayers;
+	private String myGame;
 
-	public HighScoreView(){
-		this.setWidth(500);
+	public HighScoreView(String game) throws IOException{
+		myPlayers = new PlayerManager();
+		myGame = game;
+		myPlayers.setGame(myGame);
+		this.setWidth(300);
 		this.setHeight(50);
-		Text scoreInfo = new Text("Your high score is:");
-		this.getChildren().add(scoreInfo);
+		createPane();
+	}
+	
+	public void createPane(){
+		this.getChildren().clear();
+		Text scoreInfo;
+		if(myPlayers.getPlayerName().equals("")){
+			scoreInfo = new Text("\nLog in or create a new player\nto save "
+					+ "your high score.\n");
+			this.getChildren().add(scoreInfo);
+			Button loginButton = new Button("Log in");
+			loginButton.setOnAction(e -> doLogin());
+			this.getChildren().add(loginButton);
+		}
+		else{
+			scoreInfo = new Text("\nYour high score is " + getHighScore() + "\n");
+			this.getChildren().add(scoreInfo);
+			Button logoutButton = new Button("Log out");
+			logoutButton.setOnAction(e -> doLogout());
+			this.getChildren().add(logoutButton);
+		}
+		showAllScores();
 	}
 
 	public void updateScore(double score){
-		this.getChildren().clear();
-		Text scoreInfo = new Text("Your high score is:\n" + score);
-		this.getChildren().add(scoreInfo);
+		
+	}
+	
+	public Double getHighScore(){
+		if(myPlayers.getPlayerHighScore() != null){
+			return myPlayers.getPlayerHighScore();
+		}
+		return null;
+	}
+	
+	public void doLogin(){
+		TextInputDialog userInput = new TextInputDialog("Enter user name");
+		
+		String user = "";
+		Optional<String> result = userInput.showAndWait();
+		if (result.isPresent()) {
+			 user = result.get();
+			 myPlayers.setPlayer(user);
+		}
+		createPane();
+	}
+	
+	public void doLogout(){
+		myPlayers.setPlayer("");
+		createPane();
+	}
+	
+	public void setGame(String game){
+		myGame = game;
+		myPlayers.setGame(game);
+		createPane();
+	}
+	
+	public void showAllScores(){
+		Map<String, String> info = myPlayers.getAllPlayers();
+		for(String s : info.keySet()){
+			this.getChildren().add(new Text("\n" + s + " " + info.get(s)));
+		}
 	}
 
 }

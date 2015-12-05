@@ -144,8 +144,8 @@ public class MainController implements IUpdateHandle {
 				}
 			});
 		}
-
-		roomListView.addPlusButton(dataGame.getRooms().size()).setOnAction(new EventHandler<ActionEvent>() {
+		
+		roomListView.addPlusButton(dataGame.getRooms().size(), dataGame.getName()).setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				RoomNamePopupController room = new RoomNamePopupController(dataGame.getRooms().size(), dataGame);
