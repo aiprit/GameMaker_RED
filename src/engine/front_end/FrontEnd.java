@@ -47,9 +47,10 @@ import structures.run.RunRoom;
 public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-	public static final String STYLESHEET = "purple.css";
+	public static final String STYLESHEET = ".css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 
+	private String styleSheetColor = "blue";
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private Group myRoot;
@@ -73,6 +74,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		topContainer = new VBox();
 		myEventManager = eventManager;
 		this.stage = stage;
+		stage.setHeight(height + 100);
 		stage.setWidth(500 + width);
 		stage.centerOnScreen();
 		stage.setY(stage.getY()-100);
@@ -83,7 +85,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private void setupFramework(int gameWidth, int gameHeight) throws IOException, ResourceFailedException{
 		myRoot = new Group();
 		playScene = new Scene(borderPane, 200 + gameWidth, 100 + gameHeight);
-		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);
 		stage.setScene(playScene);
 		borderPane.setCenter(myRoot);
 		makeMenu();

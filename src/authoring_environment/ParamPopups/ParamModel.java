@@ -1,16 +1,16 @@
 package authoring_environment.ParamPopups;
 
 import java.util.List;
-
-import structures.data.actions.MoveTo;
+import java.util.ResourceBundle;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
-import structures.data.interfaces.IDataEvent;
+
 
 public class ParamModel {
 	//IDataEvent myEvent;
 	List<IParameter> myList;
 	List<IAction> myActions;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ParamPopups/ParamResources");;
 	IAction myAction;
 	public ParamModel(IAction e,List<IAction> action) {
 		//	myEvent= e;
@@ -36,10 +36,8 @@ public class ParamModel {
 	public boolean editing(){
 		return myActions.contains(myAction) ? true: false;
 	}
-//	public void refresh() {
-//		IAction act = new MoveTo();
-//		myActions.add(act);
-//		myActions.remove(act);
-//	}
+public ResourceBundle getBundle(){
+	return r;
+}
 
 }
