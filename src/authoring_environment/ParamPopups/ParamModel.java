@@ -1,6 +1,7 @@
 package authoring_environment.ParamPopups;
 
 import java.util.List;
+import structures.data.actions.move.MoveTo;
 import java.util.ResourceBundle;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;

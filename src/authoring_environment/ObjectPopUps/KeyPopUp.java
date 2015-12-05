@@ -42,7 +42,7 @@ public abstract class KeyPopUp  extends BasicPopUp{
 		myInfo.setMinHeight(Integer.parseInt(r.getString("screenHeight")));
 	//	myInfo.setTranslateY(Integer.parseInt(r.getString("infoY")));
 		myInfo.setAlignment(Pos.BOTTOM_CENTER);
-		Button b = new Button("ok");
+		Button b = new Button(r.getString("ok"));
 		b.setTranslateX(45);
 	//	myInfo.setTranslateX(Integer.parseInt(r.getString("buttonY")));
 		b.setFocusTraversable(false);
