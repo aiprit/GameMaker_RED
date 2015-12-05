@@ -196,7 +196,7 @@ public class GroovyLibrary {
 	public void set_scroller_x(RunObject object, double xpercentage){
 		double currentX = object.getX();
 		double currentY = myRunGame.getCurrentRoom().getView().getView().y();
-		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
+		currentX = currentX - (1 - (.01 * xpercentage)) * myRunGame.getCurrentRoom().getView().getView().width();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
@@ -204,7 +204,7 @@ public class GroovyLibrary {
 	public void set_scroller_y(RunObject object, double ypercentage){
 		double currentX = myRunGame.getCurrentRoom().getView().getView().x();
 		double currentY = object.getY();
-		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		currentY = currentY - (.01 * ypercentage) * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
@@ -212,8 +212,8 @@ public class GroovyLibrary {
 	public void set_scroller(RunObject object, double xpercentage, double ypercentage){
 		double currentX = object.getX();
 		double currentY = object.getY();
-		currentX = currentX - (1 - xpercentage) * myRunGame.getCurrentRoom().getView().getView().width();
-		currentY = currentY - ypercentage * myRunGame.getCurrentRoom().getView().getView().height();
+		currentX = currentX - (1 - (.01 * xpercentage)) * myRunGame.getCurrentRoom().getView().getView().width();
+		currentY = currentY - (.01 * ypercentage) * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
 	}
