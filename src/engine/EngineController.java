@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import XML.XMLEditor;
+import XML.XMLWriter;
+import authoring_environment.FileHandlers.FileManager;
 import engine.events.EventManager;
 import engine.events.IGUIControllerHandler;
 import engine.events.IInputHandler;
@@ -26,6 +28,7 @@ import utils.Point;
 public class EngineController implements IGUIControllerHandler, IInputHandler {
 
 	private XMLEditor myEditor;
+	private XMLWriter myWriter;
 	private DataGame myGame;
 	private RunGame currentRunGame;
 	private Engine myEngine;
@@ -93,8 +96,11 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		//set myGame to the game that the user chooses
 		//System.out.println(userGame);
 		myEditor = new XMLEditor();
+		myWriter = new XMLWriter();
 		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/GameFile.xml/");
 
+		System.out.println(myGame.toString());
+		
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
@@ -132,17 +138,26 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 
 	@Override
 	public void onLoadSave(String path) {
-		// TODO Auto-generated method stub
-
+		myEngine.pause();
+		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/SaveInstance.xml/");
+		RunGame runGame = null;
+		try {
+			runGame = new RunGame(myGame);
+		} catch (CompileTimeException | RuntimeException | ResourceFailedException e ) {
+			e.printStackTrace();
+		}
+		currentRunGame = runGame;
+		myEngine.changeGame(currentRunGame);
 	}
 
 	@Override
 	public void onSave() {
-		//TODO: move save to the controller
+		System.out.println("saved");
+		System.out.println(currentRunGame.getDataGame().toString());
 		try {
-			currentRunGame.toData();
-		}
-		catch (CompileTimeException e) {
+			myWriter.write(currentRunGame.toData(), "Games/" + myCurrentGame + "/XML/SaveInstance.xml");
+		} catch (CompileTimeException e) {
+			e.printStackTrace();
 		}
 	}
 

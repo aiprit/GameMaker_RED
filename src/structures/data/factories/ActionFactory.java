@@ -5,7 +5,6 @@ import exceptions.XMLFormatException;
 
 import org.w3c.dom.Element;
 
-import structures.data.DataAction;
 import structures.data.actions.ChangeSprite;
 import structures.data.actions.Destroy;
 import structures.data.actions.GetObjectVariable;
@@ -23,10 +22,8 @@ import structures.data.actions.SetVelocityToPoint;
 import structures.data.actions.Sleep;
 import structures.data.actions.ViewFollow;
 import structures.data.actions.library.*;
-import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import utils.Reflection;
-import utils.Utils;
 
 import java.util.Arrays;
 import java.util.Base64;

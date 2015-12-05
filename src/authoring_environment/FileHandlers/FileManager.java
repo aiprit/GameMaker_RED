@@ -68,9 +68,27 @@ public class FileManager {
 	 */
 	public void saveGame(DataGame dataGame) {
 		String file = g.getString("GamesDirectory") + dataGame.getName() + g.getString("RelativeXMLDirectory")
-				+ "GameFile.xml";
+		+ "GameFile.xml";
 		XMLEditor xml = new XMLEditor();
 		xml.writeXML(dataGame, file);
+		for (DataSprite s : dataGame.getSprites()) {
+			File image = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory")
+			+ s.getName() + PNG);
+			Image im = s.getImage();
+
+			BufferedImage bim = SwingFXUtils.fromFXImage(im, null);
+			try {
+				ImageIO.write(bim, PNG_EXT, image);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		for (DataSound s : dataGame.getSounds()) {
+			File sound = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory")
+			+ s.getName() + ".wav");
+
+			AudioInputStream stream = s.getInputStream();
+		}
 
 		saveFilesFromGame(dataGame);
 
@@ -126,7 +144,7 @@ public class FileManager {
 				break;
 			case SPRITE:
 				url = g.getString("GamesDirectory") + myGameName + g.getString("RelativeSpriteDirectory") + imgName
-						+ PNG;
+				+ PNG;
 				break;
 			}
 
@@ -183,7 +201,7 @@ public class FileManager {
 
 	public AudioClip getSound(String soundName, DataSound ds) {
 		File outputfile = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory")
-				+ soundName + ".wav");
+		+ soundName + ".wav");
 		if (!outputfile.exists()) {
 			System.out.println("no file");
 		}
