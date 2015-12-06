@@ -38,7 +38,7 @@ public class RunSprite implements IDrawable {
 	@Override
 	public void draw(IDraw drawListener, RunView view, RunObject object) {
 		IRectangle bounds = object.getBounds();
-		drawListener.drawRectangle(bounds, view, Color.AQUAMARINE);
+		//drawListener.drawRectangle(bounds, view, Color.AQUAMARINE);
 		drawListener.drawImage(myImage, view, object.getX(), object.getY(), bounds.centerX(), bounds.centerY(), object.getScaleX(), object.setScaleY(), object.getAngle(), object.getAlpha());
 	}
 	
