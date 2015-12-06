@@ -29,6 +29,7 @@ public class DefineTimerRepeated extends DataAction {
 		// TODO Auto-generated method stub
 		return "import java.util.timer.*\n"
 				+ "class RepeatedTimerTask extends TimerTask {\n"
+				+ "def library\n"
 				+ "public void run()";
 	}
 

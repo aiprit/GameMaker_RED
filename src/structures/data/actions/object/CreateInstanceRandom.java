@@ -4,7 +4,6 @@ import structures.data.DataAction;
 import structures.data.DataObject;
 import structures.data.actions.params.DoubleParam;
 import structures.data.actions.params.ObjectParam;
-import structures.data.actions.params.StringParam;
 
 public class CreateInstanceRandom extends DataAction {
 
@@ -26,7 +25,7 @@ public class CreateInstanceRandom extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.create_object('%s', library.random_number(%f), library.random_number(%f));";
+		return "library.create_instance('%s', library.random_number(%f), library.random_number(%f));";
 	}
 
 }
