@@ -28,6 +28,7 @@ import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.logic.Close;
+import structures.data.actions.logic.Else;
 import structures.data.actions.logic.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
@@ -102,14 +103,14 @@ public class ObjectEditorController {
 							int indents =0 ;
 							for(IAction action: model.getMap().get(item)){
 								description += "\n   ";
-								if(action instanceof Close){
+								if(action instanceof Close || action instanceof Else){
 									indents -=1;
 								}
 								for(int i=0; i<indents;i++){
 									description += "  ";
 								}
 								description +=action.getDescription();
-								if(action instanceof Open){
+								if(action instanceof Open || action instanceof Else){
 									indents +=1;
 								}
 							}
