@@ -50,5 +50,15 @@ public class DraggableImage extends DraggableNode {
 	public boolean contains(double x, double y) {
 		return this.getBounds().contains(new Point(x, y));
 	}
+
+	@Override
+	public boolean inRoomWidthBounds(double x, double roomWidth) {
+		return x >= 0 && x <= roomWidth;
+	}
+
+	@Override
+	public boolean inRoomHeightBounds(double y, double roomHeight) {
+		return y >= 0 && y <= roomHeight;
+	}
 	
 }

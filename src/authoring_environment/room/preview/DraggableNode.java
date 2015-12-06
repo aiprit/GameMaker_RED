@@ -36,6 +36,14 @@ public abstract class DraggableNode {
 	
 	public abstract boolean contains(double x, double y);
 	
+	public abstract boolean inRoomWidthBounds(double x, double roomWidth);
+	
+	public abstract boolean inRoomHeightBounds(double y, double roomHeight);
+	
+	public boolean inRoomBounds(double x, double y, double roomWidth, double roomHeight) {
+		return inRoomWidthBounds(x, roomWidth) && inRoomHeightBounds(y, roomHeight);
+	}
+	
 	public double getAngle() {
 		return myAngle;
 	}
