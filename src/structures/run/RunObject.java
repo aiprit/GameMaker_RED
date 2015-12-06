@@ -158,7 +158,7 @@ public class RunObject implements IParameters {
 		myEvents.put(event, action);
 	}
 
-	protected void setSprite(RunSprite sprite) {
+	public void setSprite(RunSprite sprite) {
 		mySprite = sprite;
 		myBounds.width(mySprite.getWidth() * scaleX);
 		myBounds.height(mySprite.getHeight() * scaleY);
