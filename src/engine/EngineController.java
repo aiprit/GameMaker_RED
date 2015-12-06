@@ -61,6 +61,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 
 		//sets up the event manager
 		setupEventManager(eventManager);
+		stage.show();
 	}
 
 	public String getUserChoice() throws ResourceFailedException {
