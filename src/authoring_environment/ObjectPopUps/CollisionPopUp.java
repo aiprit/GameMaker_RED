@@ -7,7 +7,7 @@ import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -22,8 +22,6 @@ import javafx.stage.Stage;
 import structures.data.DataObject;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.events.CollisionEvent;
-import structures.data.events.KeyPressedEvent;
-import structures.data.interfaces.IDataEvent;
 
 public class CollisionPopUp extends BasicPopUp{
 	private Group myRoot;
@@ -36,6 +34,7 @@ public class CollisionPopUp extends BasicPopUp{
 	public CollisionPopUp(DataObject data, IObjectInterface game) {
 		super(data,game);
 		myList = game.getObjects();
+		myList.remove(data);
 		init();
 
 	}
@@ -83,7 +82,7 @@ public class CollisionPopUp extends BasicPopUp{
 	private void actions(Event e){
 		selectedObject = listview.getSelectionModel().getSelectedItem();
 		if(selectedObject ==null){
-			PopUpError er = new PopUpError(r.getString("Error"));
+			new PopUpError(r.getString("Error"));
 		}else{
 		eventPopup();
 		}

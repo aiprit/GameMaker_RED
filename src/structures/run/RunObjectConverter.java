@@ -31,6 +31,8 @@ public class RunObjectConverter {
 	private Map<String, RunObject> myMasterObjects;
 	private Map<String, DataObject> myMasterDataObjects;
 	
+	private static final String groovyPreamble = "import utils.Vector;\n";
+	
 	public RunObjectConverter(RunResources resources) {
 		myResources = resources;
 		myMasterObjects = new HashMap<String, RunObject>();
@@ -56,8 +58,14 @@ public class RunObjectConverter {
 			for (IAction action : event.getValue()) {
 				groovy.append(action.compileSyntax());
 			}
-			System.out.println(groovy.toString());
-			RunAction runGroovy = new RunAction(groovy.toString());
+			RunAction runGroovy = null;
+			try {
+				runGroovy = new RunAction(groovyPreamble + groovy.toString());
+			} catch (CompileTimeException ex) {
+				System.out.println("Bad script:");
+				System.out.println(groovyPreamble + groovy.toString());
+				throw ex;
+			}
 			run.bindEvent(event.getKey(), runGroovy);
 		}
 		
@@ -114,7 +122,7 @@ public class RunObjectConverter {
 		run.setY( instance.getY() );
 		run.setScaleX( instance.getScaleX() );
 		run.setScaleY( instance.getScaleY() );
-		run.getVelocity( instance.getVelocity() );
+		run.setVelocity( instance.getVelocity() );
 		run.setAngle( instance.getAngle() );
 		run.setAngularVelocity( instance.getAngularVelocity() );
 		run.setVisible( instance.isVisible() );
@@ -145,7 +153,7 @@ public class RunObjectConverter {
 	    dataInstance.setScaleX(runObject.getScaleX());
 	    dataInstance.setScaleY(runObject.setScaleY());
 	    dataInstance.setAlpha(runObject.getAlpha());
-	    dataInstance.setVelocity(runObject.setVelocity());
+	    dataInstance.setVelocity(runObject.getVelocity());
 	    dataInstance.setFriction(runObject.getFriction());
 	    dataInstance.setGravity(runObject.getGravity());
             

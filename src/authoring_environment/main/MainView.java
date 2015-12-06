@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -43,7 +44,7 @@ public class MainView {
 	/**
 	 * @param leftBP the left borderpane
 	 */
-	public void setPanes(Pane leftBP, Pane middlePane, Pane rightPane) {
+	public void setPanes(Pane leftBP, ScrollPane middlePane, Pane rightPane) {
 		bp.setLeft(leftBP);
 		bp.setCenter(middlePane);
 		bp.setRight(rightPane);

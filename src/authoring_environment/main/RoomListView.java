@@ -15,6 +15,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
@@ -35,6 +37,8 @@ public class RoomListView {
 	private static final int ROW_LENGTH = 2;
 	private ResourceBundle myResourceBundle = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 	private GridPane roomView;
+	private ScrollPane roomScrollPane;
+	
 	
 	private List<HBox> list;
 	private Button plusButton;
@@ -47,6 +51,10 @@ public class RoomListView {
 		bp.setAlignment(roomView, Pos.CENTER);
 		roomView.setVgap(10);
 		roomView.setHgap(20);
+		roomScrollPane = new ScrollPane();
+		roomScrollPane.setContent(roomView);
+		roomScrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		roomScrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 	}
 	
 	public Button addRoom(DataRoom o, DataGame rooms, int i, boolean startRoom, Consumer<Void> updateFcn) {
@@ -89,8 +97,8 @@ public class RoomListView {
 		
 	}
 	
-	public Pane getPane() {
-		return roomView;
+	public ScrollPane getPane() {
+		return roomScrollPane;
 	}
 	private void updateList() {
 		

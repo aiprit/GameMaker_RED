@@ -379,10 +379,10 @@ public class RunObject implements IParameters {
 		this.visible = visible;
 	}
 	
-	public Vector setVelocity() {
+	public Vector getVelocity() {
 		return this.velocity;
 	}
-	public void getVelocity(Vector velocity) {
+	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
 	
