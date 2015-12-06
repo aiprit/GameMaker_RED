@@ -20,7 +20,7 @@ public class Wrap extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.wrap(current);";
+		return "library.wrap(engine.current());";
 	}
 	
 	

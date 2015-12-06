@@ -22,7 +22,7 @@ public class SetHighScore extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.set_high_score(library.get_variable('%s'));";
+		return "library.set_high_score(globals.get_variable('%s'));";
 	}
 
 }

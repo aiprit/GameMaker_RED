@@ -32,7 +32,7 @@ public class Draw extends StackPane implements IDraw {
 			double centerX, double centerY,
 			double scaleX, double scaleY, double angle, double alpha) {
 
-		//draw the new object
+		// Draw the new object
 		Rectangle disp = view.getView();
 		double tlx = x - disp.x();
 		double tly = y - disp.y();
@@ -56,7 +56,7 @@ public class Draw extends StackPane implements IDraw {
 		myGraphicsContext.scale(scaleX, scaleY);
 		myGraphicsContext.setGlobalAlpha(alpha);
 		
-		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
+		myGraphicsContext.drawImage(image, -1 * centerX / scaleX, -1 * centerY / scaleY);
 		myGraphicsContext.restore();
 
 	}

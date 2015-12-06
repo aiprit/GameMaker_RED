@@ -3,6 +3,11 @@ package structures.data.actions.game;
 import structures.data.DataAction;
 import structures.data.actions.params.IntegerParam;
 
+/**
+ * AUSTIN MCKEE STAY AWAY FROM THIS CODE
+ * @author baileyewall
+ *
+ */
 public class SetTimerOnce extends DataAction {
 
 	public SetTimerOnce(){
