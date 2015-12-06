@@ -60,7 +60,7 @@ public class EventController {
 		myView.getTopPane().getMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
 				RunScript action = new RunScript();
-				ParamController paramcontrol = new ParamController(action,myModel.getActions());
+				ParamController paramcontrol = new ParamController(action,myModel.getActions(),-1);
 				paramcontrol.showAndWait();
 			}
 		});
@@ -229,7 +229,7 @@ public class EventController {
 				IAction selected = cell.getItem();
 				List<IParameter> params = selected.getParameters();
 				if(params.size()>0){
-					ParamController paramcontrol = new ParamController(selected,myModel.getActions());
+					ParamController paramcontrol = new ParamController(selected,myModel.getActions(),-1);
 					paramcontrol.showAndWait();
 				}
 				indents=0;
@@ -369,11 +369,24 @@ public class EventController {
 					paramSetup(p);
 				}
 				if(params.size()>0){
-					ParamController paramcontrol = new ParamController(act,myModel.getActions());
+					ParamController paramcontrol = new ParamController(act,myModel.getActions(),index);
 					paramcontrol.showAndWait();
+
 				}
 				else{
 					myModel.addAction(act,index);
+					if(className.substring(0,2).equals(myModel.getBundle().getString("If"))||
+							className.substring(0,4).equals(myModel.getBundle().getString("Else"))||
+							className.substring(0,4).equals(myModel.getBundle().getString("With"))){
+						if(index==-1){
+							myModel.addAction(new Open(),-1);
+							myModel.addAction(new Close(),-1);
+						}
+						else{
+							myModel.addAction(new Open(),index+1);
+							myModel.addAction(new Close(),index+2);
+						}
+					}
 				}
 
 			} catch (InstantiationException e) {
