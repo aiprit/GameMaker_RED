@@ -21,7 +21,7 @@ public class SetFriction extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current().friction(%f);";
+		return "current().friction = %f;";
 	}
 
 }

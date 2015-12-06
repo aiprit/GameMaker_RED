@@ -3,7 +3,7 @@ package structures.data.actions.logic;
 import structures.data.DataAction;
 
 public class WithCollided extends DataAction {
-	
+
 	public WithCollided() {
 		init();
 	}
@@ -20,7 +20,7 @@ public class WithCollided extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "engine.with(event.other); \n";
+		return "engine.with(event.other); OPENWITH:";
 	}
-	
+
 }
