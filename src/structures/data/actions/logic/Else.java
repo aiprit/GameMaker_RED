@@ -20,7 +20,7 @@ public class Else extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "\n} else {\n";
+		return "\n else ";
 	}
 
 }
