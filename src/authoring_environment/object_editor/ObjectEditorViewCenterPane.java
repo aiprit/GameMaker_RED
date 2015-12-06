@@ -11,8 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
 public class ObjectEditorViewCenterPane {
-	private ResourceBundle centerResources = ResourceBundle
-			.getBundle("authoring_environment/object_editor/CenterPaneResources");
+	private ResourceBundle centerResources = ResourceBundle.getBundle("authoring_environment/object_editor/CenterPaneResources");
 	private Image sprite;
 	private double xPos, yPos;
 	private Button spriteUpdate;

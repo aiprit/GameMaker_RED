@@ -3,6 +3,7 @@ package authoring_environment.Event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring_environment.PopUpError;
 import authoring_environment.ParamPopups.ParamController;
@@ -203,14 +204,14 @@ public class EventController {
 
 				});
 
-//				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//					@Override
-//					public void handle(KeyEvent click) {
-//						if (click.getCode() == KeyCode.ENTER) {
-//							openOnEdit(cell);
-//						}
-//					}
-//				});
+				//				cell.setOnKeyPressed(new EventHandler<KeyEvent>() {
+				//					@Override
+				//					public void handle(KeyEvent click) {
+				//						if (click.getCode() == KeyCode.ENTER) {
+				//							openOnEdit(cell);
+				//						}
+				//					}
+				//				});
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent click) {
@@ -237,9 +238,9 @@ public class EventController {
 			}
 		});
 		myView.getRightPane().getDelete().setOnAction(e ->{
-		indents=0;
-		myModel.deleteAction(
-				myView.getRightPane().getListView().getSelectionModel().getSelectedItem());
+			indents=0;
+			myModel.deleteAction(
+					myView.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
 		myView.getRightPane().getListView().setOnDragDropped(new EventHandler<DragEvent>(){
 			@Override
@@ -266,6 +267,27 @@ public class EventController {
 
 
 		myView.getLeftPane().getListView().setItems(myModel.initTempActions());
+		myView.getLeftPane().getListView().setCellFactory(new Callback<ListView<String>, ListCell<String>>(){
+			@Override
+			public ListCell<String> call(ListView<String> lv){
+				final ListCell<String> cell = new ListCell<String>() {
+					@Override
+					public void updateItem(String item, boolean empty) {
+						super.updateItem(item,  empty);
+						if (empty) {
+						} else {
+							if(item.substring(item.length()-1).equals(myModel.getBundle().getString("check"))){
+								setText(item);
+							}
+							else{
+								setText("  " + item);
+							}
+						}
+					}
+				};
+				return cell;
+			}
+		});
 		myView.getLeftPane().getAddButton().setOnAction(e ->
 		addAction(myView.getLeftPane().getListView()
 				.getSelectionModel().getSelectedItem(),-1));
@@ -313,14 +335,30 @@ public class EventController {
 
 			Class c=null;
 			try {
-				c = Class.forName("structures.data.actions.library." +className);
+				c = Class.forName(myModel.getBundle().getString("action1") +className);
 
 			} catch (ClassNotFoundException e) {
 				try {
-					c = Class.forName("structures.data.actions." +className);
+					c = Class.forName(myModel.getBundle().getString("action2") +className);
+
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try {
+						c = Class.forName(myModel.getBundle().getString("action3") +className);
+					} catch (ClassNotFoundException e2) {
+						try {
+							c = Class.forName(myModel.getBundle().getString("action4") +className);
+						} catch (ClassNotFoundException e3) {
+							try {
+								c = Class.forName(myModel.getBundle().getString("action5")+className);
+							} catch (ClassNotFoundException e4) {
+								try {
+									c = Class.forName(myModel.getBundle().getString("action6") +className);
+								} catch (ClassNotFoundException e5) {
+
+								}
+							}
+						}
+					}
 				}
 
 			}
@@ -360,52 +398,52 @@ public class EventController {
 
 		}
 		catch (NullPointerException e){
-			PopUpError er = new PopUpError(e.getMessage());
+			new PopUpError(myModel.getBundle().getString("Error"));
 		}
 
 
 	}
 
 	private void paramSetup(IParameter p) {
-		if(p.getType().toString().equals("OBJECT_SELECT")){
+		if(p.getType().toString().equals(myModel.getBundle().getString("objectSelect"))){
 			ObjectParam param = (ObjectParam) p;
 			param.setObjectList(myModel.getGame().getObjects());
 		}
-		if(p.getType().toString().equals("SPRITE_SELECT")){
+		if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
 			SpriteParam param = (SpriteParam) p;
 			param.setSpriteList(myModel.getGame().getSprites());
 		}
-		if(p.getType().toString().equals("ROOM_SELECT")){
+		if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals("SOUND_SELECT")){
+		if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
 			SoundParam param = (SoundParam) p;
 			param.setSoundList(myModel.getGame().getSounds());
 		}
 	}
 
-//	private boolean paramPopUps(IParameter p) {
-//
-//		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
-//		dialog.setTitle("Set Parameters");
-//		dialog.setHeaderText("Please Enter Value");
-//		dialog.setContentText(p.getTitle()+" "+p.getType());
-//		Optional<String> result = dialog.showAndWait();
-//		if (result.isPresent()){
-//			try {
-//				p.parse(result.get());
-//			} catch (ParameterParseException e) {
-//				PopUpError er = new PopUpError();
-//				paramPopUps(p);
-//			}
-//			System.out.println(result.get());
-//			return true;
-//		}
-//		else
-//			return false;
-//
-//	}
+	//	private boolean paramPopUps(IParameter p) {
+	//
+	//		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
+	//		dialog.setTitle("Set Parameters");
+	//		dialog.setHeaderText("Please Enter Value");
+	//		dialog.setContentText(p.getTitle()+" "+p.getType());
+	//		Optional<String> result = dialog.showAndWait();
+	//		if (result.isPresent()){
+	//			try {
+	//				p.parse(result.get());
+	//			} catch (ParameterParseException e) {
+	//				PopUpError er = new PopUpError();
+	//				paramPopUps(p);
+	//			}
+	//			System.out.println(result.get());
+	//			return true;
+	//		}
+	//		else
+	//			return false;
+	//
+	//	}
 
 
 
