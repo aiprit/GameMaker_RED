@@ -55,7 +55,9 @@ public class InputManager implements IInputHandler {
 					event.setCoordinates(correctForView(gameHandler.getCurrentRoom(), InputEventFactory.getCoordinates(e)));
 				}
 				List<RunObject> os = gameHandler.getRegistered(runEvent);
-				for (RunObject o : os){
+				int size = os.size();
+				for (int i = 0; i < size; i++) {
+					RunObject o = os.get(i);
 					if (event.getLocalCheck()){
 						if (o.getBounds().contains(event.getCoordinates())){
 							gameHandler.fire(o, runEvent, event);
