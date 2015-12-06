@@ -24,7 +24,7 @@ public class GoToRoom extends DataAction{
 
 	@Override
 	protected String getSyntax() {
-		return "library.go_to_room(%s);";
+		return "library.go_to_room('%s');";
 	}
 
 }
