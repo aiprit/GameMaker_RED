@@ -57,7 +57,7 @@ public class EventModel {
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 		//Enumeration <String> keys = l.getKeys();
 
-		for(int i=1;i<7;i++){
+		for(int i=1;i<6;i++){
 			String str =r.getString("action"+i);
 			String[] ar = str.split("\\.");
 			str =  capitalize(ar[ar.length-1])+" "+r.getString("type");
