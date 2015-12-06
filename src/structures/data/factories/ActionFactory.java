@@ -5,6 +5,7 @@ import exceptions.XMLFormatException;
 
 import org.w3c.dom.Element;
 
+import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.actions.game.DisplayMessage;
 import structures.data.actions.game.DrawRectangle;
@@ -42,6 +43,7 @@ import structures.data.actions.object.Destroy;
 import structures.data.actions.object.GetObjectVariable;
 import structures.data.actions.object.ScaleSprite;
 import structures.data.actions.object.SetObjectVariable;
+import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
 import structures.data.actions.room.GoToRoom;
 import structures.data.actions.room.ViewFollow;
@@ -59,9 +61,11 @@ public class ActionFactory {
 
 	private static Map<String, Class<?>> myActions;
 	private List<DataRoom> myRooms;
+	private List<DataObject> myObjects;
 
-	public ActionFactory(List<DataRoom> roomShells) {
+	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells) {
 		myRooms = roomShells;
+		myObjects = objectShells;
 		if (myActions == null) {
 			myActions = new HashMap<>();
 			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
@@ -125,9 +129,13 @@ public class ActionFactory {
 			try {
 				String encodedParameter = e.getAttribute("p" + Integer.toString(i));
 				byte[] authBytes = Base64.getDecoder().decode(encodedParameter);
+				
 				if(action.getParameters().get(i) instanceof RoomParam){
 					((RoomParam) action.getParameters().get(i)).setRoomList(myRooms);
+				} else if(action.getParameters().get(i) instanceof ObjectParam){
+					((ObjectParam) action.getParameters().get(i)).setObjectList(myObjects);
 				}
+				
 				action.getParameters().get(i).parse(new String(authBytes));
 			} catch (ParameterParseException e1) {
 				e1.printStackTrace();

@@ -28,6 +28,7 @@ public class XMLReader {
 	
     DataGame game;
     private List<DataRoom> preloadedRooms;
+    private List<DataObject> preloadedObjects;
 
     public XMLReader() {
     }
@@ -69,6 +70,9 @@ public class XMLReader {
             preloadedRooms = preloadRooms(rooms);
 
             NodeList objects = doc.getElementsByTagName("object");
+            
+            preloadedObjects = preloadObjects(objects);
+            
             loadObjects(objects);
    
             loadRooms(rooms);
@@ -79,9 +83,10 @@ public class XMLReader {
         }
         return game;
     }
-
-    private void loadObjects(NodeList objects) throws XMLFormatException {
-        for (int i = 0; i < objects.getLength(); i++) {
+    
+    private List<DataObject> preloadObjects(NodeList objects){
+    	List<DataObject> preObjects = new ArrayList<>();
+    	for (int i = 0; i < objects.getLength(); i++) {
 
             Node object = objects.item(i);
 
@@ -89,6 +94,21 @@ public class XMLReader {
 
                 Element elem = (Element) object;
                 DataObject obj = new DataObject(elem.getAttribute("name"));
+                preObjects.add(obj);
+            }
+    	}
+    	return preObjects;
+    }
+
+    private void loadObjects(NodeList objects) throws XMLFormatException {
+        for (int i = 0; i < preloadedObjects.size(); i++) {
+
+            Node object = objects.item(i);
+
+            if (object.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element elem = (Element) object;
+                DataObject obj = preloadedObjects.get(i);
                 obj.setScaleX(Double.parseDouble(elem.getAttribute("scaleX")));
                 obj.setScaleY(Double.parseDouble(elem.getAttribute("scaleY")));
                 obj.setZIndex(Integer.parseInt(elem.getAttribute("zIndex")));
@@ -131,7 +151,7 @@ public class XMLReader {
 
     private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
-        ActionFactory factory = new ActionFactory(preloadedRooms);
+        ActionFactory factory = new ActionFactory(preloadedRooms, preloadedObjects);
         for (int i = 0; i < actions.getLength(); i++) {
 
             Node action = actions.item(i);
