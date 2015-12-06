@@ -1,13 +1,15 @@
 package structures.data.actions.object;
 
 import structures.data.DataAction;
+import structures.data.DataObject;
 import structures.data.actions.params.DoubleParam;
+import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.StringParam;
 
-public class CreateObjectRandom extends DataAction {
+public class CreateInstanceRandom extends DataAction {
 
-	public CreateObjectRandom(){
-		init(new StringParam("NewRandomObjectId"), new DoubleParam("NewRandomObjectX"), new DoubleParam("NewRandomObjectY"));
+	public CreateInstanceRandom(){
+		init(new ObjectParam("Object"), new DoubleParam("NewRandomObjectX"), new DoubleParam("NewRandomObjectY"));
 	}
 	
 	@Override
@@ -17,7 +19,8 @@ public class CreateObjectRandom extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("create an object %s between (0, 0) and (%.2f, %.2f)", get("NewRandomObjectId").getValue(),
+		DataObject obj = (DataObject)get("Object").getValue();
+		return String.format("create an object %s between (0, 0) and (%.2f, %.2f)", obj.getName(),
 				get("NewRandomObjectX").getValue(), get("NewRandomObjectY").getValue());
 	}
 
