@@ -24,7 +24,7 @@ public class WithCreateInstance extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "with(library.create_instance('%s', %f, %f)); {";
+		return "engine.with(library.create_instance('%s', %f, %f)); {";
 	}
 
 }

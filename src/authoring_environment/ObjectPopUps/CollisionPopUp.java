@@ -34,6 +34,7 @@ public class CollisionPopUp extends BasicPopUp{
 	public CollisionPopUp(DataObject data, IObjectInterface game) {
 		super(data,game);
 		myList = game.getObjects();
+		myList.remove(data);
 		init();
 
 	}
