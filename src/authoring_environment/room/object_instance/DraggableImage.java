@@ -29,13 +29,6 @@ public class DraggableImage extends DraggableNode {
 		return myImage.getHeight();
 	}
 	
-	public IRectangle getBounds() {
-		Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
-		rect.angle(getAngle());
-		rect.center();
-		return rect.getImmutable();
-	}
-	
 	public boolean widthOutOfBounds(double canvasWidth) {
 		return (this.getX() + this.getWidth()*this.getScaleX()) > canvasWidth;
 	}

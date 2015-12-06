@@ -52,7 +52,7 @@ public class Draw extends StackPane implements IDraw {
 		Rectangle disp = view.getView();
 		myGraphicsContext.save();
 		myGraphicsContext.translate(x - disp.x(), y - disp.y());
-		myGraphicsContext.rotate(-1 * angle);
+		myGraphicsContext.rotate(angle);
 		myGraphicsContext.scale(scaleX, scaleY);
 		myGraphicsContext.setGlobalAlpha(alpha);
 		
@@ -80,10 +80,10 @@ public class Draw extends StackPane implements IDraw {
 		
 		myCanvas.getGraphicsContext2D().setStroke(paint);
 		
-		myCanvas.getGraphicsContext2D().strokeLine(tl.x - disp.x(), tl.y - disp.y(), tr.x - disp.x(), tr.y);
-		myCanvas.getGraphicsContext2D().strokeLine(tr.x, tr.y, br.x, br.y);
-		myCanvas.getGraphicsContext2D().strokeLine(br.x, br.y, bl.x, bl.y);
-		myCanvas.getGraphicsContext2D().strokeLine(bl.x, bl.y, tl.x, tl.y);
+		myCanvas.getGraphicsContext2D().strokeLine(tl.x - disp.x(), tl.y - disp.y(), tr.x - disp.x(), tr.y - disp.y());
+		myCanvas.getGraphicsContext2D().strokeLine(tr.x - disp.x(), tr.y - disp.y(), br.x - disp.x(), br.y - disp.y());
+		myCanvas.getGraphicsContext2D().strokeLine(br.x - disp.x(), br.y - disp.y(), bl.x - disp.x(), bl.y - disp.y());
+		myCanvas.getGraphicsContext2D().strokeLine(bl.x - disp.x(), bl.y - disp.y(), tl.x - disp.x(), tl.y - disp.y());
 	}
 
 	public void drawBackgroundImage(Image image, RunView view, double roomWidth, double roomHeight){

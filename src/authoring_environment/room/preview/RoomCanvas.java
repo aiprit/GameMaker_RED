@@ -20,6 +20,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.transform.Rotate;
+import utils.Point;
+import utils.rectangle.IRectangle;
 
 public class RoomCanvas extends Canvas {
 	private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE = "FileNotFoundExceptionMessage";
@@ -155,9 +157,8 @@ public class RoomCanvas extends Canvas {
 			if (!drag.getVisibility()) {
 				continue;
 			}
-			double centerX = drag.getWidth() * drag.getScaleX() / 2.0;
-			double centerY = drag.getHeight() * drag.getScaleY() / 2.0;
-			drawImage(drag.getImage(), drag.getX(), drag.getY(), centerX, centerY, drag.getScaleX(), drag.getScaleY(), drag.getAngle(), drag.getAlpha());
+			IRectangle rect = drag.getBounds();
+			drawImage(drag.getImage(), drag.getX(), drag.getY(), rect.centerX(), rect.centerY(), drag.getScaleX(), drag.getScaleY(), drag.getAngle(), drag.getAlpha());
 			//drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(),
 			//		drag.getScaleY(), drag.getAlpha());
 		}
@@ -171,7 +172,7 @@ public class RoomCanvas extends Canvas {
 		GraphicsContext myGraphicsContext = this.getGraphicsContext2D();
 		myGraphicsContext.save();
 		myGraphicsContext.translate(x, y);
-		myGraphicsContext.rotate(-1 * angle);
+		myGraphicsContext.rotate(angle);
 		myGraphicsContext.scale(scaleX, scaleY);
 		myGraphicsContext.setGlobalAlpha(alpha);
 		
@@ -210,8 +211,9 @@ public class RoomCanvas extends Canvas {
 	}
 
 	public boolean contains(double x, double y, DraggableNode node) {
-		return (x > node.getX() && x <= node.getX() + node.getWidth() * node.getScaleX() && y > node.getY()
-				&& y <= node.getY() + node.getHeight() * node.getScaleY());
+		return node.getBounds().contains(new Point(x, y));
+		/*return (x > node.getX() && x <= node.getX() + node.getWidth() * node.getScaleX() && y > node.getY()
+				&& y <= node.getY() + node.getHeight() * node.getScaleY());*/
 	}
 
 	private void drawBackground() {
