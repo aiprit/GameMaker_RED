@@ -3,6 +3,7 @@ package authoring_environment.Event;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring_environment.PopUpError;
 import authoring_environment.ParamPopups.ParamController;
@@ -38,6 +39,7 @@ import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class EventController {
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Events/EventGUIResources");
 	EventView myView;
 	EventModel myModel;
 	private int indents=0;
@@ -313,11 +315,11 @@ public class EventController {
 
 			Class c=null;
 			try {
-				c = Class.forName("structures.data.actions.library." +className);
+				c = Class.forName(r.getString("actionLibString") +className);
 
 			} catch (ClassNotFoundException e) {
 				try {
-					c = Class.forName("structures.data.actions." +className);
+					c = Class.forName(r.getString("actionString") +className);
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -367,19 +369,19 @@ public class EventController {
 	}
 
 	private void paramSetup(IParameter p) {
-		if(p.getType().toString().equals("OBJECT_SELECT")){
+		if(p.getType().toString().equals(r.getString("objectSelect"))){
 			ObjectParam param = (ObjectParam) p;
 			param.setObjectList(myModel.getGame().getObjects());
 		}
-		if(p.getType().toString().equals("SPRITE_SELECT")){
+		if(p.getType().toString().equals(r.getString("spriteSelect"))){
 			SpriteParam param = (SpriteParam) p;
 			param.setSpriteList(myModel.getGame().getSprites());
 		}
-		if(p.getType().toString().equals("ROOM_SELECT")){
+		if(p.getType().toString().equals(r.getString("roomSelect"))){
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals("SOUND_SELECT")){
+		if(p.getType().toString().equals(r.getString("soundSelect"))){
 			SoundParam param = (SoundParam) p;
 			param.setSoundList(myModel.getGame().getSounds());
 		}

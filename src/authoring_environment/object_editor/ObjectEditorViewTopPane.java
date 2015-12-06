@@ -11,12 +11,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 public class ObjectEditorViewTopPane {
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/TopPaneResources");
 	MenuBar menu = new MenuBar();
 	Menu spriteMenu;
 	
 	public Group init() {
 		Group root = new Group();
-		spriteMenu = new Menu("sprites");
+		spriteMenu = new Menu(r.getString("sprite"));
 		menu.getMenus().add(spriteMenu);
 		root.getChildren().add(menu);
 		return root;

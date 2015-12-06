@@ -57,10 +57,10 @@ public class EventModel {
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
 		//Enumeration <String> keys = l.getKeys();
 
-		for (String s:classes.getAllClasses(("structures.data.actions"))) {
+		for (String s:classes.getAllClasses((r.getString("actionCutString")))) {
 			list.add(s);
 		}
-		for (String s:classes.getAllClasses(("structures.data.actions.library"))) {
+		for (String s:classes.getAllClasses((r.getString("actionCutLibString")))) {
 			list.add(s);
 		}
 		//List<String> keylist = Collections.list(keys);
