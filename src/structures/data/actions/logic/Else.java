@@ -7,7 +7,7 @@ public class Else extends DataAction {
 	public Else(){
 		init();
 	}
-	
+
 	@Override
 	public String getTitle() {
 		return "Else";
@@ -15,7 +15,7 @@ public class Else extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return "add an else statement to a block statement";
+		return "Else";
 	}
 
 	@Override
