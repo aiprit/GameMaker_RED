@@ -99,7 +99,7 @@ public class RoomController {
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
 			ObjectInstanceController currentObject = new ObjectInstanceController(instance);
-			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), currentObject.getDraggableImage())){
+			if (currentObject.getDraggableImage().contains(event.getX(), event.getY())){
 				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject);
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));
@@ -137,10 +137,10 @@ public class RoomController {
 		double y = controller.getDataInstance().getY() + CLONE_OFFSET;
 		double width = controller.getDraggableImage().getImage().getWidth() * controller.getDraggableImage().getScaleX();
 		double height = controller.getDraggableImage().getImage().getHeight() * controller.getDraggableImage().getScaleY();
-		if (!view.getPreview().getCanvas().inRoomWidthBounds(width, x)) {
+		if (!controller.getDraggableImage().inRoomWidthBounds(x, view.getPreview().getCanvas().getWidth())) {
 			x = view.getPreview().getCanvas().getWidth() - width;
 		}
-		if (!view.getPreview().getCanvas().inRoomHeightBounds(height, y)) {
+		if (!controller.getDraggableImage().inRoomHeightBounds(y, view.getPreview().getCanvas().getHeight())) {
 			y = view.getPreview().getCanvas().getHeight() - height;
 		}
 		createAndAddObjectInstance(controller.getDraggableImage().getImage(), 
@@ -197,18 +197,28 @@ public class RoomController {
 		Point2D canvasPoint = view.getPreview().getCanvas().screenToLocal(screenPoint);
 		double width = potentialObjectInstance.getImageView().getImage().getWidth() * potentialObjectInstance.getImageView().getScaleX();
 		double height = potentialObjectInstance.getImageView().getImage().getHeight() * potentialObjectInstance.getImageView().getScaleY();
-		if (view.getPreview().getCanvas().inRoomBounds(width, height, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2)) {
-			createAndAddObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
-					null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
+		ObjectInstanceController newInstance = createObjectInstance(potentialObjectInstance.getImageView().getImage(), potentialObjectInstance.getObject(),
+				null, canvasPoint.getX()-width/2, canvasPoint.getY()-height/2);
+		if (newInstance.getDraggableImage().inRoomBounds(canvasPoint.getX(), canvasPoint.getY(), 
+				view.getPreview().getCanvas().getWidth(), view.getPreview().getCanvas().getHeight())) {
+			addObjectInstanceToCanvas(newInstance);
 			view.getRoot().getChildren().remove(potentialObjectInstance.getImageView());
 		}
-	} 
+	}
 	
 	private void createAndAddObjectInstance(Image image, DataObject object, DataInstance instance, double x, double y) {
+		addObjectInstanceToCanvas(createObjectInstance(image, object, instance, x, y));
+	}
+	
+	private ObjectInstanceController createObjectInstance(Image image, DataObject object, DataInstance instance, double x, double y) {
 		DoubleProperty[] coordinates = createDoubleProperties(x, y);
 		ObjectInstanceController objectInstance = instance == null ?
 				new ObjectInstanceController(image, object, coordinates[0], coordinates[1]) :
 				new ObjectInstanceController(image, instance, coordinates[0], coordinates[1]);
+		return objectInstance;
+	}
+	
+	private void addObjectInstanceToCanvas(ObjectInstanceController objectInstance) {
 		objectInstance.adjustScaleToFitCanvas(view.getPreview().getCanvas().getWidth(), view.getPreview().getCanvas().getHeight());
 		view.getPreview().addImage(objectInstance.getDraggableImage());
 		model.addObjectInstance(objectInstance.getDataInstance());

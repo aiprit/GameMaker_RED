@@ -71,4 +71,20 @@ public class DraggableView extends DraggableNode {
 		this.myY = myY;
 	}
 
+	@Override
+	public boolean contains(double x, double y) {
+		return (x > this.getX() && x <= this.getX() + this.getWidth() * this.getScaleX() && y > this.getY()
+		&& y <= this.getY() + this.getHeight() * this.getScaleY());
+	}
+
+	@Override
+	public boolean inRoomWidthBounds(double x, double roomWidth) {
+		return x >= 0 && x <= roomWidth - this.getWidth();
+	}
+
+	@Override
+	public boolean inRoomHeightBounds(double y, double roomHeight) {
+		return y >= 0 && y <= roomHeight - this.getHeight();
+	}
+
 }
