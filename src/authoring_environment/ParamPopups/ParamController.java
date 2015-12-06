@@ -22,9 +22,9 @@ public class ParamController {
 	private ParamPopupView view;
 	private ParamModel model;
 
-	public ParamController(IAction e,List<IAction> action ){
+	public ParamController(IAction e,List<IAction> action, int index){
 		view = new ParamPopupView(e.getParameters());
-		model = new ParamModel(e,action);
+		model = new ParamModel(e,action, index);
 		init();
 	}
 	private void init() {
