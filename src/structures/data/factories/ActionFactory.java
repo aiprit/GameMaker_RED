@@ -40,6 +40,7 @@ import structures.data.actions.move.SetVelocityToPoint;
 import structures.data.actions.object.ChangeSprite;
 import structures.data.actions.object.CreateInstance;
 import structures.data.actions.object.CreateInstanceAtCursor;
+import structures.data.actions.object.CreateInstanceAtObject;
 import structures.data.actions.object.CreateInstanceRandom;
 import structures.data.actions.object.Destroy;
 import structures.data.actions.object.GetObjectVariable;
@@ -75,6 +76,7 @@ public class ActionFactory {
 				CloseNoEnd.class,
 				CreateInstance.class,
 				CreateInstanceAtCursor.class,
+				CreateInstanceAtObject.class,
 				CreateInstanceRandom.class,
 				DisplayMessage.class,
 				DrawRectangle.class,
