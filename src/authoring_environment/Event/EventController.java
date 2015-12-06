@@ -39,7 +39,6 @@ import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class EventController {
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Events/EventGUIResources");
 	EventView myView;
 	EventModel myModel;
 	private int indents=0;
@@ -406,19 +405,19 @@ public class EventController {
 	}
 
 	private void paramSetup(IParameter p) {
-		if(p.getType().toString().equals(r.getString("objectSelect"))){
+		if(p.getType().toString().equals(myModel.getBundle().getString("objectSelect"))){
 			ObjectParam param = (ObjectParam) p;
 			param.setObjectList(myModel.getGame().getObjects());
 		}
-		if(p.getType().toString().equals(r.getString("spriteSelect"))){
+		if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
 			SpriteParam param = (SpriteParam) p;
 			param.setSpriteList(myModel.getGame().getSprites());
 		}
-		if(p.getType().toString().equals(r.getString("roomSelect"))){
+		if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
 			RoomParam param = (RoomParam) p;
 			param.setRoomList(myModel.getGame().getRooms());
 		}
-		if(p.getType().toString().equals(r.getString("soundSelect"))){
+		if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
 			SoundParam param = (SoundParam) p;
 			param.setSoundList(myModel.getGame().getSounds());
 		}
