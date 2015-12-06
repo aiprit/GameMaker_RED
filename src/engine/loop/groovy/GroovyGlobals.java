@@ -8,25 +8,33 @@ import exceptions.GameRuntimeException;
 
 public class GroovyGlobals {
 	
-	private Object myDefaultValue;
+	private Double myDefaultValue;
 	private boolean myErrorOnDefault = true;
-	private Map<String, Object> myVariables;
+	private Map<String, Double> myVariables;
 	
 	public GroovyGlobals() {
 		myVariables = new HashMap<>();
 	}
 	
-	public GroovyGlobals(Object defaultValue) {
+	public GroovyGlobals(Double defaultValue) {
 		this();
 		myDefaultValue = defaultValue;
 		myErrorOnDefault = false;
+	}
+	
+	public Double get_variable(String name){
+		return myVariables.get(name);
+	}
+	
+	public void put_variable(String name, Double value){
+		myVariables.put(name, value);
 	}
 	
 	public boolean isSet(String name) {
 		return myVariables.containsKey(name);
 	}
 	
-	public void propertyMissing(String name, Object value) {
+	public void propertyMissing(String name, Double value) {
 		myVariables.put(name, value);
 	}
 	

@@ -126,6 +126,7 @@ public class GroovyLibrary {
 	}
 
 	public void set_high_score(double score){
+		System.out.println(score);
 		myEventManager.setHighScore(score);
 	}
 
