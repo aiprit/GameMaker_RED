@@ -3,6 +3,8 @@ package authoring_environment.room.object_instance;
 import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class DraggableImage extends DraggableNode {
 	private Image myImage;
@@ -25,6 +27,13 @@ public class DraggableImage extends DraggableNode {
 	@Override
 	public double getHeight() {
 		return myImage.getHeight();
+	}
+	
+	public IRectangle getBounds() {
+		Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
+		rect.angle(getAngle());
+		rect.center();
+		return rect.getImmutable();
 	}
 	
 	public boolean widthOutOfBounds(double canvasWidth) {

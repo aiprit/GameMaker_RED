@@ -83,7 +83,7 @@ public interface IRectangle {
 	public static Point topRight(IRectangle rect) {
 		double thetac = Math.toRadians(rect.angle()) + Math.atan2(rect.centerY(), rect.width() - rect.centerX());
 		double h = Math.hypot(rect.width() - rect.centerX(), rect.centerY());
-		return new Point(rect.x() + h * Math.cos(thetac), rect.y() + h * Math.sin(thetac));	 
+		return new Point(rect.x() + h * Math.cos(thetac), rect.y() - h * Math.sin(thetac));	 
 	}
 	
 	public static Point topLeft(IRectangle rect) {
@@ -99,16 +99,14 @@ public interface IRectangle {
 	}
 	
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
-		boolean topLeftOne = rect1.contains(rect2.topLeft());
-		boolean topRightOne = rect1.contains(rect2.topRight());
-		boolean bottomLeftOne = rect1.contains(rect2.bottomLeft());
-		boolean bottomRightOne = rect1.contains(rect2.bottomRight());
-		boolean topLeftTwo = rect2.contains(rect1.topLeft());
-		boolean topRightTwo = rect2.contains(rect1.topRight());
-		boolean bottomLeftTwo = rect2.contains(rect1.bottomLeft());
-		boolean bottomRightTwo = rect2.contains(rect1.bottomRight());
-		return (topLeftOne || topRightOne || bottomLeftOne || bottomRightOne 
-				|| topLeftTwo || topRightTwo || bottomLeftTwo || bottomRightTwo);
+		return (rect1.contains(rect2.topLeft()) ||
+				rect1.contains(rect2.topRight())|| 
+				rect1.contains(rect2.bottomLeft()) ||
+				rect1.contains(rect2.bottomRight()) ||
+				rect2.contains(rect1.topLeft()) ||
+				rect2.contains(rect1.topRight()) ||
+				rect2.contains(rect1.bottomLeft()) ||
+				rect2.contains(rect1.bottomRight()) );
 	}
 	
 	public static quadrant quadrantOfPoint(IRectangle rect, Point point) {		

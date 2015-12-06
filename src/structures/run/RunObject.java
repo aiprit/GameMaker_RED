@@ -208,6 +208,8 @@ public class RunObject implements IParameters {
 		myBounds.height(mySprite.getHeight() * scaleY);
 		myBounds.move(x, y);
 		myBounds.angle(this.angle);
+		myBounds.center();
+		
 		return myBounds.getImmutable();
 	}
 

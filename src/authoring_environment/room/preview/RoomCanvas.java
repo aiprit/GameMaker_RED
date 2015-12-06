@@ -14,6 +14,7 @@ import authoring_environment.room.view.DraggableView;
 import exceptions.ResourceFailedException;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -151,11 +152,32 @@ public class RoomCanvas extends Canvas {
 	
 	private void drawObjects() {
 		for (DraggableImage drag : myObjectList) {
-			if (!drag.getVisibility())
+			if (!drag.getVisibility()) {
 				continue;
-			drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(),
-					drag.getScaleY(), drag.getAlpha());
+			}
+			double centerX = drag.getWidth() * drag.getScaleX() / 2.0;
+			double centerY = drag.getHeight() * drag.getScaleY() / 2.0;
+			drawImage(drag.getImage(), drag.getX(), drag.getY(), centerX, centerY, drag.getScaleX(), drag.getScaleY(), drag.getAngle(), drag.getAlpha());
+			//drawRotatedImage(drag.getImage(), drag.getAngle(), drag.getX(), drag.getY(), drag.getScaleX(),
+			//		drag.getScaleY(), drag.getAlpha());
 		}
+	}
+	
+	public void drawImage(	Image image, double x, double y,
+			double centerX, double centerY,
+			double scaleX, double scaleY, double angle, double alpha) {
+
+		//draw the new object
+		GraphicsContext myGraphicsContext = this.getGraphicsContext2D();
+		myGraphicsContext.save();
+		myGraphicsContext.translate(x, y);
+		myGraphicsContext.rotate(-1 * angle);
+		myGraphicsContext.scale(scaleX, scaleY);
+		myGraphicsContext.setGlobalAlpha(alpha);
+		
+		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
+		myGraphicsContext.restore();
+
 	}
 
 	private void drawGridLines() {
