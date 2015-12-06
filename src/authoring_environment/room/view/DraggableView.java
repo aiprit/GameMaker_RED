@@ -71,4 +71,10 @@ public class DraggableView extends DraggableNode {
 		this.myY = myY;
 	}
 
+	@Override
+	public boolean contains(double x, double y) {
+		return (x > this.getX() && x <= this.getX() + this.getWidth() * this.getScaleX() && y > this.getY()
+		&& y <= this.getY() + this.getHeight() * this.getScaleY());
+	}
+
 }

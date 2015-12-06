@@ -99,7 +99,7 @@ public class RoomController {
 		view.getPreview().getCanvas().redrawCanvas();
 		for (DataInstance instance : model.getObjectInstances()) {
 			ObjectInstanceController currentObject = new ObjectInstanceController(instance);
-			if (view.getPreview().getCanvas().contains(event.getX(), event.getY(), currentObject.getDraggableImage())){
+			if (currentObject.getDraggableImage().contains(event.getX(), event.getY())){
 				BoundingBoxController boundBox = new BoundingBoxController(view.getPreview().getCanvas(), currentObject);
 				boundBox.draw();
 				view.getPreview().setOnKeyPressed(e -> handleKeyPress(e, currentObject));

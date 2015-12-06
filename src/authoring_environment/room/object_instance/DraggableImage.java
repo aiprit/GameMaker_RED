@@ -3,6 +3,7 @@ package authoring_environment.room.object_instance;
 import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
+import utils.Point;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
 
@@ -43,6 +44,11 @@ public class DraggableImage extends DraggableNode {
 	
 	public double getScaleYAdjustment(double canvasHeight) {
 		return (canvasHeight - this.getY()) / (this.getHeight() * this.getScaleY());
+	}
+
+	@Override
+	public boolean contains(double x, double y) {
+		return this.getBounds().contains(new Point(x, y));
 	}
 	
 }

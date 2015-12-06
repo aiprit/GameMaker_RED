@@ -34,6 +34,8 @@ public abstract class DraggableNode {
 	
 	public abstract double getHeight();
 	
+	public abstract boolean contains(double x, double y);
+	
 	public double getAngle() {
 		return myAngle;
 	}

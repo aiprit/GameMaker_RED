@@ -213,12 +213,6 @@ public class RoomCanvas extends Canvas {
 		this.getGraphicsContext2D().restore();
 	}
 
-	public boolean contains(double x, double y, DraggableNode node) {
-		return node.getBounds().contains(new Point(x, y));
-		/*return (x > node.getX() && x <= node.getX() + node.getWidth() * node.getScaleX() && y > node.getY()
-				&& y <= node.getY() + node.getHeight() * node.getScaleY());*/
-	}
-
 	private void drawBackground() {
 		try {
 			Color fill = Color.valueOf(myBackgroundColor);
