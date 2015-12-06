@@ -128,5 +128,9 @@ public interface IRectangle {
 			}
 		}
 	}
+	
+	public static String toString(IRectangle rect) {
+		return String.format("[x: %s y: %s, cx: %s, cy: %s, w: %s, h: %s]", rect.x(), rect.y(), rect.centerX(), rect.centerY(), rect.width(), rect.height());
+	}
 
 }

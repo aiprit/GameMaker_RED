@@ -92,7 +92,7 @@ public class RoomCanvas extends Canvas {
 			}
 		}
 		if (myGrid.isVisible() && myRoomView.getDraggable()) {
-			myGrid.snapToGrid(myRoomView);
+			//myGrid.snapToGrid(myRoomView);
 		}
 		myRoomView.setDraggable(false);
 	}
@@ -129,11 +129,11 @@ public class RoomCanvas extends Canvas {
 	}
 
 	public boolean inRoomWidthBounds(double width, double x) {
-		return x >= 0 && x <= this.getWidth() - width;
+		return x >= width / 2.0 && x <= this.getWidth() - width / 2.0;
 	}
 
 	public boolean inRoomHeightBounds(double height, double y) {
-		return y >= 0 && y <= this.getHeight() - height;
+		return y >= height / 2.0 && y <= this.getHeight() - height / 2.0;
 	}
 
 	public void redrawCanvas() {
@@ -268,12 +268,12 @@ public class RoomCanvas extends Canvas {
 				.map(val -> Integer.parseInt(val)).collect(Collectors.toList());
 		this.getGraphicsContext2D().setStroke(Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2)));
 		this.getGraphicsContext2D().setLineWidth(VIEW_STROKE_WIDTH);
-		this.getGraphicsContext2D().strokeRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(),
+		this.getGraphicsContext2D().strokeRect(myRoomView.getX() - myRoomView.getWidth() / 2.0, myRoomView.getY() - myRoomView.getHeight() / 2.0, myRoomView.getWidth(),
 				myRoomView.getHeight());
 		if (myRoomView.isVisible()) {
 			this.getGraphicsContext2D().setFill(Color.rgb(viewRGB.get(0), viewRGB.get(1), viewRGB.get(2),
 					Double.parseDouble(myResources.getString(VIEW_OPACITY))));
-			this.getGraphicsContext2D().fillRect(myRoomView.getX(), myRoomView.getY(), myRoomView.getWidth(),
+			this.getGraphicsContext2D().fillRect(myRoomView.getX() - myRoomView.getWidth() / 2.0, myRoomView.getY() - myRoomView.getHeight() / 2.0, myRoomView.getWidth(),
 					myRoomView.getHeight());
 		}
 	}

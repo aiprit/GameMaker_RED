@@ -9,6 +9,7 @@ import authoring_environment.room.RoomController;
 import authoring_environment.room.error.ErrorPopup;
 import authoring_environment.room.preview.RoomCanvas;
 import authoring_environment.room.view.DraggableView;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
@@ -101,7 +102,8 @@ public class RoomNamePopupController {
 		int iconSize = (int)Double.parseDouble(myResources.getString(ICON_SIZE));
 		WritableImage roomSnapshot = new WritableImage(iconSize, iconSize);
 		SnapshotParameters params = new SnapshotParameters();
-		Rectangle2D viewShot = new Rectangle2D(view.getX(), view.getY(), view.getWidth(), view.getHeight());
+		Point2D newCoords = canvas.localToParent(new Point2D(view.getX(), view.getY()));
+		Rectangle2D viewShot = new Rectangle2D(newCoords.getX() - view.getWidth() / 2.0, newCoords.getY() - view.getHeight() / 2.0, view.getWidth(), view.getHeight());
 		params.setFill(Color.TRANSPARENT);
 		params.setViewport(viewShot);
 		double iconScale = iconSize / view.getWidth();

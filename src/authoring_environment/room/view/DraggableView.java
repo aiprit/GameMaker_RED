@@ -3,6 +3,8 @@ package authoring_environment.room.view;
 
 import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class DraggableView extends DraggableNode {
 	private DoubleProperty myWidth;
@@ -53,6 +55,14 @@ public class DraggableView extends DraggableNode {
 	@Override
 	public double getHeight() {
 		return myHeight.get();
+	}
+	
+	@Override
+	public IRectangle getBounds() {
+		Rectangle rect = new Rectangle(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
+		rect.center();
+		rect.angle(getAngle());	
+		return rect.getImmutable();
 	}
 
 	public void setWidthProperty(DoubleProperty myWidth) {

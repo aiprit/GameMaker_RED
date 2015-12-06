@@ -115,5 +115,10 @@ public final class ImmutableRectangle implements IRectangle {
 	public Point centerPoint() {
 		return IRectangle.centerPoint(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "ImmutableRectangle: " + IRectangle.toString(this);
+	}
 
 }

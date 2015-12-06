@@ -162,4 +162,9 @@ public class Rectangle implements IRectangle {
 	public Point centerPoint() {
 		return IRectangle.centerPoint(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "Rectangle: " + IRectangle.toString(this);
+	}
 }

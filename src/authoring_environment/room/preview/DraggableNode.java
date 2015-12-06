@@ -45,8 +45,7 @@ public abstract class DraggableNode {
 	public IRectangle getBounds() {
 		Rectangle rect = new Rectangle(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
 		rect.center();
-		rect.angle(getAngle());
-		
+		rect.angle(getAngle());	
 		return rect.getImmutable();
 	}
 	
