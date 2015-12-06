@@ -52,7 +52,8 @@ public class WelcomeWizardView {
 		if (result.get() == buttonTypeCancel) {
 			myStage.close();
 			Launcher main = new Launcher();
-			main.start(new Stage());
+			main.start(myStage);
+			return null;
 		}
 
 		if (result.get() == openGameBtn) {
@@ -60,6 +61,7 @@ public class WelcomeWizardView {
 				dataGame = GameSelector.getGameChoice();
 			} catch (UnknownResourceException e) {
 
+	
 				myStage.close();
 				showAndWait();
 				return null;

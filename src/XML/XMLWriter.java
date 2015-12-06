@@ -100,6 +100,7 @@ public class XMLWriter {
         }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));
         object.setAttribute("scaleY", Double.toString(dataObject.getScaleY()));
+        object.setAttribute("solid", Boolean.toString(dataObject.isSolid()));
 
         Element events = doc.createElement("events");
         for (Map.Entry<IDataEvent, ObservableList<IAction>> e : dataObject.getEvents().entrySet()) {
@@ -185,9 +186,6 @@ public class XMLWriter {
         room.setAttribute("height", Double.toString(dataRoom.getSize()[1]));
         room.setAttribute("backgroundColor", dataRoom.getBackgroundColor());
 
-
-
-
         String imageString = null;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -203,9 +201,7 @@ public class XMLWriter {
             e.printStackTrace();
         }
 
-
-
-
+        room.setAttribute("snapshot", imageString);
 
         room.appendChild(getElementFromView(doc, dataRoom.getView()));
         room.appendChild(getElementFromObjectInstances(doc, dataRoom.getObjectInstances()));

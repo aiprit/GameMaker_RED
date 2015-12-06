@@ -21,8 +21,15 @@ public class ParamFactory {
 			HBox box = new HBox(10);
 			String type= label.get(i).getType().toString();
 			box.getChildren().add(new Label(label.get(i).getTitle()));
-			if(type.equals("INTEGER")||type.equals("DOUBLE")||
-					type.equals("STRING")){
+			if(type.equals("INTEGER")||type.equals("DOUBLE")){
+				if(label.get(i).getOriginal()!=null){
+				box.getChildren().add(new TextField(label.get(i).getOriginal()));
+				}
+				else{
+					box.getChildren().add(new TextField("0"));
+				}
+			}
+			else if(type.equals("STRING")){
 				box.getChildren().add(new TextField(label.get(i).getOriginal()));
 			}
 			else if(type.equals("CHECKBOX")){
