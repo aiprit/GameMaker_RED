@@ -5,7 +5,7 @@ import structures.data.DataAction;
 public class WithCollided extends DataAction {
 	
 	public WithCollided() {
-		
+		init();
 	}
 
 	@Override
