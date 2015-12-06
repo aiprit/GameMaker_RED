@@ -37,8 +37,8 @@ public class RunObject implements IParameters {
 	public static final double MAX_ANGULAR_VELOCITY = 100;
 	public static final double MAX_ALPHA = 1;
 	public static final double MAX_FRICTION = 2;
-	public static final double MAX_VELOCITYX = 10;
-	public static final double MAX_VELOCITYY = 10;
+	public static final double MAX_VELOCITYX = 100;
+	public static final double MAX_VELOCITYY = 100;
 	public static final double MAX_GRAVITYX = 40;
 	public static final double MAX_GRAVITYY = 40;
 
