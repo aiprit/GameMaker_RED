@@ -1,6 +1,8 @@
 package authoring_environment.room.preview;
 
 import javafx.beans.property.DoubleProperty;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 
 public abstract class DraggableNode {
@@ -38,6 +40,13 @@ public abstract class DraggableNode {
 	
 	public void setAngle(double angle) {
 		myAngle = angle;
+	}
+	
+	public IRectangle getBounds() {
+		Rectangle rect = new Rectangle(getX(), getY(), getWidth(), getHeight());
+		rect.angle(getAngle());
+		rect.center();
+		return rect.getImmutable();
 	}
 	
 	public boolean getVisibility() {
