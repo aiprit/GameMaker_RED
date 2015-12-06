@@ -12,15 +12,16 @@ public class ClassesInPackage {
 
 	public ArrayList<String> getAllClasses(String pckgname) {
 		ArrayList<String> classNames = new ArrayList<String>();
+
 		try{
-			ArrayList classes=new ArrayList(); 
-			// Get a File object for the package 
-			File directory=null; 
-			try { 
-				directory=new File(URLDecoder.decode(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile(), "UTF-8")); 
-			} catch(NullPointerException x) { 
-				System.out.println(r.getString("null"));
-				throw new ClassNotFoundException(pckgname+ " " + r.getString("invalid"));
+			ArrayList classes=new ArrayList();
+			// Get a File object for the package
+			File directory=null;
+			try {
+				directory=new File(URLDecoder.decode(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile(), "UTF-8"));
+			} catch(NullPointerException x) {
+				System.out.println("Nullpointer");
+				throw new ClassNotFoundException(pckgname+" does not appear to be a valid package");
 			}
 			if(directory.exists()) {
 				// Get the list of the files contained in the package

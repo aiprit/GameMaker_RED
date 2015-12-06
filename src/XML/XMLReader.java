@@ -19,11 +19,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class XMLReader {
+	
     DataGame game;
+    private List<DataRoom> preloadedRooms;
 
     public XMLReader() {
     }
@@ -60,11 +64,13 @@ public class XMLReader {
 
             NodeList sprites = doc.getElementsByTagName("sprite");
             loadSprites(sprites);
+            
+            NodeList rooms = doc.getElementsByTagName("room");
+            preloadedRooms = preloadRooms(rooms);
 
             NodeList objects = doc.getElementsByTagName("object");
             loadObjects(objects);
-
-            NodeList rooms = doc.getElementsByTagName("room");
+   
             loadRooms(rooms);
 
 
@@ -125,7 +131,7 @@ public class XMLReader {
 
     private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
-        ActionFactory factory = new ActionFactory();
+        ActionFactory factory = new ActionFactory(preloadedRooms);
         for (int i = 0; i < actions.getLength(); i++) {
 
             Node action = actions.item(i);
@@ -172,9 +178,10 @@ public class XMLReader {
             }
         }
     }
-
-    private void loadRooms(NodeList rooms) {
-        for (int i = 0; i < rooms.getLength(); i++) {
+    
+    private List<DataRoom> preloadRooms(NodeList rooms){
+    	List<DataRoom> preRoom = new ArrayList<>();
+    	for (int i = 0; i < rooms.getLength(); i++) {
 
             Node room = rooms.item(i);
 
@@ -182,11 +189,26 @@ public class XMLReader {
                 Element elem = (Element) room;
 
                 DataRoom rm = new DataRoom(elem.getAttribute("name"),
-                        Double.parseDouble(elem.getAttribute("width")),
-                        Double.parseDouble(elem.getAttribute("height")));
+                        0, 0);
+                preRoom.add(rm);
+            }
+    	}
+    	return preRoom;
+    }
+
+    private void loadRooms(NodeList roomData) {
+        for (int i = 0; i < preloadedRooms.size(); i++) {
+
+            Node room = roomData.item(i);
+
+            if (room.getNodeType() == Node.ELEMENT_NODE) {
+                Element elem = (Element) room;
+
+                DataRoom rm = preloadedRooms.get(i);
+                
+                rm.setSize(Double.parseDouble(elem.getAttribute("width")), Double.parseDouble(elem.getAttribute("height")));
 
                 rm.setBackgroundColor(elem.getAttribute("backgroundColor"));
-
 
                 String encodedSnapshot = elem.getAttribute("snapshot");
 
