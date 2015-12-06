@@ -264,7 +264,10 @@ public class MainController implements IUpdateHandle {
 			public void handle(ActionEvent event) {
 				//Run the game
 				try {
-					System.out.println("Run");
+					//Save
+					FileManager fm = new FileManager(dataGame.getName());
+					fm.saveGame(dataGame);
+					//Run
 					EngineController ec = new EngineController(new Stage(), dataGame.getName());
 				} catch (ResourceFailedException e) {
 					e.printStackTrace();
