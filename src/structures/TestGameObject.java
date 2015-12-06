@@ -26,7 +26,7 @@ import structures.data.actions.game.SetTimerOnce;
 import structures.data.actions.move.MoveTo;
 import structures.data.actions.move.MoveToRandom;
 import structures.data.actions.object.CreateInstanceAtCursor;
-import structures.data.actions.object.CreateObjectRandom;
+import structures.data.actions.object.CreateInstanceRandom;
 import structures.data.actions.object.Destroy;
 import structures.data.actions.object.SetObjectVariable;
 import structures.data.actions.params.IParameter;
@@ -151,7 +151,7 @@ public class TestGameObject {
 		MoveTo right = new MoveTo();
 		MoveTo up = new MoveTo();
 		MoveTo down = new MoveTo();
-		CreateObjectRandom m = new CreateObjectRandom();
+		CreateInstanceRandom m = new CreateInstanceRandom();
 		CreateInstanceAtCursor rs = new CreateInstanceAtCursor();
 		ViewFollow ms = new ViewFollow();
 		Wrap w = new Wrap();

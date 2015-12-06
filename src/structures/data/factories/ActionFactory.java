@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.actions.game.DefineTimerRepeated;
 import structures.data.actions.game.DisplayMessage;
 import structures.data.actions.game.DrawRectangle;
 import structures.data.actions.game.DrawText;
@@ -18,6 +19,7 @@ import structures.data.actions.game.SetHighScore;
 import structures.data.actions.game.SetTimerOnce;
 import structures.data.actions.game.SetTimerRepeated;
 import structures.data.actions.logic.Close;
+import structures.data.actions.logic.CloseNoEnd;
 import structures.data.actions.logic.Else;
 import structures.data.actions.logic.IfGlobalVar;
 import structures.data.actions.logic.IfKey;
@@ -38,7 +40,7 @@ import structures.data.actions.move.SetVelocityToPoint;
 import structures.data.actions.object.ChangeSprite;
 import structures.data.actions.object.CreateInstance;
 import structures.data.actions.object.CreateInstanceAtCursor;
-import structures.data.actions.object.CreateObjectRandom;
+import structures.data.actions.object.CreateInstanceRandom;
 import structures.data.actions.object.Destroy;
 import structures.data.actions.object.GetObjectVariable;
 import structures.data.actions.object.ScaleSprite;
@@ -70,9 +72,10 @@ public class ActionFactory {
 			myActions = new HashMap<>();
 			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
 				Close.class,
+				CloseNoEnd.class,
 				CreateInstance.class,
 				CreateInstanceAtCursor.class,
-				CreateObjectRandom.class,
+				CreateInstanceRandom.class,
 				DisplayMessage.class,
 				DrawRectangle.class,
 				DrawText.class,
@@ -105,6 +108,7 @@ public class ActionFactory {
 				SetObjectVariable.class,
 				SetTimerOnce.class,
 				SetTimerRepeated.class,
+				DefineTimerRepeated.class,
 				SetVelocityInDirection.class,
 				SetVelocityToPoint.class,
 				ViewFollow.class,	
