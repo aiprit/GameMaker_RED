@@ -13,7 +13,7 @@ import structures.data.actions.params.IParameter;
 
 public class ParamFactory {
 
-	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ParamPopups/ParamBoxFactory");
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/ParamPopups/ParamBoxFactory/ParamBoxResources");
 	public List<HBox> HBoxFactory(List<IParameter> label) {
 		List<HBox> hBoxList = new ArrayList<HBox>();
 		HBox boxtop = new HBox(10);

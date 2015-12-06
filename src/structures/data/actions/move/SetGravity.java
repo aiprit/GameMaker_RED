@@ -6,7 +6,7 @@ import structures.data.actions.params.DoubleParam;
 public class SetGravity extends DataAction {
 	
 	public SetGravity() {
-		init(new DoubleParam("Angle"), new DoubleParam("Force"));
+		init(new DoubleParam("Force"), new DoubleParam("Angle"));
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class SetGravity extends DataAction {
 
 	@Override
 	public String getDescription() {
-		return String.format("Set Gravity to %.2f at %.2f°", get("Angle").getValue(), get("Force").getValue());
+		return String.format("Set Gravity to %.2f at %.2f°", get("Force").getValue(), get("Angle").getValue());
 	}
 
 	@Override
