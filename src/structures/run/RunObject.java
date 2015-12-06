@@ -289,7 +289,8 @@ public class RunObject implements IParameters {
 	}
 
 	public void scale_sprite(double width, double height){
-
+		scaleX = width;
+		scaleY = height;
 	}
 
 	public void sleep(double time){
