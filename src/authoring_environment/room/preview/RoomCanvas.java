@@ -76,7 +76,7 @@ public class RoomCanvas extends Canvas {
 
 	public void addNodeToMap(DraggableImage image) {
 		if (myGrid.isVisible()) {
-			myGrid.snapToGrid(image);
+			myGrid.snapObjectToGrid(image);
 		}
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectList.add(image);
@@ -87,12 +87,12 @@ public class RoomCanvas extends Canvas {
 			if (node.getDraggable()) {
 				node.setDraggable(false);
 				if (myGrid.isVisible()) {
-					myGrid.snapToGrid(node);
+					myGrid.snapObjectToGrid(node);
 				}
 			}
 		}
 		if (myGrid.isVisible() && myRoomView.getDraggable()) {
-			myGrid.snapToGrid(myRoomView);
+			myGrid.snapViewToGrid(myRoomView);
 		}
 		myRoomView.setDraggable(false);
 	}
