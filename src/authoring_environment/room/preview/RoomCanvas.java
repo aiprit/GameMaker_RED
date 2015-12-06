@@ -145,13 +145,13 @@ public class RoomCanvas extends Canvas {
 		}
 		drawView();
 	}
-	
+
 	public void drawSnapshot() {
 		this.getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 		drawBackground();
 		drawObjects();
 	}
-	
+
 	private void drawObjects() {
 		for (DraggableImage drag : myObjectList) {
 			if (!drag.getVisibility()) {
@@ -163,20 +163,23 @@ public class RoomCanvas extends Canvas {
 			//		drag.getScaleY(), drag.getAlpha());
 		}
 	}
-	
+
 	public void drawImage(	Image image, double x, double y,
 			double centerX, double centerY,
 			double scaleX, double scaleY, double angle, double alpha) {
 
 		//draw the new object
 		GraphicsContext myGraphicsContext = this.getGraphicsContext2D();
+
+
+		//draw the new object
 		myGraphicsContext.save();
 		myGraphicsContext.translate(x, y);
 		myGraphicsContext.rotate(angle);
 		myGraphicsContext.scale(scaleX, scaleY);
+
 		myGraphicsContext.setGlobalAlpha(alpha);
-		
-		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
+		myGraphicsContext.drawImage(image, -1 * centerX /scaleX, -1 * centerY /scaleY);
 		myGraphicsContext.restore();
 
 	}
