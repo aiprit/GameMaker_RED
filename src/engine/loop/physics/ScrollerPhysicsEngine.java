@@ -11,41 +11,41 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 	public void step(RunObject obj) {
 		
 		// Gravity
-		obj.getVelocity( Vector.add(obj.setVelocity(), obj.getGravity()) );
+		obj.setVelocity( Vector.add(obj.getVelocity(), obj.getGravity()) );
 		
 		// Friction
-		if (obj.setVelocity().length() >= obj.getFriction()) {
-			obj.getVelocity( obj.setVelocity().addLength(-1 * obj.getFriction()) );
+		if (obj.getVelocity().length() >= obj.getFriction()) {
+			obj.setVelocity( obj.getVelocity().addLength(-1 * obj.getFriction()) );
 		} else {
-			obj.getVelocity(Vector.ZERO);
+			obj.setVelocity(Vector.ZERO);
 		}
 		
 		// If we aren't moving, we are done
-		if (Math.abs(obj.setVelocity().x) < .0001 && Math.abs(obj.setVelocity().y) < .0001) {
+		if (Math.abs(obj.getVelocity().x) < .0001 && Math.abs(obj.getVelocity().y) < .0001) {
 			return;
 		}
 		
 		// If solid, check to make sure we can move before we do it
 		if (obj.isSolid()) {
-			double desiredX = obj.getX() + obj.setVelocity().x;
-			double desiredY = obj.getY() + obj.setVelocity().y;
-			if (Math.abs(obj.setVelocity().x) > Math.abs(obj.setVelocity().y)) {
-				stepX(obj, obj.getX(), obj.getX() + obj.setVelocity().x);
-				stepY(obj, obj.getY(), obj.getY() + obj.setVelocity().y);
+			double desiredX = obj.getX() + obj.getVelocity().x;
+			double desiredY = obj.getY() + obj.getVelocity().y;
+			if (Math.abs(obj.getVelocity().x) > Math.abs(obj.getVelocity().y)) {
+				stepX(obj, obj.getX(), obj.getX() + obj.getVelocity().x);
+				stepY(obj, obj.getY(), obj.getY() + obj.getVelocity().y);
 			} else {
-				stepY(obj, obj.getY(), obj.getY() + obj.setVelocity().y);
-				stepX(obj, obj.getX(), obj.getX() + obj.setVelocity().x);
+				stepY(obj, obj.getY(), obj.getY() + obj.getVelocity().y);
+				stepX(obj, obj.getX(), obj.getX() + obj.getVelocity().x);
 			}
 			if (Math.abs(obj.getX() - desiredX) > precision) {
-				obj.getVelocity( obj.setVelocity().setX(0.0) );
+				obj.setVelocity( obj.getVelocity().setX(0.0) );
 			}
 			if (Math.abs(obj.getY() - desiredY) > precision) {
-				obj.getVelocity( obj.setVelocity().setY(0.0) );
+				obj.setVelocity( obj.getVelocity().setY(0.0) );
 			}
 			
 		// Otherwise just move
 		} else {
-			obj.move_to(obj.setVelocity().x, obj.setVelocity().y, true);
+			obj.move_to(obj.getVelocity().x, obj.getVelocity().y, true);
 		}
 		
 	}
