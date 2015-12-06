@@ -1,5 +1,6 @@
 package engine.loop;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -196,14 +197,15 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 * Draws each RunObject on the canvas.
 	 */
 	public void draw(){
-		if(myRoom.getBackground() != null){
+		if(myRoom.getBackgroundImage() != null){
 			try {
-				Image backgroundImage = new Image(myRoom.getBackground());
-				myDrawListener.drawBackgroundImage(backgroundImage, myRoom.getView(), myRoom.getWidth(), myRoom.getHeight());
+				myDrawListener.drawBackgroundImage(myRoom.getBackgroundImage(), myRoom.getView(), myRoom.getWidth(), myRoom.getHeight());
 			}
 			catch(IllegalArgumentException e){
 				myDrawListener.drawBackgroundColor(myRoom.getBackground(), myRoom.getView());
 			}
+		} else {
+			myDrawListener.drawBackgroundColor(myRoom.getBackground(), myRoom.getView());
 		}
 		for(RunObject o : myRoom.getObjects()){
 			o.draw(myDrawListener, myRoom.getView());

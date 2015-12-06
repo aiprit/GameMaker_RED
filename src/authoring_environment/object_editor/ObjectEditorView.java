@@ -21,6 +21,7 @@ public class ObjectEditorView {
     public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
     public static final String STYLESHEET = "authoring.css";
 
+    private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/ViewResources");
 	private Group myRoot;
 	private Stage myStage;
 	private String gameName;
@@ -40,7 +41,7 @@ public class ObjectEditorView {
 		myStage = new Stage();
 		myStage.setResizable(false);
 		myRoot = new Group();
-		myStage.setTitle("Object Editor");
+		myStage.setTitle(r.getString("objectEditor"));
 		BorderPane myPane = new BorderPane();
 		bottom = new ObjectEditorViewBottomPane();
 		right = new ObjectEditorViewRightPane();
