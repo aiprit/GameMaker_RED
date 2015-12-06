@@ -148,7 +148,7 @@ public class ObjectEditorController {
 					model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 				}
 			}
-			
+
 		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
@@ -167,7 +167,7 @@ public class ObjectEditorController {
 					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
 				}
 			}
-			
+
 		});
 		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
