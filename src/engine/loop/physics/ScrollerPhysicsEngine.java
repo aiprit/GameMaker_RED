@@ -11,8 +11,6 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 	public void step(RunObject obj) {
 		
 		// Gravity
-		System.out.println(obj.name() + ": ");
-	//	System.out.println(obj.obj.getGravity());
 		obj.setVelocity( Vector.add(obj.getVelocity(), obj.getGravity()) );
 		
 		// Friction

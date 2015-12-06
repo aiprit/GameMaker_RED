@@ -21,7 +21,7 @@ public class SetGravity extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current().gravity = new Vector(%f, %f);";
+		return "current().gravity = new Vector(%f, %f, true);";
 	}
 
 }
