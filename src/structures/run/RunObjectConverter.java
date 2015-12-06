@@ -31,6 +31,8 @@ public class RunObjectConverter {
 	private Map<String, RunObject> myMasterObjects;
 	private Map<String, DataObject> myMasterDataObjects;
 	
+	private static final String groovyPreamble = "import utils.Vector;\n";
+	
 	public RunObjectConverter(RunResources resources) {
 		myResources = resources;
 		myMasterObjects = new HashMap<String, RunObject>();
@@ -56,8 +58,7 @@ public class RunObjectConverter {
 			for (IAction action : event.getValue()) {
 				groovy.append(action.compileSyntax());
 			}
-			System.out.println(groovy.toString());
-			RunAction runGroovy = new RunAction(groovy.toString());
+			RunAction runGroovy = new RunAction(groovyPreamble + groovy.toString());
 			run.bindEvent(event.getKey(), runGroovy);
 		}
 		
