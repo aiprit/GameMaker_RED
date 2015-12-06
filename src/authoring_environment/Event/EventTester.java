@@ -11,7 +11,6 @@ import structures.data.DataGame;
 import structures.data.DataObject;
 
 import structures.data.actions.object.Destroy;
-
 import structures.data.events.ObjectCreateEvent;
 import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
@@ -35,6 +34,7 @@ public class EventTester  extends Application{
 //		game.addObject(object);
 //		game.addObject(object2);
 //		Stage cc = new Stage();
+
 //		EventController gui = new EventController(a,object);
 
 	}

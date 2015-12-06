@@ -2,6 +2,8 @@ package authoring_environment.object_editor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ResourceBundle;
+
 import authoring_environment.Event.ClassesInPackage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ public class ObjectEditorModel {
 	private DataObject object;
 	private EventPopupFactory fact = new EventPopupFactory();
 	ObservableList<IDataEvent> eventList = FXCollections.observableList(new ArrayList<IDataEvent>());;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/ObjectModelResources");
 
 	public ObjectEditorModel(IObjectInterface g, DataObject o) {
 		game = g;
@@ -32,7 +35,7 @@ public class ObjectEditorModel {
 
 	private void setDefaultSprite() {
 		//Set default sprite
-		DataSprite ds = new DataSprite("Default", "Default");
+		DataSprite ds = new DataSprite(r.getString("default"), r.getString("default"));
 		ds.loadDefault();
 		object.addSprite(ds);
 	}

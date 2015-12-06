@@ -4,6 +4,7 @@ import java.util.List;
 
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
+import javafx.scene.image.Image;
 import structures.data.DataRoom;
 import utils.Utils;
 
@@ -12,14 +13,23 @@ public class RunRoom {
 	private String myName;
 	private RunView myView;
 	private String background;
+	private Image myBackgroundImage;
 	private List<RunObject> myObjects;
 	private RunObjectConverter myConverter;
 	private DataRoom myDataRoom;
 	private double myWidth, myHeight;
 	
-	public RunRoom(DataRoom dataRoom, RunObjectConverter converter) throws CompileTimeException {
+	public RunRoom(String gameName, DataRoom dataRoom, RunObjectConverter converter) throws CompileTimeException {
 		myName = dataRoom.getName();
 		background = dataRoom.getBackgroundColor();
+		if(background != null){
+			try {
+				myBackgroundImage = new Image("/" + gameName + "/backgrounds/" + background);
+			}
+			catch(IllegalArgumentException e){
+				myBackgroundImage = null;
+			}
+		}
 		double[] mySize = dataRoom.getSize();
 		myWidth = mySize[0];
 		myHeight = mySize[1];
@@ -46,6 +56,10 @@ public class RunRoom {
 	
 	public String toString() {
 	    return myName;
+	}
+	
+	public Image getBackgroundImage(){
+		return myBackgroundImage;
 	}
 	
 	public String getBackground(){

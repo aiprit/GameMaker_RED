@@ -43,5 +43,6 @@ public class ObjectTester extends Application{
 //		game.addSprite(s3);
 //		game.addSprite(s4);
 //		oc = new ObjectEditorController(game);
+
 	}
 }
