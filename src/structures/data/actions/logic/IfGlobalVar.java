@@ -23,7 +23,7 @@ public class IfGlobalVar extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "with(); if (globals.%s %s (%s))";
+		return "engine.with(); if (globals.%s %s (%s))";
 	}
 	
 	@Override

@@ -76,7 +76,7 @@ public class RoomCanvas extends Canvas {
 
 	public void addNodeToMap(DraggableImage image) {
 		if (myGrid.isVisible()) {
-			myGrid.snapToGrid(image);
+			myGrid.snapObjectToGrid(image);
 		}
 		this.getGraphicsContext2D().drawImage(image.getImage(), image.getX(), image.getY());
 		myObjectList.add(image);
@@ -87,12 +87,12 @@ public class RoomCanvas extends Canvas {
 			if (node.getDraggable()) {
 				node.setDraggable(false);
 				if (myGrid.isVisible()) {
-					myGrid.snapToGrid(node);
+					myGrid.snapObjectToGrid(node);
 				}
 			}
 		}
 		if (myGrid.isVisible() && myRoomView.getDraggable()) {
-			myGrid.snapToGrid(myRoomView);
+			myGrid.snapViewToGrid(myRoomView);
 		}
 		myRoomView.setDraggable(false);
 	}
@@ -116,24 +116,12 @@ public class RoomCanvas extends Canvas {
 	private void updateNodePosition(DraggableNode node, double x, double y) {
 		double adjustedX = x + node.getXOffset();
 		double adjustedY = y + node.getYOffset();
-		if (inRoomWidthBounds(node.getWidth() * node.getScaleX(), adjustedX)) {
+		if (node.inRoomWidthBounds(adjustedX, this.getWidth())) {
 			node.setX(adjustedX);
 		}
-		if (inRoomHeightBounds(node.getHeight() * node.getScaleY(), adjustedY)) {
+		if (node.inRoomHeightBounds(adjustedY, this.getHeight())) {
 			node.setY(adjustedY);
 		}
-	}
-
-	public boolean inRoomBounds(double width, double height, double x, double y) {
-		return inRoomWidthBounds(width, x) && inRoomHeightBounds(height, y);
-	}
-
-	public boolean inRoomWidthBounds(double width, double x) {
-		return x >= 0 && x <= this.getWidth() - width;
-	}
-
-	public boolean inRoomHeightBounds(double height, double y) {
-		return y >= 0 && y <= this.getHeight() - height;
 	}
 
 	public void redrawCanvas() {
@@ -196,27 +184,6 @@ public class RoomCanvas extends Canvas {
 		for (int i = 0; i < this.getHeight(); i += cellSize) {
 			this.getGraphicsContext2D().strokeLine(0, i, this.getWidth(), i);
 		}
-	}
-
-	public void rotate(double angle, double pivotX, double pivotY) {
-		Rotate rot = new Rotate(angle, pivotX, pivotY);
-		this.getGraphicsContext2D().setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(),
-				rot.getTy());
-	}
-
-	private void drawRotatedImage(Image image, double angle, double tlx, double tly, double scaleX, double scaleY,
-			double alpha) {
-		this.getGraphicsContext2D().save();
-		rotate(angle, tlx + image.getWidth() * scaleX / 2, tly + image.getHeight() * scaleY / 2);
-		this.getGraphicsContext2D().setGlobalAlpha(alpha);
-		this.getGraphicsContext2D().drawImage(image, tlx, tly, image.getWidth() * scaleX, image.getHeight() * scaleY);
-		this.getGraphicsContext2D().restore();
-	}
-
-	public boolean contains(double x, double y, DraggableNode node) {
-		return node.getBounds().contains(new Point(x, y));
-		/*return (x > node.getX() && x <= node.getX() + node.getWidth() * node.getScaleX() && y > node.getY()
-				&& y <= node.getY() + node.getHeight() * node.getScaleY());*/
 	}
 
 	private void drawBackground() {
