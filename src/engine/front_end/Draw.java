@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 import structures.run.RunView;
 import utils.rectangle.IRectangle;
 import utils.rectangle.Rectangle;
@@ -33,15 +34,19 @@ public class Draw extends StackPane implements IDraw {
 
 		//draw the new object
 		Rectangle disp = view.getView();
+		double tlx = x - disp.x();
+		double tly = y - disp.y();
 		myGraphicsContext.save();
-		myGraphicsContext.translate(x - disp.x(), y - disp.y());
-		myGraphicsContext.rotate(-1 * angle);
-		myGraphicsContext.scale(scaleX, scaleY);
+		rotate(angle, tlx + image.getWidth() * scaleX / 2, tly + image.getHeight() * scaleY / 2);
 		myGraphicsContext.setGlobalAlpha(alpha);
-		
-		myGraphicsContext.drawImage(image, -1 * centerX, -1 * centerY);
+		myGraphicsContext.drawImage(image, tlx, tly, image.getWidth() * scaleX, image.getHeight() * scaleY);
 		myGraphicsContext.restore();
-
+	}
+	
+	private void rotate(double angle, double pivotX, double pivotY) {
+		Rotate rot = new Rotate(angle, pivotX, pivotY);
+		myGraphicsContext.setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(),
+				rot.getTy());
 	}
 
 	@Override
