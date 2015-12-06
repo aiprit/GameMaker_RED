@@ -23,7 +23,7 @@ public class CreateInstanceAtCursor extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.create_object('%s', library.mouse_x(), library.mouse_y());";
+		return "library.create_instance('%s', library.mouse_x(), library.mouse_y());";
 	}
 
 }

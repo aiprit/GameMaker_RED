@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.preview.DraggableNode;
+import authoring_environment.room.view.DraggableView;
 import javafx.geometry.Point2D;
+import utils.Point;
 
 public class Grid {
 	private static final String GRID_CELL_SIZE = "GridCellSize";
@@ -65,11 +68,20 @@ public class Grid {
 		}
 	}
 	
-	public void snapToGrid(DraggableNode object) {
-		Point2D objectPoint = new Point2D(object.getX(), object.getY());
+	public void snapViewToGrid(DraggableView view) {
+		Point2D viewPoint = new Point2D(view.getX(), view.getY());
+		int[] closestCell = findClosestGridPoint(viewPoint);
+		view.setX(closestCell[0]*myCellSize);
+		view.setY(closestCell[1]*myCellSize);
+	}
+	
+	public void snapObjectToGrid(DraggableNode object) {
+		Point c = object.getBounds().centerPoint();
+		Point tl = object.getBounds().topLeft();
+		Point2D objectPoint = new Point2D(tl.x, tl.y);
 		int[] closestCell = findClosestGridPoint(objectPoint);
-		object.setX(closestCell[0]*myCellSize);
-		object.setY(closestCell[1]*myCellSize);
+		object.setX(closestCell[0]*myCellSize + c.x - tl.x);
+		object.setY(closestCell[1]*myCellSize + c.y - tl.y);
 	}
 	
 	private int[] findClosestGridPoint(Point2D objectPoint) {

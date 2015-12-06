@@ -3,6 +3,7 @@ package authoring_environment.object_editor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import authoring_environment.ObjectPopUps.CollisionPopUp;
 import authoring_environment.ObjectPopUps.GameEndPopUp;
@@ -24,41 +25,42 @@ import structures.data.interfaces.IAction;
 
 public class EventPopupFactory {
 	PopUp kp;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/EventResources");
 	public void create(String event,DataObject obj, IObjectInterface game) {
 		//		if (event.equalsIgnoreCase("Collision Event")) {
 		//
 		//		}
-		if (event.equalsIgnoreCase("Game End Event")) {
+		if (event.equalsIgnoreCase(r.getString("GED"))) {
 			kp = new GameEndPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Collision Event")) {
+		if (event.equalsIgnoreCase(r.getString("CE"))) {
 			kp = new CollisionPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Game Start Event")) {
+		if (event.equalsIgnoreCase(r.getString("GSE"))) {
 			kp = new GameStartPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Key Pressed Event")) {
+		if (event.equalsIgnoreCase(r.getString("KPE"))) {
 			kp = new KeyPressedPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Key Released Event")) {
+		if (event.equalsIgnoreCase(r.getString("KRE"))) {
 			kp = new KeyReleasedPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Object Create Event")) {
+		if (event.equalsIgnoreCase(r.getString("OCE"))) {
 			kp = new ObjectCreatePopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Object Destroy Event")) {
+		if (event.equalsIgnoreCase(r.getString("ODE"))) {
 			kp = new ObjectDestroyPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Global Mouse Pressed Event")) {
+		if (event.equalsIgnoreCase(r.getString("GMPE"))) {
 			kp = new GlobalMousePressedPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Object Mouse Pressed Event")) {
+		if (event.equalsIgnoreCase(r.getString("OMPE"))) {
 			kp = new ObjectMousePressedPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Step Event")) {
+		if (event.equalsIgnoreCase(r.getString("SE"))) {
 			kp = new StepPopUp(obj,game);
 		}
-		if (event.equalsIgnoreCase("Leave Room Event")) {
+		if (event.equalsIgnoreCase(r.getString("LRE"))) {
 			kp = new LeaveRoomPopUp(obj,game);
 		}
 

@@ -3,6 +3,9 @@ package authoring_environment.room.object_instance;
 import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
+import utils.Point;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 public class DraggableImage extends DraggableNode {
 	private Image myImage;
@@ -41,6 +44,21 @@ public class DraggableImage extends DraggableNode {
 	
 	public double getScaleYAdjustment(double canvasHeight) {
 		return (canvasHeight - this.getY()) / (this.getHeight() * this.getScaleY());
+	}
+
+	@Override
+	public boolean contains(double x, double y) {
+		return this.getBounds().contains(new Point(x, y));
+	}
+
+	@Override
+	public boolean inRoomWidthBounds(double x, double roomWidth) {
+		return x >= 0 && x <= roomWidth;
+	}
+
+	@Override
+	public boolean inRoomHeightBounds(double y, double roomHeight) {
+		return y >= 0 && y <= roomHeight;
 	}
 	
 }

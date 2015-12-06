@@ -1,6 +1,8 @@
 package authoring_environment.room.preview;
 
 import javafx.beans.property.DoubleProperty;
+import utils.rectangle.IRectangle;
+import utils.rectangle.Rectangle;
 
 
 public abstract class DraggableNode {
@@ -32,12 +34,30 @@ public abstract class DraggableNode {
 	
 	public abstract double getHeight();
 	
+	public abstract boolean contains(double x, double y);
+	
+	public abstract boolean inRoomWidthBounds(double x, double roomWidth);
+	
+	public abstract boolean inRoomHeightBounds(double y, double roomHeight);
+	
+	public boolean inRoomBounds(double x, double y, double roomWidth, double roomHeight) {
+		return inRoomWidthBounds(x, roomWidth) && inRoomHeightBounds(y, roomHeight);
+	}
+	
 	public double getAngle() {
 		return myAngle;
 	}
 	
 	public void setAngle(double angle) {
 		myAngle = angle;
+	}
+	
+	public IRectangle getBounds() {
+		Rectangle rect = new Rectangle(getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
+		rect.center();
+		rect.angle(getAngle());
+		
+		return rect.getImmutable();
 	}
 	
 	public boolean getVisibility() {

@@ -3,7 +3,9 @@ package structures.run;
 import engine.front_end.IDraw;
 import exceptions.CompileTimeException;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import structures.data.DataSprite;
+import utils.rectangle.IRectangle;
 
 public class RunSprite implements IDrawable {
 	
@@ -35,7 +37,9 @@ public class RunSprite implements IDrawable {
 
 	@Override
 	public void draw(IDraw drawListener, RunView view, RunObject object) {
-		drawListener.drawImage(myImage, view, object.getX(), object.getY(), centerX, centerY, object.getScaleX(), object.setScaleY(), object.getAngle(), object.getAlpha());
+		IRectangle bounds = object.getBounds();
+		//drawListener.drawRectangle(bounds, view, Color.AQUAMARINE);
+		drawListener.drawImage(myImage, view, object.getX(), object.getY(), bounds.centerX(), bounds.centerY(), object.getScaleX(), object.setScaleY(), object.getAngle(), object.getAlpha());
 	}
 	
 	public double getWidth() {

@@ -2,25 +2,30 @@ package structures.data.actions.logic;
 
 import structures.data.DataAction;
 
-public class Close extends DataAction {
-
-	public Close(){
+/**
+ * AUSTIN MCKEE DON'T TOUCH THIS CODE
+ * @author baileyewall
+ *
+ */
+public class CloseNoEnd extends DataAction {
+	
+	public CloseNoEnd(){
 		init();
 	}
-	
+
 	@Override
 	public String getTitle() {
-		return "◤ Close";
+		return "CloseNoEnd";
 	}
 
 	@Override
 	public String getDescription() {
-		return "◤";
+		return "close with no end engine";
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "\n engine.end(); } \n";
+		return "\n}";
 	}
 
 }

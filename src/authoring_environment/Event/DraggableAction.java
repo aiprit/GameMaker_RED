@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import exceptions.CompileTimeException;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -21,6 +23,7 @@ import structures.data.interfaces.IAction;
 
 
 public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAction>>{
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
 
 	@Override
 	public ListCell<IAction> call(ListView<IAction> playerListView)
@@ -42,7 +45,7 @@ public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAc
 			ClipboardContent content = new ClipboardContent();
 			content.putString(getItem().toString());
 			dragboard.setDragView(
-					new Image(getClass().getClassLoader().getResourceAsStream("placeholder.png"), 100,100,false,false)
+					new Image(getClass().getClassLoader().getResourceAsStream(r.getString("placeholder")), 100,100,false,false)
 					);
 			dragboard.setContent(content);
 			event.consume();

@@ -208,6 +208,8 @@ public class RunObject implements IParameters {
 		myBounds.height(mySprite.getHeight() * scaleY);
 		myBounds.move(x, y);
 		myBounds.angle(this.angle);
+		myBounds.center();
+		
 		return myBounds.getImmutable();
 	}
 
@@ -379,10 +381,10 @@ public class RunObject implements IParameters {
 		this.visible = visible;
 	}
 	
-	public Vector setVelocity() {
+	public Vector getVelocity() {
 		return this.velocity;
 	}
-	public void getVelocity(Vector velocity) {
+	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
 	}
 	

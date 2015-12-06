@@ -3,6 +3,7 @@ package authoring_environment.object_editor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import authoring_environment.PopUpError;
 import authoring_environment.Event.EventController;
@@ -27,6 +28,7 @@ import structures.data.DataObject;
 import structures.data.DataSprite;
 import structures.data.access_restricters.IObjectInterface;
 import structures.data.actions.logic.Close;
+import structures.data.actions.logic.Else;
 import structures.data.actions.logic.Open;
 import structures.data.actions.params.IParameter;
 import structures.data.interfaces.IAction;
@@ -36,6 +38,7 @@ public class ObjectEditorController {
 	ObjectEditorView view;
 	ObjectEditorModel model;
 	IUpdateHandle updater;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/ObjectControllerResources");
 
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
 		view = new ObjectEditorView(dataGame.getName());
@@ -44,9 +47,9 @@ public class ObjectEditorController {
 	}
 
 	public ObjectEditorController(IObjectInterface dataGame) {
-		TextInputDialog dialog = new TextInputDialog("Object Name");
-		dialog.setTitle("Create Object");
-		dialog.setHeaderText("Please Enter Name");
+		TextInputDialog dialog = new TextInputDialog(r.getString("name"));
+		dialog.setTitle(r.getString("create"));
+		dialog.setHeaderText(r.getString("enter"));
 		Optional<String> result = dialog.showAndWait();
 		String name = "";
 		List<DataObject> list =dataGame.getObjects();
@@ -68,7 +71,7 @@ public class ObjectEditorController {
 				initAll();
 			}
 			else{
-				PopUpError er = new PopUpError("Duplicate Object");
+				PopUpError er = new PopUpError(r.getString("duplicate"));
 				ObjectEditorController control = new ObjectEditorController(dataGame);
 			}
 		}
@@ -100,14 +103,14 @@ public class ObjectEditorController {
 							int indents =0 ;
 							for(IAction action: model.getMap().get(item)){
 								description += "\n   ";
-								if(action instanceof Close){
+								if(action instanceof Close || action instanceof Else){
 									indents -=1;
 								}
 								for(int i=0; i<indents;i++){
 									description += "  ";
 								}
 								description +=action.getDescription();
-								if(action instanceof Open){
+								if(action instanceof Open || action instanceof Else){
 									indents +=1;
 								}
 							}
@@ -148,7 +151,7 @@ public class ObjectEditorController {
 					model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 				}
 			}
-			
+
 		});
 		view.getRightPane().getDeleteButton().setOnAction(e -> {
 			model.deleteEvent(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
@@ -167,7 +170,7 @@ public class ObjectEditorController {
 					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
 				}
 			}
-			
+
 		});
 		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
