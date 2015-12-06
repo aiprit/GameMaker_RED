@@ -296,7 +296,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	
 	@Override
 	public boolean collisionSolidAt(double x, double y, RunObject obj) {
-		for (RunObject obj2 : myRoom.getObjects()) {
+		List<RunObject> objects = myRoom.getObjects();
+		int size = objects.size();
+		for (int i = 0; i < size; i++) {
+			RunObject obj2 = objects.get(i);
 			if (obj2.isSolid() && obj != obj2) {
 				if (myCollisionManager.collisionWithAt(x, y, obj, obj2)) {
 					return true;
