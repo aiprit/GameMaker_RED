@@ -62,6 +62,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private VBox topContainer;
 	private BorderPane borderPane;
 	private HighScoreView myHighScoreView;
+	private VariableView myVariableView;
 	private ObjectInformationView myObjectInformationView;
 	
 	private int gameHeight, gameWidth;
@@ -90,7 +91,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		borderPane.setCenter(myRoot);
 		makeMenu();
 		makeToolBar();
-		makeHighScoreBar();
+		makeInfoBars();
 	}
 
 	private void makeMenu() {
@@ -211,12 +212,26 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		}
 		return choices;
 	}
+	
+	private void makeInfoBars() throws IOException{
+		VBox myInfoGroups = new VBox(2);
+		makeHighScoreBar(myInfoGroups);
+		makeVariableBar(myInfoGroups);
+		borderPane.setRight(myInfoGroups);
+	}
 
-	private void makeHighScoreBar() throws IOException{
+	private void makeHighScoreBar(VBox container) throws IOException{
 		myHighScoreView = new HighScoreView(myCurrentGame);
 		myHighScoreView.setPrefWidth(150);
 		myHighScoreView.setFocusTraversable(false);
-		borderPane.setRight(myHighScoreView);
+		myHighScoreView.setPrefHeight(borderPane.getHeight() / 2);
+		container.getChildren().add(myHighScoreView);
+	}
+	
+	private void makeVariableBar(VBox container){
+		myVariableView = new VariableView();
+		myVariableView.setPrefHeight(borderPane.getHeight() / 2);
+		container.getChildren().add(myVariableView);
 	}
 
 	public void makeObjectInformationBar(IParameters parameterObject) {
