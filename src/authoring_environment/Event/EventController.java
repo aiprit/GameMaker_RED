@@ -288,9 +288,13 @@ public class EventController {
 				return cell;
 			}
 		});
-		myView.getLeftPane().getAddButton().setOnAction(e ->
-		addAction(myView.getLeftPane().getListView()
-				.getSelectionModel().getSelectedItem(),-1));
+		myView.getLeftPane().getAddButton().setOnAction(e ->{
+			String selected = myView.getLeftPane().getListView()
+					.getSelectionModel().getSelectedItem();
+			if(selected !=null){
+			addAction(selected,-1);
+			}
+		});
 		myView.getLeftPane().getListView().setOnDragDetected(new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent event){
