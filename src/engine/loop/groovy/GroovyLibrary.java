@@ -58,11 +58,11 @@ public class GroovyLibrary {
 	}
 	
 	public double mouse_x() {
-		return myInputManager.mouseX() - myRunGame.getCurrentRoom().getView().getView().x() - 475;
+		return myInputManager.mouseX() + myRunGame.getCurrentRoom().getView().getView().x() - 120;
 	}
 	
 	public double mouse_y() {
-		return myInputManager.mouseY() - myRunGame.getCurrentRoom().getView().getView().y() - 80;
+		return myInputManager.mouseY() + myRunGame.getCurrentRoom().getView().getView().y() - 60;
 	}
 	
 	public boolean mouse_primary() {

@@ -166,8 +166,7 @@ public class ObjectEditorController {
 			@Override
 			public void handle(KeyEvent key) {
 				if (key.getCode().equals(KeyCode.ENTER)) {
-					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
-					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+					popUpFactory();
 				}
 			}
 
@@ -176,16 +175,14 @@ public class ObjectEditorController {
 			@Override
 			public void handle(MouseEvent click) {
 				if (click.getClickCount() == 2) {
-					//Use ListView's getSelected Item
-					String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
-					model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
-				}
+					popUpFactory();
+					}
 			}
 		});
 		view.getLeftPane().getAddButton().setOnAction(e -> {
-			model.getPopUpFactory().create(view.getLeftPane().getListView().getSelectionModel().getSelectedItem(),
-					model.getObject(), model.getGame());
-		});
+			popUpFactory();
+			}
+		);
 		for (DataSprite s : model.getSprites()) {
 			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> {
 				model.setSprite(s);
@@ -200,6 +197,14 @@ public class ObjectEditorController {
 			}
 		});
 		refreshSprite();
+	}
+
+	private void popUpFactory() {
+		String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+		if(selected!=null){
+			model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+
+			}
 	}
 
 	private void eventPopup(IDataEvent e) {
