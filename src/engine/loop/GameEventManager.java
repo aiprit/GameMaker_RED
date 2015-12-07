@@ -262,6 +262,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public void onObjectDestroy(RunObject runObject) {
 		myDeleteQueue.add(runObject);
+		deleteObjects();
 	}
 
 	public void deleteObjects(){
