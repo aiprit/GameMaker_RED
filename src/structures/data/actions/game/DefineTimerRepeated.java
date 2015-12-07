@@ -30,6 +30,7 @@ public class DefineTimerRepeated extends DataAction {
 		return "import java.util.timer.*\n"
 				+ "class RepeatedTimerTask extends TimerTask {\n"
 				+ "def library\n"
+				+ "def engine\n"
 				+ "public void run()";
 	}
 
