@@ -1,12 +1,12 @@
 package structures.data.actions.object;
 
 import structures.data.DataAction;
-import structures.data.actions.params.StringParam;
+import structures.data.actions.params.SpriteParam;
 
 public class ChangeSprite extends DataAction {
 	
 	public ChangeSprite(){
-		init(new StringParam("ChangeTo"));
+		init(new SpriteParam("ChangeTo"));
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class ChangeSprite extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current().change_sprite(%s);";
+		return "library.change_sprite(engine.current(), '%s');";
 	}
 
 }

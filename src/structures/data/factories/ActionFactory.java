@@ -7,6 +7,8 @@ import org.w3c.dom.Element;
 
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.DataSound;
+import structures.data.DataSprite;
 import structures.data.actions.game.DefineTimerRepeated;
 import structures.data.actions.game.DisplayMessage;
 import structures.data.actions.game.DrawRectangle;
@@ -40,6 +42,7 @@ import structures.data.actions.move.SetVelocityToPoint;
 import structures.data.actions.object.ChangeSprite;
 import structures.data.actions.object.CreateInstance;
 import structures.data.actions.object.CreateInstanceAtCursor;
+import structures.data.actions.object.CreateInstanceAtObject;
 import structures.data.actions.object.CreateInstanceRandom;
 import structures.data.actions.object.Destroy;
 import structures.data.actions.object.GetObjectVariable;
@@ -47,6 +50,8 @@ import structures.data.actions.object.ScaleSprite;
 import structures.data.actions.object.SetObjectVariable;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SoundParam;
+import structures.data.actions.params.SpriteParam;
 import structures.data.actions.room.GoToRoom;
 import structures.data.actions.room.ViewFollow;
 import structures.data.actions.room.Wrap;
@@ -64,10 +69,14 @@ public class ActionFactory {
 	private static Map<String, Class<?>> myActions;
 	private List<DataRoom> myRooms;
 	private List<DataObject> myObjects;
+	private List<DataSprite> mySprites;
+	private List<DataSound> mySounds;
 
-	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells) {
+	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells, List<DataSprite> sprites, List<DataSound> sounds) {
 		myRooms = roomShells;
 		myObjects = objectShells;
+		mySprites = sprites;
+		mySounds = sounds;
 		if (myActions == null) {
 			myActions = new HashMap<>();
 			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
@@ -75,6 +84,7 @@ public class ActionFactory {
 				CloseNoEnd.class,
 				CreateInstance.class,
 				CreateInstanceAtCursor.class,
+				CreateInstanceAtObject.class,
 				CreateInstanceRandom.class,
 				DisplayMessage.class,
 				DrawRectangle.class,
@@ -138,6 +148,10 @@ public class ActionFactory {
 					((RoomParam) action.getParameters().get(i)).setRoomList(myRooms);
 				} else if(action.getParameters().get(i) instanceof ObjectParam){
 					((ObjectParam) action.getParameters().get(i)).setObjectList(myObjects);
+				} else if(action.getParameters().get(i) instanceof SpriteParam){
+					((SpriteParam) action.getParameters().get(i)).setSpriteList(mySprites);
+				} else if(action.getParameters().get(i) instanceof SoundParam){
+					((SoundParam) action.getParameters().get(i)).setSoundList(mySounds);
 				}
 				
 				action.getParameters().get(i).parse(new String(authBytes));

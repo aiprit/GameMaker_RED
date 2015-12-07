@@ -31,7 +31,7 @@ public class SetTimerRepeated extends DataAction {
 				+ "int delay = %d\n"
 				+ "int period = %d\n"
 				+ "Timer timer = new Timer()\n"
-				+ "def task = new RepeatedTimerTask(library: library)\n"
+				+ "def task = new RepeatedTimerTask(library: library, engine: engine)\n"
 				+ "timer.scheduleAtFixedRate(task, delay, period)";
 	}
 

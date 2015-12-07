@@ -49,6 +49,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	public static final String STYLESHEET = ".css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
+	public static final String[] COLORS = {"Blue", "Green", "Grey", "Pink", "Purple", "Red", "Yellow"};
 
 	private String styleSheetColor = "red";
 	private Canvas myCanvas;
@@ -138,12 +139,38 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		no.setOnAction(e -> myEventManager.setDebug(false));
 		no.setToggleGroup(debugToggle);
 		no.setSelected(true);
+		
+		Menu colorOption = new Menu("Theme");
+	            
+		ToggleGroup colorToggle = new ToggleGroup();
+		for (String color : COLORS) {
+                    RadioMenuItem radioItem = new RadioMenuItem(color);
+                    radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
+                                                playScene.getStylesheets().clear();
+                                                playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
+                    radioItem.setToggleGroup(colorToggle);
+                    if (color.toLowerCase().equals(styleSheetColor)) radioItem.setSelected(true);
+                    colorOption.getItems().add(radioItem);
+                }
 		myMenus.getMenus().addAll(fileMenu, savedGames, view, option);
 		fileMenu.getItems().addAll(open, reset, save, close, pause);
 		view.getItems().addAll(highScore, showHelp);
-		option.getItems().add(debugOption);
+		option.getItems().addAll(debugOption, colorOption);
 		debugOption.getItems().addAll(yes, no);
 		topContainer.getChildren().add(myMenus);
+	}
+	
+	public Menu makeColorOptionMenu(ToggleGroup colorToggle) {
+	    Menu colorOption = new Menu("Theme");
+            for (String color : COLORS) {
+                RadioMenuItem radioItem = new RadioMenuItem(color);
+                radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
+                                            playScene.getStylesheets().clear();
+                                            playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
+                radioItem.setToggleGroup(colorToggle);
+                if (color.equals(styleSheetColor)) radioItem.setSelected(true);
+            }
+            return colorOption;
 	}
 
 	public void makeToolBar() throws ResourceFailedException {

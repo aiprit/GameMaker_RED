@@ -52,7 +52,10 @@ public class HighScoreView extends VBox {
 	}
 
 	public void updateScore(double score){
-		
+		if(myPlayers.hasPlayer()){
+			myPlayers.setPlayerHighScore(score);
+		}
+		createPane();
 	}
 	
 	public Double getHighScore(){
