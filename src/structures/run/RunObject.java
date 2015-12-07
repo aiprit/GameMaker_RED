@@ -246,6 +246,18 @@ public class RunObject implements IParameters {
 		}
 	}
 	
+	public RunSprite get_sprite() {
+		return mySprite;
+	}
+	
+	public String get_sprite_name() {
+		if (mySprite == null) {
+			return "";
+		} else {
+			return mySprite.name;
+		}
+	}
+	
 	public void bounce(double factor) {
 		double gravComp = Vector.dot(getGravity().normalize(), getVelocity());
 		Vector add = new Vector(gravComp * -(1 + factor), getGravity().direction(), true);
@@ -267,6 +279,15 @@ public class RunObject implements IParameters {
 			this.velocity = this.velocity.add(change);
 		} else {
 			this.velocity = change;
+		}
+	}
+	
+	public void move_to_free(double angle) {
+		double dx = Math.cos(Math.toRadians(angle));
+		double dy = Math.sin(Math.toRadians(angle));
+		while (collision_solid_at(x, y)) {
+			x += dx;
+			y += dy;
 		}
 	}
 

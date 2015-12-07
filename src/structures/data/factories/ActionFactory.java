@@ -34,6 +34,7 @@ import structures.data.actions.logic.IfOnGround;
 import structures.data.actions.logic.IfPositionFree;
 import structures.data.actions.logic.IfRoom;
 import structures.data.actions.logic.IfSpeed;
+import structures.data.actions.logic.IfSprite;
 import structures.data.actions.logic.Open;
 import structures.data.actions.logic.Repeat;
 import structures.data.actions.logic.WithCollided;
@@ -141,7 +142,8 @@ public class ActionFactory {
 				IfCollidedVar.class,
 				BounceAxis.class,
 				IfCollidedPosition.class,
-				IfPositionFree.class
+				IfPositionFree.class,
+				IfSprite.class
 			});
 
 			for (Class<?> action : myPossibleActions) {

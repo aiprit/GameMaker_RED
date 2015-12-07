@@ -159,13 +159,19 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 * Calls each object in the room's step event.
 	 */
 	private void processStepEvents() {
-		for(RunObject obj : getRegistered(StepEvent.event)){
+		List<RunObject> objects = getRegistered(StepEvent.event);
+		RunObject obj;
+		for(int i=0; i<objects.size(); i++) {
+			obj = objects.get(i);
 			fire(obj, StepEvent.event);
 		}
 	}
 	
 	private void stepPhysics() {
-		for (RunObject obj : myRoom.getObjects()) {
+		List<RunObject> objects = myRoom.getObjects();
+		RunObject obj;
+		for(int i=0; i < objects.size(); i++) {
+			obj = objects.get(i);
 			myPhysicsEngine.step(obj);
 		}
 	}
@@ -330,8 +336,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		return false;		
 	}
 
-	public void processLeaveRoomEvents(){
-		for (RunObject o : getRegistered(LeaveRoomEvent.event)) {
+	public void processLeaveRoomEvents() {
+		List<RunObject> objects = getRegistered(LeaveRoomEvent.event);
+		for (int i = 0; i < objects.size(); i++) {
+			RunObject o = objects.get(i);
 			if(o.getX() < 0 || o.getX() > myRoom.getWidth() ||
 					o.getY() < 0 || o.getY() > myRoom.getHeight()){
 				fire(o, LeaveRoomEvent.event);
