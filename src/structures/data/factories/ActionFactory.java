@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 import structures.data.actions.game.DefineTimerRepeated;
 import structures.data.actions.game.DisplayMessage;
@@ -49,6 +50,7 @@ import structures.data.actions.object.ScaleSprite;
 import structures.data.actions.object.SetObjectVariable;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
+import structures.data.actions.params.SoundParam;
 import structures.data.actions.params.SpriteParam;
 import structures.data.actions.room.GoToRoom;
 import structures.data.actions.room.ViewFollow;
@@ -68,11 +70,13 @@ public class ActionFactory {
 	private List<DataRoom> myRooms;
 	private List<DataObject> myObjects;
 	private List<DataSprite> mySprites;
+	private List<DataSound> mySounds;
 
-	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells, List<DataSprite> sprites) {
+	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells, List<DataSprite> sprites, List<DataSound> sounds) {
 		myRooms = roomShells;
 		myObjects = objectShells;
 		mySprites = sprites;
+		mySounds = sounds;
 		if (myActions == null) {
 			myActions = new HashMap<>();
 			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
@@ -146,6 +150,8 @@ public class ActionFactory {
 					((ObjectParam) action.getParameters().get(i)).setObjectList(myObjects);
 				} else if(action.getParameters().get(i) instanceof SpriteParam){
 					((SpriteParam) action.getParameters().get(i)).setSpriteList(mySprites);
+				} else if(action.getParameters().get(i) instanceof SoundParam){
+					((SoundParam) action.getParameters().get(i)).setSoundList(mySounds);
 				}
 				
 				action.getParameters().get(i).parse(new String(authBytes));

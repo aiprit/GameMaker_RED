@@ -54,7 +54,7 @@ public class RunResources {
 	
 	public void loadSound(DataSound sound) throws ResourceFailedException {
 		if (!sound.loaded()) {
-			sound.load(mySoundFolder);
+			sound.load(gameName);
 		}
 		
 		RunSound runSound = null;
