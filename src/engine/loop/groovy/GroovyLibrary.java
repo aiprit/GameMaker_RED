@@ -91,6 +91,10 @@ public class GroovyLibrary {
 		myEventManager.onObjectCreate(runObject);
 		return runObject;
 	}
+	
+	public void change_sprite(RunObject change, String spriteName) throws UnknownResourceException{
+		change.setSprite(myRunGame.fetchSprite(spriteName));
+	}
 
 	public void destroy(RunObject deleteThis) {
 		myEventManager.onObjectDestroy(deleteThis);
