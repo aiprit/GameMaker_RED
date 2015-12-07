@@ -50,7 +50,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	public static final String STYLESHEET = ".css";
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 
-	private String styleSheetColor = "blue";
+	private String styleSheetColor = "red";
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private Group myRoot;
