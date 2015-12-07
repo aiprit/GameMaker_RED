@@ -40,7 +40,6 @@ public class ParamModel {
 			myActions.add(myAction);
 		}
 		if(myAction.getTitle().substring(0,2).equals(r.getString("If"))||
-				myAction.getTitle().substring(0,4).equals(r.getString("Else"))||
 				myAction.getTitle().substring(0,4).equals(r.getString("With"))){
 			if(myIndex==-1){
 				myActions.add(new Open());

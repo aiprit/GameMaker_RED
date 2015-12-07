@@ -57,8 +57,8 @@ public class GroovyEngine {
 		} else {
 			avg = (diff + times * avg) / (double)(times + 1);
 		}
-		if (times % 60 == 0) {
-			System.out.println(String.format("Engine avg period: %.2f ms", avg));
+		if (times % 120 == 0) {
+			System.out.println(String.format("Engine avg period: %.2f ms", (double)diff));
 		}
 		times++;
 	}
@@ -69,22 +69,13 @@ public class GroovyEngine {
 	
 	public Object with() {
 		Object with = null;
-		try {
-			with = myCurrentStack.peek();
-			myCurrentStack.push(with);
-		} catch (Exception ex) {
-			System.out.println("ASDF:");
-			ex.printStackTrace();
-		}
+		with = myCurrentStack.peek();
+		myCurrentStack.push(with);
 		return with;
 	}
 	
 	public Object with(Object with) {
-		try {
 		myCurrentStack.push(with);
-		} catch (Exception ex) {
-			System.out.println("ASDF2:");
-		}
 		return with;
 	}
 	

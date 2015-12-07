@@ -35,4 +35,8 @@ public class Pair<T> {
 	public boolean contains(T object) {
 		return one.equals(object) || two.equals(object);
 	}
+	
+	public String toString() {
+		return String.format("{%s,%s}", one.toString(), two.toString());
+	}
 }

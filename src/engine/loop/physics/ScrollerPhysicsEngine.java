@@ -27,6 +27,16 @@ public class ScrollerPhysicsEngine implements IPhysicsEngine {
 		
 		// If solid, check to make sure we can move before we do it
 		if (obj.isSolid()) {
+			
+			// Try to rotate, but undo if can't be done
+			if (obj.getAngularVelocity() > 0.0) {
+				double oldAngle = obj.getAngle();
+				obj.setAngle(obj.getAngle() + obj.getAngularVelocity());
+				if (obj.collision_solid_at(obj.getX(), obj.getY())) {
+					obj.setAngle(oldAngle);
+				}
+			}
+			
 			double desiredX = obj.getX() + obj.getVelocity().x;
 			double desiredY = obj.getY() + obj.getVelocity().y;
 			if (Math.abs(obj.getVelocity().x) > Math.abs(obj.getVelocity().y)) {

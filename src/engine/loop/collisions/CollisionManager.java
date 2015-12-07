@@ -82,7 +82,7 @@ public class CollisionManager {
 			if (!other.isSolid()) {
 				return false;
 			}
-			if (myCollider.collidesAt(obj, x, y, other)) {
+			if (myCollider.collidesAtReduced(obj, x, y, other)) {
 				return true;
 			}
 		}
@@ -92,6 +92,10 @@ public class CollisionManager {
 	
 	public boolean collisionWithAt(double x, double y, RunObject obj1, RunObject obj2) {
 		return myCollider.collidesAt(obj1, x, y, obj2);
+	}
+	
+	public boolean collisionWithAtReduced(double x, double y, RunObject obj1, RunObject obj2) {
+		return myCollider.collidesAtReduced(obj1, x, y, obj2);
 	}
 	
 }
