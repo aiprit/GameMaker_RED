@@ -247,6 +247,16 @@ public class RunObject implements IParameters {
 			myVariables.put(name, value);
 		}
 	}
+	
+	public Double get_variable(String name){
+		if(myVariables.containsKey(name)){
+			return myVariables.get(name);
+		}
+		else {
+			myVariables.put(name, 0.0);
+			return 0.0;
+		}
+	}
 
 	public void change_sprite(String name, String baseFileName){
 		try {

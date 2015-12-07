@@ -150,7 +150,7 @@ public class XMLReader {
 
     private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
-        ActionFactory factory = new ActionFactory(preloadedRooms, preloadedObjects, game.getSprites());
+        ActionFactory factory = new ActionFactory(preloadedRooms, preloadedObjects, game.getSprites(), game.getSounds());
         for (int i = 0; i < actions.getLength(); i++) {
 
             Node action = actions.item(i);
