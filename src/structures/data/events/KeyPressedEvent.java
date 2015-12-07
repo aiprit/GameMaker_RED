@@ -12,10 +12,6 @@ public class KeyPressedEvent implements IDataEvent {
 
     public KeyPressedEvent(KeyCode code) {
         keyCode = code;
-
-        if(code == null) {
-            System.out.println("==================");
-        }
     }
 
     public int hashCode() {

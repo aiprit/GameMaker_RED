@@ -23,18 +23,30 @@ import structures.data.actions.game.SetTimerRepeated;
 import structures.data.actions.logic.Close;
 import structures.data.actions.logic.CloseNoEnd;
 import structures.data.actions.logic.Else;
+import structures.data.actions.logic.IfCollidedPosition;
+import structures.data.actions.logic.IfCollidedVar;
 import structures.data.actions.logic.IfGlobalVar;
+import structures.data.actions.logic.IfInDirection;
 import structures.data.actions.logic.IfKey;
+import structures.data.actions.logic.IfLocalVar;
 import structures.data.actions.logic.IfMouseButton;
 import structures.data.actions.logic.IfOdds;
+import structures.data.actions.logic.IfOnGround;
+import structures.data.actions.logic.IfPositionFree;
 import structures.data.actions.logic.IfRoom;
+import structures.data.actions.logic.IfSpeed;
+import structures.data.actions.logic.IfSprite;
 import structures.data.actions.logic.Open;
 import structures.data.actions.logic.Repeat;
 import structures.data.actions.logic.WithCollided;
 import structures.data.actions.logic.WithCreateInstance;
+import structures.data.actions.move.Bounce;
+import structures.data.actions.move.BounceAxis;
+import structures.data.actions.move.CapSpeed;
 import structures.data.actions.move.MoveTo;
 import structures.data.actions.move.MoveToRandom;
 import structures.data.actions.move.SetAcceleration;
+import structures.data.actions.move.SetCappedVelocityInDirection;
 import structures.data.actions.move.SetFriction;
 import structures.data.actions.move.SetGravity;
 import structures.data.actions.move.SetVelocityInDirection;
@@ -55,6 +67,7 @@ import structures.data.actions.params.SpriteParam;
 import structures.data.actions.room.GoToRoom;
 import structures.data.actions.room.ViewFollow;
 import structures.data.actions.room.Wrap;
+import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import utils.Reflection;
 
@@ -80,6 +93,10 @@ public class ActionFactory {
 		if (myActions == null) {
 			myActions = new HashMap<>();
 			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
+				RunScript.class,
+				CapSpeed.class,
+				SetCappedVelocityInDirection.class,
+				IfOnGround.class,
 				Close.class,
 				CloseNoEnd.class,
 				CreateInstance.class,
@@ -97,6 +114,7 @@ public class ActionFactory {
 				IfMouseButton.class,
 				IfOdds.class,
 				IfRoom.class,
+				IfInDirection.class,
 				Open.class,
 				PlaySound.class,
 				Repeat.class,
@@ -122,6 +140,14 @@ public class ActionFactory {
 				SetVelocityInDirection.class,
 				SetVelocityToPoint.class,
 				ViewFollow.class,	
+				Bounce.class,
+				IfSpeed.class,
+				IfLocalVar.class,
+				IfCollidedVar.class,
+				BounceAxis.class,
+				IfCollidedPosition.class,
+				IfPositionFree.class,
+				IfSprite.class
 			});
 
 			for (Class<?> action : myPossibleActions) {
