@@ -55,6 +55,10 @@ public class PlayerManager {
 	public String getPlayerName(){
 		return name;
 	}
+	
+	public boolean hasPlayer(){
+		return players.containsKey(name);
+	}
 
 	public Double getPlayerHighScore(){
 		if(players.containsKey(name)){
