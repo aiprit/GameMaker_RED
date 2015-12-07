@@ -23,6 +23,9 @@ public class GroovyGlobals {
 	}
 	
 	public Double get_variable(String name){
+		if(!myVariables.containsKey(name)){
+			myVariables.put(name, 0.0);
+		}
 		return myVariables.get(name);
 	}
 	

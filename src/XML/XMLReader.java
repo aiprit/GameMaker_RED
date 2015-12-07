@@ -56,7 +56,6 @@ public class XMLReader {
             game.setCurrentRoom(Integer.parseInt(root.getAttribute("currentRoom")));
             game.setStartRoom(Integer.parseInt(root.getAttribute("startRoom")));
 
-
             Element gameVariableMap = (Element) doc.getElementsByTagName("variableMap").item(0);
             game.setVariableMap(loadVariableMap(gameVariableMap));
 
@@ -151,7 +150,7 @@ public class XMLReader {
 
     private ObservableList<IAction> loadActions(NodeList actions) throws XMLFormatException {
         ObservableList<IAction> ret = FXCollections.observableArrayList();
-        ActionFactory factory = new ActionFactory(preloadedRooms, preloadedObjects);
+        ActionFactory factory = new ActionFactory(preloadedRooms, preloadedObjects, game.getSprites());
         for (int i = 0; i < actions.getLength(); i++) {
 
             Node action = actions.item(i);
