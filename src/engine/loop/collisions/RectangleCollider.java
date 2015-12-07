@@ -7,7 +7,15 @@ public class RectangleCollider implements ICollider {
 
 	@Override
 	public boolean collides(RunObject one, RunObject two) {
-		return one.getBounds().intersects(two.getBounds());
+		Rectangle twoB = two.getBounds().getMutable();
+		twoB.width(twoB.width() + 8);
+		twoB.height(twoB.height() + 8);
+		twoB.center();
+		Rectangle oneB = one.getBounds().getMutable();
+		oneB.width(oneB.width() + 8);
+		oneB.height(oneB.height() + 8);
+		oneB.center();
+		return oneB.intersects(twoB);
 	}
 
 	@Override
@@ -15,6 +23,15 @@ public class RectangleCollider implements ICollider {
 		Rectangle rect = one.getBounds().getMutable();
 		rect.x(x);
 		rect.y(y);
+		return rect.intersects(two.getBounds());
+	}
+	
+	public boolean collidesAtReduced(RunObject one, double x, double y, RunObject two) {
+		Rectangle rect = one.getBounds().getMutable();
+		rect.x(x);
+		rect.y(y);
+		//rect.width(rect.width() - 2);
+		//rect.height(rect.height() - 2);
 		return rect.intersects(two.getBounds());
 	}
 

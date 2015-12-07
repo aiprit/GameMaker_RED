@@ -245,6 +245,12 @@ public class RunObject implements IParameters {
 			e.printStackTrace();
 		}
 	}
+	
+	public void bounce(double factor) {
+		double gravComp = Vector.dot(getGravity().normalize(), getVelocity());
+		Vector add = new Vector(gravComp * -(1 + factor), getGravity().direction(), true);
+		setVelocity(getVelocity().add(add));
+	}
 
 	public void set_velocity(double direction, double speed, boolean relative) {
 		Vector change = new Vector(speed, direction, true);
@@ -318,6 +324,37 @@ public class RunObject implements IParameters {
 		} else {
 			return myCollisionChecker.collisionSolidAt(x, y, this);
 		}
+	}
+	
+	public boolean on_ground() {
+		double deltaX, deltaY;
+		if (Math.abs(this.getGravity().x) < .00001) {
+			deltaX = 0;
+		} else {
+			deltaX = Math.signum(this.getGravity().x);
+		}
+		if (Math.abs(this.getGravity().y) < .00001) {
+			deltaY = 0;
+		} else {
+			deltaY = Math.signum(this.getGravity().y);
+		}
+		return collision_solid_at(this.getX() + deltaX, this.getY() + deltaY);
+	}
+	
+	public void accelerate_capped(double angle, double speed, double maxspeed) {
+		setVelocity(getVelocity().add(new Vector(speed, angle, true)));
+		Vector para = new Vector(1, angle, true);
+		Vector perp = new Vector(1, angle - 90, true);
+		double paraComp = Vector.dot(para, getVelocity());
+		double perpComp = Vector.dot(perp, getVelocity());
+		paraComp = Math.min(paraComp, maxspeed);
+		
+		double xComp = Vector.dot(para, new Vector(1, 0)) * paraComp;
+		double yComp = Vector.dot(perp, new Vector(0, 1)) * perpComp;
+		
+		setVelocity(new Vector(xComp, yComp));
+		
+		
 	}
 
 	/*

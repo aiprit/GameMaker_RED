@@ -5,32 +5,30 @@ import structures.data.actions.params.GroovyParam;
 import structures.data.actions.params.SelectParam;
 import structures.data.actions.params.StringParam;
 
-public class IfGlobalVar extends DataAction {
-
-	public IfGlobalVar(){
-		init(new StringParam("Variable Name"), new SelectParam("Condition", ">", "<", "==", "!=", ">=", "<="), new GroovyParam("Value"));
+public class IfSpeed extends DataAction {
+	
+	public IfSpeed(){
+		init(new SelectParam("Condition", ">", "<", "==", "!=", ">=", "<="), new GroovyParam("Value"));
 	}
 
 	@Override
 	public String getTitle() {
-		return "If Global Var";
+		return "If Speed";
 	}
 
 	@Override
 	public String getDescription() {
-		return String.format("If global '%s' %s %s", get("Variable Name").getValue(), get("Condition").getValue(), get("Value").getValue());
+		return String.format("If speed %s %s", get("Condition").getValue(), get("Value").getValue());
 	}
 
 	@Override
 	protected String getSyntax() {
-		return "engine.with(); if (globals.%s %s (%s))";
+		return "engine.with(); if (current().getVelocity().length() %s (%s))";
 	}
 	
 	@Override
 	public boolean hasBrackets() {
 		return true;
 	}
-
-
 
 }

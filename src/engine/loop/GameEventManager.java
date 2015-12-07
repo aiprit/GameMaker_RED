@@ -301,7 +301,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		for (int i = 0; i < size; i++) {
 			RunObject obj2 = objects.get(i);
 			if (obj2.isSolid() && obj != obj2) {
-				if (myCollisionManager.collisionWithAt(x, y, obj, obj2)) {
+				if (myCollisionManager.collisionWithAtReduced(x, y, obj, obj2)) {
 					return true;
 				}
 			}
