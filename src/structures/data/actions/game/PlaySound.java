@@ -22,7 +22,7 @@ public class PlaySound extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "library.play_sound(%s);";
+		return "library.play_sound('%s');";
 	}
 
 	
