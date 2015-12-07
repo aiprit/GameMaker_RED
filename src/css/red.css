@@ -1,8 +1,8 @@
 .root {
     -fx-font-size: 12pt;
     -fx-font-family: Tahoma, Geneva, sans-serif;
-    -fx-base: #cc0000;
-    -fx-background: #ff9999;
+    -fx-base: #800000;
+    -fx-background: #cc0000;
 }
 
 .button {
