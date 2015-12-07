@@ -8,12 +8,12 @@ public class RectangleCollider implements ICollider {
 	@Override
 	public boolean collides(RunObject one, RunObject two) {
 		Rectangle twoB = two.getBounds().getMutable();
-		twoB.width(twoB.width() + 8);
-		twoB.height(twoB.height() + 8);
+		twoB.width(twoB.width() + 10);
+		twoB.height(twoB.height() + 10);
 		twoB.center();
 		Rectangle oneB = one.getBounds().getMutable();
-		oneB.width(oneB.width() + 8);
-		oneB.height(oneB.height() + 8);
+		oneB.width(oneB.width() + 10);
+		oneB.height(oneB.height() + 10);
 		oneB.center();
 		return oneB.intersects(twoB);
 	}

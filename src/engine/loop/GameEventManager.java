@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -59,6 +60,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	private CollisionManager myCollisionManager;
 	private Set<Pair<String>> myCollidingObjectPairs;
+	private List<Pair<String>> myCollidingObjectPairsBuffer;
 
 	private List<RunObject> myCreatedQueue;
 	private List<RunObject> myDeleteQueue;
@@ -76,6 +78,9 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myPhysicsEngine = new ScrollerPhysicsEngine();
 		myStringsToDraw = new ArrayList<>();
 		init(room);
+		for(RunObject o : room.getObjects()) {
+			myCreatedQueue.add(o);
+		}
 	}
 
 	/**
@@ -113,10 +118,6 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		// Which objects need to be checked for collisions?
 		for (RunObject o : room.getObjects()) {
 			potentiallyAddToCollideables(o);
-		}
-
-		for(RunObject o : room.getObjects()) {
-			myCreatedQueue.add(o);
 		}
 	}
 
@@ -183,6 +184,13 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 					new GroovyCollisionEvent(collisionPair.one));
 			}
 		}
+		if (myCollidingObjectPairsBuffer != null) {
+			myCollidingObjectPairs.addAll(myCollidingObjectPairsBuffer);
+			myCollidingObjectPairsBuffer = null;
+			for (RunObject obj : myRoom.getObjects()) {
+				potentiallyAddToCollideables(obj);    
+			}
+		}
 	}
 
 	private void potentiallyAddToCollideables(RunObject obj) {
@@ -224,13 +232,25 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 */
 	@Override
 	public void onObjectCreate(RunObject runObject) {
+		
 		potentiallyAddToCollideables(runObject);
-
+		runObject.setCollisionChecker(this);
 		for(IDataEvent e : runObject.getEvents()){
 			if(!myEvents.containsKey(e)){
-				myEvents.put(e, new ArrayList<RunObject>());
+				myEvents.put(e, new ArrayList<RunObject>());   
 			}
 			myEvents.get(e).add(runObject);
+			
+			// If Collision, add both objects' names to objects that collide
+			if (e instanceof CollisionEvent) {
+				Pair<String> collideThese = new Pair<>(runObject.name(), ((CollisionEvent) e).other.getName());
+				if (!myCollidingObjectPairs.contains(collideThese)) {
+					if (myCollidingObjectPairsBuffer == null) {
+						myCollidingObjectPairsBuffer = new ArrayList<>();
+					}
+					myCollidingObjectPairsBuffer.add(collideThese);
+				}
+			}
 		}
 		myCreatedQueue.add(runObject);
 	}

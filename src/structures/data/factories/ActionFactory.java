@@ -22,12 +22,16 @@ import structures.data.actions.game.SetTimerRepeated;
 import structures.data.actions.logic.Close;
 import structures.data.actions.logic.CloseNoEnd;
 import structures.data.actions.logic.Else;
+import structures.data.actions.logic.IfCollidedPosition;
+import structures.data.actions.logic.IfCollidedVar;
 import structures.data.actions.logic.IfGlobalVar;
 import structures.data.actions.logic.IfInDirection;
 import structures.data.actions.logic.IfKey;
+import structures.data.actions.logic.IfLocalVar;
 import structures.data.actions.logic.IfMouseButton;
 import structures.data.actions.logic.IfOdds;
 import structures.data.actions.logic.IfOnGround;
+import structures.data.actions.logic.IfPositionFree;
 import structures.data.actions.logic.IfRoom;
 import structures.data.actions.logic.IfSpeed;
 import structures.data.actions.logic.Open;
@@ -35,6 +39,7 @@ import structures.data.actions.logic.Repeat;
 import structures.data.actions.logic.WithCollided;
 import structures.data.actions.logic.WithCreateInstance;
 import structures.data.actions.move.Bounce;
+import structures.data.actions.move.BounceAxis;
 import structures.data.actions.move.CapSpeed;
 import structures.data.actions.move.MoveTo;
 import structures.data.actions.move.MoveToRandom;
@@ -131,7 +136,12 @@ public class ActionFactory {
 				SetVelocityToPoint.class,
 				ViewFollow.class,	
 				Bounce.class,
-				IfSpeed.class
+				IfSpeed.class,
+				IfLocalVar.class,
+				IfCollidedVar.class,
+				BounceAxis.class,
+				IfCollidedPosition.class,
+				IfPositionFree.class
 			});
 
 			for (Class<?> action : myPossibleActions) {

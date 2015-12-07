@@ -456,7 +456,6 @@ public class RunObject implements IParameters {
 
     @Override
     public void setOriginalParameterMaps () {
-        System.out.println(name);
         myOriginalStringMap.put(NAME, name);
         myOriginalDoubleMap.put(SCALEX, scaleX/MAX_SCALEX);
         myOriginalDoubleMap.put(SCALEY, scaleY/MAX_SCALEY);
