@@ -64,7 +64,7 @@ public class RunObject implements IParameters {
 	private Rectangle myBounds;
 	private ICollisionChecker myCollisionChecker;
 
-	private Map<String, Object> myVariables;
+	private Map<String, Double> myVariables;
 	private Map<String, Boolean> myBooleanMap;
 	private Map<String, String> myStringMap;
 	private Map<String, Double> myDoubleMap;
@@ -236,6 +236,27 @@ public class RunObject implements IParameters {
 	public long instance_id() {
 		return myInstanceId;
 	}
+	
+	public void set_variable(String name, Double value, boolean relative){
+		if(relative){
+			if(myVariables.containsKey(name)){
+				myVariables.put(name, myVariables.get(name) + value);
+			}
+		}
+		else {
+			myVariables.put(name, value);
+		}
+	}
+	
+	public Double get_variable(String name){
+		if(myVariables.containsKey(name)){
+			return myVariables.get(name);
+		}
+		else {
+			myVariables.put(name, 0.0);
+			return 0.0;
+		}
+	}
 
 	public void change_sprite(String name, String baseFileName){
 		try {
@@ -301,7 +322,7 @@ public class RunObject implements IParameters {
 		}
 	}
 	
-	public void propertyMissing(String name, Object value) {
+	public void propertyMissing(String name, Double value) {
 		myVariables.put(name, value);
 	}
 	

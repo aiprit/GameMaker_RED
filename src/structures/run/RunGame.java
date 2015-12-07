@@ -9,6 +9,7 @@ import exceptions.UnknownResourceException;
 import structures.data.DataGame;
 import structures.data.DataObject;
 import structures.data.DataRoom;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 import utils.Utils;
 
@@ -131,7 +132,11 @@ public class RunGame implements IRun {
 		for (DataSprite sprite : game.getSprites()) {
 			resources.loadSprite(sprite);
 		}
-
+		
+		for (DataSound sound : game.getSounds()) {
+			resources.loadSound(sound);
+		}
+ 
 		return resources;
 	}
 
