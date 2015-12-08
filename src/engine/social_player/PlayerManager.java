@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerManager {
@@ -13,11 +15,21 @@ public class PlayerManager {
 	private String game;
 
 	private Map<String, Player> players;
+	private List<String> myColors;
 
 	public PlayerManager() throws IOException{
 		name = "";
 		game = "";
 		players = new HashMap<String, Player>();
+		myColors = new ArrayList<>();
+		
+		myColors.add("Blue");
+		myColors.add("Green");
+		myColors.add("Gray");
+		myColors.add("Pink");
+		myColors.add("Purple");
+		myColors.add("Red");
+		myColors.add("Yellow");
 
 		InputStream serverInfo = this.getClass().getClassLoader()
 				.getResourceAsStream("engine/social_player/fakeserver.txt");
@@ -39,6 +51,10 @@ public class PlayerManager {
 			read = br.readLine();
 		}
 	}
+	
+	public List<String> getColors(){
+		return myColors;
+	}
 
 	public void setPlayer(String name){
 		if(!players.containsKey(name) && !name.equals("")){
@@ -54,6 +70,14 @@ public class PlayerManager {
 
 	public String getPlayerName(){
 		return name;
+	}
+	
+	public String getColorPreference(){
+		return players.get(name).getColorPreference();
+	}
+	
+	public void setColorPreference(String color){
+		players.get(name).setColorPreference(color);
 	}
 	
 	public boolean hasPlayer(){

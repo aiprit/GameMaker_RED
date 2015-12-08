@@ -44,7 +44,7 @@ IVariablesChangeHandler{
 	public void addGUIBackendInterface(IGUIBackendHandler gui){
 		myGUIBackend.add(gui);
 	}
-	
+
 	public void addGUIControllerInterface(IGUIControllerHandler gui){
 		myGUIController.add(gui);
 	}
@@ -56,15 +56,15 @@ IVariablesChangeHandler{
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
 	}
-	
+
 	public void addFrontEndUpdateInterface(IGameUpdatedHandler frontEnd){
 		myFrontEndUpdater.add(frontEnd);
 	}
-	
+
 	public void addRoomUpdateInterface(IRoomUpdatedHandler roomHandle){
 		myRoomUpdater.add(roomHandle);
 	}
-	
+
 	public void addVariableChangeInterface(IVariablesChangeHandler variableHandle){
 		myVariablesUpdater.add(variableHandle);
 	}
@@ -78,13 +78,13 @@ IVariablesChangeHandler{
 			g.onResume();
 		}
 	}
- 
+
 	public void onPause(){
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onPause();
 		}
 	}
-	
+
 	public void onReset() throws ResourceFailedException{
 		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
@@ -102,7 +102,7 @@ IVariablesChangeHandler{
 			g.onSave();
 		}
 	}
-	
+
 	@Override
 	public void onChangeGame(String game) throws ResourceFailedException {
 		for(IGUIControllerHandler g : myGUIController){
@@ -116,14 +116,14 @@ IVariablesChangeHandler{
 			g.setDebug(value);
 		}
 	}
-	
+
 	@Override
 	public void onKeyEvent(KeyEvent event) {
 		for(IInputHandler i : myUserInput){
 			i.onKeyEvent(event);
 		}
 	}
-	
+
 	@Override
 	public void onMouseEvent(MouseEvent event) {
 		for (IInputHandler i : myUserInput) {
@@ -165,19 +165,21 @@ IVariablesChangeHandler{
 			f.onRoomChanged(runRoom);
 		}
 	}
-	
+
 	@Override
 	public void setHighScore(double highScore) {
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
 	}
-	
+
 	@Override
-	public double getHighScore(){
+	public Double getHighScore(){
 		double highScore = 0;
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
-			highScore += f.getHighScore();
+			if(f.getHighScore() != null){
+				highScore += f.getHighScore();
+			}
 		}
 		return highScore;
 	}
@@ -209,7 +211,7 @@ IVariablesChangeHandler{
 			v.addLocalVariablesMap(l, localVars);
 		}
 	}
-	
+
 	@Override
 	public void removeLocalVariablesMap(long l) {
 		for(IVariablesChangeHandler v : myVariablesUpdater){

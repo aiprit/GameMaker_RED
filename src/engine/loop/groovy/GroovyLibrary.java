@@ -133,7 +133,12 @@ public class GroovyLibrary {
 	}
 
 	public double get_high_score(){
-		return myEventManager.getHighScore();
+		if(myEventManager.getHighScore() != null){
+			return myEventManager.getHighScore();
+		}
+		else {
+			return 0;
+		}
 	}
 
 	public void set_high_score(double score){

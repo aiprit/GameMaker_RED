@@ -34,7 +34,7 @@ public class GlobalVariableView extends VariableDisplay {
 	}
 	
 	public void clearVariables(){
-		myVariablesValues.clear();
+		//myVariablesValues.clear();
 		updateView();
 	}
 	

@@ -151,9 +151,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 		ToggleGroup colorToggle = new ToggleGroup();
 		for (String color : COLORS) {
 			RadioMenuItem radioItem = new RadioMenuItem(color);
-			radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
-			playScene.getStylesheets().clear();
-			playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
+			radioItem.setOnAction(e -> processColorSelection(radioItem));
 			radioItem.setToggleGroup(colorToggle);
 			if (color.toLowerCase().equals(styleSheetColor)) radioItem.setSelected(true);
 			colorOption.getItems().add(radioItem);
@@ -164,6 +162,16 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 		option.getItems().addAll(debugOption, colorOption);
 		debugOption.getItems().addAll(yes, no);
 		topContainer.getChildren().add(myMenus);
+	}
+	
+	public void processColorSelection(RadioMenuItem radioItem){
+		processColorSelection(radioItem.getText());
+	}
+	
+	public void processColorSelection(String color){
+		styleSheetColor = color.toLowerCase();
+		playScene.getStylesheets().clear();
+		playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);
 	}
 
 	public Menu makeColorOptionMenu(ToggleGroup colorToggle) {
@@ -253,7 +261,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 	}
 
 	private void makeHighScoreBar(VBox container) throws IOException{
-		myHighScoreView = new HighScoreView(myCurrentGame);
+		myHighScoreView = new HighScoreView(myCurrentGame, this);
 		myHighScoreView.setPrefWidth(150);
 		myHighScoreView.setFocusTraversable(false);
 		myHighScoreView.setPrefHeight(borderPane.getHeight() / 2);
@@ -326,7 +334,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 	}
 
 	@Override
-	public double getHighScore() {
+	public Double getHighScore() {
 		return myHighScoreView.getHighScore();
 	}
 
