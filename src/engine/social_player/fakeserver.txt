@@ -1,7 +1,28 @@
-Jill
-aRealGame,30
-jelly,20
+Jake
+Yellow
+OfficialMario,21.0
+don't fall off,1.0
+;
+Elizabeth
+Purple
+OfficialMario,6.0
+;
+Anika
+Green
+OfficialMario,22.0
+don't fall off,1.0
 ;
 Bill
-jelly,40
+red
+jelly,40.0
+;
+Jill
+red
+jelly,20.0
+aRealGame,30.0
+;
+Bailey
+Blue
+OfficialMario,23.0
+don't fall off,1.0
 ;

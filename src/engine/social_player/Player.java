@@ -20,6 +20,10 @@ public class Player {
 			return null;
 		}
 	}
+	
+	public Map<String, Double> getHighScores(){
+		return highScore;
+	}
 
 	public void setHighScore(String game, Double score){
 		highScore.put(game, score);
