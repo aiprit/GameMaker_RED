@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import authoring_environment.room.object_instance.DraggableImage;
 import authoring_environment.room.preview.DraggableNode;
 import authoring_environment.room.view.DraggableView;
 import javafx.geometry.Point2D;

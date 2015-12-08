@@ -19,8 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.transform.Rotate;
-import utils.Point;
 import utils.rectangle.IRectangle;
 
 public class RoomCanvas extends Canvas {
@@ -156,7 +154,6 @@ public class RoomCanvas extends Canvas {
 			double centerX, double centerY,
 			double scaleX, double scaleY, double angle, double alpha) {
 
-		//draw the new object
 		GraphicsContext myGraphicsContext = this.getGraphicsContext2D();
 
 
