@@ -21,7 +21,7 @@ public class SetAlpha extends DataAction {
 
 	@Override
 	protected String getSyntax() {
-		return "current.setAlpha(%f);";
+		return "current().setAlpha(%f);";
 	}
 
 }
