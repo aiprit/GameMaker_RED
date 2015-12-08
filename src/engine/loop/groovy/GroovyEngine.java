@@ -2,7 +2,6 @@ package engine.loop.groovy;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
 
 import engine.events.EventManager;
 import groovy.GroovyObjectInstantiator;

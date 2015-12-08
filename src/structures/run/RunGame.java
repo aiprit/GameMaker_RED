@@ -2,6 +2,8 @@ package structures.run;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import exceptions.CompileTimeException;
 import exceptions.GameRuntimeException;
 import exceptions.ResourceFailedException;
@@ -22,6 +24,7 @@ public class RunGame implements IRun {
 	private RunResources myResources;
 	private RunObjectConverter myConverter;
 	private DataGame myDataGame;
+	private Map<String, Double> myGlobalVariables;
 	
 	private int myViewHeight, myViewWidth;
 
@@ -53,6 +56,8 @@ public class RunGame implements IRun {
 		
 		myViewWidth = dataGame.getViewWidth();
 		myViewHeight = dataGame.getViewHeight();
+		
+		myGlobalVariables = dataGame.getVariableMap();
 	}
 	
 	public DataGame getDataGame(){
@@ -112,6 +117,14 @@ public class RunGame implements IRun {
 	public int getCurrentRoomNumber() {
 		return myRooms.indexOf(myCurrentRoom);
 	}
+	
+	public void setGlobalVariables(Map<String, Double> globalVariables){
+		myGlobalVariables = globalVariables;
+	}
+	
+	public Map<String, Double> getGlobalVariables(){
+		return myGlobalVariables;
+	}
 
 	/**
 	 * Part of the internal data-to-run conversion. Creates the RunResources
@@ -167,6 +180,7 @@ public class RunGame implements IRun {
 				throw new CompileTimeException(e.getMessage());
 			}
 		}
+		myDataGame.setVariableMap(myGlobalVariables);
 		return myDataGame;
 	}
 

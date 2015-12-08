@@ -35,7 +35,7 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	private FrontEnd myFrontEnd;
 	private String myCurrentGame;
 	private boolean debugActivated;
-	
+
 	public EngineController(Stage stage) throws ResourceFailedException {
 		this(stage, null);
 	}
@@ -55,12 +55,15 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		eventManager.addVariableChangeInterface(myFrontEnd);
 		//starts the first room loop
 		myEngine = new Engine(currentRunGame, eventManager);
 		myEngine.setDrawListener(myFrontEnd.getDrawListener());
 
 		//sets up the event manager
 		setupEventManager(eventManager);
+
 		stage.show();
 	}
 
@@ -106,7 +109,6 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 		myEditor = new XMLEditor();
 		myWriter = new XMLWriter();
 		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/GameFile.xml/");
-		
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
@@ -182,10 +184,10 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	public void onKeyEvent (KeyEvent event) {
 		// Do nothing (for now)
 	}
-	
+
 	@Override
 	public void setDebug(boolean value){
 		debugActivated = value;
 	}
-	
+
 }

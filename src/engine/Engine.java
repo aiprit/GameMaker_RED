@@ -42,6 +42,8 @@ public class Engine implements IRoomUpdatedHandler {
 		//have to do this to change the object tracker when the room changes
 		myEventManager.clearObjectModifiedInterface();
 		myEventManager.addObjectModifiedInterface(myObjectHandler);
+		myEventManager.clearGlobalVariables();
+		myEventManager.updateGlobalVariables(myGame.getGlobalVariables());
 		myLevel.start();
 	}
 	
@@ -90,7 +92,7 @@ public class Engine implements IRoomUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-		//how else need to change the level?
+		//how else do we need to change the level?
 		myLevel.cancel();
 		runLevel();
 	}

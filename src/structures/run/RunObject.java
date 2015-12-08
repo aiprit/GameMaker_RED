@@ -169,7 +169,7 @@ public class RunObject implements IParameters {
 		myInstanceId = id;
 	}
 	
-	protected long getInstanceId() {
+	public long getInstanceId() {
 		return myInstanceId;
 	}
 	
@@ -237,15 +237,18 @@ public class RunObject implements IParameters {
 		return myInstanceId;
 	}
 	
-	public void set_variable(String name, Double value, boolean relative){
+	public Double set_variable(String name, Double value, boolean relative){
 		if(relative){
 			if(myVariables.containsKey(name)){
 				myVariables.put(name, myVariables.get(name) + value);
+			} else {
+				myVariables.put(name, value);
 			}
 		}
 		else {
 			myVariables.put(name, value);
 		}
+		return myVariables.get(name);
 	}
 	
 	public Double get_variable(String name){
@@ -397,7 +400,6 @@ public class RunObject implements IParameters {
 		
 		setVelocity(new Vector(xComp, yComp));
 		
-		
 	}
 
 	/*
@@ -494,6 +496,12 @@ public class RunObject implements IParameters {
 	}
 	public void setSolid(boolean solid) {
 		this.solid = solid;
+	}
+	public Map<String, Double> getVariableMap(){
+		return myVariables;
+	}
+	public void setVariableMap(Map<String, Double> variables){
+		myVariables = variables;
 	}
 
     @Override

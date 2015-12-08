@@ -26,6 +26,7 @@ import structures.data.actions.logic.Else;
 import structures.data.actions.logic.IfCollidedPosition;
 import structures.data.actions.logic.IfCollidedVar;
 import structures.data.actions.logic.IfGlobalVar;
+import structures.data.actions.logic.IfHighScore;
 import structures.data.actions.logic.IfInDirection;
 import structures.data.actions.logic.IfKey;
 import structures.data.actions.logic.IfLocalVar;
@@ -113,6 +114,7 @@ public class ActionFactory {
 				IfGlobalVar.class,
 				IfKey.class,
 				IfMouseButton.class,
+				IfHighScore.class,
 				IfOdds.class,
 				IfRoom.class,
 				IfInDirection.class,

@@ -1,6 +1,5 @@
 package engine.loop;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -20,7 +18,6 @@ import engine.loop.groovy.GroovyEngine;
 import engine.loop.groovy.IGroovyEvent;
 import engine.loop.physics.IPhysicsEngine;
 import engine.loop.physics.ScrollerPhysicsEngine;
-import javafx.scene.image.Image;
 import structures.data.events.CollisionEvent;
 import structures.data.events.LeaveRoomEvent;
 import structures.data.events.ObjectCreateEvent;
@@ -258,6 +255,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 				}
 			}
 		}
+		myEventManager.addLocalVariablesMap(runObject.getInstanceId(), runObject.getVariableMap());
 		myCreatedQueue.add(runObject);
 	}
 
@@ -280,6 +278,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 					myEvents.get(e).remove(o);
 				}
 			}
+			myEventManager.removeLocalVariablesMap(o.getInstanceId());
 			myRoom.getObjects().remove(o);
 		}
 		myDeleteQueue.clear();

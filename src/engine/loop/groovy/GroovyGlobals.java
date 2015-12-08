@@ -3,23 +3,36 @@ package engine.loop.groovy;
 import java.util.HashMap;
 import java.util.Map;
 
+import engine.events.EventManager;
 import exceptions.GameRuntimeException;
-
 
 public class GroovyGlobals {
 	
 	private Double myDefaultValue;
 	private boolean myErrorOnDefault = true;
 	private Map<String, Double> myVariables;
+	private EventManager myEventManager;
 	
 	public GroovyGlobals() {
 		myVariables = new HashMap<>();
 	}
 	
-	public GroovyGlobals(Double defaultValue) {
+	public GroovyGlobals(Double defaultValue, EventManager eventManager) {
 		this();
+		myEventManager = eventManager;
 		myDefaultValue = defaultValue;
 		myErrorOnDefault = false;
+	}
+	
+	public GroovyGlobals(Map<String, Double> globalVariables, EventManager eventManager){
+		myVariables = globalVariables;
+		myEventManager = eventManager;
+		myDefaultValue = 0.0;
+		myErrorOnDefault = false;
+	}
+	
+	public Map<String, Double> getGlobalVariableMap(){
+		return myVariables;
 	}
 	
 	public Double get_variable(String name){
@@ -31,6 +44,7 @@ public class GroovyGlobals {
 	
 	public void put_variable(String name, Double value){
 		myVariables.put(name, value);
+		myEventManager.globalVariableUpdate();
 	}
 	
 	public boolean isSet(String name) {

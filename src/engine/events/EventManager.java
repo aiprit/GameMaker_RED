@@ -2,6 +2,7 @@ package engine.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import exceptions.ResourceFailedException;
 import javafx.scene.input.KeyEvent;
@@ -19,7 +20,8 @@ import utils.Point;
  *
  */
 public class EventManager implements IGUIBackendHandler, IGUIControllerHandler,
-IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler {
+IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler, 
+IVariablesChangeHandler{
 
 	private List<IGUIBackendHandler> myGUIBackend;
 	private List<IGUIControllerHandler> myGUIController;
@@ -27,6 +29,7 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 	private List<IObjectModifiedHandler> myObjectModified;
 	private List<IGameUpdatedHandler> myFrontEndUpdater;
 	private List<IRoomUpdatedHandler> myRoomUpdater;
+	private List<IVariablesChangeHandler> myVariablesUpdater;
 
 	public EventManager(){
 		myGUIBackend = new ArrayList<>();
@@ -35,12 +38,13 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 		myObjectModified = new ArrayList<>();
 		myFrontEndUpdater = new ArrayList<>();
 		myRoomUpdater = new ArrayList<>();
+		myVariablesUpdater = new ArrayList<>();
 	}
 
 	public void addGUIBackendInterface(IGUIBackendHandler gui){
 		myGUIBackend.add(gui);
 	}
-	
+
 	public void addGUIControllerInterface(IGUIControllerHandler gui){
 		myGUIController.add(gui);
 	}
@@ -52,13 +56,17 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 	public void addObjectModifiedInterface(IObjectModifiedHandler objectModified){
 		myObjectModified.add(objectModified);
 	}
-	
+
 	public void addFrontEndUpdateInterface(IGameUpdatedHandler frontEnd){
 		myFrontEndUpdater.add(frontEnd);
 	}
-	
+
 	public void addRoomUpdateInterface(IRoomUpdatedHandler roomHandle){
 		myRoomUpdater.add(roomHandle);
+	}
+
+	public void addVariableChangeInterface(IVariablesChangeHandler variableHandle){
+		myVariablesUpdater.add(variableHandle);
 	}
 
 	public void clearObjectModifiedInterface(){
@@ -70,13 +78,13 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 			g.onResume();
 		}
 	}
- 
+
 	public void onPause(){
 		for(IGUIBackendHandler g : myGUIBackend){
 			g.onPause();
 		}
 	}
-	
+
 	public void onReset() throws ResourceFailedException{
 		for(IGUIControllerHandler g : myGUIController){
 			g.onReset();
@@ -94,7 +102,7 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 			g.onSave();
 		}
 	}
-	
+
 	@Override
 	public void onChangeGame(String game) throws ResourceFailedException {
 		for(IGUIControllerHandler g : myGUIController){
@@ -108,14 +116,14 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 			g.setDebug(value);
 		}
 	}
-	
+
 	@Override
 	public void onKeyEvent(KeyEvent event) {
 		for(IInputHandler i : myUserInput){
 			i.onKeyEvent(event);
 		}
 	}
-	
+
 	@Override
 	public void onMouseEvent(MouseEvent event) {
 		for (IInputHandler i : myUserInput) {
@@ -157,21 +165,72 @@ IInputHandler, IObjectModifiedHandler, IGameUpdatedHandler, IRoomUpdatedHandler 
 			f.onRoomChanged(runRoom);
 		}
 	}
-	
+
 	@Override
 	public void setHighScore(double highScore) {
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
 			f.setHighScore(highScore);
 		}
 	}
-	
+
 	@Override
-	public double getHighScore(){
+	public Double getHighScore(){
 		double highScore = 0;
 		for(IGameUpdatedHandler f : myFrontEndUpdater){
-			highScore += f.getHighScore();
+			if(f.getHighScore() != null){
+				highScore += f.getHighScore();
+			}
 		}
 		return highScore;
+	}
+
+	@Override
+	public void localVariableUpdate() {
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
+			f.localVariableUpdate();
+		}
+	}
+
+	@Override
+	public void globalVariableUpdate() {
+		for(IGameUpdatedHandler f : myFrontEndUpdater){
+			f.globalVariableUpdate();
+		}
+	}
+
+	@Override
+	public void updateGlobalVariables(Map<String, Double> globalVars) {
+		for(IVariablesChangeHandler v : myVariablesUpdater){
+			v.updateGlobalVariables(globalVars);
+		}
+	}
+
+	@Override
+	public void addLocalVariablesMap(long l, Map<String, Double> localVars) {
+		for(IVariablesChangeHandler v : myVariablesUpdater){
+			v.addLocalVariablesMap(l, localVars);
+		}
+	}
+
+	@Override
+	public void removeLocalVariablesMap(long l) {
+		for(IVariablesChangeHandler v : myVariablesUpdater){
+			v.removeLocalVariablesMap(l);
+		}
+	}
+
+	@Override
+	public void clearLocalVariables() {
+		for(IVariablesChangeHandler v : myVariablesUpdater){
+			v.clearLocalVariables();
+		}
+	}
+
+	@Override
+	public void clearGlobalVariables() {
+		for(IVariablesChangeHandler v : myVariablesUpdater){
+			v.clearGlobalVariables();
+		}
 	}
 
 }
