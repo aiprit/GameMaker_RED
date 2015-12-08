@@ -351,7 +351,7 @@ public class FileManager {
 	 * @return
 	 */
 	public static File getPNGFile() {
-		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*." + PNG);
+		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*" + PNG);
 	}
 
 }
