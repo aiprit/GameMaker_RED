@@ -6,6 +6,5 @@ class GroovyRunObjectProxy {
 
 	public GroovyRunObjectProxy() {
 		myChildren = new ArrayList<RunObject>();
-		System.out.println("hello again");
 	}
 }

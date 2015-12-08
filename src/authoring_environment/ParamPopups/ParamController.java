@@ -65,7 +65,6 @@ public class ParamController {
 			}
 			}
 		}
-		System.out.println(model.getActionList());
 		//configure.close();
 	}
 	private void refreshToOld(List<String> save) throws ParameterParseException {

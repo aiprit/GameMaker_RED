@@ -114,7 +114,6 @@ public class MainController implements IUpdateHandle {
 		objectListWindow.init();
 		// Add objects to objectList
 		for (DataObject o : dataGame.getObjects()) {
-			System.out.println("Adding object: " + o.getName());
 			objectListWindow.addObject(o).setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
@@ -217,7 +216,6 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO: handle LOAD EVENT ADD ANDREW PLZ
-				System.out.println("Clicked Load");
 				File file = GameInitializer.choose(myStage);
 				XMLEditor xml = new XMLEditor();
 				dataGame = xml.readXML(file.getAbsolutePath());
@@ -242,7 +240,6 @@ public class MainController implements IUpdateHandle {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO: handle SAVE EVENT ADD ANDREW PLZ
-				System.out.println("Clicked Save");
 				FileManager fm = new FileManager(dataGame.getName());
 				fm.saveGame(dataGame);
 				update();

@@ -30,7 +30,6 @@ public class GroovyLibrary {
 	}
 
 	private void fatalError(String message, Object... args) {
-		System.out.println(message);
 		System.exit(1);
 	}
 	
@@ -39,7 +38,6 @@ public class GroovyLibrary {
 	}
 	
 	public void print(String string) {
-		System.out.println(string);
 	}
 	
 	public boolean key_down(String keyCode) {
@@ -131,7 +129,6 @@ public class GroovyLibrary {
 	}
 
 	public void set_high_score(double score){
-		System.out.println(score);
 		myEventManager.setHighScore(score);
 	}
 

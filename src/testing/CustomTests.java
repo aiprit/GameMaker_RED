@@ -19,7 +19,6 @@ public class CustomTests {
 	}
 	
 	public static void interpolationTest() {
-		System.out.println(Bresenham.interpolate(0, 0, 5, -3));
 	}
 	
 	public static void groovyTests() throws ParameterParseException {
