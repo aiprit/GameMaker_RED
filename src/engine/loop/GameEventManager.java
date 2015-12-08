@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import engine.events.EventManager;
 import engine.events.IObjectModifiedHandler;
@@ -59,6 +60,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 
 	private CollisionManager myCollisionManager;
 	private Set<Pair<String>> myCollidingObjectPairs;
+	private List<Pair<String>> myCollidingObjectPairsBuffer;
 
 	private List<RunObject> myCreatedQueue;
 	private List<RunObject> myDeleteQueue;
@@ -76,6 +78,9 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		myPhysicsEngine = new ScrollerPhysicsEngine();
 		myStringsToDraw = new ArrayList<>();
 		init(room);
+		for(RunObject o : room.getObjects()) {
+			myCreatedQueue.add(o);
+		}
 	}
 
 	/**
@@ -113,10 +118,6 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		// Which objects need to be checked for collisions?
 		for (RunObject o : room.getObjects()) {
 			potentiallyAddToCollideables(o);
-		}
-
-		for(RunObject o : room.getObjects()) {
-			myCreatedQueue.add(o);
 		}
 	}
 
@@ -158,13 +159,19 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 * Calls each object in the room's step event.
 	 */
 	private void processStepEvents() {
-		for(RunObject obj : getRegistered(StepEvent.event)){
+		List<RunObject> objects = getRegistered(StepEvent.event);
+		RunObject obj;
+		for(int i=0; i<objects.size(); i++) {
+			obj = objects.get(i);
 			fire(obj, StepEvent.event);
 		}
 	}
 	
 	private void stepPhysics() {
-		for (RunObject obj : myRoom.getObjects()) {
+		List<RunObject> objects = myRoom.getObjects();
+		RunObject obj;
+		for(int i=0; i < objects.size(); i++) {
+			obj = objects.get(i);
 			myPhysicsEngine.step(obj);
 		}
 	}
@@ -181,6 +188,13 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 				fire(collisionPair.two,
 					new CollisionEvent(collisionPair.one.name()),
 					new GroovyCollisionEvent(collisionPair.one));
+			}
+		}
+		if (myCollidingObjectPairsBuffer != null) {
+			myCollidingObjectPairs.addAll(myCollidingObjectPairsBuffer);
+			myCollidingObjectPairsBuffer = null;
+			for (RunObject obj : myRoom.getObjects()) {
+				potentiallyAddToCollideables(obj);    
 			}
 		}
 	}
@@ -224,13 +238,25 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	 */
 	@Override
 	public void onObjectCreate(RunObject runObject) {
+		
 		potentiallyAddToCollideables(runObject);
-
+		runObject.setCollisionChecker(this);
 		for(IDataEvent e : runObject.getEvents()){
 			if(!myEvents.containsKey(e)){
-				myEvents.put(e, new ArrayList<RunObject>());
+				myEvents.put(e, new ArrayList<RunObject>());   
 			}
 			myEvents.get(e).add(runObject);
+			
+			// If Collision, add both objects' names to objects that collide
+			if (e instanceof CollisionEvent) {
+				Pair<String> collideThese = new Pair<>(runObject.name(), ((CollisionEvent) e).other.getName());
+				if (!myCollidingObjectPairs.contains(collideThese)) {
+					if (myCollidingObjectPairsBuffer == null) {
+						myCollidingObjectPairsBuffer = new ArrayList<>();
+					}
+					myCollidingObjectPairsBuffer.add(collideThese);
+				}
+			}
 		}
 		myCreatedQueue.add(runObject);
 	}
@@ -242,6 +268,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 	@Override
 	public void onObjectDestroy(RunObject runObject) {
 		myDeleteQueue.add(runObject);
+		deleteObjects();
 	}
 
 	public void deleteObjects(){
@@ -301,7 +328,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		for (int i = 0; i < size; i++) {
 			RunObject obj2 = objects.get(i);
 			if (obj2.isSolid() && obj != obj2) {
-				if (myCollisionManager.collisionWithAt(x, y, obj, obj2)) {
+				if (myCollisionManager.collisionWithAtReduced(x, y, obj, obj2)) {
 					return true;
 				}
 			}
@@ -309,8 +336,10 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 		return false;		
 	}
 
-	public void processLeaveRoomEvents(){
-		for (RunObject o : getRegistered(LeaveRoomEvent.event)) {
+	public void processLeaveRoomEvents() {
+		List<RunObject> objects = getRegistered(LeaveRoomEvent.event);
+		for (int i = 0; i < objects.size(); i++) {
+			RunObject o = objects.get(i);
 			if(o.getX() < 0 || o.getX() > myRoom.getWidth() ||
 					o.getY() < 0 || o.getY() > myRoom.getHeight()){
 				fire(o, LeaveRoomEvent.event);
