@@ -131,7 +131,6 @@ public class TestGame2 {
 	        collide.getParameters().get(0).parse(collideScript);
 
         } catch (ParameterParseException ex) {
-        	System.out.println(ex.getMessage());
         }
 
         List<IAction> leftActions = Collections.singletonList(left);

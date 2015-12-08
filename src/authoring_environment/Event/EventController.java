@@ -186,12 +186,10 @@ public class EventController {
 
 
 							success = true;
-							System.out.println(items);
 						}
 						catch (NumberFormatException e){
 							String player = event.getDragboard().getString();
 							addAction(player,thisIdx);
-							System.out.println(items);
 						}
 
 						event.setDropCompleted(true);
@@ -454,7 +452,6 @@ public class EventController {
 	//				PopUpError er = new PopUpError();
 	//				paramPopUps(p);
 	//			}
-	//			System.out.println(result.get());
 	//			return true;
 	//		}
 	//		else

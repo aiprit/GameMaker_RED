@@ -37,7 +37,6 @@ public class Engine implements IRoomUpdatedHandler {
 	}
 
 	public void runLevel(){
-		System.out.println(myGame.getCurrentRoomNumber());
 		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
 		myObjectHandler = myLevel.getObjectHandler();
 		//have to do this to change the object tracker when the room changes

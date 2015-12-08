@@ -66,7 +66,6 @@ public class ViewDialog {
 //				double h = Double.parseDouble(height);
 //				double w = Double.parseDouble(width);
 //			} catch (NumberFormatException nfe) {
-//				System.out.println(r.getString("NaN"));
 //				check = false;
 //			}
 //			if (check) {

@@ -62,8 +62,6 @@ public class RunObjectConverter {
 			try {
 				runGroovy = new RunAction(groovyPreamble + groovy.toString());
 			} catch (CompileTimeException ex) {
-				System.out.println("Bad script:");
-				System.out.println(groovyPreamble + groovy.toString());
 				throw ex;
 			}
 			run.bindEvent(event.getKey(), runGroovy);

@@ -106,13 +106,9 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	public RunGame readObject() throws ResourceFailedException{
 
 		//set myGame to the game that the user chooses
-		//System.out.println(userGame);
 		myEditor = new XMLEditor();
 		myWriter = new XMLWriter();
 		myGame = myEditor.readXML("Games/" + myCurrentGame + "/XML/GameFile.xml/");
-
-		System.out.println(myGame.toString());
-
 		//convert DataGame to a RunGame
 		RunGame runGame = null;
 		try {
@@ -164,8 +160,6 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 
 	@Override
 	public void onSave() {
-		System.out.println("saved");
-		System.out.println(currentRunGame.getDataGame().toString());
 		try {
 			myWriter.write(currentRunGame.toData(), "Games/" + myCurrentGame + "/XML/SaveInstance.xml");
 		} catch (CompileTimeException e) {
