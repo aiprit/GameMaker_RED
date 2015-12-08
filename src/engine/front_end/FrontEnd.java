@@ -163,11 +163,11 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 		debugOption.getItems().addAll(yes, no);
 		topContainer.getChildren().add(myMenus);
 	}
-	
+
 	public void processColorSelection(RadioMenuItem radioItem){
 		processColorSelection(radioItem.getText());
 	}
-	
+
 	public void processColorSelection(String color){
 		styleSheetColor = color.toLowerCase();
 		playScene.getStylesheets().clear();
@@ -260,8 +260,12 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 		borderPane.setRight(myInfoGroups);
 	}
 
-	private void makeHighScoreBar(VBox container) throws IOException{
-		myHighScoreView = new HighScoreView(myCurrentGame, this);
+	private void makeHighScoreBar(VBox container) {
+		try{
+			myHighScoreView = new HighScoreView(myCurrentGame, this);
+		} catch(Exception e){
+			myHighScoreView = new HighScoreView();
+		}
 		myHighScoreView.setPrefWidth(150);
 		myHighScoreView.setFocusTraversable(false);
 		myHighScoreView.setPrefHeight(borderPane.getHeight() / 2);
