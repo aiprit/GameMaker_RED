@@ -231,7 +231,6 @@ public class ObjectEditorController {
 	private void addSpriteToMenu(DataSprite s, Menu menu) {
 		MenuItem m = new MenuItem(s.getName());
 		m.setOnAction(e -> model.setSprite(s));
-		System.out.println(s.getName());
 		menu.getItems().add(m);
 	}
 

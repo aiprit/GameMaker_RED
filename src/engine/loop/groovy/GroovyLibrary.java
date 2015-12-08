@@ -13,6 +13,7 @@ import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
 import utils.Point;
+import utils.Utils;
 
 public class GroovyLibrary {
 
@@ -29,7 +30,6 @@ public class GroovyLibrary {
 	}
 
 	private void fatalError(String message, Object... args) {
-		System.out.println(message);
 		System.exit(1);
 	}
 	
@@ -38,7 +38,6 @@ public class GroovyLibrary {
 	}
 	
 	public void print(String string) {
-		System.out.println(string);
 	}
 	
 	public boolean key_down(String keyCode) {
@@ -130,7 +129,6 @@ public class GroovyLibrary {
 	}
 
 	public void set_high_score(double score){
-		System.out.println(score);
 		myEventManager.setHighScore(score);
 	}
 
@@ -221,6 +219,10 @@ public class GroovyLibrary {
 		currentY = currentY - (.01 * ypercentage) * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
+	}
+	
+	public RunObject get_instance(String objectName) {
+		return Utils.first(myRunGame.getCurrentRoom().getObjects(), e -> e.name().equals(objectName), null);
 	}
 
 }

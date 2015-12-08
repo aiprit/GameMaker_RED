@@ -32,7 +32,6 @@ public class SoundMaker {
 			AudioClip audioclip = sound.getClip();
 			audioclip.play();
 		} catch (Exception ex) {
-			System.out.println(r.getString("ErrorPlaying"));
 		}
 	}
 }
