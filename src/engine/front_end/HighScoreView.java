@@ -43,6 +43,7 @@ public class HighScoreView extends VBox {
 			scoreInfo = new Text("\nYour high score is " + getHighScore() + "\n");
 			this.getChildren().add(scoreInfo);
 			Button logoutButton = new Button("Log out");
+			logoutButton.setFocusTraversable(false);
 			logoutButton.setOnAction(e -> doLogout());
 			this.getChildren().add(logoutButton);
 			gameInfo = new Text("\n" + myGame + " high scores:");

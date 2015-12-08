@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import engine.events.EventManager;
 import engine.events.IGameUpdatedHandler;
 import engine.events.IRoomUpdatedHandler;
+import engine.events.IVariablesChangeHandler;
 import exceptions.ResourceFailedException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -44,7 +46,7 @@ import structures.run.RunRoom;
 /**
  * @author loganrooper
  */
-public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
+public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVariablesChangeHandler {
 
 	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
 	public static final String STYLESHEET = ".css";
@@ -65,7 +67,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private HighScoreView myHighScoreView;
 	private VariableView myVariableView;
 	private ObjectInformationView myObjectInformationView;
-	
+
 	private int gameHeight, gameWidth;
 
 	public FrontEnd(int width, int height, EventManager eventManager, Stage stage, String game) throws IOException, ResourceFailedException {
@@ -117,6 +119,10 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		save.setOnAction(e -> {
 			myEventManager.onSave();
 		});
+		MenuItem load = new MenuItem("Load");
+		load.setOnAction(e -> {
+			myEventManager.onLoadSave("10");
+		});
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(e -> {
 			myEventManager.onSave();
@@ -126,7 +132,6 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		pause.setOnAction(e -> {
 			myEventManager.onPause();
 		});
-		Menu savedGames = new Menu("Saved Games");
 		Menu view = new Menu("View");
 		MenuItem highScore = new MenuItem("Show High Scores");
 		MenuItem showHelp = new MenuItem("Show Help");
@@ -140,38 +145,38 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		no.setOnAction(e -> myEventManager.setDebug(false));
 		no.setToggleGroup(debugToggle);
 		no.setSelected(true);
-		
+
 		Menu colorOption = new Menu("Theme");
-	            
+
 		ToggleGroup colorToggle = new ToggleGroup();
 		for (String color : COLORS) {
-                    RadioMenuItem radioItem = new RadioMenuItem(color);
-                    radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
-                                                playScene.getStylesheets().clear();
-                                                playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
-                    radioItem.setToggleGroup(colorToggle);
-                    if (color.toLowerCase().equals(styleSheetColor)) radioItem.setSelected(true);
-                    colorOption.getItems().add(radioItem);
-                }
-		myMenus.getMenus().addAll(fileMenu, savedGames, view, option);
-		fileMenu.getItems().addAll(open, reset, save, close, pause);
+			RadioMenuItem radioItem = new RadioMenuItem(color);
+			radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
+			playScene.getStylesheets().clear();
+			playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
+			radioItem.setToggleGroup(colorToggle);
+			if (color.toLowerCase().equals(styleSheetColor)) radioItem.setSelected(true);
+			colorOption.getItems().add(radioItem);
+		}
+		myMenus.getMenus().addAll(fileMenu, view, option);
+		fileMenu.getItems().addAll(open, reset, save, load, close, pause);
 		view.getItems().addAll(highScore, showHelp);
 		option.getItems().addAll(debugOption, colorOption);
 		debugOption.getItems().addAll(yes, no);
 		topContainer.getChildren().add(myMenus);
 	}
-	
+
 	public Menu makeColorOptionMenu(ToggleGroup colorToggle) {
-	    Menu colorOption = new Menu("Theme");
-            for (String color : COLORS) {
-                RadioMenuItem radioItem = new RadioMenuItem(color);
-                radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
-                                            playScene.getStylesheets().clear();
-                                            playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
-                radioItem.setToggleGroup(colorToggle);
-                if (color.equals(styleSheetColor)) radioItem.setSelected(true);
-            }
-            return colorOption;
+		Menu colorOption = new Menu("Theme");
+		for (String color : COLORS) {
+			RadioMenuItem radioItem = new RadioMenuItem(color);
+			radioItem.setOnAction(e -> {styleSheetColor = radioItem.getText().toLowerCase();
+			playScene.getStylesheets().clear();
+			playScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + styleSheetColor + STYLESHEET);});
+			radioItem.setToggleGroup(colorToggle);
+			if (color.equals(styleSheetColor)) radioItem.setSelected(true);
+		}
+		return colorOption;
 	}
 
 	public void makeToolBar() throws ResourceFailedException {
@@ -217,13 +222,13 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		ChoiceBox<String> cb = new ChoiceBox<String>();
 		cb.setFocusTraversable(false);
 		cb.getItems().addAll(addGamesFromDirectory());
-			//cb.setOnAction(e -> onGameChange(cb.getValue()));
-			//cb.addEventHandler(ChoiceBox, e -> onGameChange(cb.getValue()));
+		//cb.setOnAction(e -> onGameChange(cb.getValue()));
+		//cb.addEventHandler(ChoiceBox, e -> onGameChange(cb.getValue()));
 		cb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-				public void changed(ObservableValue<? extends String> source, String oldValue, String newValue)
-				{
-					onGameChange(cb.getValue());
-				}});
+			public void changed(ObservableValue<? extends String> source, String oldValue, String newValue)
+			{
+				onGameChange(cb.getValue());
+			}});
 		change.getChildren().addAll(changeTitle, cb);
 
 		hbox.getChildren().add(tBar);
@@ -239,7 +244,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		}
 		return choices;
 	}
-	
+
 	private void makeInfoBars() throws IOException{
 		VBox myInfoGroups = new VBox(2);
 		makeHighScoreBar(myInfoGroups);
@@ -254,10 +259,9 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		myHighScoreView.setPrefHeight(borderPane.getHeight() / 2);
 		container.getChildren().add(myHighScoreView);
 	}
-	
+
 	private void makeVariableBar(VBox container){
-		myVariableView = new VariableView();
-		myVariableView.setPrefHeight(borderPane.getHeight() / 2);
+		myVariableView = new VariableView(borderPane.getHeight() / 2);
 		container.getChildren().add(myVariableView);
 	}
 
@@ -283,10 +287,10 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, myEventManager::onKeyEvent);
 		stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, myEventManager::onKeyEvent);
 		//uncomment for controller functionality
-//		ControllerListener controllerTest = new ControllerListener();
-//		if(controllerTest.getControllerConnected()){
-//			controllerTest.initialize(stage);
-//		}
+		//		ControllerListener controllerTest = new ControllerListener();
+		//		if(controllerTest.getControllerConnected()){
+		//			controllerTest.initialize(stage);
+		//		}
 	}
 
 	public IDraw getDrawListener(){
@@ -300,7 +304,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	public IRoomUpdatedHandler getRoomUpdateHandler(){
 		return this;
 	}
-	
+
 	public void onGameChange(String name) {
 		try {
 			myHighScoreView.setGame(name);
@@ -324,5 +328,38 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	@Override
 	public double getHighScore() {
 		return myHighScoreView.getHighScore();
+	}
+
+	public void clearLocalVariables(){
+		myVariableView.clearLocalVariables();
+	}
+
+	public void clearGlobalVariables(){
+		myVariableView.clearGlobalVariables();
+	}
+
+	@Override
+	public void localVariableUpdate() {
+		myVariableView.localVariableUpdate();
+	}
+
+	@Override
+	public void globalVariableUpdate() {
+		myVariableView.globalVariableUpdate();
+	}
+
+	@Override
+	public void updateGlobalVariables(Map<String, Double> globalVars) {
+		myVariableView.globalVariableAssign(globalVars);
+	}
+
+	@Override
+	public void addLocalVariablesMap(long l, Map<String, Double> localVars) {
+		myVariableView.addLocalVariables(l, localVars);
+	}
+
+	@Override
+	public void removeLocalVariablesMap(long l) {
+		myVariableView.removeLocalVariables(l);
 	}
 }

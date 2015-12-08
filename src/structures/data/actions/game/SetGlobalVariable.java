@@ -31,9 +31,9 @@ public class SetGlobalVariable extends DataAction {
 	@Override
 	public String compileSyntax() {
 		if ((boolean) get("Relative").getValue()) {
-			return String.format("globals.put_variable('%s', globals.get_variable('%s') + %f);\n", get("Variable Name").getValue(), get("Variable Name").getValue(), get("Value").getValue(), get("Value").getValue());
+			return String.format("globals.put_variable('%s', globals.get_variable('%s') + %f);", get("Variable Name").getValue(), get("Variable Name").getValue(), get("Value").getValue(), get("Value").getValue());
 		} else {
-			return String.format("globals.put_variable('%s', %f);\n", get("Variable Name").getValue(), get("Value").getValue());
+			return String.format("globals.put_variable('%s', %f);", get("Variable Name").getValue(), get("Value").getValue());
 		}
 		
 	}

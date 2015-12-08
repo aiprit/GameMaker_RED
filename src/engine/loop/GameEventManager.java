@@ -258,6 +258,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 				}
 			}
 		}
+		myEventManager.addLocalVariablesMap(runObject.getInstanceId(), runObject.getVariableMap());
 		myCreatedQueue.add(runObject);
 	}
 
@@ -280,6 +281,7 @@ public class GameEventManager implements IObjectModifiedHandler, ICollisionCheck
 					myEvents.get(e).remove(o);
 				}
 			}
+			myEventManager.removeLocalVariablesMap(o.getInstanceId());
 			myRoom.getObjects().remove(o);
 		}
 		myDeleteQueue.clear();

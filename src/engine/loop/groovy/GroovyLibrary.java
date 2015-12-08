@@ -14,7 +14,7 @@ import structures.run.RunObject;
 import structures.run.RunSound;
 import utils.Point;
 
-public class GroovyLibrary {
+public class GroovyLibrary { 
 
 	private RunGame myRunGame;
 	private EventManager myEventManager;
@@ -25,7 +25,7 @@ public class GroovyLibrary {
 		myRunGame = runGame;
 		myEventManager = eventManager;
 		myInputManager = new InputManager(eventManager, false);
-		myGlobals = new GroovyGlobals(0.0);
+		myGlobals = new GroovyGlobals(runGame.getGlobalVariables(), myEventManager);
 	}
 
 	private void fatalError(String message, Object... args) {
@@ -73,6 +73,14 @@ public class GroovyLibrary {
 		return myInputManager.mouseSecondaryDown();
 	}
 	
+	public void set_object_variable(String name, double value, boolean relative, RunObject ro){
+		ro.set_variable(name, value, relative);
+		myEventManager.localVariableUpdate();
+	}
+	
+	public void update_global_variables(){
+		myRunGame.setGlobalVariables(myGlobals.getGlobalVariableMap());
+	}
 
 	public double random_number(double max){
 		Random rand = new Random();
