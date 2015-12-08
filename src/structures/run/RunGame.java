@@ -47,7 +47,7 @@ public class RunGame implements IRun {
 		
 		// How we know if this a saved load: is the current Room null?
 		String findRoomName;
-		if (dataGame.getCurrentRoom() == null) {
+	 	if (dataGame.getCurrentRoom() == null) {
 			findRoomName = dataGame.getStartRoom().getName();
 		} else {
 			findRoomName = dataGame.getCurrentRoom().getName();
@@ -181,6 +181,7 @@ public class RunGame implements IRun {
 			}
 		}
 		myDataGame.setVariableMap(myGlobalVariables);
+		myDataGame.setCurrentRoom(myRooms.indexOf(myCurrentRoom));
 		return myDataGame;
 	}
 
