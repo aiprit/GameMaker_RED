@@ -13,6 +13,7 @@ import structures.run.RunGame;
 import structures.run.RunObject;
 import structures.run.RunSound;
 import utils.Point;
+import utils.Utils;
 
 public class GroovyLibrary {
 
@@ -221,6 +222,10 @@ public class GroovyLibrary {
 		currentY = currentY - (.01 * ypercentage) * myRunGame.getCurrentRoom().getView().getView().height();
 		Point location = new Point(currentX, currentY);
 		myEventManager.setView(location);
+	}
+	
+	public RunObject get_instance(String objectName) {
+		return Utils.first(myRunGame.getCurrentRoom().getObjects(), e -> e.name().equals(objectName), null);
 	}
 
 }
