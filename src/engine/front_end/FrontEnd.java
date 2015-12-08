@@ -51,7 +51,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	public static final String DEFAULT_IMAGE_PACKAGE = "resources/";
 	public static final String[] COLORS = {"Blue", "Green", "Grey", "Pink", "Purple", "Red", "Yellow"};
 
-	private String styleSheetColor = "blue";
+	private String styleSheetColor = "red";
 	private Canvas myCanvas;
 	private IDraw myCanvasDrawer;
 	private Group myRoot;
