@@ -1,10 +1,10 @@
 .root {		
     -fx-font-size: 12pt;		
     -fx-font-family: Tahoma,Geneva,sans-serif;		
-    -fx-base: #990000;
+    -fx-base: #d9d9d9;
     -fx-background: #d9d9d9;
-    -fx-accent: #737373;
-    -fx-focus-color: #737373;
+    -fx-accent: #990000;
+    -fx-focus-color: #990000;
 }	
 
 .scroll-bar {
@@ -12,11 +12,11 @@
 }
 
 .thumb {
-	-fx-background-color: #d9d9d9;
+	-fx-background-color: #990000;
 }
 
 .track {
-	-fx-background-color: #990000;
+	-fx-background-color: #d9d9d9;
 }
 		
 .button {		
@@ -41,6 +41,10 @@
 .combo-box-base:hover {		
     -fx-background-color: #000000;		
 }		
+
+.list-view {
+	-fx-text-fill: #000;
+}
 		
 .label {		
     -fx-font-size: 11pt;		
@@ -49,7 +53,8 @@
     -fx-opacity: .6;		
 }		
 		
-.text-field {		
+.text-field {	
+	-fx-text-fill: #000000;		
     -fx-font-size: 14pt;		
     -fx-font-family: Tahoma,Geneva,sans-serif;		
 } 		
