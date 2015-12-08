@@ -109,7 +109,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
                 return s;
             }
         }
-        System.out.println("-Sprite not found");
         return null;
     }
 
@@ -119,7 +118,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
                 return o;
             }
         }
-        System.out.println("-Object not found");
         return null;
     }
 

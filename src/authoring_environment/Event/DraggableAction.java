@@ -100,7 +100,6 @@ public class DraggableAction implements Callback<ListView<IAction>, ListCell<IAc
 				List<IAction> itemscopy = new ArrayList<IAction>(getListView().getItems());
 				getListView().getItems().setAll(itemscopy);
 				success = true;
-				System.out.println(items);
 				}
 //				else{
 //				String player = event.getDragboard().getString();
