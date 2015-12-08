@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
+import structures.run.RunObject;
 import structures.run.RunRoom;
 
 /**
@@ -26,6 +27,10 @@ public class RoomLoop {
 	private GameEventManager gameManager;
 	
 	public RoomLoop(RunRoom room, EventManager eventManager, IDraw drawListener, GroovyEngine groovyEngine){
+		eventManager.clearLocalVariables();
+		for(RunObject o : room.getObjects()){
+			eventManager.addLocalVariablesMap(o.getInstanceId(), o.getVariableMap());
+		}
 		gameManager = new GameEventManager(room, eventManager, drawListener, groovyEngine);
 		createRoomLoop();
 	}

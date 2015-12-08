@@ -5,6 +5,8 @@ import structures.run.RunRoom;
 public interface IGameUpdatedHandler {
 
 	void setHighScore(double highScore);
-	double getHighScore();
+	Double getHighScore();
+	void localVariableUpdate();
+	void globalVariableUpdate();
 	
 }

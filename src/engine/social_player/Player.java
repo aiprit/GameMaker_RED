@@ -6,9 +6,11 @@ import java.util.Map;
 public class Player {
 
 	private Map<String, Double> highScore;
+	private String colorPreference;
 
 	public Player(){
 		highScore = new HashMap<String, Double>();
+		colorPreference = "red";
 	}
 
 	public Double getHighScore(String game){
@@ -25,6 +27,14 @@ public class Player {
 	
 	public boolean contains(String game){
 		return highScore.containsKey(game);
+	}
+	
+	public String getColorPreference(){
+		return colorPreference;
+	}
+	
+	public void setColorPreference(String color){
+		colorPreference = color;
 	}
 
 }
