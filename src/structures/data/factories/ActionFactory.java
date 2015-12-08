@@ -59,6 +59,7 @@ import structures.data.actions.object.CreateInstanceRandom;
 import structures.data.actions.object.Destroy;
 import structures.data.actions.object.GetObjectVariable;
 import structures.data.actions.object.ScaleSprite;
+import structures.data.actions.object.SetAlpha;
 import structures.data.actions.object.SetObjectVariable;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
@@ -147,7 +148,8 @@ public class ActionFactory {
 				BounceAxis.class,
 				IfCollidedPosition.class,
 				IfPositionFree.class,
-				IfSprite.class
+				IfSprite.class,
+				SetAlpha.class
 			});
 
 			for (Class<?> action : myPossibleActions) {
