@@ -4,8 +4,6 @@ import authoring_environment.room.preview.DraggableNode;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.image.Image;
 import utils.Point;
-import utils.rectangle.IRectangle;
-import utils.rectangle.Rectangle;
 
 public class DraggableImage extends DraggableNode {
 	private Image myImage;
