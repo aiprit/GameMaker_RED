@@ -34,8 +34,12 @@ public class HighScoreView extends VBox {
 		this.setHeight(50);
 		createPane();
 	}
+	
+	public HighScoreView(){
+		
+	}
 
-	public void createPane(){
+	private void createPane(){
 		this.getChildren().clear();
 		Text scoreInfo;
 		Text gameInfo;
@@ -71,6 +75,9 @@ public class HighScoreView extends VBox {
 	}
 
 	public void updateScore(double score){
+		if(myPlayers == null){
+			return;
+		}
 		if(myPlayers.hasPlayer()){
 			myPlayers.setPlayerHighScore(score);
 		}
@@ -78,6 +85,9 @@ public class HighScoreView extends VBox {
 	}
 
 	public Double getHighScore(){
+		if(myPlayers == null){
+			return null;
+		}
 		if(myPlayers.getPlayerHighScore() != null){
 			return myPlayers.getPlayerHighScore();
 		}
@@ -116,12 +126,18 @@ public class HighScoreView extends VBox {
 	}
 
 	public void setGame(String game){
+		if(myPlayers == null){
+			return;
+		}
 		myGame = game;
 		myPlayers.setGame(game);
 		createPane();
 	}
 
 	public void showAllScores(){
+		if(myPlayers == null){
+			return;
+		}
 		Map<String, String> info = myPlayers.getAllPlayers();
 		for(String s : info.keySet()){
 			this.getChildren().add(new Text("\n" + s + " " + info.get(s)));
@@ -129,6 +145,9 @@ public class HighScoreView extends VBox {
 	}
 	
 	public void updateColor(String color){
+		if(myPlayers == null){
+			return;
+		}
 		myFrontEnd.processColorSelection(color);
 	}
 
