@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/game/" startRoom="0" title="game">
+  <variableMap/>
+  <objects>
+    <object name="question" scaleX="1.0" scaleY="1.0" solid="false" sprite="helpicon" zIndex="0">
+      <events>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="F">
+          <actions>
+            <action p0="MTA=" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="helpicon.png" centerX="0.0" centerY="0.0" name="helpicon"/>
+  </sprites>
+  <sounds/>
+  <rooms>
+    <room backgroundColor="0x006400ff" height="608.0" name="home" snapshot="iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAAEJElEQVR42u3av2/MYRzA8d7V9b7q&#10;V4NBRIiEsLFYTDYxGPwNrZ7fGtpTLQaDXzFJLHQwGURCtNcqisHi18BGIjFJJN1s1buPp9/SMJu+&#10;vC555e6+952ePO97nid3bW09bQH84wwCCB0QOiB0QOiA0AGhA0IHhA5CB4QOCB0QOiB0QOiA0AGh&#10;g9ABoQNCB4QOCB0QOiB0QOggdIMAQgeEDggdEDogdEDowP8ceqm7lJt7Xek7HNnQZGRnnkZ1eCqq&#10;Jy7M39NTnr+vp2QSIPRihl6Ocm1DZKcnYsXJ0dh2ZjJ2X3wW289OpvdjUT39OBYd3ZPfJ3SEXlDl&#10;3hWRDT6KrhT1mw9fozk7G3OPZrMZbz5+jcrJRmT1iWg/sCVf2U0EhF5AHf1XY2m9EQdHXsXMzPe4&#10;cvdddB56EN3XXsRsiv7y7dex6tR4ZMNPTQCEXkj7q5GliDsHGrEpnc13nHscy9Lr1enazvNTeeg3&#10;R9/n77P0ZVCurTcJEHrhzue9K1PoDyMbGM9Vk+X18Th0/UXaurfiy/S3qBwfS5+l7Xv/aLQf2W0S&#10;IPTChb6/K53Pfw+9EVuHJ2Pm+2y8/TQda/ob+bU89IEU+uFdJgFCL572tKI/WAh9WVrN9914Gc1W&#10;MwZvvYyu+q/IG/nKX+rtMgkQehFV+o6lkMcWYl+XzuofP0/H5p9n9/nr6XnwjgmA0Au7fe9ZFNnQ&#10;VB7z4mTXpefRarVi74Un+Xk9D33wUdrmL/E7OkIv8j/j5rbw1fpI2p5PxJIUe2ft/vy2fS70oXtR&#10;rq31hxmEXuwVvbSgXNsYleO90dF/OTr6TkT7wW1/fC50hA4IHRA6IHRA6IDQAaEDQgehA0IHhA4I&#10;HRA6IHRA6IDQQeiA0AGhA0IHhA4IHRA6IHRA6CB0QOiA0AGhA0IHhA4IHRA6CB0QOiB0QOiA0AGh&#10;A0IHhA5CB4QOCB0QOiB0QOiA0AGhAwYBhA4IHRA6IHRA6IDQAaEDQgehA0IHhA4IHRA6IHRA6IDQ&#10;QeiA0AGhA0IHhA4IHRA6IHQQukEAoQNCB4QOCB0QOiB0QOiA0EHogNABoQNCB4QOCB0QOiB0EDog&#10;dEDogNABoQNCB4QOCB2EbhBA6IDQAaEDQgeEDggdEDogdBA6IHRA6IDQAaEDQgeEDggdhA4IHRA6&#10;IHRA6IDQAaEDQgehGwQQOiB0QOiA0AGhA0IHhA4IHYQOCB0QOiB0QOiA0AGhA0IHoQNCB4QOCB0Q&#10;OiB0QOiA0EHogNABoQNCB4QOCB0QOiB0QOggdEDogNABoQNCB4QOCB0QOggdEDogdEDogNABoQNC&#10;B4QOQgeEDggdEDogdEDogNABoQNCB6EDQgeEDggdEDogdEDogNBB6IDQAaEDQgeEDggdEDogdBA6&#10;IHRA6IDQAaEDQgf+2g+fxRkt7HauZAAAAABJRU5ErkJggg==" width="608.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449354775375" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="question" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="128.0" y="80.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+      </objectInstances>
+    </room>
+  </rooms>
+</game>

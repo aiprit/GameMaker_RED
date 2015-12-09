@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="Games/Tanks/" startRoom="0" title="Tanks">
+  <variableMap/>
+  <objects>
+    <object name="bullet" scaleX="1.0" scaleY="1.0" solid="false" sprite="bullet" zIndex="0">
+      <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="boss">
+          <actions>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="MA==" p1="NQ==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.CollisionEvent" dataObject="sandfishmonster">
+          <actions>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="c2hvdGd1bg==" title="PlaySound"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="tank" scaleX="1.0" scaleY="1.0" solid="false" sprite="tank" zIndex="0">
+      <events>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="Vw==" p1="RG93bg==" title="IfKey"/>
+            <action title="Open"/>
+            <action p0="Mjcw" p1="Mg==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action title="Close"/>
+            <action p0="Uw==" p1="RG93bg==" title="IfKey"/>
+            <action title="Open"/>
+            <action p0="OTA=" p1="Mg==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action title="Close"/>
+            <action p0="RA==" p1="RG93bg==" title="IfKey"/>
+            <action title="Open"/>
+            <action p0="dGFuaw==" title="ChangeSprite"/>
+            <action p0="ZGly" p1="MC4w" p2="ZmFsc2U=" title="SetObjectVariable"/>
+            <action p0="MA==" p1="Mg==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action title="Close"/>
+            <action p0="QQ==" p1="RG93bg==" title="IfKey"/>
+            <action title="Open"/>
+            <action p0="ZGly" p1="MTgw" p2="ZmFsc2U=" title="SetObjectVariable"/>
+            <action p0="dGFua19sZWZ0" title="ChangeSprite"/>
+            <action p0="MTgw" p1="Mg==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action title="Close"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
+          <actions>
+            <action p0="ZGly" p1="PT0=" p2="MTgwLjAw" title="IfObjectVar"/>
+            <action title="Open"/>
+            <action p0="YnVsbGV0X2xlZnQ=" title="CreateInstanceAtObject"/>
+            <action title="Close"/>
+            <action p0="ZGly" p1="PT0=" p2="MC4w" title="IfObjectVar"/>
+            <action title="Open"/>
+            <action p0="YnVsbGV0" title="CreateInstanceAtObject"/>
+            <action title="Close"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="MC4x" title="SetFriction"/>
+            <action p0="ZGly" p1="MA==" p2="ZmFsc2U=" title="SetObjectVariable"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="sandfishmonster" scaleX="1.0" scaleY="1.0" solid="false" sprite="monster1_sprite" zIndex="0">
+      <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="bullet_left">
+          <actions>
+            <action p0="bXlzY29yZQ==" p1="MQ==" p2="dHJ1ZQ==" title="SetGlobalVariable"/>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.CollisionEvent" dataObject="bullet">
+          <actions>
+            <action p0="bXlzY29yZQ==" p1="MQ==" p2="dHJ1ZQ==" title="SetGlobalVariable"/>
+            <action title="Destroy"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="spawner" scaleX="1.0" scaleY="1.0" solid="false" zIndex="0">
+      <events>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="MQ==" p1="NTA=" title="IfOdds"/>
+            <action title="Open"/>
+            <action p0="c2FuZGZpc2htb25zdGVy" p1="NjA4" p2="NjA4" title="CreateInstanceRandom"/>
+            <action title="Close"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="bullet_left" scaleX="1.0" scaleY="1.0" solid="false" sprite="bulletleft" zIndex="0">
+      <events>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="MTgw" p1="NQ==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action p0="c2hvdGd1bg==" title="PlaySound"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="gamemanager" scaleX="1.0" scaleY="1.0" solid="false" zIndex="0">
+      <events>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="bXlzY29yZQ==" p1="PT0=" p2="NQ==" title="IfGlobalVar"/>
+            <action title="Open"/>
+            <action p0="aGVsbGJhdHRsZQ==" title="GoToRoom"/>
+            <action p0="bXlzY29yZQ==" p1="Ng==" p2="ZmFsc2U=" title="SetGlobalVariable"/>
+            <action title="Close"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.GameStartEvent">
+          <actions>
+            <action p0="bXlzY29yZQ==" p1="MA==" p2="ZmFsc2U=" title="SetGlobalVariable"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+    <object name="boss" scaleX="1.0" scaleY="1.0" solid="false" sprite="boss_left" zIndex="0">
+      <events>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="V2VsYzBtZSB0MCBoZWxs" p1="MTA=" p2="MTA=" p3="MjA=" title="DrawText"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="bullet.png" centerX="0.0" centerY="0.0" name="bullet"/>
+    <sprite baseFileName="tank.png" centerX="0.0" centerY="0.0" name="tank"/>
+    <sprite baseFileName="monster1_sprite.png" centerX="0.0" centerY="0.0" name="monster1_sprite"/>
+    <sprite baseFileName="tank_left.png" centerX="0.0" centerY="0.0" name="tank_left"/>
+    <sprite baseFileName="bigbulletleft.png" centerX="0.0" centerY="0.0" name="bigbulletleft"/>
+    <sprite baseFileName="bigbulletright.png" centerX="0.0" centerY="0.0" name="bigbulletright"/>
+    <sprite baseFileName="bulletleft.png" centerX="0.0" centerY="0.0" name="bulletleft"/>
+    <sprite baseFileName="boss.png" centerX="0.0" centerY="0.0" name="boss"/>
+    <sprite baseFileName="boss_left.png" centerX="0.0" centerY="0.0" name="boss_left"/>
+  </sprites>
+  <sounds>
+    <sound baseFileName="shotgun.wav" name="shotgun"/>
+  </sounds>
+  <rooms>
+    <room backgroundColor="0x008000ff" height="608.0" name="battle1" snapshot="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&#10;30smgRfTqQAAAABJRU5ErkJggg==" width="608.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449438787526" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.1" gravityX="0.0" gravityY="0.0" parentObject="tank" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="265.6" y="309.5999999999994" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449446506383" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="505.0" y="441.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449446507535" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="521.0" y="393.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449530362155" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="gamemanager" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="114.0" y="482.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449530366523" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="spawner" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="50.0" y="466.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="90.553432897683" y="498.5246003128917" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="385.2142840942683" y="81.89695399992942" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="136.07845306837774" y="417.55630525156784" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="473.8104514749933" y="44.310635818134784" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="0" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="sandfishmonster" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="386.1263817158522" y="480.0200453374089" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+      </objectInstances>
+    </room>
+    <room backgroundColor="0xff0000ff" height="608.0" name="hellbattle" snapshot="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&#10;QOjAWel/AMDljybbXbcvAAAAAElFTkSuQmCC" width="608.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449529920878" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="boss" scaleX="0.9142857142857143" scaleY="0.9142857142857143" velocityX="0.0" velocityY="0.0" visibility="true" x="448.0" y="288.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449529924333" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="tank" scaleX="1.0" scaleY="1.0" velocityX="0.0" velocityY="0.0" visibility="true" x="73.0" y="276.5" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+      </objectInstances>
+    </room>
+  </rooms>
+</game>
