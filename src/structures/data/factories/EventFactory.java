@@ -3,22 +3,12 @@ package structures.data.factories;
 import javafx.scene.input.KeyCode;
 import org.w3c.dom.Element;
 import structures.data.DataGame;
-import structures.data.events.CollisionEvent;
-import structures.data.events.GameEndEvent;
-import structures.data.events.GameStartEvent;
-import structures.data.events.GlobalMousePressedEvent;
-import structures.data.events.KeyPressedEvent;
-import structures.data.events.KeyReleasedEvent;
-import structures.data.events.LeaveRoomEvent;
-import structures.data.events.ObjectCreateEvent;
-import structures.data.events.ObjectDestroyEvent;
-import structures.data.events.ObjectMousePressedEvent;
-import structures.data.events.StepEvent;
+import structures.data.events.*;
 import structures.data.interfaces.IDataEvent;
 
 public class EventFactory {
 
-    public IDataEvent getEvent(Element e, DataGame g){
+    public IDataEvent getEvent(Element e, DataGame g) {
         String className = e.getAttribute("class");
 
         switch (className) {

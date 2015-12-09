@@ -9,11 +9,8 @@ import structures.data.interfaces.IDataEvent;
 
 import java.util.*;
 
-//TODO check if IObjectInterface is being used
 public class DataGame extends Observable implements IObjectInterface, IDataGame {
 
-    public static final String SPRITE_REL_DIRECTORY = "/resources/";
-    public static final String SOUND_REL_DIRECTORY = "/sounds/";
     private static final int DEFAULT_VIEW_SIZE = 608;
     ObservableList<DataRoom> myRooms;
     ObservableList<DataObject> myObjects;
@@ -201,7 +198,6 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
                     if(a != null) {
                         r.append("          Action: " + a.getDescription() + "\n");
                     }
-
                 }
             }
         }
@@ -235,5 +231,4 @@ public class DataGame extends Observable implements IObjectInterface, IDataGame 
     private void update() {
         notifyObservers();
     }
-
 }

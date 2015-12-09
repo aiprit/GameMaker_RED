@@ -56,7 +56,6 @@ public class DataRoom implements IDataRoom {
         return new double[]{myWidth, myHeight};
     }
 
-
     public DataView getView() {
         return myView;
     }

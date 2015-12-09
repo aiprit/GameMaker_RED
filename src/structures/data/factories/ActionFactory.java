@@ -2,66 +2,15 @@ package structures.data.factories;
 
 import exceptions.ParameterParseException;
 import exceptions.XMLFormatException;
-
 import org.w3c.dom.Element;
-
 import structures.data.DataObject;
 import structures.data.DataRoom;
 import structures.data.DataSound;
 import structures.data.DataSprite;
-import structures.data.actions.game.DefineTimerRepeated;
-import structures.data.actions.game.DisplayMessage;
-import structures.data.actions.game.DrawRectangle;
-import structures.data.actions.game.DrawText;
-import structures.data.actions.game.GetHighScore;
-import structures.data.actions.game.PlaySound;
-import structures.data.actions.game.SaveGame;
-import structures.data.actions.game.SetGlobalVariable;
-import structures.data.actions.game.SetHighScore;
-import structures.data.actions.game.SetTimerOnce;
-import structures.data.actions.game.SetTimerRepeated;
-import structures.data.actions.logic.Close;
-import structures.data.actions.logic.CloseNoEnd;
-import structures.data.actions.logic.Else;
-import structures.data.actions.logic.IfCollidedPosition;
-import structures.data.actions.logic.IfCollidedVar;
-import structures.data.actions.logic.IfGlobalVar;
-import structures.data.actions.logic.IfHighScore;
-import structures.data.actions.logic.IfInDirection;
-import structures.data.actions.logic.IfKey;
-import structures.data.actions.logic.IfLocalVar;
-import structures.data.actions.logic.IfMouseButton;
-import structures.data.actions.logic.IfOdds;
-import structures.data.actions.logic.IfOnGround;
-import structures.data.actions.logic.IfPositionFree;
-import structures.data.actions.logic.IfRoom;
-import structures.data.actions.logic.IfSpeed;
-import structures.data.actions.logic.IfSprite;
-import structures.data.actions.logic.Open;
-import structures.data.actions.logic.Repeat;
-import structures.data.actions.logic.WithCollided;
-import structures.data.actions.logic.WithCreateInstance;
-import structures.data.actions.move.Bounce;
-import structures.data.actions.move.BounceAxis;
-import structures.data.actions.move.CapSpeed;
-import structures.data.actions.move.MoveTo;
-import structures.data.actions.move.MoveToRandom;
-import structures.data.actions.move.SetAcceleration;
-import structures.data.actions.move.SetCappedVelocityInDirection;
-import structures.data.actions.move.SetFriction;
-import structures.data.actions.move.SetGravity;
-import structures.data.actions.move.SetVelocityInDirection;
-import structures.data.actions.move.SetVelocityToPoint;
-import structures.data.actions.object.ChangeSprite;
-import structures.data.actions.object.CreateInstance;
-import structures.data.actions.object.CreateInstanceAtCursor;
-import structures.data.actions.object.CreateInstanceAtObject;
-import structures.data.actions.object.CreateInstanceRandom;
-import structures.data.actions.object.Destroy;
-import structures.data.actions.object.GetObjectVariable;
-import structures.data.actions.object.ScaleSprite;
-import structures.data.actions.object.SetAlpha;
-import structures.data.actions.object.SetObjectVariable;
+import structures.data.actions.game.*;
+import structures.data.actions.logic.*;
+import structures.data.actions.move.*;
+import structures.data.actions.object.*;
 import structures.data.actions.params.ObjectParam;
 import structures.data.actions.params.RoomParam;
 import structures.data.actions.params.SoundParam;
@@ -73,123 +22,119 @@ import structures.data.actions.script.RunScript;
 import structures.data.interfaces.IAction;
 import utils.Reflection;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ActionFactory {
 
-	private static Map<String, Class<?>> myActions;
-	private List<DataRoom> myRooms;
-	private List<DataObject> myObjects;
-	private List<DataSprite> mySprites;
-	private List<DataSound> mySounds;
+    private static Map<String, Class<?>> myActions;
+    private List<DataRoom> myRooms;
+    private List<DataObject> myObjects;
+    private List<DataSprite> mySprites;
+    private List<DataSound> mySounds;
 
-	public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells, List<DataSprite> sprites, List<DataSound> sounds) {
-		myRooms = roomShells;
-		myObjects = objectShells;
-		mySprites = sprites;
-		mySounds = sounds;
-		if (myActions == null) {
-			myActions = new HashMap<>();
-			List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
-				RunScript.class,
-				CapSpeed.class,
-				SetCappedVelocityInDirection.class,
-				IfOnGround.class,
-				Close.class,
-				CloseNoEnd.class,
-				CreateInstance.class,
-				CreateInstanceAtCursor.class,
-				CreateInstanceAtObject.class,
-				CreateInstanceRandom.class,
-				DisplayMessage.class,
-				DrawRectangle.class,
-				DrawText.class,
-				Else.class,
-				GetHighScore.class,
-				GoToRoom.class,
-				IfGlobalVar.class,
-				IfKey.class,
-				IfMouseButton.class,
-				IfHighScore.class,
-				IfOdds.class,
-				IfRoom.class,
-				IfInDirection.class,
-				Open.class,
-				PlaySound.class,
-				Repeat.class,
-				SaveGame.class,
-				SetGlobalVariable.class,
-				SetHighScore.class,
-				WithCollided.class,
-				WithCreateInstance.class,
-				Wrap.class,
-				ChangeSprite.class,
-				Destroy.class,
-				GetObjectVariable.class,
-				MoveTo.class,
-				MoveToRandom.class,
-				ScaleSprite.class,
-				SetAcceleration.class,
-				SetFriction.class,
-				SetGravity.class,
-				SetObjectVariable.class,
-				SetTimerOnce.class,
-				SetTimerRepeated.class,
-				DefineTimerRepeated.class,
-				SetVelocityInDirection.class,
-				SetVelocityToPoint.class,
-				ViewFollow.class,	
-				Bounce.class,
-				IfSpeed.class,
-				IfLocalVar.class,
-				IfCollidedVar.class,
-				BounceAxis.class,
-				IfCollidedPosition.class,
-				IfPositionFree.class,
-				IfSprite.class,
-				SetAlpha.class
-			});
+    public ActionFactory(List<DataRoom> roomShells, List<DataObject> objectShells, List<DataSprite> sprites, List<DataSound> sounds) {
+        myRooms = roomShells;
+        myObjects = objectShells;
+        mySprites = sprites;
+        mySounds = sounds;
+        if (myActions == null) {
+            myActions = new HashMap<>();
+            List<Class<?>> myPossibleActions = Arrays.asList(new Class<?>[]{
+                    RunScript.class,
+                    CapSpeed.class,
+                    SetCappedVelocityInDirection.class,
+                    IfOnGround.class,
+                    Close.class,
+                    CloseNoEnd.class,
+                    CreateInstance.class,
+                    CreateInstanceAtCursor.class,
+                    CreateInstanceAtObject.class,
+                    CreateInstanceRandom.class,
+                    DisplayMessage.class,
+                    DrawRectangle.class,
+                    DrawText.class,
+                    Else.class,
+                    GetHighScore.class,
+                    GoToRoom.class,
+                    IfGlobalVar.class,
+                    IfKey.class,
+                    IfMouseButton.class,
+                    IfHighScore.class,
+                    IfOdds.class,
+                    IfRoom.class,
+                    IfInDirection.class,
+                    Open.class,
+                    PlaySound.class,
+                    Repeat.class,
+                    SaveGame.class,
+                    SetGlobalVariable.class,
+                    SetHighScore.class,
+                    WithCollided.class,
+                    WithCreateInstance.class,
+                    Wrap.class,
+                    ChangeSprite.class,
+                    Destroy.class,
+                    GetObjectVariable.class,
+                    MoveTo.class,
+                    MoveToRandom.class,
+                    ScaleSprite.class,
+                    SetAcceleration.class,
+                    SetFriction.class,
+                    SetGravity.class,
+                    SetObjectVariable.class,
+                    SetTimerOnce.class,
+                    SetTimerRepeated.class,
+                    DefineTimerRepeated.class,
+                    SetVelocityInDirection.class,
+                    SetVelocityToPoint.class,
+                    ViewFollow.class,
+                    Bounce.class,
+                    IfSpeed.class,
+                    IfLocalVar.class,
+                    IfCollidedVar.class,
+                    BounceAxis.class,
+                    IfCollidedPosition.class,
+                    IfPositionFree.class,
+                    IfSprite.class,
+                    SetAlpha.class
+            });
 
-			for (Class<?> action : myPossibleActions) {
-				myActions.put(action.getSimpleName(), action);
-			}
-		}
+            for (Class<?> action : myPossibleActions) {
+                myActions.put(action.getSimpleName(), action);
+            }
+        }
 
-	}
+    }
 
-	public IAction getAction(Element e) throws XMLFormatException {
+    public IAction getAction(Element e) throws XMLFormatException {
 
-		Class<?> type  = myActions.get(e.getAttribute("title"));
-		if (type == null) {
-			throw new XMLFormatException("Unknown action type: '%s'", e.getAttribute("title"));
-		}
-		IAction action = (IAction) Reflection.createInstance(type);
+        Class<?> type = myActions.get(e.getAttribute("title"));
+        if (type == null) {
+            throw new XMLFormatException("Unknown action type: '%s'", e.getAttribute("title"));
+        }
+        IAction action = (IAction) Reflection.createInstance(type);
 
-		for (int i = 0; i < action.getParameters().size(); i++) {
-			try {
-				String encodedParameter = e.getAttribute("p" + Integer.toString(i));
-				byte[] authBytes = Base64.getDecoder().decode(encodedParameter);
-				
-				if(action.getParameters().get(i) instanceof RoomParam){
-					((RoomParam) action.getParameters().get(i)).setRoomList(myRooms);
-				} else if(action.getParameters().get(i) instanceof ObjectParam){
-					((ObjectParam) action.getParameters().get(i)).setObjectList(myObjects);
-				} else if(action.getParameters().get(i) instanceof SpriteParam){
-					((SpriteParam) action.getParameters().get(i)).setSpriteList(mySprites);
-				} else if(action.getParameters().get(i) instanceof SoundParam){
-					((SoundParam) action.getParameters().get(i)).setSoundList(mySounds);
-				}
-				
-				action.getParameters().get(i).parse(new String(authBytes));
-			} catch (ParameterParseException e1) {
-				e1.printStackTrace();
-			}
-		}
+        for (int i = 0; i < action.getParameters().size(); i++) {
+            try {
+                String encodedParameter = e.getAttribute("p" + Integer.toString(i));
+                byte[] authBytes = Base64.getDecoder().decode(encodedParameter);
 
-		return action;
-	}
+                if (action.getParameters().get(i) instanceof RoomParam) {
+                    ((RoomParam) action.getParameters().get(i)).setRoomList(myRooms);
+                } else if (action.getParameters().get(i) instanceof ObjectParam) {
+                    ((ObjectParam) action.getParameters().get(i)).setObjectList(myObjects);
+                } else if (action.getParameters().get(i) instanceof SpriteParam) {
+                    ((SpriteParam) action.getParameters().get(i)).setSpriteList(mySprites);
+                } else if (action.getParameters().get(i) instanceof SoundParam) {
+                    ((SoundParam) action.getParameters().get(i)).setSoundList(mySounds);
+                }
+
+                action.getParameters().get(i).parse(new String(authBytes));
+            } catch (ParameterParseException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        return action;
+    }
 }

@@ -129,7 +129,6 @@ public class DataInstance {
         myZIndex = zIndex;
     }
 
-
     public double getAngularVelocity() {
         return myAngularVelocity;
     }

@@ -94,7 +94,7 @@ public class XMLWriter {
         Element object = doc.createElement("object");
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
-        if(dataObject.getSprite()!= null ){
+        if (dataObject.getSprite() != null) {
             object.setAttribute("sprite", dataObject.getSprite().getName());
         }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));

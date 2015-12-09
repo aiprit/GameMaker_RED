@@ -4,5 +4,5 @@ import exceptions.ResourceFailedException;
 
 public interface IResource {
 	boolean loaded();
-	public void load(String directory) throws ResourceFailedException;
+	void load(String directory) throws ResourceFailedException;
 }

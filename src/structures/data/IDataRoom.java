@@ -2,11 +2,11 @@ package structures.data;
 
 
 public interface IDataRoom {
-	public void setSize(double width, double height);
+	void setSize(double width, double height);
 	
-	public double[] getSize();
+	double[] getSize();
 	
-	public void setBackgroundColor(String color);
+	void setBackgroundColor(String color);
 	
-	public String getBackgroundColor();
+	String getBackgroundColor();
 }

@@ -1,11 +1,10 @@
 package XML;
 
 import authoring_environment.FileHandlers.FileManager;
+import exceptions.XMLFormatException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.w3c.dom.*;
-
-import exceptions.XMLFormatException;
 import org.xml.sax.SAXException;
 import structures.data.*;
 import structures.data.factories.ActionFactory;
@@ -15,7 +14,6 @@ import sun.misc.BASE64Decoder;
 import utils.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.html.parser.Parser;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class XMLReader {
-	
+
     DataGame game;
     private List<DataRoom> preloadedRooms;
     private List<DataObject> preloadedObjects;
@@ -68,16 +66,16 @@ public class XMLReader {
 
             NodeList sprites = doc.getElementsByTagName("sprite");
             loadSprites(sprites);
-            
+
             NodeList rooms = doc.getElementsByTagName("room");
             preloadedRooms = preloadRooms(rooms);
 
             NodeList objects = doc.getElementsByTagName("object");
-            
+
             preloadedObjects = preloadObjects(objects);
-            
+
             loadObjects(objects);
-   
+
             loadRooms(rooms);
 
 
@@ -89,28 +87,27 @@ public class XMLReader {
             //e.printStackTrace();
         } catch (IOException e) {
             System.out.println("IOException Found.");
-        } catch (SAXException e){
+        } catch (SAXException e) {
             System.out.println("SAXException.");
         } catch (ParserConfigurationException e) {
             System.out.println("Invalid XML Parser Configuration.");
         }
         return game;
     }
-    
-    private List<DataObject> preloadObjects(NodeList objects){
-    	List<DataObject> preObjects = new ArrayList<>();
-    	for (int i = 0; i < objects.getLength(); i++) {
+
+    private List<DataObject> preloadObjects(NodeList objects) {
+        List<DataObject> preObjects = new ArrayList<>();
+        for (int i = 0; i < objects.getLength(); i++) {
 
             Node object = objects.item(i);
 
             if (object.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) object;
                 DataObject obj = new DataObject(elem.getAttribute("name"));
                 preObjects.add(obj);
             }
-    	}
-    	return preObjects;
+        }
+        return preObjects;
     }
 
     private void loadObjects(NodeList objects) throws XMLFormatException {
@@ -119,7 +116,6 @@ public class XMLReader {
             Node object = objects.item(i);
 
             if (object.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) object;
                 DataObject obj = preloadedObjects.get(i);
                 obj.setScaleX(Double.parseDouble(elem.getAttribute("scaleX")));
@@ -137,7 +133,6 @@ public class XMLReader {
             Node object = objects.item(i);
 
             if (object.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) object;
                 DataObject obj = game.getObjectFromString(elem.getAttribute("name"));
                 NodeList events = elem.getElementsByTagName("event");
@@ -153,9 +148,7 @@ public class XMLReader {
             Node event = events.item(i);
 
             if (event.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) event;
-
                 obj.bindEvent(factory.getEvent(elem, game),
                         loadActions(elem.getElementsByTagName("action")));
             }
@@ -183,14 +176,11 @@ public class XMLReader {
             Node sprite = sprites.item(i);
 
             if (sprite.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) sprite;
-
                 DataSprite sp = new DataSprite(elem.getAttribute("name"),
                         elem.getAttribute("baseFileName"));
                 sp.setCenterX(Double.parseDouble(elem.getAttribute("centerX")));
                 sp.setCenterY(Double.parseDouble(elem.getAttribute("centerY")));
-
                 game.addSprite(sp);
             }
         }
@@ -202,31 +192,28 @@ public class XMLReader {
             Node sound = sounds.item(i);
 
             if (sound.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) sound;
-
                 DataSound sd = new DataSound(elem.getAttribute("name"),
                         elem.getAttribute("baseFileName"));
                 game.addSound(sd);
             }
         }
     }
-    
-    private List<DataRoom> preloadRooms(NodeList rooms){
-    	List<DataRoom> preRoom = new ArrayList<>();
-    	for (int i = 0; i < rooms.getLength(); i++) {
+
+    private List<DataRoom> preloadRooms(NodeList rooms) {
+        List<DataRoom> preRoom = new ArrayList<>();
+        for (int i = 0; i < rooms.getLength(); i++) {
 
             Node room = rooms.item(i);
 
             if (room.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) room;
-
                 DataRoom rm = new DataRoom(elem.getAttribute("name"),
                         0, 0);
                 preRoom.add(rm);
             }
-    	}
-    	return preRoom;
+        }
+        return preRoom;
     }
 
     private void loadRooms(NodeList roomData) {
@@ -236,15 +223,10 @@ public class XMLReader {
 
             if (room.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) room;
-
                 DataRoom rm = preloadedRooms.get(i);
-                
                 rm.setSize(Double.parseDouble(elem.getAttribute("width")), Double.parseDouble(elem.getAttribute("height")));
-
                 rm.setBackgroundColor(elem.getAttribute("backgroundColor"));
-
                 String encodedSnapshot = elem.getAttribute("snapshot");
-
                 BufferedImage image = null;
                 byte[] imageByte;
                 try {
@@ -256,22 +238,16 @@ public class XMLReader {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 rm.setSnapshot(FileManager.imgToWriteableImage(image));
-
                 Element view = (Element) elem.getElementsByTagName("view").item(0);
-
                 DataView vw = new DataView(view.getAttribute("name"),
                         Double.parseDouble(view.getAttribute("x")),
                         Double.parseDouble(view.getAttribute("y")),
                         Double.parseDouble(view.getAttribute("width")),
                         Double.parseDouble(view.getAttribute("height")));
                 rm.setView(vw);
-
                 NodeList objectInstances = elem.getElementsByTagName("objectInstance");
-
                 loadObjectInstances(rm, objectInstances);
-
                 game.addRoom(rm);
             }
         }
@@ -295,19 +271,15 @@ public class XMLReader {
             Node instance = objectInstances.item(i);
 
             if (instance.getNodeType() == Node.ELEMENT_NODE) {
-
                 Element elem = (Element) instance;
-
                 DataInstance di = new DataInstance(game.getObjectFromString(elem.getAttribute("parentObject")),
                         Double.parseDouble(elem.getAttribute("x")),
                         Double.parseDouble(elem.getAttribute("y")),
                         Long.parseLong(elem.getAttribute("ID")),
                         Double.parseDouble(elem.getAttribute("scaleX")),
                         Double.parseDouble(elem.getAttribute("scaleY")));
-
                 di.setAlpha(Double.parseDouble(elem.getAttribute("alpha")));
                 di.setAngle(Double.parseDouble(elem.getAttribute("angle")));
-
                 di.setVelocity(new Vector(Double.parseDouble(elem.getAttribute("velocityX")),
                         Double.parseDouble(elem.getAttribute("velocityY"))));
                 di.setAngularVelocity(Double.parseDouble(elem.getAttribute("angularVelocity")));
@@ -315,9 +287,7 @@ public class XMLReader {
                 di.setFriction(Double.parseDouble(elem.getAttribute("friction")));
                 di.setGravity(new Vector(Double.parseDouble(elem.getAttribute("gravityX")),
                         Double.parseDouble(elem.getAttribute("gravityY"))));
-
                 di.setVariableMap(loadVariableMap((Element) elem.getElementsByTagName("variableMap").item(0)));
-
                 rm.addObjectInstance(di);
             }
         }
