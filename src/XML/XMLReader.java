@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import org.w3c.dom.*;
 
 import exceptions.XMLFormatException;
+import org.xml.sax.SAXException;
 import structures.data.*;
 import structures.data.factories.ActionFactory;
 import structures.data.factories.EventFactory;
@@ -14,11 +15,15 @@ import sun.misc.BASE64Decoder;
 import utils.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.html.parser.Parser;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +81,18 @@ public class XMLReader {
             loadRooms(rooms);
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            //e.printStackTrace();
+        } catch (XMLFormatException e) {
+            System.out.println("Invalid XML Format.");
+            //e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("IOException Found.");
+        } catch (SAXException e){
+            System.out.println("SAXException.");
+        } catch (ParserConfigurationException e) {
+            System.out.println("Invalid XML Parser Configuration.");
         }
         return game;
     }
