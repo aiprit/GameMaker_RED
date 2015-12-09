@@ -25,15 +25,14 @@
     </object>
     <object name="flappyBird" scaleX="1.0" scaleY="1.0" solid="false" sprite="flappyBird" zIndex="0">
       <events>
-        <event class="structures.data.events.CollisionEvent" dataObject="pipe">
-          <actions>
-            <action p0="YmlyZE5vaXNl" title="PlaySound"/>
-            <action p0="cGxheWVyMldpbnM=" title="GoToRoom"/>
-          </actions>
-        </event>
         <event class="structures.data.events.ObjectCreateEvent">
           <actions>
             <action p0="LjU=" p1="OTA=" title="SetGravity"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action title="Wrap"/>
           </actions>
         </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
@@ -52,9 +51,10 @@
             <action p0="dHJ1ZQ==" p1="NTA=" p2="ZmFsc2U=" p3="MA==" title="ViewFollow"/>
           </actions>
         </event>
-        <event class="structures.data.events.LeaveRoomEvent">
+        <event class="structures.data.events.CollisionEvent" dataObject="pipe">
           <actions>
-            <action title="Wrap"/>
+            <action p0="YmlyZE5vaXNl" title="PlaySound"/>
+            <action p0="cGxheWVyMldpbnM=" title="GoToRoom"/>
           </actions>
         </event>
       </events>
@@ -78,11 +78,6 @@
     </object>
     <object name="flappyBird2" scaleX="1.0" scaleY="1.0" solid="false" sprite="flappyBird2" zIndex="0">
       <events>
-        <event class="structures.data.events.CollisionEvent" dataObject="pipe">
-          <actions>
-            <action p0="cGxheWVyMVdpbnM=" title="GoToRoom"/>
-          </actions>
-        </event>
         <event class="structures.data.events.ObjectCreateEvent">
           <actions>
             <action p0="LjU=" p1="OTA=" title="SetGravity"/>
@@ -96,6 +91,11 @@
         <event class="structures.data.events.StepEvent">
           <actions>
             <action p0="Mw==" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.CollisionEvent" dataObject="pipe">
+          <actions>
+            <action p0="cGxheWVyMVdpbnM=" title="GoToRoom"/>
           </actions>
         </event>
       </events>

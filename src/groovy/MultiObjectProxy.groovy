@@ -1,3 +1,5 @@
+package groovy;
+
 class MultiObjectProxy {
 
 	private List<Object> myChildren;

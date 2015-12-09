@@ -1,3 +1,5 @@
+package groovy;
+
 import engine.loop.groovy.GroovyEngine;
 
 class GroovyEngineAccess {
