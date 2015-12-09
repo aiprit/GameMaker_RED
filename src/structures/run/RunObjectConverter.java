@@ -62,8 +62,6 @@ public class RunObjectConverter {
 			try {
 				runGroovy = new RunAction(groovyPreamble + groovy.toString());
 			} catch (CompileTimeException ex) {
-				System.out.println("Bad script:");
-				System.out.println(groovyPreamble + groovy.toString());
 				throw ex;
 			}
 			run.bindEvent(event.getKey(), runGroovy);
@@ -129,6 +127,7 @@ public class RunObjectConverter {
 		run.setGravity( instance.getGravity() );
 		run.setFriction( instance.getFriction() );
 		run.setInstanceId(instance.getID());
+		run.setVariableMap(instance.getVariableMap());
 		run.setOriginalParameterMaps();
 		return run;
 	}
@@ -156,6 +155,7 @@ public class RunObjectConverter {
 	    dataInstance.setVelocity(runObject.getVelocity());
 	    dataInstance.setFriction(runObject.getFriction());
 	    dataInstance.setGravity(runObject.getGravity());
+	    dataInstance.setVariableMap(runObject.getVariableMap());
             
         return dataInstance;
     }

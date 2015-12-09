@@ -2,7 +2,6 @@ package engine.loop.groovy;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
 
 import engine.events.EventManager;
 import groovy.GroovyObjectInstantiator;
@@ -49,16 +48,12 @@ public class GroovyEngine {
 			action.compiled.run();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println(action.script);
 		}
 		double diff = System.currentTimeMillis() - now;
 		if (avg == 0.0) {
 			avg = diff;
 		} else {
 			avg = (diff + times * avg) / (double)(times + 1);
-		}
-		if (times % 120 == 0) {
-			System.out.println(String.format("Engine avg period: %.2f ms", (double)diff));
 		}
 		times++;
 	}

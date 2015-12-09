@@ -11,7 +11,6 @@ public class RunObjectProxy {
 		list.add(null);
 		list.add(null);
 		Object obj = GroovyObjectInstantiator.instantiate("MultiObjectProxy", list);
-		System.out.println(obj);
 		//shell.evaluate("new GroovyRunObjectProxy();");
 		
 		

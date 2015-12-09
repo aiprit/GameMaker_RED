@@ -36,7 +36,6 @@ public class XMLReader {
     public DataGame read(String filename) {
 
         try {
-        	System.out.println("filename: " + filename);
             File inputFile = new File(filename);
             DocumentBuilderFactory dbFactory
                     = DocumentBuilderFactory.newInstance();
@@ -53,8 +52,8 @@ public class XMLReader {
             String title = root.getAttribute("title");
 
             game = new DataGame(title, directory);
-            game.setCurrentRoom(Integer.parseInt(root.getAttribute("currentRoom")));
             game.setStartRoom(Integer.parseInt(root.getAttribute("startRoom")));
+            game.setCurrentRoom(Integer.parseInt(root.getAttribute("currentRoom")));
 
             Element gameVariableMap = (Element) doc.getElementsByTagName("variableMap").item(0);
             game.setVariableMap(loadVariableMap(gameVariableMap));

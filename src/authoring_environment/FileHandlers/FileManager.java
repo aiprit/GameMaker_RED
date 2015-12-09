@@ -108,7 +108,6 @@ public class FileManager {
 		File XML = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeXMLDirectory"));
 		File saves = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSavesDirectory"));
 		if (!backgrounds.mkdirs() || !images.mkdirs() || !sounds.mkdirs() || !XML.mkdirs() || !saves.mkdirs()) {
-			System.out.println("Could not create directory structures for this game. Check permissions.");
 		}
 	}
 
@@ -196,7 +195,6 @@ public class FileManager {
 				+ ".png";
 
 		File localFile = new File(url);
-		System.out.println(localFile.getAbsolutePath());
 		ImageIO.write(img, PNG_EXT, localFile);
 		newSprite = new DataSprite(name, localFile.getName());
 		newSprite.load(myGameName);
@@ -207,7 +205,6 @@ public class FileManager {
 		File outputfile = new File(g.getString("GamesDirectory") + myGameName + g.getString("RelativeSoundDirectory")
 				+ soundName + ".wav");
 		if (!outputfile.exists()) {
-			System.out.println("no file");
 		}
 		String url = outputfile.toURI().toString();
 		AudioInputStream audioInputStream;
@@ -355,7 +352,7 @@ public class FileManager {
 	 * @return
 	 */
 	public static File getPNGFile() {
-		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*." + PNG);
+		return getFile(g.getString("ChooseFile"), g.getString("ChooseFile"), "*" + PNG);
 	}
 
 }

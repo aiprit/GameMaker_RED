@@ -1,16 +1,11 @@
 package authoring_environment.room.background_pop_up;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.room.preview.RoomCanvas;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import structures.data.IDataRoom;
 
 public class BackgroundPopUpController {

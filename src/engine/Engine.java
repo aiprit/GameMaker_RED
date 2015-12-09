@@ -37,12 +37,13 @@ public class Engine implements IRoomUpdatedHandler {
 	}
 
 	public void runLevel(){
-		System.out.println(myGame.getCurrentRoomNumber());
 		myLevel = new RoomLoop(myGame.getCurrentRoom(), myEventManager, myDrawListener, myGroovyEngine);
 		myObjectHandler = myLevel.getObjectHandler();
 		//have to do this to change the object tracker when the room changes
 		myEventManager.clearObjectModifiedInterface();
 		myEventManager.addObjectModifiedInterface(myObjectHandler);
+		myEventManager.clearGlobalVariables();
+		myEventManager.updateGlobalVariables(myGame.getGlobalVariables());
 		myLevel.start();
 	}
 	
@@ -91,7 +92,7 @@ public class Engine implements IRoomUpdatedHandler {
 
 	@Override
 	public void onRoomChanged(RunRoom runRoom) {
-		//how else need to change the level?
+		//how else do we need to change the level?
 		myLevel.cancel();
 		runLevel();
 	}

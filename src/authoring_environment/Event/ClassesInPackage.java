@@ -20,7 +20,6 @@ public class ClassesInPackage {
 			try {
 				directory=new File(URLDecoder.decode(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile(), "UTF-8"));
 			} catch(NullPointerException x) {
-				System.out.println("Nullpointer");
 				throw new ClassNotFoundException(pckgname+" does not appear to be a valid package");
 			}
 			if(directory.exists()) {
@@ -34,7 +33,6 @@ public class ClassesInPackage {
 					}
 				}
 			} else {
-				System.out.println(r.getString("noDirectory"));
 				throw new ClassNotFoundException(pckgname+ " " + r.getString("invalid"));
 			}
 			Class[] classesA=new Class[classes.size()];
