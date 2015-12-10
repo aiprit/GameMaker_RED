@@ -19,7 +19,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -95,7 +94,7 @@ public class XMLWriter {
         Element object = doc.createElement("object");
         object.setAttribute("name", dataObject.getName());
         object.setAttribute("zIndex", Integer.toString(dataObject.getZIndex()));
-        if(dataObject.getSprite()!= null ){
+        if (dataObject.getSprite() != null) {
             object.setAttribute("sprite", dataObject.getSprite().getName());
         }
         object.setAttribute("scaleX", Double.toString(dataObject.getScaleX()));

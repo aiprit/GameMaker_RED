@@ -3,8 +3,6 @@ package structures.data;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.FileHandler;
-
 import authoring_environment.FileHandlers.FileManager;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -22,8 +20,6 @@ public class DataRoom implements IDataRoom {
         myWidth = width;
         myHeight = height;
         roomObjects = new ArrayList<>();
-
-        //by default the view is set to be the entire room
         myView = new DataView("MainView", 0, 0, width, height);
     }
 
@@ -59,7 +55,6 @@ public class DataRoom implements IDataRoom {
     public double[] getSize() {
         return new double[]{myWidth, myHeight};
     }
-
 
     public DataView getView() {
         return myView;

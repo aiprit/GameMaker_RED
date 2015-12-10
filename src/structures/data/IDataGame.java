@@ -3,20 +3,19 @@ package structures.data;
 import javafx.collections.ObservableList;
 
 public interface IDataGame {
-	//TODO decide to combine interfaces for getObjects or not
-	public int getViewWidth();
+	int getViewWidth();
 	
-	public int getViewHeight();
+	int getViewHeight();
 	
-	public ObservableList<DataObject> getObjects();
+	ObservableList<DataObject> getObjects();
 	
-	public String getName();
+	String getName();
 	
-	public int getStartRoomIndex();
+	int getStartRoomIndex();
 	
-	public void addRoom(DataRoom room);
+	void addRoom(DataRoom room);
 	
-	public void setStartRoom(int index);
+	void setStartRoom(int index);
 	
-	public ObservableList<DataRoom> getRooms();
+	ObservableList<DataRoom> getRooms();
 }

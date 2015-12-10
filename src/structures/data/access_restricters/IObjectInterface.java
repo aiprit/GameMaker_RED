@@ -1,6 +1,3 @@
-/**
- *
- */
 package structures.data.access_restricters;
 
 import java.util.List;
@@ -16,10 +13,10 @@ import structures.data.DataSprite;
  *
  */
 public interface IObjectInterface {
-	public ObservableList<DataObject> getObjects();
-	public void addObject(DataObject... a);
-	public ObservableList<DataSprite> getSprites();
-	public String getName();
-	public ObservableList<DataRoom> getRooms();
-	public List<DataSound> getSounds();
+	ObservableList<DataObject> getObjects();
+	void addObject(DataObject... a);
+	ObservableList<DataSprite> getSprites();
+	String getName();
+	ObservableList<DataRoom> getRooms();
+	List<DataSound> getSounds();
 }
