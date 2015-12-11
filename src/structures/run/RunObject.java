@@ -204,6 +204,9 @@ public class RunObject implements IParameters {
 	 * if they wanted.
 	 */
 	public IRectangle getBounds() {
+		if (mySprite == null) {
+			return new Rectangle(this.x, this.y, 1, 1);
+		}
 		myBounds.width(mySprite.getWidth() * scaleX);
 		myBounds.height(mySprite.getHeight() * scaleY);
 		myBounds.move(x, y);

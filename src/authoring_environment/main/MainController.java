@@ -262,16 +262,9 @@ public class MainController implements IUpdateHandle {
 		topMenuBar.getRunMenuItem().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				//Run the game
-				try {
-					//Save
-					FileManager fm = new FileManager(dataGame.getName());
-					fm.saveGame(dataGame);
-					//Run
-					EngineController ec = new EngineController(new Stage(), dataGame.getName());
-				} catch (ResourceFailedException e) {
-					e.printStackTrace();
-				}
+				//Save
+				FileManager fm = new FileManager(dataGame.getName());
+				fm.saveGame(dataGame);
 			}
 		});
 		topMenuBar.getExitMenu().setOnAction(new EventHandler<ActionEvent>() {

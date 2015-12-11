@@ -101,7 +101,6 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	}
 
 	public RunGame readObject() throws ResourceFailedException{
-
 		//set myGame to the game that the user chooses
 		//System.out.println(userGame);
 		myEditor = new XMLEditor();
@@ -191,6 +190,12 @@ public class EngineController implements IGUIControllerHandler, IInputHandler {
 	@Override
 	public void setDebug(boolean value){
 		debugActivated = value;
+	}
+	
+	public Boolean isRunning() {
+		if (myFrontEnd != null)
+			return myFrontEnd.isRunning();
+		return true;
 	}
 	
 }

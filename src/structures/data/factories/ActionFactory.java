@@ -30,6 +30,7 @@ import structures.data.actions.logic.IfInDirection;
 import structures.data.actions.logic.IfKey;
 import structures.data.actions.logic.IfLocalVar;
 import structures.data.actions.logic.IfMouseButton;
+import structures.data.actions.logic.IfObjectVar;
 import structures.data.actions.logic.IfOdds;
 import structures.data.actions.logic.IfOnGround;
 import structures.data.actions.logic.IfPositionFree;
@@ -107,6 +108,7 @@ public class ActionFactory {
 				DrawRectangle.class,
 				DrawText.class,
 				Else.class,
+				IfObjectVar.class,
 				GetHighScore.class,
 				GoToRoom.class,
 				IfGlobalVar.class,

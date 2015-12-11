@@ -59,6 +59,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private Scene playScene;
 	private EventManager myEventManager;
 	private String myCurrentGame;
+	private Boolean running;
 
 	private VBox topContainer;
 	private BorderPane borderPane;
@@ -68,6 +69,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	private int gameHeight, gameWidth;
 
 	public FrontEnd(int width, int height, EventManager eventManager, Stage stage, String game) throws IOException, ResourceFailedException {
+		running = true;
 		gameHeight = height;
 		gameWidth = width;
 		myCurrentGame = game;
@@ -119,6 +121,7 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 		MenuItem close = new MenuItem("Close");
 		close.setOnAction(e -> {
 			myEventManager.onSave();
+			running = false;
 			stage.close();
 		});
 		MenuItem pause = new MenuItem("Pause");
@@ -309,5 +312,9 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler {
 	@Override
 	public double getHighScore() {
 		return myHighScoreView.getHighScore();
+	}
+
+	public Boolean isRunning() {
+		return running;
 	}
 }
