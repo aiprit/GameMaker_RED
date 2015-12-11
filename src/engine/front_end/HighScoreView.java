@@ -3,19 +3,14 @@ package engine.front_end;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-
 import engine.social_player.PlayerManager;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 
 public class HighScoreView extends VBox {
 
@@ -102,7 +97,7 @@ public class HighScoreView extends VBox {
 		if (result.isPresent()) {
 			user = result.get();
 			myPlayers.setPlayer(user);
-			myFrontEnd.processColorSelection(myPlayers.getColorPreference());
+			myFrontEnd.changeTheme(myPlayers.getColorPreference());
 		}
 		createPane();
 	}
@@ -148,7 +143,7 @@ public class HighScoreView extends VBox {
 		if(myPlayers == null){
 			return;
 		}
-		myFrontEnd.processColorSelection(color);
+		myFrontEnd.changeTheme(color);
 	}
 
 }
