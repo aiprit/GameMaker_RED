@@ -3,7 +3,6 @@ package authoring_environment.object_editor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
-
 import authoring_environment.Event.ClassesInPackage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,31 +29,15 @@ public class ObjectEditorModel {
 		game = g;
 		object = new DataObject(str);
 		game.addObject(object);
-		//setDefaultSprite();
-	}
-
-	private void setDefaultSprite() {
-		//Set default sprite
-		DataSprite ds = new DataSprite(r.getString("default"), r.getString("default"));
-		ds.loadDefault();
-		object.addSprite(ds);
 	}
 
 	public ObservableList<String> createLeftPaneList() {
-		// Enumeration<String> keys = l.getKeys();
-		// List<String> keylist = Collections.list(keys);
 		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-		for (String s : classes.getAllClasses("structures.data.events"))
+		for (String s : classes.getAllClasses(r.getString("package"))) {
 			list.add(s);
+		}
 		Collections.sort(list);
-		//
-		// Collections.sort(keylist);
-		// for (String str : keylist) {
-		// String value = l.getString(str);
-		// list.add(value);
-		//
-		// }
 		return list;
 	}
 
@@ -69,7 +52,8 @@ public class ObjectEditorModel {
 	public String getSpriteName() {
 		try {
 			return object.getSprite().getName();
-		} catch (NullPointerException e) {
+		}
+		catch (NullPointerException e) {
 			return null;
 		}
 	}
@@ -103,10 +87,6 @@ public class ObjectEditorModel {
 		return object;
 	}
 
-	public ObservableList<DataObject> getObjectList() {
-		return game.getObjects();
-	}
-
 	public EventPopupFactory getPopUpFactory() {
 		return fact;
 	}
@@ -132,7 +112,6 @@ public class ObjectEditorModel {
 	}
 
 	public IObjectInterface getGame() {
-		// TODO Auto-generated method stub
 		return game;
 	}
 }

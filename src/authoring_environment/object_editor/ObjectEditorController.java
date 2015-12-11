@@ -38,11 +38,13 @@ public class ObjectEditorController {
 	ObjectEditorView view;
 	ObjectEditorModel model;
 	IUpdateHandle updater;
+	LeftController left;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/object_editor/ObjectControllerResources");
 
 	public ObjectEditorController(IObjectInterface dataGame, DataObject o) {
 		view = new ObjectEditorView(dataGame.getName());
 		model = new ObjectEditorModel(dataGame, o);
+		left = new LeftController(dataGame, o);
 		initAll();
 	}
 
@@ -78,14 +80,33 @@ public class ObjectEditorController {
 	}
 
 	public void initAll() {
+		view.getLeftPane().getAddButton().setOnAction(e -> {
+			popUpFactory();
+		}
+				);
+		view.getLeftPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent key) {
+				if (key.getCode().equals(KeyCode.ENTER)) {
+					popUpFactory();
+				}
+			}
+		});
+		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent click) {
+				if (click.getClickCount() == 2) {
+					popUpFactory();
+				}
+			}
+		});
+		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
 		view.getBottomPane().getCloseButton().setOnAction(e -> {
 			model.changeObjectName(view.getBottomPane().getNameBoxText());
 			model.setSolid(view.getBottomPane().getCheckBox().isSelected());
 			close(e);
 		});
-		//		view.getCenterPane().getSpriteUpdateButton().setOnAction(e -> {
-		//			refreshSprite();
-		//		});
+
 		view.getBottomPane().getCheckBox().setSelected(model.isSolid());
 		view.getBottomPane().getNameBox().setText(model.getObject().getName());
 		view.getRightPane().getListView().setItems(model.getEvents());
@@ -160,29 +181,7 @@ public class ObjectEditorController {
 		view.getRightPane().getEditButton().setOnAction(e -> {
 			eventPopup(view.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
-		view.getLeftPane().getListView().setItems(model.createLeftPaneList());
-		view.getLeftPane().getListView().setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-			@Override
-			public void handle(KeyEvent key) {
-				if (key.getCode().equals(KeyCode.ENTER)) {
-					popUpFactory();
-				}
-			}
-
-		});
-		view.getLeftPane().getListView().setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent click) {
-				if (click.getClickCount() == 2) {
-					popUpFactory();
-					}
-			}
-		});
-		view.getLeftPane().getAddButton().setOnAction(e -> {
-			popUpFactory();
-			}
-		);
 		for (DataSprite s : model.getSprites()) {
 			view.getTopPane().addToMenu(view.getTopPane().createMenuItem(s.getName(), e -> {
 				model.setSprite(s);
@@ -199,13 +198,7 @@ public class ObjectEditorController {
 		refreshSprite();
 	}
 
-	private void popUpFactory() {
-		String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
-		if(selected!=null){
-			model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
-
-			}
-	}
+	
 
 	private void eventPopup(IDataEvent e) {
 		if(e !=null){
@@ -228,14 +221,14 @@ public class ObjectEditorController {
 		updater.update();
 	}
 
-	private void addSpriteToMenu(DataSprite s, Menu menu) {
-		MenuItem m = new MenuItem(s.getName());
-		m.setOnAction(e -> model.setSprite(s));
-		menu.getItems().add(m);
-	}
-
 	public void setOnClose(IUpdateHandle updateHandle) {
 		updater = updateHandle;
+	}
+	private void popUpFactory() {
+		String selected = view.getLeftPane().getListView().getSelectionModel().getSelectedItem();
+		if(selected!=null){
+			model.getPopUpFactory().create(selected,model.getObject(), model.getGame());
+		}
 	}
 
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="2" directory="FlappyBirdDeleting/" startRoom="2" title="FlappyBirdDeleting">
+  <variableMap/>
+  <objects>
+    <object name="pipe" scaleX="1.0" scaleY="1.0" solid="false" sprite="flappypipe" zIndex="0">
+      <events/>
+    </object>
+    <object name="bird" scaleX="1.0" scaleY="1.0" solid="false" sprite="flappybird2" zIndex="0">
+      <events>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
+          <actions>
+            <action p0="LTkw" p1="MTA=" p2="dHJ1ZQ==" title="SetVelocityInDirection"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action title="Wrap"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.StepEvent">
+          <actions>
+            <action p0="U0hJRlQ=" p1="RG93bg==" title="IfKey"/>
+            <action title="Open"/>
+            <action p0="LTM=" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
+            <action title="Close"/>
+            <action title="Else"/>
+            <action title="Open"/>
+            <action p0="Mw==" p1="MA==" p2="dHJ1ZQ==" title="MoveTo"/>
+            <action title="Close"/>
+            <action p0="dHJ1ZQ==" p1="NTA=" p2="ZmFsc2U=" p3="MA==" title="ViewFollow"/>
+          </actions>
+        </event>
+      </events>
+    </object>
+  </objects>
+  <sprites>
+    <sprite baseFileName="flappybird.png" centerX="0.0" centerY="0.0" name="flappybird"/>
+    <sprite baseFileName="flappypipe.png" centerX="0.0" centerY="0.0" name="flappypipe"/>
+    <sprite baseFileName="flappybird2.png" centerX="0.0" centerY="0.0" name="flappybird2"/>
+  </sprites>
+  <sounds/>
+  <rooms>
+    <room backgroundColor="0xff0000ff" height="608.0" name="loseroom" snapshot="iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAACLElEQVR42u3TMQ0AAAjAsPk3DQZQ&#10;QHrUwJI1NcBviQBGB4wOGB0wOmB0wOiA0QGjg9EBowNGB4wOGB0wOmB0wOhgdMDogNEBowNGB4wO&#10;GB0wOhhdBDA6YHTA6IDRAaMDRgeMDhgdjA4YHTA6YHTA6IDRAaMDRgejA0YHjA4YHTA6YHTA6IDR&#10;wegigNEBowNGB4wOGB0wOmB0wOhgdMDogNEBowNGB4wOGB0wOhgdMDpgdMDogNEBowNGB4wORhcC&#10;jA4YHTA6YHTA6IDRAaMDRgejA0YHjA4YHTA6YHTA6IDRweiA0QGjA0YHjA4YHTA6YHQwOmB0wOiA&#10;0QGjA0YHjA4YHTA6GB0wOmB0wOiA0QGjA0YHjA5GB4wOGB0wOmB0wOiA0QGjg9EBowNGB4wOGB0w&#10;OmB0wOiA0cHogNEBowNGB4wOGB0wOmB0MDpgdMDogNEBowNGB4wOGB2MDhgdMDpgdMDogNEBowNG&#10;B4wORgeMDhgdMDpgdMDogNEBo4PRAaMDRgeMDhgdMDpgdMDoYHTA6IDRAaMDRgeMDhgdMDpgdDA6&#10;YHTA6IDRAaMDRgeMDhgdjA4YHTA6YHTA6IDRAaMDRgejA0YHjA4YHTA6YHTA6IDRAaOD0QGjA0YH&#10;jA4YHTA6YHTA6GB0wOiA0QGjA0YHjA4YHTA6GB0wOmB0wOiA0QGjA0YHjA4YHYwOGB0wOmB0wOiA&#10;0QGjA0YHowNGB4wOGB0wOmB0wOjAZQGZ1HwzVaLjqgAAAABJRU5ErkJggg==" width="608.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances/>
+    </room>
+    <room backgroundColor="0x008000ff" height="608.0" name="winroom" snapshot="iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAYAAACI7Fo9AAACLElEQVR42u3TQQ0AAAgDsUnHOTOA&#10;AtJHDVxyyWSB50QAowNGB4wOGB0wOmB0wOiA0cHogNEBowNGB4wOGB0wOmB0MDpgdMDogNEBowNG&#10;B4wOGB2MLgIYHTA6YHTA6IDRAaMDRgeMDkYHjA4YHTA6YHTA6IDRAaOD0QGjA0YHjA4YHTA6YHTA&#10;6GB0EcDogNEBowNGB4wOGB0wOmB0MDpgdMDogNEBowNGB4wOGB2MDhgdMDpgdMDogNEBowNGB6OL&#10;AEYHjA4YHTA6YHTA6IDRAaOD0QGjA0YHjA4YHTA6YHTA6GB0wOiA0QGjA0YHjA4YHTA6GB0wOmB0&#10;wOiA0QGjA0YHjA4YHYwOGB0wOmB0wOiA0QGjA0YHowNGB4wOGB0wOmB0wOiA0cHogNEBowNGB4wO&#10;GB0wOmB0wOhgdMDogNEBowNGB4wOGB0wOhgdMDpgdMDogNEBowNGB4wORgeMDhgdMDpgdMDogNEB&#10;owNGB6MDRgeMDhgdMDpgdMDogNHB6IDRAaMDRgeMDhgdMDpgdDA6YHTA6IDRAaMDRgeMDhgdMDoY&#10;HTA6YHTA6IDRAaMDRgeMDkYHjA4YHTA6YHTA6IDRAaOD0QGjA0YHjA4YHTA6YHTA6IDRweiA0QGj&#10;A0YHjA4YHTA6YHQwOmB0wOiA0QGjA0YHjA4YHYwOGB0wOmB0wOiA0QGjA0YHjA5GB4wOGB0wOmB0&#10;wOiA0QGjg9EBowNGB4wOGB0wOmB04FL/y1dAd7K6CwAAAABJRU5ErkJggg==" width="608.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances/>
+    </room>
+    <room backgroundColor="0x5f9ea0ff" height="800.0" name="playroom" snapshot="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" width="1208.0">
+      <view height="608.0" name="MainView" width="608.0" x="0.0" y="0.0"/>
+      <objectInstances>
+        <objectInstance ID="1449372159795" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.5" parentObject="bird" scaleX="0.6" scaleY="0.6" velocityX="1.2858791391047196E-13" velocityY="-1.0" visibility="true" x="746.0000000002301" y="290.5" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449372405963" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="pipe" scaleX="1.0" scaleY="0.5" velocityX="0.0" velocityY="0.0" visibility="true" x="544.0" y="0.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449372537669" alpha="1.0" angle="180.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="pipe" scaleX="0.925" scaleY="0.7" velocityX="0.0" velocityY="0.0" visibility="true" x="544.0" y="496.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449372583848" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="pipe" scaleX="1.0" scaleY="0.8" velocityX="0.0" velocityY="0.0" visibility="true" x="880.0" y="0.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+        <objectInstance ID="1449372592760" alpha="1.0" angle="0.0" angularVelocity="0.0" friction="0.0" gravityX="0.0" gravityY="0.0" parentObject="pipe" scaleX="0.93125" scaleY="0.4" velocityX="0.0" velocityY="0.0" visibility="true" x="880.0" y="480.0" zIndex="0">
+          <variableMap/>
+        </objectInstance>
+      </objectInstances>
+    </room>
+  </rooms>
+</game>
