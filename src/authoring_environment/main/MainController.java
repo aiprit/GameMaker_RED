@@ -9,6 +9,7 @@ import Player.Launcher;
 import XML.XMLEditor;
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.FileHandlers.GameInitializer;
+import authoring_environment.FileHandlers.MediaMaker;
 import authoring_environment.FileHandlers.SoundMaker;
 import authoring_environment.FileHandlers.SpriteMaker;
 import authoring_environment.object_editor.ObjectEditorController;
@@ -170,7 +171,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
-					SpriteMaker.show(o);
+					MediaMaker sm = new SpriteMaker();
+					sm.show(o);
 					update();
 				}
 			});
@@ -181,7 +183,8 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SpriteMaker.load(myStage, dataGame);
+				MediaMaker sm = new SpriteMaker();
+				sm.load(myStage, dataGame);
 				update();
 			}
 		});
@@ -195,7 +198,8 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
-					SoundMaker.play(o);
+					MediaMaker sm = new SoundMaker();
+					sm.play(o);
 					update();
 				}
 			});
@@ -205,7 +209,8 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SoundMaker.load(myStage, dataGame);
+				MediaMaker sm = new SoundMaker();
+				sm.load(myStage, dataGame);
 				update();
 			}
 		});

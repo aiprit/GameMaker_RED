@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// sam98
 package authoring_environment.FileHandlers;
 
 import java.io.File;
@@ -12,12 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import structures.data.DataGame;
+import structures.data.DataSound;
 import structures.data.DataSprite;
 
-public class SpriteMaker {
-	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
-
-	public static void load(Stage s, DataGame game) {
+public class SpriteMaker extends MediaMaker {
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+	
+	public void load(Stage s, DataGame game) {
 		File selectedFile = GameInitializer.choose(s);
 		FileManager gfm = new FileManager(game.getName());
 		
@@ -32,7 +35,7 @@ public class SpriteMaker {
 		}
 	}
 	
-	public static void show(DataSprite sprite) {
+	public void show(DataSprite sprite) {
 		BorderPane myPane = new BorderPane();
 		Stage s = new Stage();
 		Image img = sprite.getImage();
@@ -49,4 +52,12 @@ public class SpriteMaker {
 	public static void remove(DataGame game, DataSprite s){
 		game.removeSprite(s);
 	}
+
+	@Override
+	public void play(DataSound sound) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// sam98
 package authoring_environment.FileHandlers;
 
 import java.io.File;
@@ -10,11 +12,12 @@ import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 import structures.data.DataGame;
 import structures.data.DataSound;
+import structures.data.DataSprite;
 
-public class SoundMaker {
-	private static ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
+public class SoundMaker extends MediaMaker{
+	private ResourceBundle r = ResourceBundle.getBundle("resources/EnvironmentGUIResources");
 
-	public static void load(Stage s, DataGame game) {
+	public void load(Stage s, DataGame game) {
 		FileManager fm = new FileManager(game.getName());
 		File selectedFile = GameInitializer.choose(s);
 		DataSound sound = null;
@@ -27,11 +30,17 @@ public class SoundMaker {
 		game.getSounds().add(sound);
 	}
 
-	public static void play(DataSound sound) {
+	public void play(DataSound sound) {
 		try {
 			AudioClip audioclip = sound.getClip();
 			audioclip.play();
 		} catch (Exception ex) {
 		}
+	}
+
+	@Override
+	public void show(DataSprite sprite) {
+		// TODO Auto-generated method stub
+		
 	}
 }
