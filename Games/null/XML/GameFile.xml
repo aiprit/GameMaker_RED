@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<game currentRoom="0" directory="null/" startRoom="0" title="">
+  <variableMap/>
+  <objects/>
+  <sprites/>
+  <sounds>
+    <sound baseFileName="goat.wav" name="goat"/>
+    <sound baseFileName="doot.wav" name="doot"/>
+  </sounds>
+  <rooms/>
+</game>

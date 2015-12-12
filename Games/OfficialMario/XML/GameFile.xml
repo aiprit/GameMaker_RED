@@ -22,12 +22,25 @@
     </object>
     <object name="luigi" scaleX="1.0" scaleY="1.0" solid="true" sprite="luigi" zIndex="0">
       <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="shell">
+          <actions/>
+        </event>
         <event class="structures.data.events.KeyPressedEvent" keyCode="SPACE">
           <actions>
             <action p0="ZmFsc2U=" title="IfOnGround"/>
             <action title="Open"/>
             <action p0="LTkw" p1="MjQ=" p2="dHJ1ZQ==" title="SetVelocityInDirection"/>
             <action title="Close"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.KeyPressedEvent" keyCode="F">
+          <actions>
+            <action p0="ZG91YmxlIHggPSBjdXJyZW50KCkueDsKZG91YmxlIHkgPSBjdXJyZW50KCkueTsKCmlmIChjdXJyZW50KCkuZ2V0X3Nwcml0ZV9uYW1lKCkuZXF1YWxzKCJsdWlnaSIpKSB7CgllbmdpbmUud2l0aChsaWJyYXJ5LmNyZWF0ZV9pbnN0YW5jZSgiZmlyZWJhbGwiLHgsIHkpKTsKCQljdXJyZW50KCkubW92ZV90b19mcmVlKDApOwoJZW5naW5lLmVuZCgpOwp9IGVsc2UgewoJZW5naW5lLndpdGgobGlicmFyeS5jcmVhdGVfaW5zdGFuY2UoImZpcmViYWxsIix4LCB5KSk7CgkJY3VycmVudCgpLm1vdmVfdG9fZnJlZSgxODApOwoJZW5naW5lLmVuZCgpOwp9" title="RunScript"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.CollisionEvent" dataObject="door">
+          <actions>
+            <action p0="d2luLXJvb20=" title="GoToRoom"/>
           </actions>
         </event>
         <event class="structures.data.events.CollisionEvent" dataObject="secondPipe">
@@ -75,18 +88,11 @@
             <action p0="MjA=" title="CapSpeed"/>
           </actions>
         </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="door">
+        <event class="structures.data.events.ObjectCreateEvent">
           <actions>
-            <action p0="d2luLXJvb20=" title="GoToRoom"/>
+            <action p0="MS41" p1="OTA=" title="SetGravity"/>
+            <action p0="bGVmdA==" p1="MC4w" p2="ZmFsc2U=" title="SetGlobalVariable"/>
           </actions>
-        </event>
-        <event class="structures.data.events.LeaveRoomEvent">
-          <actions>
-            <action p0="Z2FtZS1vdmVy" title="GoToRoom"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="shell">
-          <actions/>
         </event>
         <event class="structures.data.events.CollisionEvent" dataObject="moving-shell">
           <actions/>
@@ -102,6 +108,11 @@
             <action title="Close"/>
           </actions>
         </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action p0="Z2FtZS1vdmVy" title="GoToRoom"/>
+          </actions>
+        </event>
         <event class="structures.data.events.CollisionEvent" dataObject="koopa">
           <actions>
             <action p0="OTA=" p1="NjA=" title="IfInDirection"/>
@@ -113,17 +124,6 @@
             <action p0="c2hlbGw=" title="CreateInstanceAtObject"/>
             <action title="Close"/>
             <action title="Close"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.KeyPressedEvent" keyCode="F">
-          <actions>
-            <action p0="ZG91YmxlIHggPSBjdXJyZW50KCkueDsKZG91YmxlIHkgPSBjdXJyZW50KCkueTsKCmlmIChjdXJyZW50KCkuZ2V0X3Nwcml0ZV9uYW1lKCkuZXF1YWxzKCJsdWlnaSIpKSB7CgllbmdpbmUud2l0aChsaWJyYXJ5LmNyZWF0ZV9pbnN0YW5jZSgiZmlyZWJhbGwiLHgsIHkpKTsKCQljdXJyZW50KCkubW92ZV90b19mcmVlKDApOwoJZW5naW5lLmVuZCgpOwp9IGVsc2UgewoJZW5naW5lLndpdGgobGlicmFyeS5jcmVhdGVfaW5zdGFuY2UoImZpcmViYWxsIix4LCB5KSk7CgkJY3VycmVudCgpLm1vdmVfdG9fZnJlZSgxODApOwoJZW5naW5lLmVuZCgpOwp9" title="RunScript"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.ObjectCreateEvent">
-          <actions>
-            <action p0="MS41" p1="OTA=" title="SetGravity"/>
-            <action p0="bGVmdA==" p1="MC4w" p2="ZmFsc2U=" title="SetGlobalVariable"/>
           </actions>
         </event>
       </events>
@@ -150,9 +150,9 @@
             <action title="Close"/>
           </actions>
         </event>
-        <event class="structures.data.events.LeaveRoomEvent">
+        <event class="structures.data.events.ObjectCreateEvent">
           <actions>
-            <action title="Destroy"/>
+            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
           </actions>
         </event>
         <event class="structures.data.events.CollisionEvent" dataObject="moving-shell">
@@ -161,9 +161,9 @@
             <action p0="a29vcGEtZGVhZA==" title="CreateInstanceAtObject"/>
           </actions>
         </event>
-        <event class="structures.data.events.ObjectCreateEvent">
+        <event class="structures.data.events.LeaveRoomEvent">
           <actions>
-            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
+            <action title="Destroy"/>
           </actions>
         </event>
       </events>
@@ -203,9 +203,9 @@
     </object>
     <object name="shell" scaleX="1.0" scaleY="1.0" solid="true" sprite="red-shell" zIndex="0">
       <events>
-        <event class="structures.data.events.LeaveRoomEvent">
+        <event class="structures.data.events.ObjectCreateEvent">
           <actions>
-            <action title="Destroy"/>
+            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
           </actions>
         </event>
         <event class="structures.data.events.CollisionEvent" dataObject="luigi">
@@ -220,15 +220,20 @@
             <action p0="bW92aW5nLXNoZWxs" title="CreateInstanceAtObject"/>
           </actions>
         </event>
-        <event class="structures.data.events.ObjectCreateEvent">
+        <event class="structures.data.events.LeaveRoomEvent">
           <actions>
-            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
+            <action title="Destroy"/>
           </actions>
         </event>
       </events>
     </object>
     <object name="moving-shell" scaleX="1.0" scaleY="1.0" solid="true" sprite="red-shell" zIndex="0">
       <events>
+        <event class="structures.data.events.CollisionEvent" dataObject="shell">
+          <actions>
+            <action p0="dHJ1ZQ==" p1="MQ==" p2="ZmFsc2U=" p3="MA==" title="BounceAxis"/>
+          </actions>
+        </event>
         <event class="structures.data.events.StepEvent">
           <actions>
             <action p0="PA==" p1="MC4wMDAx" title="IfSpeed"/>
@@ -242,14 +247,9 @@
             <action title="Close"/>
           </actions>
         </event>
-        <event class="structures.data.events.LeaveRoomEvent">
+        <event class="structures.data.events.ObjectCreateEvent">
           <actions>
-            <action title="Destroy"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.CollisionEvent" dataObject="shell">
-          <actions>
-            <action p0="dHJ1ZQ==" p1="MQ==" p2="ZmFsc2U=" p3="MA==" title="BounceAxis"/>
+            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
           </actions>
         </event>
         <event class="structures.data.events.CollisionEvent" dataObject="moving-shell">
@@ -268,25 +268,25 @@
             <action title="Close"/>
           </actions>
         </event>
-        <event class="structures.data.events.ObjectCreateEvent">
+        <event class="structures.data.events.LeaveRoomEvent">
           <actions>
-            <action p0="Mg==" p1="OTA=" title="SetGravity"/>
+            <action title="Destroy"/>
           </actions>
         </event>
       </events>
     </object>
     <object name="koopa-dead" scaleX="1.0" scaleY="1.0" solid="false" sprite="koopa-red-left" zIndex="0">
       <events>
-        <event class="structures.data.events.LeaveRoomEvent">
-          <actions>
-            <action title="Destroy"/>
-          </actions>
-        </event>
         <event class="structures.data.events.ObjectCreateEvent">
           <actions>
             <action p0="Y3VycmVudCgpLnNldEFuZ2xlKDE4MCk7" title="RunScript"/>
             <action p0="LTkw" p1="MTA=" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
             <action p0="MQ==" p1="OTA=" title="SetGravity"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action title="Destroy"/>
           </actions>
         </event>
       </events>
@@ -296,6 +296,13 @@
         <event class="structures.data.events.StepEvent">
           <actions>
             <action p0="aWYgKE1hdGguYWJzKGN1cnJlbnQoKS52ZWxvY2l0eS54KSA8IDAuMSkgewoJaWYgKGN1cnJlbnQoKS5jb2xsaXNpb25fc29saWRfYXQoY3VycmVudCgpLnggKyA1LCBjdXJyZW50KCkueSkpIHsKCQljdXJyZW50KCkudmVsb2NpdHkgPSBjdXJyZW50KCkudmVsb2NpdHkuc2V0WCgtOCk7Cgl9IGVsc2UgewoJCWN1cnJlbnQoKS52ZWxvY2l0eSA9IGN1cnJlbnQoKS52ZWxvY2l0eS5zZXRYKDgpOwoJfQpjdXJyZW50KCkubGlmZS0tOwp9IAppZiAoTWF0aC5hYnMoY3VycmVudCgpLnZlbG9jaXR5LnkpIDwgMC4xKSB7CglpZiAoY3VycmVudCgpLmNvbGxpc2lvbl9zb2xpZF9hdChjdXJyZW50KCkueCwgY3VycmVudCgpLnkgKyA1KSkgewoJCWN1cnJlbnQoKS52ZWxvY2l0eSA9IGN1cnJlbnQoKS52ZWxvY2l0eS5zZXRZKC0xMik7Cgl9IGVsc2UgewoJCWN1cnJlbnQoKS52ZWxvY2l0eSA9IGN1cnJlbnQoKS52ZWxvY2l0eS5zZXRYKDUpOwoJfQpjdXJyZW50KCkubGlmZS0tOwp9CmlmIChjdXJyZW50KCkubGlmZSA8IDApIHsKCWxpYnJhcnkuZGVzdHJveShjdXJyZW50KCkpOwp9" title="RunScript"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="bGlmZQ==" p1="NQ==" p2="ZmFsc2U=" title="SetObjectVariable"/>
+            <action p0="MA==" p1="OA==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+            <action p0="MS4z" p1="OTA=" title="SetGravity"/>
           </actions>
         </event>
         <event class="structures.data.events.LeaveRoomEvent">
@@ -313,17 +320,15 @@
             <action title="Destroy"/>
           </actions>
         </event>
-        <event class="structures.data.events.ObjectCreateEvent">
-          <actions>
-            <action p0="bGlmZQ==" p1="NQ==" p2="ZmFsc2U=" title="SetObjectVariable"/>
-            <action p0="MA==" p1="OA==" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
-            <action p0="MS4z" p1="OTA=" title="SetGravity"/>
-          </actions>
-        </event>
       </events>
     </object>
     <object name="coin" scaleX="1.0" scaleY="1.0" solid="false" sprite="coin" zIndex="0">
       <events>
+        <event class="structures.data.events.ObjectCreateEvent">
+          <actions>
+            <action p0="MS41" p1="MS41" title="ScaleSprite"/>
+          </actions>
+        </event>
         <event class="structures.data.events.CollisionEvent" dataObject="luigi">
           <actions>
             <action title="Destroy"/>
@@ -332,11 +337,6 @@
             <action title="Open"/>
             <action p0="c2NvcmU=" title="SetHighScore"/>
             <action title="Close"/>
-          </actions>
-        </event>
-        <event class="structures.data.events.ObjectCreateEvent">
-          <actions>
-            <action p0="MS41" p1="MS41" title="ScaleSprite"/>
           </actions>
         </event>
       </events>
@@ -384,15 +384,15 @@
     </object>
     <object name="luigi-dead" scaleX="1.0" scaleY="1.0" solid="false" sprite="luigi-dead" zIndex="0">
       <events>
-        <event class="structures.data.events.LeaveRoomEvent">
-          <actions>
-            <action p0="Z2FtZS1vdmVy" title="GoToRoom"/>
-          </actions>
-        </event>
         <event class="structures.data.events.ObjectCreateEvent">
           <actions>
             <action p0="MQ==" p1="OTA=" title="SetGravity"/>
             <action p0="LTkw" p1="MTU=" p2="ZmFsc2U=" title="SetVelocityInDirection"/>
+          </actions>
+        </event>
+        <event class="structures.data.events.LeaveRoomEvent">
+          <actions>
+            <action p0="Z2FtZS1vdmVy" title="GoToRoom"/>
           </actions>
         </event>
       </events>
