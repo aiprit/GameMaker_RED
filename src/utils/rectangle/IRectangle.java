@@ -1,8 +1,23 @@
+// This entire file is part of my masterpiece.
+// Austin McKee
+
 package utils.rectangle;
 
 import utils.Point;
 import utils.Utils;
 
+/**
+ * A rectangle defined at a given x,y, rotated and scaled as desired.
+ * Center X and Center Y define an offset from the top-left corner of
+ * the unrotated rectangle, explicitly setting the axis of rotation.
+ * All of the hard logic for calculations has been abstracted out as
+ * static functions on the interface class, and implementing classes
+ * will most likely vary simply in how they store that data (although
+ * they could most certainly override the math as well).
+ * 
+ * @author Austin McKee
+ *
+ */
 public interface IRectangle {
 	
 	public enum quadrant {
@@ -44,14 +59,29 @@ public interface IRectangle {
 
 	IRectangle clone();
 	
+	/*
+	 * The IRectangle interface does, unfortunately, expose
+	 * a bit of information regarding what classes implement us
+	 * with the following methods. However, these methods should
+	 * still be requirements of all implementing classes.
+	 */
 	Rectangle getMutable();
-	
 	ImmutableRectangle getImmutable();
 	
+	/**
+	 * Does the given rectangle enclose a given point?
+	 * 
+	 * @param rect
+	 * @param p
+	 * @return
+	 */
 	static boolean contains(IRectangle rect, Point p) {
+		
+		// We can get MUCH faster answer if we aren't rotated
 		if (rect.angle() == 0.0) {
 			return (p.x >= rect.x() - rect.centerX() && p.x <= rect.x() - rect.centerX() + rect.width() && p.y >= rect.y() - rect.centerY() && p.y <= rect.y() - rect.centerY() + rect.height());
 		}
+		
 		double s = Math.sin(-1 * Math.toRadians(rect.angle()));
 		double c = Math.cos(-1 * Math.toRadians(rect.angle()));
 		
@@ -71,6 +101,11 @@ public interface IRectangle {
 		return false;	
 	}
 	
+	/*
+	 * The following methods find useful points on a given rectangle, taking into
+	 * account all transformations on the rectangle. They all avoid a lot of
+	 * time-consuming trigonometry in the case that the rectangle isn't rotated.
+	 */
 	public static Point bottomRight(IRectangle rect) {
 		if (rect.angle() == 0.0) {
 			return new Point(rect.x() - rect.centerX() + rect.width(), rect.y() - rect.centerY() + rect.height());
@@ -113,6 +148,13 @@ public interface IRectangle {
 		return new Point((tl.x + br.x) / 2, (tl.y + br.y) / 2);
 	}
 	
+	/**
+	 * Does one rectangle intersect another? 
+	 * 
+	 * @param rect1
+	 * @param rect2
+	 * @return
+	 */
 	public static boolean intersects(IRectangle rect1, IRectangle rect2) {
 		return (rect1.contains(rect2.topLeft()) ||
 				rect1.contains(rect2.topRight())|| 
@@ -124,6 +166,16 @@ public interface IRectangle {
 				rect2.contains(rect1.bottomRight()) );
 	}
 	
+	/**
+	 * Given a rectangle with lines drawn from its center point, passing through
+	 * the four corners and extending to infinity, in which of these four diagonal
+	 * 'quadrants' does a given point lie? Useful for behavior simulation of colliding
+	 * rectangles.
+	 * 
+	 * @param rect
+	 * @param point
+	 * @return
+	 */
 	public static quadrant quadrantOfPoint(IRectangle rect, Point point) {		
 		
 		// Top or Left
@@ -144,6 +196,12 @@ public interface IRectangle {
 		}
 	}
 	
+	/*
+	 * The hypot() function implementation below posted by anon. user Jeff on
+	 * StackOverflow on 2010-09-22:
+	 * 
+	 * https://stackoverflow.com/questions/3764978/why-hypot-function-is-so-slow
+	 */
 	public static final double TWO_POW_450 = Double.longBitsToDouble(0x5C10000000000000L);
 	public static final double TWO_POW_N450 = Double.longBitsToDouble(0x23D0000000000000L);
 	public static final double TWO_POW_750 = Double.longBitsToDouble(0x6ED0000000000000L);

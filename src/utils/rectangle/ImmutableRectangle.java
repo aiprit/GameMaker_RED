@@ -1,7 +1,19 @@
+// This entire file is part of my masterpiece.
+// Austin McKee
+
 package utils.rectangle;
 
 import utils.Point;
 
+/**
+ * An immutable representation of an IRectangle. It can safely be passed
+ * around without cloning and without fear of internal modification. Clones
+ * itself on .getMutable() but can simply return a self-reference on 
+ * .getImmutable().
+ * 
+ * @author Austin McKee
+ *
+ */
 public final class ImmutableRectangle implements IRectangle {
 	
 	private final double x, y, centerX, centerY, width, height, angle;

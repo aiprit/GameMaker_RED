@@ -1,7 +1,18 @@
+// This entire file is part of my masterpiece.
+// Austin McKee
+
 package utils.rectangle;
 
 import utils.Point;
 
+/**
+ * A fully-modifiable implementation of IRectangle. Adds many new 
+ * setter methods. Must clone itself in both .getMutable() and 
+ * .getImmutable(). 
+ * 
+ * @author Austin McKee
+ *
+ */
 public class Rectangle implements IRectangle {
 
 	private double x, y, centerX, centerY, width, height, angle;
