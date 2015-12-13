@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Elizabeth Dowd
 package authoring_environment.room.object_instance;
 
 import authoring_environment.room.preview.DraggableNode;
