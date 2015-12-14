@@ -41,8 +41,8 @@ import structures.data.interfaces.IAction;
 import structures.data.interfaces.IDataEvent;
 
 public class EventController {
-	EventView myView;
-	EventModel myModel;
+	private EventView myView;
+	private EventModel myModel;
 	private int indents=0;
 	public EventController(IDataEvent e, DataObject obj,IObjectInterface dataGame){
 		myView = new EventView();

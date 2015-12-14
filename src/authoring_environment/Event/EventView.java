@@ -12,12 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class EventView extends Stage{
-	public static final String DEFAULT_RESOURCE_PACKAGE = "css/";
-    public static final String STYLESHEET = "authoring.css";
-	EventBottomPane bottom;
-	EventTopPane top;
-	EventRightPane right;
-	EventLeftPane left;
+	public final String DEFAULT_RESOURCE_PACKAGE = "css/";
+    public final String STYLESHEET = "authoring.css";
+    private EventBottomPane bottom;
+    private EventTopPane top;
+    private EventRightPane right;
+    private EventLeftPane left;
 	private Stage myStage;
 	private Group myRoot;
 	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");

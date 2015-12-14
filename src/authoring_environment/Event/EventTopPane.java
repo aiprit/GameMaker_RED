@@ -9,8 +9,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
 public class EventTopPane {
-	MenuBar menu = new MenuBar();
-	EventActionMenu action;
+	private MenuBar menu = new MenuBar();
+	private EventActionMenu action;
 	public Group init(){
 		Group root = new Group();
 		action = new EventActionMenu();

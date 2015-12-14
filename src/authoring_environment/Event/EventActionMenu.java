@@ -9,8 +9,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 public class EventActionMenu {
-	ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
-	MenuItem addEvent;
+	private ResourceBundle r = ResourceBundle.getBundle("authoring_environment/Event/EventGUIResources");
+	private MenuItem addEvent;
 	public Menu makeMenu(EventRightPane right) {
 		Menu event = new Menu(r.getString("actionTitle"));
 		addEvent = new MenuItem(r.getString("addActionTitle"));
