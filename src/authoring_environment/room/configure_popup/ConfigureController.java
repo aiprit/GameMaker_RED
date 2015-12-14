@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Ankit Kayastha
+
 package authoring_environment.room.configure_popup;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import structures.data.DataInstance;
 
 public class ConfigureController {
-	private ConfigureView configure;
+	private IConfigure configure;
 	private ConfigureModel model;
 	private DataInstance myDataInstance;
 	private DraggableImage myDragImage;
@@ -21,7 +24,11 @@ public class ConfigureController {
 	private final String SCALE_ERROR = "ScaleError";
 	private final String TRANSPARENCY_ERROR = "TransparencyError";
 	private final ResourceBundle myResources;
-	//TODO think about using interface to isolate set and get methods for DataInstance
+	private final int SCALE_MIN = 0;
+	private final int ALPHA_MIN = 0;
+	private final int ALPHA_MAX = 1;
+	private final int NUM_INPUTS = 10;
+	
 	public ConfigureController(ResourceBundle resources, DataInstance dataInstance, DraggableImage dragImage, Consumer<Void> redrawFunc) {
 		configure = new ConfigureView(resources);
 		model = new ConfigureModel(dataInstance);
@@ -48,61 +55,52 @@ public class ConfigureController {
 	private void populatePopUp() {
 		List<TextField> fieldList = configure.getFieldList();
 		Double[] doublesToSet = {myDataInstance.getVelocity().x, myDataInstance.getVelocity().y, myDataInstance.getAngularVelocity(), myDataInstance.getScaleX(), myDataInstance.getScaleY(), myDataInstance.getAngle(), myDataInstance.getAlpha(), myDataInstance.getFriction(), myDataInstance.getGravity().x, myDataInstance.getGravity().y};
-		setInput(10, fieldList, doublesToSet);
-		RadioButton visiblityButton = configure.getVisiblity();
+		setInput(NUM_INPUTS, fieldList, doublesToSet);
+		RadioButton visiblityButton = configure.getVisibility();
 		visiblityButton.setSelected(myDataInstance.isVisible());
-		myDragImage.setAngle(myDataInstance.getAngle());
-		myDragImage.setVisibility(myDataInstance.isVisible());
-		myDragImage.setScale(myDataInstance.getScaleX(), myDataInstance.getScaleY());
-		myDragImage.setAlpha(myDataInstance.getAlpha());
+		UpdateDragImage updater = new UpdateDragImage(myDragImage, myDataInstance);
+		updater.updateFromInstance();
 	}
 	
 	private void onSave() throws InvalidConfigureException {
 		List<TextField> fieldList = configure.getFieldList();
-		double velocityFieldX = getInput(0, fieldList);
-		double velocityFieldY = getInput(1, fieldList);
-		model.setVelocity(velocityFieldX, velocityFieldY);
-		double angularVelocity = getInput(2, fieldList);
-		model.setAngularVelocity(angularVelocity);
-		double scaleX = getInput(3, fieldList);
-		double scaleY = getInput(4, fieldList);
-		if (scaleX < 0 || scaleY < 0)
+		double[] enteredValues = getInput(NUM_INPUTS, fieldList);
+		model.setVelocity(enteredValues[0], enteredValues[1]);
+		model.setAngularVelocity(enteredValues[2]);
+		double scaleX = enteredValues[3];
+		double scaleY = enteredValues[4];
+		if (scaleX < SCALE_MIN || scaleY < SCALE_MIN)
 			throw new InvalidConfigureException(myResources.getString(SCALE_ERROR)); 
 		else {
 			model.setScale(scaleX, scaleY);
 			myDragImage.setScale(scaleX, scaleY);
 		}
-		double angle = getInput(5, fieldList);
+		double angle = enteredValues[5];
 		model.setAngle(angle);
 		myDragImage.setAngle(angle);
-		double transparency = getInput(6, fieldList);
-		if (transparency < 0 || transparency > 1) {
+		double transparency = enteredValues[6];
+		if (transparency < ALPHA_MIN || transparency > ALPHA_MAX) {
 			throw new InvalidConfigureException(myResources.getString(TRANSPARENCY_ERROR));
 		}
 		else {
 			model.setAlpha(transparency);
 			myDragImage.setAlpha(transparency);
 		}
-		double friction = getInput(7, fieldList);
-		model.setFriction(friction);
-		double gravityX = getInput(8, fieldList);
-		double gravityY = getInput(9, fieldList);
-		model.setGravity(gravityX, gravityY);
-		RadioButton visibilityButton = configure.getVisiblity();
+		model.setFriction(enteredValues[7]);
+		model.setGravity(enteredValues[8], enteredValues[9]);
+		RadioButton visibilityButton = configure.getVisibility();
 		model.setVisibility(visibilityButton.isSelected());
 		myDragImage.setVisibility(visibilityButton.isSelected());
 		configure.close();
 		myDrawFunction.accept(null);
 	}
-
 	
-	//TODO fix this call, used to redraw canvas and pass to room controller upon deleting instance
-	public ConfigureView getConfigureView() {
-		return configure;
-	}
-	
-	private double getInput(int n, List<TextField> fieldList) {
-		return Double.parseDouble(fieldList.get(n).getText());
+	private double[] getInput(int n, List<TextField> fieldList) {
+		double[] arrToReturn = new double[n];
+		for (int i = 0; i < n; i++) {
+			arrToReturn[i] = Double.parseDouble(fieldList.get(i).getText());
+		}
+		return arrToReturn;
 	}
 	
 	private void setInput(int n, List<TextField> fieldList, Double[] doublesToSet) {
