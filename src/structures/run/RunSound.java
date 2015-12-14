@@ -1,16 +1,12 @@
 package structures.run;
 
-import javax.sound.sampled.AudioInputStream;
-
-import authoring_environment.FileHandlers.SoundMaker;
+import authoring_environment.FileHandlers.ResourceMaker;
 import exceptions.CompileTimeException;
 import structures.data.DataSound;
 
 
 public class RunSound {
-	
 	public final String name;
-
     private DataSound myDataSound;
     
     public RunSound(String name) {
@@ -27,8 +23,7 @@ public class RunSound {
     }
     
     public void play() {
-        
-        SoundMaker.play(myDataSound);
+    	ResourceMaker.play(myDataSound);
     }
     
     public DataSound getData() {

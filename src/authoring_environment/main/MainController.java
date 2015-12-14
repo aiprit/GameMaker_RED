@@ -9,8 +9,7 @@ import Player.Launcher;
 import XML.XMLEditor;
 import authoring_environment.FileHandlers.FileManager;
 import authoring_environment.FileHandlers.GameInitializer;
-import authoring_environment.FileHandlers.SoundMaker;
-import authoring_environment.FileHandlers.SpriteMaker;
+import authoring_environment.FileHandlers.ResourceMaker;
 import authoring_environment.object_editor.ObjectEditorController;
 import authoring_environment.room.name_popup.RoomNamePopupController;
 import engine.EngineController;
@@ -35,6 +34,7 @@ public class MainController implements IUpdateHandle {
 	private DataGame dataGame;
 	private Stage myStage;
 	private Boolean active;
+	private ResourceMaker res;
 
 	// My views
 	private MainView mainView;
@@ -62,6 +62,7 @@ public class MainController implements IUpdateHandle {
 			active = true;
 			// Get updates
 			objectListWindow.setUpdateHandle((IUpdateHandle) this);
+			res = new ResourceMaker(dataGame);
 		} else {
 			active = false;
 		}
@@ -170,7 +171,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sprite editor here (edit sprite o)
-					SpriteMaker.show(o);
+					ResourceMaker.show(o);
 					update();
 				}
 			});
@@ -181,7 +182,7 @@ public class MainController implements IUpdateHandle {
 		spriteListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SpriteMaker.load(myStage, dataGame);
+				res.loadSprite(myStage);
 				update();
 			}
 		});
@@ -195,7 +196,7 @@ public class MainController implements IUpdateHandle {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO: @steve call the sound editor here (edit sound o)
-					SoundMaker.play(o);
+					ResourceMaker.play(o);
 					update();
 				}
 			});
@@ -205,7 +206,7 @@ public class MainController implements IUpdateHandle {
 		soundListView.addPlus().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				SoundMaker.load(myStage, dataGame);
+				res.loadSound(myStage);
 				update();
 			}
 		});
