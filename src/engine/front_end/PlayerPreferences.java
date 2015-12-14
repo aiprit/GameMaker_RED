@@ -3,6 +3,7 @@ package engine.front_end;
 import java.util.List;
 
 import engine.social_player.PlayerManager;
+import engine.social_player.PlayerPreference;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,26 +34,12 @@ public class PlayerPreferences extends VBox {
 		this.getChildren().clear();
 		Text preferencesTitle = new Text("Preferences for " + myPlayers.getPlayerName());
 		this.getChildren().add(preferencesTitle);
-		Text colorTitle = new Text("\nTheme preference: ");
-		this.getChildren().add(colorTitle);
-		lv = new ListView<>();
-		lv.setPrefSize(200, 250);
-		lv.setEditable(true);
-		lv.setItems(FXCollections.observableArrayList(colors));
-
-		lv.getSelectionModel().selectedItemProperty().addListener(
-	            new ChangeListener<String>() {
-	                public void changed(ObservableValue<? extends String> ov, 
-	                    String old_val, String new_val) {
-	                        System.out.println(new_val);
-	                        myPlayers.setColorPreference(new_val);
-	                        myView.updateColor(new_val);
-	            }
-	        });
-		
-		lv.getSelectionModel().select(myPlayers.getColorPreference());
-
-		this.getChildren().add(lv);
+		List<PlayerPreference> preferences = myPlayers.getPreferences();
+		PreferenceViewFactory preferenceViewFactory = new PreferenceViewFactory();
+		for(PlayerPreference p : preferences){
+			PreferenceView pv = preferenceViewFactory.getPreferenceView(p, myPlayers, myView);
+			this.getChildren().add(pv.getNode());
+		}
 
 	}
 

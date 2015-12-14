@@ -1,16 +1,21 @@
+// This entire file is part of my masterpiece.
+// Bailey Wall
+
 package engine.social_player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Player {
 
 	private Map<String, Double> highScore;
-	private String colorPreference;
+	private List<PlayerPreference> preferences;
 
 	public Player(){
-		highScore = new HashMap<String, Double>();
-		colorPreference = "red";
+		highScore = new HashMap<>();
+		preferences = new ArrayList<>();
 	}
 
 	public Double getHighScore(String game){
@@ -20,7 +25,7 @@ public class Player {
 			return null;
 		}
 	}
-	
+
 	public Map<String, Double> getHighScores(){
 		return highScore;
 	}
@@ -28,17 +33,35 @@ public class Player {
 	public void setHighScore(String game, Double score){
 		highScore.put(game, score);
 	}
-	
+
 	public boolean contains(String game){
 		return highScore.containsKey(game);
 	}
-	
-	public String getColorPreference(){
-		return colorPreference;
+
+	public List<PlayerPreference> getPreferences(){
+		return preferences;
 	}
-	
-	public void setColorPreference(String color){
-		colorPreference = color;
+
+	public void addPreference(PlayerPreference pref){
+		preferences.add(pref);
+	}
+
+	public String getPreference(String type){
+		for(PlayerPreference p : preferences){
+			if(p.getTextKey().equals(type)){
+				return p.getPreference();
+			}
+		}
+		return null;
+	}
+
+	public void setPreference(String type, String value){
+		for(PlayerPreference p : preferences){
+			if(p.getTextKey().equals(type)){
+				p.setPreference(value);
+				return;
+			}
+		}
 	}
 
 }

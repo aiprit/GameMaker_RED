@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class PlayerManager {
 
@@ -20,33 +21,36 @@ public class PlayerManager {
 
 	private Map<String, Player> players;
 	private List<String> myColors;
-	private String filePath;
+	private List<PlayerPreference> myDefaultPreferences;
+	private ResourceBundle r = ResourceBundle.getBundle("engine/front_end/colors");
 
 	public PlayerManager() throws IOException{
+		//the default is to start out with nobody logged in
 		name = "";
 		game = "";
 		players = new HashMap<String, Player>();
 		myColors = new ArrayList<>();
+		myDefaultPreferences = new ArrayList<>();
 
-		myColors.add("Blue");
-		myColors.add("Green");
-		myColors.add("Gray");
-		myColors.add("Pink");
-		myColors.add("Purple");
-		myColors.add("Red");
-		myColors.add("Yellow");
+		for(String s : r.keySet()){
+			myColors.add(r.getString(s));
+		}
 
 		InputStream serverInfo = this.getClass().getClassLoader()
-				.getResourceAsStream("engine/social_player/fakeserver.txt");
+				.getResourceAsStream("engine/social_player/newfakeserver.txt");
 		InputStreamReader is = new InputStreamReader(serverInfo);
 		BufferedReader br = new BufferedReader(is);
 
+		PreferenceFactory preferenceFactory = new PreferenceFactory();
+
 		String read = br.readLine();
 		while(read != null){
+			if(read.equals("default")){
+				setupDefaults(br);
+				read = br.readLine();
+			}
 			String name = read;
 			players.put(name, new Player());
-			read = br.readLine();
-			players.get(name).setColorPreference(read);
 			read = br.readLine();
 			while(!read.equals(";")){
 				String game = read.substring(0, read.indexOf(","));
@@ -61,8 +65,33 @@ public class PlayerManager {
 				read = br.readLine();
 			}
 			read = br.readLine();
+			while(!read.equals(";")){
+				players.get(name).addPreference(preferenceFactory.getPreference(read, br));
+				read = br.readLine();
+			}
+			read = br.readLine();
 		}
+		addDefaults();
 		write();
+	}
+
+	public void setupDefaults(BufferedReader br) throws IOException{
+		PreferenceFactory preferenceFactory = new PreferenceFactory();
+		String read = br.readLine();
+		while(!read.equals(";")){
+			myDefaultPreferences.add(preferenceFactory.getPreference(read, br));
+			read = br.readLine();
+		}
+	}
+
+	public void addDefaults(){
+		for(String n : players.keySet()){
+			for(PlayerPreference p : myDefaultPreferences){
+				if(players.get(n).getPreference(p.getTextKey()) == null){
+					players.get(n).addPreference(p);
+				}
+			}
+		}
 	}
 
 	public List<String> getColors(){
@@ -73,6 +102,7 @@ public class PlayerManager {
 		if(!players.containsKey(name) && !name.equals("")){
 			players.put(name, new Player());
 			setPlayerHighScore(name, game, null);
+			addDefaults();
 		}
 		this.name = name;
 		write();
@@ -86,12 +116,16 @@ public class PlayerManager {
 		return name;
 	}
 
-	public String getColorPreference(){
-		return players.get(name).getColorPreference();
+	public List<PlayerPreference> getPreferences(){
+		return players.get(name).getPreferences();
 	}
 
-	public void setColorPreference(String color){
-		players.get(name).setColorPreference(color);
+	public String getPreference(String type){
+		return players.get(name).getPreference(type);
+	}
+
+	public void setPreference(String type, String value){
+		players.get(name).setPreference(type, value);
 		write();
 	}
 
@@ -139,13 +173,24 @@ public class PlayerManager {
 		Writer writer = null;
 
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/engine/social_player/fakeserver.txt"), "utf-8"));
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/engine/social_player/newfakeserver.txt"), "utf-8"));
+			writer.write("default\n");
+			for(PlayerPreference p : myDefaultPreferences){
+				writer.write(p.getTextKey() + "\n");
+				writer.write(p.getPreference() + "\n");
+			}
+			writer.write(";\n");
 			for(String s : players.keySet()){
 				writer.write(s + "\n");
-				writer.write(players.get(s).getColorPreference() + "\n");
 				Map<String, Double> highScores = players.get(s).getHighScores();
 				for(String g : highScores.keySet()){
 					writer.write(g + "," + highScores.get(g) + "\n");
+				}
+				writer.write(";\n");
+				List<PlayerPreference> preferences = players.get(s).getPreferences();
+				for(PlayerPreference p : preferences){
+					writer.write(p.getTextKey() + "\n");
+					writer.write(p.getPreference() + "\n");
 				}
 				writer.write(";\n");
 			}

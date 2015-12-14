@@ -102,7 +102,7 @@ public class HighScoreView extends VBox {
 		if (result.isPresent()) {
 			user = result.get();
 			myPlayers.setPlayer(user);
-			myFrontEnd.processColorSelection(myPlayers.getColorPreference());
+			myFrontEnd.processColorSelection(myPlayers.getPreference("color"));
 		}
 		createPane();
 	}

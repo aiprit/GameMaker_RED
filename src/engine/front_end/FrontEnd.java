@@ -264,7 +264,8 @@ public class FrontEnd implements IGameUpdatedHandler, IRoomUpdatedHandler, IVari
 		try{
 			myHighScoreView = new HighScoreView(myCurrentGame, this);
 		} catch(Exception e){
-			myHighScoreView = new HighScoreView();
+			//myHighScoreView = new HighScoreView();
+			e.printStackTrace();
 		}
 		myHighScoreView.setPrefWidth(150);
 		myHighScoreView.setFocusTraversable(false);
