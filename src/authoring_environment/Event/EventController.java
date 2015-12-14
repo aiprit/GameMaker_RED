@@ -43,7 +43,6 @@ import structures.data.interfaces.IDataEvent;
 public class EventController {
 	private EventView myView;
 	private EventModel myModel;
-	private int indents=0;
 	public EventController(IDataEvent e, DataObject obj,IObjectInterface dataGame){
 		myView = new EventView();
 		myModel = new EventModel(obj,e,dataGame);
@@ -82,20 +81,7 @@ public class EventController {
 						if (empty) {
 							setText(null);
 						} else {
-
-
-							if(item instanceof Close){
-								indents -=1;
-							}
-							String des = "";
-							for(int i=0; i<indents;i++){
-								des += "  ";
-							}
-							des +=item.getDescription();
-							if(item instanceof Open){
-								indents +=1;
-							}
-							setText(des);
+							setText(item.getDescription());
 						}
 					}
 				};
@@ -116,7 +102,7 @@ public class EventController {
 							myModel.getImage()
 							);
 					dragboard.setContent(content);
-					indents=0;
+
 					event.consume();
 				});
 				cell.setOnDragOver(event -> {
@@ -125,7 +111,7 @@ public class EventController {
 							event.getDragboard().hasString()) {
 						event.acceptTransferModes(TransferMode.MOVE);
 					}
-					indents=0;
+
 					event.consume();
 				});
 
@@ -134,7 +120,7 @@ public class EventController {
 							event.getDragboard().hasString()) {
 						cell.setOpacity(0.3);
 					}
-					indents=0;
+
 				});
 
 				cell.setOnDragExited(event -> {
@@ -142,7 +128,7 @@ public class EventController {
 							event.getDragboard().hasString()) {
 						cell.setOpacity(1);
 					}
-					indents=0;
+
 				});
 
 				cell.setOnDragDropped(event -> {
@@ -196,7 +182,7 @@ public class EventController {
 
 						event.setDropCompleted(true);
 					}
-					indents=0;
+
 					List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
 					cell.getListView().getItems().setAll(itemscopy);
 					event.setDropCompleted(success);
@@ -232,13 +218,13 @@ public class EventController {
 					ParamController paramcontrol = new ParamController(selected,myModel.getActions(),-1);
 					paramcontrol.showAndWait();
 				}
-				indents=0;
+
 				List<IAction> itemscopy = new ArrayList<IAction>(cell.getListView().getItems());
 				cell.getListView().getItems().setAll(itemscopy);
 			}
 		});
 		myView.getRightPane().getDelete().setOnAction(e ->{
-			indents=0;
+
 			myModel.deleteAction(
 					myView.getRightPane().getListView().getSelectionModel().getSelectedItem());
 		});
@@ -254,7 +240,7 @@ public class EventController {
 					addAction(player,-1);
 
 				}
-				indents=0;
+
 				dragEvent.setDropCompleted(true);
 			}
 		});
@@ -315,7 +301,7 @@ public class EventController {
 					//Use ListView's getSelected Item
 					String selected = myView.getLeftPane().getListView().getSelectionModel().getSelectedItem();
 					addAction(selected,-1);
-					indents=0;
+
 				}
 			}
 		});
@@ -334,7 +320,7 @@ public class EventController {
 
 	public void addAction(String str, int index){
 		try{
-			indents=0;
+
 			String className = str.replaceAll("\\s+","");
 
 			Class c=null;
@@ -360,18 +346,7 @@ public class EventController {
 			}
 			else{
 				myModel.addAction(act,index);
-				if(className.substring(0,2).equals(myModel.getBundle().getString("If"))||
-						className.substring(0,4).equals(myModel.getBundle().getString("Else"))||
-						className.substring(0,4).equals(myModel.getBundle().getString("With"))){
-					if(index==-1){
-						myModel.addAction(new Open(),-1);
-						myModel.addAction(new Close(),-1);
-					}
-					else{
-						myModel.addAction(new Open(),index+1);
-						myModel.addAction(new Close(),index+2);
-					}
-				}
+
 			}
 
 		} catch (InstantiationException e) {
@@ -407,15 +382,15 @@ private void paramSetup(IParameter p) {
 		ObjectParam param = (ObjectParam) p;
 		param.setObjectList(myModel.getGame().getObjects());
 	}
-	if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
+	else if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
 		SpriteParam param = (SpriteParam) p;
 		param.setSpriteList(myModel.getGame().getSprites());
 	}
-	if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
+	else if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
 		RoomParam param = (RoomParam) p;
 		param.setRoomList(myModel.getGame().getRooms());
 	}
-	if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
+	else if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
 		SoundParam param = (SoundParam) p;
 		param.setSoundList(myModel.getGame().getSounds());
 	}
