@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 import java.util.ResourceBundle;
@@ -21,8 +23,6 @@ public class EventRightPane {
 		Text title = new Text(r.getString("RightPane"));
 		title.setTranslateX(Integer.parseInt(r.getString("textTranslateX")));
 		listView = new ListView<IAction>();
-//		actionList = myController.getActions();
-//		listview.setItems(actionList);
 		delete = new Button(r.getString("Delete"));
 		delete.setTranslateY(Integer.parseInt(r.getString("buttonTranslateY")));
 		delete.setTranslateX(Integer.parseInt(r.getString("deleteButtonTranslateX")));
@@ -30,8 +30,6 @@ public class EventRightPane {
 		listView.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));
 		listView.setMinWidth(Integer.parseInt(r.getString("listviewWidth")));
 		delete.setAlignment(Pos.BOTTOM_RIGHT);
-//		b.setOnAction(e ->
-//		delete(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
 

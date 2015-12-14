@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 import java.util.Collections;
@@ -26,8 +28,6 @@ public class EventLeftPane {
 		listView.setTranslateY(Integer.parseInt(r.getString("listTranslateY")));
 		root.getChildren().addAll(title,listView,b);
 		b.setAlignment(Pos.BOTTOM_RIGHT);
-//		b.setOnAction(e ->
-//		addAction(listview.getSelectionModel().getSelectedItem()));
 		return root;
 	}
 	public ListView<String> getListView(){

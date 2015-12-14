@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 import java.util.ResourceBundle;
@@ -32,7 +34,7 @@ public class EventBottomPane {
 
 		return root;
 	}
-	
+
 	private void initTooltip() {
 		Image helpIcon = new Image(getClass().getClassLoader().getResourceAsStream(r.getString("HelpTooltipIcon")));
 		myTooltip = new HelpIcon(r, helpIcon);

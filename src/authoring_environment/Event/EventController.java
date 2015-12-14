@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 import java.lang.reflect.InvocationTargetException;
@@ -290,7 +292,7 @@ public class EventController {
 			String selected = myView.getLeftPane().getListView()
 					.getSelectionModel().getSelectedItem();
 			if(selected !=null){
-			addAction(selected,-1);
+				addAction(selected,-1);
 			}
 		});
 		myView.getLeftPane().getListView().setOnDragDetected(new EventHandler<MouseEvent>(){
@@ -336,135 +338,96 @@ public class EventController {
 			String className = str.replaceAll("\\s+","");
 
 			Class c=null;
-			try {
-				c = Class.forName(myModel.getBundle().getString("action1") +className);
-
-			} catch (ClassNotFoundException e) {
+			for(int i=1;i<7;i++){
 				try {
-					c = Class.forName(myModel.getBundle().getString("action2") +className);
-
-				} catch (ClassNotFoundException e1) {
-					try {
-						c = Class.forName(myModel.getBundle().getString("action3") +className);
-					} catch (ClassNotFoundException e2) {
-						try {
-							c = Class.forName(myModel.getBundle().getString("action4") +className);
-						} catch (ClassNotFoundException e3) {
-							try {
-								c = Class.forName(myModel.getBundle().getString("action5")+className);
-							} catch (ClassNotFoundException e4) {
-								try {
-									c = Class.forName(myModel.getBundle().getString("action6") +className);
-								} catch (ClassNotFoundException e5) {
-
-								}
-							}
-						}
-					}
-				}
-
-			}
-			try {
-				IAction act = (IAction) c.getDeclaredConstructor().newInstance();
-				List<IParameter> params = act.getParameters();
-				for(IParameter p: params){
-					paramSetup(p);
-				}
-				if(params.size()>0){
-					ParamController paramcontrol = new ParamController(act,myModel.getActions(),index);
-					paramcontrol.showAndWait();
+					c = Class.forName(myModel.getBundle().getString("action"+i) +className);
+					break;
+				} catch (ClassNotFoundException e) {
 
 				}
-				else{
-					myModel.addAction(act,index);
-					if(className.substring(0,2).equals(myModel.getBundle().getString("If"))||
-							className.substring(0,4).equals(myModel.getBundle().getString("Else"))||
-							className.substring(0,4).equals(myModel.getBundle().getString("With"))){
-						if(index==-1){
-							myModel.addAction(new Open(),-1);
-							myModel.addAction(new Close(),-1);
-						}
-						else{
-							myModel.addAction(new Open(),index+1);
-							myModel.addAction(new Close(),index+2);
-						}
-					}
-				}
-
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
-		}
-		catch (NullPointerException e){
-			new PopUpError(myModel.getBundle().getString("Error"));
-		}
+		try {
+			IAction act = (IAction) c.getDeclaredConstructor().newInstance();
+			List<IParameter> params = act.getParameters();
+			for(IParameter p: params){
+				paramSetup(p);
+			}
+			if(params.size()>0){
+				ParamController paramcontrol = new ParamController(act,myModel.getActions(),index);
+				paramcontrol.showAndWait();
 
+			}
+			else{
+				myModel.addAction(act,index);
+				if(className.substring(0,2).equals(myModel.getBundle().getString("If"))||
+						className.substring(0,4).equals(myModel.getBundle().getString("Else"))||
+						className.substring(0,4).equals(myModel.getBundle().getString("With"))){
+					if(index==-1){
+						myModel.addAction(new Open(),-1);
+						myModel.addAction(new Close(),-1);
+					}
+					else{
+						myModel.addAction(new Open(),index+1);
+						myModel.addAction(new Close(),index+2);
+					}
+				}
+			}
+
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
-
-	private void paramSetup(IParameter p) {
-		if(p.getType().toString().equals(myModel.getBundle().getString("objectSelect"))){
-			ObjectParam param = (ObjectParam) p;
-			param.setObjectList(myModel.getGame().getObjects());
-		}
-		if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
-			SpriteParam param = (SpriteParam) p;
-			param.setSpriteList(myModel.getGame().getSprites());
-		}
-		if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
-			RoomParam param = (RoomParam) p;
-			param.setRoomList(myModel.getGame().getRooms());
-		}
-		if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
-			SoundParam param = (SoundParam) p;
-			param.setSoundList(myModel.getGame().getSounds());
-		}
+	catch (NullPointerException e){
+		new PopUpError(myModel.getBundle().getString("Error"));
 	}
 
-	//	private boolean paramPopUps(IParameter p) {
-	//
-	//		TextInputDialog dialog = new TextInputDialog(p.getType().toString());
-	//		dialog.setTitle("Set Parameters");
-	//		dialog.setHeaderText("Please Enter Value");
-	//		dialog.setContentText(p.getTitle()+" "+p.getType());
-	//		Optional<String> result = dialog.showAndWait();
-	//		if (result.isPresent()){
-	//			try {
-	//				p.parse(result.get());
-	//			} catch (ParameterParseException e) {
-	//				PopUpError er = new PopUpError();
-	//				paramPopUps(p);
-	//			}
-	//			return true;
-	//		}
-	//		else
-	//			return false;
-	//
-	//	}
 
+}
 
-
-	public void showAndWait() {
-		myView.showAndWait();
-
+private void paramSetup(IParameter p) {
+	if(p.getType().toString().equals(myModel.getBundle().getString("objectSelect"))){
+		ObjectParam param = (ObjectParam) p;
+		param.setObjectList(myModel.getGame().getObjects());
 	}
+	if(p.getType().toString().equals(myModel.getBundle().getString("spriteSelect"))){
+		SpriteParam param = (SpriteParam) p;
+		param.setSpriteList(myModel.getGame().getSprites());
+	}
+	if(p.getType().toString().equals(myModel.getBundle().getString("roomSelect"))){
+		RoomParam param = (RoomParam) p;
+		param.setRoomList(myModel.getGame().getRooms());
+	}
+	if(p.getType().toString().equals(myModel.getBundle().getString("soundSelect"))){
+		SoundParam param = (SoundParam) p;
+		param.setSoundList(myModel.getGame().getSounds());
+	}
+}
+
+
+
+
+public void showAndWait() {
+	myView.showAndWait();
+
+}
 }
 
 

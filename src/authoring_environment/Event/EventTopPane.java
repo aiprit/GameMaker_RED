@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 

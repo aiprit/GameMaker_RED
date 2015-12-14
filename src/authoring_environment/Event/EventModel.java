@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// Parit Burintrathikul
 package authoring_environment.Event;
 
 import java.util.ArrayList;
@@ -55,8 +57,6 @@ public class EventModel {
 	public ObservableList<String> initTempActions(){
 		ClassesInPackage classes = new ClassesInPackage();
 		ObservableList<String> list = FXCollections.observableList(new ArrayList<String>());
-		//Enumeration <String> keys = l.getKeys();
-
 		for(int i=1;i<6;i++){
 			String str =r.getString("action"+i);
 			String[] ar = str.split("\\.");
@@ -67,13 +67,6 @@ public class EventModel {
 			}
 
 		}
-		//List<String> keylist = Collections.list(keys);
-		//Collections.sort(list);
-		//		for (String str:keylist) {
-		//			String value = l.getString(str);
-		//			list.add(value);
-		//
-		//		};
 		return list;
 	}
 	public IDataEvent getEvent(){
